@@ -27,13 +27,13 @@ void MaterialEditor::Draw()
 		if (!ImGui::IsPopupOpen(materialPopup))
 		{
 			ImGui::OpenPopup(materialPopup);
-			SetCurrentTextures();
 			if (isCreated)
 			{
 				material = new Material();
 			}
 			else
 			{
+				SetCurrentTextures();
 				previous = new Material(*material); //Save changes if cancel
 			}
 		}
