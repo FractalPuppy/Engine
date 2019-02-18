@@ -51,26 +51,14 @@ Viewport::~Viewport()
 void Viewport::Draw(ComponentCamera * cam, bool isEditor)
 {
 	PROFILE;
-	
-	//ImGui::
-	//imgui_internal.h bool Hidden
-	//if (ImGui::IsWindowAppearing())
-	//if (ImGui::IsWindowActiveAndVisible(ImGui::GetCurrentWindow()))
-	name;
-	/*ImGuiViewport* vp = ImGui::GetWindowViewport();
-	ImGuiWindow* ol = ImGui::GetCurrentWindow();
-	ImGuiViewportP* sito = ImGui::GetCurrentWindow()->Viewport;*/
-	//ImGuiViewport* vp = ImGui::GetMainViewport();
-	ImGuiContext* co = ImGui::GetCurrentContext();
-	int i = 0;
-	if (ImGui::GetCurrentWindow()->Hidden || !ImGui::GetCurrentWindow()->Active)
+	ImGui::Begin(name.c_str(), &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBringToFrontOnFocus);
+
+	//if the viewport is hidden, it is not rendered
+	if (ImGui::GetCurrentWindow()->Hidden)
 	{
-		LOG(name.c_str());
-		LOG("Is hidden");
+		ImGui::End();
 		return;
 	}
-
-	ImGui::Begin(name.c_str(), &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBringToFrontOnFocus);
 
 	if (ImGui::IsWindowHovered() || ImGui::IsWindowAppearing())
 	{
