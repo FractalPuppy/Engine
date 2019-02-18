@@ -51,6 +51,17 @@ Viewport::~Viewport()
 void Viewport::Draw(ComponentCamera * cam, bool isEditor)
 {
 	PROFILE;
+
+	//ImGui::
+	//imgui_internal.h bool Hidden
+	if (ImGui::IsWindowAppearing()) 
+	//if (ImGui::IsWindowActiveAndVisible(window))
+	{
+		LOG(name.c_str());
+		LOG("Is hidden");
+		return;
+	}
+
 	ImGui::Begin(name.c_str(), &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBringToFrontOnFocus);
 
 	if (ImGui::IsWindowHovered() || ImGui::IsWindowAppearing())
