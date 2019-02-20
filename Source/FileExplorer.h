@@ -23,6 +23,7 @@ public:
 
 	void Draw();		// Draws the modal pop-up
 	std::vector<std::string> GetPath(std::string prevPath); //Get path previous to actual folder
+	void SetPath(const char& newPath);		// Sets path and pathStack variables
 
 private:
 	void Reset();		// Resets the file explorer

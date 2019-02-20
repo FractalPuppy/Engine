@@ -8,6 +8,8 @@
 #include "ModuleTextures.h"
 #include "ModuleProgram.h"
 
+#include "Viewport.h"
+
 #include "GameObject.h"
 #include "PanelConsole.h"
 #include "PanelConfiguration.h"
@@ -148,19 +150,13 @@ update_status ModuleEditor::Update(float dt)
 			{
 				App->scene->ClearScene();
 			}
-			std::vector<std::string> files = App->fsystem->ListFiles(SCENES);
-			std::string scenePath = SCENES;
-			std::vector<std::string> prevPath = fileExplorer->GetPath(scenePath.substr(0,scenePath.size()-1));
-			scenePath = scenePath.substr(scenePath.find_first_of('/'), scenePath.size() - scenePath.find_first_of('/') - 1);
 			if (ImGui::MenuItem("Load Scene"))
 			{
 				fileExplorer->currentOperation = MenuOperations::LOAD;
 				fileExplorer->extensionToFilter = FILETYPE::SCENE;
-				fileExplorer->path = scenePath;
-				for (int i = 0; i < prevPath.size();++i)
-				{
-					fileExplorer->pathStack.push(prevPath[i]);
-				}
+				std::string scenePath = SCENES;
+				scenePath = scenePath.substr(0, scenePath.size() - 1);
+				fileExplorer->SetPath(*scenePath.c_str());
 				sprintf_s(fileExplorer->title, "Load Scene");
 				fileExplorer->openFileExplorer = true;
 			}
@@ -168,11 +164,9 @@ update_status ModuleEditor::Update(float dt)
 			{
 				fileExplorer->currentOperation = MenuOperations::ADD;
 				fileExplorer->extensionToFilter = FILETYPE::SCENE;
-				fileExplorer->path = scenePath;
-				for (int i = 0; i < prevPath.size(); ++i)
-				{
-					fileExplorer->pathStack.push(prevPath[i]);
-				}
+				std::string scenePath = SCENES;
+				scenePath = scenePath.substr(0, scenePath.size() - 1);
+				fileExplorer->SetPath(*scenePath.c_str());
 				sprintf_s(fileExplorer->title, "Add Scene");
 				fileExplorer->openFileExplorer = true;
 			}
@@ -186,11 +180,9 @@ update_status ModuleEditor::Update(float dt)
 				{
 					fileExplorer->currentOperation = MenuOperations::SAVE;
 					fileExplorer->extensionToFilter = FILETYPE::SCENE;
-					fileExplorer->path = scenePath;
-					for (int i = 0; i < prevPath.size(); ++i)
-					{
-						fileExplorer->pathStack.push(prevPath[i]);
-					}
+					std::string scenePath = SCENES;
+					scenePath = scenePath.substr(0, scenePath.size() - 1);
+					fileExplorer->SetPath(*scenePath.c_str());
 					sprintf_s(fileExplorer->title, "Save Scene");
 					fileExplorer->openFileExplorer = true;
 				}
@@ -199,11 +191,9 @@ update_status ModuleEditor::Update(float dt)
 			{
 				fileExplorer->currentOperation = MenuOperations::SAVE;
 				fileExplorer->extensionToFilter = FILETYPE::SCENE;
-				fileExplorer->path = scenePath;
-				for (int i = 0; i < prevPath.size(); ++i)
-				{
-					fileExplorer->pathStack.push(prevPath[i]);
-				}
+				std::string scenePath = SCENES;
+				scenePath = scenePath.substr(0, scenePath.size() - 1);
+				fileExplorer->SetPath(*scenePath.c_str());
 				sprintf_s(fileExplorer->title, "Save Scene");
 				sprintf_s(fileExplorer->filename, App->scene->name.c_str());
 				fileExplorer->openFileExplorer = true;
@@ -288,23 +278,31 @@ void ModuleEditor::WindowsMenu()
 {
 	if (ImGui::BeginMenu("Windows"))
 	{
-		if (ImGui::MenuItem("Console", NULL, console->IsEnabled()))
+		if (ImGui::MenuItem("Console", nullptr, console->IsEnabled()))
 		{
 			console->ToggleEnabled();
 		}
-		if (ImGui::MenuItem("Configuration", NULL, configuration->IsEnabled()))
+		if (ImGui::MenuItem("Configuration", nullptr, configuration->IsEnabled()))
 		{
 			configuration->ToggleEnabled();
 		}
-		if (ImGui::MenuItem("Properties", NULL, inspector->IsEnabled()))
+		if (ImGui::MenuItem("Properties", nullptr, inspector->IsEnabled()))
 		{
 			inspector->ToggleEnabled();
 		}
-		if (ImGui::MenuItem("Hierarchy", NULL, hierarchy->IsEnabled()))
+		if (ImGui::MenuItem("Hierarchy", nullptr, hierarchy->IsEnabled()))
 		{
 			hierarchy->ToggleEnabled();
 		}
-		if (ImGui::MenuItem("Time controll", NULL, time->IsEnabled()))
+		if (ImGui::MenuItem("Scene", nullptr, App->renderer->viewScene->IsEnabled()))
+		{
+			App->renderer->viewScene->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("Game Camera", nullptr, App->renderer->viewGame->IsEnabled()))
+		{
+			App->renderer->viewGame->ToggleEnabled();
+    }
+		if (ImGui::MenuItem("Time control", nullptr, time->IsEnabled()))
 		{
 			time->ToggleEnabled();
 		}

@@ -274,3 +274,15 @@ std::vector<std::string> FileExplorer::GetPath(std::string prevPath)
 	}
 	return auxFolders;
 }
+
+void FileExplorer::SetPath(const char& newPath)
+{
+	std::string scenePath = &newPath;
+	std::vector<std::string> prevPath = GetPath(scenePath.substr(0, scenePath.size() - 1));
+
+	path = scenePath;
+	for (int i = 0; i < prevPath.size(); ++i)
+	{
+		pathStack.push(prevPath[i]);
+	}
+}
