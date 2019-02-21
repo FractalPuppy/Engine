@@ -218,6 +218,22 @@
     </ClCompile>
     <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="GUICreator.cpp" />
+    <ClCompile Include="FileExplorer.cpp" />
+    <ClCompile Include="PanelTime.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTime.cpp">
+	  <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="KDTree.cpp">
+      <Filter>Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSpacePartitioning.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleDebugDraw.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -508,6 +524,25 @@
     </ClInclude>
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="GUICreator.h" />
+    <ClInclude Include="FileExplorer.h" />
+    <ClInclude Include="PanelTime.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTime.h">
+	  <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="KDTree.h">
+      <Filter>Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSpacePartitioning.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="debugdraw.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleDebugDraw.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GeoLib">

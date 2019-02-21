@@ -16,6 +16,7 @@
 #include "Geometry/LineSegment.h"
 #include "Geometry/Circle.h"
 #include "Math/MathFunc.h"
+#include "debugdraw.h"
 
 #define DEBUG_DISTANCE 5.0f
 
@@ -82,9 +83,9 @@ void ComponentLight::DrawProperties()
 		if (lightType != LightType::DIRECTIONAL)
 		{
 			ImGui::Text("Attenuation");
-			ImGui::DragFloat("Constant", (float*)&attenuation.x, 0.01f, 0.001f, 10.f);
-			ImGui::DragFloat("Linear", (float*)&attenuation.y, 0.0001f, 0.0001f, 1.f);
-			ImGui::DragFloat("Quadratic", (float*)&attenuation.z, 0.0001f, 0.0f, 1.f);
+			ImGui::DragFloat("Constant", (float*)&attenuation.x, 0.01f, 0.001f, 10.f,"%.12f");
+			ImGui::DragFloat("Linear", (float*)&attenuation.y, 0.0001f, 0.0001f, 1.f, "%.12f");
+			ImGui::DragFloat("Quadratic", (float*)&attenuation.z, 0.0001f, 0.0f, 1.f, "%.12f");
 		}
 
 		if (lightType == LightType::SPOT)
@@ -206,67 +207,61 @@ float ComponentLight::GetAttenuationDistance() const
 
 void ComponentLight::DrawDebugDirectional() const
 {
-	Circle circle(position, direction, App->renderer->current_scale);
+	math::Circle circle(position, direction, App->renderer->current_scale);
 	float angle = 0;
 	for (unsigned i = 0; i < 8; i++)
 	{
-		float3 debug_position = circle.GetPoint(angle);
+		math::float3 debug_position = circle.GetPoint(angle);
 
-		Line line(debug_position, direction.Normalized());
-		float3 farPoint = line.GetPoint(-DEBUG_DISTANCE * App->renderer->current_scale);
+		math::Line line(debug_position, direction.Normalized());
+		math::float3 farPoint = line.GetPoint(-DEBUG_DISTANCE * App->renderer->current_scale);
 
-		if (i > 0)
-		{
-			glVertex3f(line.pos.x, line.pos.y, line.pos.z);
-		}
-		glVertex3f(line.pos.x, line.pos.y, line.pos.z);
-		glVertex3f(farPoint.x, farPoint.y, farPoint.z);
-		glVertex3f(line.pos.x, line.pos.y, line.pos.z);
+		//Getting next point from the angle
+		dd::line(line.pos, farPoint, dd::colors::Yellow);
+		angle += math::pi * 0.25f;
 
-		angle += math::pi*0.25f;
+		// Drawing the circle of the gizmo
+		math::float3 next_debug_position = circle.GetPoint(angle);
+		math::Line next_circle_line(next_debug_position, direction.Normalized());
+		dd::line(line.pos, next_circle_line.pos , dd::colors::Yellow);
 	}
-
-	Line line(circle.GetPoint(0), direction.Normalized());
-	glVertex3f(line.pos.x, line.pos.y, line.pos.z); //Close circle
 }
 
 void ComponentLight::DrawDebugSpot() const
 {
 	float attenuation_distance = GetAttenuationDistance();
-	float3 circleCenter = position + attenuation_distance * direction.Normalized();
+	math::float3 circleCenter = position + attenuation_distance * direction.Normalized();
 	float radius = attenuation_distance * tanf(math::DegToRad(outer));
-	Circle circle(circleCenter, direction, radius);
+	math::Circle circle(circleCenter, direction, radius);
 	DrawDebugArea(circle);
 }
 
 void ComponentLight::DrawDebugPoint() const
 {
 	float attenuation_distance = GetAttenuationDistance();
-	Circle circle(position, float3::unitX, attenuation_distance);
+	math::Circle circle(position, math::float3::unitX, attenuation_distance);
 	for (unsigned j = 0; j < 3; j++)
 	{
 		DrawDebugArea(circle);
 		if (j == 0)
 		{
-			circle.normal = float3::unitY;
+			circle.normal = math::float3::unitY;
 		}
 		else
 		{
-			circle.normal = float3::unitZ;
+			circle.normal = math::float3::unitZ;
 		}
 	}
 }
 
-void ComponentLight::DrawDebugArea(const Circle &circle) const
+void ComponentLight::DrawDebugArea(const math::Circle &circle) const
 {
-	float angle = 0;
+	float angle = 0.f;
 	for (unsigned i = 0; i < 8; i++)
 	{
-		float3 debug_position = circle.GetPoint(angle);
-
-		LineSegment segment(position, debug_position);
-		glVertex3f(segment.a.x, segment.a.y, segment.a.z);
-		glVertex3f(segment.b.x, segment.b.y, segment.b.z);
-		angle += math::pi*0.25f;
+		math::float3 debug_position = circle.GetPoint(angle);
+		math::LineSegment segment(position, debug_position);
+		dd::line(segment.a, segment.b, dd::colors::Yellow);
+		angle += math::pi * 0.25f;
 	}
 }

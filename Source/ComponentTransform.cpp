@@ -1,6 +1,7 @@
+#include "Application.h"
 #include "ComponentTransform.h"
-
 #include "GameObject.h"
+#include "ModuleTime.h"
 
 #include "imgui.h"
 #include "imgui_internal.h"
@@ -51,9 +52,10 @@ void ComponentTransform::AddTransform(const float4x4 & transform)
 
 void ComponentTransform::DrawProperties()
 {
+	
 	if (ImGui::CollapsingHeader("Local Transformation", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		if (gameobject->isStatic)
+		if (gameobject->isStatic && App->time->gameState != GameState::RUN)
 		{
 			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
 			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
@@ -69,7 +71,7 @@ void ComponentTransform::DrawProperties()
 		ImGui::DragFloat3("Scale", (float*)&scale, 0.1f, 0.01f, 100.f);
 		ImGui::Separator();
 
-		if (gameobject->isStatic)
+		if (gameobject->isStatic && App->time->gameState != GameState::RUN)
 		{
 			ImGui::PopItemFlag();
 			ImGui::PopStyleVar();
@@ -133,6 +135,11 @@ void ComponentTransform::SetGlobalTransform(const float4x4 & newglobal, const fl
 	local.Decompose(position, rotation, scale);
 	RotationToEuler();
 	UpdateOldTransform();
+}
+
+float3 ComponentTransform::GetGlobalPosition()
+{
+	return global.Col3(3);
 }
 
 void ComponentTransform::Save(JSON_value * value) const

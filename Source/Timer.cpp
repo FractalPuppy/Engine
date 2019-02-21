@@ -6,29 +6,55 @@ Timer::Timer()
 {
 }
 
-
 Timer::~Timer()
 {
 }
 
 void Timer::Start()
 {
-	InitTime = SDL_GetTicks();
+	initTime = SDL_GetTicks();
 	timerOn = true;
 }
 
-int Timer::Read() const
+int Timer::Read()
 {
+	float time = 0.0f;
+
 	if (timerOn)
 	{
-		return SDL_GetTicks() - InitTime;
+		time = (SDL_GetTicks() - initTime + skippedTime);
 	}
-	else return TotalTime;
+
+	return time;
+}
+
+float Timer::ReadSeconds()
+{
+	float time = 0.0f;
+
+	if (timerOn)
+	{
+		time = (SDL_GetTicks() - initTime + skippedTime) / 1000.0f;
+	}
+
+	return time;
+}
+
+void Timer::Pause()
+{
+	skippedTime += (SDL_GetTicks() - initTime);
+	timerOn = false;
 }
 
 int Timer::Stop()
 {
 	timerOn = false;
-	TotalTime = SDL_GetTicks() - InitTime;
-	return TotalTime;
+	totalTime = SDL_GetTicks() - initTime;
+	return totalTime;
+}
+
+void Timer::Reset()
+{
+	initTime = SDL_GetTicks();
+	skippedTime = 0;
 }

@@ -1,46 +1,46 @@
-# RealEngine
-Game Engine developed by Albert Val during the Master Degree in Video Game Design and Development at UPC School. 
+# Fractal Engine
+Developed during the UPC Master's Degree in Video Game Design and Development. 
 Currently under development.
 
-![alt text](https://imgur.com/cOOPIAO.png)
+![Fractal gif example](ReadmeGifExample.gif)
 
 ## Windows
 ### Scene & Game
-In the scene window you can visualize the editor camera, and you can visualize the geometry loaded.
-You can select different gameobjects by picking them with the mouse.
-To move the camera, you can use the following controls:
-* **WASD** fps-like movement while **Right-clicking** and free look around 
-* In and out zoom with **mouse wheel** 
-* **Alt+Left** click for orbiting the model 
-* **F** for focus the camera on model 
-* Hold **shift** to duplicate **WASD** movement
+Scene camera will render the geometry loaded allowing user to select them with the mouse click.
+In order to move the camera in the window:
+* **WASD** fps-like movement while **Right-clicking** to free look around 
+* **Mouse wheel** to zoom in and out
+* **Alt+Left** click for orbiting the selcted model 
+* **F** to focus the camera on selected model
+* Hold **shift** to duplicate camera movement
 
-Our engine uses ImGuizmo, so you can move selected gameobjects using the gizmo. You can select which transformation apply
-by clicking on the different transformations buttons on screen. You can also use *snap* button which allows to transform an object using a regular scale customizable.
-Our engine allows changing the transformation mode from world space to local space in order to ease the placement of gameobjects in the scene.
+Fractal Engine uses ImGuizmo, which allows users to move selected GameObjects using a little gizmo centered in his location. 
+GameObject transformations could be edited by clicking on the different buttons on screen (Position, rotation and scale). Also, the *snap* button allows to transform an object using a regular scale customizable.
+The engine allows changing the transformation mode from world space to local space in order to ease the placement of GameObjects in the scene.
 
-In the Game window you can visualize the main camera view without all the gizmos and the interactivity of the editor. If there is no main camera then a default not found camera texture is shown.
+The game window will render the main camera view without debug gizmos and the interactivity of the editor. If no main camera is found it will render a "not camera found" texture in it.
 
 ### Hierarchy
-
-The hierarchy allows to visualize the structure of the different gameobjects presents in the scene. In this window you can select a gameobject to view its information. With **right-clicking** you can perform multiple operations like creating a primitive, a light, deleting the object or duplicating it.
+The hierarchy allows to visualize the structure of the different GameObjects presents in the scene. In this window you can select a GameObject to view its information in the inspector. **Right-clicking** in a GameObject will provide you multiple operations like: creating a primitive, a light, deleting the selected object or duplicating it.
 Be aware that a primitive is created according to the current scale of the scene!!
-You can also drag and drop gameobjects to another parent to change the structure of the scene.
+You can also drag and drop GameObjects to other GameObjects to change the structure of the scene and make them inherit the properties.
 
 ### Inspector
-The inspector shows info about the selected gameobject. You can see its name, properties and you can modify them. Besides you can add more components. For example if you want to create a camera, you can add a component camera.
+The inspector shows information about the selected Game Object and it's components. You can edit, add or remove components in each GameObject in order to build your own game behaviour.
 
 ### Configuration
-Here you have different sections that lets you modify different visualization options. Be aware that using some options may affect performance!! The configuration is saved when exiting the game.
+Here you have different sections that allows you modify different visualization options. Be aware that using some options may affect your computer performance!! 
+The current configuration is saved when the engine exits.
 
 ### Console
-In the console you we'll see a list of relevant logs about importing, loading or saving files.
+This will print any relevant log about importing, loading or saving files.
 
 ## More information
-For more information about new features read
-[last Release Notes](https://github.com/AlbertVVila/Engine/releases).
+C++ coding style,  Guide step by step, etc.
+[Fractal Wiki](https://github.com/fractal-puppy/Engine/wiki)
 
+Changelog with new features and fixes
+[last Release Notes](https://github.com/fractal-puppy/Engine/releases).
 
-[Github](https://github.com/AlbertVVila/Engine) and
-[License](https://github.com/AlbertVVila/Engine/blob/master/LICENSE)
-
+[Github](https://github.com/fractal-puppy/Engine) and
+[License](https://github.com/fractal-puppy/Engine/blob/master/LICENSE)

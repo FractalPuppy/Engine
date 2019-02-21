@@ -51,19 +51,6 @@ ComponentCamera::~ComponentCamera()
 	{
 		App->scene->maincamera = nullptr;
 	}
-
-	if (frustumVAO != 0)
-	{
-		glDeleteVertexArrays(1, &frustumVAO);
-	}
-	if (frustumVBO != 0)
-	{
-		glDeleteBuffers(1, &frustumVBO);
-	}
-	if (frustumEBO != 0)
-	{
-		glDeleteBuffers(1, &frustumEBO);
-	}
 }
 
 ComponentCamera * ComponentCamera::Clone() const
@@ -82,68 +69,6 @@ void ComponentCamera::InitFrustum()
 	frustum->farPlaneDistance = ZFARDIST * App->renderer->current_scale;
 	frustum->verticalFov = DegToRad(60);
 	frustum->horizontalFov = 2.f * atanf(tanf(frustum->verticalFov * 0.5f) * ((float)App->window->width / (float)App->window->height));
-	SetFrustumBuffers();
-}
-
-void ComponentCamera::SetFrustumBuffers()
-{
-	// VAO Creation
-	if (frustumVAO == 0)
-	{
-		glGenVertexArrays(1, &frustumVAO);
-	}
-	glBindVertexArray(frustumVAO);
-
-	float3 corners[8];
-	frustum->GetCornerPoints(corners);
-
-	GLfloat vertices[] = {
-		corners[0].x, corners[0].y, corners[0].z, 1.0,
-		corners[4].x, corners[4].y, corners[4].z, 1.0,
-		corners[6].x, corners[6].y, corners[6].z, 1.0,
-		corners[2].x, corners[2].y, corners[2].z, 1.0,
-		corners[1].x, corners[1].y, corners[1].z, 1.0,
-		corners[5].x, corners[5].y, corners[5].z, 1.0,
-		corners[7].x, corners[7].y, corners[7].z, 1.0,
-		corners[3].x, corners[3].y, corners[3].z, 1.0,
-	};
-	if (frustumVBO == 0)
-	{
-		glGenBuffers(1, &frustumVBO);
-	}
-	glBindBuffer(GL_ARRAY_BUFFER, frustumVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	GLushort elements[] = {
-		0, 1, 2, 3,
-		4, 5, 6, 7,
-		0, 4, 1, 5, 2, 6, 3, 7
-	};
-	if (frustumEBO == 0)
-	{
-		glGenBuffers(1, &frustumEBO);
-	}
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, frustumEBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ARRAY_BUFFER, frustumVBO);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(
-		0,  // attribute
-		4,                  // number of elements per vertex, here (x,y,z,w)
-		GL_FLOAT,           // the type of each element
-		GL_FALSE,           // take our values as-is
-		0,                  // no extra data between each position
-		0                   // offset of first element
-	);
-
-	// Disable VAO
-	glBindVertexArray(0);
-	glDisableVertexAttribArray(0);
-
-	// Disable VBO and EBO
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void ComponentCamera::Move(float3 dir)
@@ -176,10 +101,7 @@ void ComponentCamera::Zoom(float mouseWheel)
 {
 	if (mouseWheel != 0)
 	{
-		frustum->verticalFov = mouseWheel > 0 ?
-			MAX(math::DegToRad(MINFOV), frustum->verticalFov - mouseWheel * zoomSpeed) :
-			MIN(math::DegToRad(MAXFOV), frustum->verticalFov - mouseWheel * zoomSpeed);
-		frustum->horizontalFov = 2.f * atanf(tanf(frustum->verticalFov * 0.5f) * ((float)App->window->width / (float)App->window->height));
+		frustum->Translate(frustum->front * mouseWheel * zoomSpeed);
 	}
 }
 
@@ -228,6 +150,12 @@ void ComponentCamera::Orbit(float dx, float dy)
 
 void ComponentCamera::SetAspect(float aspect)
 {
+	aspectDirty = false;
+	if (aspect != oldAspect)
+	{
+		aspectDirty = true;
+		oldAspect = aspect;
+	}
 	frustum->horizontalFov = 2.f * atanf(tanf(frustum->verticalFov * 0.5f) * aspect);
 }
 
@@ -242,28 +170,6 @@ void ComponentCamera::ResetFrustum()
 {
 	RELEASE(frustum);
 	InitFrustum();
-}
-
-void ComponentCamera::DrawFrustum(unsigned shader) const
-{
-	float4x4 model = float4x4::identity.LookAt(-float3::unitZ,frustum->front, frustum->up, float3::unitY);
-	model.SetTranslatePart(frustum->pos);
-	glUniformMatrix4fv(glGetUniformLocation(shader,
-		"model"), 1, GL_TRUE, &model[0][0]);
-
-	float red[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	glUniform4fv(glGetUniformLocation(shader,
-		"Vcolor"), 1, red);
-
-	glLineWidth(4.f);
-	glBindVertexArray(frustumVAO);
-	glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_SHORT, 0);
-	glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_SHORT, (GLvoid*)(4 * sizeof(GLushort)));
-	glDrawElements(GL_LINES, 8, GL_UNSIGNED_SHORT, (GLvoid*)(8 * sizeof(GLushort)));
-
-	// We disable VAO
-	glBindVertexArray(0);
-	glLineWidth(1.f);
 }
 
 void ComponentCamera::LookAt(float3 target)

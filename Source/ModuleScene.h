@@ -9,6 +9,7 @@
 #include "Math/Quat.h"
 #include "Math/float4.h"
 #include <set>
+#include <unordered_set>
 
 #define NBPRIMITIVES 2
 class GameObject;
@@ -33,6 +34,7 @@ public:
 
 	bool Init(JSON * config) override;
 	bool Start() override;
+	update_status PreUpdate() override;
 	update_status Update(float dt) override;
 	bool CleanUp() override;
 	void SaveConfig(JSON * config) override;
@@ -40,9 +42,10 @@ public:
 	GameObject * CreateGameObject(const char * name, GameObject* parent);
 
 	void AddToSpacePartition(GameObject * gameobject);
-	void DeleteFromSpacePartition(const GameObject & gameobject);
-	void ResetQuadTree();
+	void DeleteFromSpacePartition(GameObject & gameobject);
+	void ResetQuadTree(); //deprecated
 
+	void FrustumCulling(const Frustum &frustum);
 	void Draw(const Frustum &frustum, bool isEditor = false);
 	void DrawGO(const GameObject& go, const Frustum & frustum, bool isEditor = false);
 	void DrawHierarchy();
@@ -55,14 +58,16 @@ public:
 	void SetPrimitiveMesh(par_shapes_mesh_s * mesh, PRIMITIVES type);
 	unsigned SaveParShapesMesh(const par_shapes_mesh_s & mesh, char** data) const;
 
-	void SaveScene(const GameObject &rootGO, const char* name) const;
-	void LoadScene(const char * scene);
-	void AddScene(const char* scene);
+	void SaveScene(const GameObject &rootGO, const char& scene, const char& scenePath);
+	void LoadScene(const char& scene, const char& path);
+	bool AddScene(const char& scene, const char& scenePath);								// Adds a scene to current opened scene from a scene file (returns true if it was loaded correctly)
 	void ClearScene();
 
 	void Select(GameObject* gameobject);
 	void UnSelect();
 	void Pick(float normalized_x, float normalized_y);
+
+	void GetStaticGlobalAABB(AABB &aabb, std::vector<GameObject*> &bucket, unsigned int &bucketOccupation);
 
 	unsigned GetNewUID();
 	std::list<ComponentLight*> GetClosestLights(LightType type, float3 position = float3::zero) const;
@@ -71,7 +76,10 @@ public:
 
 private:
 	std::list<std::pair<float, GameObject*>>GetDynamicIntersections(const LineSegment& line);
+	std::list<std::pair<float, GameObject*>>GetStaticIntersections(const LineSegment& line);
 	unsigned primitivesUID[NBPRIMITIVES] = {0};
+	std::unordered_set<GameObject*> dynamicFilteredGOs;
+	std::unordered_set<GameObject*> staticFilteredGOs;
 
 public:
 	GameObject* root = nullptr;
@@ -83,8 +91,10 @@ public:
 	std::list<ComponentLight*> lights;
 	myQuadTree * quadtree = nullptr;
 	std::set<GameObject*> dynamicGOs;
+	std::set<GameObject*> staticGOs;
 	pcg32 uuid_rng;
 	std::string name;
+	std::string path;
 	std::string defaultScene;
 
 	float3 ambientColor = float3::one;

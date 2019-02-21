@@ -164,8 +164,6 @@ void MaterialEditor::TextureSelector(unsigned i, std::string &current_texture, i
 
 void MaterialEditor::SetCurrentTextures()
 {
-	if (material == nullptr) return;
-
 	// Get material textures
 	Texture* diffuse_texture = material->GetTexture(TextureType::DIFFUSE);
 	Texture* specular_texture = material->GetTexture(TextureType::SPECULAR);
