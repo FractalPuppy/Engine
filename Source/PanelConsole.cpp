@@ -4,25 +4,25 @@
 
 PanelConsole::PanelConsole()
 {
-	Buf = new ImGuiTextBuffer();
+	buf = new ImGuiTextBuffer();
 }
 
 
 PanelConsole::~PanelConsole()
 {
-	RELEASE(Buf);
+	RELEASE(buf);
 }
 
 void PanelConsole::Clear()
 {
-	Buf->clear(); 
-	LineOffsets.clear();
+	buf->clear(); 
+	lineOffsets.clear();
 }
 
 void PanelConsole::AddLog(const char * log)
 {
-	Buf->appendf(log);
-	ScrollToBottom = true;
+	buf->appendf(log);
+	scrollToBottom = true;
 }
 
 void PanelConsole::Draw()
@@ -44,14 +44,19 @@ void PanelConsole::Draw()
 	ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 	if (copy) ImGui::LogToClipboard();
 
-	ImGui::TextUnformatted(Buf->begin());
+	ImGui::TextUnformatted(buf->begin());
 
-	if (ScrollToBottom)
+	if (scrollToBottom)
 	{
 		ImGui::SetScrollHereY(1.0f);
 	}
 
-	ScrollToBottom = false;
+	scrollToBottom = false;
+	if (forceScrollToBottom)
+	{
+		scrollToBottom = true;
+		forceScrollToBottom = false;
+	}
 	ImGui::EndChild();
 	ImGui::End();
 }
