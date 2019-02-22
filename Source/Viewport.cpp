@@ -52,7 +52,16 @@ Viewport::~Viewport()
 void Viewport::Draw(ComponentCamera * cam, bool isEditor)
 {
 	PROFILE;
-	if (enabled) 
+	ImGui::Begin(name.c_str(), &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBringToFrontOnFocus);
+
+	//if the viewport is hidden, it is not rendered
+	if (ImGui::GetCurrentWindow()->Hidden)
+	{
+		ImGui::End();
+		return;
+	}
+
+	if (ImGui::IsWindowHovered() || ImGui::IsWindowAppearing())
 	{
 		ImGui::Begin(name.c_str(), &enabled, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBringToFrontOnFocus);
 
