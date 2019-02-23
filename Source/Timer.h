@@ -1,5 +1,6 @@
 #ifndef __Timer_h__
 #define __Timer_h__
+
 class Timer
 {
 public:
@@ -7,11 +8,18 @@ public:
 	~Timer();
 
 	void Start();
-	int Read() const;
+	int Read();
+	float ReadSeconds();
+	void Pause();
 	int Stop();
+	void Reset();
 
-	int InitTime = 0;
-	int TotalTime = 0;
+private:
+	int initTime = 0;
+	int skippedTime = 0;
+
+public:
+	int totalTime = 0;
 	bool timerOn = false;
 };
 

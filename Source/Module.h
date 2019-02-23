@@ -14,7 +14,7 @@ public:
 
 	virtual ~Module() {};
 
-	virtual bool Init(JSON* json) 
+	virtual bool Init(JSON *json) 
 	{
 		return true; 
 	}

@@ -96,7 +96,8 @@ bool FileImporter::ImportScene(const aiScene &aiscene, const char* file)
 	}
 	GameObject *fake = new GameObject("fake",0);
 	ProcessNode(meshMap, aiscene.mRootNode, &aiscene, fake);
-	App->scene->SaveScene(*fake, App->fsystem->GetFilename(file).c_str()); //TODO: Make AutoCreation of folders or check
+
+	App->scene->SaveScene(*fake, *App->fsystem->GetFilename(file).c_str(), *SCENES); //TODO: Make AutoCreation of folders or check
 	fake->CleanUp();
 	RELEASE(fake);
 
@@ -150,6 +151,17 @@ void FileImporter::ImportMesh(const aiMesh &mesh, char *data)
 		memcpy(cursor, face->mIndices, sizeof(int) * 3);
 		cursor += sizeof(int) * 3;
 	}
+
+	bool hasTangents = mesh.HasTangentsAndBitangents();
+	memcpy(cursor, &hasTangents, sizeof(bool));
+	cursor += sizeof(bool);
+
+	if (hasTangents)
+	{
+		unsigned int tangentBytes = sizeof(float)*mesh.mNumVertices * 3;
+		memcpy(cursor, mesh.mTangents, tangentBytes);
+		cursor += verticesBytes;
+	}
 }
 
 unsigned FileImporter::GetMeshSize(const aiMesh &mesh) const
@@ -160,7 +172,7 @@ unsigned FileImporter::GetMeshSize(const aiMesh &mesh) const
 	size += ranges[0]* 3 * sizeof(int); //indices
 
 	size += sizeof(float)*ranges[1] * 3; //vertices
-	size += sizeof(bool) * 2; //has normals + has tcoords
+	size += sizeof(bool) * 3; //has normals + has tcoords + has tangents
 	if (mesh.HasNormals())
 	{
 		size += sizeof(float)*ranges[1] * 3;
@@ -168,6 +180,10 @@ unsigned FileImporter::GetMeshSize(const aiMesh &mesh) const
 	if (mesh.HasTextureCoords(0))
 	{
 		size += sizeof(float)*ranges[1] * 2;
+	}
+	if (mesh.HasTangentsAndBitangents())
+	{
+		size += sizeof(float)*ranges[1] * 3;
 	}
 	return size;
 }

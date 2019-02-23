@@ -568,6 +568,19 @@ bool AABB::Contains(const Polyhedron &polyhedron) const
 	return Contains(polyhedron.MinimalEnclosingAABB());
 }
 
+bool AABB::ContainsQTree(const AABB &aabb) const
+{
+	return Contains(aabb) || Intersects(aabb);
+}
+bool AABB::ContainsQTree(const LineSegment &line) const
+{
+	return Contains(line) || Intersects(line);
+}
+bool AABB::ContainsQTree(const Frustum &frustum) const
+{
+	return Contains(frustum) || Intersects(frustum);
+}
+
 bool AABB::IntersectLineAABB(const float3 &linePos, const float3 &lineDir, float &tNear, float &tFar) const
 {
 	// Never call the SSE version here. The SSE version does not output tNear and tFar, because

@@ -8,6 +8,8 @@
 #include "ModuleTextures.h"
 #include "ModuleProgram.h"
 
+#include "Viewport.h"
+
 #include "GameObject.h"
 #include "PanelConsole.h"
 #include "PanelConfiguration.h"
@@ -15,8 +17,10 @@
 #include "PanelAbout.h"
 #include "PanelHardware.h"
 #include "PanelHierarchy.h"
+#include "PanelTime.h"
 
 #include "MaterialEditor.h"
+#include "FileExplorer.h"
 #include "GUICreator.h"
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
@@ -33,8 +37,10 @@ ModuleEditor::ModuleEditor()
 	panels.push_back(about = new PanelAbout());
 	panels.push_back(hardware = new PanelHardware());
 	panels.push_back(hierarchy = new PanelHierarchy());
+	panels.push_back(time = new PanelTime());
 
 	materialEditor = new MaterialEditor();
+	fileExplorer = new FileExplorer();
 }
 
 // Destructor
@@ -45,7 +51,7 @@ ModuleEditor::~ModuleEditor()
 		RELEASE(*it);
 	}
 	RELEASE(materialEditor);
-
+	RELEASE(fileExplorer);
 	console = nullptr;
 	panels.clear();
 }
@@ -54,7 +60,7 @@ ModuleEditor::~ModuleEditor()
 bool ModuleEditor::Init(JSON * config)
 {
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); 
+	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
@@ -121,7 +127,7 @@ update_status ModuleEditor::PreUpdate()
 {
 	BROFILER_CATEGORY("Editor PreUpdate", Profiler::Color::Pink)
 
-	ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 	ImGuizmo::BeginFrame();
@@ -144,45 +150,53 @@ update_status ModuleEditor::Update(float dt)
 			{
 				App->scene->ClearScene();
 			}
-			std::vector<std::string> files = App->fsystem->ListFiles(SCENES);
-			if (ImGui::BeginMenu("Load Scene"))
+			if (ImGui::MenuItem("Load Scene"))
 			{
-				for (auto &file : files)
-				{
-					file = App->fsystem->RemoveExtension(file);
-					if (ImGui::MenuItem(file.c_str()))
-					{
-						App->scene->LoadScene(file.c_str());
-					}
-				}
-				ImGui::EndMenu();
+				fileExplorer->currentOperation = MenuOperations::LOAD;
+				fileExplorer->extensionToFilter = FILETYPE::SCENE;
+				std::string scenePath = SCENES;
+				scenePath = scenePath.substr(0, scenePath.size() - 1);
+				fileExplorer->SetPath(*scenePath.c_str());
+				sprintf_s(fileExplorer->title, "Load Scene");
+				fileExplorer->openFileExplorer = true;
 			}
-			if (ImGui::BeginMenu("Add Scene"))
+			if (ImGui::MenuItem("Add Scene"))
 			{
-				for (auto &file : files)
-				{
-					file = App->fsystem->RemoveExtension(file);
-					if (ImGui::MenuItem(file.c_str()))
-					{
-						App->scene->AddScene(file.c_str());
-					}
-				}
-				ImGui::EndMenu();
+				fileExplorer->currentOperation = MenuOperations::ADD;
+				fileExplorer->extensionToFilter = FILETYPE::SCENE;
+				std::string scenePath = SCENES;
+				scenePath = scenePath.substr(0, scenePath.size() - 1);
+				fileExplorer->SetPath(*scenePath.c_str());
+				sprintf_s(fileExplorer->title, "Add Scene");
+				fileExplorer->openFileExplorer = true;
 			}
 			if (ImGui::MenuItem("Save"))
 			{
 				if (!App->scene->name.empty())
 				{
-					App->scene->SaveScene(*App->scene->root, App->scene->name.c_str());
+					App->scene->SaveScene(*App->scene->root, *App->scene->name.c_str(), *App->scene->path.c_str());
 				}
 				else
 				{
-					savepopup = true;
+					fileExplorer->currentOperation = MenuOperations::SAVE;
+					fileExplorer->extensionToFilter = FILETYPE::SCENE;
+					std::string scenePath = SCENES;
+					scenePath = scenePath.substr(0, scenePath.size() - 1);
+					fileExplorer->SetPath(*scenePath.c_str());
+					sprintf_s(fileExplorer->title, "Save Scene");
+					fileExplorer->openFileExplorer = true;
 				}
 			}
-			if (ImGui::MenuItem("Save As"))
+			if (ImGui::MenuItem("Save As..."))
 			{
-				savepopup = true;
+				fileExplorer->currentOperation = MenuOperations::SAVE;
+				fileExplorer->extensionToFilter = FILETYPE::SCENE;
+				std::string scenePath = SCENES;
+				scenePath = scenePath.substr(0, scenePath.size() - 1);
+				fileExplorer->SetPath(*scenePath.c_str());
+				sprintf_s(fileExplorer->title, "Save Scene");
+				sprintf_s(fileExplorer->filename, App->scene->name.c_str());
+				fileExplorer->openFileExplorer = true;
 			}
 			if (ImGui::MenuItem("Exit", "Esc"))
 			{
@@ -193,13 +207,13 @@ update_status ModuleEditor::Update(float dt)
 			}
 			ImGui::EndMenu();
 		}
-		SceneSavePopup(savepopup);
 		GUICreator::CreateElements(App->scene->root);
 		if (ImGui::MenuItem("New Material"))
 		{
 			materialEditor->open = true;
 			materialEditor->isCreated = true;
 		}
+		fileExplorer->Draw();
 		materialEditor->Draw();
 		WindowsMenu();
 		HelpMenu();
@@ -260,66 +274,37 @@ void ModuleEditor::DrawPanels()
 		}
 }
 
-void ModuleEditor::SceneSavePopup(bool savepopup)
-{
-	if (savepopup) ImGui::OpenPopup("SavePopup");
-	if (ImGui::BeginPopupModal("SavePopup", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text("Choose Scene name:\n\n");
-		char name[64] = "";
-		if (!App->scene->name.empty())
-		{
-			strcpy(name, App->scene->name.c_str());
-		}
-		else
-		{
-			strcpy(name, "Unnamed");
-		}
-		ImGui::InputText("name", name, 64);
-		App->scene->name = name;
-		ImGui::Separator();
-		static bool defaultScene = false;
-		ImGui::Checkbox("Set as Starting Scene", &defaultScene);
-
-		if (ImGui::Button("OK", ImVec2(120, 0))) {
-			App->scene->SaveScene(*App->scene->root, App->scene->name.c_str());
-			if (defaultScene)
-			{
-				App->scene->defaultScene = name;
-			}
-			ImGui::CloseCurrentPopup();
-		}
-		ImGui::SetItemDefaultFocus();
-		ImGui::SameLine();
-		if (ImGui::Button("Cancel", ImVec2(120, 0)))
-		{
-			savepopup = false;
-			ImGui::CloseCurrentPopup();
-		}
-		ImGui::EndPopup();
-	}
-
-}
-
 void ModuleEditor::WindowsMenu()
 {
 	if (ImGui::BeginMenu("Windows"))
 	{
-		if (ImGui::MenuItem("Console", NULL, console->IsEnabled()))
+		if (ImGui::MenuItem("Console", nullptr, console->IsEnabled()))
 		{
 			console->ToggleEnabled();
 		}
-		if (ImGui::MenuItem("Configuration", NULL, configuration->IsEnabled()))
+		if (ImGui::MenuItem("Configuration", nullptr, configuration->IsEnabled()))
 		{
 			configuration->ToggleEnabled();
 		}
-		if (ImGui::MenuItem("Properties", NULL, inspector->IsEnabled()))
+		if (ImGui::MenuItem("Properties", nullptr, inspector->IsEnabled()))
 		{
 			inspector->ToggleEnabled();
 		}
-		if (ImGui::MenuItem("Hierarchy", NULL, hierarchy->IsEnabled()))
+		if (ImGui::MenuItem("Hierarchy", nullptr, hierarchy->IsEnabled()))
 		{
 			hierarchy->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("Scene", nullptr, App->renderer->viewScene->IsEnabled()))
+		{
+			App->renderer->viewScene->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("Game Camera", nullptr, App->renderer->viewGame->IsEnabled()))
+		{
+			App->renderer->viewGame->ToggleEnabled();
+    }
+		if (ImGui::MenuItem("Time control", nullptr, time->IsEnabled()))
+		{
+			time->ToggleEnabled();
 		}
 		ImGui::EndMenu();
 	}
@@ -370,4 +355,3 @@ void ModuleEditor::processInput(SDL_Event * event) const
 	assert(event != NULL);
 	ImGui_ImplSDL2_ProcessEvent(event);
 }
-

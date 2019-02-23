@@ -6,6 +6,7 @@
 #include "ModuleProgram.h"
 #include "ModuleEditor.h"
 #include "ModuleWindow.h"
+#include "ModuleDebugDraw.h"
 #include "ModuleResourceManager.h"
 
 #include "GameObject.h"
@@ -20,6 +21,7 @@
 #include "Math/MathFunc.h"
 #include "Math/float4x4.h"
 #include "Brofiler.h"
+#include "debugdraw.h"
 
 ModuleRender::ModuleRender()
 {
@@ -133,9 +135,9 @@ void ModuleRender::SaveConfig(JSON * config)
 	config->AddValue("renderer", *renderer);
 }
 
-void ModuleRender::Draw(const ComponentCamera& cam, int width, int height, bool isEditor) const
+void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool isEditor) const
 {
-	PROFILE;
+	BROFILER_CATEGORY("Render_Draw()", Profiler::Color::AliceBlue);
 	glViewport(0, 0, width, height);
 	glClearColor(0.3f, 0.3f, 0.3f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -154,7 +156,7 @@ void ModuleRender::Draw(const ComponentCamera& cam, int width, int height, bool 
 	skybox->Draw(*cam.frustum);
 	if (isEditor)
 	{
-		DrawGizmos();
+		DrawGizmos(cam);
 	}
 	App->scene->Draw(*cam.frustum, isEditor);
 }
@@ -186,10 +188,9 @@ void ModuleRender::OnResize()
 	App->camera->editorcamera->SetAspect((float)App->window->width / (float)App->window->height);
 }
 
-
-void ModuleRender::DrawGizmos() const
+void ModuleRender::DrawGizmos(const ComponentCamera &camera) const
 {
-	PROFILE;
+	BROFILER_CATEGORY("Render_DrawGizmos()", Profiler::Color::AliceBlue);
 	unsigned shader = App->program->defaultShader->id;
 	glUseProgram(shader);
 
@@ -197,109 +198,27 @@ void ModuleRender::DrawGizmos() const
 	{
 		for (const auto & line : App->scene->debuglines)
 		{
-			math::float4x4 model = math::float4x4::identity;
-			glUniformMatrix4fv(glGetUniformLocation(shader,
-				"model"), 1, GL_TRUE, &model[0][0]);
-			glLineWidth(3.0f);
-			glBegin(GL_LINES);
-
-			glVertex3f(line.a.x, line.a.y, line.a.z);
-			glVertex3f(line.b.x, line.b.y, line.b.z);
-			glEnd();
+			dd::line(line.a, line.b, math::float3(0.0f, 0.0f, 1.0f));
 		}
 	}
 
 	math::float4x4 model = math::float4x4::identity;
-	glUniformMatrix4fv(glGetUniformLocation(shader,
-		"model"), 1, GL_TRUE, &model[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_TRUE, &model[0][0]);
 
 	if (grid_debug)
 	{
-		DrawGrid();
+		dd::xzSquareGrid(-500.0f * current_scale, 500.0f * current_scale, 0.0f, 1.0f * current_scale, math::float3(0.65f, 0.65f, 0.65f));
 	}
-	DrawAxis();
+	
+	dd::axisTriad(math::float4x4::identity, 0.5f * current_scale, 5.0f * current_scale, 0, true);
+
 	if (App->scene->maincamera != nullptr && App->renderer->useMainCameraFrustum)
 	{
-		App->scene->maincamera->DrawFrustum(shader);
+		dd::frustum((App->scene->maincamera->frustum->ProjectionMatrix() * App->scene->maincamera->frustum->ViewMatrix()).Inverted(), dd::colors::Red);
 	}
+
+	App->debug->Draw(camera, viewScene->current_width, viewScene->current_height);
 	glUseProgram(0);
-}
-
-
-void ModuleRender::DrawGrid() const
-{
-	float white[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glUniform4fv(glGetUniformLocation(App->program->defaultShader->id,
-		"Vcolor"), 1, white);
-
-	glLineWidth(1.0f);
-
-	float d = 200.0f*current_scale;
-	glBegin(GL_LINES);
-
-	float distance = MAX(1, current_scale);
-
-	for (float i = -d; i <= d; i += distance)
-	{
-		glVertex3f(i, 0.0f, -d);
-		glVertex3f(i, 0.0f, d);
-		glVertex3f(-d, 0.0f, i);
-		glVertex3f(d, 0.0f, i);
-	}
-	glEnd();
-}
-
-void ModuleRender::DrawAxis() const //TODO: use debug draw
-{
-	unsigned shader = App->program->defaultShader->id;
-	glLineWidth(2.0f);
-
-	float red[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	glUniform4fv(glGetUniformLocation(shader,
-		"Vcolor"), 1, red);
-
-	glBegin(GL_LINES);
-	// red X
-
-	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(current_scale, 0.0f, 0.0f);
-	glVertex3f(current_scale, current_scale*0.1f, 0.0f); 
-	glVertex3f(current_scale*1.1f, -0.1f*current_scale, 0.0f);
-	glVertex3f(current_scale*1.1f, current_scale*0.1f, 0.0f); 
-	glVertex3f(current_scale, current_scale *-0.1f, 0.0f);
-	glEnd();
-
-	float green[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
-	glUniform4fv(glGetUniformLocation(shader,
-		"Vcolor"), 1, green);
-
-	glBegin(GL_LINES);
-	// green Y
-	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, current_scale, 0.0f);
-	glVertex3f(-0.05f*current_scale, current_scale*1.25f, 0.0f); 
-	glVertex3f(0.0f, current_scale*1.15f, 0.0f);
-	glVertex3f(current_scale*0.05f, current_scale*1.25f, 0.0f); 
-	glVertex3f(0.0f, current_scale*1.15f, 0.0f);
-	glVertex3f(0.0f, current_scale*1.15f, 0.0f); 
-	glVertex3f(0.0f, current_scale*1.05f, 0.0f);
-	glEnd();
-
-
-	float blue[4] = { 0.0f, 0.0f, 1.0f, 1.0f };
-	glUniform4fv(glGetUniformLocation(shader,
-		"Vcolor"), 1, blue);
-
-	glBegin(GL_LINES);
-	// blue Z
-	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 0.0f, current_scale);
-	glVertex3f(-0.05f*current_scale, current_scale*0.1f, current_scale*1.05f); 
-	glVertex3f(current_scale*0.05f, current_scale*0.1f, current_scale*1.05f);
-	glVertex3f(current_scale*0.05f, current_scale*0.1f, current_scale*1.05f); 
-	glVertex3f(current_scale *-0.05f, current_scale*-0.1f, current_scale*1.05f);
-	glVertex3f(current_scale *-0.05f, current_scale *-0.1f, current_scale*1.05f); 
-	glVertex3f(current_scale *0.05f, current_scale *-0.1f, current_scale *1.05f);
-	glEnd();
-
-	glLineWidth(1.0f);
 }
 
 void ModuleRender::InitSDL()
@@ -366,7 +285,6 @@ void ModuleRender::DrawGUI()
 	}
 	ImGui::Checkbox("Picker Debug", &picker_debug);
 	ImGui::Checkbox("Light Debug", &light_debug);
-	ImGui::Checkbox("QuadTree Debug", &quadtree_debug);
 	ImGui::Checkbox("Grid Debug", &grid_debug);
 
 	const char* scales[] = {"1", "10", "100"};
@@ -390,6 +308,7 @@ void ModuleRender::GenBlockUniforms()
 {
 	glGenBuffers(1, &UBO); //Block uniform creation
 	glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+	//TODOALF: this should be nullptr instead unll
 	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(float4x4), NULL, GL_STATIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 

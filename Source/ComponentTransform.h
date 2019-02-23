@@ -22,6 +22,8 @@ public:
 	void SetWorldToLocal(const float4x4 & newparentGlobalMatrix);
 	void SetGlobalTransform(const float4x4 & newglobal, const float4x4 &parentglobal);
 
+	float3 GetGlobalPosition();
+
 	void Save(JSON_value *value) const override;
 	void Load(const JSON_value &value) override;
 

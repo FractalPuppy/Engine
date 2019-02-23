@@ -16,8 +16,11 @@ class ModuleCamera;
 class ModuleProgram;
 class ModuleEditor;
 class ModuleScene;
+class ModuleDebugDraw;
 class ModuleFileSystem;
 class ModuleResourceManager;
+class ModuleTime;
+class ModuleSpacePartitioning;
 
 class Application
 {
@@ -41,8 +44,11 @@ public:
 	ModuleProgram* program = nullptr;
 	ModuleEditor* editor = nullptr;
 	ModuleScene* scene = nullptr;
+	ModuleDebugDraw* debug = nullptr;
 	ModuleFileSystem* fsystem = nullptr;
 	ModuleResourceManager* resManager = nullptr;
+	ModuleTime* time = nullptr;
+	ModuleSpacePartitioning* spacePartitioning = nullptr;
 
 private:
 	std::list<Module*> modules;

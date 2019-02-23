@@ -21,6 +21,7 @@ ComponentRenderer::ComponentRenderer(GameObject * gameobject) : Component(gameob
 {
 	mesh = new Mesh();
 	SetMaterial(DEFAULTMAT);
+	gameobject->isVolumetric = true;
 }
 
 ComponentRenderer::ComponentRenderer(const ComponentRenderer & component) : Component(component)
@@ -36,10 +37,6 @@ ComponentRenderer::~ComponentRenderer()
 {
 	material = nullptr; //Resource Manager Deallocates resources (materials, meshes)
 	mesh = nullptr;
-	if (gameobject != nullptr)
-	{
-		App->scene->DeleteFromSpacePartition(*gameobject);
-	}
 }
 
 Component * ComponentRenderer::Clone() const

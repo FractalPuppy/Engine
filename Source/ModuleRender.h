@@ -34,11 +34,9 @@ public:
 
 private:
 
-	void DrawGizmos() const;
+	void DrawGizmos(const ComponentCamera &cam) const;
 	void SetViewUniform(const ComponentCamera &camera) const;
 	void SetProjectionUniform(const ComponentCamera &camera) const;
-	void DrawGrid() const;
-	void DrawAxis() const;
 	void InitSDL();
 	void InitOpenGL() const;
 
