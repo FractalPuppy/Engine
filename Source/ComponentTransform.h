@@ -32,6 +32,10 @@ public:
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;
 
+	//void Copy() override;
+	void Paste() override;
+	void Reset() override;
+
 private:
 	void RotationToEuler();
 	void UpdateOldTransform();

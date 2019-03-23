@@ -1,5 +1,9 @@
+#include "Application.h"
+#include "ModuleScene.h"
 #include "Component.h"
 #include "GameObject.h"
+#include "ModuleScene.h"
+#include "Application.h"
 #include "imgui.h"
 #include "JSON.h"
 
@@ -33,9 +37,47 @@ bool Component::DrawComponentState()
 	return removed;
 }
 
+void Component::Options()
+{
+	ImGui::SetCursorPosX(ImGui::GetWindowWidth() - ImGui::CalcTextSize("Opt   ").x);
+	if (ImGui::Button("Opt"))
+	{
+		ImGui::OpenPopup("Options");
+	}
+
+	const char* options[] = { "Copy Component Values", "Paste Component Values", "Reset" };
+
+	if (ImGui::BeginPopup("Options"))
+	{
+		for (int i = 0; i < IM_ARRAYSIZE(options); i++)
+			if (ImGui::Selectable(options[i]))
+			{
+				if (i == 0) // Copy
+				{
+					Copy();
+				}
+				else if (i == 1) // Paste
+				{
+					Paste();
+				}
+				else if (i == 2) // Reset
+				{
+					Reset();
+				}
+			}
+		ImGui::EndPopup();
+	}
+}
+
 void Component::Remove()
 {
+	App->scene->TakePhoto();
 	gameobject->RemoveComponent(*this);
+}
+
+void Component::Copy()
+{
+	App->scene->copyComp = Clone();
 }
 
 void Component::Save(JSON_value * value) const

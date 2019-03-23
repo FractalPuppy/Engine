@@ -16,9 +16,12 @@
 #include "ComponentRenderer.h"
 #include "ComponentTransform.h"
 
-#include "Material.h"
+#include "ResourceTexture.h"
+#include "ResourceMesh.h"
+#include "ResourceMaterial.h"
+
 #include "MaterialEditor.h"
-#include "Mesh.h"
+
 #include "JSON.h"
 #include "myQuadTree.h"
 #include "AABBTree.h"
@@ -64,8 +67,7 @@ bool ModuleScene::Init(JSON * config)
 	pcg_extras::seed_seq_from<std::random_device> seed_source;
 	pcg32 rng(seed_source);
 	uuid_rng = rng;
-	root = new GameObject("World", 0); //Root always has uid 0
-
+	root = new GameObject("World", 0); //Root always has uid 0	
 	int size = QUADTREE_SIZE * App->renderer->current_scale;
 	AABB limit(float3(-size, 0.f, -size), float3(size, 0.f, size));
 	quadtree = new myQuadTree(limit);
@@ -84,11 +86,11 @@ bool ModuleScene::Init(JSON * config)
 
 bool ModuleScene::Start()
 {
-	camera_notfound_texture = App->textures->GetTexture(NOCAMERA); 
+	camera_notfound_texture = (ResourceTexture*)App->resManager->Get(NOCAMERA);
 	if (defaultScene.size() > 0)
 	{
 		path = SCENES;
-		LoadScene(*defaultScene.c_str(), *path.c_str());
+		LoadScene(defaultScene.c_str(), path.c_str());
 	}
 	return true;
 }
@@ -103,6 +105,21 @@ update_status ModuleScene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::Green);
 	root->Update();
+	if (photoTimer > 0)
+	{
+		photoTimer -= dt;
+	}
+
+	if ((App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT)
+		|| (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN))
+	{
+		RestoreLastPhoto();
+	}
+	if ((App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT)
+		|| (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN))
+	{
+		Redo();
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -123,7 +140,7 @@ bool ModuleScene::CleanUp()
 	selected = nullptr;
 	maincamera = nullptr;
 
-	App->resManager->DeleteTexture(camera_notfound_texture->file);
+	App->resManager->DeleteResource(camera_notfound_texture->GetUID());
 	camera_notfound_texture = nullptr;
 
 	lights.clear();
@@ -219,7 +236,7 @@ void ModuleScene::DrawGO(const GameObject& go, const Frustum & frustum, bool isE
 	ComponentRenderer* crenderer = (ComponentRenderer*)go.GetComponent(ComponentType::Renderer);
 	if (crenderer == nullptr || !crenderer->enabled || crenderer->material == nullptr) return;
 
-	Material* material = crenderer->material;
+	ResourceMaterial* material = crenderer->material;
 	Shader* shader = material->shader;
 	if (shader == nullptr) return;
 
@@ -246,13 +263,14 @@ void ModuleScene::DrawHierarchy()
 	ImGui::PopStyleColor();
 }
 
-void ModuleScene::DragNDropMove(GameObject* target) const
+void ModuleScene::DragNDropMove(GameObject* target) 
 {
 	if (ImGui::BeginDragDropTarget())
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DragDropHierarchy"))
 		{
 			IM_ASSERT(payload->DataSize == sizeof(GameObject*));
+			TakePhoto();
 			GameObject* droppedGo = (GameObject *)*(const int*)payload->Data;
 			if (droppedGo != App->scene->root && target != droppedGo)
 			{
@@ -300,6 +318,7 @@ void ModuleScene::DragNDrop(GameObject* go)
 			if (droppedGo != App->scene->root && droppedGo->parent != go && !droppedGo->IsParented(*go) 
 				&& std::find(App->scene->selection.begin(), App->scene->selection.end(), go) == App->scene->selection.end())
 			{
+				TakePhoto();
 				for (GameObject* droppedGo : App->scene->selection)
 				{
 					go->children.push_back(droppedGo);
@@ -453,11 +472,14 @@ void ModuleScene::CreatePrimitive(const char * name, GameObject* parent, PRIMITI
 	ComponentRenderer* crenderer = (ComponentRenderer*)gameobject->CreateComponent(ComponentType::Renderer);
 
 	unsigned uid = primitivesUID[(unsigned)type];
-	char *data = nullptr;
-	App->fsystem->Load((MESHES + std::to_string(uid) + MESHEXTENSION).c_str(), &data);
-	crenderer->UpdateMesh(data, uid);//Deallocates data
+	// TODO [MeshRefactor] - Refactor sphere/Cube creation
+	//char *data = nullptr;
+	//App->fsystem->Load((MESHES + std::to_string(uid) + MESHEXTENSION).c_str(), &data);
+	//crenderer->UpdateMesh(data, uid);//Deallocates data
+	App->resManager->Get(uid);
+	crenderer->UpdateGameObject();
 	crenderer->SetMaterial(DEFAULTMAT);
-	App->resManager->AddMesh(crenderer->mesh);
+	//App->resManager->AddMesh(crenderer->mesh);
 	App->scene->Select(gameobject);
 }
 
@@ -543,41 +565,134 @@ unsigned ModuleScene::SaveParShapesMesh(const par_shapes_mesh_s &mesh, char** da
 	return size;
 }
 
-void ModuleScene::SaveScene(const GameObject &rootGO, const char& scene, const char& scenePath)
+void ModuleScene::SaveScene(const GameObject& rootGO, const char* scene, const char* scenePath)
 {
 	JSON *json = new JSON();
 	JSON_value *array =json->CreateValue(rapidjson::kArrayType);
 	rootGO.Save(array);
 	json->AddValue("GameObjects", *array);
 
-	std::string file(&scenePath);
-	file += &scene;
+	std::string file(scenePath);
+	file += scene;
 	file += JSONEXT;
 
 	App->fsystem->Save(file.c_str(), json->ToString().c_str(), json->Size());
 	RELEASE(json);
 
 	// Update scene info
-	name = &scene;
-	path = &scenePath;
+	name = scene;
+	path = scenePath;
+}
+void ModuleScene::TakePhoto()
+{
+	TakePhoto(scenePhotos);
+	scenePhotosUndoed.clear();
 }
 
-void ModuleScene::LoadScene(const char& scene, const char& scenePath)
+void ModuleScene::TakePhoto(std::list<GameObject*>& target)
+{
+	photoTimer = TIME_BETWEEN_PHOTOS;
+	photoEnabled = true;	
+	target.push_back(new GameObject(*root));
+	if (target.size() > MAX_PHOTOS)
+	{
+		RELEASE(target.front());
+		target.pop_front();
+	}
+	photoEnabled = false;	
+}
+void ModuleScene::RestorePhoto(GameObject* photo)
+{
+	photoTimer = 0.f;
+	root = photo;
+	std::stack<GameObject*> goStack;
+	goStack.push(root);
+	while (!goStack.empty())
+	{
+		GameObject* go = goStack.top(); goStack.pop();
+
+		for (Component* comp : go->components)
+		{
+			switch (comp->type)
+			{
+			case ComponentType::Renderer:
+				if (!go->isStatic)
+				{
+					App->spacePartitioning->aabbTree.InsertGO(go);
+				}
+				else
+				{
+					staticGOs.insert(go);
+					App->spacePartitioning->kDTree.Calculate();
+				}
+				go->isVolumetric = true;
+				break;
+			case ComponentType::Light:
+				go->light = (ComponentLight*)comp;
+				go->light->CalculateGuizmos();
+				App->spacePartitioning->aabbTreeLighting.InsertGO(go);
+				go->hasLight = true;
+				lights.push_back((ComponentLight*)comp);
+				break;
+			case ComponentType::Camera:
+				if (((ComponentCamera*)comp)->isMainClone)
+				{
+					maincamera = (ComponentCamera*)comp;
+				}
+				break;
+			}
+		}
+
+		for (GameObject* child : go->children)
+		{
+			goStack.push(child);
+		}
+		if (go->transform != nullptr)
+		{
+			go->transform->UpdateTransform();
+		}
+	}
+}
+
+void ModuleScene::RestoreLastPhoto()
+{
+	if (App->scene->scenePhotos.size() > 0)
+	{
+		TakePhoto(scenePhotosUndoed);
+		ClearScene();
+		RestorePhoto(scenePhotos.back());	
+		scenePhotos.pop_back();
+	}
+}
+
+void ModuleScene::Redo()
+{
+	if (scenePhotosUndoed.size() > 0)
+	{
+		TakePhoto(scenePhotos);
+		ClearScene();
+		RestorePhoto(scenePhotosUndoed.back());
+		scenePhotosUndoed.pop_back();
+	}
+}
+
+void ModuleScene::LoadScene(const char* scene, const char* scenePath)
 {
 	ClearScene();
 	if (AddScene(scene, scenePath))
 	{
-		path = &scenePath;
-		name = &scene;
+		path = scenePath;
+		name = scene;
 	}
 	App->spacePartitioning->kDTree.Calculate();
+	scenePhotos.clear();
 }
 
-bool ModuleScene::AddScene(const char& scene, const char& path)
+bool ModuleScene::AddScene(const char* scene, const char* path)
 {
 	char* data = nullptr;
-	std::string file(&path);
-	file += &scene;
+	std::string file(path);
+	file += scene;
 	file += JSONEXT;
 
 	if (App->fsystem->Load(file.c_str(), &data) == 0)
@@ -589,24 +704,28 @@ bool ModuleScene::AddScene(const char& scene, const char& path)
 	JSON *json = new JSON(data);
 	JSON_value* gameobjectsJSON = json->GetValue("GameObjects");
 	std::map<unsigned, GameObject*> gameobjectsMap; //Necessary to assign parent-child efficiently
+	gameobjectsMap.insert(std::pair<unsigned, GameObject*>(canvas->UUID, canvas));
 
 	for (unsigned i = 0; i<gameobjectsJSON->Size(); i++)
-	{
+	{		
 		JSON_value* gameobjectJSON = gameobjectsJSON->GetValue(i);
 		GameObject *gameobject = new GameObject();
 		gameobject->Load(gameobjectJSON);
-		gameobjectsMap.insert(std::pair<unsigned, GameObject*>(gameobject->UUID, gameobject));
+		if (gameobject->UUID != 1)
+		{
+			gameobjectsMap.insert(std::pair<unsigned, GameObject*>(gameobject->UUID, gameobject));
 
-		std::map<unsigned, GameObject*>::iterator it = gameobjectsMap.find(gameobject->parentUUID);
-		if (it != gameobjectsMap.end())
-		{
-			gameobject->parent = it->second;
-			gameobject->parent->children.push_back(gameobject);
-		}
-		else if (gameobject->parentUUID == 0)
-		{
-			gameobject->parent = root;
-			gameobject->parent->children.push_back(gameobject);
+			std::map<unsigned, GameObject*>::iterator it = gameobjectsMap.find(gameobject->parentUUID);
+			if (it != gameobjectsMap.end())
+			{
+				gameobject->parent = it->second;
+				gameobject->parent->children.push_back(gameobject);
+			}
+			else if (gameobject->parentUUID == 0)
+			{
+				gameobject->parent = root;
+				gameobject->parent->children.push_back(gameobject);
+			}
 		}
 	}
 
@@ -618,17 +737,20 @@ bool ModuleScene::AddScene(const char& scene, const char& path)
 void ModuleScene::ClearScene()
 {
 	CleanUp();
-	camera_notfound_texture = App->textures->GetTexture(NOCAMERA);
+	camera_notfound_texture = (ResourceTexture*)App->resManager->Get(NOCAMERA);
 	name.clear();	
 	staticGOs.clear();
 	dynamicGOs.clear();
 	staticFilteredGOs.clear();
 	dynamicFilteredGOs.clear();
+	selection.clear();
 	LOG("Reset volumetric AABBTree");
 	App->spacePartitioning->aabbTree.Reset();
 	LOG("Reset lighting AABBTree");
 	App->spacePartitioning->aabbTreeLighting.Reset();
 	App->spacePartitioning->kDTree.Calculate();
+	canvas = new GameObject("Canvas", 1);
+	root->InsertChild(canvas);
 }
 
 void ModuleScene::Select(GameObject * gameobject)

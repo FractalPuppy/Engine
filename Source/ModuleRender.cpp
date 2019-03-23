@@ -8,12 +8,16 @@
 #include "ModuleWindow.h"
 #include "ModuleDebugDraw.h"
 #include "ModuleResourceManager.h"
+#include "ModuleUI.h"
+#include "ModuleFontLoader.h"
 
 #include "GameObject.h"
 #include "ComponentCamera.h"
-#include "Skybox.h"
 #include "Viewport.h"
 #include "JSON.h"
+
+#include "Resource.h"
+#include "ResourceSkybox.h"
 
 #include "SDL.h"
 #include "GL/glew.h"
@@ -46,9 +50,17 @@ bool ModuleRender::Init(JSON * config)
 	InitOpenGL();
 
 	SDL_GL_SetSwapInterval((int)vsync);
-	skybox = new Skybox();
+
 	viewScene = new Viewport("Scene");
 	viewGame = new Viewport("Game");
+
+	// Set default Skybox
+	skybox = (ResourceSkybox*)App->resManager->CreateNewResource(TYPE::SKYBOX);
+	std::string faces[NUMFACES] = { "right", "left", "top", "bottom", "front", "back" };
+	skybox->SetExportedFile("Default Skybox");
+	skybox->SetTextures(faces);
+	skybox->SetUsedByEngine(true);
+	skybox->LoadInMemory();
 
 	JSON_value* renderer = config->GetValue("renderer");
 	if (renderer == nullptr) return true;
@@ -158,6 +170,9 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 		DrawGizmos(cam);
 	}
 	App->scene->Draw(*cam.frustum, isEditor);
+
+	App->ui->Draw(width, height);
+	
 }
 
 bool ModuleRender::IsSceneViewFocused() const
@@ -236,6 +251,7 @@ void ModuleRender::InitSDL()
 void ModuleRender::InitOpenGL() const
 {
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);

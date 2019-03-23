@@ -8,15 +8,22 @@
 #include "pcg_random.hpp"
 #include "Math/Quat.h"
 #include "Math/float4.h"
+#include "SDL_timer.h"
 #include <set>
 #include <unordered_set>
+#include <string>
+#include <thread>
+#include <mutex>
 
 #define NBPRIMITIVES 2
+#define TIME_BETWEEN_PHOTOS 1000.f
+#define MAX_PHOTOS 10
+
 class GameObject;
 class ComponentCamera;
 class ComponentLight;
+class ResourceTexture;
 class myQuadTree;
-struct Texture;
 struct par_shapes_mesh_s;
 
 enum class PRIMITIVES
@@ -29,6 +36,7 @@ class ModuleScene :
 	public Module
 {
 public:
+
 	ModuleScene();
 	~ModuleScene();
 
@@ -37,7 +45,7 @@ public:
 	update_status PreUpdate() override;
 	update_status Update(float dt) override;
 	bool CleanUp() override;
-	void SaveConfig(JSON * config) override;
+	void SaveConfig(JSON* config) override;
 
 	GameObject * CreateGameObject(const char * name, GameObject* parent);
 
@@ -49,7 +57,7 @@ public:
 	void Draw(const Frustum &frustum, bool isEditor = false);
 	void DrawGO(const GameObject& go, const Frustum & frustum, bool isEditor = false);
 	void DrawHierarchy();
-	void DragNDropMove(GameObject* target) const;
+	void DragNDropMove(GameObject* target) ;
 	void DragNDrop(GameObject * go);
 	void DrawGUI() override;
 
@@ -59,9 +67,15 @@ public:
 	void SetPrimitiveMesh(par_shapes_mesh_s * mesh, PRIMITIVES type);
 	unsigned SaveParShapesMesh(const par_shapes_mesh_s & mesh, char** data) const;
 
-	void SaveScene(const GameObject &rootGO, const char& scene, const char& scenePath);
-	void LoadScene(const char& scene, const char& path);
-	bool AddScene(const char& scene, const char& scenePath);								// Adds a scene to current opened scene from a scene file (returns true if it was loaded correctly)
+	void SaveScene(const GameObject &rootGO, const char* scene, const char* scenePath);
+	void TakePhoto();
+	void TakePhoto(std::list<GameObject*>& target);
+	void RestorePhoto(GameObject* photo);
+	void RestoreLastPhoto();
+	void Redo();
+	void LoadScene(const char* scene, const char* path);
+	bool AddScene(const char* scene, const char* scenePath);								// Adds a scene to current opened scene from a scene file (returns true if it was loaded correctly)
+
 	void ClearScene();
 
 	void Select(GameObject* gameobject);
@@ -82,11 +96,15 @@ private:
 	std::unordered_set<GameObject*> dynamicFilteredGOs;
 	std::unordered_set<GameObject*> staticFilteredGOs;
 
+	std::list<GameObject*> scenePhotos;
+	std::list<GameObject*> scenePhotosUndoed;
+
 public:
 	GameObject* root = nullptr;
 	GameObject* selected = nullptr; //Selected in hierarchy
+	Component* copyComp = nullptr; // Copied values in inspector
 	ComponentCamera* maincamera = nullptr; //Released by GameObject holding it
-	Texture* camera_notfound_texture = nullptr; //Released in resource manager
+	ResourceTexture* camera_notfound_texture = nullptr; //Released in resource manager
 	std::list<LineSegment> debuglines;
 	std::list<GameObject*> selection;
 	std::list<ComponentLight*> lights;
@@ -97,8 +115,13 @@ public:
 	std::string name;
 	std::string path;
 	std::string defaultScene;
-
+	bool photoEnabled = false;
+	float photoTimer = 0.f;
 	float3 ambientColor = float3::one;
+
+	GameObject* canvas = nullptr;
 };
+
+
 
 #endif __ModuleScene_h__

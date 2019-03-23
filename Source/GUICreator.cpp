@@ -47,6 +47,38 @@ void GUICreator::CreateElements(GameObject* go)
 			}
 			ImGui::EndMenu();
 		}
+		
+		if (ImGui::BeginMenu("UI"))
+		{
+			if (ImGui::Selectable("Text"))
+			{				
+				GameObject *newgo = new GameObject("Text", App->scene->GetNewUID());
+				newgo->CreateComponent(ComponentType::Transform2D);
+				newgo->CreateComponent(ComponentType::Text);
+				App->scene->canvas->InsertChild(newgo);
+				App->scene->Select(newgo);
+			}
+
+			if (ImGui::Selectable("Image"))
+			{
+				GameObject *newgo = new GameObject("Image", App->scene->GetNewUID());
+				newgo->CreateComponent(ComponentType::Transform2D);
+				newgo->CreateComponent(ComponentType::Image);
+				App->scene->canvas->InsertChild(newgo);
+				App->scene->Select(newgo);
+			}
+
+			if (ImGui::Selectable("Button"))
+			{
+				GameObject *newgo = new GameObject("Button", App->scene->GetNewUID());
+				newgo->CreateComponent(ComponentType::Transform2D);
+				newgo->CreateComponent(ComponentType::Button);
+				App->scene->canvas->InsertChild(newgo);
+				App->scene->Select(newgo);
+			}
+			ImGui::EndMenu();
+		}
+
 		if (ImGui::Selectable("Camera"))
 		{
 			GameObject *cam = App->scene->CreateGameObject("Camera", go);

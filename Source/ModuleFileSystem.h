@@ -11,7 +11,10 @@
 
 #define ASSETS "Assets/"
 #define LIBRARY "Library/"
-#define MATERIALS LIBRARY "Materials/"
+#define RESOURCES "Resources/"
+#define IMPORTED_RESOURCES RESOURCES "Imported/"
+#define IMPORTED_MATERIALS LIBRARY "Materials/"
+#define MATERIALS ASSETS "Materials/"
 #define MESHES LIBRARY "Meshes/"
 #define TEXTURES LIBRARY "Textures/"
 #define SCENES ASSETS "Scenes/"
@@ -19,7 +22,6 @@
 #define SCRIPTS "Scripts/"
 #define VERTEXSHADERS SHADERS "VertexShaders/"
 #define FRAGSHADERS SHADERS "FragmentShaders/"
-#define SKYBOX "Skybox/"
 
 #define FBXEXTENSION ".fbx"
 #define FBXCAPITAL ".FBX"
@@ -27,7 +29,9 @@
 #define PNG ".png"
 #define TIF	".tif"
 #define JPG	".jpg"
+#define TGA ".tga"
 #define TEXTUREEXT ".dds"
+#define MATERIALEXT ".m4t"
 #define JSONEXT ".json"
 #define DLL ".dll"
 
@@ -37,9 +41,11 @@
 enum class FILETYPE
 {
 	TEXTURE,
+	IMPORTED_TEXTURE,
 	MODEL,
-	MESH,
+	IMPORTED_MESH,
 	SCENE,
+	MATERIAL,
 	NONE
 };
 
@@ -62,8 +68,9 @@ public:
 	unsigned Size(const char* file) const;
 	bool MakeDirectory(const char* directory) const;
 	bool IsDirectory(const char* file) const;
-	std::vector<std::string> ListFiles(const char * dir, bool extension=true) const;
-	void ListFolderContent(const char * dir, std::vector<std::string>& files, std::vector<std::string>& dirs) const; // Saves all files found on dir on files vector and all directories on dirs vector
+	std::vector<std::string> GetFolderContent(const char* dir, bool extension=true) const;								// Returns a vector with all the files and directories found on dir
+	void ListFolderContent(const char * dir, std::vector<std::string>& files, std::vector<std::string>& dirs) const;	// Saves all files found on dir on files vector and all directories on dirs vector
+	void ListFiles(const char* dir, std::set<std::string>& files);														// Saves all files found on dir and subdirs on a set
 	bool CopyFromOutsideFS(const char* source, const char* destination) const;
 	bool Copy(const char* source, const char* destination, const char* file) const;
 
@@ -71,16 +78,18 @@ public:
 	std::string GetExtension(std::string file) const;
 	std::string RemoveExtension(std::string file) const;
 	std::string GetFilename(std::string file) const;
+	FILETYPE GetFileType(std::string) const;
 
 private:
-	void CheckImportedFiles(const char * folder, std::set<std::string>& importedFiles);
-	void WatchFolder(const char * folder, const std::set<std::string> &textures, const std::set<std::string> &models);
-	void Monitorize(const char * folder);
-	void ImportFiles();
-	FILETYPE GetFileType(std::string) const;
+	// Resources Management
+	void Monitorize(const char* folder);				// Monitorizes the files in the selected folder to import the new ones. 
+	void CheckResourcesInFolder(const char* folder);	// Compares the resource files located in the folder to the ones already imported, these files are added to the Resource Manager and imported if not already. (Used on App start)
+	void LookForNewResourceFiles(const char* folder);	// Compares the resource files located in the folder to the ones in the Resource Manager list, if a new or modfied file is found it gets imported.
+	void ImportFiles();									// Imports files stored on filesToImport list
 
 public:
 	std::string baseDir = "";
+	FileImporter importer;
 
 private:
 	bool monitorize = true;
@@ -88,7 +97,6 @@ private:
 	Timer importTimer;
 	std::list<std::pair<std::string, std::string>> filesToImport; //File and folder
 	std::thread monitor_thread;
-	FileImporter importer;
 };
 
 #endif __ModuleFileSystem_h__

@@ -9,8 +9,6 @@
 #include "Math/float4.h"
 #include "Math/Quat.h"
 
-struct Texture;
-
 class JSON_value
 {
 public:
@@ -22,6 +20,7 @@ public:
 	ENGINE_API void AddInt(const char* name, int value);
 	ENGINE_API void AddUint(const char * name, unsigned value);
 	ENGINE_API void AddFloat(const char * name, float value);
+	ENGINE_API void AddFloat2(const char * name, float2 value);
 	ENGINE_API void AddFloat3(const char * name, float3 value);
 	ENGINE_API void AddFloat4(const char * name, float4 value);
 	ENGINE_API void AddFloat4x4(const char * name, float4x4 value);
@@ -32,6 +31,7 @@ public:
 	ENGINE_API int GetInt(const char* name) const;
 	ENGINE_API unsigned GetUint(const char * name) const;
 	ENGINE_API float GetFloat(const char * namee) const;
+	ENGINE_API float2 GetFloat2(const char * name) const;
 	ENGINE_API float3 GetFloat3(const char * name) const;
 	ENGINE_API float3 GetColor3(const char * name) const;
 	ENGINE_API float4 GetFloat4(const char * name) const;

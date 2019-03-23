@@ -38,6 +38,7 @@ ComponentScript * ComponentScript::Clone() const
 
 void ComponentScript::DrawProperties()
 {
+	ImGui::PushID(this);
 	if (ImGui::CollapsingHeader(scriptName.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		bool removed = Component::DrawComponentState();
@@ -70,6 +71,7 @@ void ComponentScript::DrawProperties()
 			script->Expose(context);
 		}
 	}
+	ImGui::PopID();
 }
 
 void ComponentScript::Save(JSON_value* value) const

@@ -3,8 +3,8 @@
 
 #include "Component.h"
 
-class Mesh;
-class Material;
+class ResourceMesh;
+class ResourceMaterial;
 
 class ComponentRenderer :
 	public Component
@@ -27,8 +27,8 @@ public:
 	void UpdateGameObject();
 
 public:
-	Mesh * mesh = nullptr;
-	Material * material = nullptr;
+	ResourceMesh* mesh = nullptr;
+	ResourceMaterial* material = nullptr;
 
 private:
 	std::vector<std::string> guiMaterials;

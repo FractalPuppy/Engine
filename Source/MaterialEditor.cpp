@@ -5,7 +5,10 @@
 #include "ModuleTextures.h"
 #include "ModuleResourceManager.h"
 
-#include "Material.h"
+#include "Resource.h"
+#include "ResourceTexture.h"
+#include "ResourceMaterial.h"
+
 #include "MaterialEditor.h"
 #include "imgui.h"
 
@@ -49,7 +52,7 @@ void MaterialEditor::Draw()
 
 	if (textureFiles.size() == 0)
 	{
-		textureFiles = App->fsystem->ListFiles(TEXTURES, false);
+		textureFiles = App->fsystem->GetFolderContent(TEXTURES, false);
 	}
 
 	if (ImGui::CollapsingHeader("Diffuse"))
@@ -91,7 +94,7 @@ void MaterialEditor::ShaderSelector(std::string & current_shader)
 {
 	if (shaders.size() == 0)
 	{
-		shaders = App->fsystem->ListFiles(VERTEXSHADERS, false);
+		shaders = App->fsystem->GetFolderContent(VERTEXSHADERS, false);
 	}
 	if (material->shader != nullptr)
 	{
@@ -126,7 +129,7 @@ void MaterialEditor::TextureSelector(unsigned i, std::string &current_texture, i
 			current_texture = None;
 			if (material->textures[i] != nullptr)
 			{
-				App->resManager->DeleteTexture(material->textures[i]->file);
+				App->resManager->DeleteResource(material->textures[i]->GetUID());
 				material->textures[i] = nullptr;
 			}
 		}
@@ -135,10 +138,13 @@ void MaterialEditor::TextureSelector(unsigned i, std::string &current_texture, i
 		for (int n = 0; n < textureFiles.size(); n++)
 		{
 			bool is_selected = (current_texture == textureFiles[n]);
-			if (ImGui::Selectable(textureFiles[n].c_str(), is_selected))
+			if (ImGui::Selectable(textureFiles[n].c_str(), is_selected) && !is_selected)
 			{
+				if(material->textures[i] != nullptr)
+					App->resManager->DeleteResource(material->textures[i]->GetUID());
+
 				current_texture = textureFiles[n];
-				material->textures[i] = App->textures->GetTexture(current_texture.c_str());
+				material->textures[i] = (ResourceTexture*)App->resManager->Get(current_texture.c_str());
 			}
 			if (is_selected)
 				ImGui::SetItemDefaultFocus();
@@ -147,7 +153,7 @@ void MaterialEditor::TextureSelector(unsigned i, std::string &current_texture, i
 	}
 	if (material->textures[i] != nullptr)
 	{
-		ImGui::Image((ImTextureID)material->textures[i]->id, { 200,200 }, { 0,1 }, { 1,0 });
+		ImGui::Image((ImTextureID)material->textures[i]->gpuID, { 200,200 }, { 0,1 }, { 1,0 });
 	}
 
 	ImGui::PopID();
@@ -166,16 +172,16 @@ void MaterialEditor::SetCurrentTextures()
 	}
 
 	// Get material textures
-	Texture* diffuse_texture = material->GetTexture(TextureType::DIFFUSE);
-	Texture* specular_texture = material->GetTexture(TextureType::SPECULAR);
-	Texture* occlusion_texture = material->GetTexture(TextureType::OCCLUSION);
-	Texture* emissive_texture = material->GetTexture(TextureType::EMISSIVE);
-	Texture* normal_texture = material->GetTexture(TextureType::NORMAL);
+	ResourceTexture* diffuse_texture = material->GetTexture(TextureType::DIFFUSE);
+	ResourceTexture* specular_texture = material->GetTexture(TextureType::SPECULAR);
+	ResourceTexture* occlusion_texture = material->GetTexture(TextureType::OCCLUSION);
+	ResourceTexture* emissive_texture = material->GetTexture(TextureType::EMISSIVE);
+	ResourceTexture* normal_texture = material->GetTexture(TextureType::NORMAL);
 
 	// Set current textures strings
 	if (diffuse_texture != nullptr)		
 	{ 
-		currentDiffuse = diffuse_texture->file; 
+		currentDiffuse = diffuse_texture->GetExportedFile(); 
 	}
 	else 
 	{ 
@@ -183,7 +189,7 @@ void MaterialEditor::SetCurrentTextures()
 	}
 	if (specular_texture != nullptr)	
 	{ 
-		currentSpecular = specular_texture->file;
+		currentSpecular = specular_texture->GetExportedFile();
 	}
 	else 
 	{ 
@@ -191,7 +197,7 @@ void MaterialEditor::SetCurrentTextures()
 	}
 	if (occlusion_texture != nullptr)	
 	{ 
-		currentOcclusion = occlusion_texture->file;
+		currentOcclusion = occlusion_texture->GetExportedFile();
 	}
 	else 
 	{ 
@@ -199,7 +205,7 @@ void MaterialEditor::SetCurrentTextures()
 	}
 	if (emissive_texture != nullptr)	
 	{ 
-		currentEmissive = emissive_texture->file; 
+		currentEmissive = emissive_texture->GetExportedFile();
 	}
 	else 
 	{ 
@@ -207,7 +213,7 @@ void MaterialEditor::SetCurrentTextures()
 	}
 	if (normal_texture != nullptr)		
 	{ 
-		currentNormal = normal_texture->file; 
+		currentNormal = normal_texture->GetExportedFile();
 	}
 	else 
 	{ 
@@ -248,9 +254,14 @@ void MaterialEditor::NewMaterial()
 
 		if (ImGui::Button("Save", ImVec2(120, 0)) && !newMatExists)
 		{
-			Material* newMaterialCreated = new Material(newName);
+			ResourceMaterial* newMaterialCreated = (ResourceMaterial*)App->resManager->CreateNewResource(TYPE::MATERIAL);
+			newMaterialCreated->name = newName;
+			newMaterialCreated->SetExportedFile(newName);
 			newMaterialCreated->Save();
 			newMaterial = false;
+
+			// Delete new material (It will be added to resources when the file on Assets is imported)
+			App->resManager->DeleteResourceFromList(newMaterialCreated->GetUID());
 			RELEASE(newMaterialCreated);
 			strcpy(newName, "New Material");
 			strcpy(newNamePrev, "");
@@ -296,8 +307,6 @@ void MaterialEditor::Save()
 
 void MaterialEditor::CleanUp()
 {
-	Save();
-
 	currentShader = None;
 	currentDiffuse = None;
 	currentSpecular = None;
@@ -307,11 +316,9 @@ void MaterialEditor::CleanUp()
 	textureFiles.clear();
 	shaders.clear();
 	open = false;
-	material = nullptr;
+
 	if (previous != nullptr)
 	{
 		RELEASE(previous);
 	}
-
-	//ImGui::CloseCurrentPopup();
 }

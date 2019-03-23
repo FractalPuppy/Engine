@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -168,20 +168,11 @@
     <ClCompile Include="ModuleResourceManager.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Skybox.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentRenderer.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="MaterialEditor.cpp">
       <Filter>Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Mesh</Filter>
     </ClCompile>
     <ClCompile Include="ImGuizmo\ImGuizmo.cpp">
       <Filter>Imguizmo</Filter>
@@ -216,14 +207,53 @@
     <ClCompile Include="ModuleScript.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="MemoryModule.c">
-      <Filter>Resources</Filter>
-    </ClCompile>
     <ClCompile Include="log.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="ModuleDebugDraw.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceTexture.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMesh.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelResourceManager.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMaterial.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceSkybox.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleUI.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTransform2D.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFontLoader.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentImage.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentText.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryModule.c">
+      <Filter>ScriptingResources</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentButton.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelBrowser.cpp">
+      <Filter>Panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -486,20 +516,11 @@
     <ClInclude Include="ModuleResourceManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentRenderer.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="MaterialEditor.h">
       <Filter>Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Mesh</Filter>
     </ClInclude>
     <ClInclude Include="ImGuizmo\ImGuizmo.h">
       <Filter>Imguizmo</Filter>
@@ -534,17 +555,61 @@
     <ClInclude Include="ModuleScript.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="MemoryModule.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
     <ClInclude Include="debugdraw.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="ModuleDebugDraw.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceTexture.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMesh.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelResourceManager.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMaterial.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceSkybox.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleUI.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTransform2D.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFontLoader.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentImage.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentText.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="engineResource.h" />
+    <ClInclude Include="MemoryModule.h">
+      <Filter>ScriptingResources</Filter>
+    </ClInclude>
+    <ClInclude Include="engineResource.h">
+      <Filter>ScriptingResources</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentButton.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelBrowser.h">
+      <Filter>Panels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -578,9 +643,6 @@
     <Filter Include="Material">
       <UniqueIdentifier>{c4c3d17a-32f9-4c6a-9fda-d5e7091d7f46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{992d56bc-52f4-4d2e-bf7b-27366e318477}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Imguizmo">
       <UniqueIdentifier>{9e2074d8-5d2f-409c-8cec-92fa39546ba0}</UniqueIdentifier>
     </Filter>
@@ -589,6 +651,9 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{3caabedb-7473-40ca-99fc-312732dd7b04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ScriptingResources">
+      <UniqueIdentifier>{4106b4cd-c836-4c93-8119-c03c1ba0d34b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -610,13 +675,25 @@
     <None Include="..\Game\Shaders\VertexShaders\PBR.vs">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\Game\Shaders\VertexShaders\UI.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\UI.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\Fonts.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Fonts.vs">
+      <Filter>Shaders</Filter>
+    </None>
     <None Include="..\Game\Scripts\PlayerMovement.dll">
-      <Filter>Resources</Filter>
+      <Filter>ScriptingResources</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc">
-      <Filter>Resources</Filter>
+      <Filter>ScriptingResources</Filter>
     </ResourceCompile>
   </ItemGroup>
 </Project>

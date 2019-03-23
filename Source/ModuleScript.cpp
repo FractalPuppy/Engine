@@ -5,7 +5,7 @@
 #include "ModuleTime.h"
 
 #include "BaseScript.h"
-#include "resource.h"
+#include "engineResource.h"
 #include "MemoryModule.h"
 
 #include <assert.h>
@@ -155,7 +155,7 @@ void ModuleScript::RemoveScript(const std::string& name, Script* script)
 
 void ModuleScript::CheckScripts()
 {
-	std::vector<std::string> scriptNames = App->fsystem->ListFiles(SCRIPTS, false);
+	std::vector<std::string> scriptNames = App->fsystem->GetFolderContent(SCRIPTS, false);
 	std::map<std::string, int>::iterator it;
 
 	for (const auto& script : scriptNames)

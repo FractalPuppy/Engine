@@ -2,6 +2,7 @@
 #define __Viewport_h__
 
 #include "Math/float3.h"
+#include "Math/float2.h"
 class ComponentCamera;
 
 class Viewport
@@ -40,13 +41,15 @@ public:
 	unsigned MSAACOLOR = 0;
 	bool focus = true;
 	bool hover = false;
-
+	math::float2 winPos;
 private:
 	bool enabled = true;
+	bool startImguizmoUse = false;
+
 	std::string name = "Viewport";
 
 	bool useSnap = false; //TODO: save in config
-	float3 snapSettings = float3::one;
+	math::float3 snapSettings = math::float3::one;
 
 	unsigned mCurrentGizmoOperation = 0; //Translate //We avoid imguizmo .h inclusion
 	unsigned mCurrentGizmoMode = 1;//World

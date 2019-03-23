@@ -21,6 +21,9 @@ public:
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;
 
+	void Paste() override;
+	void Reset() override;
+
 	ComponentCamera* Clone() const;
 	void Center();
 	void Move(math::float3 dir); 
@@ -49,6 +52,7 @@ public:
 	float zoomSpeed = 0.4f;
 
 	bool isMainCamera = false;
+	bool isMainClone = false;
 	float oldAspect = 0.f;
 	bool aspectDirty = false;
 

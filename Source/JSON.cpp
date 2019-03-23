@@ -6,6 +6,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/prettywriter.h"
 #include "Math/float4x4.h"
+#include "Math/float2.h"
 
 JSON_value::JSON_value(rapidjson::Document::AllocatorType * allocator, rapidjson::Type type): allocator(allocator)
 {
@@ -47,6 +48,18 @@ void JSON_value::AddFloat(const char * name, float value)
 	std::string myname(name);
 	rapidjson::Value key(myname.c_str(), myname.size(), *allocator);
 	rapidjsonValue->AddMember(key, value, *allocator);
+}
+
+void JSON_value::AddFloat2(const char * name, float2 value)
+{
+	std::string myname(name);
+	rapidjson::Value key(myname.c_str(), myname.size(), *allocator);
+
+	rapidjson::Value float2(rapidjson::kArrayType);
+	float2.PushBack(value.x, *allocator);
+	float2.PushBack(value.y, *allocator);
+
+	rapidjsonValue->AddMember(key, float2, *allocator);
 }
 
 void JSON_value::AddFloat3(const char * name, float3 value)
@@ -174,6 +187,21 @@ float JSON_value::GetFloat(const char * name) const
 	{
 		LOG("Member %s not found!", name);
 		return 0.f;
+	}
+}
+
+float2 JSON_value::GetFloat2(const char * name) const
+{
+	rapidjson::Value::ConstMemberIterator itr = rapidjsonValue->FindMember(name);
+	if (itr != rapidjsonValue->MemberEnd())
+	{
+		float2 ret(itr->value[0].GetFloat(), itr->value[1].GetFloat());
+		return ret;
+	}
+	else
+	{
+		LOG("Member %s not found!", name);
+		return float2::zero;
 	}
 }
 

@@ -37,6 +37,7 @@ ComponentCamera::ComponentCamera(const ComponentCamera & component) : Component(
 	movementSpeed = component.movementSpeed;
 	rotationSpeed = component.rotationSpeed;
 	zoomSpeed = component.zoomSpeed;
+	isMainClone = component.isMainCamera;
 }
 
 
@@ -224,6 +225,7 @@ void ComponentCamera::Update()
 
 void ComponentCamera::DrawProperties()
 {
+	ImGui::PushID(this);
 	if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		bool removed = Component::DrawComponentState();
@@ -231,6 +233,9 @@ void ComponentCamera::DrawProperties()
 		{
 			return;
 		}
+
+		ImGui::SameLine();
+		Options();
 
 		if (ImGui::Checkbox("Is Main Camera", &isMainCamera))
 		{
@@ -258,6 +263,7 @@ void ComponentCamera::DrawProperties()
 
 		ImGui::Separator();
 	}
+	ImGui::PopID();
 }
 
 void ComponentCamera::Save(JSON_value* value) const
@@ -288,6 +294,25 @@ void ComponentCamera::Load(JSON_value* value)
 	frustum->pos = value->GetFloat3("Position");
 	frustum->front = value->GetFloat3("Front");
 	frustum->up = value->GetFloat3("Up");
+}
+
+void ComponentCamera::Paste()
+{
+	if (App->scene->copyComp != nullptr && App->scene->copyComp->type == this->type)
+	{
+		ComponentCamera* comp = (ComponentCamera*)App->scene->copyComp;
+
+		frustum->verticalFov = comp->frustum->verticalFov;
+		frustum->farPlaneDistance = comp->frustum->farPlaneDistance;
+		frustum->nearPlaneDistance = comp->frustum->nearPlaneDistance;
+	}
+}
+
+void ComponentCamera::Reset()
+{
+	frustum->verticalFov = math::DegToRad(60.f);
+	frustum->farPlaneDistance = 100000.f;
+	frustum->nearPlaneDistance = 10.f;
 }
 
 float4x4 ComponentCamera::GetViewMatrix() const

@@ -10,7 +10,6 @@ class ComponentTransform;
 class ComponentLight;
 class AABBTreeNode;
 enum class ComponentType;
-struct Texture;
 class JSON_value;
 
 class GameObject
@@ -32,6 +31,7 @@ public:
 	std::vector<Component *> GetComponentsInChildren(ComponentType type) const;
 	void RemoveComponent(const Component & component);
 	void RemoveChild(GameObject* child);
+	void InsertChild(GameObject* child);
 	bool IsParented(const GameObject & gameobject) const;
 
 	void DrawHierarchy();
