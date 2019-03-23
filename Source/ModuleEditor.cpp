@@ -21,6 +21,7 @@
 #include "PanelTime.h"
 #include "PanelBrowser.h"
 #include "PanelResourceManager.h"
+#include "PanelResourcePreview.h"
 
 #include "MaterialEditor.h"
 #include "FileExplorer.h"
@@ -43,6 +44,7 @@ ModuleEditor::ModuleEditor()
 	panels.push_back(assets = new PanelBrowser());
 	panels.push_back(time = new PanelTime());
 	panels.push_back(resource = new PanelResourceManager());
+	panels.push_back(resource_preview = new PanelResourcePreview());
 
 	materialEditor = new MaterialEditor();
 	fileExplorer = new FileExplorer();
@@ -125,6 +127,7 @@ bool ModuleEditor::Init(JSON * config)
 	style->Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
 	style->Colors[ImGuiCol_ModalWindowDarkening] = ImVec4(1.00f, 0.98f, 0.95f, 0.73f);
 
+	resource_preview->Init();
 	return true;
 }
 
