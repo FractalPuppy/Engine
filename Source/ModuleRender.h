@@ -32,6 +32,7 @@ public:
 	void GenBlockUniforms();
 	void AddBlockUniforms(const Shader &s) const;
 
+	inline unsigned GetUBO() const { return UBO; }
 private:
 
 	void DrawGizmos(const ComponentCamera &cam) const;

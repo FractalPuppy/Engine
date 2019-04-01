@@ -23,9 +23,10 @@ public:
 		return enabled; 
 	}
 
+	void CreateFrameBuffer(int width, int height);
+
 private:
 	void DrawGuizmoButtons();
-	void CreateFrameBuffer(int width, int height);
 	void CreateMSAABuffers(int width, int height);
 
 public:

@@ -116,7 +116,8 @@ void PanelResourcePreview::SetResource(unsigned uid)
 		renderer = (ComponentRenderer*)target->CreateComponent(ComponentType::Renderer);
 		renderer->mesh = (ResourceMesh*)resource;
 		target->UpdateBBox();
-		camera->frustum->pos = target->bbox.CenterPoint() - 10 * target->bbox.Size().z*float3(0, 0, -1);
+		camera->frustum->pos = target->bbox.CenterPoint() - 0.75F * target->bbox.Size().y  *  float3(0, 0, -1) / tanf(camera->frustum->verticalFov * 0.5F);
+
 		break;
 		
 	default:
