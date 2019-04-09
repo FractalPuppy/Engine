@@ -17,6 +17,8 @@
 
 #include "FileImporter.h"
 
+#include "imgui.h"
+
 #include <algorithm>
 
 bool sortByNameAscending(const std::string a, std::string b) { return a < b; };
@@ -465,6 +467,25 @@ std::vector<std::string> ModuleResourceManager::GetMeshesNamesList(bool ordered)
 		std::sort(resourcesList.begin(), resourcesList.end(), sortByNameAscending);
 
 	return resourcesList;
+}
+
+void ModuleResourceManager::DrawSkybox()
+{
+	ResourceSkybox* res;
+	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if (it->second->GetType() == TYPE::SKYBOX)
+		{
+			res = (ResourceSkybox*)it->second;
+			break;
+		}
+	}
+	ResourceTexture** text = res->GetTextures();
+	for (int i = 0; i < NUMFACES; ++i)
+	{
+		ImGui::Image((ImTextureID)text[i]->gpuID, ImVec2(160.0f, 160.0f), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f));
+		ImGui::NewLine();
+	}
 }
 
 bool ModuleResourceManager::Exists(const char* exportedFileName)
