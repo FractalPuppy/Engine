@@ -25,7 +25,6 @@ public:
 	unsigned GetCubemap() { return skybox_cubemap; };
 	unsigned GetVAO() { return skyboxVAO; };
 	unsigned GetVBO() { return skyboxVBO; };
-	ResourceTexture** GetTextures() { return textures; };
 
 private:
 	unsigned LoadCubeMap(ResourceTexture* faces[]) const;
