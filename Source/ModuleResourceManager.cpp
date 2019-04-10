@@ -483,7 +483,6 @@ void ModuleResourceManager::DrawSkybox()
 	ResourceTexture** text = res->GetTextures();
 	for (int i = 0; i < NUMFACES; ++i)
 	{
-		text[i]->SetImageType(IMAGE_TYPE::TEXTURE);
 		ImGui::Image((ImTextureID)text[i]->gpuID, ImVec2(160.0f, 160.0f), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f));
 		ImGui::NewLine();
 	}
