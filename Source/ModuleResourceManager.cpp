@@ -558,21 +558,30 @@ void ModuleResourceManager::DrawSkybox()
 			break;
 		}
 	}
+	std::set<std::string> files;
+	App->fsystem->ListFiles(IMPORTED_RESOURCES, files);
 	ResourceTexture** text = res->GetTextures();
 	for (int i = 0; i < NUMFACES; ++i)
 	{
 		if (ImGui::CollapsingHeader(Skybox[i]))
 		{
+			if (ImGui::BeginCombo("", text[i]->GetExportedFile()))
+			{
+				for each (std::string file in files)
+				{
+					if (ImGui::Selectable(file.c_str(), true))
+					{
+						
+					}
+				}
+				ImGui::EndCombo();
+			}
 			if (text[i]->GetImageType() != IMAGE_TYPE::TEXTURE)
 			{ 
 				text[i]->SetImageType(IMAGE_TYPE::TEXTURE);
 			}
 			ImGui::Image((ImTextureID)text[i]->gpuID, ImVec2(160.0f, 160.0f), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f));
 			ImGui::SameLine();
-			if (ImGui::Button("Change"))
-			{
-
-			}
 			ImGui::NewLine();
 		}
 	}
