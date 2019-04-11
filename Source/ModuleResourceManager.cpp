@@ -17,6 +17,8 @@
 
 #include "FileImporter.h"
 
+#include "Imgui.h"
+
 #include <algorithm>
 
 bool sortByNameAscending(const std::string a, std::string b) { return a < b; };
@@ -543,4 +545,35 @@ void ModuleResourceManager::DeleteResourceFromList(unsigned uid)
 	std::map<unsigned, Resource*>::const_iterator it = resources.find(uid);
 	if (it != resources.end())
 		resources.erase(it);
+}
+
+void ModuleResourceManager::DrawSkybox()
+{
+	ResourceSkybox* res;
+	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if (it->second->GetType() == TYPE::SKYBOX)
+		{
+			res = (ResourceSkybox*)it->second;
+			break;
+		}
+	}
+	ResourceTexture** text = res->GetTextures();
+	for (int i = 0; i < NUMFACES; ++i)
+	{
+		if (ImGui::CollapsingHeader(Skybox[i]))
+		{
+			if (text[i]->GetImageType() != IMAGE_TYPE::TEXTURE)
+			{ 
+				text[i]->SetImageType(IMAGE_TYPE::TEXTURE);
+			}
+			ImGui::Image((ImTextureID)text[i]->gpuID, ImVec2(160.0f, 160.0f), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f));
+			ImGui::SameLine();
+			if (ImGui::Button("Change"))
+			{
+
+			}
+			ImGui::NewLine();
+		}
+	}
 }

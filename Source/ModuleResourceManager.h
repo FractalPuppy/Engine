@@ -62,12 +62,16 @@ public:
 	Resource* ReplaceResource(unsigned oldResourceUID, Resource* newResource);	
 	void DeleteResourceFromList(unsigned uid);
 
+	void DrawSkybox();
+
 private:
 	// Resources map (Textures, Mehses, Materials, Skyboxes...)
 	std::map<unsigned, Resource*> resources;	// map<UID, pointer to resource>
 
 	// Shaders map
 	std::map<std::string, std::pair<unsigned, Shader*>> shaderResources; //filename , times used, shader
+
+	const char* Skybox[6] = { "Right","Left", "Top", "Bottom", "Front", "Back" };
 };
 
 #endif __ModuleResourceManager_h__
