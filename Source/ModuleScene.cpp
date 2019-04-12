@@ -309,7 +309,7 @@ void ModuleScene::DragNDropMove(GameObject* target)
 
 void ModuleScene::DragNDrop(GameObject* go)
 {
-	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+	if (go->UUID > 1 && ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
 	{
 		GameObject * dragged_go = go;
 		ImGui::SetDragDropPayload("DragDropHierarchy", &dragged_go, sizeof(GameObject *), ImGuiCond_Once);
