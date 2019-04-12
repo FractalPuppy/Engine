@@ -82,7 +82,7 @@ bool ModuleScene::Init(JSON * config)
 		ambientColor = scene->GetColor3("ambient");
 		const char* dscene = scene->GetString("defaultscene");
 		defaultScene = dscene;
-		if (scene->GetInt("sizeScene")) 
+		if (scene->GetInt("sizeScene"))
 		{
 			SceneSize = scene->GetInt("sizeScene");
 		}
@@ -137,7 +137,7 @@ bool ModuleScene::CleanUp()
 		RELEASE(child);
 	}
 	root->children.clear();
-	
+
 	LOG("Reset volumetric AABBTree");
 	App->spacePartitioning->aabbTree.Reset();
 	LOG("Reset lighting AABBTree");
@@ -206,7 +206,7 @@ void ModuleScene::Draw(const Frustum &frustum, bool isEditor)
 	{
 		camFrustum = *maincamera->frustum;
 	}
-	
+
 	for (const auto &go : staticFilteredGOs)
 	{
 		if (camFrustum.Intersects(go->GetBoundingBox()))
@@ -246,7 +246,7 @@ void ModuleScene::DrawGO(const GameObject& go, const Frustum & frustum, bool isE
 	ResourceMesh* mesh = crenderer->mesh;
 	ResourceMaterial* material = crenderer->material;
 	Shader* shader = material->shader;
-	if (shader == nullptr ||mesh == nullptr) return;
+	if (shader == nullptr || mesh == nullptr) return;
 
 	glUseProgram(shader->id);
 
@@ -271,7 +271,7 @@ void ModuleScene::DrawHierarchy()
 	ImGui::PopStyleColor();
 }
 
-void ModuleScene::DragNDropMove(GameObject* target) 
+void ModuleScene::DragNDropMove(GameObject* target)
 {
 	if (ImGui::BeginDragDropTarget())
 	{
@@ -323,7 +323,7 @@ void ModuleScene::DragNDrop(GameObject* go)
 		{
 			IM_ASSERT(payload->DataSize == sizeof(GameObject*));
 			GameObject* droppedGo = (GameObject *)*(const int*)payload->Data;
-			if (droppedGo != App->scene->root && droppedGo->parent != go && !droppedGo->IsParented(*go) 
+			if (droppedGo != App->scene->root && droppedGo->parent != go && !droppedGo->IsParented(*go)
 				&& std::find(App->scene->selection.begin(), App->scene->selection.end(), go) == App->scene->selection.end())
 			{
 				TakePhoto();
@@ -374,7 +374,7 @@ void ModuleScene::DrawGUI()
 		}
 		App->spacePartitioning->kDTree.Calculate();
 	}
-	if(ImGui::Button("Reset kdTree"))
+	if (ImGui::Button("Reset kdTree"))
 	{
 		App->spacePartitioning->kDTree.Calculate();
 	}
@@ -520,10 +520,10 @@ void ModuleScene::SetPrimitiveMesh(par_shapes_mesh_s *mesh, PRIMITIVES type)
 unsigned ModuleScene::SaveParShapesMesh(const par_shapes_mesh_s &mesh, char** data) const //TODO: unify somehow with importer
 {
 	unsigned size = 0;
-	unsigned ranges[2] = { mesh.ntriangles*3, mesh.npoints};
+	unsigned ranges[2] = { mesh.ntriangles * 3, mesh.npoints };
 	size += sizeof(ranges); //numfaces + numvertices
 	size += ranges[0] * 3 * sizeof(int); //indices
-	
+
 	size += sizeof(float)*ranges[1] * 3;
 	size += sizeof(bool) * 2; //has normals + has tcoords
 	if (mesh.normals != nullptr)
@@ -538,7 +538,7 @@ unsigned ModuleScene::SaveParShapesMesh(const par_shapes_mesh_s &mesh, char** da
 	*data = new char[size];
 	char *cursor = *data;
 
-	unsigned rangeBytes = sizeof(ranges); 
+	unsigned rangeBytes = sizeof(ranges);
 	memcpy(cursor, ranges, rangeBytes);
 	cursor += rangeBytes;
 
@@ -569,9 +569,9 @@ unsigned ModuleScene::SaveParShapesMesh(const par_shapes_mesh_s &mesh, char** da
 	}
 
 	short mask = 0;
-	for (int i = 0; i < mesh.ntriangles*3; i++)
+	for (int i = 0; i < mesh.ntriangles * 3; i++)
 	{
-		memcpy(cursor, &mesh.triangles[i], sizeof(short)); 
+		memcpy(cursor, &mesh.triangles[i], sizeof(short));
 		cursor += sizeof(short);
 		memcpy(cursor, &mask, sizeof(short));
 		cursor += sizeof(short); //implicitly converting to unsigned
@@ -583,7 +583,7 @@ unsigned ModuleScene::SaveParShapesMesh(const par_shapes_mesh_s &mesh, char** da
 void ModuleScene::SaveScene(const GameObject& rootGO, const char* scene, const char* scenePath)
 {
 	JSON *json = new JSON();
-	JSON_value *array =json->CreateValue(rapidjson::kArrayType);
+	JSON_value *array = json->CreateValue(rapidjson::kArrayType);
 	rootGO.Save(array);
 	json->AddValue("GameObjects", *array);
 
@@ -607,19 +607,21 @@ void ModuleScene::TakePhoto()
 void ModuleScene::TakePhoto(std::list<GameObject*>& target)
 {
 	photoTimer = TIME_BETWEEN_PHOTOS;
-	photoEnabled = true;	
+	photoEnabled = true;
 	target.push_back(new GameObject(*root));
 	if (target.size() > MAX_PHOTOS)
 	{
 		RELEASE(target.front());
 		target.pop_front();
 	}
-	photoEnabled = false;	
+	photoEnabled = false;
 }
 void ModuleScene::RestorePhoto(GameObject* photo)
 {
 	photoTimer = 0.f;
 	root = photo;
+	root->UUID = 0; // Restore root UUID
+	root->children.front()->UUID = 1; //Restore canvas UUID
 	std::stack<GameObject*> goStack;
 	goStack.push(root);
 	while (!goStack.empty())
@@ -675,7 +677,7 @@ void ModuleScene::RestoreLastPhoto()
 	{
 		TakePhoto(scenePhotosUndoed);
 		ClearScene();
-		RestorePhoto(scenePhotos.back());	
+		RestorePhoto(scenePhotos.back());
 		scenePhotos.pop_back();
 	}
 }
@@ -721,8 +723,8 @@ bool ModuleScene::AddScene(const char* scene, const char* path)
 	std::map<unsigned, GameObject*> gameobjectsMap; //Necessary to assign parent-child efficiently
 	gameobjectsMap.insert(std::pair<unsigned, GameObject*>(canvas->UUID, canvas));
 
-	for (unsigned i = 0; i<gameobjectsJSON->Size(); i++)
-	{		
+	for (unsigned i = 0; i < gameobjectsJSON->Size(); i++)
+	{
 		JSON_value* gameobjectJSON = gameobjectsJSON->GetValue(i);
 		GameObject *gameobject = new GameObject();
 		gameobject->Load(gameobjectJSON);
@@ -753,7 +755,7 @@ void ModuleScene::ClearScene()
 {
 	CleanUp();
 	camera_notfound_texture = (ResourceTexture*)App->resManager->Get(NOCAMERA);
-	name.clear();	
+	name.clear();
 	staticGOs.clear();
 	dynamicGOs.clear();
 	staticFilteredGOs.clear();
@@ -789,7 +791,7 @@ void ModuleScene::Select(GameObject * gameobject)
 		{
 			(*it)->isSelected = false;
 			selection.erase(it);
-		}		
+		}
 	}
 	else
 	{
@@ -803,7 +805,7 @@ void ModuleScene::Select(GameObject * gameobject)
 		selected->isSelected = true;
 		App->editor->ShowInspector();
 	}
-	
+
 }
 
 void ModuleScene::UnSelect()
@@ -885,7 +887,7 @@ std::list<ComponentLight*> ModuleScene::GetClosestLights(LightType type, math::f
 		if (light->lightType == type && light->enabled && light->gameobject->transform != nullptr)
 		{
 			float distance = light->gameobject->transform->GetPosition().Distance(position);
-			lightmap.insert(std::pair<float, ComponentLight*>(distance,light));
+			lightmap.insert(std::pair<float, ComponentLight*>(distance, light));
 		}
 	}
 
@@ -914,7 +916,7 @@ ComponentLight* ModuleScene::GetDirectionalLight() const
 
 std::list<std::pair<float, GameObject*>> ModuleScene::GetDynamicIntersections(const LineSegment & line)
 {
-	std::list<std::pair<float, GameObject*>> gos; 
+	std::list<std::pair<float, GameObject*>> gos;
 	std::unordered_set<GameObject*> intersections;
 	App->spacePartitioning->aabbTree.GetIntersections(line, intersections);
 	for (const auto &go : intersections)
