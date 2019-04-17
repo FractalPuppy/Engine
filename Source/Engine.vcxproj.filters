@@ -147,9 +147,6 @@
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="PanelHierarchy.cpp">
-      <Filter>Panels</Filter>
-    </ClCompile>
     <ClCompile Include="PanelInspector.cpp">
       <Filter>Panels</Filter>
     </ClCompile>
@@ -158,9 +155,6 @@
     </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="FileImporter.cpp">
-      <Filter>Importer</Filter>
     </ClCompile>
     <ClCompile Include="ComponentLight.cpp">
       <Filter>Component</Filter>
@@ -186,7 +180,6 @@
     <ClCompile Include="AABBTree.cpp">
       <Filter>Tree</Filter>
     </ClCompile>
-    <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="GUICreator.cpp" />
     <ClCompile Include="FileExplorer.cpp" />
     <ClCompile Include="PanelTime.cpp">
@@ -216,9 +209,6 @@
     <ClCompile Include="Resource.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceTexture.cpp">
-      <Filter>Resources</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceMesh.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
@@ -234,6 +224,30 @@
     <ClCompile Include="ModuleUI.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentAnimation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelState.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryModule.c">
+      <Filter>ScriptingResources</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelBrowser.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelAnimation.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelState.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationController.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
     <ClCompile Include="ComponentTransform2D.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -246,20 +260,31 @@
     <ClCompile Include="ComponentText.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="MemoryModule.c">
-      <Filter>ScriptingResources</Filter>
+    <ClCompile Include="ModuleDevelopmentBuildDebug.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ComponentButton.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="PanelBrowser.cpp">
-      <Filter>Panels</Filter>
+    <ClCompile Include="FileImporter.cpp" />
+    <ClCompile Include="HashString.cpp" />
+    <ClCompile Include="ResourceAnimation.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="ResourceModel.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="HashString.cpp">
-      <Filter>Utils</Filter>
+    <ClCompile Include="FileImporter.cpp">
+      <Filter>Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceTexture.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelHierarchy.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewport.cpp">
+      <Filter>Panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -540,7 +565,6 @@
     <ClInclude Include="AABBTree.h">
       <Filter>Tree</Filter>
     </ClInclude>
-    <ClInclude Include="Viewport.h" />
     <ClInclude Include="GUICreator.h" />
     <ClInclude Include="FileExplorer.h" />
     <ClInclude Include="PanelTime.h">
@@ -600,8 +624,15 @@
     <ClInclude Include="ComponentText.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Skybox.h" />
-    <ClInclude Include="engineResource.h" />
+    <ClInclude Include="ModuleDevelopmentBuildDebug.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentButton.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentAnimation.h">
+      <Filter>Component</Filter>
+    </ClInclude>
     <ClInclude Include="MemoryModule.h">
       <Filter>ScriptingResources</Filter>
     </ClInclude>
@@ -617,14 +648,35 @@
     <ClInclude Include="PanelBrowser.h">
       <Filter>Panels</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceModel.h">
+    <ClInclude Include="PanelState.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelAnimation.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationController.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentAnimation.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceAnimation.h">
       <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="strpool.h">
+      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="HashString.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="strpool.h">
-      <Filter>Utils</Filter>
+    <ClInclude Include="ResourceModel.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>Panels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -667,17 +719,14 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{3caabedb-7473-40ca-99fc-312732dd7b04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{0593e576-d4f8-4a18-94ae-dfbbd35b8926}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ScriptingResources">
       <UniqueIdentifier>{4106b4cd-c836-4c93-8119-c03c1ba0d34b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\Shaders\FragmentShaders\Skybox.fs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\Game\Shaders\VertexShaders\Skybox.vs">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="..\Game\Shaders\FragmentShaders\Default.fs">
       <Filter>Shaders</Filter>
     </None>

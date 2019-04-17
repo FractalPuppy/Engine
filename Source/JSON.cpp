@@ -162,7 +162,7 @@ int JSON_value::GetInt(const char * name) const
 	}
 }
 
-unsigned JSON_value::GetUint(const char * name) const
+unsigned JSON_value::GetUint(const char * name, unsigned defaultValue) const
 {
 	rapidjson::Value::ConstMemberIterator itr = rapidjsonValue->FindMember(name);
 	if (itr != rapidjsonValue->MemberEnd())
@@ -172,7 +172,7 @@ unsigned JSON_value::GetUint(const char * name) const
 	else
 	{
 		LOG("Member %s not found!", name);
-		return 0;
+		return defaultValue;
 	}
 }
 

@@ -5,6 +5,8 @@
 #include "ModuleResourceManager.h"
 
 #include "ResourceMesh.h"
+#include "ResourceAnimation.h"
+
 #include "JSON.h"
 
 #include "imgui.h"
@@ -15,8 +17,10 @@ ResourceModel::ResourceModel(unsigned uid) : Resource(uid, TYPE::MODEL)
 
 ResourceModel::ResourceModel(const ResourceModel& resource) : Resource(resource)
 {
-	numMeshes = numMeshes;
+	numMeshes = resource.numMeshes;
 	meshList = resource.meshList;
+	numAnimations = resource.numAnimations;
+	animationList = resource.animationList;
 }
 
 
@@ -31,6 +35,10 @@ bool ResourceModel::LoadInMemory()
 	{
 		mesh->LoadInMemory();
 	}
+	for each(auto anim in animationList)
+	{
+		anim->LoadInMemory();
+	}
 	return true;
 }
 
@@ -42,6 +50,10 @@ void ResourceModel::DeleteFromMemory()
 	{
 		mesh->DeleteFromMemory();
 	}
+	for each(auto anim in animationList)
+	{
+		anim->DeleteFromMemory();
+	}
 }
 
 void ResourceModel::SaveMetafile(const char* file) const
@@ -49,17 +61,31 @@ void ResourceModel::SaveMetafile(const char* file) const
 	std::string filepath;
 	filepath.append(file);
 	JSON *json = new JSON();
-	JSON_value* meta = json->CreateValue();
+
+	JSON_value* meshMeta = json->CreateValue();
 	struct stat statFile;
 	stat(filepath.c_str(), &statFile);
-	meta->AddUint("GUID", UID);
-	meta->AddUint("timeCreated", statFile.st_ctime);
-	meta->AddUint("NumMeshes", numMeshes);
+	meshMeta->AddUint("GUID", UID);
+	meshMeta->AddUint("timeCreated", statFile.st_ctime);
+	meshMeta->AddUint("NumMeshes", numMeshes);
 	for (int i = 0; i < numMeshes; ++i)
 	{
-		meta->AddUint(("Mesh" + std::to_string(i)).c_str(), meshList[i]->GetUID());
+		meshMeta->AddUint(("Mesh" + std::to_string(i)).c_str(), meshList[i]->GetUID());
 	}
-	json->AddValue("Mesh", *meta);
+	json->AddValue("Mesh", *meshMeta);
+
+	JSON_value* animMeta = json->CreateValue();
+	struct stat statFileAnim;
+	stat(filepath.c_str(), &statFileAnim);
+	animMeta->AddUint("timeCreated", statFileAnim.st_ctime);
+	animMeta->AddUint("NumAnimations", numAnimations);
+	for (int i = 0; i < numAnimations; ++i)
+	{
+		animMeta->AddUint(("Animation" + std::to_string(i)).c_str(), animationList[i]->GetUID());
+	}
+	json->AddValue("Animation", *animMeta);
+
+
 	filepath += METAEXT;
 	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
 }
@@ -82,8 +108,8 @@ void ResourceModel::LoadConfigFromMeta()
 	JSON_value* value = json->GetValue("Mesh");
 	UID = value->GetUint("GUID");
 	numMeshes = value->GetUint("NumMeshes");
-
 	std::string name = App->fsystem->GetFilename(file);
+
 	for (int i = 0; i < numMeshes; ++i)
 	{
 		unsigned meshUID = value->GetUint(("Mesh" + std::to_string(i)).c_str());
@@ -94,6 +120,21 @@ void ResourceModel::LoadConfigFromMeta()
 
 		meshList.push_back(mesh);
 	}
+
+	value = json->GetValue("Animation");
+	numAnimations = value->GetUint("NumAnimations");
+
+	for (int i = 0; i < numAnimations; ++i)
+	{
+		unsigned animUID = value->GetUint(("Animation" + std::to_string(i)).c_str());
+		ResourceAnimation* anim = (ResourceAnimation*)App->resManager->CreateNewResource(TYPE::ANIMATION, animUID);
+		anim->SetFile(file.c_str());
+		anim->SetExportedFile((std::to_string(anim->GetUID())).c_str());
+		anim->name = name + "_" + std::to_string(i);
+
+		animationList.push_back(anim);
+	}
+
 }
 
 bool ResourceModel::CheckImportedMeshes()
@@ -111,6 +152,23 @@ bool ResourceModel::CheckImportedMeshes()
 	}
 	return false;
 }
+
+bool ResourceModel::CheckImportedAnimations()
+{
+	std::set<std::string> importedAnimations;
+	App->fsystem->ListFiles(MESHES, importedAnimations);
+
+	for each(auto anim in animationList)
+	{
+		std::set<std::string>::iterator it = importedAnimations.find(std::to_string(anim->GetUID()));
+		if (it == importedAnimations.end())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 
 void ResourceModel::AddMesh(ResourceMesh* mesh)
 {
@@ -131,6 +189,27 @@ void ResourceModel::AddMesh(ResourceMesh* mesh)
 
 	++numMeshes;
 	meshList.push_back(mesh);
+}
+
+void ResourceModel::AddAnimation(ResourceAnimation* anim)
+{
+	bool replace = false;
+	for (std::vector<ResourceAnimation*>::iterator itAnim = animationList.begin(); itAnim != animationList.end();)
+	{
+		if (anim->GetUID() == (*itAnim)->GetUID())
+		{
+			--numAnimations;
+			App->resManager->DeleteResourceFromList((*itAnim)->GetUID());
+			RELEASE(*itAnim);
+			animationList.erase(itAnim++);
+			replace = true;
+			break;
+		}
+		itAnim++;
+	}
+
+	++numAnimations;
+	animationList.push_back(anim);
 }
 
 void ResourceModel::Rename(const char* newName)
@@ -154,6 +233,10 @@ void ResourceModel::Delete()
 	for each(auto& mesh in meshList)
 	{
 		mesh->Delete();
+	}
+	for each(auto& anim in animationList)
+	{
+		anim->Delete();
 	}
 }
 

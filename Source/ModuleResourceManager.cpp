@@ -13,6 +13,7 @@
 #include "ResourceModel.h"
 #include "ResourceMesh.h"
 #include "ResourceMaterial.h"
+#include "ResourceAnimation.h"
 #include "ResourceSkybox.h"
 
 #include "FileImporter.h"
@@ -158,12 +159,19 @@ bool ModuleResourceManager::ImportFile(const char* newFileInAssets, const char* 
 	assetPath += newFileInAssets;
 
 	// Check if the file was already imported (Mesh is excluded because has same file as model)
-	unsigned uid = FindByFileInAssetsExcludingType(assetPath.c_str(), TYPE::MESH);
-	if (uid != 0)
+	unsigned meshUID = FindByFileInAssetsExcludingType(assetPath.c_str(), TYPE::MESH);
+
+	if (meshUID != 0)
 	{
+		unsigned animUID = FindByFileInAssetsExcludingType(assetPath.c_str(), TYPE::ANIMATION);
 		// Avoid reimporting meshes (only model can reimport them)
-		return ReImportFile(GetWithoutLoad(uid), filePath, type);
+		if (animUID != 0)
+		{
+			return ReImportFile(GetWithoutLoad(animUID), filePath, type);
+		}
 	}
+
+
 
 	Resource* resource = CreateNewResource(type);
 
@@ -265,8 +273,8 @@ Resource* ModuleResourceManager::CreateNewResource(TYPE type, unsigned forceUid)
 	case TYPE::MODEL:	resource = (Resource*) new ResourceModel(uid); break;
 	case TYPE::MESH:	resource = (Resource*) new ResourceMesh(uid); break;
 	/*case TYPE::AUDIO:	resource = (Resource*) new ResourceAudio(uid); break;
-	case TYPE::SCENE:	resource = (Resource*) new ResourceScene(uid); break;
-	case TYPE::ANIMATION: resource = (Resource*) new ResourceAnimation(uid); break;*/
+	case TYPE::SCENE:	resource = (Resource*) new ResourceScene(uid); break;*/
+	case TYPE::ANIMATION: resource = (Resource*) new ResourceAnimation(uid); break;
 	case TYPE::MATERIAL: resource = (Resource*) new ResourceMaterial(uid); break;
 	case TYPE::SKYBOX: resource = (Resource*) new ResourceSkybox(uid); break;
 	}
@@ -325,7 +333,7 @@ Resource* ModuleResourceManager::Get(const char* exportedFileName, TYPE type) co
 
 	// Look for it on the resource list
 	unsigned uid = FindByExportedFile(exportedFileName, type);
-	if (uid == 0)
+	if (uid == 0u)
 		return nullptr;
 
 	// Get resource by uid
@@ -342,6 +350,22 @@ ResourceMesh* ModuleResourceManager::GetMeshByName(const char* name)
 			ResourceMesh* mesh = (ResourceMesh*)it->second;
 			if (mesh->name == name)
 				return (ResourceMesh*)Get(mesh->GetUID());
+		}
+	}
+
+	return nullptr;
+}
+
+ResourceAnimation* ModuleResourceManager::GetAnimationByName(const char* name)
+{
+	std::vector<std::string> resourcesList;
+	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if (it->second->GetType() == TYPE::ANIMATION)
+		{
+			ResourceAnimation* anim = (ResourceAnimation*)it->second;
+			if (anim->name == name)
+				return (ResourceAnimation*)Get(anim->GetUID());
 		}
 	}
 
@@ -434,6 +458,17 @@ std::vector<ResourceMaterial*> ModuleResourceManager::GetMaterialsList()
 	return resourcesList;
 }
 
+std::vector<ResourceAnimation*> ModuleResourceManager::GetAnimationsList()
+{
+	std::vector<ResourceAnimation*> resourcesList;
+	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if (it->second->GetType() == TYPE::ANIMATION)
+			resourcesList.push_back((ResourceAnimation*)it->second);
+	}
+	return resourcesList;
+}
+
 std::vector<std::string> ModuleResourceManager::GetResourceNamesList(TYPE resourceType, bool ordered)
 {
 	std::vector<std::string> resourcesList;
@@ -458,6 +493,24 @@ std::vector<std::string> ModuleResourceManager::GetMeshesNamesList(bool ordered)
 		{
 			ResourceMesh* mesh = (ResourceMesh*)it->second;
 			resourcesList.push_back(mesh->name);
+		}
+	}
+
+	if (ordered)	// Short by ascending order
+		std::sort(resourcesList.begin(), resourcesList.end(), sortByNameAscending);
+
+	return resourcesList;
+}
+
+std::vector<std::string> ModuleResourceManager::GetAnimationsNamesList(bool ordered)
+{
+	std::vector<std::string> resourcesList;
+	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if (it->second->GetType() == TYPE::ANIMATION)
+		{
+			ResourceAnimation* anim = (ResourceAnimation*)it->second;
+			resourcesList.push_back(anim->name);
 		}
 	}
 

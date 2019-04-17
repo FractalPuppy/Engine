@@ -151,7 +151,7 @@ inline bitcount_t flog2(uint32_t v)
     return multiplyDeBruijnBitPos[(uint32_t)(v * 0x07C4ACDDU) >> 27];
 }
 
-inline bitcount_t trailingzeros(uint32_t v)
+/*inline bitcount_t trailingzeros(uint32_t v)
 {
     static const uint8_t multiplyDeBruijnBitPos[32] = {
       0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8,
@@ -160,7 +160,7 @@ inline bitcount_t trailingzeros(uint32_t v)
 
     return multiplyDeBruijnBitPos[((uint32_t)((v & -v) * 0x077CB531U)) >> 27];
 }
-
+*/
 inline bitcount_t flog2(uint64_t v)
 {
     uint32_t high = v >> 32;

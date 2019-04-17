@@ -137,7 +137,6 @@ void MaterialEditor::TextureSelector(unsigned i, std::string &current_texture, i
 	{
 		ImGui::Image((ImTextureID)material->textures[i]->gpuID, { 200,200 }, { 0,1 }, { 1,0 });
 	}
-
 	ImGui::PopID();
 }
 

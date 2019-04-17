@@ -231,6 +231,7 @@ void ComponentCamera::DrawProperties()
 		bool removed = Component::DrawComponentState();
 		if (removed)
 		{
+			ImGui::PopID();
 			return;
 		}
 

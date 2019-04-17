@@ -29,7 +29,7 @@ public:
 	ENGINE_API void AddValue(const char * name, const JSON_value &value);
 
 	ENGINE_API int GetInt(const char* name) const;
-	ENGINE_API unsigned GetUint(const char * name) const;
+	ENGINE_API unsigned GetUint(const char * name, unsigned defaultValue = 0) const;
 	ENGINE_API float GetFloat(const char * namee) const;
 	ENGINE_API float2 GetFloat2(const char * name) const;
 	ENGINE_API float3 GetFloat3(const char * name) const;

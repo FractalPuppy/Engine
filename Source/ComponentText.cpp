@@ -12,28 +12,26 @@
 ComponentText::ComponentText() : Component(nullptr, ComponentType::Text)
 {
 	font = App->fontLoader->defaultFont;
-	App->ui->texts.push_back(this);
 }
 
 ComponentText::ComponentText(GameObject* gameobject) : Component(gameobject, ComponentType::Text)
 {
 	font = App->fontLoader->defaultFont;
-	App->ui->texts.push_back(this);
 }
 
 ComponentText::ComponentText(const ComponentText &copy) : Component(copy)
 {
-	//copy all the shiet madafaka
 	font = copy.font;
 	fontSize = copy.fontSize;
 	text = copy.text;
 	color = copy.color;
-	App->ui->texts.push_back(this);
+	colorHovered = copy.colorHovered;
+	offset = copy.offset;
+	scaleOffset = copy.scaleOffset;
 }
 
 ComponentText::~ComponentText()
 {
-	App->ui->texts.remove(this);
 }
 
 Component * ComponentText::Clone() const
@@ -82,7 +80,9 @@ void ComponentText::DrawProperties()
 
 		//color
 		ImGui::ColorEdit4("Font color", (float*)&color);
-		ImGui::DragFloat2("Text offset", &offset[0]);
+		ImGui::ColorEdit4("Font color highlited", (float*)&colorHovered);
+		ImGui::DragFloat2("Text position offset", &offset[0]);
+		ImGui::DragFloat2("Text scale offset", &scaleOffset[0]);
 		ImGui::Separator();
 	}
 }
@@ -94,7 +94,9 @@ void ComponentText::Save(JSON_value *value)const
 	value->AddString("text", text.c_str());
 	value->AddString("font", font.c_str());
 	value->AddFloat4("color", color);
+	value->AddFloat4("colorHovered", colorHovered);
 	value->AddFloat2("offset", offset);
+	value->AddFloat2("scaleOffset", scaleOffset);
 }
 
 void ComponentText::Load(JSON_value* value)
@@ -104,5 +106,7 @@ void ComponentText::Load(JSON_value* value)
 	text = value->GetString("text");
 	font = value->GetString("font");
 	color = value->GetFloat4("color");
+	colorHovered = value->GetFloat4("colorHovered");
 	offset = value->GetFloat2("offset");
+	scaleOffset = value->GetFloat2("scaleOffset");
 }

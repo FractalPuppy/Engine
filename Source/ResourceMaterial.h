@@ -33,7 +33,7 @@ public:
 	void Save() const;										// Saves material file (.m4t) in Assets/Materials
 	void SaveMetafile(const char* file) const override;
 	void Reset(const ResourceMaterial& material);
-	bool Compare(const ResourceMaterial& material) const;	// Returs true if material is equal to this, false otherwise	
+	int Compare(const ResourceMaterial& material);
 
 	// File in asset specific
 	void Rename(const char* newName) override;
@@ -54,6 +54,8 @@ public:
 
 	float roughness = .5f;
 	float metallic = .5f;
+
+	unsigned variation = 0u;
 };
 
 #endif __ResourceMaterial_h__

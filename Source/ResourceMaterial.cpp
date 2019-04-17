@@ -242,7 +242,7 @@ void ResourceMaterial::Reset(const ResourceMaterial& material)
 	metallic = material.metallic;
 }
 
-bool ResourceMaterial::Compare(const ResourceMaterial& material) const
+int ResourceMaterial::Compare(const ResourceMaterial& material)
 {
 	if (shader != material.shader)
 		return false;

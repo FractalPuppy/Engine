@@ -20,6 +20,7 @@ public:
 	void Load(JSON_value* value) override;
 
 	void Update() override;
+	void Enable(bool enable) override;
 
 	void AssemblyButton();
 
@@ -36,7 +37,7 @@ public:
 
 	bool isHovered = false;
 	bool isPressed = false;
-	
+	bool isSelected = false;
 };
 
 #endif // __ComponentButton_h__

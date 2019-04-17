@@ -753,7 +753,7 @@ public:
 
 	/// Performs standard matrix multiplication.
 	float4x4 operator *(const float4x4 &rhs) const;
-
+	
 	/// Converts the quaternion to a float4x4 and multiplies the two matrices together.
 	float4x4 operator *(const Quat &rhs) const;
 

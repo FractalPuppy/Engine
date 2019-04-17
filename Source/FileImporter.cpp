@@ -8,21 +8,27 @@
 #include "GameObject.h"
 #include "ComponentRenderer.h"
 #include "ComponentTransform.h"
+#include "ComponentAnimation.h"
+
+#include "ResourceMaterial.h"
+#include "ResourceMesh.h"
 
 #include "Resource.h"
 #include "ResourceModel.h"
 #include "ResourceMesh.h"
-
 #include "FileImporter.h"
-
 #include "JSON.h"
 
+
 #include <assert.h>
+#include <stack>
+#include "Math/float4x4.h"
 #include "assimp/cimport.h"
 #include "assimp/postprocess.h"
 #include "assimp/scene.h"
 #include "assimp/mesh.h"
 #include "assimp/material.h"
+
 
 void AddLog(const char* str, char* userData)
 {
@@ -47,7 +53,7 @@ FileImporter::~FileImporter()
 
 void FileImporter::ImportAsset(const char *file, const char *folder)
 {
-	std::string extension (App->fsystem->GetExtension(file));
+	std::string extension(App->fsystem->GetExtension(file));
 	if (extension == FBXEXTENSION || extension == FBXCAPITAL)
 	{
 		App->resManager->ImportFile(file, folder, TYPE::MODEL);
@@ -68,6 +74,10 @@ void FileImporter::ImportAsset(const char *file, const char *folder)
 	{
 		App->resManager->ImportFile(file, folder, TYPE::MATERIAL);
 	}
+	else if (extension == ANIMATIONEXTENSION)
+	{
+		App->fsystem->Copy(folder, ANIMATIONS, file);
+	}
 }
 
 bool FileImporter::ImportFBX(const char* fbxfile, const char* folder, ResourceModel* resource)
@@ -76,7 +86,8 @@ bool FileImporter::ImportFBX(const char* fbxfile, const char* folder, ResourceMo
 	if (fbxfile == nullptr) return false;
 
 	std::string file(fbxfile);
-	const aiScene* scene = aiImportFile((folder+ file).c_str(), aiProcess_Triangulate);
+
+	const aiScene* scene = aiImportFile((folder + file).c_str(), aiProcess_Triangulate);
 	if (scene != nullptr)
 	{
 		LOG("Imported FBX %s", fbxfile);
@@ -88,12 +99,134 @@ bool FileImporter::ImportFBX(const char* fbxfile, const char* folder, ResourceMo
 
 bool FileImporter::ImportScene(const aiScene &aiscene, const char* file, const char* folder, ResourceModel* resource)
 {
-	std::map<unsigned, unsigned> meshMap;
+	GameObject* sceneGO = App->scene->CreateGameObject("Scene", App->scene->root);
+	sceneGO->CreateComponent(ComponentType::Transform); // To move all around
+
+	std::stack<aiNode*> stackNode;
+	std::stack<GameObject*> stackParent;
+
+	unsigned totalMeshes = 0u;
+
 	std::string path(folder);
 	path += file;
 	std::string name = App->fsystem->GetFilename(file);
 	std::string meta(std::string(path) + METAEXT);
-	for (unsigned i = 0; i < aiscene.mNumMeshes; i++)
+
+	for (unsigned i = 0; i < aiscene.mRootNode->mNumChildren; ++i) //skip rootnode
+	{
+		stackNode.push(aiscene.mRootNode->mChildren[i]);
+		stackParent.push(sceneGO);
+	}
+
+	while (!stackNode.empty())
+	{
+		aiNode* aNode = stackNode.top(); stackNode.pop();
+		GameObject* goNode = new GameObject(aNode->mName.C_Str(), App->scene->GetNewUID());
+		stackParent.top()->InsertChild(goNode); stackParent.pop();
+
+		ComponentTransform* nodeTransform = (ComponentTransform*)goNode->CreateComponent(ComponentType::Transform);
+		ComponentTransform* nodeParentTransform = (ComponentTransform*)goNode->parent->GetComponent(ComponentType::Transform);
+		nodeTransform->UpdateTransform();
+		nodeTransform->SetLocalTransform(reinterpret_cast<const math::float4x4&>(aNode->mTransformation), nodeParentTransform->global);
+
+		for (unsigned i = 0u; i < aNode->mNumMeshes; ++i)
+		{
+			aiMesh* aMesh = aiscene.mMeshes[aNode->mMeshes[i]];
+			unsigned meshSize = GetMeshSize(*aMesh);
+			char* meshData = new char[meshSize];
+
+			ImportMesh(*aMesh, meshData);
+
+			ResourceMesh* mesh = nullptr;
+			char* metaData = nullptr;
+			if (App->fsystem->Load(meta.c_str(), &metaData) == 0)
+			{
+				mesh = (ResourceMesh*)App->resManager->CreateNewResource(TYPE::MESH);
+				resource->AddMesh(mesh);
+			}
+			else
+			{
+				JSON *json = new JSON(metaData);
+				JSON_value* meshValue = json->GetValue("Mesh");
+				mesh = (ResourceMesh*)App->resManager->CreateNewResource(TYPE::MESH, meshValue->GetUint(("Mesh" + std::to_string(totalMeshes)).c_str()));
+
+				// ResourceMesh was created on .meta of model load, now replace previous resource
+				App->resManager->ReplaceResource(mesh->GetUID(), mesh);
+			}
+			App->fsystem->Save((MESHES + std::to_string(mesh->GetUID()) + MESHEXTENSION).c_str(), meshData, meshSize);
+			mesh->SetFile(path.c_str());
+			mesh->SetExportedFile(std::to_string(mesh->GetUID()).c_str());
+			mesh->name = name + "_" + std::to_string(totalMeshes);
+			RELEASE_ARRAY(meshData);
+			//App->resManager->AddMesh(mesh);
+			GameObject* meshGO = new GameObject("mesh", App->scene->GetNewUID());
+			ComponentRenderer* crenderer = (ComponentRenderer*)meshGO->CreateComponent(ComponentType::Renderer);
+			crenderer->mesh = mesh;
+			meshGO->CreateComponent(ComponentType::Transform);
+			sceneGO->InsertChild(meshGO);
+			++totalMeshes;
+		}
+
+		for (unsigned i = 0u; i < aNode->mNumChildren; ++i)
+		{
+			stackNode.push(aNode->mChildren[i]);
+			stackParent.push(goNode);
+		}
+	}
+
+	for (unsigned i = 0u; i < aiscene.mNumAnimations; i++)
+	{
+		sceneGO->isBoneRoot = true;
+		char* animationData = nullptr;
+		unsigned animationSize = GetAnimationSize(*aiscene.mAnimations[i]);
+		animationData = new char[animationSize];
+		ImportAnimation(*aiscene.mAnimations[i], animationData);
+
+		sceneGO->CreateComponent(ComponentType::Animation);
+		ComponentAnimation* animationComponent = (ComponentAnimation*)sceneGO->GetComponent(ComponentType::Animation);
+
+		ResourceAnimation* animation = nullptr;
+		char* metaData = nullptr;
+
+		if (App->fsystem->Load(meta.c_str(), &metaData) == 0)
+		{
+			animation = (ResourceAnimation*)App->resManager->CreateNewResource(TYPE::ANIMATION);
+			resource->AddAnimation(animation);
+		}
+		else
+		{
+			JSON *json = new JSON(metaData);
+			JSON_value* animValue = json->GetValue("Animation");
+			animation = (ResourceAnimation*)App->resManager->CreateNewResource(TYPE::ANIMATION, animValue->GetUint(("Animation" + std::to_string(i)).c_str()));
+
+			// ResourceAniamtion was created on .meta of model load, now replace previous resource
+			App->resManager->ReplaceResource(animation->GetUID(), animation);
+		}
+		animationComponent->anim = animation;
+
+		App->fsystem->Save((ANIMATIONS + std::to_string(animation->GetUID()) + ANIMATIONEXTENSION).c_str(), animationData, animationSize);
+		animation->SetFile(path.c_str());
+		animation->SetExportedFile(std::to_string(animation->GetUID()).c_str());
+		animation->name = name + "_" + std::to_string(i);
+		//App->resManager->AddAnim(animation);
+
+		RELEASE_ARRAY(animationData);
+	}
+	App->scene->SaveScene(*sceneGO, App->fsystem->GetFilename(file).c_str(), SCENES); //TODO: Make AutoCreation of folders or check
+	aiReleaseImport(&aiscene);
+
+	sceneGO->deleteFlag = true;
+
+	return true;
+	/*std::map<unsigned, unsigned> meshMap;
+	std::string path(folder);
+	path += file;
+	std::string name = App->fsystem->GetFilename(file);
+	std::string meta(std::string(path) + METAEXT);
+
+
+	//MESHES--------------
+	for (unsigned i = 0u; i < aiscene.mNumMeshes; i++)
 	{
 		unsigned size = GetMeshSize(*aiscene.mMeshes[i]);
 		char* meshData = new char[size];
@@ -102,7 +235,7 @@ bool FileImporter::ImportScene(const aiScene &aiscene, const char* file, const c
 		char* metaData = nullptr;
 		if (App->fsystem->Load(meta.c_str(), &metaData) == 0)
 		{
-			mesh = (ResourceMesh*)App->resManager->CreateNewResource(TYPE::MESH);	
+			mesh = (ResourceMesh*)App->resManager->CreateNewResource(TYPE::MESH);
 			resource->AddMesh(mesh);
 		}
 		else
@@ -122,8 +255,39 @@ bool FileImporter::ImportScene(const aiScene &aiscene, const char* file, const c
 		meshMap.insert(std::pair<unsigned, unsigned>(i, mesh->GetUID()));
 	}
 
+	//ANIMS---------------------
+	for (unsigned i = 0u; i < aiscene.mNumAnimations; i++)
+	{
+		char* animationData = nullptr;
+
+		unsigned animationSize = GetAnimationSize(*aiscene.mAnimations[i]);
+		animationData = new char[animationSize];
+		ImportAnimation(*aiscene.mAnimations[i], animationData);
+		ResourceAnimation* anim = nullptr;
+		char* metaData = nullptr;
+		if (App->fsystem->Load(meta.c_str(), &metaData) == 0)
+		{
+			anim = (ResourceAnimation*)App->resManager->CreateNewResource(TYPE::ANIMATION);
+			resource->AddAnimation(anim);
+		}
+		else
+		{
+			JSON *json = new JSON(metaData);
+			JSON_value* animValue = json->GetValue("Animation");
+			anim = (ResourceAnimation*)App->resManager->CreateNewResource(TYPE::ANIMATION, animValue->GetUint(("Animation" + std::to_string(i)).c_str()));
+
+			// ResourceMesh was created on .meta of model load, now replace previous resource
+			App->resManager->ReplaceResource(anim->GetUID(), anim);
+		}
+
+		App->fsystem->Save((ANIMATIONS + std::to_string(anim->GetUID()) + ANIMATIONEXTENSION).c_str(), animationData, animationSize);
+		anim->SetFile(path.c_str());
+		anim->SetExportedFile(std::to_string(anim->GetUID()).c_str());
+		anim->name = name + "_" + std::to_string(i);
+	}
+
 	// TODO: [Resource Manager] Change this on scene refactor
-	GameObject *fake = new GameObject("fake",0);
+	GameObject *fake = new GameObject("fake", 0);
 	ProcessNode(meshMap, aiscene.mRootNode, &aiscene, fake);
 
 	App->scene->SaveScene(*fake, App->fsystem->GetFilename(file).c_str(), SCENES); //TODO: Make AutoCreation of folders or check
@@ -131,12 +295,12 @@ bool FileImporter::ImportScene(const aiScene &aiscene, const char* file, const c
 	RELEASE(fake);
 
 	aiReleaseImport(&aiscene);
-	return true;
+	return true;*/
 }
 
-void FileImporter::ImportMesh(const aiMesh &mesh, char *data)
+void FileImporter::ImportMesh(const aiMesh& mesh, char* data)
 {
-	char *cursor = data;
+	char* cursor = data;
 
 	unsigned ranges[2] = { mesh.mNumFaces * 3, 	mesh.mNumVertices };
 	unsigned rangeBytes = sizeof(ranges);
@@ -191,6 +355,121 @@ void FileImporter::ImportMesh(const aiMesh &mesh, char *data)
 		memcpy(cursor, mesh.mTangents, tangentBytes);
 		cursor += verticesBytes;
 	}
+
+	//------------------------BONES---------------------------------------
+	if (mesh.HasBones())
+	{
+		memcpy(cursor, &mesh.mNumBones, sizeof(unsigned));
+		cursor += sizeof(unsigned);
+		ImportBones(mesh.mBones, mesh.mNumBones, cursor);
+	}
+	else
+	{
+		unsigned zero = 0u;
+		memcpy(cursor, &zero, sizeof(unsigned));
+		cursor += sizeof(unsigned);
+	}
+
+}
+
+void FileImporter::ImportBones(aiBone** bones, unsigned numBones, char* data)const
+{
+	char* cursor = data;
+
+	for (unsigned i = 0u; i < numBones; ++i)
+	{
+		memcpy(cursor, bones[i]->mName.C_Str(), MAX_BONE_NAME_LENGTH);
+		cursor += MAX_BONE_NAME_LENGTH;
+
+		math::float4x4 boneOffset = reinterpret_cast<const math::float4x4&>(bones[i]->mOffsetMatrix);
+
+
+		memcpy(cursor, &boneOffset[0][0], sizeof(math::float4x4));
+		cursor += sizeof(math::float4x4);
+
+		memcpy(cursor, &bones[i]->mNumWeights, sizeof(unsigned));
+		cursor += sizeof(unsigned);
+
+		for (unsigned j = 0u; j < bones[i]->mNumWeights; ++j)
+		{
+			memcpy(cursor, &bones[i]->mWeights[j].mVertexId, sizeof(unsigned));
+			cursor += sizeof(unsigned);
+			memcpy(cursor, &bones[i]->mWeights[j].mWeight, sizeof(float));
+			cursor += sizeof(unsigned);
+		}
+	}
+}
+
+
+void FileImporter::ImportAnimation(const aiAnimation& animation, char* data)
+{
+	char* cursor = data;
+
+	memcpy(cursor, &animation.mDuration, sizeof(double));
+	cursor += sizeof(double);
+
+	memcpy(cursor, &animation.mTicksPerSecond, sizeof(double));
+	cursor += sizeof(double);
+
+	memcpy(cursor, &animation.mNumChannels, sizeof(int));
+	cursor += sizeof(int);
+
+	for (unsigned j = 0u; j < animation.mNumChannels; j++)
+	{
+		memcpy(cursor, animation.mChannels[j]->mNodeName.C_Str(), sizeof(char) * MAX_BONE_NAME_LENGTH);  //Name
+		cursor += sizeof(char) * MAX_BONE_NAME_LENGTH;
+
+		memcpy(cursor, &animation.mChannels[j]->mNumPositionKeys, sizeof(int));
+		cursor += sizeof(int);
+
+		memcpy(cursor, &animation.mChannels[j]->mNumRotationKeys, sizeof(int));
+		cursor += sizeof(int);
+
+		//importar longitud array de posiciones e iterar
+
+		for (unsigned i = 0u; i < animation.mChannels[j]->mNumPositionKeys; i++)
+		{
+			memcpy(cursor, &animation.mChannels[j]->mPositionKeys[i].mValue, sizeof(float) * 3);
+			cursor += sizeof(float) * 3;
+		}
+
+		//importar longitud array de rotaciones e iterar
+
+		for (unsigned k = 0u; k < animation.mChannels[j]->mNumRotationKeys; k++)
+		{
+			memcpy(cursor, &animation.mChannels[j]->mRotationKeys[k].mValue, sizeof(math::Quat));
+			cursor += sizeof(math::Quat);
+		}
+	}
+}
+
+//TODO: Obtain animations size in order to store their content
+unsigned FileImporter::GetAnimationSize(const aiAnimation& animation) const
+{
+	unsigned size = 0u;
+
+	size += sizeof(double) * 2 + sizeof(int); //Duration, ticks per second and number of channels
+
+	size += sizeof(int);
+
+	for (unsigned j = 0u; j < animation.mNumChannels; j++)
+	{
+		size += sizeof(char) * MAX_BONE_NAME_LENGTH;
+
+		size += sizeof(int) * 2;
+
+		for (unsigned i = 0u; i < animation.mChannels[j]->mNumPositionKeys; i++)
+		{
+			size += sizeof(float) * 3;
+		}
+
+		for (unsigned i = 0u; i < animation.mChannels[j]->mNumRotationKeys; i++)
+		{
+			size += sizeof(math::Quat);
+		}
+	}
+
+	return size;
 }
 
 unsigned FileImporter::GetMeshSize(const aiMesh &mesh) const
@@ -198,7 +477,7 @@ unsigned FileImporter::GetMeshSize(const aiMesh &mesh) const
 	unsigned size = 0u;
 	unsigned int ranges[2] = { mesh.mNumFaces * 3, mesh.mNumVertices };
 	size += sizeof(ranges); //numfaces + numvertices
-	size += ranges[0]* 3 * sizeof(int); //indices
+	size += ranges[0] * 3 * sizeof(int); //indices
 
 	size += sizeof(float)*ranges[1] * 3; //vertices
 	size += sizeof(bool) * 3; //has normals + has tcoords + has tangents
@@ -214,14 +493,21 @@ unsigned FileImporter::GetMeshSize(const aiMesh &mesh) const
 	{
 		size += sizeof(float)*ranges[1] * 3;
 	}
+	if (mesh.HasBones())
+	{
+		unsigned boneSize = sizeof(char) * MAX_BONE_NAME_LENGTH;
+		boneSize += sizeof(unsigned);
+		boneSize += sizeof(math::float4x4);
+		boneSize += mesh.mNumVertices * (sizeof(unsigned) + sizeof(float));
+		size += mesh.mNumBones * boneSize;
+	}
 	return size;
 }
 
-
-GameObject* FileImporter::ProcessNode(const std::map<unsigned, unsigned> &meshmap, const aiNode * node, const aiScene * scene, GameObject* parent)
+void FileImporter::ProcessNode(const std::map<unsigned, unsigned> &meshmap, const aiNode * node, const aiScene * scene, GameObject* parent)
 {
 	assert(node != nullptr);
-	if (node == nullptr) return nullptr;
+	if (node == nullptr) return;
 
 	GameObject * gameobject = App->scene->CreateGameObject(node->mName.C_Str(), parent);
 
@@ -232,30 +518,30 @@ GameObject* FileImporter::ProcessNode(const std::map<unsigned, unsigned> &meshma
 
 	std::vector<GameObject*> gameobjects;
 	gameobjects.push_back(gameobject);
-	for (unsigned k = 1; k < node->mNumMeshes; k++) //Splits meshes of same node into diferent gameobjects 
-	{
-		GameObject *copy = new GameObject(*gameobject);
-		gameobjects.push_back(copy);
-		copy->parent = gameobject->parent;
-		parent->children.push_back(copy);
-	}
+	//for (unsigned k = 1; k < node->mNumMeshes; k++) //Splits meshes of same node into diferent gameobjects 
+	//{
+	//	GameObject *copy = new GameObject(*gameobject);
+	//	gameobjects.push_back(copy);
+	//	copy->parent = gameobject->parent;
+	//	parent->children.push_back(copy);
+	//}
 
-	for (unsigned i = 0; i < node->mNumMeshes; i++)
-	{
-		ComponentRenderer* crenderer = (ComponentRenderer*)gameobjects[i]->CreateComponent(ComponentType::Renderer);
-		auto it = meshmap.find(node->mMeshes[i]);
-		if (it != meshmap.end())
-		{
-			RELEASE(crenderer->mesh);
-			crenderer->mesh = (ResourceMesh*)App->resManager->Get(it->second);
-			gameobjects[i]->UpdateBBox();
-		}
-	} 
+	//for (unsigned i = 0; i < node->mNumMeshes; i++)
+	//{
+	//	ComponentRenderer* crenderer = (ComponentRenderer*)gameobjects[i]->CreateComponent(ComponentType::Renderer);
+	//	auto it = meshmap.find(node->mMeshes[i]);
+	//	if (it != meshmap.end())
+	//	{
+	//		RELEASE(crenderer->mesh);
+	//		crenderer->mesh = App->resManager->GetMesh(it->second);
+	//		gameobjects[i]->UpdateBBox();
+	//	}
+	//}
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		GameObject * child = ProcessNode(meshmap, node->mChildren[i], scene, gameobject);
+		ProcessNode(meshmap, node->mChildren[i], scene, gameobject);
 	}
-	return gameobject;
+
 }
 
 

@@ -258,7 +258,7 @@ void myQuadTree::Draw() const
 
 void myQuadTree::Draw(AABB bbox) const
 {
-	unsigned shader = App->program->defaultShader->id;
+	unsigned shader = App->program->defaultShader->id[0];
 	glUseProgram(shader);
 	GLfloat vertices[] = {
 		-0.5, -0.5, -0.5, 1.0,

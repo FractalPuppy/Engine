@@ -44,7 +44,7 @@
 MATH_BEGIN_NAMESPACE
 
 /// Represents a rotation or an orientation of a 3D object.
-class ALIGN16 Quat
+class ENGINE_API ALIGN16 Quat
 {
 public:
 

@@ -24,7 +24,10 @@ public:
 	std::string text = "Fractal Text";
 	std::string font = "";
 	math::float4 color = math::float4(1.0f, 1.0f, 1.0f, 0.0f);
+	math::float4 colorHovered = math::float4(1.0f, 1.0f, 1.0f, 0.0f);
 	math::float2 offset = math::float2::zero;
+	math::float2 scaleOffset = math::float2::one;
+	bool isHovered = false;
 };
 
 #endif

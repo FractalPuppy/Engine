@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
+#include "ModuleUI.h"
 #include "imgui.h"
 #include "Math/MathConstants.h"
 
@@ -60,6 +61,10 @@ void PanelConfiguration::Draw()
 	if (ImGui::CollapsingHeader("Scene"))
 	{
 		App->scene->DrawGUI();
+	}
+	if (ImGui::CollapsingHeader("UI"))
+	{
+		App->ui->DrawGUI();
 	}
 	ImGui::End();
 }

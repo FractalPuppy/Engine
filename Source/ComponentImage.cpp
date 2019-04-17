@@ -21,7 +21,6 @@ ComponentImage::ComponentImage() : Component(nullptr, ComponentType::Image)
 	{
 		UpdateTexturesList();
 	}
-	App->ui->images.push_back(this);
 }
 
 ComponentImage::ComponentImage(GameObject* gameobject) : Component(gameobject, ComponentType::Image)
@@ -30,19 +29,28 @@ ComponentImage::ComponentImage(GameObject* gameobject) : Component(gameobject, C
 	{
 		UpdateTexturesList();
 	}
-	App->ui->images.push_back(this);
 }
 
 ComponentImage::ComponentImage(const ComponentImage &copy) : Component(copy)
 {
+	if (textureFiles.size() == 0)
+	{
+		UpdateTexturesList();
+	}
 	color = copy.color;
 	textureName = copy.textureName;
-	App->ui->images.push_back(this);
+	flipHorizontal = copy.flipHorizontal;
+	flipVertical = copy.flipVertical;
+	if (textureName != "None Selected")
+	{
+		unsigned textureUID = App->resManager->FindByExportedFile(textureName.c_str());
+		texture = (ResourceTexture*)App->resManager->Get(textureUID);
+	}
 }
 
 ComponentImage::~ComponentImage()
 {
-	App->ui->images.remove(this);
+	/*App->ui->images.remove(this);*/
 	unsigned imageUID = App->resManager->FindByExportedFile(textureName.c_str());
 	App->resManager->DeleteResource(imageUID);
 	texture = nullptr;
@@ -107,6 +115,9 @@ void ComponentImage::DrawProperties()
 		//color
 		ImGui::ColorEdit4("Image color", (float*)&color);
 
+		ImGui::Checkbox("Flip Vertical", &flipVertical);
+		ImGui::Checkbox("Flip Horizontal", &flipHorizontal);
+
 		ImGui::Separator();
 	}
 }
@@ -122,6 +133,8 @@ void ComponentImage::Save(JSON_value *value)const
 	Component::Save(value);
 	value->AddString("textureName", textureName.c_str());
 	value->AddFloat4("color", color);
+	value->AddInt("FlipVertical", flipVertical);
+	value->AddInt("FlipHorizontal", flipHorizontal);
 }
 
 void ComponentImage::Load(JSON_value* value)
@@ -129,6 +142,8 @@ void ComponentImage::Load(JSON_value* value)
 	Component::Load(value);
 	textureName = value->GetString("textureName");
 	color = value->GetFloat4("color");	
+	flipVertical = value->GetInt("FlipVertical");
+	flipHorizontal = value->GetInt("FlipHorizontal");
 	if (textureName != "None Selected")
 	{
 		// ResManager refactored:

@@ -21,6 +21,8 @@
 #include "PanelTime.h"
 #include "PanelBrowser.h"
 #include "PanelResourceManager.h"
+#include "PanelState.h"
+#include "PanelAnimation.h"
 
 #include "MaterialEditor.h"
 #include "FileExplorer.h"
@@ -28,6 +30,7 @@
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
+#include "NodeEditor.h"
 #include "ImGuizmo.h"
 #include "Brofiler.h"
 #include <vector>
@@ -42,6 +45,8 @@ ModuleEditor::ModuleEditor()
 	panels.push_back(hierarchy = new PanelHierarchy());
 	panels.push_back(assets = new PanelBrowser());
 	panels.push_back(time = new PanelTime());
+	panels.push_back(states = new PanelState());
+	panels.push_back(animation = new PanelAnimation());
 	panels.push_back(resource = new PanelResourceManager());
 
 	materialEditor = new MaterialEditor();
@@ -335,6 +340,14 @@ void ModuleEditor::WindowsMenu()
 		if (ImGui::MenuItem("Time control", nullptr, time->IsEnabled()))
 		{
 			time->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("Animation", nullptr, animation->IsEnabled()))
+		{
+			animation->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("StateMachine", nullptr, states->IsEnabled()))
+		{
+			states->ToggleEnabled();
 		}
 		if (ImGui::MenuItem("Assets", nullptr, assets->IsEnabled()))
 		{

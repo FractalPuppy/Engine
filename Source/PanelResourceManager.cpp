@@ -10,6 +10,7 @@
 #include "ResourceMesh.h"
 #include "ResourceMaterial.h"
 #include "ResourceSkybox.h"
+#include "ResourceAnimation.h."
 
 #include "imgui.h"
 #include <algorithm>
@@ -143,8 +144,8 @@ void PanelResourceManager::Draw()
 		case TYPE::MODEL:		DrawResourceModel();	break;
 		case TYPE::MESH:		DrawResourceMesh();		break;
 		/*case TYPE::AUDIO:								break;
-		case TYPE::SCENE:								break;
-		case TYPE::ANIMATION:							break;*/
+		case TYPE::SCENE:								break;*/
+		case TYPE::ANIMATION:	DrawResourceAnimation();break;
 		case TYPE::MATERIAL:	DrawResourceMaterial(); break;
 		case TYPE::SKYBOX:		DrawResourceSkybox();	break;
 		}
@@ -360,6 +361,28 @@ void PanelResourceManager::DrawResourceMesh()
 
 	ImGui::End();
 }
+
+void PanelResourceManager::DrawResourceAnimation()
+{
+	if (!ImGui::Begin("Animation Manager"))
+	{
+		ImGui::End();
+		return;
+	}
+	ResourceAnimation& animation = *(ResourceAnimation*)previous;
+	std::string exportedFile(animation.GetExportedFile());
+	ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), (exportedFile + ":").c_str());
+	ImGui::Columns(2);
+	ImGui::Text("Name: %s", animation.name.c_str());
+	ImGui::Text("Channels: %u", animation.GetNumberChannels());
+	ImGui::Text("FPS: %u", animation.GetFPS());
+	ImGui::Text("Total frames: %u", animation.GetNumberFrames());
+
+	ImGui::NextColumn();
+	// TODO: [Resource Manager] Add preview of the anim
+	ImGui::End();
+}
+
 
 void PanelResourceManager::DrawResourceMaterial()
 {

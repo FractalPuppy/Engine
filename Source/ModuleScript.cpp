@@ -4,6 +4,9 @@
 #include "ModuleFileSystem.h"
 #include "ModuleTime.h"
 
+#include "Component.h"
+#include "ComponentScript.h"
+
 #include "BaseScript.h"
 #include "engineResource.h"
 #include "MemoryModule.h"
@@ -20,10 +23,10 @@ ModuleScript::ModuleScript()
 
 ModuleScript::~ModuleScript()
 {
-	for (auto& script : scriptInstances)
-	{
-		RELEASE(script);
-	}
+	//for (auto& script : componentsScript)
+	//{
+	//	RELEASE(script);
+	//}
 
 	for (const auto& dll : loadedDLLs)
 	{
@@ -47,14 +50,14 @@ update_status ModuleScript::Update(float dt)
 	{
 		if (onStart)
 		{
-			for (const auto& script : scriptInstances)
+			for (const auto& component : componentsScript)
 			{
-				script->Start();
+				component->ScriptStart();
 			}
 		}
-		for (const auto& script : scriptInstances)
+		for (const auto& component : componentsScript)
 		{
-			script->Update();
+			component->ScriptUpdate();
 		}
 	}
 	else
@@ -62,8 +65,8 @@ update_status ModuleScript::Update(float dt)
 		//TODO: We should use a thread component to listen to script folder asynchronously
 		CheckScripts();
 	}
-	onStart = App->time->gameState != GameState::RUN;
-	return UPDATE_CONTINUE;
+	onStart = App->time->gameState == GameState::STOP;
+	return status;
 }
 
 void ModuleScript::LoadFromMemory(int resource) //TODO: Load from memory in shipping build
@@ -91,7 +94,7 @@ void ModuleScript::LoadFromMemory(int resource) //TODO: Load from memory in ship
 	}
 }
 
-Script* ModuleScript::AddScript(const std::string& script)
+Script* ModuleScript::GetScript(const ComponentScript& component, const std::string& script)
 {
 	HINSTANCE dll;
 	std::map<std::string, std::pair<HINSTANCE, int>>::iterator itDll = loadedDLLs.find(script);
@@ -119,13 +122,13 @@ Script* ModuleScript::AddScript(const std::string& script)
 	if (Create != nullptr)
 	{
 		Script* script = Create();
-		scriptInstances.push_back(script);
+		componentsScript.push_back(&component);
 		return script;
 	}
 	return nullptr;
 }
 
-void ModuleScript::RemoveScript(const std::string& name, Script* script)
+void ModuleScript::RemoveScript(const ComponentScript& component, const std::string& name)
 {
 	//TODO: check if script is used in any other component and if not then freelibrary
 	std::map<std::string, std::pair<HINSTANCE,int>>::iterator itDll = loadedDLLs.find(name);
@@ -143,8 +146,7 @@ void ModuleScript::RemoveScript(const std::string& name, Script* script)
 		{
 			itDll->second.second--;
 		}
-		scriptInstances.remove(script);
-		RELEASE(script);
+		componentsScript.remove(&component);
 	}
 	else
 	{

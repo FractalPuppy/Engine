@@ -20,6 +20,7 @@ public:
 private:
 	bool openPopup = false;
 	std::string popUpSentence;
+	std::vector<std::pair<const char*, ComponentType>> componentList;
 };
 
 #endif //__PanelInspector_h__

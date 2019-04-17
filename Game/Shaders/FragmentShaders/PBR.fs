@@ -1,4 +1,3 @@
-#version 330 core
 #define MAX_DIRECTIONAL_LIGHTS 2
 #define MAX_POINT_LIGHTS 4
 #define MAX_SPOT_LIGHTS 4
@@ -71,6 +70,7 @@ in vec3 normalIn;
 in vec3 position;
 in vec2 uv0;
 in vec3 viewPos;
+
 
 in vec3 pointPositions[MAX_POINT_LIGHTS]; //positions in tangent space
 in vec3 spotPositions[MAX_SPOT_LIGHTS];   //positions in tangent space
@@ -168,7 +168,7 @@ void main()
 	F0 = mix(F0, albedo.rgb, material.metallic);
 
 	vec3 color = vec3(0); 
-
+	
 	vec3 N = normal;
 	vec3 V = normalize(viewPos - position);
 	for(int i=0; i < lights.num_directionals; ++i)
@@ -237,5 +237,6 @@ void main()
 	color *= get_occlusion_color();
 	color += get_emissive_color();
 	color = vec3(pow(color.r, (1.0 / 2.2)), pow(color.g, (1.0 / 2.2)), pow(color.b, (1.0 / 2.2)));
+	
 	Fragcolor = vec4(color, albedo.a);
 }

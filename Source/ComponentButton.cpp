@@ -40,7 +40,7 @@ ComponentButton::ComponentButton(const ComponentButton& copy) : Component(copy)
 	buttonImage = (ComponentImage*)copy.buttonImage->Clone();
 	highlightedImage = (ComponentImage*)copy.highlightedImage->Clone();
 	pressedImage = (ComponentImage*)copy.pressedImage->Clone();
-	AssemblyButton();
+	rectTransform = (ComponentTransform2D*)copy.rectTransform->Clone();
 }
 
 
@@ -54,7 +54,7 @@ ComponentButton::~ComponentButton()
 
 Component* ComponentButton::Clone() const
 {
-	return nullptr;
+	return new ComponentButton(*this);;
 }
 
 void ComponentButton::DrawProperties()
@@ -116,40 +116,58 @@ void ComponentButton::Update()
 	math::float2 mouse = reinterpret_cast<const float2&>(App->input->GetMousePosition());	
 	float screenX = mouse.x - App->renderer->viewGame->winPos.x - (App->ui->currentWidth * .5f);
 	float screenY = mouse.y - App->renderer->viewGame->winPos.y - (App->ui->currentHeight * .5f);
+	math::float2 pos = rectTransform->getPosition();
+	math::float2 size = rectTransform->getSize();
+	float buttonX = pos.x;
+	float buttonY = pos.y;
 	
-	float buttonX = rectTransform->position.x;
-	float buttonY = rectTransform->position.y;
-	
-	math::float2 buttonMin = float2(buttonX - rectTransform->size.x *.5f, buttonY - rectTransform->size.y *.5f);
-	math::float2 buttonMax = float2(buttonX + rectTransform->size.x *.5f, buttonY + rectTransform->size.y *.5f);
+	math::float2 buttonMin = float2(buttonX - size.x *.5f, -buttonY - size.y *.5f);
+	math::float2 buttonMax = float2(buttonX + size.x *.5f, -buttonY + size.y *.5f);
 	if (screenX > buttonMin.x && screenX < buttonMax.x && screenY > buttonMin.y && screenY < buttonMax.y)
 	{
 		isHovered = true;
 		buttonImage->enabled = false;
 		highlightedImage->enabled = true;
 		pressedImage->enabled = false;
+		text->isHovered = true;
 	}
 	else
 	{
 		isHovered = false;
-		buttonImage->enabled = true;
-		highlightedImage->enabled = false;
+		buttonImage->enabled = true && !isSelected;
+		highlightedImage->enabled = false || isSelected;
 		pressedImage->enabled = false;
+		text->isHovered = false;
 	}
 
-	if (isHovered && App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+	if (isHovered && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		isPressed = true;
 		buttonImage->enabled = false;
 		highlightedImage->enabled = false;
 		pressedImage->enabled = true;
 	}
+	else
+	{
+		isPressed = false;
+		pressedImage->enabled = false;
+	}
+}
+
+void ComponentButton::Enable(bool enable)
+{
+	Component::Enable(enable);
+	isPressed = false;
+	isHovered = false;
+	isSelected = false;
+	highlightedImage->enabled = false;
+	pressedImage->enabled = false;
+	buttonImage->enabled = true;
 }
 
 void ComponentButton::AssemblyButton() 
 {
 	text->gameobject = gameobject;
-	text->text = "Best button EUW";
 	buttonImage->gameobject = gameobject;
 	highlightedImage->gameobject = gameobject;
 	pressedImage->gameobject = gameobject;

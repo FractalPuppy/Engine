@@ -37,8 +37,11 @@ public:
 	bool nextFrame = false;
 	unsigned maxFps = 144u;
 	unsigned totalFrames = 0u;
+#ifndef GAME_BUILD
 	GameState gameState = GameState::STOP;
-
+#else
+	GameState gameState = GameState::RUN;
+#endif
 	Timer frameTimer;
 	Timer fpsTimer;
 

@@ -9,9 +9,9 @@
 
 Shader::~Shader()
 {
-	if (id != 0)
+	for (auto program : id)	
 	{
-		glDeleteProgram(id);
+		glDeleteProgram(program.second);
 	}
 }
 
@@ -32,7 +32,7 @@ bool ModuleProgram::Init(JSON * config)
 
 
 
-Shader* ModuleProgram::CreateProgram(const char * name)
+Shader* ModuleProgram::CreateProgram(const char* name)
 {
 	assert(name != nullptr);
 	if (name == nullptr) return nullptr;
@@ -59,18 +59,28 @@ Shader* ModuleProgram::CreateProgram(const char * name)
 	Shader* shader = new Shader(program, name);
 	App->resManager->AddProgram(shader);
 	return shader;
+	
 }
 
-Shader* ModuleProgram::GetProgram(const char * name)
+Shader* ModuleProgram::GetProgram(const char* name)
 {
-	Shader* shader = App->resManager->GetProgram(name);
+	std::string vName(name);
+	
+	Shader* shader = App->resManager->GetProgram(vName);
 	if (shader != nullptr)
 	{
 		App->resManager->AddProgram(shader); //Add to number of usages
 		return shader;
 	}
-
-	return CreateProgram(name);
+	
+	if (std::string(name) == "PBR")
+	{		
+		return CreatePBRVariations(name);
+	}
+	else
+	{
+		return CreateProgram(name);
+	}
 }
 
 unsigned ModuleProgram::CreateVertexShader(const char *name)
@@ -105,6 +115,78 @@ unsigned ModuleProgram::CreateFragmentShader(const char *name)
 
 	ShaderLog(fragmentShader, "FRAGMENT");
 	return fragmentShader;
+}
+
+Shader* ModuleProgram::CreatePBRVariations(const char* name)
+{
+	assert(name != NULL);
+	Shader* shader = new Shader(0, name);
+	unsigned variationAmount = pow(2, PBR_VARIATIONS - 1);
+	for (unsigned variation = 0u; variation < variationAmount; ++variation)
+	{
+		std::string file(name);
+		file += ".vs";
+		char* vertexShaderSource = nullptr;
+		App->fsystem->Load((VERTEXSHADERS + file).c_str(), &vertexShaderSource);
+
+		file = std::string(name);
+		file += ".fs";
+		char* fragmentShaderSource = nullptr;
+		App->fsystem->Load((FRAGSHADERS + file).c_str(), &fragmentShaderSource);
+
+		char** vs = new char*[PBR_VARIATIONS + 1];
+		vs[0] = "#version 330\n";
+		char** fs = new char*[PBR_VARIATIONS + 1];
+		fs[0] = "#version 330\n";
+		unsigned index = 1u;
+		for (unsigned i = 0; i < PBR_VARIATIONS; ++i)
+		{
+			if ((variation & (1 << i)) != 0)
+			{
+				vs[index] = defines[i];
+				fs[index] = defines[i];
+				++index;
+			}
+		}
+		vs[index] = vertexShaderSource;
+		fs[index] = fragmentShaderSource;
+		unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertexShader, index + 1, vs, nullptr);
+		glCompileShader(vertexShader);
+		RELEASE_ARRAY(vs);
+		RELEASE_ARRAY(vertexShaderSource);
+
+		ShaderLog(vertexShader, "VERTEX");
+
+		unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragmentShader, index + 1, fs, nullptr);
+		glCompileShader(fragmentShader);
+		RELEASE_ARRAY(fs);
+		RELEASE_ARRAY(fragmentShaderSource);
+
+		ShaderLog(fragmentShader, "FRAGMENT");
+
+		unsigned int program = glCreateProgram();
+		glAttachShader(program, vertexShader);
+		glAttachShader(program, fragmentShader);
+		glLinkProgram(program);
+
+		int  success;
+		char infoLog[512];
+		glGetProgramiv(program, GL_LINK_STATUS, &success);
+		if (!success)
+		{
+			glGetProgramInfoLog(program, 512, NULL, infoLog);
+			LOG("ERROR::PROGRAM::CREATION_FAILED\n");
+			LOG("ERROR: %s\n", infoLog);
+		}
+
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+		shader->id[variation] = program;
+	}
+	App->resManager->AddProgram(shader);
+	return shader;
 }
 
 void ModuleProgram::ShaderLog(unsigned int shader, char * type) const

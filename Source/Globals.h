@@ -42,8 +42,15 @@ enum update_status
 #define MIN(x,y) ((x<y)?x:y)
 
 // Configuration -----------
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
+#ifndef GAME_BUILD
 #define TITLE "FRACTAL ENGINE"
+#else
+#define TITLE "Neta Vertical Slice 1"
+#endif
+#define MAX_BONE_NAME_LENGTH 1024
+
+#define MAX_BONE_NAME_LENGTH 1024
 
 #endif  __Globals_h__

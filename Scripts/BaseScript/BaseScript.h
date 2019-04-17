@@ -29,4 +29,6 @@ protected:
 
 };
 
+extern "C" BASESCRIPT_API Script* CreateScript();
+
 #endif __BaseScript_h__

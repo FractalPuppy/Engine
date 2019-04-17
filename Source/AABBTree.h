@@ -63,7 +63,7 @@ void AABBTree::GetIntersections(T &intersector, std::unordered_set<GameObject*> 
 	{
 		AABBTreeNode* node = S.top();
 		S.pop();		
-		if (node->isLeaf && node->aabb.ContainsQTree(intersector)) //check if is not outside
+		if (node->isLeaf && node->go->isActive() && node->aabb.ContainsQTree(intersector)) //check if is not outside
 		{
 			intersections.insert(node->go);
 		}

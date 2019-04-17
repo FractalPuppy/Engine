@@ -29,6 +29,7 @@ bool ModuleWindow::Init(JSON * config)
 	else
 	{
 		JSON_value* windowConfig = config->GetValue("window");
+#ifndef GAME_BUILD
 		if (windowConfig != nullptr)
 		{
 			fullscreen = windowConfig->GetInt("fullscreen");
@@ -44,7 +45,10 @@ bool ModuleWindow::Init(JSON * config)
 			int width = SCREEN_WIDTH;
 			int height = SCREEN_HEIGHT;
 		}
-
+#else
+		int width = SCREEN_WIDTH;
+		int height = SCREEN_HEIGHT;
+#endif
 		//Create window
 		Uint32 flags = SDL_WINDOW_SHOWN |  SDL_WINDOW_OPENGL;
 

@@ -1,4 +1,3 @@
-#version 330
 #define MAX_DIRECTIONAL_LIGHTS 2
 #define MAX_POINT_LIGHTS 4
 #define MAX_SPOT_LIGHTS 4
@@ -8,6 +7,8 @@ layout(location = 0) in vec3 vertex_position;
 layout(location = 1) in vec2 vertex_uv0;
 layout(location = 2) in vec3 vertex_normal;
 layout(location = 3) in vec3 vertex_tangent;
+layout(location = 4) in ivec4 bone_indices;
+layout(location = 5) in vec4 bone_weights;
 
 layout (std140) uniform Matrices
 {
@@ -55,6 +56,7 @@ struct Lights
 
 uniform Lights lights;
 uniform mat4 model;
+uniform mat4 palette[64];
 
 out vec3 normalIn;
 out vec3 position;
@@ -67,11 +69,18 @@ out vec3 directionalDirections[MAX_DIRECTIONAL_LIGHTS];
 
 void main()
 {
+#ifdef SKINNED
+	mat4 skin_t = palette[bone_indices[0]]*bone_weights[0]+palette[bone_indices[1]]*bone_weights[1]+
+	palette[bone_indices[2]]*bone_weights[2]+palette[bone_indices[3]]*bone_weights[3];
+	position = (skin_t*vec4(vertex_position, 1.0)).xyz;
+	normalIn = (skin_t*vec4(vertex_normal, 0.0)).xyz; // 0.0 avoid translation
+	vec3 tan = (skin_t*vec4(vertex_tangent, 0.0)).xyz; // 0.0 avoid translation
+#else
 	position = (model * vec4(vertex_position, 1.0)).xyz;
-	gl_Position = proj*view*vec4(position, 1.0);
-
 	normalIn = mat3(model) * vertex_normal;
 	vec3 tan = mat3(model) * vertex_tangent;
+#endif
+	gl_Position = proj*view*vec4(position, 1.0);
 	vec3 bitan = cross(vertex_tangent, vertex_normal);
 	
 	vec3 N = normalize(normalIn);
@@ -102,4 +111,5 @@ void main()
 		spotPositions[i] = TBNMat * lights.spots[i].position;
 		spotDirections[i] = TBNMat * lights.spots[i].direction;
 	}
+	
 }

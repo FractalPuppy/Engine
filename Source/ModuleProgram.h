@@ -3,35 +3,49 @@
 
 #include "Module.h"
 #include <string>
+#include <map>
 #define DEFAULTPROGRAM "Default"
+#define PBR_VARIATIONS 2
 
 struct Shader
 {
-	unsigned id = 0;
+	std::map<unsigned, unsigned> id;
+	unsigned variation = 0u;
+
 	std::string file;
-	Shader(unsigned program, std::string file) : id(program), file(file) {}
+	Shader(unsigned program, std::string file) : file(file) { id[0] = program; }
 	~Shader();
 };
 
 class ModuleProgram : public Module
 {
 public:
+
+	enum class PBR_Variations
+	{
+		SKINNED					= 1 << 0
+	};
+
+	char* defines[2] = {
+		"#define SKINNED\n"		//Skinned
+	};
+
 	ModuleProgram();
 	~ModuleProgram();
 
 	bool Init(JSON * config) override;
 	bool CleanUp() override;
 
-	Shader* CreateProgram(const char *name);
-	Shader* GetProgram(const char * name); //Creates new one if it doesn't exist
+	Shader* CreateProgram(const char* name);
+	Shader* GetProgram(const char* name); //Creates new one if it doesn't exist
 
 private:
 	void ShaderLog(unsigned int shader, char* type) const;
-	unsigned CreateVertexShader(const char *name);
-	unsigned CreateFragmentShader(const char *name);
+	unsigned CreateVertexShader(const char* name);
+	unsigned CreateFragmentShader(const char* name);
+	Shader* CreatePBRVariations(const char* name);
 
 public:
 	Shader * defaultShader = nullptr; //Deallocated in resourcemanager
-
 };
 #endif /* __ModuleProgram_h__ */

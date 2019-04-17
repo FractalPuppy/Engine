@@ -146,15 +146,15 @@ void ResourceSkybox::Draw(const Frustum& frustum) const
 
 	glDepthMask(GL_FALSE);
 
-	glUseProgram(shader->id);
+	glUseProgram(shader->id[0]);
 	glBindVertexArray(skyboxVAO);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox_cubemap);
 	float4x4 model(float4x4::FromTRS(frustum.pos,
 		float4x4::identity, float3::one));
-	glUniformMatrix4fv(glGetUniformLocation(shader->id,
+	glUniformMatrix4fv(glGetUniformLocation(shader->id[0],
 		"model"), 1, GL_TRUE, &model[0][0]);
 
-	glUniform1i(glGetUniformLocation(shader->id, "skybox"), 0);
+	glUniform1i(glGetUniformLocation(shader->id[0], "skybox"), 0);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
 	glBindVertexArray(0);

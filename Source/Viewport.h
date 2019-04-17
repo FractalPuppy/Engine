@@ -41,7 +41,7 @@ public:
 	unsigned MSAACOLOR = 0;
 	bool focus = true;
 	bool hover = false;
-	math::float2 winPos;
+	math::float2 winPos = float2::zero;
 private:
 	bool enabled = true;
 	bool startImguizmoUse = false;

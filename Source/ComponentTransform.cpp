@@ -123,15 +123,8 @@ void ComponentTransform::MultiSelectionTransform(float4x4 &difference)
 void ComponentTransform::UpdateTransform()
 {
 	UpdateOldTransform();
-	math::float4x4 originalGlobal = global;
-	global = global * local.Inverted();
-	local = math::float4x4::FromTRS(position, rotation, scale);
-	global = global * local;
-
-	math::float4x4 difference = global - originalGlobal;
-	MultiSelectionTransform(difference);
-
-  front = -global.Col3(2);
+	
+	front = -global.Col3(2);
 	up = global.Col3(1);
 	right = global.Col3(0);
 
@@ -195,7 +188,7 @@ void ComponentTransform::SetWorldToLocal(const math::float4x4& newparentGlobalMa
 	RotationToEuler();
 }
 
-void ComponentTransform::SetGlobalTransform(const math::float4x4& newglobal, const math::float4x4&parentglobal)
+void ComponentTransform::SetGlobalTransform(const math::float4x4& newglobal, const math::float4x4& parentglobal)
 {
 	global = newglobal;
 	local = parentglobal.Inverted() * global;
@@ -246,11 +239,26 @@ void ComponentTransform::SetGlobalTransform(const math::float4x4& newglobal, con
 	}
 }
 
+void ComponentTransform::SetLocalTransform(const math::float4x4& newLocal, const math::float4x4& parentGlobal)
+{
+	local = newLocal;
+	
+	//global = parentGlobal.Mul(local);
+	local.Decompose(position, rotation, scale);
+	RotationToEuler();
+}
+
 void ComponentTransform::SetPosition(const math::float3 & newPosition)
 {
 	position = newPosition;
 	gameobject->movedFlag = true;
-	UpdateTransform();
+}
+
+void ComponentTransform::SetRotation(const math::Quat& newQuat)
+{
+	rotation = newQuat;
+	RotationToEuler();
+	gameobject->movedFlag = true;
 }
 
 math::float3 ComponentTransform::GetPosition()
@@ -258,8 +266,23 @@ math::float3 ComponentTransform::GetPosition()
 	return position;
 }
 
+math::Quat ComponentTransform::GetRotation()
+{
+	return rotation;
+}
+
+
 math::float3 ComponentTransform::GetGlobalPosition()
 {
+	if (gameobject->movedFlag)
+	{
+		float4x4 newlocal = math::float4x4::FromTRS(position, rotation, scale);
+		if (gameobject->parent != nullptr)
+		{
+			return (gameobject->parent->GetGlobalTransform() * newlocal).Col3(3);
+		}
+		return newlocal.Col3(3);
+	}
 	return global.Col3(3);
 }
 

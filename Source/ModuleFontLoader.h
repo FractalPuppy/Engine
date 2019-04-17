@@ -26,7 +26,6 @@ public:
 	ModuleFontLoader();
 	~ModuleFontLoader();
 	bool Init(JSON* json) override;
-	void Draw();
 	bool CleanUp() override;
 	void LoadFonts(const char* newFont);
 	void RenderText(const ComponentText& compText, int currentWidth, int currentHeight);
