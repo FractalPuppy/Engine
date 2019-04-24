@@ -44,6 +44,7 @@ public:
 	bool applied = false;
 private:
 	float decayToUpdate = decay;
+
 };
 
 #endif

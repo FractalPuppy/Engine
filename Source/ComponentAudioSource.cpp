@@ -24,12 +24,10 @@
 
 ComponentAudioSource::ComponentAudioSource(GameObject* gameobject) : Component(gameobject, ComponentType::AudioSource)
 {
-	fileExplorer = new FileExplorer();
 }
 
 ComponentAudioSource::ComponentAudioSource(const ComponentAudioSource& component) : Component(component)
 {
-	fileExplorer = new FileExplorer();
 	path = component.path;
 	FXname = component.FXname;
 	playOnAwake = component.playOnAwake;
@@ -173,13 +171,6 @@ void ComponentAudioSource::Update()
 	{
 		if (awaken) awaken = false;
 
-		if (demoOnPlay && App->scene->selected != this->gameobject)
-		{
-			Stop();
-			demoOnPlay = false;
-		}
-		//if (App->scene->selected == this->gameobject) DrawDebugSound();
-			
 		mesageSent = false;
 	}
 	if (App->scene->selected == this->gameobject) DrawDebugSound();
@@ -239,23 +230,6 @@ void ComponentAudioSource::DrawProperties()
 			ImGui::EndCombo();
 		}
 
-		
-		if (!demoOnPlay) 
-		{
-			if (ImGui::Button("Play Preview")) 
-			{
-				Play();
-				demoOnPlay = true;
-			}
-		}
-		else {
-			if (ImGui::Button("Stop Preview")) 
-			{
-				Stop();
-				demoOnPlay = false;
-			}
-		}
-		toolTip("Play a raw sample of the loaded Audio");
 
 		ImGui::NewLine();
 		if (ImGui::Checkbox("Streamed", &streamed)) 

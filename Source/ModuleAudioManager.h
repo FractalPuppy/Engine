@@ -61,6 +61,8 @@ private:
 	SoLoud::Bus bus3D;
 	SoLoud::Bus busRaw;
 
+	bool busesStoped = false;
+
 };
 
 #endif

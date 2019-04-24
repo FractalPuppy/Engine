@@ -19,22 +19,10 @@
 
 ComponentAudioListener::ComponentAudioListener(GameObject* gameobject) : Component(gameobject, ComponentType::AudioListener)
 {
-	App->audioManager->audioListeners.push_back(this);
-	if (App->audioManager->audioListeners.size() == 1) 
-	{
-		App->audioManager->mainListener = this;
-		isMainListener = true;
-	}
 }
 
 ComponentAudioListener::ComponentAudioListener(const ComponentAudioListener& component) : Component(component)
 {
-	App->audioManager->audioListeners.push_back(this);
-	if (App->audioManager->audioListeners.size() == 1)
-	{
-		App->audioManager->mainListener = this;
-		isMainListener = true;
-	}
 }
 
 ComponentAudioListener::~ComponentAudioListener()

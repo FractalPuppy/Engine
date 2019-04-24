@@ -1,6 +1,7 @@
 #include "Application.h"
 
 #include "ModuleAudioManager.h"
+#include "ModuleTime.h"
 
 #include "ComponentAudioListener.h"
 #include "ComponentReverbZone.h"
@@ -21,6 +22,15 @@ ModuleAudioManager::~ModuleAudioManager()
 
 update_status ModuleAudioManager::PostUpdate() 
 {
+
+	if (App->time->gameState == GameState::RUN) busesStoped = false;
+
+	else if (App->time->gameState == GameState::STOP && !busesStoped)
+	{ 
+		for (int i = 0; i < reverbZones.size(); ++i)  RemoveEchoFilter(i);
+		busesStoped = true;
+	}
+
 	gSoloud.update3dAudio();
 	return UPDATE_CONTINUE;
 }

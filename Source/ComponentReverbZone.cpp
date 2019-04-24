@@ -22,12 +22,10 @@ float dist;
 
 ComponentReverbZone::ComponentReverbZone(GameObject* gameobject) : Component(gameobject, ComponentType::ReverbZone)
 {
-	App->audioManager->reverbZones.push_back(this);
 }
 
 ComponentReverbZone::ComponentReverbZone(const ComponentReverbZone& component) : Component(component)
 {
-	App->audioManager->reverbZones.push_back(this);
 	delay = component.delay;
 	decay = component.decay;
 	radius = component.radius;
@@ -38,10 +36,10 @@ ComponentReverbZone::~ComponentReverbZone()
 	for (int i = 0; i < App->audioManager->reverbZones.size(); ++i) 
 	{
 		if (App->audioManager->reverbZones[i] == this) {
+			App->audioManager->RemoveEchoFilter(i);
 			App->audioManager->reverbZones.erase(App->audioManager->reverbZones.begin() + i);
 			break;
 		}
-		// break;
 	}
 }
 
