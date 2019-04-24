@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnemyMovementScript", "Scri
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreditsScript", "Scripts\CreditsScript\CreditsScript.vcxproj", "{CF4ADE84-8B3D-45A4-80EF-5B52CC795B6C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicEnemyAIScript", "Scripts\BasicEnemyAIScript\BasicEnemyAIScript.vcxproj", "{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -157,6 +159,22 @@ Global
 		{CF4ADE84-8B3D-45A4-80EF-5B52CC795B6C}.Release|Win32.Build.0 = Release|Win32
 		{CF4ADE84-8B3D-45A4-80EF-5B52CC795B6C}.Release|x64.ActiveCfg = Release|x64
 		{CF4ADE84-8B3D-45A4-80EF-5B52CC795B6C}.Release|x64.Build.0 = Release|x64
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.Debug|Win32.Build.0 = Debug|Win32
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.Debug|x64.ActiveCfg = Debug|x64
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.Debug|x64.Build.0 = Debug|x64
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.GameBuild Debug|Win32.ActiveCfg = Debug|Win32
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.GameBuild Debug|Win32.Build.0 = Debug|Win32
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.GameBuild Debug|x64.ActiveCfg = Debug|x64
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.GameBuild Debug|x64.Build.0 = Debug|x64
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.GameBuild|Win32.ActiveCfg = Release|Win32
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.GameBuild|Win32.Build.0 = Release|Win32
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.GameBuild|x64.ActiveCfg = Release|x64
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.GameBuild|x64.Build.0 = Release|x64
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.Release|Win32.ActiveCfg = Release|Win32
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.Release|Win32.Build.0 = Release|Win32
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.Release|x64.ActiveCfg = Release|x64
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,6 +186,7 @@ Global
 		{55A33768-7FC9-40D5-9E16-9CC484F406BC} = {B0BA8D83-BE07-4405-ADE1-C771D081A8CD}
 		{34167E15-EAD7-46CC-A371-36AEBFC0E628} = {B0BA8D83-BE07-4405-ADE1-C771D081A8CD}
 		{CF4ADE84-8B3D-45A4-80EF-5B52CC795B6C} = {B0BA8D83-BE07-4405-ADE1-C771D081A8CD}
+		{B6EA4ADB-AB73-42A0-A2AB-D98F896178B3} = {B0BA8D83-BE07-4405-ADE1-C771D081A8CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7938FFD4-0765-4A85-95CB-3908D56E6F3D}

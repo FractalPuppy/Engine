@@ -26,6 +26,7 @@ public:
 	void Start() override;
 	void Update() override;
 
+	void SendAnimationTrigger(EnemyState previous, EnemyState newState);
 	void Expose(ImGuiContext* context) override;
 
 private:
