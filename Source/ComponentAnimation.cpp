@@ -333,7 +333,8 @@ void ComponentAnimation::Update()
 
 void ComponentAnimation::OnPlay()
 {
-	controller->Play(GetAnimFromStateMachine(), GetLoopFromStateMachine());
+	if(stateMachine != nullptr)
+		controller->Play(GetAnimFromStateMachine(), GetLoopFromStateMachine());
 }
 
 void ComponentAnimation::UpdateGO(GameObject* go)
