@@ -6,6 +6,7 @@ class JSON_value;
 struct ImGuiContext;
 #include "BaseScript.h"
 #include "Math/float3.h"
+#include "Math/Quat.h"
 
 #ifdef PlayerMovement_EXPORTS
 #define PlayerMovement_API __declspec(dllexport)
@@ -26,6 +27,8 @@ public:
 public:
 	bool isPlayerDead = false;
 	float3 currentPosition = float3(0, 0, 0); //TODO ZERO
+	Quat rotation = Quat(0, 0, 0, 0);
+	Quat currentRotation = Quat(0, 0, 0, 0);
 private:
 	float speed = 2.0f;
 };
