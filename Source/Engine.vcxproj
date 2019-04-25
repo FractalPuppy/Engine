@@ -97,7 +97,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <PreprocessorDefinitions>_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -119,7 +119,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <PreprocessorDefinitions>GAME_BUILD;_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -143,7 +143,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -168,7 +168,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GAME_BUILD;_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -191,11 +191,14 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentAnimation.h" />
+    <ClInclude Include="ComponentAudioListener.h" />
+    <ClInclude Include="ComponentAudioSource.h" />
     <ClInclude Include="ComponentButton.h" />
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentImage.h" />
     <ClInclude Include="ComponentLight.h" />
     <ClInclude Include="ComponentRenderer.h" />
+    <ClInclude Include="ComponentReverbZone.h" />
     <ClInclude Include="ComponentScript.h" />
     <ClInclude Include="ComponentText.h" />
     <ClInclude Include="ComponentTransform.h" />
@@ -268,6 +271,7 @@
     <ClInclude Include="MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="MemoryModule.h" />
+    <ClInclude Include="ModuleAudioManager.h" />
     <ClInclude Include="ModuleDebugDraw.h" />
     <ClInclude Include="ModuleDevelopmentBuildDebug.h" />
     <ClInclude Include="ModuleFileSystem.h" />
@@ -289,6 +293,10 @@
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="myQuadTree.h" />
+    <ClInclude Include="NodeEditor\Include\ax\Math2D.h" />
+    <ClInclude Include="NodeEditor\Include\NodeEditor.h" />
+    <ClInclude Include="NodeEditor\Source\Editor.h" />
+    <ClInclude Include="NodeEditor\Source\Interop.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PanelAbout.h" />
     <ClInclude Include="PanelBrowser.h" />
@@ -311,7 +319,43 @@
     <ClInclude Include="ResourceModel.h" />
     <ClInclude Include="ResourceSkybox.h" />
     <ClInclude Include="ResourceTexture.h" />
-    <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="ResourceStateMachine.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_flac.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_mp3.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_wav.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_audiosource.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_bassboostfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_biquadresonantfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_bus.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_c.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_dcremovalfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_echofilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_error.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_fader.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_fft.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_fftfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_file.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_file_hack_off.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_file_hack_on.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_filter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_flangerfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_internal.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_lofifilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_monotone.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_openmpt.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_queue.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_robotizefilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_sfxr.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_speech.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_tedsid.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_thread.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_vic.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_vizsn.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_wav.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_waveshaperfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_wavstream.h" />
+    <ClInclude Include="Soloud\fractal_includes\stb_vorbis.h" />
     <ClInclude Include="strpool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Viewport.h" />
@@ -322,11 +366,14 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentAnimation.cpp" />
+    <ClCompile Include="ComponentAudioListener.cpp" />
+    <ClCompile Include="ComponentAudioSource.cpp" />
     <ClCompile Include="ComponentButton.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentImage.cpp" />
     <ClCompile Include="ComponentLight.cpp" />
     <ClCompile Include="ComponentRenderer.cpp" />
+    <ClCompile Include="ComponentReverbZone.cpp" />
     <ClCompile Include="ComponentScript.cpp" />
     <ClCompile Include="ComponentText.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
@@ -373,6 +420,7 @@
     <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="MemoryModule.c" />
+    <ClCompile Include="ModuleAudioManager.cpp" />
     <ClCompile Include="ModuleDebugDraw.cpp" />
     <ClCompile Include="ModuleDevelopmentBuildDebug.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />
@@ -393,6 +441,8 @@
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="myQuadTree.cpp" />
+    <ClCompile Include="NodeEditor\Source\Editor.cpp" />
+    <ClCompile Include="NodeEditor\Source\NodeEditor.cpp" />
     <ClCompile Include="PanelAbout.cpp" />
     <ClCompile Include="PanelAnimation.cpp" />
     <ClCompile Include="PanelBrowser.cpp" />
@@ -411,7 +461,34 @@
     <ClCompile Include="ResourceModel.cpp" />
     <ClCompile Include="ResourceSkybox.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
-    <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\dr_impl.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_audiosource.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_bus.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_3d.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_basicops.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_faderops.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_filterops.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_getters.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_setters.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_voicegroup.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_voiceops.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_echofilter.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_fader.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_fft.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_fft_lut.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_file.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_filter.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_queue.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl1.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl1_dll.c" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl2.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl2_dll.c" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_thread.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_wav.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_wavstream.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\stb_vorbis.c" />
+    <ClCompile Include="ResourceStateMachine.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Viewport.cpp" />
   </ItemGroup>
@@ -425,6 +502,7 @@
     <None Include="..\Game\Shaders\VertexShaders\Fonts.vs" />
     <None Include="..\Game\Shaders\VertexShaders\PBR.vs" />
     <None Include="..\Game\Shaders\VertexShaders\UI.vs" />
+    <None Include="NodeEditor\Include\ax\Math2D.inl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc" />

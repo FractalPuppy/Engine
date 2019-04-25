@@ -82,6 +82,7 @@ public:
 	void Select(GameObject* gameobject);
 	void UnSelect();
 	void Pick(float normalized_x, float normalized_y);
+	GameObject* FindClosestParent(GameObject* go);
 
 	ENGINE_API GameObject * FindGameObjectByName(const char* name) const;
 	ENGINE_API GameObject * FindGameObjectByName(GameObject* parent, const char* name) const;
@@ -126,6 +127,10 @@ public:
 	int SceneSize = 10000;
 
 	GameObject* canvas = nullptr;
+
+	bool loadScene = false;
+	std::string sceneName = "";
+	int actionAfterLoad = -1;
 };
 
 

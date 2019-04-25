@@ -18,9 +18,9 @@ PanelInspector::PanelInspector()
 {
 	componentList = { {"Transform", ComponentType::Transform}, {"Renderer", ComponentType::Renderer}, 
 	{"Camera", ComponentType::Camera},  {"Light", ComponentType::Light} , {"Script", ComponentType::Script},
-	{"Animation", ComponentType::Animation} };
+	{"Animation", ComponentType::Animation}, {"Reverb Zone", ComponentType::ReverbZone}, {"Audio Listener", ComponentType::AudioListener}, 
+	{"Audio Source", ComponentType::AudioSource} };
 }
-
 
 PanelInspector::~PanelInspector()
 {

@@ -17,14 +17,26 @@ AnimationController::~AnimationController()
 {
 }
 
-void AnimationController::Play(ResourceAnimation* anim, bool loop, unsigned fadeTime)
+void AnimationController::Play(ResourceAnimation* anim, bool loop)
 {
 	Instance* newInstance = new Instance;
 	newInstance->anim = anim;
 	newInstance->loop = loop;
-	newInstance->fadeDuration = fadeTime;
 	current = newInstance;
 }
+
+void AnimationController::PlayNextNode(ResourceAnimation * anim, bool loop, unsigned blend)
+{
+	if (current->next == nullptr)
+	{
+		current->next = new Instance();
+	}
+	current->next->anim = anim;
+	current->next->loop = loop;
+	current->fadeDuration = float(blend);
+}
+
+
 
 void AnimationController::Update(float dt)
 {
@@ -45,21 +57,18 @@ void AnimationController::UpdateInstance(Instance* instance, float dt)
 
 		if (trueDt > 0.0f)
 		{
-			float timeRemainingA = instance->maxTime - instance->time;
+			float timeRemainingA = anim->durationInSeconds - instance->time;
 			if (trueDt <= timeRemainingA)
 			{
 				instance->time += trueDt;
-				trueFrame = instance->time * anim->framesPerSecond;
-				anim->currentFrame = (int)trueFrame;
 			}
 			else if (instance->loop)
 			{
-				instance->time = instance->minTime + trueDt - timeRemainingA;
-				trueFrame = 0;
+				instance->time = trueDt - timeRemainingA;
 			}
 			else
 			{
-				instance->time = instance->maxTime;
+				instance->time = anim->durationInSeconds;
 			}
 		}
 		else
@@ -68,13 +77,10 @@ void AnimationController::UpdateInstance(Instance* instance, float dt)
 			if (trueDt >= timeRemainingA)
 			{
 				instance->time += trueDt;
-				trueFrame = instance->time * anim->framesPerSecond;
-				anim->currentFrame = (int)trueFrame;
 			}
 			else if (instance->loop)
 			{
 				instance->time = instance->maxTime - timeRemainingA + trueDt;
-				trueFrame = anim->duration;
 			}
 			else
 			{
@@ -83,9 +89,11 @@ void AnimationController::UpdateInstance(Instance* instance, float dt)
 		}
 	}
 
+	//We'll have two lists of events one that will be emptying itself checking for scripts audio etc
+
 	if (instance->next != nullptr)
 	{
-		unsigned timeRemainingB = instance->fadeDuration - instance->fadeTime;
+		float timeRemainingB = instance->fadeDuration - instance->fadeTime;
 		if (dt <= timeRemainingB)
 		{
 			instance->fadeTime += dt;
@@ -134,9 +142,8 @@ bool AnimationController::GetTransformInstance(Instance* instance, unsigned chan
 	{
 		if (channelIndex != 999u)
 		{
-			assert(instance->time <= anim->durationInSeconds);
-		
-			//which key frame are we on? This will always return an enter, how?
+			
+			//Used to know how far are we from each frame
 
 			float positionKey = float(instance->time*(anim->GetNumPositions(channelIndex) - 1)) / float(anim->durationInSeconds);
 			float rotationKey = float(instance->time*(anim->GetNumRotations(channelIndex) - 1)) / float(anim->durationInSeconds);
@@ -161,7 +168,7 @@ bool AnimationController::GetTransformInstance(Instance* instance, unsigned chan
 			}
 			else
 			{
-				rotation = anim->GetRotation(channelIndex, positionIndex);
+				rotation = anim->GetRotation(channelIndex, rotationIndex);
 			}
 			if (instance->next != nullptr)
 			{
@@ -172,10 +179,10 @@ bool AnimationController::GetTransformInstance(Instance* instance, unsigned chan
 
 				if (GetTransformInstance(instance->next, channelIndex, nextPosition, nextRotation))
 				{
-					float blend_lambda = float(instance->fadeTime) / float(instance->fadeDuration);
+					float blendLambda = float(instance->fadeTime) / float(instance->fadeDuration);
 
-					position = InterpolateFloat3(nextPosition, position, blend_lambda);
-					rotation = InterpolateQuat(nextRotation, rotation, blend_lambda);
+					position = InterpolateFloat3(nextPosition, position, blendLambda);
+					rotation = InterpolateQuat(nextRotation, rotation, blendLambda);
 				}
 			}
 			return true;

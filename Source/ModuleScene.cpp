@@ -12,6 +12,7 @@
 #include "ModuleTextures.h"
 #include "ModuleSpacePartitioning.h"
 #include "ModuleWindow.h"
+#include "ModuleScript.h"
 
 #include "GameObject.h"
 #include "ComponentCamera.h"
@@ -107,6 +108,13 @@ bool ModuleScene::Start()
 
 update_status ModuleScene::PreUpdate()
 {
+	if (loadScene)
+	{
+		LoadScene(sceneName.c_str(), SCENES);
+		App->scripting->onStart = true;
+		loadScene = false;
+	}
+
 #ifndef GAME_BUILD
 	FrustumCulling(*App->camera->editorcamera->frustum);
 #else
@@ -124,6 +132,21 @@ update_status ModuleScene::Update(float dt)
 	root->UpdateTransforms(math::float4x4::identity);
 	root->Update();
 	root->CheckDelete();
+	if (photoTimer > 0)
+	{
+		photoTimer -= dt;
+	}
+
+	if ((App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT)
+		|| (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN))
+	{
+		RestoreLastPhoto();
+	}
+	if ((App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT)
+		|| (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN))
+	{
+		Redo();
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -378,21 +401,24 @@ void ModuleScene::DragNDropMove(GameObject* target)
 			{
 				for (GameObject* droppedGo : App->scene->selection)
 				{
-					droppedGo->parent->children.remove(droppedGo);
-
-					std::list<GameObject*>::iterator it = std::find(target->parent->children.begin(), target->parent->children.end(), target);
-
-					target->parent->children.insert(it, droppedGo);
-
-					if (droppedGo->transform != nullptr)
+					if (droppedGo->UUID > 1)
 					{
-						droppedGo->transform->SetLocalToWorld();
-					}
+						droppedGo->parent->children.remove(droppedGo);
 
-					droppedGo->parent = target->parent;
-					if (droppedGo->transform != nullptr)
-					{
-						droppedGo->transform->SetWorldToLocal(droppedGo->parent->GetGlobalTransform());
+						std::list<GameObject*>::iterator it = std::find(target->parent->children.begin(), target->parent->children.end(), target);
+
+						target->parent->children.insert(it, droppedGo);
+
+						if (droppedGo->transform != nullptr)
+						{
+							droppedGo->transform->SetLocalToWorld();
+						}
+
+						droppedGo->parent = target->parent;
+						if (droppedGo->transform != nullptr)
+						{
+							droppedGo->transform->SetWorldToLocal(droppedGo->parent->GetGlobalTransform());
+						}
 					}
 				}
 			}
@@ -403,7 +429,7 @@ void ModuleScene::DragNDropMove(GameObject* target)
 
 void ModuleScene::DragNDrop(GameObject* go)
 {
-	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+	if (go->UUID > 1 && ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
 	{
 		GameObject * dragged_go = go;
 		ImGui::SetDragDropPayload("DragDropHierarchy", &dragged_go, sizeof(GameObject *), ImGuiCond_Once);
@@ -423,17 +449,20 @@ void ModuleScene::DragNDrop(GameObject* go)
 				TakePhoto();
 				for (GameObject* droppedGo : App->scene->selection)
 				{
-					go->children.push_back(droppedGo);
+					if (droppedGo->UUID > 1)
+					{
+						go->children.push_back(droppedGo);
 
-					if (droppedGo->transform != nullptr)
-					{
-						droppedGo->transform->SetLocalToWorld();
-					}
-					droppedGo->parent->children.remove(droppedGo);
-					droppedGo->parent = go;
-					if (droppedGo->transform != nullptr)
-					{
-						droppedGo->transform->SetWorldToLocal(droppedGo->parent->GetGlobalTransform());
+						if (droppedGo->transform != nullptr)
+						{
+							droppedGo->transform->SetLocalToWorld();
+						}
+						droppedGo->parent->children.remove(droppedGo);
+						droppedGo->parent = go;
+						if (droppedGo->transform != nullptr)
+						{
+							droppedGo->transform->SetWorldToLocal(droppedGo->parent->GetGlobalTransform());
+						}
 					}
 				}
 			}
@@ -721,6 +750,8 @@ void ModuleScene::RestorePhoto(GameObject* photo)
 {
 	photoTimer = 0.f;
 	root = photo;
+	root->UUID = 0; // Restore root UUID
+	root->children.front()->UUID = 1; //Restore canvas UUID
 	std::stack<GameObject*> goStack;
 	goStack.push(root);
 	while (!goStack.empty())
@@ -975,7 +1006,17 @@ void ModuleScene::Pick(float normalized_x, float normalized_y)
 
 	if (closestGO != nullptr)
 	{
-		Select(closestGO);
+		GameObject* closestGoForReal = nullptr;
+		closestGoForReal = FindClosestParent(closestGO);
+		if(closestGoForReal != nullptr)
+		{
+			Select(closestGoForReal);
+		}
+		else
+		{
+			Select(closestGO);
+		}
+	
 	}
 	else
 	{
@@ -989,12 +1030,28 @@ void ModuleScene::Pick(float normalized_x, float normalized_y)
 	}
 }
 
-GameObject * ModuleScene::FindGameObjectByName(const char* name) const
+GameObject* ModuleScene::FindClosestParent(GameObject* go)
+{
+	if (go->parent != nullptr)
+	{
+		if (go->parent->isBoneRoot == true)
+		{
+			return go->parent;
+		}
+	}
+	else
+	{
+		return nullptr;
+	}
+	return FindClosestParent(go->parent);
+}
+
+GameObject* ModuleScene::FindGameObjectByName(const char* name) const
 {
 	return FindGameObjectByName(App->scene->root, name);
 }
 
-GameObject * ModuleScene::FindGameObjectByName(GameObject* parent, const char* name) const
+GameObject* ModuleScene::FindGameObjectByName(GameObject* parent, const char* name) const
 {
 	std::stack<GameObject*> GOs;
 	GOs.push(parent);

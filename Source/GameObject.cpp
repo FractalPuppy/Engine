@@ -9,6 +9,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleSpacePartitioning.h"
+#include "ModuleAudioManager.h"
 
 #include "Component.h"
 #include "ComponentTransform.h"
@@ -21,6 +22,10 @@
 #include "ComponentButton.h"
 #include "ComponentAnimation.h"
 #include "ComponentScript.h"
+#include "ComponentAudioListener.h"
+#include "ComponentAudioSource.h"
+#include "ComponentReverbZone.h"
+
 
 #include "ResourceMesh.h"
 
@@ -28,6 +33,7 @@
 #include "ResourceMaterial.h"
 #include "ResourceMesh.h"
 
+#include "HashString.h"
 #include "myQuadTree.h"
 #include "AABBTree.h"
 #include <stack>
@@ -82,12 +88,6 @@ GameObject::GameObject(const GameObject & gameobject)
 			((ComponentButton*)componentcopy)->highlightedImage->gameobject = this;
 			((ComponentButton*)componentcopy)->pressedImage->gameobject = this;
 			((ComponentButton*)componentcopy)->rectTransform->gameobject = this;
-		}
-		if (componentcopy->type == ComponentType::Light)
-		{
-			light = (ComponentLight*)componentcopy;
-			App->spacePartitioning->aabbTreeLighting.InsertGO(this);
-			App->scene->lights.push_back(light);
 		}
 	}
 	if (!App->scene->photoEnabled)
@@ -291,6 +291,23 @@ Component* GameObject::CreateComponent(ComponentType type)
 	case ComponentType::Script:
 		component = new ComponentScript(this);
 		break;
+	case ComponentType::AudioSource:
+		component = new ComponentAudioSource(this);
+		break;
+	case ComponentType::AudioListener:
+		component = new ComponentAudioListener(this);
+		App->audioManager->audioListeners.push_back((ComponentAudioListener*)component);
+		if (App->audioManager->audioListeners.size() == 1)
+		{
+			App->audioManager->mainListener = (ComponentAudioListener*)component;
+			App->audioManager->mainListener->isMainListener = true; 
+		}
+		break;
+	case ComponentType::ReverbZone:
+		component = new ComponentReverbZone(this);
+		App->audioManager->reverbZones.push_back((ComponentReverbZone*)component);
+
+		break;
 	default:
 		break;
 	}
@@ -338,7 +355,7 @@ std::vector<Component*> GameObject::GetComponentsInChildren(ComponentType type) 
 	return list;
 }
 
-void GameObject::RemoveComponent(const Component & component)
+void GameObject::RemoveComponent(const Component& component)
 {
 	Component* trash = nullptr;
 	std::vector<Component*>::iterator trashIt;
@@ -870,6 +887,21 @@ void GameObject::SetStaticAncestors()
 		parents.push(go->parent);
 	}
 	
+}
+
+void GameObject::OnPlay()
+{
+	//Go through all components letting them know play button has been pressed
+	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+	{
+		(*it)->OnPlay();
+	}
+
+	//Recursive, this will only be executed on play
+	for (std::list<GameObject*>::iterator it = children.begin(); it != children.end(); ++it)
+	{
+		(*it)->OnPlay();
+	}
 }
 
 void GameObject::UpdateTransforms(math::float4x4 parentGlobal)

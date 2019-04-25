@@ -63,6 +63,8 @@ void Viewport::Draw(ComponentCamera * cam, bool isEditor)
 		//if the viewport is hidden, it is not rendered
 		if (ImGui::GetCurrentWindow()->Hidden)
 		{
+			focus = false;
+			hover = false;
 			ImGui::End();
 			return;
 		}
@@ -180,7 +182,6 @@ void Viewport::DrawGuizmoButtons()
 		{
 			mCurrentGizmoMode = ImGuizmo::LOCAL;
 			mCurrentModeAux = ImGuizmo::LOCAL;
-
 		}
 	}
 	else

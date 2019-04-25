@@ -66,18 +66,22 @@ void ModuleCamera::SaveConfig(JSON * config)
 update_status ModuleCamera::Update(float dt)
 {
 	BROFILER_CATEGORY("Camera Update", Profiler::Color::Red)
-
+	
 	if (App->renderer->IsSceneViewFocused() || App->editor->hierarchy->IsHovered())
 	{
+		if(App->renderer->IsSceneHovered())
+		{
 		InputMove(dt);
 		InputRotate(dt);
 		InputCenter();
 		InputOrbit(dt);
+		}
 	}
 	if (App->renderer->IsSceneHovered())
 	{
 		InputZoom();
 	}
+
 	return UPDATE_CONTINUE;
 }
 

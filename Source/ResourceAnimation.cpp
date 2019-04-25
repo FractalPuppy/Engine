@@ -144,6 +144,8 @@ void ResourceAnimation::SetAnimation(const char* animationData)
 
 		channels.push_back(newChannel);
 	}
+
+
 }
 
 unsigned ResourceAnimation::GetNumPositions(unsigned indexChannel) const

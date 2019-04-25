@@ -21,6 +21,7 @@ public:
 
 	void UpdateTransform();
 	void UpdateOldTransform();
+	void UpdateGlobalTransform();
 
 	void SetLocalToWorld();
 	void SetWorldToLocal(const math::float4x4& newparentGlobalMatrix);

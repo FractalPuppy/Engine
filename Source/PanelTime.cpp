@@ -6,6 +6,7 @@
 #include "ModuleFileSystem.h"
 
 #include "PanelTime.h"
+#include "GameObject.h"
 
 #include "imgui.h"
 
@@ -43,8 +44,8 @@ void PanelTime::Draw()
 		if (App->time->gameState == GameState::STOP) 
 		{
 			App->time->StartGameClock();
-
 			App->scene->SaveScene(*App->scene->root, TEMPORARY_SCENE, SCENES, true);
+			App->scene->root->OnPlay();
 		}
 		else 
 		{

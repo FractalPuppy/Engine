@@ -13,6 +13,7 @@ class ResourceTexture;
 class ResourceMaterial;
 class ResourceMesh;
 class ResourceAnimation;
+class ResourceStateMachine;
 
 enum class TYPE;
 
@@ -44,6 +45,8 @@ class ModuleResourceManager :
 	Resource* Get(const char* file, TYPE type) const;									// Returns the resource using exportedFileName and type, adding one to the references count and loads it to memory if not already
 	ResourceMesh* GetMeshByName(const char* name);										// To be deprecated: returns mesh by name.
 	ResourceAnimation* GetAnimationByName(const char* name);
+	ResourceStateMachine* GetSMByName(const char* name);
+
 	Resource* GetWithoutLoad(unsigned uid) const;										// Returns the resource using UID and doesn't add one to the references count neither loads it to memory
 	Resource* GetWithoutLoad(const char* file) const;									// Returns the resource using exportedFileName and doesn't add one to the references count neither loads it to memory
 	Resource* GetWithoutLoad(const char* file, TYPE type) const;						// Returns the resource using exportedFileName and type, also doesn't add one to the references count neither loads it to memory
@@ -54,9 +57,12 @@ class ModuleResourceManager :
 	std::vector<ResourceTexture*> GetTexturesList();
 	std::vector<ResourceMaterial*> GetMaterialsList();
 	std::vector<ResourceAnimation*> GetAnimationsList();
+	std::vector<ResourceStateMachine*> GetSMList();
+
 	std::vector<std::string> GetResourceNamesList(TYPE resourceType, bool ordered); // Returns a vector with the exportedFileName of every Resource of the type given.	
 	std::vector<std::string> GetMeshesNamesList(bool ordered);						// To be deprecated: Returns a vector with the name of every mesh orederer or not.		
 	std::vector<std::string> GetAnimationsNamesList(bool ordered);
+	std::vector<std::string> GetSMNamesList(bool ordered);
 
 	bool Exists(const char* exportedFileName);										// Checks if a resource with the given exported filename already exist
 	bool Exists(const char* exportedFileName, TYPE type);							// Checks if a resource of the given type and exported filename already exist

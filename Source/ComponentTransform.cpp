@@ -123,6 +123,8 @@ void ComponentTransform::MultiSelectionTransform(float4x4 &difference)
 void ComponentTransform::UpdateTransform()
 {
 	UpdateOldTransform();
+
+
 	
 	front = -global.Col3(2);
 	up = global.Col3(1);
@@ -167,6 +169,12 @@ void ComponentTransform::UpdateOldTransform()
 	old_position = position;
 	old_euler = eulerRotation;
 	old_scale = scale;	
+}
+
+void ComponentTransform::UpdateGlobalTransform()
+{
+	if(gameobject->parent != nullptr)
+		global = gameobject->parent->GetGlobalTransform() * local;
 }
 
 void ComponentTransform::SetLocalToWorld()

@@ -8,6 +8,7 @@
 #include "ResourceTexture.h"
 #include "ResourceModel.h"
 #include "ResourceMesh.h"
+#include "ResourceStateMachine.h"
 #include "ResourceMaterial.h"
 #include "ResourceSkybox.h"
 #include "ResourceAnimation.h."
@@ -115,6 +116,7 @@ void PanelResourceManager::Draw()
 		case TYPE::ANIMATION:	ImGui::Text("Animation");	break;
 		case TYPE::MATERIAL:	ImGui::Text("Material");	break;
 		case TYPE::SKYBOX:		ImGui::Text("Skybox");		break;
+		case TYPE::STATEMACHINE:ImGui::Text("StateMachine"); break;
 		default:
 		case TYPE::UNKNOWN:		ImGui::Text("Unknown");		break;
 		}
@@ -148,6 +150,7 @@ void PanelResourceManager::Draw()
 		case TYPE::ANIMATION:	DrawResourceAnimation();break;
 		case TYPE::MATERIAL:	DrawResourceMaterial(); break;
 		case TYPE::SKYBOX:		DrawResourceSkybox();	break;
+		case TYPE::STATEMACHINE: DrawResourceSM();		break;
 		}
 	}
 	ImGui::End();
@@ -231,7 +234,7 @@ void PanelResourceManager::OpenResourceEditor()
 			}
 
 			// Type
-			const char* types[] = { "Texture", "Model", "Mesh", "Audio", "Scene", "Animation", "Material", "Skybox", "Unknown" };
+			const char* types[] = { "Texture", "Model", "Mesh", "Audio", "Scene", "Animation", "Material", "Skybox", "State Machine", "Unknown" };
 			int type = (int)auxResource->GetType();
 			if (ImGui::BeginCombo("Type", types[type]))
 			{
@@ -454,6 +457,27 @@ void PanelResourceManager::DrawResourceSkybox()
 	ImGui::Text("Cubemap: %u", skybox.GetCubemap());
 	ImGui::Text("VAO: %u", skybox.GetVAO());
 	ImGui::Text("VBO: %u", skybox.GetVBO());
+	ImGui::NextColumn();
+	// TODO: [Resource Manager] Add preview of the skybox on a sphere
+
+	ImGui::End();
+}
+
+void PanelResourceManager::DrawResourceSM()
+{
+	if (!ImGui::Begin("StateMachine Manager"))
+	{
+		ImGui::End();
+		return;
+	}
+	ResourceStateMachine& stateMachine = *(ResourceStateMachine*)previous;
+	std::string exportedFile(stateMachine.GetExportedFile());
+	ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), (exportedFile + ":").c_str());
+	ImGui::Columns(2);
+
+	// Skybox variables
+	
+
 	ImGui::NextColumn();
 	// TODO: [Resource Manager] Add preview of the skybox on a sphere
 

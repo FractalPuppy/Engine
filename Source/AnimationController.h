@@ -16,11 +16,11 @@ public:
 		ResourceAnimation* anim = nullptr;
 		float time = 0.0f;
 		bool loop = true;
-		float speed = 1.0f;
+		float speed = 0.3f;
 
 		Instance* next = nullptr;
-		unsigned fadeDuration = 0u;
-		unsigned fadeTime = 0u;
+		float fadeDuration = 0.0f;
+		float fadeTime = 0.0f;
 
 		// Clipping values
 		float minTime = 0.0f;
@@ -33,12 +33,12 @@ public:
 	AnimationController();
 	~AnimationController();
 
-	void Play(ResourceAnimation* anim, bool loop, unsigned fadeTime);
+	void Play(ResourceAnimation* anim, bool loop);
+	void PlayNextNode(ResourceAnimation* anim, bool loop, unsigned blend);
 	void Update(float dt);
 	void UpdateInstance(Instance* ins, float dt);
 	void ReleaseInstance(Instance* ins);
 
-	void PlayAnimation();
 	void ResetClipping();
 
 public:

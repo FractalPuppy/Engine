@@ -35,6 +35,8 @@
 #include "Brofiler.h"
 #include <vector>
 
+namespace ed = ax::NodeEditor;
+
 ModuleEditor::ModuleEditor()
 {
 	panels.push_back(console = new PanelConsole());
@@ -71,7 +73,7 @@ bool ModuleEditor::Init(JSON * config)
 {
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_NavEnableSetMousePos;
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
 	ImGui_ImplOpenGL3_Init("#version 130");
