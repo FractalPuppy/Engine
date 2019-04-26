@@ -94,7 +94,10 @@ unsigned ModuleProgram::CreateVertexShader(const char *name)
 	file += ".vs";
 	char * vertexShaderSource = nullptr;
 	App->fsystem->Load((VERTEXSHADERS + file).c_str(), &vertexShaderSource);
-
+	if (vertexShaderSource == nullptr)
+	{
+		return 0;
+	}
 	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
@@ -111,7 +114,10 @@ unsigned ModuleProgram::CreateFragmentShader(const char *name)
 	file += ".fs";
 	char * fragmentShaderSource = nullptr;
 	App->fsystem->Load((FRAGSHADERS+file).c_str(), &fragmentShaderSource);
-
+	if (fragmentShaderSource == nullptr)
+	{
+		return 0;
+	}
 	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
@@ -132,7 +138,7 @@ Shader* ModuleProgram::CreateVariations(const char* name, const char** defines, 
 		file += ".vs";
 		char* vertexShaderSource = nullptr;
 		App->fsystem->Load((VERTEXSHADERS + file).c_str(), &vertexShaderSource);
-
+	
 		file = std::string(name);
 		file += ".fs";
 		char* fragmentShaderSource = nullptr;

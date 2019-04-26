@@ -46,10 +46,14 @@ void ModuleFontLoader::LoadFonts(const char* newFont)
 
 	FT_Face face;
 	if (FT_New_Face(ft, newFont, 0, &face))
+	{
 		LOG("ERROR::FREETYPE: Failed to load font");
+		return;
+	}
 
 	//set size
 	//Setting the width to 0 lets the face dynamically calculate the width based on the given height.
+
 	FT_Set_Pixel_Sizes(face, 0, 48);
 
 	//we load the characters and put them into our map

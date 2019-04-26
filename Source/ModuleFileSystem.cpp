@@ -378,7 +378,9 @@ void ModuleFileSystem::CheckResourcesInFolder(const char* folder)
 	// Get lists with all imported resources and materials
 	std::set<std::string> importedTextures;
 	std::set<std::string> importedMaterials;
+	std::set<std::string> importedMeshes;
 	std::set<std::string> importedStateMachines;
+
 	ListFiles(TEXTURES, importedTextures);
 	ListFiles(IMPORTED_MATERIALS, importedMaterials);
 	ListFiles(STATEMACHINES, importedStateMachines);
@@ -555,7 +557,10 @@ void ModuleFileSystem::ImportFiles()
 	filesToImport.clear();
 
 	// Refresh Assets panel browser
+#ifndef GAME_BUILD
 	App->editor->assets->folderContentDirty = true;
+#endif
+
 }
 
 int ModuleFileSystem::GetModTime(const char* file) const

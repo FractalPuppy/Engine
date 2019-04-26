@@ -81,11 +81,20 @@ void Viewport::Draw(ComponentCamera * cam, bool isEditor)
 			ImVec2 size = ImGui::GetWindowSize();
 			size.x = MAX(size.x, 400);
 			size.y = MAX(size.y, 400);
+			
+			if (App->scene->camera_notfound_texture != nullptr)
+			{
+				ImGui::Image((ImTextureID)App->scene->camera_notfound_texture->gpuID,
+					size, { 0,1 }, { 1,0 });
+				ImGui::End();
+				return;
+			}
+			else
+			{
+				ImGui::End();
+				return;
+			}
 
-			ImGui::Image((ImTextureID)App->scene->camera_notfound_texture->gpuID,
-				size, { 0,1 }, { 1,0 });
-			ImGui::End();
-			return;
 		}
 
 		ImVec2 size = ImGui::GetWindowSize();
