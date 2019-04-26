@@ -25,6 +25,7 @@ class ModuleUI;
 class ModuleFontLoader;
 class ModuleScript;
 class ModuleDevelopmentBuildDebug;
+class ModuleParticles;
 class ModuleAudioManager;
 
 class Application
@@ -58,6 +59,7 @@ public:
 	ModuleFontLoader* fontLoader = nullptr;
 	ModuleScript* scripting = nullptr;
 	ModuleDevelopmentBuildDebug* developDebug = nullptr;
+	ModuleParticles* particles = nullptr;
 	ModuleAudioManager* audioManager = nullptr;
 
 private:

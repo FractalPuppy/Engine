@@ -57,8 +57,8 @@ void ComponentAudioSource::Play()
 	if (enabled) 
 	{
 		Stop();
-		if (!streamed) lastHandler = App->audioManager->PlayWAV(wavFX, Sound3D);
-		else lastHandler = App->audioManager->PlayWAV(wavstream, Sound3D);
+		if (!streamed) lastHandler = App->audioManager->PlayWAV(wavFX, Sound3D && !OnlyVolume3D);
+		else lastHandler = App->audioManager->PlayWAV(wavstream, Sound3D && !OnlyVolume3D);
 	}
 }
 
@@ -156,7 +156,7 @@ void ComponentAudioSource::Update()
 			if (Sound3D) 
 			{
 				volume3d = Volume3D();
-				PAN = Pan3D();				
+				if (!OnlyVolume3D) PAN = Pan3D();				
 			}
 		}
 		else if (!mesageSent) 
@@ -260,6 +260,10 @@ void ComponentAudioSource::DrawProperties()
 		if (Sound3D) 
 		{
 			ImGui::Text("3D Audio Settings:");
+
+			if(ImGui::Checkbox("Only 3D Volume", &OnlyVolume3D)) PAN = 0.f;
+			toolTip("If checked, 3D only affects the volume");
+
 			ImGui::DragFloat("FadeDistance", &fadeDist, 0.1 * App->renderer->current_scale, 0.1f, 200.f * App->renderer->current_scale, "%.1f");
 			toolTip("Distance where the sound starts fading");
 
@@ -289,6 +293,7 @@ void ComponentAudioSource::Save(JSON_value* value) const
 	value->AddInt("PlayOnAwake", playOnAwake);
 	value->AddString("Path", path.c_str());
 	value->AddFloat("LimitPan", limit3DPan);
+	value->AddFloat("FadeDist", fadeDist);
 	value->AddInt("Loop", loop);
 	value->AddFloat("Rolloff", rolloff3D);
 	value->AddInt("Streamed", streamed);
@@ -303,6 +308,7 @@ void ComponentAudioSource::Load(JSON_value* value)
 	path = value->GetString("Path");
 	if (path == "") path = "No Audio Selected";
 	limit3DPan = value->GetFloat("LimitPan");
+	fadeDist = value->GetFloat("FadeDist");
 	loop = value->GetInt("Loop");
 	rolloff3D = value->GetFloat("Rolloff");
 	streamed = value->GetInt("Streamed");

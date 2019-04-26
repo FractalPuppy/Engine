@@ -20,7 +20,7 @@ ResourceStateMachine::ResourceStateMachine(const ResourceStateMachine& resource)
 
 	for(const auto& clip : resource.clips)
 	{
-		clips.push_back(Clip(clip.name, clip.UID, clip.loop));
+		clips.push_back(Clip(clip.name, clip.UID, clip.loop, clip.mustFinish, clip.clipSpeed, clip.startFrame , clip.endFrame));
 	}
 
 	for (const auto& node : resource.nodes)
@@ -111,11 +111,27 @@ void ResourceStateMachine::SetStateMachine(const char* data)
 		memcpy(&uid, data, sizeof(int));
 		data += sizeof(int);
 
-		bool loop = false;
+		bool loop;
 		memcpy(&loop, data, sizeof(bool));
 		data += sizeof(bool);
+
+		bool finish;
+		memcpy(&finish, data, sizeof(bool));
+		data += sizeof(bool);
+
+		float speed;
+		memcpy(&speed, data, sizeof(float));
+		data += sizeof(float);
+
+		int startFrame;
+		memcpy(&startFrame, data, sizeof(int));
+		data += sizeof(int);
 		
-		clips.push_back(Clip(clipName, uid, loop));
+		int endFrame;
+		memcpy(&endFrame, data, sizeof(int));
+		data += sizeof(int);
+
+		clips.push_back(Clip(clipName, uid, loop, finish, speed, startFrame, endFrame));
 	}
 
 	//import nodes vector
@@ -189,6 +205,9 @@ unsigned ResourceStateMachine::GetStateMachineSize()
 		size += sizeof(char) * MAX_BONE_NAME_LENGTH;
 		size += sizeof(int);
 		size += sizeof(bool);
+		size += sizeof(bool);
+		size += sizeof(float);
+		size += sizeof(int) * 2;
 	}
 
 	size += sizeof(int);
@@ -233,6 +252,18 @@ void ResourceStateMachine::SaveStateMachineData(char* data)
 
 		memcpy(cursor, &clip.loop, sizeof(bool));
 		cursor += sizeof(bool);
+
+		memcpy(cursor, &clip.mustFinish, sizeof(bool));
+		cursor += sizeof(bool);
+
+		memcpy(cursor, &clip.clipSpeed, sizeof(float));
+		cursor += sizeof(float);
+
+		memcpy(cursor, &clip.startFrame, sizeof(int));
+		cursor += sizeof(int);
+
+		memcpy(cursor, &clip.endFrame, sizeof(int));
+		cursor += sizeof(int);
 	}
 
 	unsigned nodeSize = nodes.size();
@@ -287,7 +318,7 @@ void ResourceStateMachine::Save()
 
 void ResourceStateMachine::AddClip(const HashString name, unsigned UID, const bool loop)
 {
-	clips.push_back(Clip(name, UID, loop));
+	clips.push_back(Clip(name, UID, loop, false, 1.0f ,0 ,0));
 }
 
 void ResourceStateMachine::AddNode(const HashString name, const HashString clipName)
@@ -357,6 +388,26 @@ bool ResourceStateMachine::GetClipLoop(unsigned index)
 	return clips[index].loop;
 }
 
+int ResourceStateMachine::GetClipStartFrame(unsigned index)
+{
+	return clips[index].startFrame;
+}
+
+int ResourceStateMachine::GetClipEndFrame(unsigned index)
+{
+	return clips[index].endFrame;
+}
+
+bool ResourceStateMachine::GetClipMustFinish(unsigned index)
+{
+	return clips[index].mustFinish;
+}
+
+float ResourceStateMachine::GetClipSpeed(unsigned index)
+{
+	return clips[index].clipSpeed;
+}
+
 HashString ResourceStateMachine::GetTransitionOrigin(unsigned index)
 {
 	return transitions[index].origin;
@@ -415,6 +466,26 @@ void ResourceStateMachine::SetClipResource(unsigned index, unsigned UID)
 void ResourceStateMachine::SetClipLoop(unsigned index, bool loop)
 {
 	clips[index].loop = loop;
+}
+
+void ResourceStateMachine::SetClipStartFrame(unsigned index, int startTime)
+{
+	clips[index].startFrame = startTime;
+}
+
+void ResourceStateMachine::SetClipEndFrame(unsigned index, int endTime)
+{
+	clips[index].endFrame = endTime;
+}
+
+void ResourceStateMachine::SetClipSpeed(unsigned index, float speed)
+{
+	clips[index].clipSpeed = speed;
+}
+
+void ResourceStateMachine::SetClipMustFinish(unsigned index, bool mustFinish)
+{
+	clips[index].mustFinish = mustFinish;
 }
 
 void ResourceStateMachine::SetTransitionOrigin(unsigned index, HashString origin)

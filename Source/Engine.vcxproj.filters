@@ -245,7 +245,7 @@
     <ClCompile Include="AnimationController.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentAnimation.cpp">
+    <ClCompile Include="ComponentTransform2D.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFontLoader.cpp">
@@ -264,6 +264,7 @@
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="FileImporter.cpp" />
+    <ClCompile Include="HashString.cpp" />
     <ClCompile Include="ResourceAnimation.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
@@ -282,21 +283,7 @@
     <ClCompile Include="Viewport.cpp">
       <Filter>Panels</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceStateMachine.cpp">
-      <Filter>Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Source\Editor.cpp">
-      <Filter>ImguiNodeEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Source\NodeEditor.cpp">
-      <Filter>ImguiNodeEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentTransform2D.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="HashString.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
+    <ClCompile Include="NodeEditor\Source\Editor.cpp" />
     <ClCompile Include="Soloud\fractal_includes\dr_impl.cpp" />
     <ClCompile Include="ComponentAudioListener.cpp">
       <Filter>Component</Filter>
@@ -304,8 +291,20 @@
     <ClCompile Include="ComponentAudioSource.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentParticles.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
     <ClCompile Include="ComponentReverbZone.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTrail.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAudioManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleParticles.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Soloud\fractal_includes\soloud.cpp">
       <Filter>SoLoud</Filter>
@@ -385,8 +384,11 @@
     <ClCompile Include="Soloud\fractal_includes\stb_vorbis.c">
       <Filter>SoLoud</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleAudioManager.cpp">
-      <Filter>Modules</Filter>
+    <ClCompile Include="NodeEditor\Source\NodeEditor.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceStateMachine.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -777,21 +779,10 @@
     <ClInclude Include="Viewport.h">
       <Filter>Panels</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceStateMachine.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Source\Editor.h">
-      <Filter>ImguiNodeEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Include\NodeEditor.h">
-      <Filter>ImguiNodeEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Include\ax\Math2D.h">
-      <Filter>ImguiNodeEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Source\Interop.h">
-      <Filter>ImguiNodeEditor</Filter>
-    </ClInclude>
+    <ClInclude Include="ImGUICurveUtils.h" />
+    <ClInclude Include="NodeEditor\Include\ax\Math2D.h" />
+    <ClInclude Include="NodeEditor\Source\Editor.h" />
+    <ClInclude Include="NodeEditor\Source\Interop.h" />
     <ClInclude Include="Soloud\fractal_includes\dr_flac.h" />
     <ClInclude Include="Soloud\fractal_includes\dr_mp3.h" />
     <ClInclude Include="Soloud\fractal_includes\dr_wav.h" />
@@ -801,11 +792,20 @@
     <ClInclude Include="ComponentAudioSource.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentParticles.h">
+      <Filter>Component</Filter>
+    </ClInclude>
     <ClInclude Include="ComponentReverbZone.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Soloud\fractal_includes\stb_vorbis.h">
-      <Filter>SoLoud</Filter>
+    <ClInclude Include="ComponentTrail.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleAudioManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleParticles.h">
+      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="Soloud\fractal_includes\soloud.h">
       <Filter>SoLoud</Filter>
@@ -903,8 +903,14 @@
     <ClInclude Include="Soloud\fractal_includes\soloud_wavstream.h">
       <Filter>SoLoud</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleAudioManager.h">
-      <Filter>Modules</Filter>
+    <ClInclude Include="Soloud\fractal_includes\stb_vorbis.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeEditor\Include\NodeEditor.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceStateMachine.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -954,13 +960,7 @@
       <UniqueIdentifier>{4106b4cd-c836-4c93-8119-c03c1ba0d34b}</UniqueIdentifier>
     </Filter>
     <Filter Include="SoLoud">
-      <UniqueIdentifier>{6ab39746-6070-43f0-ae81-b07e1c5157bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Animation">
-      <UniqueIdentifier>{90c0a34b-39f2-41e1-a7da-bea77d58ac6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ImguiNodeEditor">
-      <UniqueIdentifier>{e17e108f-0f87-428b-b290-20d4de3376d1}</UniqueIdentifier>
+      <UniqueIdentifier>{2999c853-b5ef-41d3-b71b-d7547af0c9f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -991,8 +991,30 @@
     <None Include="..\Game\Scripts\PlayerMovement.dll">
       <Filter>ScriptingResources</Filter>
     </None>
-    <None Include="NodeEditor\Include\ax\Math2D.inl">
-      <Filter>ImguiNodeEditor</Filter>
+    <None Include="NodeEditor\Include\ax\Math2D.inl" />
+    <None Include="..\Game\Shaders\FragmentShaders\Particles.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Particles.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\Shadows.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Shadows.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\Skybox.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Skybox.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\Trail.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Trail.vs">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

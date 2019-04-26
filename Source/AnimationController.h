@@ -16,7 +16,8 @@ public:
 		ResourceAnimation* anim = nullptr;
 		float time = 0.0f;
 		bool loop = true;
-		float speed = 0.3f;
+		float speed = 1.f;
+		bool mustFinish = false;
 
 		Instance* next = nullptr;
 		float fadeDuration = 0.0f;
@@ -25,6 +26,8 @@ public:
 		// Clipping values
 		float minTime = 0.0f;
 		float maxTime = -1.0f;
+
+		bool isEditor = false;
 	};
 
 	Instance* current = nullptr;
@@ -33,11 +36,14 @@ public:
 	AnimationController();
 	~AnimationController();
 
-	void Play(ResourceAnimation* anim, bool loop);
-	void PlayNextNode(ResourceAnimation* anim, bool loop, unsigned blend);
+	void Play(ResourceAnimation* anim, bool loop, bool mustFinish, float speed, int startFrame, int endFrame);
+	void PlayEditor(ResourceAnimation* anim);
+	void PlayNextNode(ResourceAnimation* anim, bool loop, bool mustFinish, float speed, int startFrame, int endFrame, unsigned blend);
 	void Update(float dt);
 	void UpdateInstance(Instance* ins, float dt);
+	void UpdateEditorInstance(Instance* ins, float dt);
 	void ReleaseInstance(Instance* ins);
+	bool CanSwitch();
 
 	void ResetClipping();
 

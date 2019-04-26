@@ -75,7 +75,11 @@ Shader* ModuleProgram::GetProgram(const char* name)
 	
 	if (std::string(name) == "PBR")
 	{		
-		return CreatePBRVariations(name);
+		return CreateVariations(name, PBRDefines, PBR_VARIATIONS);
+	}
+	if (std::string(name) == "Shadows")
+	{
+		return CreateVariations(name, ShadowDefines, SHADOW_VARIATIONS);
 	}
 	else
 	{
@@ -117,11 +121,11 @@ unsigned ModuleProgram::CreateFragmentShader(const char *name)
 	return fragmentShader;
 }
 
-Shader* ModuleProgram::CreatePBRVariations(const char* name)
+Shader* ModuleProgram::CreateVariations(const char* name, const char** defines, unsigned variations)
 {
 	assert(name != NULL);
 	Shader* shader = new Shader(0, name);
-	unsigned variationAmount = pow(2, PBR_VARIATIONS - 1);
+	unsigned variationAmount = pow(2, variations - 1);
 	for (unsigned variation = 0u; variation < variationAmount; ++variation)
 	{
 		std::string file(name);
@@ -134,12 +138,12 @@ Shader* ModuleProgram::CreatePBRVariations(const char* name)
 		char* fragmentShaderSource = nullptr;
 		App->fsystem->Load((FRAGSHADERS + file).c_str(), &fragmentShaderSource);
 
-		char** vs = new char*[PBR_VARIATIONS + 1];
+		const char** vs = new const char*[variations + 1];
 		vs[0] = "#version 330\n";
-		char** fs = new char*[PBR_VARIATIONS + 1];
+		const char** fs = new const char*[variations + 1];
 		fs[0] = "#version 330\n";
 		unsigned index = 1u;
-		for (unsigned i = 0; i < PBR_VARIATIONS; ++i)
+		for (unsigned i = 0; i < variations; ++i)
 		{
 			if ((variation & (1 << i)) != 0)
 			{

@@ -362,8 +362,8 @@ void ResourceMaterial::SetUniforms(unsigned shader) const
 
 	glUniform1fv(glGetUniformLocation(shader,
 		"material.roughness"), 1, (GLfloat*)&roughness);
-	glUniform1fv(glGetUniformLocation(shader,
-		"material.metallic"), 1, (GLfloat*)&metallic);
+	glUniform3fv(glGetUniformLocation(shader,
+		"material.specular"), 1, (GLfloat*)&specularColor);
 }
 
 void ResourceMaterial::Rename(const char* newName)

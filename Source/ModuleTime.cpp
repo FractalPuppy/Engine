@@ -27,13 +27,11 @@ update_status ModuleTime::Update(float dt)
 
 	//App->editor->AddFPSCount(FPS, realDeltaTime * 1000.0f);
 
-	if (gameState == GameState::RUN) 
-	{
-		//App->editor->AddGameFPSCount(FPS, gameDeltaTime * gameTimeScale * 1000.0f);
-		++totalFrames;
-		gameDeltaTime = frameTimer.ReadSeconds();
-		gameTime += gameDeltaTime * gameTimeScale;
-	}
+	//App->editor->AddGameFPSCount(FPS, gameDeltaTime * gameTimeScale * 1000.0f);
+	++totalFrames;
+	gameDeltaTime = frameTimer.ReadSeconds();
+	gameTime += gameDeltaTime * gameTimeScale;
+	
 	frameTimer.Reset();
 
 	// Frames per second

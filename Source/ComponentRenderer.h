@@ -30,6 +30,8 @@ public:
 public:
 	ResourceMesh* mesh = nullptr;
 	ResourceMaterial* material = nullptr;
+	bool castShadows = false;
+	bool useAlpha = false;
 
 private:
 	std::vector<std::string> guiMaterials;

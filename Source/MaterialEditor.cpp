@@ -31,8 +31,8 @@ void MaterialEditor::Draw()
 	}
 
 	ImGui::Spacing();
-
-	ImGui::DragFloat("Metallic", &material->metallic, .01f, .001f, 1.f);
+	
+	ImGui::ColorEdit3("Specular Color", (float*)&material->specularColor);
 	ImGui::DragFloat("Roughness", &material->roughness, .01f, .001f, 1.f);
 	
 	ShaderSelector(currentShader);

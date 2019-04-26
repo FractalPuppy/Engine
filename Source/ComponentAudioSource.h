@@ -59,6 +59,7 @@ public:
 	bool streamed = false;
 
 	bool Sound3D = true;
+	bool OnlyVolume3D = false;
 	float fadeDist = 5.f * App->renderer->current_scale;
 	float limit3DPan = 0.5f;
 	float rolloff3D = 0.3f;

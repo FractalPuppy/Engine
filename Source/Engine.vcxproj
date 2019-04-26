@@ -197,10 +197,12 @@
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentImage.h" />
     <ClInclude Include="ComponentLight.h" />
+    <ClInclude Include="ComponentParticles.h" />
     <ClInclude Include="ComponentRenderer.h" />
     <ClInclude Include="ComponentReverbZone.h" />
     <ClInclude Include="ComponentScript.h" />
     <ClInclude Include="ComponentText.h" />
+    <ClInclude Include="ComponentTrail.h" />
     <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="ComponentTransform2D.h" />
     <ClInclude Include="debugdraw.h" />
@@ -209,6 +211,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GUICreator.h" />
+    <ClInclude Include="ImGUICurveUtils.h" />
     <ClInclude Include="HashString.h" />
     <ClInclude Include="ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="KDTree.h" />
@@ -282,6 +285,7 @@
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleFontLoader.h" />
     <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModuleResourceManager.h" />
     <ClInclude Include="ModuleProgram.h" />
     <ClInclude Include="ModuleRender.h" />
@@ -372,10 +376,12 @@
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentImage.cpp" />
     <ClCompile Include="ComponentLight.cpp" />
+    <ClCompile Include="ComponentParticles.cpp" />
     <ClCompile Include="ComponentRenderer.cpp" />
     <ClCompile Include="ComponentReverbZone.cpp" />
     <ClCompile Include="ComponentScript.cpp" />
     <ClCompile Include="ComponentText.cpp" />
+    <ClCompile Include="ComponentTrail.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="ComponentTransform2D.cpp" />
     <ClCompile Include="FileExplorer.cpp" />
@@ -430,6 +436,7 @@
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleFontLoader.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModuleResourceManager.cpp" />
     <ClCompile Include="ModuleProgram.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
@@ -496,11 +503,19 @@
     <None Include="..\Game\Scripts\PlayerMovement.dll" />
     <None Include="..\Game\Shaders\FragmentShaders\Default.fs" />
     <None Include="..\Game\Shaders\FragmentShaders\Fonts.fs" />
+    <None Include="..\Game\Shaders\FragmentShaders\Particles.fs" />
     <None Include="..\Game\Shaders\FragmentShaders\PBR.fs" />
+    <None Include="..\Game\Shaders\FragmentShaders\Shadows.fs" />
+    <None Include="..\Game\Shaders\FragmentShaders\Skybox.fs" />
+    <None Include="..\Game\Shaders\FragmentShaders\Trail.fs" />
     <None Include="..\Game\Shaders\FragmentShaders\UI.fs" />
     <None Include="..\Game\Shaders\VertexShaders\Default.vs" />
     <None Include="..\Game\Shaders\VertexShaders\Fonts.vs" />
+    <None Include="..\Game\Shaders\VertexShaders\Particles.vs" />
     <None Include="..\Game\Shaders\VertexShaders\PBR.vs" />
+    <None Include="..\Game\Shaders\VertexShaders\Shadows.vs" />
+    <None Include="..\Game\Shaders\VertexShaders\Skybox.vs" />
+    <None Include="..\Game\Shaders\VertexShaders\Trail.vs" />
     <None Include="..\Game\Shaders\VertexShaders\UI.vs" />
     <None Include="NodeEditor\Include\ax\Math2D.inl" />
   </ItemGroup>

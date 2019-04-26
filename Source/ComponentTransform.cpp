@@ -130,30 +130,6 @@ void ComponentTransform::UpdateTransform()
 	up = global.Col3(1);
 	right = global.Col3(0);
 
-	if (!gameobject->isStatic)
-	{
-		if (gameobject->treeNode != nullptr && gameobject->hasLight)
-		{
-			gameobject->light->CalculateGuizmos();
-			if (!gameobject->treeNode->aabb.Contains(gameobject->bbox))
-			{
-				App->spacePartitioning->aabbTreeLighting.ReleaseNode(gameobject->treeNode);
-				App->spacePartitioning->aabbTreeLighting.InsertGO(gameobject);
-			}
-		}
-		if (gameobject->treeNode != nullptr && gameobject->isVolumetric)
-		{
-			if (!gameobject->treeNode->aabb.Contains(gameobject->bbox))
-			{
-				App->spacePartitioning->aabbTree.ReleaseNode(gameobject->treeNode);
-				App->spacePartitioning->aabbTree.InsertGO(gameobject);
-			}
-		}
-	}
-	else
-	{
-		App->spacePartitioning->kDTree.Calculate();
-	}
 }
 
 void ComponentTransform::RotationToEuler()
@@ -262,23 +238,23 @@ void ComponentTransform::SetPosition(const math::float3 & newPosition)
 	gameobject->movedFlag = true;
 }
 
-void ComponentTransform::SetRotation(const math::Quat& newQuat)
-{
-	rotation = newQuat;
-	RotationToEuler();
-	gameobject->movedFlag = true;
-}
-
 math::float3 ComponentTransform::GetPosition()
 {
 	return position;
+}
+
+void ComponentTransform::SetRotation(const math::Quat & newRotation)
+{
+	rotation = newRotation;
+	RotationToEuler();
+	gameobject->movedFlag = true;
+	UpdateTransform();
 }
 
 math::Quat ComponentTransform::GetRotation()
 {
 	return rotation;
 }
-
 
 math::float3 ComponentTransform::GetGlobalPosition()
 {
@@ -292,6 +268,19 @@ math::float3 ComponentTransform::GetGlobalPosition()
 		return newlocal.Col3(3);
 	}
 	return global.Col3(3);
+}
+
+void ComponentTransform::LookAt(const math::float3 & targetPosition)
+{
+	math::float3 direction = (targetPosition - GetGlobalPosition());
+	math::Quat newRotation = rotation.LookAt(float3::unitZ, direction.Normalized(), float3::unitY, float3::unitY);	
+	SetRotation(newRotation);
+}
+
+void ComponentTransform::Align(const math::float3 & targetFront)
+{
+	Quat newRotation = Quat::RotateFromTo(front.Normalized(), targetFront.Normalized());
+	SetRotation(rotation.Mul(newRotation));
 }
 
 void ComponentTransform::Save(JSON_value* value) const

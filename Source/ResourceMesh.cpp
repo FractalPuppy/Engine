@@ -1,4 +1,5 @@
 #include "ResourceMesh.h"
+#include "GL/glew.h"
 
 #include "Globals.h"
 #include "Application.h"
@@ -10,7 +11,6 @@
 
 #include "JSON.h"
 
-#include "GL/glew.h"
 #include "Geometry/Triangle.h"
 #include "Geometry/LineSegment.h"
 #include "Math/Quat.h"

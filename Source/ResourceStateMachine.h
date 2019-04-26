@@ -39,9 +39,17 @@ public:
 	HashString GetClipName(unsigned index);
 	unsigned GetClipResource(unsigned index);
 	bool GetClipLoop(unsigned index);
+	int GetClipStartFrame(unsigned index);
+	int GetClipEndFrame(unsigned index);
+	bool GetClipMustFinish(unsigned index);
+	float GetClipSpeed(unsigned index);
 	void SetClipName(unsigned index, HashString name);
 	void SetClipResource(unsigned index, unsigned UID);
 	void SetClipLoop(unsigned index, bool loop);
+	void SetClipSpeed(unsigned index, float speed);
+	void SetClipMustFinish(unsigned index, bool mustFinish);
+	void SetClipStartFrame(unsigned index, int startTime);
+	void SetClipEndFrame(unsigned index, int endTime);
 
 	//Transitions setters and getters
 	HashString GetTransitionOrigin(unsigned index);
@@ -88,10 +96,14 @@ private:
 	{
 		HashString name;
 		unsigned UID = 0u;
+		float clipSpeed = 1.0f;
 		bool loop = false;
+		int startFrame = 0, endFrame = 0;
+		bool mustFinish = false;
 
 		Clip() { ; }
-		Clip(HashString n, unsigned u, bool l) : name(n), UID(u), loop(l) { ; }
+		Clip(HashString n, unsigned u, bool l, bool f, float sp, int s, int e) : 
+			name(n), UID(u), loop(l), mustFinish(f), clipSpeed(sp), startFrame(s), endFrame(e) { ; }
 	};
 
 	struct Transition

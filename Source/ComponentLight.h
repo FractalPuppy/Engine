@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "Math/float3.h"
 #include "MathGeoLib/include/Geometry/Sphere.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
 #define LIGHTTYPES 3
 
 enum class LightType
@@ -50,9 +51,10 @@ public:
 	float outer = 25.f;
 	float intensity = 1.f;
 	float range = 100.f;
-	float directionalRadius = 100000000.f;
 
 	Sphere pointSphere;
+	bool produceShadows = false;
+
 private:
 
 	float spotDistance = .0f;	

@@ -5,7 +5,8 @@
 #include <string>
 #include <map>
 #define DEFAULTPROGRAM "Default"
-#define PBR_VARIATIONS 2
+#define PBR_VARIATIONS 3
+#define SHADOW_VARIATIONS 2
 
 struct Shader
 {
@@ -23,11 +24,22 @@ public:
 
 	enum class PBR_Variations
 	{
-		SKINNED					= 1 << 0
+		SKINNED					= 1 << 0,
+		SHADOWS_ENABLED			= 1 << 1
 	};
 
-	char* defines[2] = {
-		"#define SKINNED\n"		//Skinned
+	enum class Shadows_Variations
+	{
+		SKINNED = 1 << 0
+	};
+
+	const char* PBRDefines[PBR_VARIATIONS] = {
+		"#define SKINNED\n",		//Skinned
+		"#define SHADOWS_ENABLED\n"
+	};
+
+	const char* ShadowDefines[PBR_VARIATIONS] = {
+		"#define SKINNED\n",		//Skinned
 	};
 
 	ModuleProgram();
@@ -43,7 +55,7 @@ private:
 	void ShaderLog(unsigned int shader, char* type) const;
 	unsigned CreateVertexShader(const char* name);
 	unsigned CreateFragmentShader(const char* name);
-	Shader* CreatePBRVariations(const char* name);
+	Shader* CreateVariations(const char* name, const char** defines, unsigned variations);
 
 public:
 	Shader * defaultShader = nullptr; //Deallocated in resourcemanager
