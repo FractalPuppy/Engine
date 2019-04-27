@@ -795,7 +795,7 @@ void ModuleScene::SaveScene(const GameObject& rootGO, const char* scene, const c
 void ModuleScene::AssignNewUUID(GameObject* go, unsigned UID)
 {
 	go->parentUUID = UID;
-	go->UUID = GetNewUID();
+	go->UUID = go->UUID == 1 ? 1 : GetNewUID();
 
 	for (std::list<GameObject*>::iterator it = go->children.begin(); it != go->children.end(); ++it)
 	{

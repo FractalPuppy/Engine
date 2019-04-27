@@ -113,6 +113,10 @@ private:
 	ComponentButton* backCreditsButton = nullptr;
 	ComponentButton* toTheAltarButton = nullptr;
 	ComponentButton* hudBackToMenuButton = nullptr;
+	ComponentButton* inventoryButton = nullptr;
+	ComponentButton* missionsButton = nullptr;
+	ComponentButton* skillsButton = nullptr;
+	ComponentButton* closePlayerMenuButton = nullptr;
 	std::vector<Component*> volumeButtons;
 	std::vector<Component*> soundButtons;
 
@@ -129,6 +133,10 @@ private:
 	GameObject* vsyncGO = nullptr;
 	GameObject* introCamera = nullptr;
 	GameObject* loadingGO = nullptr;
+	GameObject* playerMenuGO = nullptr;
+	GameObject* inventoryMenuGO = nullptr;
+	GameObject* missionsMenuGO = nullptr;
+	GameObject* skillsMenuGO = nullptr;
 
 	//BBOX
 	math::AABB* playerBbox = nullptr;
