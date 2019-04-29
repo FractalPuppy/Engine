@@ -27,9 +27,10 @@ public:
 public:
 	bool isPlayerDead = false;
 	float3 currentPosition = float3(0, 0, 0); //TODO ZERO
-	Quat rotation = Quat(0, 0, 0, 0);
-	Quat currentRotation = Quat(0, 0, 0, 0);
+	Quat rotation = Quat(0, 0, 0, 1);
+	Quat currentRotation = Quat(0, 0, 0, 1);
 private:
-	float speed = 2.0f;
+	float speed = 20.0f;
+	float speedAngular = 2.0f;
 };
 #endif __PlayerMovement_h__
