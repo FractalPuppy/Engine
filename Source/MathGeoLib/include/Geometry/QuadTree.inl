@@ -18,7 +18,7 @@
 #pragma once
 
 #include "../Math/MathFunc.h"
-
+#include <algorithm>
 MATH_BEGIN_NAMESPACE
 
 template<typename T>

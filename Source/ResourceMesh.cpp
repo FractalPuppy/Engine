@@ -1,4 +1,5 @@
 #include "ResourceMesh.h"
+#include "GL/glew.h"
 
 #include "Globals.h"
 #include "Application.h"
@@ -10,7 +11,6 @@
 
 #include "JSON.h"
 
-#include "GL/glew.h"
 #include "Geometry/Triangle.h"
 #include "Geometry/LineSegment.h"
 #include "Math/Quat.h"
@@ -547,9 +547,10 @@ AABB ResourceMesh::GetBoundingBox() const
 	return boundingBox;
 }
 
-bool ResourceMesh::Intersects(const LineSegment &line, float* distance)
+bool ResourceMesh::Intersects(const LineSegment &line, float* distance, math::float3* intersectionPoint)
 {
 	bool intersects = false;
+	math::float3 currentIntersection;
 	*distance = FLOAT_INF;
 
 	for (unsigned i = 0u; i < meshIndices.size(); i += 3u) //foreach triangle
@@ -559,10 +560,17 @@ bool ResourceMesh::Intersects(const LineSegment &line, float* distance)
 		math::float3 v2(meshVertices[meshIndices[i + 2]]);
 		Triangle triangle(v0, v1, v2);
 		float dist = -1.f;
-		if (line.Intersects(triangle, &dist, nullptr))
+		if (line.Intersects(triangle, &dist, &currentIntersection))
 		{
 			intersects = true;
-			*distance = MIN(*distance, dist);
+			if (dist < *distance)
+			{
+				*distance = dist;
+				if (intersectionPoint != nullptr)
+				{
+					*intersectionPoint = currentIntersection;
+				}
+			}
 		}
 	}
 	return intersects;

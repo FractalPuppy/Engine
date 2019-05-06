@@ -17,6 +17,8 @@ public:
 
 	void Pick();
 
+	void DebugNavigate() const;
+
 	void ToggleEnabled();
 	inline bool IsEnabled() 
 	{ 

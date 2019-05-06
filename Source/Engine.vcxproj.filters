@@ -245,9 +245,6 @@
     <ClCompile Include="AnimationController.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="StateMachine.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentTransform2D.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -286,6 +283,211 @@
     <ClCompile Include="Viewport.cpp">
       <Filter>Panels</Filter>
     </ClCompile>
+    <ClCompile Include="NodeEditor\Source\Editor.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\dr_impl.cpp" />
+    <ClCompile Include="ComponentAudioListener.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentAudioSource.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentParticles.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentReverbZone.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTrail.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAudioManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleParticles.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_audiosource.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_bus.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_3d.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_basicops.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_faderops.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_filterops.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_getters.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_setters.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_voicegroup.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_voiceops.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_echofilter.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_fader.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_fft.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_fft_lut.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_file.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_filter.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_queue.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl1.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl1_dll.c">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl2.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl2_dll.c">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_thread.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_wav.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\soloud_wavstream.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\stb_vorbis.c">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeEditor\Source\NodeEditor.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceStateMachine.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DebugUtils\DebugDraw.cpp" />
+    <ClCompile Include="Recast\Recast\Recast.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastAlloc.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastArea.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastAssert.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastContour.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DebugUtils\RecastDebugDraw.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DebugUtils\RecastDump.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastFilter.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastLayers.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastMesh.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastMeshDetail.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastRasterization.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Recast\RecastRegion.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Detour\DetourAlloc.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Detour\DetourAssert.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Detour\DetourCommon.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DetourCrowd\DetourCrowd.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DebugUtils\DetourDebugDraw.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DetourCrowd\DetourLocalBoundary.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Detour\DetourNavMesh.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Detour\DetourNavMeshBuilder.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Detour\DetourNavMeshQuery.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\Detour\DetourNode.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DetourCrowd\DetourObstacleAvoidance.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DetourCrowd\DetourPathCorridor.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DetourCrowd\DetourPathQueue.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="DetourPoints.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DetourCrowd\DetourProximityGrid.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DetourTileCache\DetourTileCache.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="Recast\DetourTileCache\DetourTileCacheBuilder.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleNavigation.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelNavigation.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="DetourDebugInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -657,9 +859,6 @@
     <ClInclude Include="AnimationController.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="StateMachine.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentAnimation.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -678,6 +877,219 @@
     <ClInclude Include="Viewport.h">
       <Filter>Panels</Filter>
     </ClInclude>
+    <ClInclude Include="ImGUICurveUtils.h" />
+    <ClInclude Include="NodeEditor\Include\ax\Math2D.h" />
+    <ClInclude Include="NodeEditor\Source\Editor.h" />
+    <ClInclude Include="NodeEditor\Source\Interop.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_flac.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_mp3.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_wav.h" />
+    <ClInclude Include="ComponentAudioListener.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentAudioSource.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentParticles.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentReverbZone.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTrail.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleAudioManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleParticles.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_audiosource.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_bassboostfilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_biquadresonantfilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_bus.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_c.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_dcremovalfilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_echofilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_error.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_fader.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_fft.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_fftfilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_file.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_file_hack_off.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_file_hack_on.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_filter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_flangerfilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_internal.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_lofifilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_monotone.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_openmpt.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_queue.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_robotizefilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_sfxr.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_speech.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_tedsid.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_thread.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_vic.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_vizsn.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_wav.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_waveshaperfilter.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\soloud_wavstream.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\stb_vorbis.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeEditor\Include\NodeEditor.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceStateMachine.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DebugUtils\DebugDraw.h" />
+    <ClInclude Include="Recast\Recast\Recast.h">
+      <Filter>Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Recast\RecastAlloc.h">
+      <Filter>Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Recast\RecastAssert.h">
+      <Filter>Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DebugUtils\RecastDebugDraw.h">
+      <Filter>Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DebugUtils\RecastDump.h">
+      <Filter>Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourAlloc.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourAssert.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourCommon.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DetourCrowd\DetourCrowd.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DebugUtils\DetourDebugDraw.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DetourCrowd\DetourLocalBoundary.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourMath.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourNavMesh.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourNavMeshBuilder.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourNavMeshQuery.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourNode.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DetourCrowd\DetourObstacleAvoidance.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DetourCrowd\DetourPathCorridor.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DetourCrowd\DetourPathQueue.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="DetourPoints.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DetourCrowd\DetourProximityGrid.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\Detour\DetourStatus.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DetourTileCache\DetourTileCache.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="Recast\DetourTileCache\DetourTileCacheBuilder.h">
+      <Filter>Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleNavigation.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelNavigation.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="DetourDebugInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GeoLib">
@@ -725,6 +1137,15 @@
     <Filter Include="ScriptingResources">
       <UniqueIdentifier>{4106b4cd-c836-4c93-8119-c03c1ba0d34b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SoLoud">
+      <UniqueIdentifier>{2999c853-b5ef-41d3-b71b-d7547af0c9f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Recast">
+      <UniqueIdentifier>{288d07c0-f4f8-42f4-9767-1d3c6a9cc1ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Detour">
+      <UniqueIdentifier>{1a714dfd-2e78-4c91-a433-5bdd61b2d7f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\Shaders\FragmentShaders\Default.fs">
@@ -753,6 +1174,31 @@
     </None>
     <None Include="..\Game\Scripts\PlayerMovement.dll">
       <Filter>ScriptingResources</Filter>
+    </None>
+    <None Include="NodeEditor\Include\ax\Math2D.inl" />
+    <None Include="..\Game\Shaders\FragmentShaders\Particles.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Particles.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\Shadows.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Shadows.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\Skybox.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Skybox.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\Trail.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\Trail.vs">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

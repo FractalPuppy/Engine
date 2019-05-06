@@ -17,6 +17,7 @@ class PanelTime;
 class PanelResourceManager;
 class PanelState;
 class PanelAnimation;
+class PanelNavigation;
 class GameObject;
 class MaterialEditor;
 class FileExplorer;
@@ -62,9 +63,11 @@ public:
 	PanelResourceManager *resource = nullptr;
 	PanelState *states = nullptr;
 	PanelAnimation *animation = nullptr;
+	PanelNavigation* navigation = nullptr;
 
 	MaterialEditor *materialEditor = nullptr;
 	FileExplorer *fileExplorer = nullptr;
+	mutable bool wantKeyboard = false;
 
 private:
 	std::list<Panel*> panels;

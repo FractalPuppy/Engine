@@ -3,11 +3,16 @@
 
 #include "Module.h"
 #include "Math/float3.h"
+#include "MathGeoLib/include/Geometry/Frustum.h"
+#include <unordered_set>
+
 class ComponentCamera;
 class JSON;
 class ResourceSkybox;
 class Viewport;
 struct Shader;
+class ComponentLight;
+class ComponentRenderer;
 
 class ModuleRender : public Module
 {
@@ -40,6 +45,9 @@ private:
 	void SetProjectionUniform(const ComponentCamera &camera) const;
 	void InitSDL();
 	void InitOpenGL() const;
+	void ComputeShadows();
+	void ShadowVolumeDrawDebug();
+	void BlitShadowTexture();
 
 public:
 	void* context = nullptr;
@@ -53,6 +61,7 @@ public:
 	bool kDTreeDebug = false;
 	bool aabbTreeDebug = false;
 	bool grid_debug = true;
+	bool shadowDebug = false;
 	bool boneDebug = false;
 	bool useMainCameraFrustum = false;
 	bool vsync = false;
@@ -61,6 +70,12 @@ public:
 	Viewport* viewGame = nullptr;
 	Viewport* viewScene = nullptr;
 
+	ComponentLight* directionalLight = nullptr;
+	math::Frustum shadowsFrustum;
+	unsigned shadowsTex = 0u;
+	std::unordered_set<ComponentRenderer*> shadowCasters;
+
+
 private:
 	unsigned UBO = 0;
 	bool depthTest = true;
@@ -68,8 +83,23 @@ private:
 	int item_current = 0;//scale index
 
 	ResourceSkybox* skybox = nullptr;
-	
 
+	//shadows stuff
+
+	math::float3 lightPos;
+
+	float shadowVolumeWidth;
+	float shadowVolumeWidthHalf;
+	float shadowVolumeHeight;
+	float shadowVolumeHeightHalf;
+	float shadowVolumeLength;
+
+
+	unsigned shadowsFBO = 0u;
+
+	bool shadowVolumeRendered = false;
+	
+	Shader* shadowsShader = nullptr;
 };
 
 #endif /* __ModuleRender_h__ */

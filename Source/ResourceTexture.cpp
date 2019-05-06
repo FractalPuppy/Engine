@@ -153,7 +153,10 @@ bool ResourceTexture::LoadTexture()
 			mips = 2u;
 		}
 
-		ilDeleteImages(1, &gpuID);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		ilDeleteImages(1, &imageID);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
@@ -163,6 +166,7 @@ bool ResourceTexture::LoadTexture()
 		LOG("Error loading data: %s\n", iluErrorString(error));
 		return false;
 	}
+	return true;
 }
 
 bool ResourceTexture::LoadCubemap()
@@ -187,6 +191,7 @@ bool ResourceTexture::LoadCubemap()
 	if (size == 0u)
 	{
 		LOG("Error loading image file.");
+		RELEASE_ARRAY(data);
 		return false;
 	}
 
@@ -217,6 +222,7 @@ bool ResourceTexture::LoadCubemap()
 		mips = 0u;
 
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + cubemapIndex, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		ilDeleteImages(1, &imageID);
 	}
 	else
 	{
@@ -224,6 +230,7 @@ bool ResourceTexture::LoadCubemap()
 		LOG("Error loading data: %s\n", iluErrorString(error));
 		return false;
 	}
+	return true;
 }
 
 void ResourceTexture::SetImageType(IMAGE_TYPE type)

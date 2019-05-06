@@ -131,6 +131,14 @@ void ModuleWindow::DrawGUI()
 	if ((!fullscreen || !fullscreen_desktop) && (ImGui::InputInt("width", &width,10,50) ||
 		ImGui::InputInt("height", &height, 10, 50)))
 	{
+		if (width < 400) 
+		{
+			width = 400;
+		}
+		if(height < 400)
+		{
+			height = 400;
+		}
 		SDL_SetWindowSize(window, width, height);
 		App->renderer->OnResize();
 	}

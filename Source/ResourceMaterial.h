@@ -48,9 +48,9 @@ public:
 
 	ResourceTexture* textures[MAXTEXTURES]{ nullptr };
 
-	float4 diffuseColor = float4::one;
-	float3 specularColor = float3::one;
-	float3 emissiveColor = float3::one;
+	math::float4 diffuseColor =  math::float4::one;
+	math::float3 emissiveColor = math::float3::one;
+	math::float3 specularColor = math::float3(.1f, .1f, .1f);
 
 	float roughness = .5f;
 	float metallic = .5f;

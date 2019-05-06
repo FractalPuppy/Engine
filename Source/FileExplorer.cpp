@@ -241,6 +241,14 @@ void FileExplorer::FilterByFileType(const char* file)
 				sprintf_s(filename, App->fsystem->GetFilename(file).c_str());
 		}
 		break;
+	case FILETYPE::AUDIO:
+		extension = App->fsystem->GetExtension(file);
+		if (extension == WAVEXTENSION || extension == OGGEXTENSION || extension == MP3EXTENSION)
+		{
+			if (ImGui::Selectable(file, false))
+				sprintf_s(filename, App->fsystem->GetFilename(file).c_str());
+		}
+		break;
 	default:
 	case FILETYPE::NONE:
 		if (ImGui::Selectable(file, false))

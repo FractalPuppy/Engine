@@ -196,8 +196,11 @@ void AABBTree::ReleaseNode(AABBTreeNode* node)
 	else
 		brother->parent->rightSon = brother;
 
-	nodesFreePool[++lastFreeNode] = siblingRoot;
-	nodesFreePool[++lastFreeNode] = node; 
+	if (nodesFreePool)
+	{
+		nodesFreePool[++lastFreeNode] = siblingRoot;
+		nodesFreePool[++lastFreeNode] = node;
+	}
 	
 }
 void AABBTree::ResetReleaseNode(AABBTreeNode* node)

@@ -28,7 +28,6 @@ public:
 private:
 	math::float3 distanceNormalized = math::float3::zero;
 	math::float3 finalPosition = math::float3(0, 0, 1000);
-	math::float3 cameraPosition = math::float3::zero;
 	float speed = 2.0f;
 };
 #endif __IntroScript_h__

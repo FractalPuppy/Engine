@@ -50,7 +50,6 @@ artifacts/
 *_p.c
 *_i.h
 *.ilk
-*.meta
 *.obj
 *.pch
 *.pdb
@@ -261,6 +260,9 @@ paket-files/
 __pycache__/
 *.pyc
 /Game/Engine - Master 1.exe
-/Engine.sln
 
-GameBuild Debug/
+/Game/Library/Materials/
+#/Game/Library/Meshes/
+/Game/Library/Textures/
+
+GameBuild/

@@ -39,6 +39,7 @@ ModuleScript::~ModuleScript()
 
 bool ModuleScript::Start()
 {
+	SetDllDirectory(SCRIPTS);
 	CheckScripts();
 	//LoadFromMemory(IDR_DLL1);
 	return true;
@@ -105,7 +106,7 @@ Script* ModuleScript::GetScript(const ComponentScript& component, const std::str
 	}
 	else
 	{
-		dll = LoadLibrary((SCRIPTS + script + DLL).c_str());
+		dll = LoadLibrary((script + DLL).c_str());
 		if (dll != nullptr)
 		{
 			loadedDLLs.insert(std::pair<std::string,
@@ -113,6 +114,7 @@ Script* ModuleScript::GetScript(const ComponentScript& component, const std::str
 		}
 		else
 		{
+			LOG(GetLastErrorAsString().c_str());
 			return nullptr;
 		}
 	}
@@ -180,3 +182,22 @@ void ModuleScript::CheckScripts()
 	}
 }
 
+
+std::string ModuleScript::GetLastErrorAsString()
+{
+	//Get the error message, if any.
+	DWORD errorMessageID = ::GetLastError();
+	if (errorMessageID == 0)
+		return std::string(); //No error message has been recorded
+
+	LPSTR messageBuffer = nullptr;
+	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+	std::string message(messageBuffer, size);
+
+	//Free the buffer.
+	LocalFree(messageBuffer);
+
+	return message;
+}

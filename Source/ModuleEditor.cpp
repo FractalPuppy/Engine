@@ -23,6 +23,7 @@
 #include "PanelResourceManager.h"
 #include "PanelState.h"
 #include "PanelAnimation.h"
+#include "PanelNavigation.h"
 
 #include "MaterialEditor.h"
 #include "FileExplorer.h"
@@ -34,6 +35,8 @@
 #include "ImGuizmo.h"
 #include "Brofiler.h"
 #include <vector>
+
+namespace ed = ax::NodeEditor;
 
 ModuleEditor::ModuleEditor()
 {
@@ -48,6 +51,7 @@ ModuleEditor::ModuleEditor()
 	panels.push_back(states = new PanelState());
 	panels.push_back(animation = new PanelAnimation());
 	panels.push_back(resource = new PanelResourceManager());
+	panels.push_back(navigation = new PanelNavigation());
 
 	materialEditor = new MaterialEditor();
 	fileExplorer = new FileExplorer();
@@ -71,7 +75,7 @@ bool ModuleEditor::Init(JSON * config)
 {
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_NavEnableSetMousePos;
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
 	ImGui_ImplOpenGL3_Init("#version 130");
@@ -275,6 +279,9 @@ void ModuleEditor::RenderGUI() const
 	PROFILE;
 	ImGui::End();
 	ImGui::Render();
+
+	wantKeyboard = ImGui::IsAnyItemActive();
+
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
@@ -352,6 +359,10 @@ void ModuleEditor::WindowsMenu()
 		if (ImGui::MenuItem("Assets", nullptr, assets->IsEnabled()))
 		{
 			assets->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("Navigation", nullptr, navigation->IsEnabled()))
+		{
+			navigation->ToggleEnabled();
 		}
 		ImGui::EndMenu();
 	}

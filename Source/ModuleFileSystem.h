@@ -2,7 +2,6 @@
 #define __ModuleFileSystem_h__
 
 #include "Module.h"
-#include "Timer.h"
 #include <vector>
 #include <list>
 #include <set>
@@ -17,10 +16,14 @@
 #define MATERIALS ASSETS "Materials/"
 #define MESHES LIBRARY "Meshes/"
 #define BONES LIBRARY "Animations/Bones/"
+#define STATEMACHINES LIBRARY "StateMachines/"
 #define ANIMATIONS LIBRARY "Animations/"
 #define TEXTURES LIBRARY "Textures/"
 #define SCENES ASSETS "Scenes/"
+
+#define AUDIOS "Audio/"
 #define TEMPORARY_SCENE "temporaryScene"
+
 #define SHADERS "Shaders/"
 #define SCRIPTS "Scripts/"
 #define VERTEXSHADERS SHADERS "VertexShaders/"
@@ -31,6 +34,7 @@
 #define MESHEXTENSION ".m3sh"
 #define BONEEXTENSION ".b0ne"
 #define ANIMATIONEXTENSION ".animati0n"
+#define STATEMACHINEEXTENSION ".st4tem4chine"
 #define PNG ".png"
 #define TIF	".tif"
 #define JPG	".jpg"
@@ -40,6 +44,12 @@
 #define JSONEXT ".json"
 #define METAEXT ".meta"
 #define DLL ".dll"
+#define WAVEXTENSION ".wav"
+#define WAVCAPITAL ".WAV"
+#define OGGEXTENSION ".ogg"
+#define OGGCAPITAL ".OGG"
+#define MP3EXTENSION ".mp3"
+#define MP3CAPITAL ".MP3"
 
 #define CHECKERS "checkersTexture"
 #define NOCAMERA "nocamera"
@@ -53,7 +63,11 @@ enum class FILETYPE
 	SCENE,
 	ANIMATION,
 	MATERIAL,
+	SKYBOX,
+	STATEMACHINE,
+	AUDIO,
 	NONE,
+
 };
 
 class ModuleFileSystem :
@@ -107,7 +121,6 @@ public:
 private:
 	bool monitorize = true;
 	bool threadIsWorking = false;
-	Timer importTimer;
 	std::list<std::pair<std::string, std::string>> filesToImport; //File and folder
 	std::thread monitor_thread;
 };

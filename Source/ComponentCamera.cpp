@@ -242,11 +242,7 @@ void ComponentCamera::DrawProperties()
 		{
 			if (isMainCamera)
 			{
-				if (App->scene->maincamera != nullptr)
-				{
-					App->scene->maincamera->isMainCamera = false;
-				}
-				App->scene->maincamera = this;
+				SetAsMain();
 			}
 			else
 			{
@@ -267,6 +263,15 @@ void ComponentCamera::DrawProperties()
 	ImGui::PopID();
 }
 
+void ComponentCamera::SetAsMain()
+{
+	if (App->scene->maincamera != nullptr)
+	{
+		App->scene->maincamera->isMainCamera = false;
+	}
+	App->scene->maincamera = this;
+}
+
 void ComponentCamera::Save(JSON_value* value) const
 {
 	Component::Save(value);
@@ -280,6 +285,7 @@ void ComponentCamera::Save(JSON_value* value) const
 	value->AddFloat3("Position", frustum->pos);
 	value->AddFloat3("Front", frustum->front);
 	value->AddFloat3("Up", frustum->up);
+	value->AddUint("isMain", isMainCamera);
 }
 
 void ComponentCamera::Load(JSON_value* value)
@@ -295,6 +301,11 @@ void ComponentCamera::Load(JSON_value* value)
 	frustum->pos = value->GetFloat3("Position");
 	frustum->front = value->GetFloat3("Front");
 	frustum->up = value->GetFloat3("Up");
+	isMainCamera = value->GetUint("isMain", 0);
+	if (isMainCamera)
+	{
+		SetAsMain();
+	}
 }
 
 void ComponentCamera::Paste()

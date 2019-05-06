@@ -28,6 +28,7 @@ private:
 	void DrawResourceMaterial();
 	void DrawResourceAnimation();
 	void DrawResourceSkybox();
+	void DrawResourceSM();
 	void CleanUp();
 
 private:

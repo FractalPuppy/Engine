@@ -18,6 +18,7 @@ public:
 
 	void Update() override;
 	void DrawProperties() override;
+	ENGINE_API void SetAsMain();
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;
 

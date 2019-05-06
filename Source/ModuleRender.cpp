@@ -11,14 +11,20 @@
 #include "ModuleUI.h"
 #include "ModuleFontLoader.h"
 #include "ModuleDevelopmentBuildDebug.h"
+#include "ModuleParticles.h"
+#include "ModuleTime.h"
+#include "ModuleNavigation.h"
 
 #include "GameObject.h"
 #include "ComponentCamera.h"
+#include "ComponentRenderer.h"
+#include "ComponentTransform.h"
 #include "Viewport.h"
 #include "JSON.h"
 
 #include "Resource.h"
 #include "ResourceSkybox.h"
+#include "ResourceMesh.h"
 
 #include "SDL.h"
 #include "GL/glew.h"
@@ -46,7 +52,7 @@ bool ModuleRender::Init(JSON * config)
 	LOG("Creating Renderer context");
 
 	InitSDL();
-
+	
 	glewInit();
 	InitOpenGL();
 
@@ -79,15 +85,15 @@ bool ModuleRender::Init(JSON * config)
 	current_scale = renderer->GetInt("current_scale");
 	switch (current_scale)
 	{
-		case 1:
-			item_current = 0;
-			break;
-		case 10:
-			item_current = 1;
-			break;
-		case 100:
-			item_current = 2;
-			break;
+	case 1:
+		item_current = 0;
+		break;
+	case 10:
+		item_current = 1;
+		break;
+	case 100:
+		item_current = 2;
+		break;
 	}
 
 	return true;
@@ -96,20 +102,23 @@ bool ModuleRender::Init(JSON * config)
 bool ModuleRender::Start()
 {
 	GenBlockUniforms();
-	return true;
+	shadowsFrustum.type = math::FrustumType::OrthographicFrustum;
+	glGenFramebuffers(1, &shadowsFBO);
+	glGenTextures(1, &shadowsTex);
+	shadowsShader = App->program->GetProgram("Shadows");
+	return shadowsShader && shadowsFBO > 0u && shadowsTex > 0u;
 }
 
 
 update_status ModuleRender::PreUpdate()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	return UPDATE_CONTINUE;
 }
 
 // Called every draw update
 update_status ModuleRender::Update(float dt)
-{ 
+{
 	return UPDATE_CONTINUE;
 }
 
@@ -117,6 +126,7 @@ update_status ModuleRender::Update(float dt)
 update_status ModuleRender::PostUpdate()
 {
 	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::Black);
+	ComputeShadows();
 
 #ifndef GAME_BUILD
 	viewScene->Draw(App->camera->editorcamera, true);
@@ -155,7 +165,7 @@ void ModuleRender::SaveConfig(JSON * config)
 }
 
 void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool isEditor) const
-{	
+{
 	BROFILER_CATEGORY("Render_Draw()", Profiler::Color::AliceBlue);
 	glViewport(0, 0, width, height);
 	glClearColor(0.3f, 0.3f, 0.3f, 1.f);
@@ -176,6 +186,12 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 	if (isEditor)
 	{
 		DrawGizmos(cam);
+		unsigned shader = App->program->defaultShader->id[0];
+		glUseProgram(shader);
+		math::float4x4 model = math::float4x4::identity;
+		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_TRUE, &model[0][0]);
+		App->navigation->renderNavMesh();
+		glUseProgram(0);
 	}
 	App->scene->Draw(*cam.frustum, isEditor);
 
@@ -183,7 +199,8 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 	{
 		App->ui->Draw(width, height);
 	}
-	
+	App->particles->Render(App->time->gameDeltaTime, &cam);
+
 }
 
 bool ModuleRender::IsSceneViewFocused() const
@@ -209,7 +226,7 @@ bool ModuleRender::CleanUp()
 
 void ModuleRender::OnResize()
 {
-    glViewport(0, 0, App->window->width, App->window->height);
+	glViewport(0, 0, App->window->width, App->window->height);
 #ifndef GAME_BUILD
 	App->camera->editorcamera->SetAspect((float)App->window->width / (float)App->window->height);
 #endif
@@ -261,7 +278,7 @@ void ModuleRender::DrawGizmos(const ComponentCamera &camera) const
 void ModuleRender::InitSDL()
 {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -286,6 +303,169 @@ void ModuleRender::InitOpenGL() const
 	glClearColor(0.3f, 0.3f, 0.3f, 1.f);
 
 	glViewport(0, 0, App->window->width, App->window->height);
+}
+
+void ModuleRender::ComputeShadows()
+{
+	shadowVolumeRendered = false;
+	if (directionalLight && directionalLight->produceShadows)
+	{
+		shadowVolumeRendered = true;
+		math::AABB lightAABB;
+		lightAABB.SetNegativeInfinity();
+		bool renderersDetected = false;
+		//TODO: Improve this avoiding shuffle every frame
+		for (GameObject* go : App->scene->dynamicFilteredGOs) //TODO: get volumetric gos even if outside the frustum
+		{
+			ComponentRenderer* cr = (ComponentRenderer*)go->GetComponent(ComponentType::Renderer);
+			if (cr && cr->castShadows)
+			{
+				renderersDetected = true;
+				lightAABB.Enclose(go->bbox);
+				shadowCasters.insert(cr);
+			}
+		}
+
+		for (GameObject* go : App->scene->staticFilteredGOs)
+		{
+			ComponentRenderer* cr = (ComponentRenderer*)go->GetComponent(ComponentType::Renderer);
+			if (cr && cr->castShadows)
+			{
+				renderersDetected = true;
+				lightAABB.Enclose(go->bbox);
+			}
+		}
+		if (!renderersDetected)
+		{
+			return;
+		}
+		//TODO: End improving zone
+		
+		math::float3 points[8];
+
+		math::float4x4 lightMat = math::Quat::LookAt(math::float3::unitZ, directionalLight->gameobject->transform->front, math::float3::unitY, directionalLight->gameobject->transform->up).Inverted().ToFloat3x3();
+
+		lightAABB.SetFromCenterAndSize(lightAABB.CenterPoint(), lightAABB.Size() * 1.5f);
+		lightAABB.GetCornerPoints(points);
+		math::float3 minP, maxP;
+		minP = points[0];
+		maxP = points[0];
+		for (unsigned i = 0u; i < 8u; ++i)
+		{
+			points[i] = lightMat.TransformPos(points[i]);
+			minP.x = MIN(points[i].x, minP.x);
+			minP.y = MIN(points[i].y, minP.y);
+			minP.z = MIN(points[i].z, minP.z);
+
+			maxP.x = MAX(points[i].x, maxP.x);
+			maxP.y = MAX(points[i].y, maxP.y);
+			maxP.z = MAX(points[i].z, maxP.z);
+		}
+
+		shadowVolumeWidth = maxP.x - minP.x;
+		shadowVolumeWidthHalf = shadowVolumeWidth * .5f;
+		shadowVolumeHeight = maxP.y - minP.y;
+		shadowVolumeHeightHalf = shadowVolumeHeight * .5f;
+		shadowVolumeLength = maxP.z - minP.z;
+
+		lightPos = lightMat.Inverted().TransformPos(math::float3((maxP.x + minP.x) * .5f, (maxP.y + minP.y) * .5f, maxP.z));
+
+		if (shadowDebug) // draw shadows volume
+		{
+			ShadowVolumeDrawDebug();
+		}
+		shadowsFrustum.up = -directionalLight->gameobject->transform->up;
+		shadowsFrustum.front = -directionalLight->gameobject->transform->front;
+		BlitShadowTexture();
+	}
+}
+
+void ModuleRender::ShadowVolumeDrawDebug()
+{
+	dd::sphere(lightPos, dd::colors::YellowGreen, current_scale);
+
+	math::float3 lFront = directionalLight->gameobject->transform->front;
+	math::float3 lRight = directionalLight->gameobject->transform->right;
+	math::float3 lUp = directionalLight->gameobject->transform->up;
+
+
+	dd::line(lightPos, lightPos - lFront * shadowVolumeLength, dd::colors::YellowGreen);
+	dd::line(lightPos, lightPos - lRight * shadowVolumeWidthHalf, dd::colors::Red);
+	dd::line(lightPos, lightPos + lRight * shadowVolumeWidthHalf, dd::colors::Red);
+	dd::line(lightPos, lightPos - lUp * shadowVolumeHeightHalf, dd::colors::Green);
+	dd::line(lightPos, lightPos + lUp * shadowVolumeHeightHalf, dd::colors::Green);
+
+	math::float3 nearCorners[4] = {
+				lightPos + lUp * shadowVolumeHeightHalf + lRight * shadowVolumeWidthHalf,
+				lightPos + lUp * shadowVolumeHeightHalf - lRight * shadowVolumeWidthHalf,
+				lightPos - lUp * shadowVolumeHeightHalf - lRight * shadowVolumeWidthHalf,
+				lightPos - lUp * shadowVolumeHeightHalf + lRight * shadowVolumeWidthHalf
+	};
+
+	math::float3 farCorners[4] = {
+				lightPos - lFront * shadowVolumeLength + lUp * shadowVolumeHeightHalf + lRight * shadowVolumeWidthHalf,
+				lightPos - lFront * shadowVolumeLength + lUp * shadowVolumeHeightHalf - lRight * shadowVolumeWidthHalf,
+				lightPos - lFront * shadowVolumeLength - lUp * shadowVolumeHeightHalf - lRight * shadowVolumeWidthHalf,
+				lightPos - lFront * shadowVolumeLength - lUp * shadowVolumeHeightHalf + lRight * shadowVolumeWidthHalf
+	};
+
+	for (unsigned i = 0u; i < 4u; ++i)
+	{
+		dd::line(nearCorners[i], farCorners[i], dd::colors::YellowGreen);
+		if (i < 3u)
+		{
+			dd::line(nearCorners[i], nearCorners[i + 1], dd::colors::YellowGreen);
+			dd::line(farCorners[i], farCorners[i + 1], dd::colors::YellowGreen);
+		}
+		else
+		{
+			dd::line(nearCorners[i], nearCorners[0], dd::colors::YellowGreen);
+			dd::line(farCorners[i], farCorners[0], dd::colors::YellowGreen);
+		}
+	}
+}
+
+void ModuleRender::BlitShadowTexture()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, shadowsFBO);
+	glBindTexture(GL_TEXTURE_2D, shadowsTex);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, shadowVolumeWidth, shadowVolumeHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowsTex, 0);
+	glDrawBuffer(GL_NONE);
+	glViewport(0, 0, shadowVolumeWidth, shadowVolumeHeight);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	shadowsFrustum.orthographicHeight = shadowVolumeHeight;
+	shadowsFrustum.orthographicWidth = shadowVolumeWidth;
+	shadowsFrustum.nearPlaneDistance = .0f;
+	shadowsFrustum.farPlaneDistance = shadowVolumeLength;
+	shadowsFrustum.pos = lightPos;
+	
+		
+	for (ComponentRenderer* cr : shadowCasters)
+	{
+		unsigned variation = 0u;
+		if (cr->mesh->bindBones.size() > 0u)
+		{
+			variation |= (unsigned)ModuleProgram::Shadows_Variations::SKINNED;
+		}
+		glUseProgram(shadowsShader->id[variation]);
+		glUniformMatrix4fv(glGetUniformLocation(shadowsShader->id[variation],
+			"viewProjection"), 1, GL_TRUE, &shadowsFrustum.ViewProjMatrix()[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(shadowsShader->id[variation],
+			"model"), 1, GL_TRUE, &cr->gameobject->GetGlobalTransform()[0][0]);
+		cr->mesh->Draw(shadowsShader->id[variation]);
+	}
+
+	glUseProgram(0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 }
 
 void ModuleRender::DrawGUI()
@@ -323,12 +503,18 @@ void ModuleRender::DrawGUI()
 	}
 	ImGui::Checkbox("Picker Debug", &picker_debug);
 	ImGui::Checkbox("Light Debug", &light_debug);
+	ImGui::Checkbox("Shadow volume Debug", &shadowDebug);
+	if (shadowDebug && App->renderer->shadowVolumeRendered)
+	{
+		ImGui::Image((ImTextureID)App->renderer->shadowsTex, { 200,200 }, { 0,1 }, { 1,0 });
+	}
+
 	ImGui::Checkbox("Dynamic AABBTree Debug", &aabbTreeDebug);
 	ImGui::Checkbox("Static KDTree Debug", &kDTreeDebug);
 	ImGui::Checkbox("Grid Debug", &grid_debug);
 	ImGui::Checkbox("Bone Debug", &boneDebug);
 
-	const char* scales[] = {"1", "10", "100"};
+	const char* scales[] = { "1", "10", "100" };
 	ImGui::Combo("Scale", &item_current, scales, 3);
 	unsigned new_scale = atoi(scales[item_current]);
 	if (new_scale != current_scale)
@@ -357,7 +543,7 @@ void ModuleRender::GenBlockUniforms()
 }
 
 void ModuleRender::AddBlockUniforms(const Shader &shader) const
-{ 
+{
 	for (auto id : shader.id)
 	{
 		unsigned int uniformBlockIndex = glGetUniformBlockIndex(id.second, "Matrices");

@@ -32,6 +32,8 @@ ComponentRenderer::ComponentRenderer(const ComponentRenderer& component) : Compo
 
 	if (component.material != nullptr)
 		material = (ResourceMaterial*)App->resManager->Get(component.material->GetUID());
+
+	castShadows = component.castShadows;
 }
 
 ComponentRenderer::~ComponentRenderer()
@@ -107,6 +109,8 @@ void ComponentRenderer::DrawProperties()
 			ImGui::Text("Num triangles : %d", mesh->meshIndices.size() / 3);
 		}
 		ImGui::Spacing();
+		ImGui::Checkbox("Cast shadows", &castShadows);
+		ImGui::Checkbox("Use Alpha", &useAlpha);
 
 		// Material selector
 		ImGui::Text("Material");
@@ -210,6 +214,8 @@ void ComponentRenderer::Save(JSON_value* value) const
 	Component::Save(value);
 	value->AddUint("meshUID", (mesh != nullptr) ? mesh->GetUID() : 0u);
 	value->AddString("materialFile", (material != nullptr) ? material->GetExportedFile() : DEFAULTMAT);
+	value->AddInt("castShadows", castShadows);
+	value->AddInt("useAlpha", useAlpha);
 }
 
 void ComponentRenderer::Load(JSON_value* value)
@@ -222,6 +228,9 @@ void ComponentRenderer::Load(JSON_value* value)
 
 	const char* materialFile = value->GetString("materialFile");
 	SetMaterial(materialFile);
+
+	castShadows = value->GetInt("castShadows");
+	useAlpha = value->GetInt("useAlpha");
 }
 
 void ComponentRenderer::SetMaterial(const char* materialfile)

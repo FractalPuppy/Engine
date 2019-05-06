@@ -22,7 +22,7 @@ public:
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;
 
-	void SetMaterial(const char* material);
+	ENGINE_API void SetMaterial(const char* material);
 	void SetMesh(const char* meshfile);
 	void UpdateGameObject();
 	void LinkBones() const;
@@ -30,6 +30,8 @@ public:
 public:
 	ResourceMesh* mesh = nullptr;
 	ResourceMaterial* material = nullptr;
+	bool castShadows = false;
+	bool useAlpha = false;
 
 private:
 	std::vector<std::string> guiMaterials;

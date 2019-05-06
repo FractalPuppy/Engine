@@ -75,7 +75,11 @@ Shader* ModuleProgram::GetProgram(const char* name)
 	
 	if (std::string(name) == "PBR")
 	{		
-		return CreatePBRVariations(name);
+		return CreateVariations(name, PBRDefines, PBR_VARIATIONS);
+	}
+	if (std::string(name) == "Shadows")
+	{
+		return CreateVariations(name, ShadowDefines, SHADOW_VARIATIONS);
 	}
 	else
 	{
@@ -90,7 +94,10 @@ unsigned ModuleProgram::CreateVertexShader(const char *name)
 	file += ".vs";
 	char * vertexShaderSource = nullptr;
 	App->fsystem->Load((VERTEXSHADERS + file).c_str(), &vertexShaderSource);
-
+	if (vertexShaderSource == nullptr)
+	{
+		return 0;
+	}
 	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
@@ -107,7 +114,10 @@ unsigned ModuleProgram::CreateFragmentShader(const char *name)
 	file += ".fs";
 	char * fragmentShaderSource = nullptr;
 	App->fsystem->Load((FRAGSHADERS+file).c_str(), &fragmentShaderSource);
-
+	if (fragmentShaderSource == nullptr)
+	{
+		return 0;
+	}
 	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
@@ -117,29 +127,29 @@ unsigned ModuleProgram::CreateFragmentShader(const char *name)
 	return fragmentShader;
 }
 
-Shader* ModuleProgram::CreatePBRVariations(const char* name)
+Shader* ModuleProgram::CreateVariations(const char* name, const char** defines, unsigned variations)
 {
 	assert(name != NULL);
 	Shader* shader = new Shader(0, name);
-	unsigned variationAmount = pow(2, PBR_VARIATIONS - 1);
+	unsigned variationAmount = pow(2, variations - 1);
 	for (unsigned variation = 0u; variation < variationAmount; ++variation)
 	{
 		std::string file(name);
 		file += ".vs";
 		char* vertexShaderSource = nullptr;
 		App->fsystem->Load((VERTEXSHADERS + file).c_str(), &vertexShaderSource);
-
+	
 		file = std::string(name);
 		file += ".fs";
 		char* fragmentShaderSource = nullptr;
 		App->fsystem->Load((FRAGSHADERS + file).c_str(), &fragmentShaderSource);
 
-		char** vs = new char*[PBR_VARIATIONS + 1];
+		const char** vs = new const char*[variations + 1];
 		vs[0] = "#version 330\n";
-		char** fs = new char*[PBR_VARIATIONS + 1];
+		const char** fs = new const char*[variations + 1];
 		fs[0] = "#version 330\n";
 		unsigned index = 1u;
-		for (unsigned i = 0; i < PBR_VARIATIONS; ++i)
+		for (unsigned i = 0; i < variations; ++i)
 		{
 			if ((variation & (1 << i)) != 0)
 			{

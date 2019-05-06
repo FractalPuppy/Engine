@@ -144,6 +144,8 @@ void ResourceAnimation::SetAnimation(const char* animationData)
 
 		channels.push_back(newChannel);
 	}
+
+
 }
 
 unsigned ResourceAnimation::GetNumPositions(unsigned indexChannel) const
@@ -159,7 +161,13 @@ unsigned ResourceAnimation::GetNumRotations(unsigned indexChannel) const
 const math::float3 ResourceAnimation::GetPosition(unsigned indexChannel, unsigned indexPosition) const
 {
 	if (channels[indexChannel]->numPositionKeys > 1)
+	{
+		if (indexPosition >= channels[indexChannel]->positionSamples.size())
+		{
+			indexPosition = channels[indexChannel]->positionSamples.size() - 1;
+		}
 		return channels[indexChannel]->positionSamples[indexPosition];
+	}
 	else
 		return channels[indexChannel]->positionSamples[0];
 }
@@ -167,7 +175,13 @@ const math::float3 ResourceAnimation::GetPosition(unsigned indexChannel, unsigne
 const math::Quat ResourceAnimation::GetRotation(unsigned indexChannel, unsigned indexPosition) const
 {
 	if (channels[indexChannel]->numRotationKeys > 1)
+	{
+		if (indexPosition >=  channels[indexChannel]->rotationSamples.size())
+		{
+			indexPosition = channels[indexChannel]->rotationSamples.size() - 1;
+		}
 		return channels[indexChannel]->rotationSamples[indexPosition];
+	}
 	else
 		return channels[indexChannel]->rotationSamples[0];
 }

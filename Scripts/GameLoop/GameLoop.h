@@ -23,6 +23,7 @@ class EnemyMovementScript;
 class IntroScript;
 class CreditsScript;
 class AABB;
+class JSON_value;
 
 class GameLoop_API GameLoop : public Script
 {
@@ -37,13 +38,29 @@ class GameLoop_API GameLoop : public Script
 		OPTIONS,
 		CREDITS,
 		CONTROLS,
-		QUIT
+		QUIT,
+		LOADING
 	};
 
+	enum class GameScene
+	{
+		MENU,
+		CEMENTERY,
+		HUD
+	};
+public :
+	void Expose(ImGuiContext* context) override;
+
+	void Serialize(JSON_value* json) const override;
+	void DeSerialize(JSON_value* json) override;
 private:
 
 	void Start() override;
 	void Update() override;
+
+	void LoadMenuScene();
+	void LoadCementeryScene();
+	void LoadHUDScene();
 
 	void ManageDead();
 	void ManageMenu();
@@ -55,6 +72,7 @@ private:
 	void ManageCredits();
 	void ManageControls();
 	void ManageQuit();
+	void ManageLoading();
 
 	void EnableMenuButtons(bool enable);
 
@@ -68,6 +86,7 @@ private:
 	void ChangeGameState(GameState newState); //Set initial conditions for each state here if required
 
 	GameState gameState = GameState::MENU;
+	GameScene gameScene = GameScene::MENU;
 
 private:
 	//UI Values
@@ -94,6 +113,10 @@ private:
 	ComponentButton* backCreditsButton = nullptr;
 	ComponentButton* toTheAltarButton = nullptr;
 	ComponentButton* hudBackToMenuButton = nullptr;
+	ComponentButton* inventoryButton = nullptr;
+	ComponentButton* missionsButton = nullptr;
+	ComponentButton* skillsButton = nullptr;
+	ComponentButton* closePlayerMenuButton = nullptr;
 	std::vector<Component*> volumeButtons;
 	std::vector<Component*> soundButtons;
 
@@ -109,6 +132,11 @@ private:
 	GameObject* creditsGO = nullptr;
 	GameObject* vsyncGO = nullptr;
 	GameObject* introCamera = nullptr;
+	GameObject* loadingGO = nullptr;
+	GameObject* playerMenuGO = nullptr;
+	GameObject* inventoryMenuGO = nullptr;
+	GameObject* missionsMenuGO = nullptr;
+	GameObject* skillsMenuGO = nullptr;
 
 	//BBOX
 	math::AABB* playerBbox = nullptr;
@@ -137,6 +165,9 @@ private:
 	bool runningCredits = false;
 	bool runningIntro = false;
 	bool vsync = false;
+
+	std::string sceneToLoad = "";
+	int actionAfterLoad = -1;
 };
 
 #endif __GameLoop_h__

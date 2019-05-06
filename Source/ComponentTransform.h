@@ -21,6 +21,7 @@ public:
 
 	void UpdateTransform();
 	void UpdateOldTransform();
+	void UpdateGlobalTransform();
 
 	void SetLocalToWorld();
 	void SetWorldToLocal(const math::float4x4& newparentGlobalMatrix);
@@ -28,12 +29,14 @@ public:
 	void SetLocalTransform(const math::float4x4& newLocal, const math::float4x4& parentGlobal); //only for importing purposes / if used later watch the trees
 
 	ENGINE_API void SetPosition(const math::float3& position);
-	ENGINE_API void SetRotation(const math::Quat& newQuat);
-
-	ENGINE_API math::float3 GetPosition();
+	ENGINE_API void SetRotation(const math::Quat & newRotation);
 	ENGINE_API math::Quat GetRotation();
+	ENGINE_API math::float3 GetPosition();
 
 	ENGINE_API math::float3 GetGlobalPosition();
+
+	ENGINE_API void LookAt(const math::float3& target);
+	ENGINE_API void Align(const math::float3& target);
 
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;

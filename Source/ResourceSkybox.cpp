@@ -112,6 +112,7 @@ void ResourceSkybox::DeleteFromMemory()
 	//Delete used textures
 	for (unsigned int i = 0; i < NUMFACES; ++i)
 	{
+		if (textures[i] != nullptr)
 		textures[i]->DeleteFromMemory();
 	}
 
@@ -134,8 +135,11 @@ void ResourceSkybox::SetTextures(std::string faces[NUMFACES])
 	for (unsigned int i = 0; i < NUMFACES; ++i)
 	{
 		textures[i] = (ResourceTexture*)App->resManager->GetWithoutLoad(faces[i].c_str());
-		textures[i]->SetImageType(IMAGE_TYPE::CUBEMAP);
-		textures[i]->SetCubemapIndex(i);
+		if (textures[i] != nullptr)
+		{
+			textures[i]->SetImageType(IMAGE_TYPE::CUBEMAP);
+			textures[i]->SetCubemapIndex(i);
+		}
 	}
 }
 
@@ -178,7 +182,10 @@ unsigned ResourceSkybox::LoadCubeMap(ResourceTexture* faces[]) const
 
 	for (unsigned int i = 0; i < NUMFACES; ++i)
 	{
-		faces[i]->SetReferences(faces[i]->GetReferences() + 1u);
+		if (faces[i] != nullptr)
+		{
+			faces[i]->SetReferences(faces[i]->GetReferences() + 1u);
+		}
 	}
 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

@@ -703,7 +703,7 @@ public:
 std::ostream &operator <<(std::ostream &out, const float3 &rhs);
 #endif
 
-float3 operator *(float scalar, const float3 &rhs);
+ENGINE_API float3 operator *(float scalar, const float3 &rhs);
 
 #ifdef MATH_ENABLE_UNCOMMON_OPERATIONS
 inline float3 operator /(float scalar, const float3 &rhs) { return float3::FromScalar(scalar) / rhs; }

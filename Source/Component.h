@@ -16,7 +16,12 @@ enum class ComponentType
 	Text,
 	Image,
 	Button,
-	Script
+	Script,
+	Particles,
+	Trail,
+	ReverbZone,
+	AudioListener,
+	AudioSource
 };
 
 class Component
@@ -38,7 +43,8 @@ public:
 	}
 
 	virtual void Update() {}
-	
+	virtual void OnPlay() {}
+
 	virtual bool CleanUp() 
 	{
 		return true; 

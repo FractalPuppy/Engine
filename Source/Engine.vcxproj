@@ -97,15 +97,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <PreprocessorDefinitions>_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ImGui.lib;freetype.lib;BaseScript.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;BaseScript.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -119,15 +119,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <PreprocessorDefinitions>GAME_BUILD;_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ImGui.lib;BaseScript.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;BaseScript.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -143,7 +143,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -151,8 +151,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ImGui.lib;freetype.lib;BaseScript.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;BaseScript.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -168,7 +168,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GAME_BUILD;_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -176,8 +176,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ImGui.lib;BaseScript.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;BaseScript.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -191,21 +191,29 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentAnimation.h" />
+    <ClInclude Include="ComponentAudioListener.h" />
+    <ClInclude Include="ComponentAudioSource.h" />
     <ClInclude Include="ComponentButton.h" />
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentImage.h" />
     <ClInclude Include="ComponentLight.h" />
+    <ClInclude Include="ComponentParticles.h" />
     <ClInclude Include="ComponentRenderer.h" />
+    <ClInclude Include="ComponentReverbZone.h" />
     <ClInclude Include="ComponentScript.h" />
     <ClInclude Include="ComponentText.h" />
+    <ClInclude Include="ComponentTrail.h" />
     <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="ComponentTransform2D.h" />
     <ClInclude Include="debugdraw.h" />
     <ClInclude Include="debug_draw.hpp" />
+    <ClInclude Include="DetourDebugInterface.h" />
+    <ClInclude Include="DetourPoints.h" />
     <ClInclude Include="FileExplorer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GUICreator.h" />
+    <ClInclude Include="ImGUICurveUtils.h" />
     <ClInclude Include="HashString.h" />
     <ClInclude Include="ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="KDTree.h" />
@@ -268,6 +276,7 @@
     <ClInclude Include="MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="MemoryModule.h" />
+    <ClInclude Include="ModuleAudioManager.h" />
     <ClInclude Include="ModuleDebugDraw.h" />
     <ClInclude Include="ModuleDevelopmentBuildDebug.h" />
     <ClInclude Include="ModuleFileSystem.h" />
@@ -278,6 +287,8 @@
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleFontLoader.h" />
     <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModuleParticles.h" />
+    <ClInclude Include="ModuleNavigation.h" />
     <ClInclude Include="ModuleResourceManager.h" />
     <ClInclude Include="ModuleProgram.h" />
     <ClInclude Include="ModuleRender.h" />
@@ -289,6 +300,10 @@
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="myQuadTree.h" />
+    <ClInclude Include="NodeEditor\Include\ax\Math2D.h" />
+    <ClInclude Include="NodeEditor\Include\NodeEditor.h" />
+    <ClInclude Include="NodeEditor\Source\Editor.h" />
+    <ClInclude Include="NodeEditor\Source\Interop.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PanelAbout.h" />
     <ClInclude Include="PanelBrowser.h" />
@@ -298,12 +313,37 @@
     <ClInclude Include="PanelHardware.h" />
     <ClInclude Include="PanelHierarchy.h" />
     <ClInclude Include="PanelInspector.h" />
+    <ClInclude Include="PanelNavigation.h" />
     <ClInclude Include="PanelResourceManager.h" />
     <ClInclude Include="PanelState.h" />
     <ClInclude Include="PanelTime.h" />
     <ClInclude Include="par_shapes.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="engineResource.h" />
+    <ClInclude Include="Recast\DebugUtils\DebugDraw.h" />
+    <ClInclude Include="Recast\DebugUtils\DetourDebugDraw.h" />
+    <ClInclude Include="Recast\DebugUtils\RecastDebugDraw.h" />
+    <ClInclude Include="Recast\DebugUtils\RecastDump.h" />
+    <ClInclude Include="Recast\DetourCrowd\DetourCrowd.h" />
+    <ClInclude Include="Recast\DetourCrowd\DetourLocalBoundary.h" />
+    <ClInclude Include="Recast\DetourCrowd\DetourObstacleAvoidance.h" />
+    <ClInclude Include="Recast\DetourCrowd\DetourPathCorridor.h" />
+    <ClInclude Include="Recast\DetourCrowd\DetourPathQueue.h" />
+    <ClInclude Include="Recast\DetourCrowd\DetourProximityGrid.h" />
+    <ClInclude Include="Recast\DetourTileCache\DetourTileCache.h" />
+    <ClInclude Include="Recast\DetourTileCache\DetourTileCacheBuilder.h" />
+    <ClInclude Include="Recast\Detour\DetourAlloc.h" />
+    <ClInclude Include="Recast\Detour\DetourAssert.h" />
+    <ClInclude Include="Recast\Detour\DetourCommon.h" />
+    <ClInclude Include="Recast\Detour\DetourMath.h" />
+    <ClInclude Include="Recast\Detour\DetourNavMesh.h" />
+    <ClInclude Include="Recast\Detour\DetourNavMeshBuilder.h" />
+    <ClInclude Include="Recast\Detour\DetourNavMeshQuery.h" />
+    <ClInclude Include="Recast\Detour\DetourNode.h" />
+    <ClInclude Include="Recast\Detour\DetourStatus.h" />
+    <ClInclude Include="Recast\Recast\Recast.h" />
+    <ClInclude Include="Recast\Recast\RecastAlloc.h" />
+    <ClInclude Include="Recast\Recast\RecastAssert.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceAnimation.h" />
     <ClInclude Include="ResourceMaterial.h" />
@@ -311,7 +351,43 @@
     <ClInclude Include="ResourceModel.h" />
     <ClInclude Include="ResourceSkybox.h" />
     <ClInclude Include="ResourceTexture.h" />
-    <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="ResourceStateMachine.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_flac.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_mp3.h" />
+    <ClInclude Include="Soloud\fractal_includes\dr_wav.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_audiosource.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_bassboostfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_biquadresonantfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_bus.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_c.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_dcremovalfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_echofilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_error.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_fader.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_fft.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_fftfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_file.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_file_hack_off.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_file_hack_on.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_filter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_flangerfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_internal.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_lofifilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_monotone.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_openmpt.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_queue.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_robotizefilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_sfxr.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_speech.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_tedsid.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_thread.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_vic.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_vizsn.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_wav.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_waveshaperfilter.h" />
+    <ClInclude Include="Soloud\fractal_includes\soloud_wavstream.h" />
+    <ClInclude Include="Soloud\fractal_includes\stb_vorbis.h" />
     <ClInclude Include="strpool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Viewport.h" />
@@ -322,15 +398,22 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentAnimation.cpp" />
+    <ClCompile Include="ComponentAudioListener.cpp" />
+    <ClCompile Include="ComponentAudioSource.cpp" />
     <ClCompile Include="ComponentButton.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentImage.cpp" />
     <ClCompile Include="ComponentLight.cpp" />
+    <ClCompile Include="ComponentParticles.cpp" />
     <ClCompile Include="ComponentRenderer.cpp" />
+    <ClCompile Include="ComponentReverbZone.cpp" />
     <ClCompile Include="ComponentScript.cpp" />
     <ClCompile Include="ComponentText.cpp" />
+    <ClCompile Include="ComponentTrail.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="ComponentTransform2D.cpp" />
+    <ClCompile Include="DetourDebugInterface.cpp" />
+    <ClCompile Include="DetourPoints.cpp" />
     <ClCompile Include="FileExplorer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GUICreator.cpp" />
@@ -373,6 +456,7 @@
     <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="MemoryModule.c" />
+    <ClCompile Include="ModuleAudioManager.cpp" />
     <ClCompile Include="ModuleDebugDraw.cpp" />
     <ClCompile Include="ModuleDevelopmentBuildDebug.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />
@@ -382,6 +466,8 @@
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleFontLoader.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleParticles.cpp" />
+    <ClCompile Include="ModuleNavigation.cpp" />
     <ClCompile Include="ModuleResourceManager.cpp" />
     <ClCompile Include="ModuleProgram.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
@@ -393,6 +479,8 @@
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="myQuadTree.cpp" />
+    <ClCompile Include="NodeEditor\Source\Editor.cpp" />
+    <ClCompile Include="NodeEditor\Source\NodeEditor.cpp" />
     <ClCompile Include="PanelAbout.cpp" />
     <ClCompile Include="PanelAnimation.cpp" />
     <ClCompile Include="PanelBrowser.cpp" />
@@ -402,8 +490,39 @@
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
     <ClCompile Include="PanelState.cpp" />
+    <ClCompile Include="PanelNavigation.cpp" />
     <ClCompile Include="PanelResourceManager.cpp" />
     <ClCompile Include="PanelTime.cpp" />
+    <ClCompile Include="Recast\DebugUtils\DebugDraw.cpp" />
+    <ClCompile Include="Recast\DebugUtils\DetourDebugDraw.cpp" />
+    <ClCompile Include="Recast\DebugUtils\RecastDebugDraw.cpp" />
+    <ClCompile Include="Recast\DebugUtils\RecastDump.cpp" />
+    <ClCompile Include="Recast\DetourCrowd\DetourCrowd.cpp" />
+    <ClCompile Include="Recast\DetourCrowd\DetourLocalBoundary.cpp" />
+    <ClCompile Include="Recast\DetourCrowd\DetourObstacleAvoidance.cpp" />
+    <ClCompile Include="Recast\DetourCrowd\DetourPathCorridor.cpp" />
+    <ClCompile Include="Recast\DetourCrowd\DetourPathQueue.cpp" />
+    <ClCompile Include="Recast\DetourCrowd\DetourProximityGrid.cpp" />
+    <ClCompile Include="Recast\DetourTileCache\DetourTileCache.cpp" />
+    <ClCompile Include="Recast\DetourTileCache\DetourTileCacheBuilder.cpp" />
+    <ClCompile Include="Recast\Detour\DetourAlloc.cpp" />
+    <ClCompile Include="Recast\Detour\DetourAssert.cpp" />
+    <ClCompile Include="Recast\Detour\DetourCommon.cpp" />
+    <ClCompile Include="Recast\Detour\DetourNavMesh.cpp" />
+    <ClCompile Include="Recast\Detour\DetourNavMeshBuilder.cpp" />
+    <ClCompile Include="Recast\Detour\DetourNavMeshQuery.cpp" />
+    <ClCompile Include="Recast\Detour\DetourNode.cpp" />
+    <ClCompile Include="Recast\Recast\Recast.cpp" />
+    <ClCompile Include="Recast\Recast\RecastAlloc.cpp" />
+    <ClCompile Include="Recast\Recast\RecastArea.cpp" />
+    <ClCompile Include="Recast\Recast\RecastAssert.cpp" />
+    <ClCompile Include="Recast\Recast\RecastContour.cpp" />
+    <ClCompile Include="Recast\Recast\RecastFilter.cpp" />
+    <ClCompile Include="Recast\Recast\RecastLayers.cpp" />
+    <ClCompile Include="Recast\Recast\RecastMesh.cpp" />
+    <ClCompile Include="Recast\Recast\RecastMeshDetail.cpp" />
+    <ClCompile Include="Recast\Recast\RecastRasterization.cpp" />
+    <ClCompile Include="Recast\Recast\RecastRegion.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceAnimation.cpp" />
     <ClCompile Include="ResourceMaterial.cpp" />
@@ -411,7 +530,34 @@
     <ClCompile Include="ResourceModel.cpp" />
     <ClCompile Include="ResourceSkybox.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
-    <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\dr_impl.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_audiosource.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_bus.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_3d.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_basicops.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_faderops.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_filterops.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_getters.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_setters.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_voicegroup.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_core_voiceops.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_echofilter.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_fader.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_fft.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_fft_lut.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_file.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_filter.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_queue.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl1.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl1_dll.c" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl2.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_sdl2_dll.c" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_thread.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_wav.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\soloud_wavstream.cpp" />
+    <ClCompile Include="Soloud\fractal_includes\stb_vorbis.c" />
+    <ClCompile Include="ResourceStateMachine.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Viewport.cpp" />
   </ItemGroup>
@@ -419,12 +565,21 @@
     <None Include="..\Game\Scripts\PlayerMovement.dll" />
     <None Include="..\Game\Shaders\FragmentShaders\Default.fs" />
     <None Include="..\Game\Shaders\FragmentShaders\Fonts.fs" />
+    <None Include="..\Game\Shaders\FragmentShaders\Particles.fs" />
     <None Include="..\Game\Shaders\FragmentShaders\PBR.fs" />
+    <None Include="..\Game\Shaders\FragmentShaders\Shadows.fs" />
+    <None Include="..\Game\Shaders\FragmentShaders\Skybox.fs" />
+    <None Include="..\Game\Shaders\FragmentShaders\Trail.fs" />
     <None Include="..\Game\Shaders\FragmentShaders\UI.fs" />
     <None Include="..\Game\Shaders\VertexShaders\Default.vs" />
     <None Include="..\Game\Shaders\VertexShaders\Fonts.vs" />
+    <None Include="..\Game\Shaders\VertexShaders\Particles.vs" />
     <None Include="..\Game\Shaders\VertexShaders\PBR.vs" />
+    <None Include="..\Game\Shaders\VertexShaders\Shadows.vs" />
+    <None Include="..\Game\Shaders\VertexShaders\Skybox.vs" />
+    <None Include="..\Game\Shaders\VertexShaders\Trail.vs" />
     <None Include="..\Game\Shaders\VertexShaders\UI.vs" />
+    <None Include="NodeEditor\Include\ax\Math2D.inl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc" />
