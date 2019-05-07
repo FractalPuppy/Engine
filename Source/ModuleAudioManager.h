@@ -38,6 +38,8 @@ public:
 	void AddEchoFilter(int i);
 	void RemoveEchoFilter(int i);
 
+	ENGINE_API void SetGlobalVolume(float newVol);
+
 	void setMainListener(ComponentAudioListener* AL);
 
 private:

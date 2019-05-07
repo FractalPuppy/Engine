@@ -31,7 +31,7 @@ update_status ModuleAudioManager::PostUpdate()
 		busesStoped = true;
 	}
 
-	gSoloud.update3dAudio();
+	//gSoloud.update3dAudio();  
 	return UPDATE_CONTINUE;
 }
 
@@ -64,6 +64,12 @@ void ModuleAudioManager::RemoveEchoFilter(int i)
 	bus3D.setFilter(i, NULL);
 	reverbZones[i]->applied = false;
 
+}
+
+ENGINE_API void ModuleAudioManager::SetGlobalVolume(float newVol)
+{
+	masterVolume = newVol;
+	gSoloud.setGlobalVolume(masterVolume);
 }
 
 void ModuleAudioManager::StopWAV(int handler) 
