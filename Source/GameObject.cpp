@@ -73,6 +73,7 @@ GameObject::GameObject(const GameObject & gameobject)
 	isVolumetric = gameobject.isVolumetric;
 	hasLight = gameobject.hasLight;
 	isBoneRoot = gameobject.isBoneRoot;
+	openInHierarchy = gameobject.openInHierarchy;
 
 	assert(!(isVolumetric && hasLight));
 	bbox = gameobject.bbox;
@@ -811,6 +812,7 @@ void GameObject::Save(JSON_value *gameobjects) const
 		gameobject->AddUint("Navigable", navigable);
 		gameobject->AddUint("Walkable", walkable);
 		gameobject->AddUint("No Walkable", noWalkable);
+		gameobject->AddUint("openInHierarchy", openInHierarchy);
 
 		JSON_value *componentsJSON = gameobject->CreateValue(rapidjson::kArrayType);
 		for (auto &component : components)
@@ -841,8 +843,9 @@ void GameObject::Load(JSON_value *value)
 	isBoneRoot = value->GetUint("isBoneRoot");
 	baseState = value->GetFloat4x4("baseState");
 	navigable = value->GetUint("Navigable");
-	walkable = value->GetUint("Walkable");
+	walkable = value->GetUint("Walkable"); //TODO: why 2 variables for walkable?
 	noWalkable = value->GetUint("No Walkable");
+	openInHierarchy = value->GetUint("openInHierarchy");
 
 	JSON_value* componentsJSON = value->GetValue("Components");
 	for (unsigned i = 0; i < componentsJSON->Size(); i++)
@@ -891,7 +894,8 @@ bool GameObject::IsParented(const GameObject & gameobject) const
 
 void GameObject::DrawHierarchy()
 {
-	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen
+	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | 
+		(openInHierarchy ? ImGuiTreeNodeFlags_DefaultOpen: 0)
 		| ImGuiTreeNodeFlags_OpenOnDoubleClick | (isSelected ? ImGuiTreeNodeFlags_Selected : 0);
 
 	ImGui::PushID(this);
@@ -901,7 +905,8 @@ void GameObject::DrawHierarchy()
 	}
 	ImGui::Text("|"); ImGui::SameLine();
 	App->scene->DragNDropMove(this);
-	bool obj_open = ImGui::TreeNodeEx(this, node_flags, name.c_str());
+	openInHierarchy = ImGui::TreeNodeEx(this, node_flags, name.c_str());
+
 	if (isSelected && ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
 		ImGui::OpenPopup("gameobject_options_popup");
@@ -938,7 +943,7 @@ void GameObject::DrawHierarchy()
 		App->scene->DragNDrop(this);
 	}
 
-	if (obj_open)
+	if (openInHierarchy)
 	{
 		for (auto &child : children)
 		{

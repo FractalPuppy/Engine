@@ -111,17 +111,17 @@ void KDTree::Calculate()
 			{
 				if (go2 == nullptr)
 					return false;
-				return go1->transform->GetGlobalPosition()[dimension] > go2->transform->GetGlobalPosition()[dimension];
+				return go1->transform->GetPosition()[dimension] > go2->transform->GetPosition()[dimension];
 			});
 			if (current->bucketOccupation % 2 == 0)
 			{
 				unsigned middle = (current->bucketOccupation * 0.5f) + 1u; //the first is always null due the preincrement on filling the bucket
-				current->median = (current->bucket[middle - 1]->transform->GetGlobalPosition()[dimension] + current->bucket[middle]->transform->GetGlobalPosition()[dimension]) / 2.f;
+				current->median = (current->bucket[middle - 1]->transform->GetPosition()[dimension] + current->bucket[middle]->transform->GetPosition()[dimension]) / 2.f;
 			}
 			else
 			{
 				unsigned middle = (current->bucketOccupation * 0.5f) + 1u; //the first is always null due the preincrement on filling the bucket
-				current->median = current->bucket[middle]->transform->GetGlobalPosition()[dimension];
+				current->median = current->bucket[middle]->transform->GetPosition()[dimension];
 			}
 			current->leftBranch->bucketOccupation = 0u;
 			current->rightBranch->bucketOccupation = 0u;

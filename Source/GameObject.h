@@ -78,6 +78,7 @@ public:
 
 private:
 	void SetStaticAncestors();
+	bool openInHierarchy = true;
 
 public:
 	unsigned UUID = 0;

@@ -283,8 +283,8 @@ void ComponentAudioSource::DrawDebugSound()
 	assert(gameobject->transform != nullptr);
 	if (Sound3D) 
 	{
-		dd::sphere(gameobject->transform->GetGlobalPosition(), dd::colors::Blue, fadeDist + 100 * App->renderer->current_scale * fadeDist / (fadeDist + rolloff3D * 12 * App->renderer->current_scale));
-		dd::sphere(gameobject->transform->GetGlobalPosition(), dd::colors::BlueViolet, fadeDist);
+		dd::sphere(gameobject->transform->GetPosition(), dd::colors::Blue, fadeDist + 100 * App->renderer->current_scale * fadeDist / (fadeDist + rolloff3D * 12 * App->renderer->current_scale));
+		dd::sphere(gameobject->transform->GetPosition(), dd::colors::BlueViolet, fadeDist);
 	}
 }
 
@@ -326,7 +326,7 @@ float ComponentAudioSource::Volume3D()
 {	
 	assert(gameobject->transform != nullptr);
 
-	float Pdist = math::Length(App->audioManager->mainListener->gameobject->transform->GetGlobalPosition() - gameobject->transform->GetGlobalPosition());
+	float Pdist = math::Length(App->audioManager->mainListener->gameobject->transform->GetPosition() - gameobject->transform->GetPosition());
 
 	if (Pdist < fadeDist) return volume;
 	float Pnorm = math::Abs(Pdist - fadeDist);
@@ -339,7 +339,7 @@ float ComponentAudioSource::Volume3D()
 float ComponentAudioSource::Pan3D()
 {
 	float3 leftListener = App->audioManager->mainListener->gameobject->transform->rotation * float3(-1.f, 0.f ,0.f);
-	float3 sourceListener = gameobject->transform->GetGlobalPosition() - App->audioManager->mainListener->gameobject->transform->GetGlobalPosition();
+	float3 sourceListener = gameobject->transform->GetPosition() - App->audioManager->mainListener->gameobject->transform->GetPosition();
 
 	float dotP = math::Dot(leftListener.Normalized(), sourceListener.Normalized());
 

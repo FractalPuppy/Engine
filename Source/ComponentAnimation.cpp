@@ -441,8 +441,8 @@ void ComponentAnimation::UpdateGO(GameObject* go)
 
 		if (controller->GetTransform(go->animationIndexChannel, position, rotation))
 		{
-			go->transform->SetPosition(position);
-			go->transform->SetRotation(rotation);
+			go->transform->SetLocalPosition(position);
+			go->transform->SetLocalRotation(rotation);
 		}
 		gameobject->movedFlag = true;
 	}
@@ -460,8 +460,8 @@ void ComponentAnimation::EditorUpdateGO(GameObject* go)
 
 	if (editorController->GetTransform(go->animationIndexChannel, position, rotation))
 	{
-		go->transform->SetPosition(position);
-		go->transform->SetRotation(rotation);
+		go->transform->SetLocalPosition(position);
+		go->transform->SetLocalRotation(rotation);
 	}
 
 	gameobject->movedFlag = true;

@@ -230,7 +230,7 @@ void ModuleScene::Draw(const Frustum &frustum, bool isEditor)
 				{
 					ComponentTransform*  nT = (ComponentTransform*)node->GetComponent(ComponentType::Transform);
 					ComponentTransform*  pT = (ComponentTransform*)node->parent->GetComponent(ComponentType::Transform);
-					dd::line(nT->GetGlobalPosition(), pT->GetGlobalPosition(), dd::colors::Red);
+					dd::line(nT->GetPosition(), pT->GetPosition(), dd::colors::Red);
 				}
 				
 				for (GameObject* go : node->children)
@@ -338,7 +338,7 @@ void ModuleScene::Draw(const Frustum &frustum, bool isEditor)
 	alphaRenderers.sort(
 		[frustum](const ComponentRenderer* cr1, const ComponentRenderer* cr2) -> bool
 	{
-		return cr1->gameobject->transform->GetGlobalPosition().Distance(frustum.pos) > cr2->gameobject->transform->GetGlobalPosition().Distance(frustum.pos);
+		return cr1->gameobject->transform->GetPosition().Distance(frustum.pos) > cr2->gameobject->transform->GetPosition().Distance(frustum.pos);
 	});
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -1269,7 +1269,7 @@ std::list<ComponentLight*> ModuleScene::GetClosestLights(LightType type, math::f
 	{
 		if (light->lightType == type && light->enabled && light->gameobject->transform != nullptr)
 		{
-			float distance = light->gameobject->transform->GetPosition().Distance(position);
+			float distance = light->gameobject->transform->GetLocalPosition().Distance(position);
 			lightmap.insert(std::pair<float, ComponentLight*>(distance,light));
 		}
 	}

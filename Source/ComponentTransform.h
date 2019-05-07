@@ -28,12 +28,13 @@ public:
 	void SetGlobalTransform(const math::float4x4& newglobal, const math::float4x4& parentglobal);
 	void SetLocalTransform(const math::float4x4& newLocal, const math::float4x4& parentGlobal); //only for importing purposes / if used later watch the trees
 
-	ENGINE_API void SetPosition(const math::float3& position);
-	ENGINE_API void SetRotation(const math::Quat & newRotation);
-	ENGINE_API math::Quat GetRotation();
-	ENGINE_API math::float3 GetPosition();
+	ENGINE_API void SetLocalPosition(const math::float3& position);
+	ENGINE_API void SetLocalRotation(const math::Quat & newRotation);
+	ENGINE_API math::Quat GetLocalRotation() const;
+	ENGINE_API math::float3 GetLocalPosition() const;
 
-	ENGINE_API math::float3 GetGlobalPosition();
+	ENGINE_API math::float3 GetPosition() const;
+	ENGINE_API math::Quat GetRotation() const;
 
 	ENGINE_API void LookAt(const math::float3& target);
 	ENGINE_API void Align(const math::float3& target);

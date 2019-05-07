@@ -138,7 +138,7 @@ void ModuleParticles::Render(float dt, const ComponentCamera* camera)
 	particleSystems.sort(
 		[camera](const ComponentParticles* cp1, const ComponentParticles* cp2) -> bool
 		{
-			return cp1->gameobject->transform->GetGlobalPosition().Distance(camera->frustum->pos) > cp2->gameobject->transform->GetGlobalPosition().Distance(camera->frustum->pos);
+			return cp1->gameobject->transform->GetPosition().Distance(camera->frustum->pos) > cp2->gameobject->transform->GetPosition().Distance(camera->frustum->pos);
 		});
 	for (ComponentParticles* cp : particleSystems)
 	{

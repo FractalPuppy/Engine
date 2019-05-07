@@ -60,7 +60,7 @@ void ComponentTrail::Update()
 		trail.pop();
 	}
 
-	math::float3 pos = gameobject->transform->GetGlobalPosition();
+	math::float3 pos = gameobject->transform->GetPosition();
 	if (trail.size() == 0 || trail.back().Distance(pos) > minDistance)
 	{
 		if (trail.size() == 0)
@@ -70,7 +70,7 @@ void ComponentTrail::Update()
 		}
 		else
 		{			
-			TrailPoint newPoint(duration, gameobject->transform->GetGlobalPosition(), trail.back().position, width, gameobject->transform->right);
+			TrailPoint newPoint(duration, gameobject->transform->GetPosition(), trail.back().position, width, gameobject->transform->right);
 			trail.push(newPoint);
 		}
 	}

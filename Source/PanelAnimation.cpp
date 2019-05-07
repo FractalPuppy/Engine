@@ -205,8 +205,8 @@ void PanelAnimation::UpdateGameObjectAnimation(GameObject * go, ResourceAnimatio
 {
 	if (go->animationIndexChannel != 999u)
 	{
-		go->transform->SetPosition(anim->GetPosition(go->animationIndexChannel, anim->currentFrame));
-		go->transform->SetRotation(anim->GetRotation(go->animationIndexChannel, anim->currentFrame));
+		go->transform->SetLocalPosition(anim->GetPosition(go->animationIndexChannel, anim->currentFrame));
+		go->transform->SetLocalRotation(anim->GetRotation(go->animationIndexChannel, anim->currentFrame));
 	}
 
 	for (auto child : go->children)

@@ -161,7 +161,7 @@ void ComponentLight::Load(JSON_value* value)
 
 	lightType = (LightType)value->GetUint("Lighttype");
 	color = value->GetColor3("color");
-	position = gameobject->transform->GetPosition();
+	position = gameobject->transform->GetLocalPosition();
 	direction = gameobject->transform->rotation*float3::unitZ;
 
 	if (lightType != LightType::DIRECTIONAL)
@@ -270,15 +270,15 @@ void ComponentLight::DrawDebug() const
 	switch (lightType)
 	{
 	case LightType::DIRECTIONAL:
-		dd::cone(gameobject->transform->GetGlobalPosition(), direction * App->renderer->current_scale, dd::colors::Green, App->renderer->current_scale, .01f);
-		dd::line(gameobject->transform->GetGlobalPosition(), gameobject->transform->GetGlobalPosition() + direction * App->renderer->current_scale * 10, dd::colors::Green);
+		dd::cone(gameobject->transform->GetPosition(), direction * App->renderer->current_scale, dd::colors::Green, App->renderer->current_scale, .01f);
+		dd::line(gameobject->transform->GetPosition(), gameobject->transform->GetPosition() + direction * App->renderer->current_scale * 10, dd::colors::Green);
 		break;
 	case LightType::POINT:
 		dd::sphere(pointSphere.pos, dd::colors::Gold, pointSphere.r);
 		dd::aabb(gameobject->bbox.minPoint, gameobject->bbox.maxPoint, dd::colors::BurlyWood);
 		break;
 	case LightType::SPOT:
-		dd::cone(gameobject->transform->GetGlobalPosition(), direction * range, dd::colors::Gold, spotEndRadius, .01f);
+		dd::cone(gameobject->transform->GetPosition(), direction * range, dd::colors::Gold, spotEndRadius, .01f);
 		dd::aabb(gameobject->bbox.minPoint, gameobject->bbox.maxPoint, dd::colors::BurlyWood);
 	}
 }
@@ -290,14 +290,14 @@ void ComponentLight::CalculateGuizmos()
 		switch (lightType)
 		{
 		case LightType::POINT:
-			pointSphere.pos = gameobject->transform->GetGlobalPosition();
+			pointSphere.pos = gameobject->transform->GetPosition();
 			gameobject->bbox.SetNegativeInfinity();
 			gameobject->bbox.Enclose(pointSphere);
 			break;
 		case LightType::SPOT:
 		{
 			spotEndRadius = range * tan(DegToRad(outer));
-			pointSphere.pos = gameobject->transform->GetGlobalPosition();
+			pointSphere.pos = gameobject->transform->GetPosition();
 			pointSphere.r = sqrt(pow(spotEndRadius, 2) + pow(range, 2));
 			gameobject->bbox.SetNegativeInfinity();
 			float3 p0 = pointSphere.pos + gameobject->transform->front * range;

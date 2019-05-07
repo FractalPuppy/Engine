@@ -51,7 +51,7 @@ void ComponentAudioListener::Update()
 		for (int i = 0; i < App->audioManager->reverbZones.size(); ++i) 
 		{
 			rz = App->audioManager->reverbZones[i];
-			float dist = math::Length(rz->gameobject->transform->GetGlobalPosition() - gameobject->transform->GetGlobalPosition());
+			float dist = math::Length(rz->gameobject->transform->GetPosition() - gameobject->transform->GetPosition());
 
 			if (!rz->applied && dist <= rz->radius) App->audioManager->AddEchoFilter(i);
 			else if (rz->applied  && dist > rz->radius) App->audioManager->RemoveEchoFilter(i);

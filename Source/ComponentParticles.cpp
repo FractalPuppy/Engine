@@ -169,7 +169,7 @@ void ComponentParticles::Update(float dt, const math::float3& camPos)
 	float currentFrame = timer / (1 / fps);
 	float frame;
 	frameMix = modf(currentFrame, &frame);
-	math::float3 pos = gameobject->transform->GetGlobalPosition();
+	math::float3 pos = gameobject->transform->GetPosition();
 	f1Xpos = ((int)frame) % xTiles;
 	f2Xpos = (f1Xpos + 1) % xTiles;
 	f1Ypos = (((int)frame) / xTiles) % yTiles;

@@ -232,18 +232,18 @@ void ComponentTransform::SetLocalTransform(const math::float4x4& newLocal, const
 	RotationToEuler();
 }
 
-void ComponentTransform::SetPosition(const math::float3 & newPosition)
+void ComponentTransform::SetLocalPosition(const math::float3 & newPosition)
 {
 	position = newPosition;
 	gameobject->movedFlag = true;
 }
 
-math::float3 ComponentTransform::GetPosition()
+math::float3 ComponentTransform::GetLocalPosition() const
 {
 	return position;
 }
 
-void ComponentTransform::SetRotation(const math::Quat & newRotation)
+void ComponentTransform::SetLocalRotation(const math::Quat & newRotation)
 {
 	rotation = newRotation;
 	RotationToEuler();
@@ -251,12 +251,12 @@ void ComponentTransform::SetRotation(const math::Quat & newRotation)
 	UpdateTransform();
 }
 
-math::Quat ComponentTransform::GetRotation()
+math::Quat ComponentTransform::GetLocalRotation() const
 {
 	return rotation;
 }
 
-math::float3 ComponentTransform::GetGlobalPosition()
+math::float3 ComponentTransform::GetPosition() const
 {
 	if (gameobject->movedFlag)
 	{
@@ -270,17 +270,34 @@ math::float3 ComponentTransform::GetGlobalPosition()
 	return global.Col3(3);
 }
 
+math::Quat ComponentTransform::GetRotation() const
+{
+	if (gameobject->movedFlag)
+	{
+		float4x4 newlocal = math::float4x4::FromTRS(position, rotation, scale);
+		if (gameobject->parent != nullptr)
+		{
+			return (gameobject->parent->GetGlobalTransform() * newlocal)
+				.RotatePart().ToQuat();
+		}
+		return newlocal.RotatePart().ToQuat();
+	}
+	return global.RotatePart().ToQuat();
+}
+
+//TODO: SetPosition and SetRotation + Get/Set Scale
+
 void ComponentTransform::LookAt(const math::float3 & targetPosition)
 {
-	math::float3 direction = (targetPosition - GetGlobalPosition());
+	math::float3 direction = (targetPosition - GetPosition());
 	math::Quat newRotation = rotation.LookAt(float3::unitZ, direction.Normalized(), float3::unitY, float3::unitY);	
-	SetRotation(newRotation);
+	SetLocalRotation(newRotation);
 }
 
 void ComponentTransform::Align(const math::float3 & targetFront)
 {
 	Quat newRotation = Quat::RotateFromTo(front.Normalized(), targetFront.Normalized());
-	SetRotation(rotation.Mul(newRotation));
+	SetLocalRotation(rotation.Mul(newRotation));
 }
 
 void ComponentTransform::Save(JSON_value* value) const

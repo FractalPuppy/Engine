@@ -60,7 +60,7 @@ void ComponentReverbZone::Update()
 	if (applied) 
 	{
 		
-		dist = math::Length(App->audioManager->mainListener->gameobject->transform->GetGlobalPosition() -  gameobject->transform->GetGlobalPosition());
+		dist = math::Length(App->audioManager->mainListener->gameobject->transform->GetPosition() -  gameobject->transform->GetPosition());
 
 		if (dist < fadeDist) positionGradient = 1.f;
 		else {
@@ -129,8 +129,8 @@ void ComponentReverbZone::Load(JSON_value* value)
 
 void ComponentReverbZone::DrawDebugReverb() 
 {
-	dd::sphere(gameobject->transform->GetGlobalPosition(), dd::colors::NavajoWhite , radius);
-	dd::sphere(gameobject->transform->GetGlobalPosition(), dd::colors::RebeccaPurple, fadeDist);
+	dd::sphere(gameobject->transform->GetPosition(), dd::colors::NavajoWhite , radius);
+	dd::sphere(gameobject->transform->GetPosition(), dd::colors::RebeccaPurple, fadeDist);
 
 }
 
