@@ -565,13 +565,13 @@ void ModuleResourceManager::DrawSkybox()
 	{
 		if (ImGui::CollapsingHeader(Skybox[i]))
 		{
-			if (ImGui::BeginCombo("", text[i]->GetExportedFile()))
+			if (ImGui::BeginCombo("Texture", text[i]->GetExportedFile()))
 			{
 				for each (std::string file in files)
 				{
 					if (ImGui::Selectable(file.c_str(), true))
 					{
-						
+						res->ChangeTexture(text[i]->GetExportedFile(), file);
 					}
 				}
 				ImGui::EndCombo();

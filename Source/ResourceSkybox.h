@@ -3,7 +3,6 @@
 
 #include "Resource.h"
 #include "Geometry/Frustum.h"
-#define NUMFACES 6
 
 struct Shader;
 class ResourceTexture;
@@ -20,6 +19,7 @@ public:
 	void DeleteFromMemory() override;
 
 	void SetTextures(std::string faces[NUMFACES]);
+	void ChangeTexture(std::string oldText, std::string newText);
 	void Draw(const Frustum& frustum) const;
 
 	unsigned GetCubemap() { return skybox_cubemap; };

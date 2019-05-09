@@ -32,6 +32,8 @@ public:
 	void GenBlockUniforms();
 	void AddBlockUniforms(const Shader &s) const;
 
+	void ChangeSkyboxTexture(const char* newText, unsigned int i);
+
 private:
 
 	void DrawGizmos(const ComponentCamera &cam) const;
@@ -57,6 +59,8 @@ public:
 	unsigned current_scale = 1;
 	Viewport* viewGame = nullptr;
 	Viewport* viewScene = nullptr;
+
+	std::string faces[NUMFACES] = { "right", "left", "top", "bottom", "front", "back" };
 
 private:
 	unsigned UBO = 0;

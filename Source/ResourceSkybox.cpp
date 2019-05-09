@@ -5,6 +5,7 @@
 #include "ModuleResourceManager.h"
 #include "ModuleFileSystem.h"
 #include "ModuleProgram.h"
+#include "ModuleRender.h"
 
 #include "ResourceTexture.h"
 
@@ -136,6 +137,20 @@ void ResourceSkybox::SetTextures(std::string faces[NUMFACES])
 		textures[i] = (ResourceTexture*)App->resManager->GetWithoutLoad(faces[i].c_str());
 		textures[i]->SetImageType(IMAGE_TYPE::CUBEMAP);
 		textures[i]->SetCubemapIndex(i);
+	}
+}
+
+void ResourceSkybox::ChangeTexture(std::string oldText, std::string newText)
+{
+	for (unsigned int i = 0; i < NUMFACES; ++i)
+	{
+		if (strcmp(textures[i]->GetExportedFile(), oldText.c_str()) == 0)
+		{
+			textures[i] = (ResourceTexture*)App->resManager->Get(newText.c_str());
+			textures[i]->SetImageType(IMAGE_TYPE::CUBEMAP);
+			textures[i]->SetCubemapIndex(i);
+			App->renderer->ChangeSkyboxTexture(newText.c_str(), i);
+		}
 	}
 }
 
