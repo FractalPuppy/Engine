@@ -130,6 +130,12 @@ bool FileExplorer::Open()
 			ImGui::EndPopup();
 			return false;
 		}
+		ImGui::SameLine();
+		
+		if (extensionToFilter == FILETYPE::SCENE && ImGui::Checkbox("Set as default scene", &isDefaultScene)) 
+		{
+			App->scene->defaultScene = filename;
+		}
 		ImGui::EndPopup();
 	}
 	return false;

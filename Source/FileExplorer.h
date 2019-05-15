@@ -38,6 +38,7 @@ private:
 
 public:
 	bool openFileExplorer = false;
+	bool isDefaultScene = false;
 	char title[100] = "File Explorer";
 	char filename[1024] = "";
 	std::string path = "";
