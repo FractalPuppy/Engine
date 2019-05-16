@@ -80,6 +80,7 @@ public:
 	ComponentAnimation* anim = nullptr;
 	PlayerState* currentState = nullptr;
 public:
+	bool combat = false;
 
 	float dashDuration = 1.f;
 	float firstAttackDuration = 1.f;
