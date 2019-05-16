@@ -24,7 +24,6 @@ void AnimationController::Play(ResourceAnimation* anim, bool loop, bool mustFini
 	newInstance->mustFinish = mustFinish;
 	newInstance->speed = speed;
 	newInstance->loop = loop;
-	newInstance->fadeDuration = 200.f;
 	current = newInstance;
 }
 
@@ -50,8 +49,8 @@ void AnimationController::PlayEditor(ResourceAnimation * anim)
 
 void AnimationController::PlayNextNode(ResourceAnimation * anim, bool loop, bool mustFinish, float speed, float blend)
 {
-	current->next = new Instance();
 	current->anim = anim;
+	current->time = 0.f;
 	current->loop = loop;
 	current->mustFinish = mustFinish;
 	current->speed = speed;

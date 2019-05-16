@@ -306,9 +306,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="PlayerMovement.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="PlayerStateFirstAttack.cpp" />
+    <ClCompile Include="PlayerStateDash.cpp" />
+    <ClCompile Include="PlayerStateDeath.cpp" />
+    <ClCompile Include="PlayerStateIdle.cpp" />
+    <ClCompile Include="PlayerStateSecondAttack.cpp" />
+    <ClCompile Include="PlayerStateThirdAttack.cpp" />
+    <ClCompile Include="PlayerStateUppercut.cpp" />
+    <ClCompile Include="PlayerStateWalk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMovement.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayerStateFirstAttack.h" />
+    <ClInclude Include="PlayerStateDash.h" />
+    <ClInclude Include="PlayerStateDeath.h" />
+    <ClInclude Include="PlayerStateIdle.h" />
+    <ClInclude Include="PlayerStateSecondAttack.h" />
+    <ClInclude Include="PlayerStateThirdAttack.h" />
+    <ClInclude Include="PlayerStateUppercut.h" />
+    <ClInclude Include="PlayerStateWalk.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
