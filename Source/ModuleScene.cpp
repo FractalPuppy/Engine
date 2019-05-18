@@ -686,131 +686,25 @@ void ModuleScene::ResetQuadTree() //deprecated
 	}
 }
 
-void ModuleScene::CreateCube(const char * name, GameObject* parent)
-{
-	if (!primitivesUID[(unsigned)PRIMITIVES::CUBE])
-	{
-		par_shapes_mesh* mesh = par_shapes_create_cube();
-		if (mesh->normals == nullptr)
-		{
-			par_shapes_compute_normals(mesh);
-		}
-		SetPrimitiveMesh(mesh, PRIMITIVES::CUBE);
-	}
-	CreatePrimitive(name, parent, PRIMITIVES::CUBE);
-}
-
-void ModuleScene::CreateSphere(const char * name, GameObject* parent)
-{
-	if (!primitivesUID[(unsigned)PRIMITIVES::SPHERE])
-	{
-		par_shapes_mesh* mesh = par_shapes_create_parametric_sphere(DEFAULT_SPHERE_SHAPE, DEFAULT_SPHERE_SHAPE);
-		SetPrimitiveMesh(mesh, PRIMITIVES::SPHERE);
-	}
-	CreatePrimitive(name, parent, PRIMITIVES::SPHERE);
-}
-
 void ModuleScene::CreatePrimitive(const char * name, GameObject* parent, PRIMITIVES type)
 {
 	GameObject * gameobject = CreateGameObject(name, parent);
 	Select(gameobject);
 	ComponentTransform* transform = (ComponentTransform*)gameobject->CreateComponent(ComponentType::Transform);
-	transform->scale.SetFromScalar(App->renderer->current_scale);
+	transform->scale.SetFromScalar(10);
 	transform->UpdateTransform();
 	ComponentRenderer* crenderer = (ComponentRenderer*)gameobject->CreateComponent(ComponentType::Renderer);
 
-	unsigned uid = primitivesUID[(unsigned)type];
-	// TODO [MeshRefactor] - Refactor sphere/Cube creation
-	//char *data = nullptr;
-	//App->fsystem->Load((MESHES + std::to_string(uid) + MESHEXTENSION).c_str(), &data);
-	//crenderer->UpdateMesh(data, uid);//Deallocates data
-	App->resManager->Get(uid);
-	crenderer->UpdateGameObject();
-	crenderer->SetMaterial(DEFAULTMAT);
-	//App->resManager->AddMesh(crenderer->mesh);
-	App->scene->Select(gameobject);
-}
-
-void ModuleScene::SetPrimitiveMesh(par_shapes_mesh_s *mesh, PRIMITIVES type)
-{
-	par_shapes_scale(mesh, 1.f, 1.f, 1.f);
-	char* data = nullptr;
-	unsigned meshSize = SaveParShapesMesh(*mesh, &data);
-	unsigned uid = GetNewUID();
-	bool saved = App->fsystem->Save((MESHES + std::to_string(uid) + MESHEXTENSION).c_str(), data, meshSize);
-	if (saved)
+	if (type == PRIMITIVES::CUBE)
 	{
-		LOG("Primitive mesh %u saved", uid);
+		crenderer->SetMesh("cube_0");
 	}
 	else
 	{
-		LOG("Error saving primitive mesh %u", uid);
+		crenderer->SetMesh("sphere_0");
 	}
-	primitivesUID[(unsigned)type] = uid;
-	par_shapes_free_mesh(mesh);
-}
-
-unsigned ModuleScene::SaveParShapesMesh(const par_shapes_mesh_s &mesh, char** data) const //TODO: unify somehow with importer
-{
-	unsigned size = 0;
-	unsigned ranges[2] = { mesh.ntriangles*3, mesh.npoints};
-	size += sizeof(ranges); //numfaces + numvertices
-	size += ranges[0] * 3 * sizeof(int); //indices
-	
-	size += sizeof(float)*ranges[1] * 3;
-	size += sizeof(bool) * 2; //has normals + has tcoords
-	if (mesh.normals != nullptr)
-	{
-		size += sizeof(float)*ranges[1] * 3;
-	}
-	if (mesh.tcoords != nullptr)
-	{
-		size += sizeof(float)*ranges[1] * 2;
-	}
-
-	*data = new char[size];
-	char *cursor = *data;
-
-	unsigned rangeBytes = sizeof(ranges); 
-	memcpy(cursor, ranges, rangeBytes);
-	cursor += rangeBytes;
-
-	unsigned verticesBytes = sizeof(float)*mesh.npoints * 3;
-	memcpy(cursor, mesh.points, verticesBytes);
-	cursor += verticesBytes;
-
-	bool hasNormals = mesh.normals != nullptr ? true : false;
-	memcpy(cursor, &hasNormals, sizeof(bool));
-	cursor += sizeof(bool);
-
-	if (hasNormals)
-	{
-		unsigned normalsBytes = sizeof(float)*mesh.npoints * 3;
-		memcpy(cursor, mesh.normals, normalsBytes);
-		cursor += normalsBytes;
-	}
-
-	bool hasTcoords = mesh.tcoords != nullptr ? true : false;
-	memcpy(cursor, &hasTcoords, sizeof(bool));
-	cursor += sizeof(bool);
-
-	if (hasTcoords)
-	{
-		unsigned tcoordsBytes = sizeof(float)*mesh.npoints * 2;
-		memcpy(cursor, mesh.tcoords, tcoordsBytes);
-		cursor += tcoordsBytes;
-	}
-
-	short mask = 0;
-	for (int i = 0; i < mesh.ntriangles*3; i++)
-	{
-		memcpy(cursor, &mesh.triangles[i], sizeof(short)); 
-		cursor += sizeof(short);
-		memcpy(cursor, &mask, sizeof(short));
-		cursor += sizeof(short); //implicitly converting to unsigned
-	}
-
-	return size;
+	crenderer->SetMaterial(DEFAULTMAT);
+	App->scene->Select(gameobject);
 }
 
 /*void ModuleScene::SaveScene(const GameObject& rootGO, const char* scene, const char* scenePath, bool isTemporary)

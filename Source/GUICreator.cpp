@@ -100,11 +100,11 @@ void GUICreator::CreateElements(GameObject* go)
 		}
 		if (ImGui::Selectable("Sphere"))
 		{
-			App->scene->CreateSphere("sphere", go);
+			App->scene->CreatePrimitive("Sphere", go, PRIMITIVES::SPHERE);
 		}
 		if (ImGui::Selectable("Cube"))
 		{
-			App->scene->CreateCube("cube", go);
+			App->scene->CreatePrimitive("Cube", go, PRIMITIVES::CUBE);
 		}		
 		ImGui::EndMenu();
 	}
