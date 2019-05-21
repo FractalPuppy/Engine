@@ -348,7 +348,7 @@ void ModuleScene::Draw(const Frustum &frustum, bool isEditor)
 	{
 		return cr1->gameobject->transform->GetGlobalPosition().Distance(frustum.pos) > cr2->gameobject->transform->GetGlobalPosition().Distance(frustum.pos);
 	});
-	if (alphaRenderers.size() > 1)
+	if (alphaRenderers.size() > 0)
 	{
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
