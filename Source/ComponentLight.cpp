@@ -137,7 +137,7 @@ void ComponentLight::DrawProperties()
 			ImGui::Checkbox("Produce shadows", &produceShadows);
 		}
 
-		lightDirty = lightDirty | ImGui::DragFloat("Intensity", &intensity);
+		lightDirty = lightDirty | ImGui::DragFloat("Intensity", &intensity, 0.1f);
 
 		if (lightType == LightType::SPOT)
 		{
