@@ -691,7 +691,7 @@ void ModuleScene::CreatePrimitive(const char * name, GameObject* parent, PRIMITI
 	GameObject * gameobject = CreateGameObject(name, parent);
 	Select(gameobject);
 	ComponentTransform* transform = (ComponentTransform*)gameobject->CreateComponent(ComponentType::Transform);
-	transform->scale.SetFromScalar(10);
+	transform->scale.SetFromScalar(1);
 	transform->UpdateTransform();
 	ComponentRenderer* crenderer = (ComponentRenderer*)gameobject->CreateComponent(ComponentType::Renderer);
 
