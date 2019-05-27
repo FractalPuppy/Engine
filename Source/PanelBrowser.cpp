@@ -16,6 +16,7 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
+#include "ComponentRenderer.h"
 #include "GameObject.h"
 
 // Icons
@@ -204,6 +205,33 @@ void PanelBrowser::Draw()
 	if (openNewFolderPopUp)
 		DrawNewFolderPopUp();
 
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DragDropBrowser"))
+		{
+			if (dragExtension == ".sc3ne")
+			{
+				App->scene->AddScene(dragName.c_str(), path.c_str());
+			}
+			else if (dragExtension == ".fbx")
+			{
+				GameObject *newgo = App->scene->CreateGameObject(dragName.c_str(), (App->scene->selected != nullptr ? App->scene->selected : App->scene->root));
+				newgo->CreateComponent(ComponentType::Transform);
+				newgo->CreateComponent(ComponentType::Renderer);
+				((ComponentRenderer *)(newgo->GetComponentOld(ComponentType::Renderer)))->SetMesh((dragName+"_0").c_str());
+				App->scene->Select(newgo);
+			}
+			else if (dragExtension == ".m4t")
+			{
+				GameObject *newgo = App->scene->CreateGameObject(dragName.c_str(), (App->scene->selected != nullptr ? App->scene->selected : App->scene->root));
+				newgo->CreateComponent(ComponentType::Transform);
+				newgo->CreateComponent(ComponentType::Renderer);
+				((ComponentRenderer *)(newgo->GetComponentOld(ComponentType::Renderer)))->SetMaterial((dragName).c_str());
+				App->scene->Select(newgo);
+			}
+		}
+	}
+
 	ImGui::End();
 }
 
@@ -281,8 +309,6 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 	ImGui::PushID(file);
 	ImGuiContext* context = ImGui::GetCurrentContext();
 	ImVec2 size = context->CurrentWindow->Size;
-	std::string name = App->fsystem->RemoveExtension(file);
-
 	// Calculate number of items per row
 	int maxNumberElements = size.x / (ICON_SIZE + ICON_X_MARGIN);
 	if (maxNumberElements < 1) maxNumberElements = 1;
@@ -314,25 +340,13 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 	}
 	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceNoDisableHover))
 	{
-		if (extension == ".sc3ne")
+		dragExtension = extension;
+		if (extension == ".sc3ne" || extension == ".fbx" || extension == ".m4t")
 		{
-			ImGui::SetDragDropPayload("DragDropBrowser", &name, sizeof(std::string), ImGuiCond_Once);
+			dragName = App->fsystem->RemoveExtension(file);
+			ImGui::SetDragDropPayload("DragDropBrowser", &dragName, sizeof(std::string), ImGuiCond_Once);
 		}
-		/*TYPE resourceType = App->resManager->GetResourceType(App->fsystem->GetFileType(extension));
-		unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
-		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
-		ImGui::SetDragDropPayload("DragDropBrowser", &fileSelected, sizeof(Resource *), ImGuiCond_Once);*/
 		ImGui::EndDragDropSource();
-	}
-	if (ImGui::BeginDragDropTarget())
-	{
-		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DragDropBrowser"))
-		{
-			if (extension == ".sc3ne")
-			{
-				App->scene->LoadScene(name.c_str(),path.c_str());
-			}
-		}
 	}
 
 
