@@ -15,6 +15,7 @@
 #include "ModuleFileSystem.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModuleScene.h"
 #include "GameObject.h"
 
 // Icons
@@ -203,7 +204,7 @@ void PanelBrowser::Draw()
 	if (openNewFolderPopUp)
 		DrawNewFolderPopUp();
 
-	ImGui::End();	
+	ImGui::End();
 }
 
 void PanelBrowser::DrawFolderIcon(const char* dir, int itemNumber)
@@ -280,6 +281,7 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 	ImGui::PushID(file);
 	ImGuiContext* context = ImGui::GetCurrentContext();
 	ImVec2 size = context->CurrentWindow->Size;
+	std::string name = App->fsystem->RemoveExtension(file);
 
 	// Calculate number of items per row
 	int maxNumberElements = size.x / (ICON_SIZE + ICON_X_MARGIN);
@@ -310,6 +312,29 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
 		ImGui::OpenPopup("File Context Menu");
 	}
+	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceNoDisableHover))
+	{
+		if (extension == ".sc3ne")
+		{
+			ImGui::SetDragDropPayload("DragDropBrowser", &name, sizeof(std::string), ImGuiCond_Once);
+		}
+		/*TYPE resourceType = App->resManager->GetResourceType(App->fsystem->GetFileType(extension));
+		unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
+		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
+		ImGui::SetDragDropPayload("DragDropBrowser", &fileSelected, sizeof(Resource *), ImGuiCond_Once);*/
+		ImGui::EndDragDropSource();
+	}
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DragDropBrowser"))
+		{
+			if (extension == ".sc3ne")
+			{
+				App->scene->LoadScene(name.c_str(),path.c_str());
+			}
+		}
+	}
+
 
 	ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
 	ImGui::SetCursorPosY((ICON_SIZE + ICON_Y_MARGIN) + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));

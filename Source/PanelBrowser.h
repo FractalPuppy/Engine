@@ -35,9 +35,9 @@ private:
 
 public:
 	bool folderContentDirty = true;
+	std::string path;
 
 private:
-	std::string path;
 	std::stack<std::string> pathStack;
 	std::vector<std::string> files;			// List of the files in current path
 	std::vector<std::string> dirs;			// List of the folders in current path
