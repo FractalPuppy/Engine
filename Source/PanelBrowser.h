@@ -24,7 +24,8 @@ public:
 private:
 	void DrawFolderIcon(const char* dir, int itemNumber);
 	void DrawFileIcon(const char* file, int itemNumber);
-
+	void DrawFolderName(const char* file, int itemNumber);
+	void DrawFileName(const char* file, int itemNumber);
 	void DrawBrowserContextMenu();
 	void DrawFileContextMenu();
 	void DrawFolderContextMenu();
@@ -49,6 +50,8 @@ private:
 	bool openRenameFilePopUp = false;
 	bool openRenameFolderPopUp = false;
 	bool openNewFolderPopUp = false;
+
+	bool list = false;
 
 	Resource* fileSelected = nullptr;
 	std::string folderSelected = "";

@@ -130,6 +130,11 @@ void PanelBrowser::Draw()
 
 	// Draw current path
 	ImGui::Text(path.c_str());
+	ImGui::SameLine(ImGui::GetWindowWidth()-120);
+	if (ImGui::Button("View format"))
+	{
+		list = !list;
+	}
 
 	// Icons area
 	ImGui::BeginChild("Files", ImVec2(ImGui::GetWindowContentRegionWidth(), ImGui::GetWindowContentRegionMax().y - WINDOW_LOW_MARGIN), true, ImGuiWindowFlags_HorizontalScrollbar);
@@ -138,16 +143,18 @@ void PanelBrowser::Draw()
 	// If we are inside a folder show icon to go back
 	if (path != ASSETS)
 	{
-		ImGui::SetCursorPosY(ICON_Y_MARGIN);
-		if (ImGui::ImageButton(folderIcon != nullptr ? (ImTextureID)folderIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1))
+		if (!list)
 		{
-			path = pathStack.top();
-			pathStack.pop();
-			folderContentDirty = true;
+			ImGui::SetCursorPosY(ICON_Y_MARGIN);
+			if (ImGui::ImageButton(folderIcon != nullptr ? (ImTextureID)folderIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1))
+			{
+				path = pathStack.top();
+				pathStack.pop();
+				folderContentDirty = true;
+			}
+			ImGui::SetCursorPosY(ICON_SIZE + ICON_Y_MARGIN);	
+			ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ICON_NAME_SIZE);
 		}
-
-		ImGui::SetCursorPosY(ICON_SIZE + ICON_Y_MARGIN);	
-		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ICON_NAME_SIZE);
 		ImGui::Text("..");
 		if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
@@ -239,44 +246,52 @@ void PanelBrowser::DrawFolderIcon(const char* dir, int itemNumber)
 {
 	ImGuiContext* context = ImGui::GetCurrentContext();
 	ImVec2 size = context->CurrentWindow->Size;
-
-	// Calculate number of items per row
-	int maxNumberElements = size.x / (ICON_SIZE + ICON_X_MARGIN);
-	if (maxNumberElements < 1) maxNumberElements = 1;
-
-	// Folder icon position
-	ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
-	ImGui::SetCursorPosY(ICON_Y_MARGIN + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));
-
-	if (ImGui::ImageButton(folderIcon != nullptr ? (ImTextureID)folderIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1))
+	if (!list) 
 	{
-		pathStack.push(path);
-		path += dir;
-		path += "/";
-		folderContentDirty = true;
-	}
 
-	if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+		// Calculate number of items per row
+		int maxNumberElements = size.x / (ICON_SIZE + ICON_X_MARGIN);
+		if (maxNumberElements < 1) maxNumberElements = 1;
+
+		// Folder icon position
+		ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
+		ImGui::SetCursorPosY(ICON_Y_MARGIN + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));
+
+		if (ImGui::ImageButton(folderIcon != nullptr ? (ImTextureID)folderIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1))
+		{
+			pathStack.push(path);
+			path += dir;
+			path += "/";
+			folderContentDirty = true;
+		}
+
+		if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+		{
+			folderSelected = dir;
+			ImGui::OpenPopup("Folder Context Menu");
+		}
+
+		// Folder name text
+		ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
+		ImGui::SetCursorPosY((ICON_SIZE + ICON_Y_MARGIN) + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));
+		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ICON_NAME_SIZE);
+
+		// Make sure the text fits the designated size.
+		std::string dirText(dir, TEXT_SIZE);
+		if (strlen(dirText.c_str()) >= TEXT_SIZE)
+		{
+			unsigned size2 = strlen(dirText.c_str());
+			// If not delete last 3 characters and put "..."
+			dirText.replace(TEXT_SIZE - 4, TEXT_SIZE - 1, "...");
+		}
+
+		ImGui::Text(dirText.c_str());
+	}
+	else
 	{
-		folderSelected = dir;
-		ImGui::OpenPopup("Folder Context Menu");
+		ImGui::Text(("./" + std::string (dir)).c_str());
+		//ImGui::NewLine();
 	}
-
-	// Folder name text
-	ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
-	ImGui::SetCursorPosY((ICON_SIZE + ICON_Y_MARGIN) + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));
-	ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ICON_NAME_SIZE);
-
-	// Make sure the text fits the designated size.
-	std::string dirText(dir, TEXT_SIZE);
-	if (strlen(dirText.c_str()) >= TEXT_SIZE)
-	{
-		unsigned size2 = strlen(dirText.c_str());
-		// If not delete last 3 characters and put "..."
-		dirText.replace(TEXT_SIZE - 4, TEXT_SIZE - 1, "...");
-	}
-
-	ImGui::Text(dirText.c_str());
 	if (ImGui::IsItemHovered())
 	{
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -306,64 +321,80 @@ void PanelBrowser::DrawFolderIcon(const char* dir, int itemNumber)
 
 void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 {
+	std::string extension = App->fsystem->GetExtension(file);
 	ImGui::PushID(file);
 	ImGuiContext* context = ImGui::GetCurrentContext();
 	ImVec2 size = context->CurrentWindow->Size;
-	// Calculate number of items per row
-	int maxNumberElements = size.x / (ICON_SIZE + ICON_X_MARGIN);
-	if (maxNumberElements < 1) maxNumberElements = 1;
-
-	// File icon position
-	ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
-	ImGui::SetCursorPosY(ICON_Y_MARGIN + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));
-
-	// Select icon by extension
-	std::string extension = App->fsystem->GetExtension(file);
-	if		(extension == PNG)					{ ImGui::ImageButton(pngIcon != nullptr ? (ImTextureID)pngIcon->gpuID : 0, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == TIF)					{ ImGui::ImageButton(tifIcon != nullptr ? (ImTextureID)tifIcon->gpuID : 0, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == JPG)					{ ImGui::ImageButton(jpgIcon != nullptr ? (ImTextureID)jpgIcon->gpuID : 0, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == TGA)					{ ImGui::ImageButton(tgaIcon != nullptr ? (ImTextureID)tgaIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == TEXTUREEXT)			{ ImGui::ImageButton(ddsIcon != nullptr ? (ImTextureID)ddsIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == FBXEXTENSION)			{ ImGui::ImageButton(fbxIcon != nullptr ? (ImTextureID)fbxIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == MATERIALEXT)			{ ImGui::ImageButton(m4tIcon != nullptr ? (ImTextureID)m4tIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == SCENEEXTENSION)		{ ImGui::ImageButton(sc3neIcon != nullptr ? (ImTextureID)sc3neIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == ANIMATIONEXTENSION)	{ ImGui::ImageButton(animati0nIcon != nullptr ? (ImTextureID)animati0nIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else if (extension == STATEMACHINEEXTENSION){ ImGui::ImageButton(st4tem4chineIcon != nullptr ? (ImTextureID)st4tem4chineIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else								{ ImGui::ImageButton(fileIcon != nullptr ? (ImTextureID)fileIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-
-	if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	if (!list)
 	{
-		TYPE resourceType = App->resManager->GetResourceType(App->fsystem->GetFileType(extension));
-		unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
-		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
-		ImGui::OpenPopup("File Context Menu");
-	}
-	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceNoDisableHover))
-	{
-		dragExtension = extension;
-		if (extension == ".sc3ne" || extension == ".fbx" || extension == ".m4t")
+		// Calculate number of items per row
+		int maxNumberElements = size.x / (ICON_SIZE + ICON_X_MARGIN);
+		if (maxNumberElements < 1) maxNumberElements = 1;
+
+		// File icon position
+		ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
+		ImGui::SetCursorPosY(ICON_Y_MARGIN + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));
+
+		// Select icon by extension
+		if		(extension == PNG)					{ ImGui::ImageButton(pngIcon != nullptr ? (ImTextureID)pngIcon->gpuID : 0, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == TIF)					{ ImGui::ImageButton(tifIcon != nullptr ? (ImTextureID)tifIcon->gpuID : 0, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == JPG)					{ ImGui::ImageButton(jpgIcon != nullptr ? (ImTextureID)jpgIcon->gpuID : 0, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == TGA)					{ ImGui::ImageButton(tgaIcon != nullptr ? (ImTextureID)tgaIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == TEXTUREEXT)			{ ImGui::ImageButton(ddsIcon != nullptr ? (ImTextureID)ddsIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == FBXEXTENSION)			{ ImGui::ImageButton(fbxIcon != nullptr ? (ImTextureID)fbxIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == MATERIALEXT)			{ ImGui::ImageButton(m4tIcon != nullptr ? (ImTextureID)m4tIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == SCENEEXTENSION)		{ ImGui::ImageButton(sc3neIcon != nullptr ? (ImTextureID)sc3neIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == ANIMATIONEXTENSION)	{ ImGui::ImageButton(animati0nIcon != nullptr ? (ImTextureID)animati0nIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else if (extension == STATEMACHINEEXTENSION){ ImGui::ImageButton(st4tem4chineIcon != nullptr ? (ImTextureID)st4tem4chineIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+		else								{ ImGui::ImageButton(fileIcon != nullptr ? (ImTextureID)fileIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+
+		if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 		{
-			dragName = App->fsystem->RemoveExtension(file);
-			ImGui::SetDragDropPayload("DragDropBrowser", &dragName, sizeof(std::string), ImGuiCond_Once);
+			TYPE resourceType = App->resManager->GetResourceType(App->fsystem->GetFileType(extension));
+			unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
+			fileSelected = App->resManager->GetWithoutLoad(selectedUID);
+			ImGui::OpenPopup("File Context Menu");
 		}
-		ImGui::EndDragDropSource();
-	}
+		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceNoDisableHover))
+		{
+			dragExtension = extension;
+			if (extension == ".sc3ne" || extension == ".fbx" || extension == ".m4t")
+			{
+				dragName = App->fsystem->RemoveExtension(file);
+				ImGui::SetDragDropPayload("DragDropBrowser", &dragName, sizeof(std::string), ImGuiCond_Once);
+			}
+			ImGui::EndDragDropSource();
+		}
 
 
-	ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
-	ImGui::SetCursorPosY((ICON_SIZE + ICON_Y_MARGIN) + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));
+		ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
+		ImGui::SetCursorPosY((ICON_SIZE + ICON_Y_MARGIN) + (ICON_SIZE + ICON_Y_MARGIN) * (itemNumber / maxNumberElements));
 
-	ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + 52);
+		ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + 52);
 	
-	// Make sure the text fits the designated size.
-	std::string fileText(file, TEXT_SIZE);
-	if (strlen(fileText.c_str()) >= TEXT_SIZE)
-	{
-		// If not delete last 3 characters and put "..."
-		fileText.replace(TEXT_SIZE - 4, TEXT_SIZE - 1, "...");
+		// Make sure the text fits the designated size.
+		std::string fileText(file, TEXT_SIZE);
+		if (strlen(fileText.c_str()) >= TEXT_SIZE)
+		{
+			// If not delete last 3 characters and put "..."
+			fileText.replace(TEXT_SIZE - 4, TEXT_SIZE - 1, "...");
+		}
+		ImGui::Text(fileText.c_str());
 	}
-
-	ImGui::Text(fileText.c_str());
+	else
+	{
+		ImGui::Text(file);
+		if (ImGui::BeginDragDropSource())
+		{
+			dragExtension = extension;
+			if (extension == ".sc3ne" || extension == ".fbx" || extension == ".m4t")
+			{
+				dragName = App->fsystem->RemoveExtension(file);
+				ImGui::SetDragDropPayload("DragDropBrowser", &dragName, sizeof(std::string), ImGuiCond_Once);
+			}
+			ImGui::EndDragDropSource();
+		}
+	}
 
 	if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
@@ -372,12 +403,16 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
 		ImGui::OpenPopup("File Context Menu");
 	}
-	if (ImGui::IsItemHovered(ImGuiHoveredFlags_RectOnly) && !ImGui::IsPopupOpen("File Context Menu"))
+	/*if (ImGui::IsItemHovered(ImGuiHoveredFlags_RectOnly) && !ImGui::IsPopupOpen("File Context Menu"))
 	{
-		ImGui::BeginTooltip();
+		ImGui::BeginToolti
+		
+		
+		p();
+		p();
 		ImGui::Text(file);
 		ImGui::EndTooltip();
-	}
+	}*/
 
 	// Right click menu
 	DrawFileContextMenu();
