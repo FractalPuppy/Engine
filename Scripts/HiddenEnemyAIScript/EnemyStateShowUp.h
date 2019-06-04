@@ -3,6 +3,8 @@
 
 #include "EnemyState.h"
 
+class GameObject;
+
 class EnemyStateShowUp :
 	public EnemyState
 {
@@ -11,6 +13,9 @@ public:
 	~EnemyStateShowUp();
 
 	void Update() override;
+
+public:
+	GameObject* unborrowParticles = nullptr;
 };
 
 #endif __ENEMYSTATESHOWUP_H_

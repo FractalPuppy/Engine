@@ -75,6 +75,7 @@ public:
 
 private:
 	std::vector<EnemyState*> enemyStates;
+	GameObject* unborrowParticles = nullptr;
 };
 
 #endif __HiddenEnemyAIScript_h__
