@@ -45,6 +45,11 @@ void PlayerStateWalk::Update()
 					math::float3(player->OutOfMeshCorrectionXZ, player->OutOfMeshCorrectionY, player->OutOfMeshCorrectionXZ), intPos))
 		{
 			//case the player clicks outside of the floor mesh but we want to get close to the floors edge
+			if (path.size() > player->maxPathingPoints)
+			{
+				//LOG("Clicked too far away");
+				path.clear();
+			}
 			pathIndex = 0;
 		}
 		else
