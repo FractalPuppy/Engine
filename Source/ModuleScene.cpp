@@ -46,9 +46,10 @@
 #pragma warning(disable : 4996)  
 #pragma warning(disable : 4244)  
 #pragma warning(disable : 4305)  
-#pragma warning(disable : 4838)  
-#define PAR_SHAPES_IMPLEMENTATION
-#include "par_shapes.h"
+#pragma warning(disable : 4838)
+//deprecated
+/*#define PAR_SHAPES_IMPLEMENTATION
+#include "par_shapes.h"*/ 
 #pragma warning(pop)
 
 #include <random>

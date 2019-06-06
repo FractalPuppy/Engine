@@ -61,7 +61,7 @@ void PanelAbout::Draw()
 		ImGui::BulletText("Imgui (v%s)", ImGui::GetVersion());
 		ImGui::BulletText("Imguizmo");
 		ImGui::BulletText("MathGeoLib (v1.5)");
-		ImGui::BulletText("ParShapes");
+		//ImGui::BulletText("ParShapes"); deprecated
 		ImGui::BulletText("Pcg (v0.98)");
 		ImGui::BulletText("Physfs (v%d.%d.%d)", PHYSFS_VER_MAJOR, PHYSFS_VER_MINOR, PHYSFS_VER_PATCH);
 		ImGui::BulletText("RapidJson (v%d)", RAPIDJSON_VERSION_STRING);

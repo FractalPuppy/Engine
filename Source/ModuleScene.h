@@ -25,7 +25,7 @@ class ComponentLight;
 class ResourceTexture;
 class ResourceScene;
 class myQuadTree;
-struct par_shapes_mesh_s;
+//struct par_shapes_mesh_s; deprecated
 
 enum class PRIMITIVES
 {
@@ -63,11 +63,13 @@ public:
 	void DragNDrop(GameObject * go);
 	void DrawGUI() override;
 
-	void CreateCube(const char * name, GameObject* parent);
-	void CreateSphere(const char * name, GameObject* parent);
 	void CreatePrimitive(const char * name, GameObject* parent, PRIMITIVES type);
+	
+	//Deprecated
+	/*void CreateCube(const char * name, GameObject* parent);
+	void CreateSphere(const char * name, GameObject* parent);
 	void SetPrimitiveMesh(par_shapes_mesh_s * mesh, PRIMITIVES type);
-	unsigned SaveParShapesMesh(const par_shapes_mesh_s & mesh, char** data) const;
+	unsigned SaveParShapesMesh(const par_shapes_mesh_s & mesh, char** data) const;*/
 
 	void SaveScene(const GameObject& rootGO, const char* sceneName, const char* folder);
 	ENGINE_API void LoadScene(const char* sceneName, const char* folder);
