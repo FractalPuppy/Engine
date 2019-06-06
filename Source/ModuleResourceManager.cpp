@@ -46,9 +46,18 @@ void ModuleResourceManager::LoadEngineResources()
 	App->fsystem->ListFileNames(IMPORTED_RESOURCES, files);
 	for each (std::string file in files)
 	{
-		Resource* res = CreateNewResource(TYPE::TEXTURE);
+		Resource* res;
+		if(file == "Cube" || file =="Sphere")
+		{ 
+			res = CreateNewResource(TYPE::MESH);
+			res->SetExportedFile((IMPORTED_RESOURCES + file + MESHEXTENSION).c_str());
+		}
+		else
+		{
+			res = CreateNewResource(TYPE::TEXTURE);
+			res->SetExportedFile((IMPORTED_RESOURCES + file + TEXTUREEXT).c_str());
+		}
 		res->SetName(App->fsystem->GetFilename(file).c_str());
-		res->SetExportedFile((IMPORTED_RESOURCES + file + TEXTUREEXT).c_str());
 		std::string filePath(IMPORTED_RESOURCES);
 		res->SetFile((filePath + file).c_str());
 		res->SetUsedByEngine(true);

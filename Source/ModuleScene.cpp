@@ -697,11 +697,12 @@ void ModuleScene::CreatePrimitive(const char * name, GameObject* parent, PRIMITI
 
 	if (type == PRIMITIVES::CUBE)
 	{
-		crenderer->SetMesh("cube_0");
+
+		crenderer->SetMesh("Cube");
 	}
 	else
 	{
-		crenderer->SetMesh("sphere_0");
+		crenderer->SetMesh("Sphere");
 	}
 	crenderer->SetMaterial(DEFAULTMAT);
 	App->scene->Select(gameobject);
