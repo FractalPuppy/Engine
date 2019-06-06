@@ -80,27 +80,19 @@ public:
 
 	bool Init(JSON* config);
 	void SaveConfig(JSON* config) override;
-	update_status Update(float dt)override;
 	void sceneLoaded(JSON* config);
 	void sceneSaved(JSON* config);
 
 	void DrawGUI()override;
-	void navigableObjectToggled(GameObject* obj, const bool newState);
 	
 	void renderNavMesh();
 
 	void cleanValuesPRE();
 	void cleanValuesPOST();
-	inline void checkSceneLoaded();
 
 
 	ENGINE_API bool FindPath(math::float3 start, math::float3 end, std::vector<math::float3> &path, PathFindType type = PathFindType::FOLLOW) const;
 	void RecalcPath(math::float3 point);
-
-	//variables
-	std::vector<GameObject*> navigationMeshes;
-	std::vector<GameObject*> agents;
-	std::vector<GameObject*> obstacles;
 
 	//Constants
 	//static const int ERROR = -1;
@@ -111,10 +103,8 @@ private:
 	ModuleNavigation(const ModuleNavigation&);
 	ModuleNavigation& operator=(const ModuleNavigation);
 
-	void removeNavMesh(unsigned ID);
 	void generateNavigability(bool render);
 	void addNavigableMesh();
-	void addNavigableMesh(const GameObject* obj);
 
 	void fillVertices();
 	void fillIndices();
@@ -139,17 +129,14 @@ private:
 	
 private:
 	//variables
-	float maxRadius = 0.6f;
-	float maxHeight = 5.0f;
-	float maxSlopeScaling = 45.0f;
-	float maxStepHeightScaling = 5.0f;
 	
-	char newCharacter[64] = "New Character";
+	//char newCharacter[64] = "New Character";//implementation postponed, possibly aborted
 	float characterMaxRadius = 0.6f;
-	float characterMaxHeight = 5.0f;//might need higher val
+	float characterMaxHeight = 5.0f;
 	float characterMaxSlopeScaling = 50.0f;
-	float characterMaxStepHeightScaling = 5.0f;//might need higher value
+	float characterMaxStepHeightScaling = 5.0f;
 	
+	//UI modificiators
 	const float sliderIncreaseSpeed = 0.03f;
 	const float minSliderValue = 0.01f;
 	const float maxSliderValue = 100.0f;
@@ -178,12 +165,12 @@ private:
 	//partition type
 	int partitionType = 0;
 
+	//load info
+	int navDataSize = 0;
+
 	//navigation mesh properties
 	bool meshGenerated = false;
 	bool renderMesh = false;
-	const char* objectName = "";
-	bool autoNavGeneration = false;
-	GameObject* objToRender = nullptr;
 
 	enum DrawMode
 	{
@@ -211,6 +198,8 @@ private:
 
 	std::vector < const ComponentRenderer*> meshComponents;
 	std::vector < const ComponentTransform*> transformComponents;
+	std::vector <bool> unwalkableVerts;
+	std::vector <bool> isObstacle;
 
 	rcConfig* cfg = nullptr;
 	rcContext* ctx = nullptr;

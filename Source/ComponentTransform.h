@@ -30,12 +30,16 @@ public:
 
 	ENGINE_API void SetPosition(const math::float3& position);
 	ENGINE_API void SetRotation(const math::Quat & newRotation);
+	ENGINE_API void Scale(float scalar);
+	
 	ENGINE_API math::Quat GetRotation();
 	ENGINE_API math::float3 GetPosition();
+	ENGINE_API math::float2 GetScreenPosition();
 
 	ENGINE_API math::float3 GetGlobalPosition();
 
 	ENGINE_API void LookAt(const math::float3& target);
+	ENGINE_API void LookAtMouse();
 	ENGINE_API void Align(const math::float3& target);
 
 	void Save(JSON_value* value) const override;
@@ -67,4 +71,4 @@ private:
 	math::float3 old_scale = math::float3::zero;
 };
 
-#endif __ComponentTransform_h__
+#endif // __ComponentTransform_h__

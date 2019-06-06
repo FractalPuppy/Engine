@@ -194,6 +194,7 @@
     <ClInclude Include="ComponentAnimation.h" />
     <ClInclude Include="ComponentAudioListener.h" />
     <ClInclude Include="ComponentAudioSource.h" />
+    <ClInclude Include="ComponentBoxTrigger.h" />
     <ClInclude Include="ComponentButton.h" />
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentImage.h" />
@@ -278,6 +279,7 @@
     <ClInclude Include="MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="MemoryModule.h" />
     <ClInclude Include="ModuleAudioManager.h" />
+    <ClInclude Include="ModuleCollisions.h" />
     <ClInclude Include="ModuleDebugDraw.h" />
     <ClInclude Include="ModuleDevelopmentBuildDebug.h" />
     <ClInclude Include="ModuleFileSystem.h" />
@@ -403,6 +405,7 @@
     <ClCompile Include="ComponentAnimation.cpp" />
     <ClCompile Include="ComponentAudioListener.cpp" />
     <ClCompile Include="ComponentAudioSource.cpp" />
+    <ClCompile Include="ComponentBoxTrigger.cpp" />
     <ClCompile Include="ComponentButton.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentImage.cpp" />
@@ -460,6 +463,7 @@
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="MemoryModule.c" />
     <ClCompile Include="ModuleAudioManager.cpp" />
+    <ClCompile Include="ModuleCollisions.cpp" />
     <ClCompile Include="ModuleDebugDraw.cpp" />
     <ClCompile Include="ModuleDevelopmentBuildDebug.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />

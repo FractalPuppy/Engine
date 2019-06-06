@@ -201,10 +201,10 @@ void DetourDebugInterface::debugDrawNavMesh()
 	glBindVertexArray(0);
 	glUseProgram(0);
 	GLenum err;
-	while ((err = glGetError()) != GL_NO_ERROR)
+	/*while ((err = glGetError()) != GL_NO_ERROR)
 	{
 		LOG("GLEW Error: %s",glewGetErrorString(err));
-	}
+	}*/
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 }

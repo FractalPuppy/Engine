@@ -3,7 +3,8 @@ in vec2 TexCoords;
 
 in vec4 colorParticle;
 
-out vec4 color;
+layout (location = 0) out vec4 color;
+layout (location = 1) out vec4 highlight;
 
 uniform sampler2D texture;
 uniform int xTiles;
@@ -27,4 +28,5 @@ void main()
 	vec2 tC1 = vec2(cellS + (invX * f1Xpos), cellT + (invY * f1Ypos));
 	vec2 tC2 = vec2(cellS + (invX * f2Xpos), cellT + (invY * f2Ypos));
 	color = mix(texture2D(texture, tC1), texture2D(texture, tC2) , mixAmount) * colorParticle;
+	highlight = vec4(0);
 }  

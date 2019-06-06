@@ -23,6 +23,11 @@ class ModuleParticles :
 {
 public:
 
+	enum class BlendModes
+	{
+		ADDITIVE,
+		ALPHA
+	};
 
 	//ModuleParticles();
 	~ModuleParticles();

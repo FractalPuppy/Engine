@@ -3,17 +3,22 @@
 
 #include "Application.h"
 #include "ModuleSpacePartitioning.h"
+#include "ModuleInput.h"
+#include "ModuleWindow.h"
+#include "ModuleTime.h"
+#include "ModuleScene.h"
+#include "ModuleUI.h"
 
 #include "GameObject.h"
 #include "ComponentLight.h"
-#include "GameObject.h"
-#include "ModuleTime.h"
-#include "ModuleScene.h"
-
+#include "ComponentCamera.h"
 
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "Math/MathFunc.h"
+#include "Math/float2.h"
+#include "Geometry/Plane.h"
+#include "Geometry/Line.h"
 #include "JSON.h"
 #include "AABBTree.h"
 
@@ -123,8 +128,6 @@ void ComponentTransform::MultiSelectionTransform(float4x4 &difference)
 void ComponentTransform::UpdateTransform()
 {
 	UpdateOldTransform();
-
-
 	
 	front = -global.Col3(2);
 	up = global.Col3(1);
@@ -236,11 +239,25 @@ void ComponentTransform::SetPosition(const math::float3 & newPosition)
 {
 	position = newPosition;
 	gameobject->movedFlag = true;
+	
 }
 
 math::float3 ComponentTransform::GetPosition()
 {
 	return position;
+}
+
+math::float2 ComponentTransform::GetScreenPosition()
+{
+	math::float3 projection = App->scene->maincamera->frustum->Project(GetGlobalPosition());
+	if (projection.z > 0)
+	{
+		math::float2 screenPosition;
+		screenPosition.x = (int)(projection.x * (App->ui->currentWidth / 2.0));
+		screenPosition.y = (int)(projection.y * (App->ui->currentHeight / 2.0));
+		return screenPosition;
+	}
+	return math::float2::zero;
 }
 
 void ComponentTransform::SetRotation(const math::Quat & newRotation)
@@ -249,6 +266,12 @@ void ComponentTransform::SetRotation(const math::Quat & newRotation)
 	RotationToEuler();
 	gameobject->movedFlag = true;
 	UpdateTransform();
+}
+
+ENGINE_API void ComponentTransform::Scale(float scalar)
+{
+	scale *= scalar;
+	gameobject->movedFlag = true;
 }
 
 math::Quat ComponentTransform::GetRotation()
@@ -275,6 +298,33 @@ void ComponentTransform::LookAt(const math::float3 & targetPosition)
 	math::float3 direction = (targetPosition - GetGlobalPosition());
 	math::Quat newRotation = rotation.LookAt(float3::unitZ, direction.Normalized(), float3::unitY, float3::unitY);	
 	SetRotation(newRotation);
+}
+
+ENGINE_API void ComponentTransform::LookAtMouse() //POS SIZE!!
+{
+	//App->renderer->gam
+	math::float2 pos= App->window->GetWindowPos();
+	math::float2 size = App->window->GetWindowSize();
+
+	math::float2 mouse((float*)&App->input->GetMousePosition());
+
+	float normalized_x = ((mouse.x - pos.x) /size.x) * 2 - 1; //0 to 1 -> -1 to 1
+	float normalized_y = (1 - (mouse.y - pos.y) / size.y) * 2 - 1; //0 to 1 -> -1 to 1
+
+	LineSegment segment = App->scene->maincamera->DrawRay(normalized_x, normalized_y);
+	Line line(segment);
+	Plane plane(position, float3::unitY);
+
+	float d = 0;
+	if (!line.Intersects(plane, &d))
+	{
+		assert(true, "Mouse didn't intersect with gameobject base plane!");
+	}
+	if (&d != nullptr)
+	{
+		math::float3 point = line.GetPoint(d);
+		LookAt(point);
+	}
 }
 
 void ComponentTransform::Align(const math::float3 & targetFront)

@@ -30,6 +30,7 @@ public:
 	ENGINE_API void SendTriggerToStateMachine(const char* trigger);
 	ResourceAnimation* GetAnimFromStateMachine();
 	bool GetLoopFromStateMachine();
+	ENGINE_API float GetDurationFromClip();
 	float GetSpeedFromStateMachine();
 	bool GetMustFinishFromStateMachine();
 	void PlayNextNode(float blend);
@@ -60,6 +61,7 @@ public:
 	bool channelsSetted = false;
 	bool deletePopup = false;
 
+	unsigned currentNode = 0u;
 
 public:
 	AnimationController* editorController = nullptr;

@@ -305,7 +305,8 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 
 	if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
-		unsigned selectedUID = App->resManager->FindByFileInAssetsExcludingType((path + file).c_str(), TYPE::MESH);
+		TYPE resourceType = App->resManager->GetResourceType(App->fsystem->GetFileType(extension));
+		unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
 		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
 		ImGui::OpenPopup("File Context Menu");
 	}
@@ -327,7 +328,8 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 
 	if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
-		unsigned selectedUID = App->resManager->FindByFileInAssetsExcludingType((path + file).c_str(), TYPE::MESH);
+		TYPE resourceType = App->resManager->GetResourceType(App->fsystem->GetFileType(extension));
+		unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
 		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
 		ImGui::OpenPopup("File Context Menu");
 	}

@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include <map>
+#include <vector>
 
 class Script;
 
@@ -19,7 +20,7 @@ public:
 	ModuleScript();
 	~ModuleScript();
 
-	bool Start() override;
+	bool Init(JSON* config) override;
 	update_status Update(float dt) override;
 
 	void LoadFromMemory(int resource);
@@ -28,6 +29,8 @@ public:
 
 	Script* GetScript(const std::string& name);
 	bool RemoveScript(Script* script, const std::string& name);
+	bool RemoveDLL(const std::string & name);
+
 private:
 	void CheckScripts();
 	void ResetScriptFlags();
@@ -41,7 +44,7 @@ public:
 private:
 	std::list <Script*> componentsScript;
 	std::map<std::string, std::pair<HINSTANCE, int>> loadedDLLs; // name, dll, instances
-	
+	std::vector<std::string>dllRemoveList;
 };
 
 #endif __ModuleScript_h__

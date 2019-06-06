@@ -368,7 +368,7 @@ extern const ddVec3 GhostWhite;
 extern const ddVec3 Gold;
 extern const ddVec3 GoldenRod;
 extern const ddVec3 Gray;
-extern const ddVec3 Green;
+extern ENGINE_API const ddVec3 Green;
 extern const ddVec3 GreenYellow;
 extern const ddVec3 HoneyDew;
 extern const ddVec3 HotPink;
@@ -429,9 +429,9 @@ extern const ddVec3 Peru;
 extern const ddVec3 Pink;
 extern const ddVec3 Plum;
 extern const ddVec3 PowderBlue;
-extern const ddVec3 Purple;
+extern ENGINE_API const ddVec3 Purple;
 extern const ddVec3 RebeccaPurple;
-extern const ddVec3 Red;
+extern ENGINE_API const ddVec3 Red;
 extern const ddVec3 RosyBrown;
 extern const ddVec3 RoyalBlue;
 extern const ddVec3 SaddleBrown;
@@ -484,7 +484,7 @@ extern const ddVec3 YellowGreen;
 // Point is expressed in world-space coordinates.
 // Note that not all renderer support configurable point
 // size, so take the 'size' parameter as a hint only
-void point(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
+ENGINE_API void point(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
            ddVec3_In pos,
            ddVec3_In color,
            float size = 1.0f,
@@ -494,7 +494,7 @@ void point(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
 // Add a 3D line to the debug draw queue. Note that
 // lines are expressed in world coordinates, and so are
 // all wireframe primitives which are built from lines.
-void line(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
+ENGINE_API void line(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
           ddVec3_In from,
           ddVec3_In to,
           ddVec3_In color,
@@ -516,7 +516,7 @@ void screenText(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
 // gets projected to screen-space. The label always faces the viewer.
 // sx/sy, sw/sh are the viewport coordinates/size, in pixels.
 // 'vpMatrix' is the view * projection transform to map the text from 3D to 2D.
-void projectedText(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
+ENGINE_API void projectedText(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
                    const char * str,
                    ddVec3_In pos,
                    ddVec3_In color,
@@ -537,7 +537,7 @@ void axisTriad(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
 
 // Add a 3D line with an arrow-like end to the debug draw queue.
 // 'size' defines the arrow head size. 'from' and 'to' the length of the arrow's base line.
-void arrow(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
+ENGINE_API void arrow(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
            ddVec3_In from,
            ddVec3_In to,
            ddVec3_In color,
@@ -555,7 +555,7 @@ void cross(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
            bool depthEnabled = true);
 
 // Add a wireframe circle to the debug draw queue.
-void circle(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
+ENGINE_API void circle(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
             ddVec3_In center,
             ddVec3_In planeNormal,
             ddVec3_In color,
@@ -588,7 +588,7 @@ void sphere(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
 // The cone 'apex' is the point where all lines meet.
 // The length of the 'dir' vector determines the thickness.
 // 'baseRadius' & 'apexRadius' are in degrees.
-void cone(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
+ENGINE_API void cone(DD_EXPLICIT_CONTEXT_ONLY(ContextHandle ctx,)
           ddVec3_In apex,
           ddVec3_In dir,
           ddVec3_In color,

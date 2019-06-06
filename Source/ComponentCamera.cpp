@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "ComponentCamera.h"
 #include "ComponentTransform.h"
+#include "ComponentRenderer.h"
 
 #include "JSON.h"
 #include "GL/glew.h"
@@ -112,7 +113,8 @@ void ComponentCamera::Center() //TODO: Shouldn't be specfic to editor camera
 {
 	if (App->scene->selected == nullptr || App->scene->selected->GetComponentOld(ComponentType::Transform) == nullptr) return;
 
-	if (App->scene->selected->GetComponentOld(ComponentType::Renderer) != nullptr)
+	ComponentRenderer* objectRenderer = App->scene->selected->GetComponent<ComponentRenderer>();
+	if (objectRenderer != nullptr && objectRenderer->mesh != nullptr)
 	{
 		math::AABB bbox = App->scene->selected->GetBoundingBox();
 		CenterBbox(bbox);
@@ -123,7 +125,11 @@ void ComponentCamera::Center() //TODO: Shouldn't be specfic to editor camera
 		childBboxes.SetNegativeInfinity();
 		for (const auto &child : App->scene->selected->children)
 		{
-			childBboxes.Enclose(child->GetBoundingBox());
+			ComponentRenderer* childRenderer = child->GetComponent<ComponentRenderer>();
+			if (childRenderer != nullptr && childRenderer->mesh != nullptr)
+			{
+				childBboxes.Enclose(child->GetBoundingBox());
+			}
 		}
 		if (childBboxes.Volume() > 0)
 		{
@@ -279,8 +285,17 @@ void ComponentCamera::Save(JSON_value* value) const
 	value->AddFloat("ZoomSpeed", zoomSpeed);
 	value->AddFloat("Znear", frustum->nearPlaneDistance);
 	value->AddFloat("Zfar", frustum->farPlaneDistance);
-	value->AddFloat("vFOV", frustum->verticalFov);
-	value->AddFloat("hFOV", frustum->horizontalFov);
+
+	if (!IsNan(frustum->verticalFov))
+		value->AddFloat("vFOV", frustum->verticalFov);
+	else
+		value->AddFloat("vFOV", 0.0f);
+
+	if(!IsNan(frustum->horizontalFov))
+		value->AddFloat("hFOV", frustum->horizontalFov);
+	else
+		value->AddFloat("hFOV", 0.0f);
+
 	value->AddFloat3("Position", frustum->pos);
 	value->AddFloat3("Front", frustum->front);
 	value->AddFloat3("Up", frustum->up);
@@ -296,7 +311,15 @@ void ComponentCamera::Load(JSON_value* value)
 	frustum->nearPlaneDistance = value->GetFloat("Znear");
 	frustum->farPlaneDistance = value->GetFloat("Zfar");
 	frustum->verticalFov = value->GetFloat("vFOV");
+	if (frustum->verticalFov == 0)
+	{
+		frustum->verticalFov = DegToRad(60);
+	}
 	frustum->horizontalFov = value->GetFloat("hFOV");
+	if (frustum->horizontalFov == 0)
+	{
+		frustum->horizontalFov = 2.f * atanf(tanf(frustum->verticalFov * 0.5f) * ((float)App->window->width / (float)App->window->height));
+	}
 	frustum->pos = value->GetFloat3("Position");
 	frustum->front = value->GetFloat3("Front");
 	frustum->up = value->GetFloat3("Up");

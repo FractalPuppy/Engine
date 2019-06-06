@@ -178,7 +178,7 @@ void ComponentAnimation::DrawProperties()
 					ImGui::SameLine();
 					ImGui::PushItemWidth(60);
 					float speed = stateMachine->GetClipSpeed(j);
-					if (ImGui::DragFloat("Clip speed", &speed, 0.1f, 0.f, 10.f))
+					if (ImGui::DragFloat("Clip speed", &speed, 0.1f, 0.f, 30.f))
 					{
 						stateMachine->SetClipSpeed(j, speed);
 						stateMachine->Save();
@@ -202,19 +202,33 @@ void ComponentAnimation::DrawProperties()
 					ImGui::SameLine();
 
 					unsigned clipUID = stateMachine->GetClipResource(j);
-					//IS THIS CORRECT=?=???
 					ResourceAnimation* animation = (ResourceAnimation*)App->resManager->GetWithoutLoad(clipUID);
+					
 					if (ImGui::BeginCombo("", clipUID != 0u ? animation->GetName() : ""))
 					{
 						if (guiAnimations.empty())
 						{
 							guiAnimations = App->resManager->GetResourceNamesList(TYPE::ANIMATION, true);
 						}
+						if (ImGui::Selectable("No animation"))
+						{
+							// Delete previous animation
+							if (animation != nullptr)
+								App->resManager->DeleteResource(animation->GetUID());
+
+							unsigned animUID = 0u;
+							stateMachine->SetClipResource(j, animUID);
+							stateMachine->Save();
+						}
 						for (int n = 0; n < guiAnimations.size(); n++)
 						{
-							bool is_selected = (clipUID != 0u ? HashString(animation->GetName()) == HashString(guiAnimations[n].c_str()) : false);
-							if (ImGui::Selectable(guiAnimations[n].c_str(), is_selected))
+							bool is_selected = ((clipUID != 0u && animation != nullptr) ? HashString(animation->GetName()) == HashString(guiAnimations[n].c_str()) : false);
+							if (ImGui::Selectable(guiAnimations[n].c_str(), is_selected) && !is_selected)
 							{
+								// Delete previous animation
+								if (animation != nullptr)
+									App->resManager->DeleteResource(animation->GetUID());
+
 								unsigned animUID = ((ResourceAnimation*)App->resManager->GetByName(guiAnimations[n].c_str(), TYPE::ANIMATION))->GetUID();
 								stateMachine->SetClipResource(j, animUID);
 								stateMachine->Save();
@@ -304,6 +318,7 @@ void ComponentAnimation::SetStateMachine(const char* stateMachineFile)
 	{
 		stateMachine = (ResourceStateMachine*)App->resManager->GetByName(stateMachineFile, TYPE::STATEMACHINE);
 		strcpy(newStMachineName, stateMachine->GetName());
+		currentNode = stateMachine->GetDefaultNode();
 	}
 }
 
@@ -313,11 +328,12 @@ void ComponentAnimation::SendTriggerToStateMachine(const char* trigger)
 	{	
 		if (controller->CanSwitch())
 		{
-			unsigned prevNode = stateMachine->GetDefaultNode();
+			unsigned prevNode = currentNode;
 			float blend = 0.f;
 
-			stateMachine->ReceiveTrigger(HashString(trigger), blend);
-			if (prevNode != stateMachine->GetDefaultNode())
+			stateMachine->ReceiveTrigger(HashString(trigger), blend, currentNode);
+
+			if (prevNode != currentNode)
 			{
 				SetIndexChannels(gameobject, GetAnimFromStateMachine());
 				PlayNextNode(blend);
@@ -328,32 +344,35 @@ void ComponentAnimation::SendTriggerToStateMachine(const char* trigger)
 
 ResourceAnimation* ComponentAnimation::GetAnimFromStateMachine()
 {
-	unsigned nodeIndex = stateMachine->GetDefaultNode();
-	HashString clipName = stateMachine->GetNodeClip(nodeIndex);
+	HashString clipName = stateMachine->GetNodeClip(currentNode);
 	unsigned clipIndex = stateMachine->FindClip(clipName);
 	unsigned animUID = stateMachine->GetClipResource(clipIndex);
-	ResourceAnimation*  resAnim = (ResourceAnimation*)(App->resManager->GetWithoutLoad(animUID));
+	ResourceAnimation*  resAnim = (ResourceAnimation*)(App->resManager->Get(animUID));
 	return resAnim;
 }
 
 bool ComponentAnimation::GetLoopFromStateMachine()
 {
-	unsigned nodeIndex = stateMachine->GetDefaultNode();
-	HashString clipName = stateMachine->GetNodeClip(nodeIndex);
+	HashString clipName = stateMachine->GetNodeClip(currentNode);
 	return stateMachine->GetClipLoop(stateMachine->FindClip(clipName));
+}
+
+float ComponentAnimation::GetDurationFromClip()
+{
+	float speed = stateMachine->GetClipSpeed(currentNode);
+	float duration = GetAnimFromStateMachine()->durationInSeconds;
+	return (duration/speed);
 }
 
 float ComponentAnimation::GetSpeedFromStateMachine()
 {
-	unsigned nodeIndex = stateMachine->GetDefaultNode();
-	HashString clipName = stateMachine->GetNodeClip(nodeIndex);
+	HashString clipName = stateMachine->GetNodeClip(currentNode);
 	return stateMachine->GetClipSpeed(stateMachine->FindClip(clipName));
 }
 
 bool ComponentAnimation::GetMustFinishFromStateMachine()
 {
-	unsigned nodeIndex = stateMachine->GetDefaultNode();
-	HashString clipName = stateMachine->GetNodeClip(nodeIndex);
+	HashString clipName = stateMachine->GetNodeClip(currentNode);
 	return stateMachine->GetClipMustFinish(stateMachine->FindClip(clipName));
 }
 
@@ -362,6 +381,12 @@ void ComponentAnimation::PlayNextNode(float blend)
 	if(stateMachine != nullptr)
 		controller->PlayNextNode(GetAnimFromStateMachine(),GetLoopFromStateMachine(), GetMustFinishFromStateMachine(),
 			GetSpeedFromStateMachine(), blend);
+
+	if (!channelsSetted)
+	{
+		SetIndexChannels(gameobject, GetAnimFromStateMachine());
+		channelsSetted = true;
+	}
 }
 
 ComponentAnimation::EditorContext* ComponentAnimation::GetEditorContext()
@@ -380,14 +405,15 @@ void ComponentAnimation::Update()
 	PROFILE;
 	if (App->time->gameState == GameState::RUN) //Game run time exclusive
 	{
-		if (stateMachine != nullptr && stateMachine->GetClipsSize() > 0u && stateMachine->GetNodesSize() > 0u)
+		if (stateMachine != nullptr && stateMachine->GetClipsSize() > 0u &&
+			stateMachine->GetNodesSize() > 0u)
 		{
-			if (!channelsSetted)
+			if (!channelsSetted  && controller->current->anim != nullptr)
 			{
 				SetIndexChannels(gameobject, GetAnimFromStateMachine());
 				channelsSetted = true;
 			}
-			controller->Update(App->time->gameDeltaTime);
+			controller->Update(App->time->fullGameDeltaTime);
 
 			if (gameobject != nullptr)
 			{
@@ -419,6 +445,7 @@ void ComponentAnimation::OnPlay()
 {
 	if (stateMachine != nullptr && stateMachine->GetClipsSize() > 0u && stateMachine->GetNodesSize() > 0u)
 	{
+		currentNode = stateMachine->GetDefaultNode();
 		controller->Play(GetAnimFromStateMachine(), GetLoopFromStateMachine(),
 			GetMustFinishFromStateMachine(), GetSpeedFromStateMachine());
 	}
@@ -512,7 +539,8 @@ void ComponentAnimation::Load(JSON_value* value)
 	anim = (ResourceAnimation*)App->resManager->Get(animUID);
 
 	unsigned stateMachineUID = value->GetUint("stateMachineUID");
-	stateMachine = (ResourceStateMachine*)App->resManager->Get(stateMachineUID);
+	if(stateMachineUID != 0)
+		stateMachine = (ResourceStateMachine*)App->resManager->Get(stateMachineUID);
 }
 
 void ComponentAnimation::SetIndexChannels(GameObject* GO, ResourceAnimation* anim)

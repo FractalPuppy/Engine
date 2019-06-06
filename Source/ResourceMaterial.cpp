@@ -78,30 +78,30 @@ bool ResourceMaterial::LoadInMemory()
 	metallic = materialJSON->GetFloat("metallic");
 	roughness = materialJSON->GetFloat("roughness");
 
-	const char* diffuseFile = materialJSON->GetString("diffuse");
-	if (diffuseFile != nullptr)
+	unsigned diffuseUID = materialJSON->GetUint("diffuseUID");
+	if (diffuseUID != 0u)
 	{
-		textures[(unsigned)TextureType::DIFFUSE] = (ResourceTexture*)App->resManager->Get(diffuseFile);
+		textures[(unsigned)TextureType::DIFFUSE] = (ResourceTexture*)App->resManager->Get(diffuseUID);
 	}
-	const char* specularFile = materialJSON->GetString("specular");
-	if (specularFile != nullptr)
+	unsigned specularUID = materialJSON->GetUint("specularUID");
+	if (specularUID != 0u)
 	{
-		textures[(unsigned)TextureType::SPECULAR] = (ResourceTexture*)App->resManager->Get(specularFile);
+		textures[(unsigned)TextureType::SPECULAR] = (ResourceTexture*)App->resManager->Get(specularUID);
 	}
-	const char* occlusionFile = materialJSON->GetString("occlusion");
-	if (occlusionFile != nullptr)
+	unsigned occlusionUID = materialJSON->GetUint("occlusionUID");
+	if (occlusionUID != 0u)
 	{
-		textures[(unsigned)TextureType::OCCLUSION] = (ResourceTexture*)App->resManager->Get(occlusionFile);
+		textures[(unsigned)TextureType::OCCLUSION] = (ResourceTexture*)App->resManager->Get(occlusionUID);
 	}
-	const char* emissiveFile = materialJSON->GetString("emissive");
-	if (emissiveFile != nullptr)
+	unsigned emissiveUID = materialJSON->GetUint("emissiveUID");
+	if (emissiveUID != 0u)
 	{
-		textures[(unsigned)TextureType::EMISSIVE] = (ResourceTexture*)App->resManager->Get(emissiveFile);
+		textures[(unsigned)TextureType::EMISSIVE] = (ResourceTexture*)App->resManager->Get(emissiveUID);
 	}
-	const char* normalFile = materialJSON->GetString("normal");
-	if (normalFile != nullptr)
+	unsigned normalUID = materialJSON->GetUint("normalUID");
+	if (normalUID != 0u)
 	{
-		textures[(unsigned)TextureType::NORMAL] = (ResourceTexture*)App->resManager->Get(normalFile);
+		textures[(unsigned)TextureType::NORMAL] = (ResourceTexture*)App->resManager->Get(normalUID);
 	}
 
 	const char* shaderName = materialJSON->GetString("shader");
@@ -132,23 +132,23 @@ void ResourceMaterial::Save() const
 
 	if (textures[(unsigned)TextureType::DIFFUSE] != nullptr)
 	{
-		materialJSON->AddString("diffuse", textures[(unsigned)TextureType::DIFFUSE]->GetExportedFile());
+		materialJSON->AddUint("diffuseUID", textures[(unsigned)TextureType::DIFFUSE]->GetUID());
 	}
 	if (textures[(unsigned)TextureType::SPECULAR] != nullptr)
 	{
-		materialJSON->AddString("specular", textures[(unsigned)TextureType::SPECULAR]->GetExportedFile());
+		materialJSON->AddUint("specularUID", textures[(unsigned)TextureType::SPECULAR]->GetUID());
 	}
 	if (textures[(unsigned)TextureType::OCCLUSION] != nullptr)
 	{
-		materialJSON->AddString("occlusion", textures[(unsigned)TextureType::OCCLUSION]->GetExportedFile());
+		materialJSON->AddUint("occlusionUID", textures[(unsigned)TextureType::OCCLUSION]->GetUID());
 	}
 	if (textures[(unsigned)TextureType::EMISSIVE] != nullptr)
 	{
-		materialJSON->AddString("emissive", textures[(unsigned)TextureType::EMISSIVE]->GetExportedFile());
+		materialJSON->AddUint("emissiveUID", textures[(unsigned)TextureType::EMISSIVE]->GetUID());
 	}
 	if (textures[(unsigned)TextureType::NORMAL] != nullptr)
 	{
-		materialJSON->AddString("normal", textures[(unsigned)TextureType::NORMAL]->GetExportedFile());
+		materialJSON->AddUint("normalUID", textures[(unsigned)TextureType::NORMAL]->GetUID());
 	}
 
 	if (shader != nullptr)
@@ -177,23 +177,23 @@ void ResourceMaterial::SaveMetafile(const char* file) const
 	meta->AddFloat3("emissiveColor", emissiveColor);
 	if (textures[(unsigned)TextureType::DIFFUSE] != nullptr)
 	{
-		meta->AddString("diffuse", textures[(unsigned)TextureType::DIFFUSE]->GetExportedFile());
+		meta->AddUint("diffuseUID", textures[(unsigned)TextureType::DIFFUSE]->GetUID());
 	}
 	if (textures[(unsigned)TextureType::SPECULAR] != nullptr)
 	{
-		meta->AddString("specular", textures[(unsigned)TextureType::SPECULAR]->GetExportedFile());
+		meta->AddUint("specularUID", textures[(unsigned)TextureType::SPECULAR]->GetUID());
 	}
 	if (textures[(unsigned)TextureType::OCCLUSION] != nullptr)
 	{
-		meta->AddString("occlusion", textures[(unsigned)TextureType::OCCLUSION]->GetExportedFile());
+		meta->AddUint("occlusionUID", textures[(unsigned)TextureType::OCCLUSION]->GetUID());
 	}
 	if (textures[(unsigned)TextureType::EMISSIVE] != nullptr)
 	{
-		meta->AddString("emissive", textures[(unsigned)TextureType::EMISSIVE]->GetExportedFile());
+		meta->AddUint("emissiveUID", textures[(unsigned)TextureType::EMISSIVE]->GetUID());
 	}
 	if (textures[(unsigned)TextureType::NORMAL] != nullptr)
 	{
-		meta->AddString("normal", textures[(unsigned)TextureType::NORMAL]->GetExportedFile());
+		meta->AddUint("normalUID", textures[(unsigned)TextureType::NORMAL]->GetUID());
 	}
 
 	if (shader != nullptr)
@@ -203,6 +203,38 @@ void ResourceMaterial::SaveMetafile(const char* file) const
 	json->AddValue("Material", *meta);
 	filepath += METAEXT;
 	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+}
+
+void ResourceMaterial::LoadConfigFromMeta()
+{
+	std::string metaFile(file);
+	metaFile += ".meta";
+
+	// Check if meta file exists
+	if (!App->fsystem->Exists(metaFile.c_str()))
+		return;
+
+	char* data = nullptr;
+	unsigned oldUID = GetUID();
+
+	if (App->fsystem->Load(metaFile.c_str(), &data) == 0)
+	{
+		LOG("Warning: %s couldn't be loaded", metaFile.c_str());
+		RELEASE_ARRAY(data);
+		return;
+	}
+	JSON* json = new JSON(data);
+	JSON_value* value = json->GetValue("Material");
+
+	// Make sure the UID from meta is the same
+	unsigned checkUID = value->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+		exportedFile = IMPORTED_MATERIALS + std::to_string(UID) + MATERIALEXT;
+	}
 }
 
 void ResourceMaterial::Reset(const ResourceMaterial& material)

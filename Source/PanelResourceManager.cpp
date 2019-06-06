@@ -80,11 +80,37 @@ PanelResourceManager::~PanelResourceManager()
 
 void PanelResourceManager::Draw()
 {
-	if (!ImGui::Begin("Resource Manager", &enabled))
+	if (!ImGui::Begin("Resource Manager", &enabled, ImGuiWindowFlags_MenuBar))
 	{
 		ImGui::End();
 		return;
 	}
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("Resources"))
+		{
+			if (ImGui::MenuItem("Update Resources List"))
+			{
+				UpdateResourcesList();
+			}
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Options"))
+		{
+			if (ImGui::MenuItem("Delete Unused Metas"))
+			{
+				App->resManager->CleanUnusedMetaFiles();
+			}
+			if (ImGui::MenuItem("Delete Unused Exported Files"))
+			{
+				App->resManager->CleanUnusedExportedFiles();
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+
 	if(auxResource == nullptr)
 		UpdateResourcesList();
 
@@ -156,6 +182,7 @@ void PanelResourceManager::Draw()
 		{
 			openEditor = true;
 			previous = resource;
+			auxUID = resource->GetUID();
 		}
 		ImGui::NextColumn();
 		ImGui::PopID();
@@ -231,8 +258,7 @@ void PanelResourceManager::OpenResourceEditor()
 		if (ImGui::BeginPopupModal(resourcePopup, NULL, ImGuiWindowFlags_AlwaysAutoResize))
 		{
 			// UID
-			unsigned uid = auxResource->GetUID();
-			ImGui::Text("UID: %u", uid);
+			ImGui::Text("UID: %u", auxUID);
 
 			// Name
 			char name[64] = "";

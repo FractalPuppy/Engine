@@ -2,6 +2,7 @@
 #define  __ChestScript_h__
 
 #include "BaseScript.h"
+#include "Application.h"
 
 #include "Geometry/AABB.h"
 
@@ -13,6 +14,7 @@
 
 class GameObject;
 class ComponentRenderer;
+class ComponentAnimation;
 
 class ChestScript_API ChestScript : public Script
 {
@@ -30,7 +32,8 @@ private:
 	std::string playerBboxName = "PlayerMesh";
 	std::string myBboxName = "ChestMesh";
 
-	ComponentRenderer* myRender;
+	ComponentRenderer* myRender = nullptr;
+	ComponentAnimation* anim = nullptr;
 
 	// BBoxes
 	math::AABB* myBbox = nullptr;
@@ -38,7 +41,6 @@ private:
 
 	// GO to spawn
 	std::string spawnGOName = "SpawnableGO";
-	GameObject* spawnGO = nullptr;
 
 	bool opened = false; // Is the chest already opened?
 };

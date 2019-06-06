@@ -38,7 +38,7 @@ public:
 	ENGINE_API float4 GetColor4(const char * name) const;
 	ENGINE_API float4x4 GetFloat4x4(const char * name) const;
 	ENGINE_API Quat GetQuat(const char * name) const;
-	ENGINE_API const char* GetString(const char * name) const;
+	ENGINE_API const char* GetString(const char * name, const char* defaultValue = nullptr) const;
 
 	ENGINE_API JSON_value* GetValue(unsigned index); //Allocates value
 	ENGINE_API JSON_value * GetValue(const char * name); //Allocates value

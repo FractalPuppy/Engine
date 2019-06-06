@@ -24,7 +24,6 @@ void AnimationController::Play(ResourceAnimation* anim, bool loop, bool mustFini
 	newInstance->mustFinish = mustFinish;
 	newInstance->speed = speed;
 	newInstance->loop = loop;
-	newInstance->fadeDuration = 200.f;
 	current = newInstance;
 }
 
@@ -50,12 +49,16 @@ void AnimationController::PlayEditor(ResourceAnimation * anim)
 
 void AnimationController::PlayNextNode(ResourceAnimation * anim, bool loop, bool mustFinish, float speed, float blend)
 {
-	current->next = new Instance();
-	current->anim = anim;
-	current->loop = loop;
-	current->mustFinish = mustFinish;
-	current->speed = speed;
+	if (current->next != nullptr)
+	{
+		ReleaseInstance(current);
+	}
+
+	current->next = new Instance;
 	current->fadeDuration = blend;
+	current->next->anim = anim;
+	current->next->loop = loop;
+	current->next->speed = speed;
 }
 
 
@@ -63,6 +66,7 @@ void AnimationController::PlayNextNode(ResourceAnimation * anim, bool loop, bool
 void AnimationController::Update(float dt)
 {
 	PROFILE;
+
 	if (current != nullptr && !current->isEditor)
 	{
 		UpdateInstance(current, dt);
@@ -77,10 +81,10 @@ void AnimationController::UpdateInstance(Instance* instance, float dt)
 {
 	ResourceAnimation* anim = instance->anim;
 
-	if (anim != nullptr && anim->durationInSeconds > 0)
-	{
-		float trueDt = dt * instance->speed;
+	float trueDt = dt * instance->speed;
 
+	if (anim != nullptr && anim->durationInSeconds > 0.0f)
+	{
 		if (trueDt > 0.0f)
 		{
 			float timeRemainingA = anim->durationInSeconds - instance->time; //Time remaining until the animation finishes
@@ -111,7 +115,7 @@ void AnimationController::UpdateInstance(Instance* instance, float dt)
 			}
 			else
 			{
-				instance->time = 0.f;
+				instance->time = 0.0f;
 			}
 		}
 	}
@@ -120,7 +124,7 @@ void AnimationController::UpdateInstance(Instance* instance, float dt)
 
 	if (instance->next != nullptr)
 	{
-		float timeRemainingB = instance->fadeDuration - instance->fadeTime; //Time between animations for animationfade
+		float timeRemainingB = (instance->fadeDuration /1000.f) - instance->fadeTime; //Time between animations for animationfade
 		if (dt <= timeRemainingB)
 		{
 			instance->fadeTime += dt;
@@ -128,9 +132,9 @@ void AnimationController::UpdateInstance(Instance* instance, float dt)
 		}
 		else
 		{
-			ReleaseInstance(instance->next);
+			ReleaseInstance(instance);
 			instance->next = nullptr;
-			instance->fadeTime = instance->fadeDuration = 0;
+			instance->fadeTime = 0.0f;
 		}
 	}
 }
@@ -139,7 +143,7 @@ void AnimationController::UpdateEditorInstance(Instance* instance, float dt)
 {
 	ResourceAnimation* anim = instance->anim;
 
-	if (anim != nullptr && anim->durationInSeconds > 0)
+	if (anim != nullptr && anim->durationInSeconds > 0.0f)
 	{
 		float trueDt = dt * instance->speed;
 
@@ -184,29 +188,35 @@ void AnimationController::UpdateEditorInstance(Instance* instance, float dt)
 
 	if (instance->next != nullptr)
 	{
-		float timeRemainingB = instance->fadeDuration - instance->fadeTime;
-		if (dt <= timeRemainingB)
-		{
-			instance->fadeTime += dt;
-			UpdateInstance(instance->next, dt);
-		}
-		else
+		if (anim == nullptr)
 		{
 			ReleaseInstance(instance->next);
 			instance->next = nullptr;
-			instance->fadeTime = instance->fadeDuration = 0;
+			instance->fadeTime = instance->fadeDuration = 0.0f;
+		}
+		else
+		{
+			float timeRemainingB = instance->fadeDuration - instance->fadeTime;
+			if (dt <= timeRemainingB)
+			{
+				instance->fadeTime += dt;
+				UpdateInstance(instance->next, dt);
+			}
+			else
+			{
+				ReleaseInstance(instance->next);
+				instance->next = nullptr;
+				instance->fadeTime = instance->fadeDuration = 0.0f;
+			}
 		}
 	}
 }
 
 void AnimationController::ReleaseInstance(Instance* instance)
 {
-	do
-	{
-		Instance* next = instance->next;
-		delete instance;
-		instance = next;
-	} while (instance != nullptr);
+	Instance* next = instance->next;
+	delete instance;
+	current = next;
 }
 
 bool AnimationController::CanSwitch()
@@ -285,16 +295,17 @@ bool AnimationController::GetTransformInstance(Instance* instance, unsigned chan
 		if (instance->next != nullptr)
 		{
 			assert(instance->fadeDuration > 0.0f);
+			assert(instance->next->next == nullptr);
 
 			math::float3 nextPosition = math::float3::zero;
 			math::Quat nextRotation = math::Quat::identity;
 
 			if (GetTransformInstance(instance->next, channelIndex, nextPosition, nextRotation))
 			{
-				float blendLambda = float(instance->fadeTime) / float(instance->fadeDuration);
+				float blendLambda = float(instance->fadeTime) / float((instance->fadeDuration) / 1000.f);
 
-				position = InterpolateFloat3(nextPosition, position, blendLambda);
-				rotation = InterpolateQuat(nextRotation, rotation, blendLambda);
+				position = InterpolateFloat3(position, nextPosition, blendLambda);
+				rotation = InterpolateQuat(rotation, nextRotation, blendLambda);
 			}
 		}
 		return true;

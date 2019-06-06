@@ -117,12 +117,17 @@ void ResourceStateMachine::LoadConfigFromMeta()
 	}
 	JSON* json = new JSON(data);
 	JSON_value* value = json->GetValue("StateMachine");
-	UID = value->GetUint("GUID");
 	name = value->GetString("name");
-	std::string name = App->fsystem->GetFilename(file);
 
-	//Updates resource UID on resourcelist
-	App->resManager->ReplaceResource(oldUID, this);
+	// Make sure the UID from meta is the same
+	unsigned checkUID = value->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+		exportedFile = IMPORTED_STATEMACHINES + std::to_string(UID) + STATEMACHINEEXTENSION;
+	}
 }
 
 void ResourceStateMachine::SetStateMachine(const char* data)
@@ -337,17 +342,17 @@ void ResourceStateMachine::Save()
 
 void ResourceStateMachine::AddClip(const HashString name, unsigned UID, const bool loop)
 {
-	clips.push_back(Clip(name, UID, loop, false, 1.0f));
+	clips.emplace_back(name, UID, loop, false, 1.0f);
 }
 
 void ResourceStateMachine::AddNode(const HashString name, const HashString clipName)
 {
-	nodes.push_back(Node(name, clipName));
+	nodes.emplace_back(name, clipName);
 }
 
 void ResourceStateMachine::AddTransition(const HashString origin, const HashString destiny, const HashString trigger, unsigned blend)
 {
-	transitions.push_back(Transition(origin, destiny, trigger, blend));
+	transitions.emplace_back(origin, destiny, trigger, blend);
 }
 
 unsigned ResourceStateMachine::FindClip(const HashString name)
@@ -573,15 +578,15 @@ void ResourceStateMachine::RemoveTransition(unsigned index)
 	transitions.erase(transitions.begin() + index);
 }
 
-void ResourceStateMachine::ReceiveTrigger(HashString trigger, float &blend)
+void ResourceStateMachine::ReceiveTrigger(HashString trigger, float &blend, unsigned &node)
 {
-	HashString defaultNodeName = GetNodeName(defaultNode);
+	HashString currentNodeName = GetNodeName(node);
 
 	for (auto& trans : transitions)
 	{
-		if (trans.origin == defaultNodeName && trans.trigger == trigger)
+		if (trans.origin == currentNodeName && trans.trigger == trigger)
 		{
-			defaultNode = FindNode(trans.destiny);
+			node = FindNode(trans.destiny);
 			blend = trans.blend;
 			break;
 		}

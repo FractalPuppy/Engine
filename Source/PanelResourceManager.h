@@ -36,7 +36,8 @@ private:
 	Resource* auxResource = nullptr;
 	Resource* previous = nullptr;
 
-	int auxReferences = 0u;
+	int auxUID = 0;
+	int auxReferences = 0;
 
 	bool openEditor = false;
 	bool openResourceWindow = false;

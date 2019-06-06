@@ -20,6 +20,7 @@
 
 #include "FileImporter.h"
 
+#include "JSON.h"
 #include "HashString.h"
 #include <algorithm>
 
@@ -37,6 +38,24 @@ ModuleResourceManager::~ModuleResourceManager()
 bool ModuleResourceManager::Init(JSON * config)
 {
 	LoadEngineResources();
+	return true;
+}
+
+bool ModuleResourceManager::CleanUp()
+{
+	// Delete every resource from memory
+	for each (auto& resource in resources)
+	{
+		if (resource.second->IsLoadedToMemory())
+			resource.second->DeleteFromMemory();
+	}
+
+	// Delete pointers
+	for (auto it = resources.begin(); it != resources.end(); it++)
+	{
+		RELEASE(it->second);
+	}
+	resources.clear();
 	return true;
 }
 
@@ -235,7 +254,7 @@ bool ModuleResourceManager::ImportFile(const char* newFileInAssets, const char* 
 	{
 	case TYPE::TEXTURE:		
 		success = App->textures->ImportImage(newFileInAssets, filePath,	(ResourceTexture*)resource);
-		exportedFile = TEXTURES + name + TEXTUREEXT;
+		exportedFile = TEXTURES + std::to_string(resource->GetUID()) + TEXTUREEXT;
 		break;
 	case TYPE::MODEL:
 		success = App->fsystem->importer.ImportFBX(newFileInAssets, filePath, (ResourceModel*)resource);
@@ -250,12 +269,20 @@ bool ModuleResourceManager::ImportFile(const char* newFileInAssets, const char* 
 		exportedFile = IMPORTED_AUDIO + name + AUDIOEXTENSION;	
 		break;*/
 	case TYPE::SCENE:		
-		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, newFileInAssets);						
-		exportedFile = IMPORTED_SCENES + name + SCENEEXTENSION;
+		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, newFileInAssets);	
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_SCENES, (name + SCENEEXTENSION).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
+		exportedFile = IMPORTED_SCENES + std::to_string(resource->GetUID()) + SCENEEXTENSION;
 		break;
 	case TYPE::MATERIAL:	
-		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, newFileInAssets);					
-		exportedFile = IMPORTED_MATERIALS + name + MATERIALEXT;
+		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, newFileInAssets);	
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_MATERIALS, (name + MATERIALEXT).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
+		exportedFile = IMPORTED_MATERIALS + std::to_string(resource->GetUID()) + MATERIALEXT;
 		break;
 	case TYPE::ANIMATION:
 		success = App->fsystem->Copy(filePath, IMPORTED_ANIMATIONS, newFileInAssets);
@@ -313,10 +340,18 @@ bool ModuleResourceManager::ReImportFile(Resource* resource, const char* filePat
 	success = App->audio->Import(newFileInAssets, written_file);	
 	break;*/
 	case TYPE::MATERIAL:	
-		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, file.c_str());				
+		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, file.c_str());
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_MATERIALS, App->fsystem->GetFile(file).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
 		break;
 	case TYPE::SCENE:	
-		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, file.c_str());						
+		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, file.c_str());			
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_SCENES, App->fsystem->GetFile(file).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
 		break;
 	case TYPE::ANIMATION:	
 		success = App->fsystem->Copy(filePath, IMPORTED_ANIMATIONS, file.c_str());		
@@ -391,6 +426,8 @@ unsigned ModuleResourceManager::GenerateNewUID()
 
 Resource* ModuleResourceManager::Get(unsigned uid) const
 {
+	if (uid == 0u) return nullptr;
+
 	std::map<unsigned, Resource*>::const_iterator it = resources.find(uid);
 	if (it == resources.end())
 		return nullptr;
@@ -709,21 +746,44 @@ Resource* ModuleResourceManager::AddResource(const char* file, const char* direc
 	{
 		// Create new resource 
 		Resource* res = CreateNewResource(type);
+		res->SetName(name.c_str());
+		res->SetFile(path.c_str());
+		return res;
+	}
+	else
+	{
+		// Resource already exist
+		return GetWithoutLoad(UID);
+	}
+}
+
+Resource* ModuleResourceManager::AddResource(const char* file, const char* directory, TYPE type, unsigned uid)
+{
+	std::string path(directory);
+	path += file;
+	std::string exportedFile;
+	std::string name(App->fsystem->GetFilename(file));
+ 
+	// Check if resource was already added
+	if (uid != FindByFileInAssets(path.c_str()))
+	{
+		// Create new resource 
+		Resource* res = CreateNewResource(type, uid);
 
 		// Set Exported File
 		switch (type)
 		{
-		case TYPE::TEXTURE:		exportedFile = TEXTURES					+	App->fsystem->GetFilename(file) + TEXTUREEXT;			break;
-		case TYPE::MODEL:		exportedFile =								App->fsystem->GetFilename(file) + FBXEXTENSION;			break;
-		/*case TYPE::MESH:		exportedFile = MESHES;					+	App->fsystem->GetFilename(file) + MESHEXTENSION;		break;
-		case TYPE::AUDIO:		exportedFile = IMPORTED_AUDIOS			+	App->fsystem->GetFilename(file) + AUDIOEXTENSION;		break;*/
-		case TYPE::SCENE:		exportedFile = IMPORTED_SCENES			+	App->fsystem->GetFilename(file) + SCENEEXTENSION;		break;
-		case TYPE::MATERIAL:	exportedFile = IMPORTED_MATERIALS		+	App->fsystem->GetFilename(file) + MATERIALEXT;			break;
-		case TYPE::ANIMATION:	exportedFile = IMPORTED_ANIMATIONS		+   App->fsystem->GetFilename(file) + ANIMATIONEXTENSION;	break;
-		case TYPE::STATEMACHINE:exportedFile = IMPORTED_STATEMACHINES	+	App->fsystem->GetFilename(file) + STATEMACHINEEXTENSION;break;
+		case TYPE::TEXTURE:		exportedFile = TEXTURES					+ std::to_string(uid) + TEXTUREEXT;				break;
+		case TYPE::MODEL:		exportedFile = App->fsystem->GetFilename(file)				  + FBXEXTENSION;			break;
+		/*case TYPE::MESH:		exportedFile = MESHES;					+ std::to_string(uid) + MESHEXTENSION;			break;
+		case TYPE::AUDIO:		exportedFile = IMPORTED_AUDIOS			+ std::to_string(uid) + AUDIOEXTENSION;			break;*/
+		case TYPE::SCENE:		exportedFile = IMPORTED_SCENES			+ std::to_string(uid) + SCENEEXTENSION;			break;
+		case TYPE::MATERIAL:	exportedFile = IMPORTED_MATERIALS		+ std::to_string(uid) + MATERIALEXT;			break;
+		case TYPE::ANIMATION:	exportedFile = IMPORTED_ANIMATIONS		+ std::to_string(uid) + ANIMATIONEXTENSION;		break;
+		case TYPE::STATEMACHINE:exportedFile = IMPORTED_STATEMACHINES	+ std::to_string(uid) + STATEMACHINEEXTENSION;	break;
 		default:
 			break;
-		}
+			}
 		res->SetName(name.c_str());
 		res->SetExportedFile(exportedFile.c_str());
 		res->SetFile(path.c_str());
@@ -732,7 +792,7 @@ Resource* ModuleResourceManager::AddResource(const char* file, const char* direc
 	else
 	{
 		// Resource already exist
-		return GetWithoutLoad(UID);
+		return GetWithoutLoad(uid);
 	}
 }
 
@@ -749,4 +809,67 @@ void ModuleResourceManager::DeleteResourceFromList(unsigned uid)
 	std::map<unsigned, Resource*>::const_iterator it = resources.find(uid);
 	if (it != resources.end())
 		resources.erase(it);
+}
+
+unsigned ModuleResourceManager::GetUIDFromMeta(const char* metaFile, FILETYPE fileType) const
+{
+	char* data = nullptr;
+	if (App->fsystem->Load(metaFile, &data) == 0)
+	{
+		LOG("Warning: %s couldn't be loaded", metaFile);
+		RELEASE_ARRAY(data);
+		return 0;
+	}
+
+	JSON* json = new JSON(data);
+	JSON_value* value;
+	TYPE type = GetResourceType(fileType);
+	switch (type)
+	{
+	case TYPE::TEXTURE:		value = json->GetValue("Texture");		break;
+	case TYPE::MATERIAL:	value = json->GetValue("Material");		break;
+	case TYPE::MESH:		value = json->GetValue("Mesh");			break;
+	case TYPE::MODEL:		value = json->GetValue("Mesh");			break;
+	case TYPE::SCENE:		value = json->GetValue("Scene");		break;
+	case TYPE::ANIMATION:	value = json->GetValue("Animation");	break;
+	case TYPE::STATEMACHINE:value = json->GetValue("StateMachine");	break;
+	default:
+		return 0;
+		break;
+	}	 
+	return value->GetUint("GUID");
+}
+
+void ModuleResourceManager::CleanUnusedMetaFiles() const
+{
+	// Get lists with all assets
+	std::set<std::string> assetFiles;
+	App->fsystem->ListFilesWithExtension(ASSETS, assetFiles);
+
+	for (auto& file : assetFiles)
+	{
+		if (HashString(App->fsystem->GetExtension(file).c_str()) == HashString(METAEXT))
+		{
+			std::string fileAssignedToMeta = App->fsystem->RemoveExtension(file);
+			if (!App->fsystem->Exists(fileAssignedToMeta.c_str()))
+			{
+				App->fsystem->Delete(file.c_str());
+			}
+		}
+	}
+}
+
+void ModuleResourceManager::CleanUnusedExportedFiles() const
+{
+	// Get lists with all imported files
+	std::set<std::string> importedFiles;
+	App->fsystem->ListFilesWithExtension(LIBRARY, importedFiles);
+
+	for (auto& file : importedFiles)
+	{
+		if (!App->resManager->Exists(file.c_str()))
+		{
+			App->fsystem->Delete(file.c_str());
+		}
+	}
 }

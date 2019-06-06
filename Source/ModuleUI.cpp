@@ -175,13 +175,43 @@ void ModuleUI::Draw(int currentWidth, int currentHeight)
 
 void ModuleUI::RenderImage(const ComponentImage& componentImage, int currentWidth, int currentHeight)
 {
+
 	if (componentImage.texture == nullptr || componentImage.texture == 0 || !componentImage.enabled)
 	{
 		return;
 	}
+
+	if (componentImage.IsMasked())
+	{
+		int maskThreshold = ((float)componentImage.GetMaskAmount() / 100.f) * MASK_DIVISIONS;
+		for (unsigned i = 0u; i < MASK_DIVISIONS; ++i) // Filling from up to down
+		{
+			if (i < maskThreshold)
+			{
+				mask[i] = 1.0f;
+			}
+			else
+			{
+				mask[i] = 0.0f;
+			}
+		}
+	}
+	else
+	{
+		for (unsigned i = 0u; i < MASK_DIVISIONS; ++i)
+		{
+			mask[i] = 1.0f;
+		}
+	}
+
 	glUseProgram(shader->id[0]);
 
+	glUniform1fv(glGetUniformLocation(shader->id[0], "mask"), MASK_DIVISIONS, mask);
+	int k = glGetUniformLocation(shader->id[0], "mask");
+
 	glUniform4f(glGetUniformLocation(shader->id[0], "textColor"), componentImage.color.x, componentImage.color.y, componentImage.color.z, componentImage.color.w);
+	glUniform1i(glGetUniformLocation(shader->id[0], "vertical"), componentImage.isMaskHorizontal ? 0 : 1);
+	glUniform1i(glGetUniformLocation(shader->id[0], "horizontal"), componentImage.isMaskHorizontal ? 1 : 0);
 
 	if (componentImage.flipVertical)
 	{

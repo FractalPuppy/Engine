@@ -26,6 +26,7 @@ class ModuleResourceManager :
 		~ModuleResourceManager();
 
 	bool Init(JSON* config) override;
+	bool CleanUp() override;
 
 	// Shader functions
 	Shader* GetProgram(std::string filename) const;
@@ -60,19 +61,26 @@ class ModuleResourceManager :
 	std::vector<ResourceAnimation*> GetAnimationsList();
 	std::vector<ResourceStateMachine*> GetSMList();
 
-	std::vector<std::string> GetResourceNamesList(TYPE resourceType, bool ordered);		// Returns a vector with the exportedFileName of every Resource of the type given.	
+	ENGINE_API std::vector<std::string> GetResourceNamesList(TYPE resourceType, bool ordered);		// Returns a vector with the exportedFileName of every Resource of the type given.	
 
 	TYPE GetResourceType(FILETYPE fileType) const;
 
-	bool Exists(const char* exportedFile);												// Checks if a resource with the given exported filename already exist
-	bool Exists(const char* exportedFile, TYPE type);									// Checks if a resource of the given type and exported filename already exist
-	bool NameExists(const char* name, TYPE type);										// Checks if a resource of the given type and name already exist
-	std::string GetAvailableName(const char* name, TYPE type);							// Based on the name given looks for a name that isn't already taken
+	bool Exists(const char* exportedFile);													// Checks if a resource with the given exported filename already exist
+	bool Exists(const char* exportedFile, TYPE type);										// Checks if a resource of the given type and exported filename already exist
+	bool NameExists(const char* name, TYPE type);											// Checks if a resource of the given type and name already exist
+	std::string GetAvailableName(const char* name, TYPE type);								// Based on the name given looks for a name that isn't already taken
 
-	void LoadEngineResources();															// Loads resources needed by the engine (Skybox, white, no camera textures...)
-	Resource* AddResource(const char* file, const char* directory, TYPE type);
+	void LoadEngineResources();																// Loads resources needed by the engine (Skybox, white, no camera textures...)
+	Resource* AddResource(const char* file, const char* directory, TYPE type);				// Adds a resource with the file information to the resources list
+	Resource* AddResource(const char* file, const char* directory, TYPE type, unsigned uid);// Adds a resource with the file and uid information to the resources list
 	Resource* ReplaceResource(unsigned oldResourceUID, Resource* newResource);	
 	void DeleteResourceFromList(unsigned uid);
+
+	unsigned GetUIDFromMeta(const char* metaFile, FILETYPE fileType) const;
+
+	// Clean functions
+	void CleanUnusedMetaFiles() const;			// Deletes all meta files that doesn't have a file assigned
+	void CleanUnusedExportedFiles() const;		// Deletes all imported files that aren't registered on the Resource Manager
 
 private:
 	// Resources map (Textures, Models, Mehses, Materials, Skyboxes, Scenes...)

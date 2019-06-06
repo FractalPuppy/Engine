@@ -51,7 +51,7 @@ vec4 ProcessHighlights(vec4 hColorIn)
 	return (1 - lC) * hColorIn + lC * hColor;
 }
 
-vec3 GetTexel(in vec2 uv) //MSAA
+vec4 GetTexel(in vec2 uv) //MSAA
 {
 	ivec2 vp = textureSize(gColor, 0);
 	vp = ivec2(vec2(vp)*uv);
@@ -59,12 +59,12 @@ vec3 GetTexel(in vec2 uv) //MSAA
 	vec4 sample2 = texelFetch(gColor, vp, 1);
 	vec4 sample3 = texelFetch(gColor, vp, 2);
 	vec4 sample4 = texelFetch(gColor, vp, 3);
-	return (sample1.rgb + sample2.rgb + sample3.rgb + sample4.rgb) / 4.0f;
+	return (sample1 + sample2 + sample3 + sample4) / 4.0f;
 }
 
 void main()
 {
-	color = vec4(GetTexel(UV0), 1.0f);	
+	color = GetTexel(UV0);	
 
 	vec2 tex_offset = 1.0 / textureSize(gBrightness, 0); // gets size of single texel
     

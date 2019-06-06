@@ -46,6 +46,7 @@ enum update_status
 #define SCREEN_HEIGHT 1080
 #ifndef GAME_BUILD
 #define TITLE "FRACTAL ENGINE"
+#define VERSION_BUILD "0.3" // this constant is the version build for the fractal engine.
 #else
 #define TITLE "Neta Vertical Slice 1"
 #endif

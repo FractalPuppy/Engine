@@ -143,6 +143,8 @@ public:
 	/** @return A reference to this. */
 	float2 &operator /=(float scalar);
 
+	bool operator !=(const float2 & other);
+
 #ifdef MATH_ENABLE_UNCOMMON_OPERATIONS
 	float2 operator *(const float2 &vector) const { return this->Mul(vector); }
 	float2 operator /(const float2 &vector) const { return this->Div(vector); }

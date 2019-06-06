@@ -1,5 +1,7 @@
 #include "ModuleTime.h"
 
+#define MAX_FRAME_MS 0.04F
+
 ModuleTime::ModuleTime()
 {
 }
@@ -16,7 +18,7 @@ bool ModuleTime::Init(JSON* json)
 	return true;
 }
 
-update_status ModuleTime::Update(float dt) 
+void ModuleTime::UpdateTime() 
 {
 	++frameCount;
 	++realFrameCount;
@@ -25,11 +27,10 @@ update_status ModuleTime::Update(float dt)
 	realDeltaTime = frameTimer.ReadSeconds();
 	realTime += realDeltaTime;
 
-	//App->editor->AddFPSCount(FPS, realDeltaTime * 1000.0f);
-
-	//App->editor->AddGameFPSCount(FPS, gameDeltaTime * gameTimeScale * 1000.0f);
 	++totalFrames;
 	gameDeltaTime = frameTimer.ReadSeconds();
+	fullGameDeltaTime = gameDeltaTime;
+
 	gameTime += gameDeltaTime * gameTimeScale;
 	
 	frameTimer.Reset();
@@ -42,7 +43,48 @@ update_status ModuleTime::Update(float dt)
 		fpsTimer.Reset();
 	}
 
-	return UPDATE_CONTINUE;
+	if (gameDeltaTime > MAX_FRAME_MS)
+	{
+		PartitionTime();
+	}
+	else
+	{
+		isTimePartitioned = false;
+	}
+}
+
+void ModuleTime::ResetGameDetaTime()
+{
+	gameDeltaTime = 0.0f;
+	fullGameDeltaTime = 0.0f;
+	isTimePartitioned = false;
+}
+
+void ModuleTime::PartitionTime()
+{
+	gameDeltaTime = MAX_FRAME_MS;
+	aggregateGameDeltaTime = gameDeltaTime;
+
+	isTimePartitioned = true;
+}
+
+bool ModuleTime::IteratePartition()
+{
+	if (aggregateGameDeltaTime < fullGameDeltaTime)
+	{
+		if (aggregateGameDeltaTime + MAX_FRAME_MS <= fullGameDeltaTime)
+		{
+			gameDeltaTime = MAX_FRAME_MS;
+		}
+		else
+		{
+			gameDeltaTime = fullGameDeltaTime - aggregateGameDeltaTime;
+		}
+		aggregateGameDeltaTime += MAX_FRAME_MS;
+		return true;
+	}
+	isTimePartitioned = false;
+	return false;
 }
 
 bool ModuleTime::CleanUp() 

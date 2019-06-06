@@ -81,9 +81,7 @@ bool ModuleTextures::ImportImage(const char* file, const char* folder, ResourceT
 		if (ilSaveL(IL_DDS, data, size) > 0)
 		{
 			// Save to buffer with the ilSaveIL function
-			std::string filepath(TEXTURES);
-			filepath += App->fsystem->RemoveExtension(file);
-			filepath += TEXTUREEXT;
+			std::string filepath(TEXTURES + std::to_string(resource->GetUID()) + TEXTUREEXT);	// Library path + UID + Extension
 			App->fsystem->Save(filepath.c_str(), (char*)data, size);
 
 			// Save image data to resource

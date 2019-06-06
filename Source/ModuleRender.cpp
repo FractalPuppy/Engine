@@ -41,7 +41,7 @@ ModuleRender::ModuleRender()
 // Destructor
 ModuleRender::~ModuleRender()
 {
-	RELEASE(skybox);
+	//RELEASE(skybox);
 	RELEASE(viewScene);
 	RELEASE(viewGame);
 }
@@ -256,10 +256,7 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 	if (isEditor)
 	{
 		DrawGizmos(cam);
-		App->navigation->renderNavMesh();
-		glUseProgram(0);
 		skybox->Draw(*cam.frustum, true);
-
 	}
 	else 
 	{
@@ -270,8 +267,8 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 	}
 	
 	App->scene->Draw(*cam.frustum, isEditor);
+	App->particles->Render(App->time->fullGameDeltaTime, &cam);
 
-	App->particles->Render(App->time->gameDeltaTime, &cam);
 	
 	if (!isEditor)
 	{
@@ -317,10 +314,15 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 
 		glActiveTexture(GL_TEXTURE0); //LOL without this the skybox doesn't render
 	}
+	else
+	{
+		App->navigation->renderNavMesh();
+	}
 
 	if (!isEditor || isEditor && App->ui->showUIinSceneViewport)
 	{
-		App->ui->Draw(width, height);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		App->ui->Draw(width, height);		
 	}
 
 #ifdef GAME_BUILD
@@ -499,6 +501,15 @@ void ModuleRender::InitOpenGL() const
 	glViewport(0, 0, App->window->width, App->window->height);
 }
 
+Viewport* ModuleRender::GetActiveViewport() const
+{
+	if (!viewGame->hidden)
+	{
+		return viewGame;
+	}
+	return viewScene;
+}
+
 void ModuleRender::ComputeShadows()
 {
 	shadowVolumeRendered = false;
@@ -653,7 +664,7 @@ void ModuleRender::BlitShadowTexture()
 			"viewProjection"), 1, GL_TRUE, &shadowsFrustum.ViewProjMatrix()[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(shadowsShader->id[variation],
 			"model"), 1, GL_TRUE, &cr->gameobject->GetGlobalTransform()[0][0]);
-		cr->mesh->Draw(shadowsShader->id[variation]);
+		cr->DrawMesh(shadowsShader->id[variation]);
 	}
 
 	glUseProgram(0);
@@ -664,6 +675,7 @@ void ModuleRender::BlitShadowTexture()
 
 void ModuleRender::CreatePostProcessFramebuffer()
 {
+	LOG("DD");
 	if (postprocessFBO == 0)
 	{
 		glGenFramebuffers(1, &postprocessFBO);

@@ -13,6 +13,24 @@
 class ComponentRenderer;
 class GameObject;
 
+
+struct BindBone
+{
+	math::float4x4 transform; //Transforms from mesh space to bone space
+	std::string name;
+	GameObject* go = nullptr;
+};
+
+struct BoneVertex
+{
+	int boneID[MAX_WEIGHTS_PER_BONE] = { 0, 0, 0, 0 };
+};
+
+struct BoneWeight
+{
+	float weight[MAX_WEIGHTS_PER_BONE] = { 0.f, 0.f, 0.f, 0.f };
+};
+
 class ResourceMesh : public Resource
 {
 public:
@@ -28,6 +46,8 @@ public:
 	bool LoadInMemory() override;
 	void DeleteFromMemory() override;
 
+	void LoadConfigFromMeta() override {};
+
 	// Mesh specific
 	void LinkBones(GameObject* gameobject);
 	void Draw(unsigned shaderProgram) const;
@@ -39,25 +59,6 @@ public:
 	void Delete() override;
 
 private:
-
-	struct BindBone
-	{
-		math::float4x4 transform; //Transforms from mesh space to bone space
-		std::string name;
-		GameObject* go = nullptr;
-	};
-
-	struct BoneVertex
-	{
-		int boneID[MAX_WEIGHTS_PER_BONE] = { 0, 0, 0, 0 };
-	};
-
-	struct BoneWeight
-	{
-		float weight[MAX_WEIGHTS_PER_BONE] = { 0.f, 0.f, 0.f, 0.f };
-	};
-
-private:
 	void ComputeBBox();
 	void ProcessVertexTangent(const float vIndex1, const float vIndex2, const float vIndex3);
 	void CalculateTangents();
@@ -65,15 +66,15 @@ private:
 	void SetMeshBuffers();
 	void SetBboxBuffers();
 
-private:
-	unsigned VAO = 0;
-	unsigned VBO = 0;
-	unsigned EBO = 0;
+public:
+	unsigned VAO = 0u;
+	unsigned VBO = 0u;
+	unsigned EBO = 0u;
 
 	AABB boundingBox;
-	unsigned VAObox = 0;
-	unsigned VBObox = 0;
-	unsigned EBObox = 0;
+	unsigned VAObox = 0u;
+	unsigned VBObox = 0u;
+	unsigned EBObox = 0u;
 
 
 	

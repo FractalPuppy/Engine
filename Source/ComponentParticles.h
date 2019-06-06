@@ -1,6 +1,9 @@
 #ifndef __ComponentParticles_h__
 #define __ComponentParticles_h__
 
+#define MAX_DISTANCE 10000000.f
+#define MAX_RATE 10000000.f
+
 #include "Component.h"
 #include <string>
 #include "Math/float3.h"
@@ -51,7 +54,9 @@ public:
 	ComponentParticles(const ComponentParticles& component);
 	~ComponentParticles();
 
-
+	ENGINE_API void Play(float newPlayTime);
+	ENGINE_API void Stop();
+	
 	Component* Clone() const override;
 	void DrawProperties() override;
 	bool CleanUp() override;
@@ -67,14 +72,17 @@ public:
 	std::queue<Particle*> particlePool;
 
 private:
-
+	void Reset();
 	void alternateEmisor(int i);
 	void DrawDebugEmisor();
 	float3 randomSpherePoint(float3 center);
 
+public:
+	float PlayTime = 1.f;
+	float lastActive = 0.f;
+
 private:
 
-	std::string textureName = "None Selected";
 	std::vector<std::string> textureFiles;
 
 	std::vector<ParticleModule*> modules;
@@ -96,7 +104,7 @@ private:
 	float rateTimer = 1.f / rate;
 	int maxParticles = 50;
 	math::float2 particleSize = math::float2(1.f * App->renderer->current_scale, 1.f * App->renderer->current_scale) ;
-	float quadEmitterSize = 10.f * App->renderer->current_scale;
+	math::float2 quadEmitterSize = math::float2(10.f * App->renderer->current_scale);
 	float sphereEmitterRadius = 5.f * App->renderer->current_scale;
 	math::float4 particleColor = math::float4::one;
 	math::float3 pDir = math::float3(-1.f, 0.f, 0.f);
@@ -113,7 +121,12 @@ private:
 	bool sizeOTCheck = false;
 	bool colorOTCheck = false;
 
+	bool ConstantPlaying = true;
+	bool Playing = false;
 
+	bool billboarded = true;
+	bool localEmitter = false;
+	math::float3 lookAtTarget = math::float3::unitY;
 
 };
 

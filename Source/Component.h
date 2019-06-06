@@ -21,7 +21,8 @@ enum class ComponentType
 	Trail,
 	ReverbZone,
 	AudioListener,
-	AudioSource
+	AudioSource,
+	BoxTrigger
 };
 
 class ENGINE_API Component

@@ -14,6 +14,7 @@ public:
 	virtual ~ResourceScene();
 
 	void SaveMetafile(const char* file) const override;
+	void LoadConfigFromMeta() override;
 
 	// Scene especific
 	void Save(const GameObject &rootGO);

@@ -72,7 +72,7 @@ void Viewport::Draw(ComponentCamera * cam, bool isEditor)
 			return;
 		}
 		
-		if (ImGui::IsWindowHovered() || ImGui::IsWindowAppearing())
+		if (ImGui::IsAnyMouseDown() && ImGui::IsWindowHovered() || ImGui::IsWindowAppearing())
 		{
 			ImGui::SetWindowFocus();
 		}

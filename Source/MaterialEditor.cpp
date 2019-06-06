@@ -103,7 +103,7 @@ void MaterialEditor::TextureSelector(unsigned i, std::string &current_texture, i
 {
 	ImGui::PushID(id);
 
-	if (ImGui::BeginCombo("Texture", current_texture.c_str()))
+	if (ImGui::BeginCombo("Texture", material->textures[i] != nullptr ? material->textures[i]->GetName() : None))
 	{
 		bool none_selected = (current_texture == None);
 		if (ImGui::Selectable(None, none_selected))

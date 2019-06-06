@@ -26,7 +26,7 @@ ResourceModel::ResourceModel(const ResourceModel& resource) : Resource(resource)
 
 ResourceModel::~ResourceModel()
 {
-	DeleteFromMemory();
+	//DeleteFromMemory();
 }
 
 bool ResourceModel::LoadInMemory()
@@ -110,12 +110,17 @@ void ResourceModel::LoadConfigFromMeta()
 	}
 	JSON* json = new JSON(data);
 	JSON_value* value = json->GetValue("Mesh");
-	UID = value->GetUint("GUID");
 	numMeshes = value->GetUint("NumMeshes");
 	std::string name = App->fsystem->GetFilename(file);
 
-	// Update resource UID on resource list
-	App->resManager->ReplaceResource(oldUID, this);
+	// Make sure the UID from meta is the same
+	unsigned checkUID = value->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+	}
 
 	for (int i = 0; i < numMeshes; ++i)
 	{
@@ -231,11 +236,23 @@ void ResourceModel::Rename(const char* newName)
 
 	Resource::Rename(newName);
 
+	// Update exported file
+	exportedFile = App->fsystem->GetFile(file.c_str());
+
+	// Rename meshes
 	for (int i = 0; i < meshList.size(); ++i)
 	{
 		std::string name(newName);
 		meshList[i]->Rename((name + "_" + std::to_string(i)).c_str());
 		meshList[i]->SetFile(file.c_str());		// Update file variable
+	}
+
+	// Rename animations
+	for (int i = 0; i < animationList.size(); ++i)
+	{
+		std::string name(newName);
+		animationList[i]->Rename((name + "_" + std::to_string(i)).c_str());
+		animationList[i]->SetFile(file.c_str());		// Update file variable
 	}
 }
 

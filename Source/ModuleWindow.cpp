@@ -2,9 +2,13 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
+#include "Viewport.h"
+
 #include "imgui.h"
 #include "SDL.h"
 #include "JSON.h"
+
+#include <sstream>
 
 ModuleWindow::ModuleWindow()
 {
@@ -72,8 +76,9 @@ bool ModuleWindow::Init(JSON * config)
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		std::stringstream titleVersion;
+		titleVersion << TITLE << " " << VERSION_BUILD;
+		window = SDL_CreateWindow(titleVersion.str().c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
 		{
@@ -124,6 +129,26 @@ void ModuleWindow::Resize(int width, int height)
 	this->width = width;
 	this->height = height;
 	App->renderer->OnResize();
+}
+
+math::float2 ModuleWindow::GetWindowSize() const
+{
+#ifdef GAME_BUILD
+	return math::float2(width, height);
+#else
+	Viewport* viewport = App->renderer->GetActiveViewport();
+	return math::float2(viewport->current_width, viewport->current_height);
+#endif // GAME_BUILD
+
+}
+
+math::float2 ModuleWindow::GetWindowPos() const
+{
+#ifdef GAME_BUILD
+	return math::float2::zero;
+#else
+	return App->renderer->GetActiveViewport()->winPos;
+#endif // GAME_BUILD
 }
 
 void ModuleWindow::DrawGUI()

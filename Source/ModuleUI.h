@@ -1,6 +1,8 @@
 #ifndef __ModuleUI_H__
 #define __ModuleUI_H__
 
+#define MASK_DIVISIONS 20
+
 #include "Module.h"
 #include <list>
 
@@ -32,6 +34,7 @@ public:
 	int currentHeight;
 	bool showUIinSceneViewport = false;
 
+
 private:
 	void GenerateVAO(unsigned& vao, float quadVertices[16]);
 	void RenderImage(const ComponentImage& componentImage, int currentWidth, int currentHeight);
@@ -44,6 +47,8 @@ private:
 	unsigned VAO_FH = 0;
 	unsigned VBO = 0;
 	unsigned EBO = 0;
+
+	float mask[MASK_DIVISIONS];
 };
 
 #endif // __ModuleUI_H__

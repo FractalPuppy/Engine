@@ -6,6 +6,7 @@
 
 class ResourceMesh;
 class ResourceMaterial;
+struct BindBone;
 
 class ComponentRenderer :
 	public Component
@@ -26,7 +27,9 @@ public:
 	ENGINE_API void SetMaterial(const char* materialName);
 	void SetMesh(const char* meshfile);
 	void UpdateGameObject();
-	void LinkBones() const;
+	void LinkBones();
+
+	void DrawMesh(unsigned shaderProgram);
 
 public:
 	ResourceMesh* mesh = nullptr;
@@ -39,6 +42,8 @@ public:
 private:
 	std::vector<std::string> guiMaterials;
 	std::vector<std::string> guiMeshes;
+
+	std::vector<BindBone> bindBones;
 };
 
 #endif __ComponentRenderer_h__

@@ -81,7 +81,8 @@ void main()
 	vec3 tan = (skin_t*vec4(vertex_tangent, 0.0)).xyz; // 0.0 avoid translation
 #else
 	position = (model * vec4(vertex_position, 1.0)).xyz;
-	normalIn = mat3(model) * vertex_normal;
+	//normalIn = mat3(model) * vertex_normal;
+	normalIn = mat3(transpose(inverse(model))) * vertex_normal; //Temporary
 	vec3 tan = mat3(model) * vertex_tangent;
 #endif
 #ifdef SHADOWS_ENABLED

@@ -37,7 +37,7 @@ ModuleScript::~ModuleScript()
 	}
 }
 
-bool ModuleScript::Start()
+bool ModuleScript::Init(JSON* config)
 {
 	SetDllDirectory(SCRIPTS);
 	CheckScripts();
@@ -47,6 +47,14 @@ bool ModuleScript::Start()
 
 update_status ModuleScript::Update(float dt)
 {
+	if (dllRemoveList.size() > 0)
+	{
+		for (std::string name : dllRemoveList)
+		{
+			RemoveDLL(name);
+		}
+		dllRemoveList.clear();
+	}
 	if (App->time->gameState == GameState::RUN)
 	{
 		if (onStart)
@@ -55,7 +63,7 @@ update_status ModuleScript::Update(float dt)
 			{
 				if (script->gameobject->isActive())
 				{
-					script->Awake();
+ 					script->Awake();
 					script->hasBeenAwoken = true;
 				}
 			}
@@ -140,6 +148,17 @@ Script* ModuleScript::GetScript(const std::string& name)
 	if (itDll != loadedDLLs.end())
 	{
 		dll = itDll->second.first;
+		if (itDll->second.second == 0)
+		{
+			for (size_t i = 0; i < dllRemoveList.size(); i++)
+			{
+				if (name == dllRemoveList[i])
+				{
+					std::swap(dllRemoveList[i], dllRemoveList.back());
+					dllRemoveList.pop_back();
+				}
+			}
+		}
 		itDll->second.second++;
 	}
 	else
@@ -176,24 +195,35 @@ bool ModuleScript::RemoveScript(Script* script, const std::string& name)
 	if (itDll != loadedDLLs.end())
 	{
 		componentsScript.remove(script);
-		RELEASE(script);
-		if (itDll->second.second <= 1)
+		itDll->second.second--;
+		if(itDll->second.second == 0)
 		{
-			if (!FreeLibrary(itDll->second.first))
-			{
-				LOG("CAN'T RELEASE %s", name);
-				return false;
-			}
-			loadedDLLs.erase(itDll);
-		}
-		else
-		{
-			itDll->second.second--;
+			dllRemoveList.push_back(name);
 		}
 	}
 	else
 	{
-		LOG("Script %s Not Found!", name);
+		LOG("DLL %s Not Found!", name);
+		return false;
+	}
+	return true;
+}
+
+bool ModuleScript::RemoveDLL(const std::string& name)
+{
+	std::map<std::string, std::pair<HINSTANCE, int>>::iterator itDll = loadedDLLs.find(name);
+	if (itDll != loadedDLLs.end())
+	{
+		if (!FreeLibrary(itDll->second.first))
+		{
+			LOG("CAN'T RELEASE %s", name);
+			return false;
+		}
+		loadedDLLs.erase(itDll);
+	}
+	else
+	{
+		LOG("DLL %s Not Found!", name);
 		return false;
 	}
 	return true;

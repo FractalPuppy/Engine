@@ -9,14 +9,18 @@
 
 #include "BaseScript.h"
 #include "Math/float3.h"
+#include <vector>
 
-class GameObject;
-class ComponentAnimation;
-class ComponentRenderer;
-class PlayerMovement;
 class EnemyControllerScript;
 class JSON_value;
-enum class EnemyState;
+class EnemyState;
+class EnemyStatePatrol;
+class EnemyStateChase;
+class EnemyStateReturnToStart;
+class EnemyStateAttack;
+class EnemyStateCooldown;
+class EnemyStateDeath;
+
 
 class BasicEnemyAIScript_API BasicEnemyAIScript : public Script
 {
@@ -28,27 +32,25 @@ public:
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
-
 private:
-	void Wait();
-	void StandUp();
-	void Chase();
-	void ReturnToStartPosition();
-	void Laydown();
-	void Attack();
-	void Cooldown();
-	void Die();
+	void CheckStates(EnemyState* previous, EnemyState* current);
 
-	void MoveTowards(float speed) const;
-	void CheckStateChange(EnemyState previous, EnemyState newState);
+	void DrawDebug() const;
 
-private:
-	// Wait variables
+public:
+	EnemyState* currentState = nullptr;
+
+	EnemyStatePatrol* patrol = nullptr;
+	EnemyStateChase* chase = nullptr;
+	EnemyStateReturnToStart* returnToStart = nullptr;
+	EnemyStateAttack* attack = nullptr;
+	EnemyStateCooldown* cooldown = nullptr;
+	EnemyStateDeath* death = nullptr;
+
+	bool drawDebug = true;				// If true will draw all debug for enemy behaviour
+
+	// Patrol variables
 	float activationDistance = 100.0f;	// Distance to player needed to start chasing the player (only X,Z axis is taken into account)
-
-	// Stand-Up variables
-	float standupSpeed = 1.0f;			// Tranlation speed on stand-up
-	float yTranslation = 20.0f;			// Y axis translation on stand-up 
 
 	// Chase variables
 	float chaseSpeed = 2.0f;			// Tranlation speed when chasing player
@@ -58,19 +60,17 @@ private:
 	float returnDistance = 150.f;		// Distance to player to stop chasing player and return to start position
 	float returnSpeed = 1.0f;			// Tranlation speed towards start position
 
+	// Attack variables
+	float attackDuration = 1.0f;
+	float attackDamage = 20.0f;
+
 	// Cooldown variables
 	float cooldownTime = 1.0f;			// Seconds to wait between attacks
 
-	float auxTranslation = 0.0f;
-	float auxTimer = 0.0f;
+	EnemyControllerScript* enemyController = nullptr;
 
-	//Damage variables
-	float damage = 20.0f;
-
-	ComponentAnimation* anim = nullptr;
-
-	EnemyControllerScript* enemyController;
-	PlayerMovement* playerScript;
+private:
+	std::vector<EnemyState*> enemyStates;
 };
 
 #endif __BasicEnemyAIScript_h__

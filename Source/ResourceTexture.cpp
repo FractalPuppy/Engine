@@ -292,10 +292,16 @@ void ResourceTexture::LoadConfigFromMeta()
 	}
 	JSON* json = new JSON(data);
 	JSON_value* value = json->GetValue("Texture");
-	UID = value->GetUint("GUID");
 
-	// Update resource UID on resource list
-	App->resManager->ReplaceResource(oldUID, this);
+	// Make sure the UID from meta is the same
+	unsigned checkUID = value->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+		exportedFile = TEXTURES + std::to_string(UID) + TEXTUREEXT;
+	}
 
 	dxtFormat = (DXT)value->GetInt("DX compresion");
 

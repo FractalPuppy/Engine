@@ -306,7 +306,7 @@ Quat JSON_value::GetQuat(const char * name) const
 	}
 }
 
-const char* JSON_value::GetString(const char * name) const
+const char* JSON_value::GetString(const char * name, const char* defaultValue) const
 {
 	rapidjson::Value::ConstMemberIterator itr = rapidjsonValue->FindMember(name);
 	if (itr != rapidjsonValue->MemberEnd())
@@ -315,8 +315,7 @@ const char* JSON_value::GetString(const char * name) const
 	}
 	else
 	{
-		LOG("Member %s not found!", name);
-		return nullptr;
+		return defaultValue;
 	}
 }
 

@@ -77,7 +77,7 @@ public:
 	void RemoveNode(unsigned UID);
 	void RemoveTransition(unsigned UID);
 
-	void ReceiveTrigger(HashString trigger, float &blend);
+	void ReceiveTrigger(HashString trigger, float &blend, unsigned &node);
 
 	bool isClipsEmpty() { return clips.empty(); }
 	bool isNodesEmpty() { return nodes.empty(); }
