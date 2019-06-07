@@ -91,6 +91,11 @@ public:
 	ComponentTransform* transform = nullptr;
 	PlayerState* currentState = nullptr;
 
+	float dashDuration = 1.f;
+	float firstAttackDuration = 1.f;
+	float secondAttackDuration = 1.f;
+	float thirdAttackDuration = 1.f;
+	float uppercutDuration = 1.f;
 	math::float3 hpHitBoxSize = math::float3::zero;
 
 private:
