@@ -104,8 +104,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathGeoLib.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Soloud\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MathGeoLib.lib;Soloud.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -126,8 +126,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathGeoLib.lib;DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Soloud\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MathGeoLib.lib;Soloud.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -151,8 +151,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathGeoLib.lib;DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Soloud\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MathGeoLib.lib;Soloud.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -176,8 +176,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathGeoLib.lib;DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Soloud\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MathGeoLib.lib;Soloud.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>

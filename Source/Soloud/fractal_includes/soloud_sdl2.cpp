@@ -44,7 +44,6 @@ namespace SoLoud
 #endif
 #include <math.h>
 
-
 extern "C"
 {
 	int dll_SDL2_found();
