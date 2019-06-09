@@ -23,6 +23,7 @@ public:
 
 public:
 	bool enabled = false;
+	float duration = 0.f;
 	PlayerMovement* player = nullptr;
 	std::string trigger;
 	float timer = 0.f;
@@ -33,6 +34,7 @@ protected:
 	math::float3 boxPosition = math::float3::zero;
 	float minTime = 0.f;
 	float maxTime = 0.f;
+
 	bool hitboxCreated = false;
 };
 

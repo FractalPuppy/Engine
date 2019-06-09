@@ -104,8 +104,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -209,7 +209,6 @@
     <ClInclude Include="debugdraw.h" />
     <ClInclude Include="debug_draw.hpp" />
     <ClInclude Include="DetourDebugInterface.h" />
-    <ClInclude Include="DetourPoints.h" />
     <ClInclude Include="FileExplorer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.h" />
@@ -322,36 +321,13 @@
     <ClInclude Include="PanelTime.h" />
     <ClInclude Include="par_shapes.h" />
     <ClInclude Include="Point.h" />
-    <ClInclude Include="engineResource.h" />
     <ClInclude Include="Recast\DebugUtils\DebugDraw.h" />
-    <ClInclude Include="Recast\DebugUtils\DetourDebugDraw.h" />
-    <ClInclude Include="Recast\DebugUtils\RecastDebugDraw.h" />
-    <ClInclude Include="Recast\DebugUtils\RecastDump.h" />
-    <ClInclude Include="Recast\DetourCrowd\DetourCrowd.h" />
-    <ClInclude Include="Recast\DetourCrowd\DetourLocalBoundary.h" />
-    <ClInclude Include="Recast\DetourCrowd\DetourObstacleAvoidance.h" />
-    <ClInclude Include="Recast\DetourCrowd\DetourPathCorridor.h" />
-    <ClInclude Include="Recast\DetourCrowd\DetourPathQueue.h" />
-    <ClInclude Include="Recast\DetourCrowd\DetourProximityGrid.h" />
-    <ClInclude Include="Recast\DetourTileCache\DetourTileCache.h" />
-    <ClInclude Include="Recast\DetourTileCache\DetourTileCacheBuilder.h" />
-    <ClInclude Include="Recast\Detour\DetourAlloc.h" />
-    <ClInclude Include="Recast\Detour\DetourAssert.h" />
-    <ClInclude Include="Recast\Detour\DetourCommon.h" />
-    <ClInclude Include="Recast\Detour\DetourMath.h" />
-    <ClInclude Include="Recast\Detour\DetourNavMesh.h" />
-    <ClInclude Include="Recast\Detour\DetourNavMeshBuilder.h" />
-    <ClInclude Include="Recast\Detour\DetourNavMeshQuery.h" />
-    <ClInclude Include="Recast\Detour\DetourNode.h" />
-    <ClInclude Include="Recast\Detour\DetourStatus.h" />
-    <ClInclude Include="Recast\Recast\Recast.h" />
-    <ClInclude Include="Recast\Recast\RecastAlloc.h" />
-    <ClInclude Include="Recast\Recast\RecastAssert.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceAnimation.h" />
     <ClInclude Include="ResourceMaterial.h" />
     <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="ResourceModel.h" />
+    <ClInclude Include="ResourcePrefab.h" />
     <ClInclude Include="ResourceScene.h" />
     <ClInclude Include="ResourceSkybox.h" />
     <ClInclude Include="ResourceTexture.h" />
@@ -418,7 +394,6 @@
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="ComponentTransform2D.cpp" />
     <ClCompile Include="DetourDebugInterface.cpp" />
-    <ClCompile Include="DetourPoints.cpp" />
     <ClCompile Include="FileExplorer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GUICreator.cpp" />
@@ -501,40 +476,12 @@
     <ClCompile Include="PanelResourceManager.cpp" />
     <ClCompile Include="PanelTime.cpp" />
     <ClCompile Include="Recast\DebugUtils\DebugDraw.cpp" />
-    <ClCompile Include="Recast\DebugUtils\DetourDebugDraw.cpp" />
-    <ClCompile Include="Recast\DebugUtils\RecastDebugDraw.cpp" />
-    <ClCompile Include="Recast\DebugUtils\RecastDump.cpp" />
-    <ClCompile Include="Recast\DetourCrowd\DetourCrowd.cpp" />
-    <ClCompile Include="Recast\DetourCrowd\DetourLocalBoundary.cpp" />
-    <ClCompile Include="Recast\DetourCrowd\DetourObstacleAvoidance.cpp" />
-    <ClCompile Include="Recast\DetourCrowd\DetourPathCorridor.cpp" />
-    <ClCompile Include="Recast\DetourCrowd\DetourPathQueue.cpp" />
-    <ClCompile Include="Recast\DetourCrowd\DetourProximityGrid.cpp" />
-    <ClCompile Include="Recast\DetourTileCache\DetourTileCache.cpp" />
-    <ClCompile Include="Recast\DetourTileCache\DetourTileCacheBuilder.cpp" />
-    <ClCompile Include="Recast\Detour\DetourAlloc.cpp" />
-    <ClCompile Include="Recast\Detour\DetourAssert.cpp" />
-    <ClCompile Include="Recast\Detour\DetourCommon.cpp" />
-    <ClCompile Include="Recast\Detour\DetourNavMesh.cpp" />
-    <ClCompile Include="Recast\Detour\DetourNavMeshBuilder.cpp" />
-    <ClCompile Include="Recast\Detour\DetourNavMeshQuery.cpp" />
-    <ClCompile Include="Recast\Detour\DetourNode.cpp" />
-    <ClCompile Include="Recast\Recast\Recast.cpp" />
-    <ClCompile Include="Recast\Recast\RecastAlloc.cpp" />
-    <ClCompile Include="Recast\Recast\RecastArea.cpp" />
-    <ClCompile Include="Recast\Recast\RecastAssert.cpp" />
-    <ClCompile Include="Recast\Recast\RecastContour.cpp" />
-    <ClCompile Include="Recast\Recast\RecastFilter.cpp" />
-    <ClCompile Include="Recast\Recast\RecastLayers.cpp" />
-    <ClCompile Include="Recast\Recast\RecastMesh.cpp" />
-    <ClCompile Include="Recast\Recast\RecastMeshDetail.cpp" />
-    <ClCompile Include="Recast\Recast\RecastRasterization.cpp" />
-    <ClCompile Include="Recast\Recast\RecastRegion.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceAnimation.cpp" />
     <ClCompile Include="ResourceMaterial.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="ResourceModel.cpp" />
+    <ClCompile Include="ResourcePrefab.cpp" />
     <ClCompile Include="ResourceScene.cpp" />
     <ClCompile Include="ResourceSkybox.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
@@ -570,7 +517,6 @@
     <ClCompile Include="Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\Scripts\PlayerMovement.dll" />
     <None Include="..\Game\Shaders\FragmentShaders\DebugNav.fs" />
     <None Include="..\Game\Shaders\FragmentShaders\Default.fs" />
     <None Include="..\Game\Shaders\FragmentShaders\Fonts.fs" />
@@ -592,9 +538,6 @@
     <None Include="..\Game\Shaders\VertexShaders\Trail.vs" />
     <None Include="..\Game\Shaders\VertexShaders\UI.vs" />
     <None Include="NodeEditor\Include\ax\Math2D.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

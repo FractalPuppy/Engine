@@ -14,8 +14,11 @@
 #include "ModuleResourceManager.h"
 #include "ModuleFileSystem.h"
 #include "ModuleInput.h"
-#include "ModuleTextures.h"
+#include "ModuleScene.h"
 #include "GameObject.h"
+
+#include "ResourceTexture.h"
+#include "ResourcePrefab.h"
 
 // Icons
 #define FOLDER_ICON			IMPORTED_RESOURCES "folderIconBlue.dds"
@@ -31,6 +34,7 @@
 #define SC3NE_ICON			IMPORTED_RESOURCES "sc3neIconBlue.dds"
 #define ANIMATI0N_ICON		IMPORTED_RESOURCES "animati0nIconBlue.dds"
 #define ST4TEM4CHINE_ICON	IMPORTED_RESOURCES "st4tem4chineIconBlue.dds"
+#define PR3FAB_ICON			IMPORTED_RESOURCES "pr3fabIconBlue.dds"
 
 // ImGui elements sizes:
 #define WINDOW_LOW_MARGIN 60
@@ -97,6 +101,7 @@ bool PanelBrowser::Init()
 	sc3neIcon = (ResourceTexture*)App->resManager->Get(SC3NE_ICON);
 	animati0nIcon = (ResourceTexture*)App->resManager->Get(ANIMATI0N_ICON);
 	st4tem4chineIcon = (ResourceTexture*)App->resManager->Get(ST4TEM4CHINE_ICON);
+	pr3fabIcon = (ResourceTexture*)App->resManager->Get(PR3FAB_ICON);
 
 	if (folderIcon == nullptr || fileIcon == nullptr || fbxIcon == nullptr || pngIcon == nullptr || jpgIcon == nullptr
 		|| tgaIcon == nullptr || tifIcon == nullptr || ddsIcon == nullptr || m4tIcon == nullptr || jsonIcon == nullptr 
@@ -301,7 +306,8 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 	else if (extension == SCENEEXTENSION)		{ ImGui::ImageButton(sc3neIcon != nullptr ? (ImTextureID)sc3neIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 	else if (extension == ANIMATIONEXTENSION)	{ ImGui::ImageButton(animati0nIcon != nullptr ? (ImTextureID)animati0nIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 	else if (extension == STATEMACHINEEXTENSION){ ImGui::ImageButton(st4tem4chineIcon != nullptr ? (ImTextureID)st4tem4chineIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else								{ ImGui::ImageButton(fileIcon != nullptr ? (ImTextureID)fileIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else if (extension == PREFABEXTENSION)		{ ImGui::ImageButton(pr3fabIcon != nullptr ? (ImTextureID)pr3fabIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else										{ ImGui::ImageButton(fileIcon != nullptr ? (ImTextureID)fileIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 
 	if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
@@ -309,6 +315,31 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 		unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
 		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
 		ImGui::OpenPopup("File Context Menu");
+	}
+	else if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (App->fsystem->GetExtension(file) == PREFABEXTENSION)
+		{
+			unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), TYPE::PREFAB);
+
+			dragAsset = new GameObject();
+			dragAsset->UUID = 2; //dummy value for passing uuid > 1 check
+			dragAsset->isPrefab = true;
+			dragAsset->prefabUID = selectedUID;
+			dragAsset->isDropablePlaceHolder = true;
+			dragAsset->name = "Prefab";
+		}
+		//else TODO: Scenes or FBX drop
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && dragAsset != nullptr)
+	{
+		App->scene->DragNDrop(dragAsset);
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && dragAsset != nullptr)
+	{
+		dragAsset->CleanUp();
+		RELEASE(dragAsset);
 	}
 
 	ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));

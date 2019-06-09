@@ -20,7 +20,7 @@ PlayerStateUppercut::~PlayerStateUppercut()
 
 void PlayerStateUppercut::Update()
 {
-	if (player->attackBoxTrigger != nullptr && !hitboxCreated && timer > player->uppercutDuration * minTime && timer < player->uppercutDuration * maxTime)
+	if (player->attackBoxTrigger != nullptr && !hitboxCreated && timer > duration * minTime && timer < duration * maxTime)
 	{
 		//Create the hitbox
 		player->attackBoxTrigger->Enable(true);
@@ -29,7 +29,7 @@ void PlayerStateUppercut::Update()
 		player->attackBoxTrigger->SetBoxPosition(boxPosition.x, boxPosition.y, boxPosition.z + 100.f);
 		hitboxCreated = true;
 	}
-	if (player->attackBoxTrigger != nullptr && hitboxCreated && timer > player->uppercutDuration* maxTime)
+	if (player->attackBoxTrigger != nullptr && hitboxCreated && timer > duration * maxTime)
 	{
 		player->attackBoxTrigger->Enable(false);
 		hitboxCreated = false;
@@ -48,7 +48,7 @@ void PlayerStateUppercut::Exit()
 
 void PlayerStateUppercut::CheckInput()
 {
-	if (timer > player->uppercutDuration) // can switch??¿?¿?
+	if (timer > duration) // can switch??¿?¿?
 	{
 		if (player->IsAtacking())
 		{

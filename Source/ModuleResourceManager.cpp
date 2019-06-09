@@ -16,6 +16,7 @@
 #include "ResourceStateMachine.h"
 #include "ResourceAnimation.h"
 #include "ResourceSkybox.h"
+#include "ResourcePrefab.h"
 #include "ResourceScene.h"
 
 #include "FileImporter.h"
@@ -291,6 +292,10 @@ bool ModuleResourceManager::ImportFile(const char* newFileInAssets, const char* 
 		}
 		exportedFile = IMPORTED_STATEMACHINES + std::to_string(resource->GetUID()) + STATEMACHINEEXTENSION;
 		break;
+	case TYPE::PREFAB: //TODO: update reimport PREFAB
+		success = App->fsystem->importer.ImportPrefab(newFileInAssets, filePath, (ResourcePrefab*)resource);
+		exportedFile = IMPORTED_PREFABS + std::to_string(resource->GetUID()) + PREFABEXTENSION;
+		break;
 	}
 
 	// If export was successful, create a new resource
@@ -360,6 +365,8 @@ bool ModuleResourceManager::ReImportFile(Resource* resource, const char* filePat
 				std::to_string(resource->GetUID()).c_str());
 		}
 		break;
+	case TYPE::PREFAB:
+		success = App->fsystem->importer.ImportPrefab(file.c_str(), filePath, (ResourcePrefab*)resource);
 	}
 
 	// If export was successful, update resource
@@ -401,6 +408,7 @@ Resource* ModuleResourceManager::CreateNewResource(TYPE type, unsigned forceUid)
 	case TYPE::MATERIAL:		resource = (Resource*) new ResourceMaterial(uid);		break;
 	case TYPE::SKYBOX:			resource = (Resource*) new ResourceSkybox(uid);			break;
 	case TYPE::STATEMACHINE:	resource = (Resource*) new ResourceStateMachine(uid);	break;
+	case TYPE::PREFAB:          resource = (Resource*) new ResourcePrefab(uid); break;
 	/*case TYPE::AUDIO:			resource = (Resource*) new ResourceAudio(uid);			break;*/
 	}
 
@@ -635,6 +643,7 @@ TYPE ModuleResourceManager::GetResourceType(FILETYPE fileType) const
 	case FILETYPE::SKYBOX:				return TYPE::SKYBOX;		break;
 	case FILETYPE::STATEMACHINE:		return TYPE::STATEMACHINE;	break;
 	case FILETYPE::AUDIO:				return TYPE::AUDIO;			break;
+	case FILETYPE::PREFAB:				return TYPE::PREFAB;		break;
 	default:
 	case FILETYPE::NONE:				return TYPE::UNKNOWN;		break;
 	}
@@ -813,7 +822,7 @@ unsigned ModuleResourceManager::GetUIDFromMeta(const char* metaFile, FILETYPE fi
 	}
 
 	JSON* json = new JSON(data);
-	JSON_value* value;
+	JSON_value* value = nullptr;
 	TYPE type = GetResourceType(fileType);
 	switch (type)
 	{
@@ -824,11 +833,19 @@ unsigned ModuleResourceManager::GetUIDFromMeta(const char* metaFile, FILETYPE fi
 	case TYPE::SCENE:		value = json->GetValue("Scene");		break;
 	case TYPE::ANIMATION:	value = json->GetValue("Animation");	break;
 	case TYPE::STATEMACHINE:value = json->GetValue("StateMachine");	break;
+	case TYPE::PREFAB:      value = json->GetValue("Prefab");		break;
 	default:
 		return 0;
 		break;
-	}	 
-	return value->GetUint("GUID");
+	}
+	if (value != nullptr)
+	{
+		return value->GetUint("GUID");
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 void ModuleResourceManager::CleanUnusedMetaFiles() const

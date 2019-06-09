@@ -23,7 +23,6 @@ public:
 	math::float3 intersectionPoint;
 	std::vector<float3>path;
 	unsigned pathIndex = 0;
-	float duration = 0.8f;
 	float dashSpeed = 900.0f;
 	float dashPreparationTime = 0.1f;
 

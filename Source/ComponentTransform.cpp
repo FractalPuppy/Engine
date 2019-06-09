@@ -373,7 +373,11 @@ void ComponentTransform::Paste()
 
 void ComponentTransform::Reset()
 {
-	position = math::float3(0.f, 0.f, 0.f);
-	eulerRotation = math::float3(0.f, 0.f, 0.f);
-	scale = math::float3(1.0f, 1.0f, 1.0f);
+	math::float3 position = math::float3::zero;
+	rotation = math::Quat::identity;
+	math::float3 eulerRotation = math::float3::zero;
+	math::float3 scale = math::float3::one;
+	math::float4x4 local = math::float4x4::identity;
+	math::float4x4 animatedLocal = math::float4x4::identity;
+	math::float4x4 global = math::float4x4::identity;
 }

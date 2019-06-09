@@ -88,6 +88,7 @@ void ResourceModel::SaveMetafile(const char* file) const
 
 	filepath += METAEXT;
 	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+	RELEASE(json);
 }
 
 void ResourceModel::LoadConfigFromMeta()
@@ -148,7 +149,7 @@ void ResourceModel::LoadConfigFromMeta()
 
 		animationList.push_back(anim);
 	}
-
+	RELEASE(json);
 }
 
 bool ResourceModel::CheckImportedMeshes()

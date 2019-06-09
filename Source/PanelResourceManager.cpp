@@ -13,6 +13,7 @@
 #include "ResourceSkybox.h"
 #include "ResourceAnimation.h."
 #include "ResourceScene.h"
+#include "ResourcePrefab.h"
 
 #include "imgui.h"
 #include <algorithm>
@@ -166,6 +167,7 @@ void PanelResourceManager::Draw()
 		case TYPE::MATERIAL:	!engineResource ? ImGui::Text("Material")		: ImGui::TextDisabled("Material");		break;
 		case TYPE::SKYBOX:		!engineResource ? ImGui::Text("Skybox")			: ImGui::TextDisabled("Skybox");		break;
 		case TYPE::STATEMACHINE:!engineResource ? ImGui::Text("StateMachine")	: ImGui::TextDisabled("StateMachine");	break;
+		case TYPE::PREFAB:		!engineResource ? ImGui::Text("Prefab")			: ImGui::TextDisabled("Prefab");		break;
 		default:
 		case TYPE::UNKNOWN:		!engineResource ? ImGui::Text("Unknown")		: ImGui::TextDisabled("Unknown");		break;
 		}
@@ -201,6 +203,7 @@ void PanelResourceManager::Draw()
 		case TYPE::MATERIAL:	DrawResourceMaterial(); break;
 		case TYPE::SKYBOX:		DrawResourceSkybox();	break;
 		case TYPE::STATEMACHINE: DrawResourceSM();		break;
+		case TYPE::PREFAB:		DrawResourcePrefab();	break;
 		}
 	}
 	ImGui::End();
@@ -293,7 +296,7 @@ void PanelResourceManager::OpenResourceEditor()
 			}
 
 			// Type
-			const char* types[] = { "Texture", "Model", "Mesh", "Audio", "Scene", "Animation", "Material", "Skybox", "State Machine", "Unknown" };
+			const char* types[] = { "Texture", "Model", "Mesh", "Audio", "Scene", "Animation", "Material", "Skybox", "State Machine", "Prefab", "Unknown" };
 			int type = (int)auxResource->GetType();
 			if (ImGui::BeginCombo("Type", types[type]))
 			{
@@ -558,6 +561,23 @@ void PanelResourceManager::DrawResourceSM()
 	ImGui::NextColumn();
 	// TODO: [Resource Manager] Add preview of the skybox on a sphere
 
+	ImGui::End();
+}
+
+void PanelResourceManager::DrawResourcePrefab()
+{
+	if (!ImGui::Begin("Prefab Manager"))
+	{
+		ImGui::End();
+		return;
+	}
+	ResourcePrefab& prefab = *(ResourcePrefab*)previous;
+	std::string exportedFile(prefab.GetExportedFile());
+	ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), (exportedFile + ":").c_str());
+	ImGui::Columns(2);
+	ImGui::Text("Name: %s", prefab.GetName());
+	ImGui::NextColumn();
+	// TODO: [Resource Manager] Add preview of the prefab
 	ImGui::End();
 }
 

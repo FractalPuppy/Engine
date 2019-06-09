@@ -270,6 +270,7 @@ void ResourceTexture::SaveMetafile(const char* file) const
 	json->AddValue("Texture", *meta);
 	filepath += METAEXT;
 	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+	RELEASE(json);
 }
 
 void ResourceTexture::LoadConfigFromMeta()
@@ -320,6 +321,8 @@ void ResourceTexture::LoadConfigFromMeta()
 	case DXT::ATI1N:	compression = 5; break;
 	case DXT::DXT1A:	compression = 6; break;
 	}
+
+	RELEASE(json);
 }
 
 void ResourceTexture::DrawImportConfiguration()

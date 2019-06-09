@@ -41,10 +41,19 @@ ComponentLight::ComponentLight(const ComponentLight& component) : Component(comp
 	outer = component.outer;
 	range = component.range;
 	intensity = component.intensity;
+	type = component.type;
+
 	pointSphere = Sphere(component.pointSphere);
 	App->scene->lights.push_back(this);
 
+	CalculateGuizmos();
 	produceShadows = component.produceShadows;
+}
+
+
+ComponentLight* ComponentLight::Clone() const
+{
+	return new ComponentLight(*this);
 }
 
 ComponentLight::~ComponentLight()
@@ -249,23 +258,6 @@ void ComponentLight::Reset()
 	inner = 20.f;
 	outer = 25.f;
 	CalculateGuizmos();
-}
-
-ComponentLight* ComponentLight::Clone() const
-{
-	ComponentLight* newLight = new ComponentLight(gameobject);
-	newLight->range = range;
-	newLight->inner = inner;
-	newLight->outer = outer;
-	newLight->intensity = intensity;
-	newLight->type = type;
-	newLight->lightType = lightType;
-	newLight->color = color;
-	newLight->direction = direction;
-	newLight->pointSphere = Sphere(pointSphere);
-	newLight->CalculateGuizmos();
-	newLight->produceShadows = produceShadows;
-	return newLight;
 }
 
 void ComponentLight::ResetValues()

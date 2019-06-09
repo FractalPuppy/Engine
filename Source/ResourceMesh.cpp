@@ -200,6 +200,8 @@ void ResourceMesh::SetMesh(const char* meshData)
 	assert(meshData != nullptr);
 	if (meshData == nullptr) return;
 
+	const char* data = meshData; //base pointer used to release
+
 	unsigned numIndices = *(int*)meshData;
 	meshData += sizeof(int);
 
@@ -317,6 +319,8 @@ void ResourceMesh::SetMesh(const char* meshData)
 	ComputeBBox();
 	SetMeshBuffers();
 	SetBboxBuffers();
+
+	RELEASE_ARRAY(data);
 }
 
 void ResourceMesh::SetMeshBuffers()

@@ -56,7 +56,7 @@ public:
 	math::float3 position = math::float3::zero;
 	math::Quat rotation = math::Quat::identity;
 	math::float3 eulerRotation = math::float3::zero;
-	math::float3 scale = math::float3::zero;
+	math::float3 scale = math::float3::one;
 	math::float4x4 local = math::float4x4::identity;
 	math::float4x4 animatedLocal = math::float4x4::identity;
 	math::float4x4 global = math::float4x4::identity;

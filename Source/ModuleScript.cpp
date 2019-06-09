@@ -8,7 +8,7 @@
 #include "Component.h"
 
 #include "BaseScript.h"
-#include "engineResource.h"
+//#include "engineResource.h"
 #include "MemoryModule.h"
 
 #include <assert.h>

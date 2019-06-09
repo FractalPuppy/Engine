@@ -30,6 +30,7 @@ private:
 	void DrawResourceAnimation();
 	void DrawResourceSkybox();
 	void DrawResourceSM();
+	void DrawResourcePrefab();
 	void CleanUp();
 
 private:

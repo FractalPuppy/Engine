@@ -15,7 +15,7 @@ PlayerStateAttack::~PlayerStateAttack()
 
 void PlayerStateAttack::Update()
 {
-	if (player->attackBoxTrigger != nullptr && !hitboxCreated && timer > player->firstAttackDuration * minTime && timer < player->firstAttackDuration * maxTime)
+	if (player->attackBoxTrigger != nullptr && !hitboxCreated && timer > duration * minTime && timer < duration * maxTime)
 	{
 		//Create the hitbox
 		player->attackBoxTrigger->Enable(true);
@@ -24,7 +24,7 @@ void PlayerStateAttack::Update()
 		player->attackBoxTrigger->SetBoxPosition(boxPosition.x, boxPosition.y, boxPosition.z + 100.f);
 		hitboxCreated = true;
 	}
-	if (player->attackBoxTrigger != nullptr && hitboxCreated && timer > player->firstAttackDuration* maxTime)
+	if (player->attackBoxTrigger != nullptr && hitboxCreated && timer > duration * maxTime)
 	{
 		player->attackBoxTrigger->Enable(false);
 		hitboxCreated = false;

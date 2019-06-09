@@ -387,104 +387,13 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="Recast\DebugUtils\DebugDraw.cpp" />
-    <ClCompile Include="Recast\Recast\Recast.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastAlloc.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastArea.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastAssert.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastContour.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DebugUtils\RecastDebugDraw.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DebugUtils\RecastDump.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastFilter.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastLayers.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastMesh.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastMeshDetail.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastRasterization.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastRegion.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourAlloc.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourAssert.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourCommon.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourCrowd.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DebugUtils\DetourDebugDraw.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourLocalBoundary.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourNavMesh.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourNavMeshBuilder.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourNavMeshQuery.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourNode.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourObstacleAvoidance.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourPathCorridor.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourPathQueue.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="DetourPoints.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourProximityGrid.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourTileCache\DetourTileCache.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourTileCache\DetourTileCacheBuilder.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleNavigation.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="PanelNavigation.cpp">
       <Filter>Panels</Filter>
     </ClCompile>
-    <ClCompile Include="DetourDebugInterface.cpp">
-    </ClCompile>
+    <ClCompile Include="DetourDebugInterface.cpp" />
     <ClCompile Include="BaseScript.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -499,6 +408,9 @@
     </ClCompile>
     <ClCompile Include="imgui_color_gradient.cpp" />
     <ClCompile Include="ResourceStateMachine.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourcePrefab.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -848,9 +760,6 @@
     <ClInclude Include="MemoryModule.h">
       <Filter>ScriptingResources</Filter>
     </ClInclude>
-    <ClInclude Include="engineResource.h">
-      <Filter>ScriptingResources</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -1018,78 +927,6 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="Recast\DebugUtils\DebugDraw.h" />
-    <ClInclude Include="Recast\Recast\Recast.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Recast\RecastAlloc.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Recast\RecastAssert.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DebugUtils\RecastDebugDraw.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DebugUtils\RecastDump.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourAlloc.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourAssert.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourCommon.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourCrowd.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DebugUtils\DetourDebugDraw.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourLocalBoundary.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourMath.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourNavMesh.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourNavMeshBuilder.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourNavMeshQuery.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourNode.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourObstacleAvoidance.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourPathCorridor.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourPathQueue.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="DetourPoints.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourProximityGrid.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourStatus.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourTileCache\DetourTileCache.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourTileCache\DetourTileCacheBuilder.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleNavigation.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -1117,6 +954,9 @@
     </ClInclude>
     <ClInclude Include="imgui_color_gradient.h" />
     <ClInclude Include="ResourceStateMachine.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourcePrefab.h">
       <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1169,12 +1009,6 @@
     <Filter Include="SoLoud">
       <UniqueIdentifier>{2999c853-b5ef-41d3-b71b-d7547af0c9f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Recast">
-      <UniqueIdentifier>{288d07c0-f4f8-42f4-9767-1d3c6a9cc1ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Detour">
-      <UniqueIdentifier>{1a714dfd-2e78-4c91-a433-5bdd61b2d7f7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\Shaders\FragmentShaders\Default.fs">
@@ -1200,9 +1034,6 @@
     </None>
     <None Include="..\Game\Shaders\VertexShaders\Fonts.vs">
       <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\Game\Scripts\PlayerMovement.dll">
-      <Filter>ScriptingResources</Filter>
     </None>
     <None Include="NodeEditor\Include\ax\Math2D.inl" />
     <None Include="..\Game\Shaders\FragmentShaders\Particles.fs">
@@ -1241,10 +1072,5 @@
     <None Include="..\Game\Shaders\VertexShaders\DebugNav.vs">
       <Filter>Shaders</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Engine.rc">
-      <Filter>ScriptingResources</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

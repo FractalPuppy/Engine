@@ -40,6 +40,7 @@ public:
 	void processInput(SDL_Event* event) const;
 	void AddFpsLog(float dt) const;
 	void AddLog(const char *log) const;
+	void GenerateGenericPopUp(const char* title, const char* text);
 
 private:
 	void CreateDockSpace() const;
@@ -48,7 +49,6 @@ private:
 	void ToolsMenu();
 	void HelpMenu();
 
-	void GenerateGenericPopUp(const char* title, const char* text);
 	void OpenGenericPopUp();
 
 public:

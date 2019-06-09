@@ -37,6 +37,9 @@ ComponentRenderer::ComponentRenderer(const ComponentRenderer& component) : Compo
 		material = (ResourceMaterial*)App->resManager->Get(component.material->GetUID());
 
 	castShadows = component.castShadows;
+	useAlpha = component.useAlpha;
+	highlighted = component.highlighted;
+	highlightColor = component.highlightColor;
 }
 
 ComponentRenderer::~ComponentRenderer()
@@ -274,7 +277,10 @@ void ComponentRenderer::SetMesh(const char* meshfile)
 {
 	// Delete previous mesh
 	if (mesh != nullptr)
+	{
 		App->resManager->DeleteResource(mesh->GetUID());
+		App->scene->DeleteFromSpacePartition(gameobject);
+	}
 
 	if (meshfile != nullptr)
 		mesh = (ResourceMesh*)App->resManager->GetByName(meshfile, TYPE::MESH);
@@ -290,7 +296,7 @@ void ComponentRenderer::SetMesh(const char* meshfile)
 
 void ComponentRenderer::UpdateGameObject()
 {
-	if (gameobject != nullptr)
+	if (gameobject != nullptr && mesh != nullptr)
 	{
 		gameobject->UpdateBBox();
 		App->scene->AddToSpacePartition(gameobject);

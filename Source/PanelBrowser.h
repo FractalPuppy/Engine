@@ -2,7 +2,6 @@
 #define __PanelBrowser_h__
 
 #include "Panel.h"
-#include "ResourceTexture.h"
 
 #include "MathGeoLib\include\Math\float2.h"
 #include <string>
@@ -10,6 +9,10 @@
 #include <stack>
 
 #define MAX_FILENAME 30
+
+class Resource;
+class ResourceTexture;
+class GameObject;
 
 class PanelBrowser :
 	public Panel
@@ -20,6 +23,10 @@ public:
 
 	bool Init() override;
 	void Draw();
+	inline void ResetDragNDrop()
+	{
+		dragAsset = nullptr;
+	}
 
 private:
 	void DrawFolderIcon(const char* dir, int itemNumber);
@@ -56,19 +63,23 @@ private:
 	bool invalidName = false;
 
 	// Icons
-	ResourceTexture* folderIcon;	
-	ResourceTexture* fileIcon;
-	ResourceTexture* fbxIcon;
-	ResourceTexture* pngIcon;
-	ResourceTexture* jpgIcon;
-	ResourceTexture* tgaIcon;
-	ResourceTexture* tifIcon;
-	ResourceTexture* ddsIcon;
-	ResourceTexture* m4tIcon;
-	ResourceTexture* jsonIcon;
-	ResourceTexture* sc3neIcon;
-	ResourceTexture* animati0nIcon;
-	ResourceTexture* st4tem4chineIcon;
+	ResourceTexture* folderIcon = nullptr;	
+	ResourceTexture* fileIcon = nullptr;
+	ResourceTexture* fbxIcon = nullptr;
+	ResourceTexture* pngIcon = nullptr;
+	ResourceTexture* jpgIcon = nullptr;
+	ResourceTexture* tgaIcon = nullptr;
+	ResourceTexture* tifIcon = nullptr;
+	ResourceTexture* ddsIcon = nullptr;
+	ResourceTexture* m4tIcon = nullptr;
+	ResourceTexture* jsonIcon = nullptr;
+	ResourceTexture* sc3neIcon = nullptr;
+	ResourceTexture* animati0nIcon = nullptr;
+	ResourceTexture* st4tem4chineIcon = nullptr;
+	ResourceTexture* pr3fabIcon = nullptr;
+
+	//Drag N Drop
+	GameObject* dragAsset = nullptr;
 };
 
 #endif //__PanelBrowser_h__

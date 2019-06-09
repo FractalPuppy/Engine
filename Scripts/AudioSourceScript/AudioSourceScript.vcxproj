@@ -176,6 +176,9 @@
     <PostBuildEvent>
       <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if not exist "..\..\Game\Scripts"  mkdir "..\..\Game\Scripts"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|Win32'">
     <ClCompile>
@@ -196,6 +199,9 @@
     <PostBuildEvent>
       <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if not exist "..\..\Game\Scripts"  mkdir "..\..\Game\Scripts"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -248,6 +254,9 @@
     <PostBuildEvent>
       <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if not exist "..\..\Game\Scripts"  mkdir "..\..\Game\Scripts"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild|Win32'">
     <ClCompile>
@@ -272,6 +281,9 @@
     <PostBuildEvent>
       <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>if not exist "..\..\Game\Scripts"  mkdir "..\..\Game\Scripts"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

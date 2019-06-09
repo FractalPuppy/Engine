@@ -203,6 +203,7 @@ void ResourceMaterial::SaveMetafile(const char* file) const
 	json->AddValue("Material", *meta);
 	filepath += METAEXT;
 	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+	RELEASE(json);
 }
 
 void ResourceMaterial::LoadConfigFromMeta()
@@ -235,6 +236,8 @@ void ResourceMaterial::LoadConfigFromMeta()
 		App->resManager->ReplaceResource(oldUID, this);
 		exportedFile = IMPORTED_MATERIALS + std::to_string(UID) + MATERIALEXT;
 	}
+	RELEASE_ARRAY(data);
+	RELEASE(json);
 }
 
 void ResourceMaterial::Reset(const ResourceMaterial& material)

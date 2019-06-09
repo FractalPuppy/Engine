@@ -32,6 +32,7 @@ Application::Application()
 {
 	// Order matters: they will Init/start/update in this order
 	modules.push_back(window = new ModuleWindow());
+	modules.push_back(spacePartitioning = new ModuleSpacePartitioning());
 	modules.push_back(resManager = new ModuleResourceManager());
 	modules.push_back(fsystem = new ModuleFileSystem());
 	modules.push_back(input = new ModuleInput());
@@ -46,7 +47,6 @@ Application::Application()
 #else
 	modules.push_back(developDebug = new ModuleDevelopmentBuildDebug());
 #endif
-	modules.push_back(spacePartitioning = new ModuleSpacePartitioning());
 	modules.push_back(time = new ModuleTime());
 	modules.push_back(scene = new ModuleScene());
 	modules.push_back(navigation = new ModuleNavigation());

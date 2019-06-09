@@ -17,7 +17,7 @@ PlayerStateThirdAttack::~PlayerStateThirdAttack()
 
 void PlayerStateThirdAttack::CheckInput()
 {
-	if (timer > player->thirdAttackDuration)
+	if (timer > duration)
 	{
 		if (player->IsAtacking())
 		{

@@ -8,6 +8,8 @@ PlayerStateFirstAttack::PlayerStateFirstAttack(PlayerMovement * PM, const char *
 	math::float3 boxSize, float minTime, float maxTime) :
 	PlayerStateAttack(PM, trigger, boxSize, minTime, maxTime)
 {
+	this->minTime = 0.40f;
+	this->maxTime = 0.65f;
 }
 
 PlayerStateFirstAttack::~PlayerStateFirstAttack()
@@ -17,18 +19,21 @@ PlayerStateFirstAttack::~PlayerStateFirstAttack()
 void PlayerStateFirstAttack::Enter()
 {
 	player->gameobject->transform->LookAtMouse();
+
 }
 
 void PlayerStateFirstAttack::CheckInput()
 {
-	if (timer > player->firstAttackDuration * 0.95)
+	if (timer > duration * minTime)
 	{
 		if (player->IsAtacking())
 		{
 			player->currentState = (PlayerState*)player->secondAttack;
+			return;
 		}
 	}
-	if (timer > player->firstAttackDuration  * 1.2) //CAN SWITCH?
+	
+	if (timer > duration * maxTime) //CAN SWITCH?
 	{
 		
 		if (player->IsUsingFirstSkill())

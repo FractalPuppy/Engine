@@ -14,9 +14,6 @@ public:
 	virtual ~PlayerStateAttack();
 
 	void Update() override;
-
-protected:
-	float duration = 1.5f;
 };
 
 #endif __PLAYERSTATEATTACK_H_

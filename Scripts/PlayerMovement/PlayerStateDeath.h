@@ -11,8 +11,6 @@ class PlayerStateDeath :
 public:
 	PlayerStateDeath(PlayerMovement* PM, const char* trigger);
 	~PlayerStateDeath();
-
-	float duration = 1.5f;
 };
 
 #endif // __PLAYERSTATEDEATH_H_

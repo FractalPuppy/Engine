@@ -77,6 +77,7 @@ bool ModuleRender::Init(JSON * config)
 	msaa_level = renderer->GetInt("msaa_level");
 	picker_debug = renderer->GetInt("picker_debug");
 	light_debug = renderer->GetInt("light_debug");
+	aabbTreeDebug = renderer->GetUint("aabbTreeDebug");
 	grid_debug = renderer->GetInt("grid_debug");
 	depthTest = renderer->GetInt("depthTest");
 	wireframe = renderer->GetInt("wireframe");
@@ -213,7 +214,7 @@ void ModuleRender::SaveConfig(JSON * config)
 	renderer->AddInt("msaa_level", msaa_level);
 	renderer->AddInt("picker_debug", picker_debug);
 	renderer->AddInt("light_debug", light_debug);
-	renderer->AddInt("quadtree_debug", light_debug);
+	renderer->AddInt("aabbTreeDebug", aabbTreeDebug);
 	renderer->AddInt("grid_debug", grid_debug);
 	renderer->AddInt("current_scale", current_scale);
 	renderer->AddInt("depthTest", depthTest);
