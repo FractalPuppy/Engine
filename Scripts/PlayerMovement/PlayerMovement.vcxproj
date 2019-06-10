@@ -161,6 +161,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;PlayerMovement_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController</AdditionalIncludeDirectories>
+      <AdditionalOptions>/UTF-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
