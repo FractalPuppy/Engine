@@ -1,7 +1,7 @@
 #ifndef _AABBTREE_H
 #define _AABBTREE_H
 
-#include "MathGeoLib/include/Geometry/AABB.h"
+#include "Geometry/AABB.h"
 #include <vector>
 #include <stack>
 #include <unordered_set>

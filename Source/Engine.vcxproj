@@ -97,15 +97,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\MathGeoLib;./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <PreprocessorDefinitions>_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MathGeoLib.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -119,15 +119,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\MathGeoLib;./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <PreprocessorDefinitions>GAME_BUILD;_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MathGeoLib.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -143,7 +143,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\MathGeoLib;./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -151,8 +151,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MathGeoLib.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -168,7 +168,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\MathGeoLib;./Soloud/fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\Imgui\include;..\Scripts\BaseScript;./Brofiler-1.1.2;./ImGuizmo;./pcg-cpp-0.98/include;./rapidjson-1.1.0/include;./physfs-3.0.1/include;./mmgr;./Assimp/include;./DevIL/include;./glew-2.1.0/include;./SDL/include;MathGeoLib/include;./Imgui;./physfs-3.0.1;./freeType/include;$(SolutionDir)/Source/Recast</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GAME_BUILD;_MBCS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -176,8 +176,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Recast\libx86;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;$(SolutionDir)Scripts\BaseScript\$(Configuration);Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib;./freeType/lib;./Recast/libx86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>DebugUtils.lib;Detour.lib;DetourCrowd.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies);Recast.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)Source\Recast\lib;$(SolutionDir)Source\freeType\lib;$(SolutionDir)Source\Imgui\lib;Brofiler-1.1.2;physfs-3.0.1/lib;Assimp/lib;./DevIL/lib;./glew-2.1.0/lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MathGeoLib.lib;Recast.lib;ImGui.lib;freetype.lib;ProfilerCore32.lib;physfs.lib;assimp.lib;Ilut.lib;Ilu.lib;DevIL.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PerUserRedirection>true</PerUserRedirection>
     </Link>
     <PostBuildEvent>
@@ -219,63 +219,7 @@
     <ClInclude Include="imgui_color_gradient.h" />
     <ClInclude Include="KDTree.h" />
     <ClInclude Include="MaterialEditor.h" />
-    <ClInclude Include="MathGeoLib\include\Algorithm\Random\LCG.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\AABB.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\AABB2D.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Capsule.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Circle.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Cone.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Cylinder.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Frustum.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\GeometryAll.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\GeomType.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\HitInfo.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\KDTree.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Line.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\LineSegment.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\OBB.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\PBVolume.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Plane.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Polygon.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Polyhedron.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\QuadTree.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Ray.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Sphere.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\Triangle.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\TriangleMesh.h" />
-    <ClInclude Include="MathGeoLib\include\Math\assume.h" />
-    <ClInclude Include="MathGeoLib\include\Math\BitOps.h" />
-    <ClInclude Include="MathGeoLib\include\Math\Complex.h" />
-    <ClInclude Include="MathGeoLib\include\Math\CoordinateAxisConvention.h" />
-    <ClInclude Include="MathGeoLib\include\Math\FixedPoint.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float2.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float3.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float3x3.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float3x4.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float4.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float4x4.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float4x4_neon.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float4x4_sse.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float4_neon.h" />
-    <ClInclude Include="MathGeoLib\include\Math\float4_sse.h" />
-    <ClInclude Include="MathGeoLib\include\Math\FloatCmp.h" />
-    <ClInclude Include="MathGeoLib\include\Math\MathAll.h" />
-    <ClInclude Include="MathGeoLib\include\Math\MathConstants.h" />
-    <ClInclude Include="MathGeoLib\include\Math\MathFunc.h" />
-    <ClInclude Include="MathGeoLib\include\Math\MathLog.h" />
-    <ClInclude Include="MathGeoLib\include\Math\MathNamespace.h" />
-    <ClInclude Include="MathGeoLib\include\Math\MathTypes.h" />
-    <ClInclude Include="MathGeoLib\include\Math\MatrixProxy.h" />
     <ClInclude Include="MathGeoLib\include\Math\myassert.h" />
-    <ClInclude Include="MathGeoLib\include\Math\Polynomial.h" />
-    <ClInclude Include="MathGeoLib\include\Math\Quat.h" />
-    <ClInclude Include="MathGeoLib\include\Math\quat_simd.h" />
-    <ClInclude Include="MathGeoLib\include\Math\Rect.h" />
-    <ClInclude Include="MathGeoLib\include\Math\Reinterpret.h" />
-    <ClInclude Include="MathGeoLib\include\Math\SSEMath.h" />
-    <ClInclude Include="MathGeoLib\include\Math\sse_mathfun.h" />
-    <ClInclude Include="MathGeoLib\include\Math\TransformOps.h" />
-    <ClInclude Include="MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="MemoryModule.h" />
     <ClInclude Include="ModuleAudioManager.h" />
     <ClInclude Include="ModuleCollisions.h" />
@@ -404,38 +348,6 @@
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MaterialEditor.cpp" />
-    <ClCompile Include="MathGeoLib\include\Algorithm\Random\LCG.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\AABB.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Capsule.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Circle.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Cone.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Cylinder.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Frustum.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Line.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\LineSegment.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\OBB.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Plane.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Polygon.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Polyhedron.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Ray.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Sphere.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\Triangle.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\TriangleMesh.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\BitOps.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\float2.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\float3.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\float3x3.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\float3x4.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\float4.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\float4x4.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\MathFunc.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\MathLog.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\MathOps.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\Polynomial.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\Quat.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\SSEMath.cpp" />
-    <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp" />
-    <ClCompile Include="MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="MemoryModule.c" />
     <ClCompile Include="ModuleAudioManager.cpp" />
     <ClCompile Include="ModuleCollisions.cpp" />

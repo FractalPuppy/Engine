@@ -65,6 +65,7 @@ public:
 private:
 	void CheckStates(PlayerState* previous, PlayerState* current);
 	void CreatePlayerStates();
+	void ManaManagement();
 
 public:
 	bool isPlayerDead = false;
@@ -83,6 +84,9 @@ public:
 	float dashSpeed = 10.0f;
 	const float fullHealth = 100.0f;
 	float health = fullHealth;
+	const float fullMana = 100.0f;
+	float mana = fullMana;
+	bool IsManaUsed = false;
 	float attackDuration = 1.0f;
 	float attackTimer = 0.0f;
 	float OutOfMeshCorrectionXZ = 500.f;
@@ -104,5 +108,6 @@ private:
 
 	DamageController* damageController = nullptr;
 	ComponentImage* lifeUIComponent = nullptr;
+	ComponentImage* manaUIComponent = nullptr;
 };
 #endif __PlayerMovement_h__

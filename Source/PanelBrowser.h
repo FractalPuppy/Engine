@@ -3,7 +3,7 @@
 
 #include "Panel.h"
 
-#include "MathGeoLib\include\Math\float2.h"
+#include "Math\float2.h"
 #include <string>
 #include <vector>
 #include <stack>

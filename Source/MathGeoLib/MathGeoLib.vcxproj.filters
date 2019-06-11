@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Algorithm\Random\LCG.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\AABB.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Capsule.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Circle.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Cone.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Cylinder.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Frustum.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Line.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\LineSegment.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\OBB.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Plane.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Polygon.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Polyhedron.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Ray.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Sphere.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Triangle.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\TriangleMesh.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\BitOps.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\float2.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\float3.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\float3x3.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\float3x4.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\float4.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\float4x4.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathFunc.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathLog.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathOps.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Polynomial.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Quat.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\SSEMath.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\TransformOps.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Time\Clock.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Algorithm\Random\LCG.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\AABB.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\AABB2D.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Capsule.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Circle.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Cone.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Cylinder.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Frustum.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\GeometryAll.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\GeomType.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\HitInfo.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\KDTree.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Line.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\LineSegment.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\OBB.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\PBVolume.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Plane.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Polygon.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Polyhedron.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\QuadTree.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Ray.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Sphere.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Triangle.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\TriangleMesh.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\assume.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\BitOps.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Complex.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\CoordinateAxisConvention.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\FixedPoint.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float2.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float3.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float3x3.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float3x4.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float4.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float4x4.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float4x4_neon.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float4x4_sse.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float4_neon.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\float4_sse.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\FloatCmp.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathAll.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathConstants.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathFunc.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathLog.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathNamespace.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathTypes.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MatrixProxy.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\myassert.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Polynomial.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Quat.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\quat_simd.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Rect.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Reinterpret.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\SSEMath.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\sse_mathfun.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\TransformOps.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="Time\Clock.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="MathBuildConfig.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLibFwd.h">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Geometry\KDTree.inl">
+      <Filter>Archivos de origen</Filter>
+    </None>
+    <None Include="Geometry\QuadTree.inl">
+      <Filter>Archivos de origen</Filter>
+    </None>
+    <None Include="Geometry\TriangleMesh_IntersectRay_AVX.inl">
+      <Filter>Archivos de origen</Filter>
+    </None>
+    <None Include="Geometry\TriangleMesh_IntersectRay_CPP.inl">
+      <Filter>Archivos de origen</Filter>
+    </None>
+    <None Include="Geometry\TriangleMesh_IntersectRay_SSE.inl">
+      <Filter>Archivos de origen</Filter>
+    </None>
+    <None Include="Math\Matrix.inl">
+      <Filter>Archivos de origen</Filter>
+    </None>
+  </ItemGroup>
+</Project>
