@@ -67,7 +67,10 @@ void GUICreator::CreateElements(GameObject* go)
 				GameObject *newgo = new GameObject("Text", App->scene->GetNewUID());
 				newgo->CreateComponent(ComponentType::Transform2D);
 				newgo->CreateComponent(ComponentType::Text);
-				App->scene->canvas->InsertChild(newgo);
+				if (App->scene->canvas->IsParented(*go))
+					go->InsertChild(newgo);
+				else
+					App->scene->canvas->InsertChild(newgo);
 				App->scene->Select(newgo);
 			}
 
@@ -76,7 +79,10 @@ void GUICreator::CreateElements(GameObject* go)
 				GameObject *newgo = new GameObject("Image", App->scene->GetNewUID());
 				newgo->CreateComponent(ComponentType::Transform2D);
 				newgo->CreateComponent(ComponentType::Image);
-				App->scene->canvas->InsertChild(newgo);
+				if (App->scene->canvas->IsParented(*go))
+					go->InsertChild(newgo);
+				else
+					App->scene->canvas->InsertChild(newgo);
 				App->scene->Select(newgo);
 			}
 
@@ -85,7 +91,10 @@ void GUICreator::CreateElements(GameObject* go)
 				GameObject *newgo = new GameObject("Button", App->scene->GetNewUID());
 				newgo->CreateComponent(ComponentType::Transform2D);
 				newgo->CreateComponent(ComponentType::Button);
-				App->scene->canvas->InsertChild(newgo);
+				if (App->scene->canvas->IsParented(*go))
+					go->InsertChild(newgo);
+				else
+					App->scene->canvas->InsertChild(newgo);
 				App->scene->Select(newgo);
 			}
 			ImGui::EndMenu();

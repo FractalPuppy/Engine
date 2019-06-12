@@ -5,7 +5,7 @@
 
 #include "Module.h"
 #include "Math/float3.h"
-#include "MathGeoLib/include/Geometry/Frustum.h"
+#include "Geometry/Frustum.h"
 #include <unordered_set>
 
 class ComponentCamera;

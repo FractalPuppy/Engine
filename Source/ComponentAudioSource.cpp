@@ -5,49 +5,69 @@
 #include "ComponentAudioListener.h"
 #include "ComponentReverbZone.h"
 
-
-#include "FileExplorer.h"
-
 #include "GameObject.h"
-#include "JSON.h"
 
 #include "ModuleFileSystem.h"
 #include "ModuleAudioManager.h"
 #include "ModuleTime.h"
 #include "ModuleScene.h"
+#include "ModuleResourceManager.h"
 
+#include "ResourceAudio.h"
 
+#include "FileExplorer.h"
+
+#include "JSON.h"
+#include "HashString.h"
 #include "imgui.h"
 #include "imgui_internal.h"
 
 #include "debugdraw.h"
 
+#define None "None Selected"
+
 ComponentAudioSource::ComponentAudioSource(GameObject* gameobject) : Component(gameobject, ComponentType::AudioSource)
 {
+	if (audioFiles.empty())
+	{
+		UpdateAudiosList();
+	}
 }
 
 ComponentAudioSource::ComponentAudioSource(const ComponentAudioSource& component) : Component(component)
 {
-	path = component.path;
-	FXname = component.FXname;
+	if (component.audio != nullptr)
+	{
+		audio = (ResourceAudio*)App->resManager->Get(component.audio->GetUID());
+	}
+
 	playOnAwake = component.playOnAwake;
 	volume = component.volume;
 	PAN = component.PAN;
 	loop = component.loop;
-	streamed = component.streamed;
 	Sound3D = component.Sound3D;
 	fadeDist = component.fadeDist;
 	limit3DPan = component.limit3DPan;
 	rolloff3D = component.rolloff3D;
 	pitch = component.pitch;
 
+	if (audioFiles.empty())
+	{
+		UpdateAudiosList();
+	}
+
 }
 
 ComponentAudioSource::~ComponentAudioSource()
 {
+	if (audio != nullptr)
+	{
+		App->resManager->DeleteResource(audio->GetUID());
+		audio = nullptr;
+	}
 }
 
-ComponentAudioSource * ComponentAudioSource::Clone() const
+ComponentAudioSource* ComponentAudioSource::Clone() const
 {
 	return new ComponentAudioSource(*this);
 }
@@ -57,8 +77,18 @@ void ComponentAudioSource::Play()
 	if (enabled) 
 	{
 		Stop();
-		if (!streamed) lastHandler = App->audioManager->PlayWAV(wavFX, Sound3D && !OnlyVolume3D);
-		else lastHandler = App->audioManager->PlayWAV(wavstream, Sound3D && !OnlyVolume3D);
+		if (audio != nullptr)
+		{
+			if (!audio->streamed) 
+				lastHandler = App->audioManager->PlayWAV(audio->wavFX, Sound3D && !OnlyVolume3D);
+			else 
+				lastHandler = App->audioManager->PlayWAV(audio->wavstream, Sound3D && !OnlyVolume3D);
+		}
+		else
+		{
+			LOG("Error: missing audio file in ComponentAudioSource of the GO named: %s", gameobject->name.c_str());
+		}
+
 	}
 }
 
@@ -99,44 +129,6 @@ void ComponentAudioSource::UpdateState()
 	App->audioManager->SetPitch(lastHandler, pitch);
 }
 
-
-void ComponentAudioSource::LoadSoundFile(const char* pathAudio)
-{
-	
-	std::vector<std::string> extensions = { ".wav", ".ogg", ".mp3" };
-	int ret;
-	if (!streamed) ret = wavFX.load(pathAudio);
-	else ret = wavstream.load(pathAudio);
-
-	for(int i = 0; i < extensions.size() && (ret != 0); ++i) 
-	{
-		std::string pathAux = pathAudio;
-		std::string folder = "Assets/";
-		std::string unionPath = (folder + pathAux + extensions[i]);
-		const char * loadPath = unionPath.c_str();
-		if (!streamed) ret = wavFX.load(loadPath);
-		else ret = wavstream.load(loadPath);
-	}
-
-	//SO_NO_ERROR = 0, // No error
-	//INVALID_PARAMETER = 1, // Some parameter is invalid
-	//FILE_NOT_FOUND = 2,    // File not found
-	//FILE_LOAD_FAILED = 3,  // File found, but could not be loaded
-
-	if (ret != 0) 
-	{
-		LOG("ERROR: Audio Manager code: %i", ret);		
-	}
-	else 
-	{
-		LOG("Audio Manager: FX %s loaded \n", pathAudio);
-		path = pathAudio;
-
-		ModuleFileSystem* fileSys = new ModuleFileSystem();
-		FXname = fileSys->GetFilename(path);
-	}
-}
-
 void ComponentAudioSource::Awake() 
 {
 	Stop();
@@ -150,7 +142,7 @@ void ComponentAudioSource::Update()
 {
 	if (App->time->gameState == GameState::RUN) 
 	{
-		if (App->audioManager->audioListeners.size() > 0) 
+		if (!App->audioManager->audioListeners.empty()) 
 		{
 			// Awake function
 			if (!awaken) Awake();
@@ -206,10 +198,36 @@ void ComponentAudioSource::DrawProperties()
 			fileExplorer->openFileExplorer = true;
 		}*/
 
-		if (ImGui::BeginCombo("", path.c_str())) 
+		// Audio selector
+		if (ImGui::BeginCombo("Audio", audio != nullptr ? audio->GetName() : None))
 		{
+			bool none_selected = (audio == nullptr);
+			if (ImGui::Selectable(None, none_selected))
+			{
+				if (audio != nullptr)
+				{
+					App->resManager->DeleteResource(audio->GetUID());
+					audio = nullptr;
+				}
+			}
+			if (none_selected)
+				ImGui::SetItemDefaultFocus();
+			for (int n = 0; n < audioFiles.size(); n++)
+			{
+				bool is_selected = (audio != nullptr && (HashString(audio->GetName()) == HashString(audioFiles[n].c_str())));
+				if (ImGui::Selectable(audioFiles[n].c_str(), is_selected) && !is_selected)
+				{
+					// Delete previous audio
+					if (audio != nullptr)
+						App->resManager->DeleteResource(audio->GetUID());
 
-			std::set<std::string> files;
+					audio = (ResourceAudio*)App->resManager->GetByName(audioFiles[n].c_str(), TYPE::AUDIO);
+				}
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+			/*std::set<std::string> files;
 
 			App->fsystem->ListFileNames(AUDIOS, files);
 
@@ -229,16 +247,19 @@ void ComponentAudioSource::DrawProperties()
 
 			}
 		
-			ImGui::EndCombo();
+			ImGui::EndCombo();*/
+		}
+		if (ImGui::Button("Refresh List"))
+		{
+			UpdateAudiosList();
 		}
 
-
 		ImGui::NewLine();
-		if (ImGui::Checkbox("Streamed", &streamed)) 
+		/*if (ImGui::Checkbox("Streamed", &streamed)) 
 		{
 			LoadSoundFile(this->path.c_str());
 		}
-		toolTip("Streamed audio files will load into memory gradualy\n- Uncheck if its an FX");
+		toolTip("Streamed audio files will load into memory gradualy\n- Uncheck if its an FX");*/
 
 
 		ImGui::SliderFloat("Volume", &volume, 0, 2, "%.1f");
@@ -278,6 +299,12 @@ void ComponentAudioSource::DrawProperties()
 	}	
 }
 
+void ComponentAudioSource::UpdateAudiosList()
+{
+	audioFiles.clear();
+	audioFiles = App->resManager->GetResourceNamesList(TYPE::AUDIO, true);
+}
+
 void ComponentAudioSource::DrawDebugSound() 
 {
 	assert(gameobject->transform != nullptr);
@@ -291,35 +318,30 @@ void ComponentAudioSource::DrawDebugSound()
 void ComponentAudioSource::Save(JSON_value* value) const
 {
 	Component::Save(value);
+	value->AddUint("audioUID", (audio != nullptr) ? audio->GetUID() : 0u);
 	value->AddFloat("Volume", volume);
 	value->AddInt("PlayOnAwake", playOnAwake);
-	value->AddString("Path", path.c_str());
 	value->AddInt("Sound3D", Sound3D);
 	value->AddFloat("LimitPan", limit3DPan);
 	value->AddFloat("FadeDist", fadeDist);
 	value->AddInt("Loop", loop);
 	value->AddFloat("Rolloff", rolloff3D);
-	value->AddInt("Streamed", streamed);
 	value->AddFloat("Pitch", pitch);
 }
 
 void ComponentAudioSource::Load(JSON_value* value)
 {
 	Component::Load(value);
+	unsigned uid = value->GetUint("audioUID");
+	audio = (ResourceAudio*)App->resManager->Get(uid);
 	volume = value->GetFloat("Volume");
 	playOnAwake = value->GetInt("PlayOnAwake");
 	Sound3D = value->GetInt("Sound3D");
-	path = value->GetString("Path");
-	if (path == "") path = "No Audio Selected";
 	limit3DPan = value->GetFloat("LimitPan");
 	fadeDist = value->GetFloat("FadeDist");
 	loop = value->GetInt("Loop");
 	rolloff3D = value->GetFloat("Rolloff");
-	streamed = value->GetInt("Streamed");
 	pitch = value->GetFloat("Pitch");
-
-	if (path != "No Audio Selected") LoadSoundFile(path.c_str());
-
 }
 
 float ComponentAudioSource::Volume3D()

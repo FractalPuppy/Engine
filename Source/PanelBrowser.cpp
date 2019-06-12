@@ -34,6 +34,9 @@
 #define SC3NE_ICON			IMPORTED_RESOURCES "sc3neIconBlue.dds"
 #define ANIMATI0N_ICON		IMPORTED_RESOURCES "animati0nIconBlue.dds"
 #define ST4TEM4CHINE_ICON	IMPORTED_RESOURCES "st4tem4chineIconBlue.dds"
+#define WAV_ICON			IMPORTED_RESOURCES "wavIconBlue.dds"
+#define OGG_ICON			IMPORTED_RESOURCES "oggIconBlue.dds"
+#define MP3_ICON			IMPORTED_RESOURCES "mp3IconBlue.dds"
 #define PR3FAB_ICON			IMPORTED_RESOURCES "pr3fabIconBlue.dds"
 
 // ImGui elements sizes:
@@ -101,11 +104,15 @@ bool PanelBrowser::Init()
 	sc3neIcon = (ResourceTexture*)App->resManager->Get(SC3NE_ICON);
 	animati0nIcon = (ResourceTexture*)App->resManager->Get(ANIMATI0N_ICON);
 	st4tem4chineIcon = (ResourceTexture*)App->resManager->Get(ST4TEM4CHINE_ICON);
+	wavIcon = (ResourceTexture*)App->resManager->Get(WAV_ICON);
+	oggIcon = (ResourceTexture*)App->resManager->Get(OGG_ICON);
+	mp3Icon = (ResourceTexture*)App->resManager->Get(MP3_ICON);
 	pr3fabIcon = (ResourceTexture*)App->resManager->Get(PR3FAB_ICON);
 
 	if (folderIcon == nullptr || fileIcon == nullptr || fbxIcon == nullptr || pngIcon == nullptr || jpgIcon == nullptr
 		|| tgaIcon == nullptr || tifIcon == nullptr || ddsIcon == nullptr || m4tIcon == nullptr || jsonIcon == nullptr 
-		|| sc3neIcon == nullptr)
+		|| sc3neIcon == nullptr || animati0nIcon == nullptr || st4tem4chineIcon == nullptr || wavIcon == nullptr 
+		|| oggIcon == nullptr || mp3Icon == nullptr || pr3fabIcon == nullptr)
 	{
 		LOG("Warning: Some icons missing");
 		return false;
@@ -306,6 +313,9 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 	else if (extension == SCENEEXTENSION)		{ ImGui::ImageButton(sc3neIcon != nullptr ? (ImTextureID)sc3neIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 	else if (extension == ANIMATIONEXTENSION)	{ ImGui::ImageButton(animati0nIcon != nullptr ? (ImTextureID)animati0nIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 	else if (extension == STATEMACHINEEXTENSION){ ImGui::ImageButton(st4tem4chineIcon != nullptr ? (ImTextureID)st4tem4chineIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else if (extension == WAVEXTENSION)			{ ImGui::ImageButton(wavIcon != nullptr ? (ImTextureID)wavIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else if (extension == OGGEXTENSION)			{ ImGui::ImageButton(oggIcon != nullptr ? (ImTextureID)oggIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else if (extension == MP3EXTENSION)			{ ImGui::ImageButton(mp3Icon != nullptr ? (ImTextureID)mp3Icon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 	else if (extension == PREFABEXTENSION)		{ ImGui::ImageButton(pr3fabIcon != nullptr ? (ImTextureID)pr3fabIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 	else										{ ImGui::ImageButton(fileIcon != nullptr ? (ImTextureID)fileIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 

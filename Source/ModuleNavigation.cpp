@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "Globals.h"
 #include "GameObject.h"
-#include "MathGeoLib/include/Math/float3.h"
+#include "Math/float3.h"
 
 #include "DetourPoints.h"
 
