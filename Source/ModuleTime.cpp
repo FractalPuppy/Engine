@@ -51,6 +51,7 @@ void ModuleTime::UpdateTime()
 	{
 		isTimePartitioned = false;
 	}
+	gameDeltaTime *= gameTimeScale;
 }
 
 void ModuleTime::ResetGameDetaTime()

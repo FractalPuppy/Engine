@@ -59,6 +59,8 @@ ModuleFileSystem::ModuleFileSystem()
 		MakeDirectory(IMPORTED_ANIMATIONS);
 	if (!Exists(IMPORTED_STATEMACHINES))
 		MakeDirectory(IMPORTED_STATEMACHINES);
+	if (!Exists(IMPORTED_AUDIOS))
+		MakeDirectory(IMPORTED_AUDIOS);
 	if (!Exists(MESHES))
 		MakeDirectory(MESHES);
 	if (!Exists(TEXTURES))
@@ -471,7 +473,7 @@ void ModuleFileSystem::CheckResourcesInFolder(const char* folder)
 				// Model has to check also Meshes and Animations
 				FILETYPE type = GetFileType(GetExtension(file));
 	
-				if (type != FILETYPE::NONE && type != FILETYPE::AUDIO) 
+				if (type != FILETYPE::NONE) 
 				{
 					bool import = false;
 					unsigned uid = 0u;
@@ -551,9 +553,9 @@ void ModuleFileSystem::LookForNewResourceFiles(const char* folder)
 			else
 			{
 				std::string extension(GetExtension(file));
-				// TODO [ResManager] : When ResourceAudio is implemented delete audio extensions from this if
-				if (extension == METAEXT || extension == OGGEXTENSION || extension == MP3EXTENSION || extension == WAVEXTENSION)
+				if (extension == METAEXT )
 					continue;
+
 				stat((current_folder + file).c_str(), &statFile);
 				stat((current_folder + file + METAEXT).c_str(), &statMeta);
 				std::vector<Resource*> resources = App->resManager->GetResourcesList();
@@ -696,6 +698,10 @@ FILETYPE ModuleFileSystem::GetFileType(std::string extension) const
 	if (extension == STATEMACHINEEXTENSION)
 	{
 		return FILETYPE::STATEMACHINE;
+	}
+	if (extension == OGGEXTENSION || extension == MP3EXTENSION || extension == WAVEXTENSION)
+	{
+		return FILETYPE::AUDIO;
 	}
 	if (extension == PREFABEXTENSION)
 	{

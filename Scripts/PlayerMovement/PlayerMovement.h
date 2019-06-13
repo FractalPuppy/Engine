@@ -65,6 +65,7 @@ public:
 private:
 	void CheckStates(PlayerState* previous, PlayerState* current);
 	void CreatePlayerStates();
+	void ManaManagement();
 
 public:
 	bool isPlayerDead = false;
@@ -83,6 +84,9 @@ public:
 	float dashSpeed = 10.0f;
 	const float fullHealth = 100.0f;
 	float health = fullHealth;
+	const float fullMana = 100.0f;
+	float mana = fullMana;
+	bool IsManaUsed = false;
 	float attackDuration = 1.0f;
 	float attackTimer = 0.0f;
 	ComponentAnimation* anim = nullptr;
@@ -93,6 +97,8 @@ public:
 
 	math::float3 hpHitBoxSize = math::float3::zero;
 
+	bool canInteract = true;
+
 private:
 	std::vector<PlayerState*> playerStates;	
 	GameObject* dustParticles = nullptr;
@@ -101,5 +107,6 @@ private:
 
 	DamageController* damageController = nullptr;
 	ComponentImage* lifeUIComponent = nullptr;
+	ComponentImage* manaUIComponent = nullptr;
 };
 #endif __PlayerMovement_h__

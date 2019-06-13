@@ -18,6 +18,7 @@
 #include "ResourceSkybox.h"
 #include "ResourcePrefab.h"
 #include "ResourceScene.h"
+#include "ResourceAudio.h"
 
 #include "FileImporter.h"
 
@@ -255,11 +256,17 @@ bool ModuleResourceManager::ImportFile(const char* newFileInAssets, const char* 
 	/*case TYPE::MESH:		
 		success = App->fsystem->importer.ImportFBX(newFileInAssets, filePath, (ResourceMesh*)resource);	
 		exportedFile = MESHES + name + MESHEXTENSION;	
-		break;
-	case TYPE::AUDIO:		
-		success = App->audio->Import(newFileInAssets, written_file);									
-		exportedFile = IMPORTED_AUDIO + name + AUDIOEXTENSION;	
 		break;*/
+	case TYPE::AUDIO:
+		// TODO: Add importer for audios
+		//success = App->audio->Import(newFileInAssets, written_file);	
+		success = App->fsystem->Copy(filePath, IMPORTED_AUDIOS, newFileInAssets);
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_AUDIOS, (name + App->fsystem->GetExtension(newFileInAssets)).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
+		exportedFile = IMPORTED_AUDIOS + std::to_string(resource->GetUID()) + App->fsystem->GetExtension(newFileInAssets);
+		break;
 	case TYPE::SCENE:		
 		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, newFileInAssets);	
 		if (success)
@@ -331,10 +338,16 @@ bool ModuleResourceManager::ReImportFile(Resource* resource, const char* filePat
 		break;
 	/*case TYPE::MESH:	
 	success = App->fsystem->importer.ImportFBX(file.c_str(), filePath, (ResourceMesh*)resource);	
-	break;
-	case TYPE::AUDIO:	
-	success = App->audio->Import(newFileInAssets, written_file);	
 	break;*/
+	case TYPE::AUDIO:	
+	// TODO: Add importer for audios
+	//success = App->audio->Import(newFileInAssets, written_file);	
+		success = App->fsystem->Copy(filePath, IMPORTED_AUDIOS, file.c_str());
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_AUDIOS, App->fsystem->GetFile(file).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
+	break;
 	case TYPE::MATERIAL:	
 		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, file.c_str());
 		if (success)
@@ -408,7 +421,8 @@ Resource* ModuleResourceManager::CreateNewResource(TYPE type, unsigned forceUid)
 	case TYPE::MATERIAL:		resource = (Resource*) new ResourceMaterial(uid);		break;
 	case TYPE::SKYBOX:			resource = (Resource*) new ResourceSkybox(uid);			break;
 	case TYPE::STATEMACHINE:	resource = (Resource*) new ResourceStateMachine(uid);	break;
-	case TYPE::PREFAB:          resource = (Resource*) new ResourcePrefab(uid); break;
+	case TYPE::AUDIO:			resource = (Resource*) new ResourceAudio(uid);			break;
+	case TYPE::PREFAB:          resource = (Resource*) new ResourcePrefab(uid);			break;
 	/*case TYPE::AUDIO:			resource = (Resource*) new ResourceAudio(uid);			break;*/
 	}
 
@@ -775,8 +789,8 @@ Resource* ModuleResourceManager::AddResource(const char* file, const char* direc
 		{
 		case TYPE::TEXTURE:		exportedFile = TEXTURES					+ std::to_string(uid) + TEXTUREEXT;				break;
 		case TYPE::MODEL:		exportedFile = App->fsystem->GetFilename(file)				  + FBXEXTENSION;			break;
-		/*case TYPE::MESH:		exportedFile = MESHES;					+ std::to_string(uid) + MESHEXTENSION;			break;
-		case TYPE::AUDIO:		exportedFile = IMPORTED_AUDIOS			+ std::to_string(uid) + AUDIOEXTENSION;			break;*/
+		/*case TYPE::MESH:		exportedFile = MESHES;					+ std::to_string(uid) + MESHEXTENSION;			break;*/
+		case TYPE::AUDIO:		exportedFile = IMPORTED_AUDIOS			+ std::to_string(uid) + App->fsystem->GetExtension(file);			break;
 		case TYPE::SCENE:		exportedFile = IMPORTED_SCENES			+ std::to_string(uid) + SCENEEXTENSION;			break;
 		case TYPE::MATERIAL:	exportedFile = IMPORTED_MATERIALS		+ std::to_string(uid) + MATERIALEXT;			break;
 		case TYPE::ANIMATION:	exportedFile = IMPORTED_ANIMATIONS		+ std::to_string(uid) + ANIMATIONEXTENSION;		break;
@@ -829,6 +843,7 @@ unsigned ModuleResourceManager::GetUIDFromMeta(const char* metaFile, FILETYPE fi
 	case TYPE::TEXTURE:		value = json->GetValue("Texture");		break;
 	case TYPE::MATERIAL:	value = json->GetValue("Material");		break;
 	case TYPE::MESH:		value = json->GetValue("Mesh");			break;
+	case TYPE::AUDIO:		value = json->GetValue("Audio");		break;
 	case TYPE::MODEL:		value = json->GetValue("Mesh");			break;
 	case TYPE::SCENE:		value = json->GetValue("Scene");		break;
 	case TYPE::ANIMATION:	value = json->GetValue("Animation");	break;

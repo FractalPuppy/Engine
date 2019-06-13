@@ -1,6 +1,7 @@
 #ifndef __JSON_h__
 #define __JSON_h__
 
+#include "Globals.h"
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include <string>

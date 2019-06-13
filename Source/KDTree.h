@@ -1,7 +1,7 @@
 #ifndef _KDTREE_H
 #define _KDTREE_H
 
-#include "MathGeoLib/include/Geometry/AABB.h"
+#include "Geometry/AABB.h"
 #include "Application.h"
 #include "ModuleScene.h"
 #include <vector>

@@ -20,7 +20,7 @@
 #include "Geometry/LineSegment.h"
 #include "Geometry/Circle.h"
 #include "Math/MathFunc.h"
-#include "MathGeoLib/include/Geometry/AABB.h"
+#include "Geometry/AABB.h"
 #include "debugdraw.h"
 #include "AABBTree.h"
 

@@ -25,7 +25,10 @@ public:
 	void AssemblyButton();
 
 	ENGINE_API inline bool IsHovered() { return isHovered; };
-	ENGINE_API inline bool IsPressed() { return isPressed; };
+	ENGINE_API inline bool IsPressed() { return isKeyDown; };
+
+	ENGINE_API inline bool KeyUp()	 { return isKeyUp; }
+	ENGINE_API inline bool KeyDown() { return isKeyDown; }
 
 	ComponentImage* buttonImage = nullptr;
 	ComponentImage* highlightedImage = nullptr;
@@ -36,8 +39,9 @@ public:
 	Component* Clone() const override;
 
 	bool isHovered = false;
-	bool isPressed = false;
 	bool isSelected = false;
+	bool isKeyDown = false;
+	bool isKeyUp = false;
 };
 
 #endif // __ComponentButton_h__

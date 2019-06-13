@@ -13,13 +13,12 @@
 
 class GameObject;
 class Text;
-class ComponentImage;
 class JSON_value;
 class Transform2D;
 
 class SkillTreeController_API SkillTreeController : public Script
 {
-
+public:
 	void Start() override;
 	void Update() override;
 

@@ -88,6 +88,10 @@ void FileImporter::ImportAsset(const char *file, const char *folder)
 	{
 		App->resManager->ImportFile(file, folder, TYPE::STATEMACHINE);
 	}
+	else if (extension == OGGEXTENSION || extension == MP3EXTENSION || extension == WAVEXTENSION)
+	{
+		App->resManager->ImportFile(file, folder, TYPE::AUDIO);
+	}
 	else if (extension == PREFABEXTENSION)
 	{
 		App->resManager->ImportFile(file, folder, TYPE::PREFAB);

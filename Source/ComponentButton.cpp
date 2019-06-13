@@ -12,7 +12,7 @@
 #include "GameObject.h"
 #include "Viewport.h"
 #include "imgui.h"
-#include "MathGeoLib/include/Math/float2.h"
+#include "Math/float2.h"
 #include "JSON.h"
 
 
@@ -140,24 +140,35 @@ void Button::Update()
 		text->isHovered = false;
 	}
 
+	if (isKeyDown && !isHovered)
+	{
+		isKeyDown = false;
+		pressedImage->enabled = false;
+
+	}
+
+	isKeyUp = false;
+	if (isHovered && isKeyDown && App->input->GetMouseButtonDown(1) == KEY_UP)
+	{
+		isKeyUp = true;
+		isKeyDown = false;
+		pressedImage->enabled = false;
+	}
+
 	if (isHovered && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
-		isPressed = true;
+		isKeyDown = true;
 		buttonImage->enabled = false;
 		highlightedImage->enabled = false;
 		pressedImage->enabled = true;
-	}
-	else
-	{
-		isPressed = false;
-		pressedImage->enabled = false;
 	}
 }
 
 void Button::Enable(bool enable)
 {
 	Component::Enable(enable);
-	isPressed = false;
+	isKeyDown = false;
+	isKeyUp = false;
 	isHovered = false;
 	isSelected = false;
 	highlightedImage->enabled = false;

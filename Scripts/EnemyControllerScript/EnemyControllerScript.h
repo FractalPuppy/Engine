@@ -18,6 +18,7 @@ class ComponentBoxTrigger;
 class DamageController;
 class EnemyLifeBarController;
 class PlayerMovement;
+class ExperienceController;
 
 class EnemyControllerScript_API EnemyControllerScript : public Script
 {
@@ -59,6 +60,7 @@ public:
 
 	DamageController* damageController = nullptr;
 	EnemyLifeBarController* enemyLifeBar = nullptr;
+	ExperienceController* experienceController = nullptr;
 	
 	// BBoxes
 	math::AABB* myBbox = nullptr;
@@ -71,6 +73,7 @@ public:
 private:
 	int actualHealth = 20;
 	int maxHealth = 20;
+	int experience = 20;
 
 	bool isDead = false;
 };

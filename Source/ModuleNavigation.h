@@ -97,6 +97,7 @@ public:
 	//Constants
 	//static const int ERROR = -1;
 	static const int ERROR_NEARESTPOLY = -2;
+	std::string sceneName = "";
 
 private:
 	// Explicitly-disabled copy constructor and copy assignment operator.

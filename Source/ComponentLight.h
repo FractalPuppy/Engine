@@ -3,8 +3,8 @@
 
 #include "Component.h"
 #include "Math/float3.h"
-#include "MathGeoLib/include/Geometry/Sphere.h"
-#include "MathGeoLib/include/Geometry/AABB.h"
+#include "Geometry/Sphere.h"
+#include "Geometry/AABB.h"
 #define LIGHTTYPES 3
 
 enum class LightType

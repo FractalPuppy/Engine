@@ -12,8 +12,8 @@
 #include "ComponentTransform2D.h"
 //fonts lib
 #include <ft2build.h>
-#include "MathGeoLib/include/Math/float4x4.h"
-#include FT_FREETYPE_H
+#include "Math/float4x4.h"
+#include FT_FREETYPE_H 
 
 ModuleFontLoader::ModuleFontLoader()
 {

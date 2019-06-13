@@ -9,6 +9,7 @@
 #ifndef DEBUG_DRAW_HPP
 #define DEBUG_DRAW_HPP
 
+#include "Globals.h"
 // ========================================================
 // Library Overview:
 // ========================================================

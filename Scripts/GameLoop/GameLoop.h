@@ -85,6 +85,8 @@ private:
 
 	void ChangeGameState(GameState newState); //Set initial conditions for each state here if required
 
+	bool HasImageHoveredInChildren(const GameObject* go) const;
+
 	GameState gameState = GameState::MENU;
 	GameScene gameScene = GameScene::MENU;
 public:

@@ -12,7 +12,7 @@
 #include "HashString.h"
 #include "JSON.h"
 #include "imgui.h"
-#include "MathGeoLib/include/Math/float2.h"
+#include "Math/float2.h"
 #include "Viewport.h"
 #include "GameObject.h"
 #include "ComponentTransform2D.h"
