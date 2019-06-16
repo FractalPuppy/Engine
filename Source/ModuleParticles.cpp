@@ -275,6 +275,7 @@ void ModuleParticles::Reset()
 
 void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const ComponentCamera* camera) const
 {
+	PROFILE;
 	if (cp->texture == nullptr || (!cp->Playing && !cp->ConstantPlaying))
 	{
 		return;
@@ -282,6 +283,8 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 	glUseProgram(shader->id[0]);
 	glBindVertexArray(billBoardVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, billBoardInstanceVBO);
+	//float* matrices = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+	PROFILE;
 	if (cp->billboarded)
 	{
 		cp->particles.sort(
@@ -301,24 +304,22 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 	}
 	unsigned aliveParticles = 0;
 	unsigned nParticles = cp->particles.size();
+
+	unsigned totalSize = sizeof(float) * 20;
+	float* matrices = new float[totalSize*nParticles];
+	float* cursor = matrices;
+
 	for (; nParticles > 0; --nParticles)
 	{
 		cp->particles.front()->lifeTimer -= App->time->fullGameDeltaTime;
 		if (cp->particles.front()->lifeTimer > .0f)
 		{
-			unsigned totalSize = sizeof(float) * 20;
-
-			float* matrices = new float[totalSize];
-			float* cursor = matrices;
 			memcpy(cursor, &cp->particles.front()->global.Col(0), sizeof(float) * 4); cursor += 4;
 			memcpy(cursor, &cp->particles.front()->global.Col(1), sizeof(float) * 4); cursor += 4;
 			memcpy(cursor, &cp->particles.front()->global.Col(2), sizeof(float) * 4); cursor += 4;
 			memcpy(cursor, &cp->particles.front()->global.Col(3), sizeof(float) * 4); cursor += 4;
 
 			memcpy(cursor, &cp->particles.front()->color, sizeof(float) * 4); cursor += 4;
-
-			glBufferSubData(GL_ARRAY_BUFFER, aliveParticles * totalSize, totalSize, &matrices);
-			delete[] matrices;
 
 			cp->particles.push_back(cp->particles.front());
 			++aliveParticles;
@@ -329,10 +330,12 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 		}
 		cp->particles.pop_front();
 	}
-	//
+	
+	glBufferData(GL_ARRAY_BUFFER, aliveParticles * totalSize, matrices, GL_STATIC_DRAW);
 
 	//glUnmapBuffer(GL_ARRAY_BUFFER);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	delete[] matrices;
 
 	glUniformMatrix4fv(glGetUniformLocation(shader->id[0], "projection"), 1, GL_FALSE, &camera->GetProjectionMatrix()[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(shader->id[0], "view"), 1, GL_FALSE, &camera->GetViewMatrix()[0][0]);
