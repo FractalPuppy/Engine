@@ -19,6 +19,7 @@
 #include <algorithm>
 #include "ImGUICurveUtils.h"
 #include "imgui_color_gradient.h"
+#include "Brofiler.h"
 
 ModuleParticles::~ModuleParticles()
 {
@@ -139,6 +140,7 @@ bool ModuleParticles::Start()
 
 void ModuleParticles::Render(float dt, const ComponentCamera* camera) 
 {
+	PROFILE;
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	particleSystems.sort(
@@ -280,7 +282,6 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 	glUseProgram(shader->id[0]);
 	glBindVertexArray(billBoardVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, billBoardInstanceVBO);
-	float* matrices = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	if (cp->billboarded)
 	{
 		cp->particles.sort(
@@ -298,21 +299,29 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 			return cp1->position.Distance(orderPoint) > cp2->position.Distance(orderPoint);
 		});
 	}
-
+	unsigned aliveParticles = 0;
 	unsigned nParticles = cp->particles.size();
 	for (; nParticles > 0; --nParticles)
 	{
 		cp->particles.front()->lifeTimer -= App->time->fullGameDeltaTime;
 		if (cp->particles.front()->lifeTimer > .0f)
 		{
-			memcpy(matrices, &cp->particles.front()->global.Col(0), sizeof(float) * 4); matrices += 4;
-			memcpy(matrices, &cp->particles.front()->global.Col(1), sizeof(float) * 4); matrices += 4;
-			memcpy(matrices, &cp->particles.front()->global.Col(2), sizeof(float) * 4); matrices += 4;
-			memcpy(matrices, &cp->particles.front()->global.Col(3), sizeof(float) * 4); matrices += 4;
+			unsigned totalSize = sizeof(float) * 20;
 
-			memcpy(matrices, &cp->particles.front()->color, sizeof(float) * 4); matrices += 4;
+			float* matrices = new float[totalSize];
+			float* cursor = matrices;
+			memcpy(cursor, &cp->particles.front()->global.Col(0), sizeof(float) * 4); cursor += 4;
+			memcpy(cursor, &cp->particles.front()->global.Col(1), sizeof(float) * 4); cursor += 4;
+			memcpy(cursor, &cp->particles.front()->global.Col(2), sizeof(float) * 4); cursor += 4;
+			memcpy(cursor, &cp->particles.front()->global.Col(3), sizeof(float) * 4); cursor += 4;
+
+			memcpy(cursor, &cp->particles.front()->color, sizeof(float) * 4); cursor += 4;
+
+			glBufferSubData(GL_ARRAY_BUFFER, aliveParticles * totalSize, totalSize, &matrices);
+			delete[] matrices;
 
 			cp->particles.push_back(cp->particles.front());
+			++aliveParticles;
 		}
 		else
 		{
@@ -322,7 +331,7 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 	}
 	//
 
-	glUnmapBuffer(GL_ARRAY_BUFFER);
+	//glUnmapBuffer(GL_ARRAY_BUFFER);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader->id[0], "projection"), 1, GL_FALSE, &camera->GetProjectionMatrix()[0][0]);
