@@ -125,6 +125,7 @@ private:
 
 	//GO
 	GameObject* menu = nullptr;
+	GameObject* pauseMenu = nullptr;
 	GameObject* options = nullptr;
 	GameObject* controls = nullptr;
 	GameObject* loseWindow = nullptr;
