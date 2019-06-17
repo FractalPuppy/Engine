@@ -157,7 +157,6 @@ void ModuleParticles::Render(float dt, const ComponentCamera* camera)
 
 	glDisable(GL_CULL_FACE);
 	glBlendFunc(GL_ONE, GL_ONE);	
-
 	for (ComponentTrail* trail : trails)
 	{
 		trail->UpdateTrail();
@@ -184,7 +183,7 @@ void ModuleParticles::RenderTrail(ComponentTrail* ct, const ComponentCamera* cam
 	unsigned trailVertices = ct->trail.size();
 
 	glBindBuffer(GL_ARRAY_BUFFER, trailVBO);
-	float* ptrVertices = (float*)glMapBufferRange(GL_ARRAY_BUFFER, 0, sizeof(float) * MAX_TRAIL_VERTICES * 6, GL_MAP_WRITE_BIT);
+	//float* ptrVertices = (float*)glMapBufferRange(GL_ARRAY_BUFFER, 0, sizeof(float) * MAX_TRAIL_VERTICES * 6, GL_MAP_WRITE_BIT);
 
 	math::float3 P0L;
 	math::float3 P0R;
@@ -192,6 +191,10 @@ void ModuleParticles::RenderTrail(ComponentTrail* ct, const ComponentCamera* cam
 	unsigned discarded = 0u;
 
 	float sPortion = 1 / (float)trailVertices;
+
+	unsigned totalSize = sizeof(float) * 10;
+	float* matrices = new float[totalSize*trailVertices];
+	float* cursor = matrices;
 
 	for (unsigned i = 0u; i < trailVertices; ++i)
 	{
@@ -208,16 +211,16 @@ void ModuleParticles::RenderTrail(ComponentTrail* ct, const ComponentCamera* cam
 					case ParticleModule::ParticleModulesType::SIZE_OVER_TIME:
 						width = ((PMSizeOverTime*)pm)->GetSize(point.remainingTime / point.totalTime, point.width);
 						break;
-					
 					}
 				}
 			}
 			P0L = point.position + point.rightPoint * width;
 			P0R = point.position - point.rightPoint * width;
-			memcpy(ptrVertices, &P0L.x, sizeof(float) * 3); ptrVertices += 3;
-			memcpy(ptrVertices, &math::float2(sPortion * i, 0.f), sizeof(float) * 2); ptrVertices += 2;
-			memcpy(ptrVertices, &P0R.x, sizeof(float) * 3);	ptrVertices += 3;
-			memcpy(ptrVertices, &math::float2(sPortion * i, 1), sizeof(float) * 2); ptrVertices += 2;
+
+			memcpy(cursor, &P0L.x, sizeof(float) * 3); cursor += 3;
+			memcpy(cursor, &math::float2(sPortion * i, 0.f), sizeof(float) * 2); cursor += 2;
+			memcpy(cursor, &P0R.x, sizeof(float) * 3);	cursor += 3;
+			memcpy(cursor, &math::float2(sPortion * i, 1), sizeof(float) * 2); cursor += 2;
 		}
 		else
 		{
@@ -226,8 +229,9 @@ void ModuleParticles::RenderTrail(ComponentTrail* ct, const ComponentCamera* cam
 		ct->trail.push(ct->trail.front());
 		ct->trail.pop();
 	}
-
-	glUnmapBuffer(GL_ARRAY_BUFFER);
+	//glBufferData
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	delete[] matrices;
 
 	glUniformMatrix4fv(glGetUniformLocation(trailShader->id[0], "projection"), 1, GL_FALSE, &camera->GetProjectionMatrix()[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(trailShader->id[0], "view"), 1, GL_FALSE, &camera->GetViewMatrix()[0][0]);
@@ -284,7 +288,6 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 	glBindVertexArray(billBoardVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, billBoardInstanceVBO);
 	//float* matrices = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-	PROFILE;
 	if (cp->billboarded)
 	{
 		cp->particles.sort(
