@@ -1434,6 +1434,24 @@ bool ModuleNavigation::NavigateTowardsCursor(math::float3 start, std::vector<mat
 	return FindPath(start, intersectionPos, path, PathFindType::FOLLOW, positionCorrection, maxPathDistance);
 }
 
+bool ModuleNavigation::NavigablePoint(math::float3 point) const
+{
+	//var that defines the distance around the point that looks for a navigable point
+	float polyPickExt[3] = { 0, 10.f, 0};
+
+	//parameters for the result and flags for the navmesh query
+	dtPolyRef navPoint;
+	dtQueryFilter filter;
+	filter.setIncludeFlags(SAMPLE_POLYFLAGS_ALL ^ SAMPLE_POLYFLAGS_DISABLED);
+	filter.setExcludeFlags(0);
+
+	//navmesh query
+	navQuery->findNearestPoly((float*)& point, polyPickExt, &filter, &navPoint, 0);
+
+	if (!navPoint)	return false;
+	return true;
+}
+
 void ModuleNavigation::RecalcPath(math::float3 point)
 {
 	if (startPoint)

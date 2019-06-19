@@ -98,6 +98,9 @@ public:
 										  math::float3 positionCorrection, math::float3& intersectionPos, 
 										  float maxPathDistance = 10000.0f) const;
 
+	//returns if the point belongs to the navMesh
+	ENGINE_API bool NavigablePoint(math::float3 point) const;
+
 	void RecalcPath(math::float3 point);
 
 	//Constants
