@@ -63,3 +63,5 @@
 #*.RTF   diff=astextplain
 #*.c filter=indent
 #*.cpp filter=indent
+*.cpp -text crlf diff
+
