@@ -27,6 +27,7 @@ void CreditsScript::Expose(ImGuiContext* context)
 
 void CreditsScript::Start()
 {
+	int h = 0;
 	transform2D = gameobject->GetComponent<Transform2D>();
 	initialPosition = transform2D->getPosition();
 }
