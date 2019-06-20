@@ -13,7 +13,6 @@
 
 CreditsScript_API Script* CreateScript()
 {
-	int i = 0;
 	CreditsScript* instance = new CreditsScript;
 	return instance;
 }
