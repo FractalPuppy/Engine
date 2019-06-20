@@ -61,4 +61,5 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-*.cpp crlf diff
+*.c filter=indent
+*.cpp filter=indent
