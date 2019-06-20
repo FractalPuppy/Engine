@@ -61,4 +61,4 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-Scripts/*.cpp crlf diff
+Scripts/*.cpp -text crlf diff
