@@ -23,6 +23,16 @@ Button::Button() : Component(nullptr, ComponentType::Button)
 	highlightedImage = new ComponentImage();
 	pressedImage = new ComponentImage();
 	AssemblyButton();
+
+	buttonImage->hoverDetectionMouse1 = false;
+	buttonImage->hoverDetectionMouse3 = false;
+	buttonImage->showHoverDetectInEditor = false;
+	highlightedImage->hoverDetectionMouse1 = false;
+	highlightedImage->hoverDetectionMouse3 = false;
+	highlightedImage->showHoverDetectInEditor = false;
+	pressedImage->hoverDetectionMouse1 = false;
+	pressedImage->hoverDetectionMouse3 = false;
+	pressedImage->showHoverDetectInEditor = false;
 }
 
 Button::Button(GameObject* gameobject) : Component(gameobject, ComponentType::Button)
@@ -70,6 +80,9 @@ void Button::DrawProperties()
 	ImGui::Text("Pressed image");
 	ImGui::PushID(3);
 	pressedImage->DrawProperties();
+	ImGui::Text("Button Hover Detection");
+	ImGui::Checkbox("Hover Detection Mouse1", &hoverDetectionMouse1);
+	ImGui::Checkbox("Hover Detection Mouse3", &hoverDetectionMouse3);
 	ImGui::PopID();
 	ImGui::PopID();
 	ImGui::PopID();
@@ -91,6 +104,8 @@ void Button::Save(JSON_value* value) const
 	value->AddValue("buttonImage", *bValue);
 	value->AddValue("highlightedImage", *hValue);
 	value->AddValue("pressedImage", *pValue);
+	value->AddInt("hoverDetectionMouse1", hoverDetectionMouse1);
+	value->AddInt("hoverDetectionMouse3", hoverDetectionMouse3);
 }
 
 void Button::Load(JSON_value* value)
@@ -104,11 +119,16 @@ void Button::Load(JSON_value* value)
 	text->Load(value->GetValue("text"));
 	buttonImage = new ComponentImage();
 	buttonImage->Load(value->GetValue("buttonImage"));
+	buttonImage->showHoverDetectInEditor = false;
 	highlightedImage = new ComponentImage();
 	highlightedImage->Load(value->GetValue("highlightedImage"));
+	highlightedImage->showHoverDetectInEditor = false;
 	pressedImage = new ComponentImage();
 	pressedImage->Load(value->GetValue("pressedImage"));	
+	pressedImage->showHoverDetectInEditor = false;
 	AssemblyButton();
+	hoverDetectionMouse1 = value->GetInt("hoverDetectionMouse1", 1);
+	hoverDetectionMouse3 = value->GetInt("hoverDetectionMouse3", 1);
 }
 
 void Button::Update()
@@ -126,6 +146,10 @@ void Button::Update()
 	if (screenX > buttonMin.x && screenX < buttonMax.x && screenY > buttonMin.y && screenY < buttonMax.y)
 	{
 		isHovered = true;
+		
+		if (hoverDetectionMouse1) App->ui->uiHoveredMouse1 = true;
+		if (hoverDetectionMouse3) App->ui->uiHoveredMouse3 = true;
+
 		buttonImage->enabled = false;
 		highlightedImage->enabled = true;
 		pressedImage->enabled = false;

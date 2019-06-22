@@ -79,16 +79,6 @@ void LoopStatePlaying::Update()
 		gLoop->missionsMenuGO->SetActive(gLoop->missionsButton->IsPressed());
 	}
 
-	gLoop->playerScript->canInteract = true;
-	if (gLoop->inventoryButton->IsHovered() || gLoop->skillsButton->IsHovered() || gLoop->missionsButton->IsHovered() || gLoop->closePlayerMenuButton->IsHovered())
-	{
-		gLoop->playerScript->canInteract = false;
-	}
-	else if (gLoop->playerMenuGO->activeSelf && gLoop->HasImageHoveredInChildren(gLoop->playerMenuGO))
-	{
-		gLoop->playerScript->canInteract = false;
-	}
-
 	if (gLoop->playerScript->isPlayerDead)
 	{
 		gLoop->loseWindow->SetActive(true);

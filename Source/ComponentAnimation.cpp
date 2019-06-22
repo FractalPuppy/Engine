@@ -430,12 +430,7 @@ void ComponentAnimation::Update()
 					scr->OnAnimationEvent(Anim->events.at(Anim->nextEvent)->name);
 				}
 
-				if (Anim->nextEvent + 1 < Anim->totalEvents)
-					++Anim->nextEvent;
-				else if (Anim->nextEvent + 1 == Anim->totalEvents && Anim->totalEvents == 1)
-					++Anim->nextEvent;
-				else
-					Anim->nextEvent = 0;
+				++Anim->nextEvent;
 			}
 
 			if (gameobject != nullptr)
