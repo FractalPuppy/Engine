@@ -249,7 +249,6 @@ bool FileImporter::ImportScene(const aiScene &aiscene, const char* file, const c
 			// ResourceAniamtion was created on .meta of model load, now replace previous resource
 			App->resManager->ReplaceResource(animation->GetUID(), animation);
 		}
-		animationComponent->anim = animation;
 		animationData[animationSize] = 0;
 
 		std::string exportedFile(IMPORTED_ANIMATIONS + std::to_string(animation->GetUID()) + ANIMATIONEXTENSION);
