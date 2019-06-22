@@ -25,7 +25,6 @@ public:
 	void DrawProperties();
 	Component* Clone() const;
 
-	void SetAnimation(const char* animationFile);
 	void SetStateMachine(const char* stateMachineFile);
 	ENGINE_API void SendTriggerToStateMachine(const char* trigger);
 	ResourceAnimation* GetAnimFromStateMachine();
@@ -66,7 +65,6 @@ public:
 public:
 	AnimationController* editorController = nullptr;
 	AnimationController* controller = nullptr;
-	ResourceAnimation* anim = nullptr;
 	ResourceStateMachine* stateMachine = nullptr;
 
 	EditorContext* context = nullptr;
