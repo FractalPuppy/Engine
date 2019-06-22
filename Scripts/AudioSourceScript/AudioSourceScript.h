@@ -19,6 +19,7 @@ class AudioSourceScript_API AudioSourceScript : public Script
 
 private:
 	ComponentAudioSource* audioSource = nullptr;
+	int i;
 };
 
 #endif __AudioSourceScript_h__

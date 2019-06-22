@@ -9,7 +9,7 @@ class GameObject;
 class JSON_value;
 struct ImGuiContext;
 
-class ENGINE_API Script : public Component
+class Script : public Component
 {
 public:
 	Script(const Script& script);
