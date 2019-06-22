@@ -409,8 +409,9 @@ JSON_value * JSON::GetValue(const char* name)
 
 std::string JSON::ToString() const
 {
-	jsonBuffer->Clear();
-	rapidjson::Writer<rapidjson::StringBuffer> writer(*jsonBuffer);
+	//jsonBuffer->Clear();
+	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(*jsonBuffer);
+
 	document->Accept(writer);
 
 	return jsonBuffer->GetString();
@@ -419,7 +420,7 @@ std::string JSON::ToString() const
 unsigned JSON::Size()
 {
 	jsonBuffer->Clear();
-	rapidjson::Writer<rapidjson::StringBuffer> writer(*jsonBuffer);
+	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(*jsonBuffer);
 	document->Accept(writer);
 	return jsonBuffer->GetSize();
 }

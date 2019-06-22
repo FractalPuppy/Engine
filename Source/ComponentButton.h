@@ -46,6 +46,9 @@ public:
 	bool isSelected = false;
 	bool isKeyDown = false;
 	bool isKeyUp = false;
+
+	bool hoverDetectionMouse1 = true;
+	bool hoverDetectionMouse3 = true;
 };
 
 #endif // __ComponentButton_h__
