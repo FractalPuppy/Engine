@@ -4,12 +4,14 @@
 #include "AnimationController.h"
 
 #include "ModuleResourceManager.h"
+#include "ComponentAnimation.h"
 
 #include "ResourceAnimation.h"
 #include "Brofiler.h"
 
-AnimationController::AnimationController()
+AnimationController::AnimationController(ComponentAnimation* comp)
 {
+	compAnim = comp;
 }
 
 
@@ -25,9 +27,6 @@ void AnimationController::Play(ResourceAnimation* anim, bool loop, bool mustFini
 	newInstance->speed = speed;
 	newInstance->loop = loop;
 	current = newInstance;
-	
-	if (current->anim != NULL)
-		current->anim->nextEvent = 0;
 }
 
 void AnimationController::PlayEditor(ResourceAnimation * anim)
@@ -62,7 +61,6 @@ void AnimationController::PlayNextNode(ResourceAnimation * anim, bool loop, bool
 	current->next->anim = anim;
 	current->next->loop = loop;
 	current->next->speed = speed;
-	current->next->anim->nextEvent = 0;
 }
 
 
@@ -100,7 +98,7 @@ void AnimationController::UpdateInstance(Instance* instance, float dt)
 			else if (instance->loop)
 			{
 				instance->time = trueDt - timeRemainingA;
-				anim->nextEvent = 0;
+				compAnim->currentEvent = 0u;
 			}
 			else
 			{
@@ -166,12 +164,12 @@ void AnimationController::UpdateEditorInstance(Instance* instance, float dt)
 			{
 				instance->time = current->minTime + trueDt - timeRemainingA;
 				trueFrame = current->maxTime;
-				anim->nextEvent = 0;
+				compAnim->currentEvent = 0u;
 			}
 			else
 			{
 				instance->time = current->maxTime;
-				anim->nextEvent = 0;
+				compAnim->currentEvent = 0u;
 			}
 		}
 		else
@@ -261,7 +259,7 @@ void AnimationController::SetNextEvent()
 	ResourceAnimation* anim = current->anim;
 	
 	int currentFrame = current->time * anim->framesPerSecond;
-	anim->nextEvent = 0;
+	compAnim->currentEvent = 0;
 
 	for (std::vector<Event*>::iterator it = anim->events.begin(); it != anim->events.end(); ++it)
 	{
@@ -269,18 +267,20 @@ void AnimationController::SetNextEvent()
 		{
 			return;
 		}
-		++anim->nextEvent;
+		++(compAnim->currentEvent);
 	}
 }
 
-bool AnimationController::CheckEvents(ResourceAnimation* anim)
+bool AnimationController::CheckEvents()
 {
+	ResourceAnimation* anim = current->anim;
+
 	if (NULL == anim || anim->totalEvents == 0)
 		return false;
 	
 	for (std::vector<Event*>::iterator it = anim->events.begin(); it != anim->events.end(); ++it)
 	{
-		if ((*it)->key == anim->nextEvent)
+		if ((*it)->key == compAnim->currentEvent)
 		{
 			int currentFrame = current->time * anim->framesPerSecond;
 			if (currentFrame >= (*it)->frame)

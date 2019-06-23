@@ -61,6 +61,7 @@ public:
 	bool channelsSetted = false;
 	bool deletePopup = false;
 
+	unsigned currentEvent = 0u;
 	unsigned currentNode = 0u;
 
 public:

@@ -6,6 +6,7 @@
 #include "Math/Quat.h"
 
 class ResourceAnimation;
+class ComponentAnimation;
 
 class AnimationController
 {
@@ -33,7 +34,7 @@ public:
 	Instance* current = nullptr;
 	float trueFrame = 0;
 
-	AnimationController();
+	AnimationController(ComponentAnimation* compAnim);
 	~AnimationController();
 
 	void Play(ResourceAnimation* anim, bool loop, bool mustFinish, float speed);
@@ -47,7 +48,7 @@ public:
 
 	void ResetClipping();
 	void SetNextEvent();
-	bool CheckEvents(ResourceAnimation* anim);
+	bool CheckEvents();
 
 public:
 
@@ -58,6 +59,10 @@ public:
 	math::float3 InterpolateFloat3(const math::float3& first, const math::float3& second, float lambda) const;
 
 	math::Quat InterpolateQuat(const math::Quat& first, const math::Quat& second, float lambda) const;
+
+private:
+
+	ComponentAnimation* compAnim = nullptr;
 };
 
 #endif // __ANIMATIONCONTROLLER_H_

@@ -26,14 +26,14 @@
 
 ComponentAnimation::ComponentAnimation() : Component(nullptr, ComponentType::Animation)
 {
-	editorController = new AnimationController();
-	controller = new AnimationController();
+	editorController = new AnimationController(this);
+	controller = new AnimationController(this);
 }
 
 ComponentAnimation::ComponentAnimation(GameObject * gameobject) : Component(gameobject, ComponentType::Animation)
 {
-	editorController = new AnimationController();
-	controller = new AnimationController();
+	editorController = new AnimationController(this);
+	controller = new AnimationController(this);
 }
 
 ComponentAnimation::~ComponentAnimation()
@@ -371,9 +371,12 @@ bool ComponentAnimation::GetMustFinishFromStateMachine()
 
 void ComponentAnimation::PlayNextNode(float blend)
 {
-	if(stateMachine != nullptr)
-		controller->PlayNextNode(GetAnimFromStateMachine(),GetLoopFromStateMachine(), GetMustFinishFromStateMachine(),
+	if (stateMachine != nullptr)
+	{
+		currentEvent = 0u;
+		controller->PlayNextNode(GetAnimFromStateMachine(), GetLoopFromStateMachine(), GetMustFinishFromStateMachine(),
 			GetSpeedFromStateMachine(), blend);
+	}
 
 	if (!channelsSetted)
 	{
@@ -408,26 +411,26 @@ void ComponentAnimation::Update()
 			}
 
 			controller->Update(App->time->fullGameDeltaTime);
-			ResourceAnimation* Anim = controller->current->anim;
 
-			if (controller->CheckEvents(Anim))
+			if (controller->CheckEvents(currentEvent))
 			{
 				std::vector<Component*> scripts = gameobject->GetComponents(ComponentType::Script);
+
+				ResourceAnimation* animation = controller->current->anim;
 
 				for (auto script : scripts)
 				{
 					Script* scr = (Script*)script;
-					scr->OnAnimationEvent(Anim->events.at(Anim->nextEvent)->name);
+					scr->OnAnimationEvent(animation->events.at(currentEvent)->name);
 				}
-
-				++Anim->nextEvent;
+				++currentEvent;
 			}
 
 			if (gameobject != nullptr)
 			{
 				GameObject* meshGO = nullptr;
 
-				for (const auto& child : gameobject->children)
+				for (const auto& child : gameobject->children) //frustum culling for aniamtions
 				{
 					if (child->isVolumetric)
 					{
@@ -468,6 +471,7 @@ void ComponentAnimation::OnPlay()
 	if (stateMachine != nullptr && stateMachine->GetClipsSize() > 0u && stateMachine->GetNodesSize() > 0u)
 	{
 		currentNode = stateMachine->GetDefaultNode();
+		currentEvent = 0u;
 		controller->Play(GetAnimFromStateMachine(), GetLoopFromStateMachine(),
 			GetMustFinishFromStateMachine(), GetSpeedFromStateMachine());
 	}
