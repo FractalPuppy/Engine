@@ -574,6 +574,8 @@ void GameObject::ChangeParent(GameObject* oldParent, GameObject* newParent)
 	newParent->children.push_back(this);
 	this->parent = newParent;
 	this->parentUUID = newParent->UUID;
+	transform->NewAttachment();	
+	UpdateBBox();
 }
 
 ENGINE_API Component * GameObject::GetComponentOld(ComponentType type) const //Deprecated

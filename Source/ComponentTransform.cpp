@@ -274,6 +274,11 @@ ENGINE_API void ComponentTransform::Scale(float scalar)
 	gameobject->movedFlag = true;
 }
 
+ENGINE_API void ComponentTransform::SetGlobalPosition(const math::float3 & newPos)
+{
+	global.SetTranslatePart(newPos);
+}
+
 math::Quat ComponentTransform::GetRotation()
 {
 	return rotation;
@@ -380,4 +385,13 @@ void ComponentTransform::Reset()
 	math::float4x4 local = math::float4x4::identity;
 	math::float4x4 animatedLocal = math::float4x4::identity;
 	math::float4x4 global = math::float4x4::identity;
+}
+
+void ComponentTransform::NewAttachment()
+{
+	local = gameobject->parent->transform->global.Inverted().Mul(global);
+	float3x3 rot;
+	local.Decompose(position, rot, scale);
+	rotation = rot.ToQuat();
+	UpdateGlobalTransform();
 }

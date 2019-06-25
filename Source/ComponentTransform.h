@@ -31,6 +31,7 @@ public:
 	ENGINE_API void SetPosition(const math::float3& position);
 	ENGINE_API void SetRotation(const math::Quat & newRotation);
 	ENGINE_API void Scale(float scalar);
+	ENGINE_API void SetGlobalPosition(const math::float3 &newPos);
 	
 	ENGINE_API math::Quat GetRotation();
 	ENGINE_API math::float3 GetPosition();
@@ -48,6 +49,8 @@ public:
 	//void Copy() override;
 	void Paste() override;
 	void Reset() override;
+
+	void NewAttachment();
 
 private:
 	void RotationToEuler();

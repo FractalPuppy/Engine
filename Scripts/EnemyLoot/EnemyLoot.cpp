@@ -49,18 +49,17 @@ void EnemyLoot::GenerateLoot()
 		go = items[i].first;
 		if ((rand() % 100) < items[i].second)
 		{
-			go->ChangeParent(gameobject, list);
 			go->SetActive(true);
-			math::float3 pos = gameobject->transform->GetPosition();
+			math::float3 pos = gameobject->transform->GetGlobalPosition();
 			float x = static_cast <float>(rand() / static_cast <float> (RAND_MAX / 200));
 			float z = static_cast <float>(rand() / static_cast <float> (RAND_MAX / 200));
 			pos.x += x;
 			pos.y += 30;
 			pos.z += z;
-			go->transform->SetPosition(pos);
+			go->transform->SetGlobalPosition(pos);
+			go->ChangeParent(gameobject, list);
+
 			go->movedFlag = true;
-			go->treeNode = nullptr; //TODO:Quitar esta guarrada
-			go->UpdateGlobalTransform();
 		}
 	}
 	items.clear();
