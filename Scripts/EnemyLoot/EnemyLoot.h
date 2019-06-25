@@ -39,6 +39,7 @@ private:
 	std::vector<std::pair<std::string, int>> actLoot;
 
 	GameObject* go;
+	GameObject* list;
 	Script* script = nullptr;
 
 	void Expose(ImGuiContext * context);
