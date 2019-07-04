@@ -852,6 +852,14 @@ unsigned ModuleResourceManager::GetUIDFromMeta(const char* metaFile, FILETYPE fi
 	}
 }
 
+void ModuleResourceManager::GenerateAssetFile() const
+{
+	for (const auto& resource : resources)
+	{
+
+	}
+}
+
 void ModuleResourceManager::CleanUnusedMetaFiles() const
 {
 	// Get lists with all assets

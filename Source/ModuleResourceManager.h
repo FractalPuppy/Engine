@@ -77,6 +77,7 @@ class ModuleResourceManager :
 
 	unsigned GetUIDFromMeta(const char* metaFile, FILETYPE fileType) const;
 
+	void GenerateAssetFile() const;
 	// Clean functions
 	void CleanUnusedMetaFiles() const;			// Deletes all meta files that doesn't have a file assigned
 	void CleanUnusedExportedFiles() const;		// Deletes all imported files that aren't registered on the Resource Manager

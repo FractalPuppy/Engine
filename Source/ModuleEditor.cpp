@@ -8,6 +8,7 @@
 #include "ModuleTextures.h"
 #include "ModuleProgram.h"
 #include "ModuleTime.h"
+#include "ModuleResourceManager.h"
 
 #include "Viewport.h"
 
@@ -376,6 +377,10 @@ void ModuleEditor::ToolsMenu()
 		if (ImGui::MenuItem("Resource Manager", nullptr, resource->IsEnabled()))
 		{
 			resource->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("Generate Asset Files", nullptr))
+		{
+			App->resManager->GenerateAssetFile();
 		}
 		ImGui::EndMenu();
 	}
