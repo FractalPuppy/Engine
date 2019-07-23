@@ -5,6 +5,9 @@
 #include "GameObject.h"
 #include "ComponentButton.h"
 
+#include "ModuleRender.h"
+#include "Application.h"
+
 LoopStateOptions::LoopStateOptions(GameLoop* GL) : LoopState(GL)
 {
 }
@@ -28,5 +31,10 @@ void LoopStateOptions::Update()
 		gLoop->options->SetActive(false);
 		gLoop->EnableMenuButtons(true);
 		gLoop->currentLoopState = (LoopState*)gLoop->menuState;
+	}
+	if (gLoop->applyResolutionButton->IsPressed())
+	{
+		gLoop->applyResolutionButton->isHovered = false;
+		gLoop->App->renderer->changeResolution((Resolutions)gLoop->resIndex);
 	}
 }

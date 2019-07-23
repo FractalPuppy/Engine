@@ -130,6 +130,8 @@ public:
 	Button* controlsButton = nullptr;
 	Button* creditsButton = nullptr;
 	Button* vsyncButton = nullptr;
+	std::vector<Component*> resolutionButtons;
+	Button* applyResolutionButton = nullptr;
 	Button* exitButton = nullptr;
 	Button* backOptionButton = nullptr;
 	Button* backControlsButton = nullptr;
@@ -172,6 +174,10 @@ public:
 	//TEXT
 	Text* volumeText = nullptr;
 	Text* soundText = nullptr;
+	Text* resolutionText = nullptr;
+	std::vector<std::string> resolutionTexts = std::vector<std::string>(3);
+	int resIndex = 0;
+	
 
 	//Script
 	PlayerMovement* playerScript = nullptr;

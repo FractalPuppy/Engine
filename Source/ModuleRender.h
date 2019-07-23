@@ -16,6 +16,12 @@ struct Shader;
 class ComponentLight;
 class ComponentRenderer;
 
+enum Resolutions {
+	BEST19 = 0,
+	MEDIUM16,
+	LOW12
+};
+
 class ModuleRender : public Module
 {
 public:
@@ -40,6 +46,7 @@ public:
 
 	void GenBlockUniforms();
 	void AddBlockUniforms(const Shader &s) const;
+	void ENGINE_API changeResolution(Resolutions res);
 
 private:
 

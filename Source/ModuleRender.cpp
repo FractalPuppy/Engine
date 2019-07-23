@@ -870,6 +870,42 @@ void ModuleRender::AddBlockUniforms(const Shader &shader) const
 	}
 }
 
+void ModuleRender::changeResolution(Resolutions res)
+{
+	int gameWidth = 1920;
+	int gameHeight = 1080;
+	switch (res)
+	{
+	case BEST19:
+		gameWidth = 1920;
+		gameHeight = 1080;
+		break;
+	case MEDIUM16:
+		gameWidth = 1600;
+		gameHeight = 900;
+		break;
+	case LOW12:
+		gameWidth = 1280;
+		gameHeight = 720;
+		break;
+	}
+#ifndef  GAME_BUILD
+	if (!App->renderer->viewGame->hidden)
+	{
+		App->renderer->viewGame->current_width = gameWidth;
+		App->renderer->viewGame->current_height = gameHeight;
+	}
+	else
+	{
+		App->renderer->viewScene->current_width = gameWidth;
+		App->renderer->viewScene->current_height = gameHeight;
+	}
+#else
+	App->window->Resize(gameWidth, gameHeight);
+	//App->window.pos
+#endif
+}
+
 void ModuleRender::SetViewUniform(const ComponentCamera &camera) const
 {
 	glBindBuffer(GL_UNIFORM_BUFFER, UBO);

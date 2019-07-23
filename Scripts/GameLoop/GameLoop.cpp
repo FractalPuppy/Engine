@@ -94,7 +94,9 @@ void GameLoop::Start()
 		App->scene->root->OnPlay();
 		currentLoopState = (LoopState*)introState;
 	}
-
+	resolutionTexts[Resolutions::BEST19] = "1920/1080";
+	resolutionTexts[Resolutions::MEDIUM16] = "1600/900";
+	resolutionTexts[Resolutions::LOW12] = "1280/720";
 
 	if (App->scene->actionAfterLoad)
 	{
@@ -161,6 +163,17 @@ void GameLoop::LoadMenuScene()
 	GameObject* vsyncButtonGO = App->scene->FindGameObjectByName("CheckBackground", options);
 	vsyncButton = (Button*)vsyncButtonGO->GetComponent<Button>();
 	assert(vsyncButton != nullptr);
+
+	GameObject* resolutionButtonGO = App->scene->FindGameObjectByName("ResolutionRow");
+	assert(resolutionButtonGO != nullptr);
+	resolutionButtons = resolutionButtonGO->GetComponentsInChildren(ComponentType::Button);
+
+	GameObject* resTextGO = App->scene->FindGameObjectByName("ResolutionNumberText", resolutionButtonGO);
+	resolutionText = (Text*)resTextGO->GetComponent<Text>();//SoundNumberText
+
+	GameObject* applyResolutionButtonGO = App->scene->FindGameObjectByName("Apply", options);
+	applyResolutionButton = (Button*)applyResolutionButtonGO->GetComponent<Button>();
+	assert(applyResolutionButton != nullptr);
 
 	GameObject* backOptionsGO = App->scene->FindGameObjectByName("Back", options);
 	backOptionButton = (Button *)backOptionsGO->GetComponent<Button>();
@@ -444,6 +457,24 @@ void GameLoop::VsyncManagement()
 
 void GameLoop::ResolutionManagement()
 {
+	if (((Button*)resolutionButtons[0])->IsPressed()) //Decrease
+	{
+		--resIndex;
+		if (resIndex < 0)
+		{
+			resIndex = 2;
+		}
+		resolutionText->text = resolutionTexts[resIndex];
+	}
+	else if (((Button*)resolutionButtons[1])->IsPressed()) //Increase
+	{
+		++resIndex;
+		if (resIndex > 2)
+		{
+			resIndex = 0;
+		}
+		resolutionText->text = resolutionTexts[resIndex];
+	}
 	// 1280/720 - 1600/900 - 1920/1080
 }
 
