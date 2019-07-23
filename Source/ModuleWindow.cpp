@@ -150,6 +150,28 @@ math::float2 ModuleWindow::GetWindowPos() const
 #endif // GAME_BUILD
 }
 
+void ModuleWindow::setWindowSize(int w, int h)
+{
+#ifdef GAME_BUILD
+	return;
+#else
+	
+	SDL_SetWindowSize(window, w, h);
+	
+#endif
+}
+void ModuleWindow::centerWindow()
+{
+#ifdef GAME_BUILD
+	return;
+#else
+	if (window != NULL)
+	{
+		SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	}
+#endif
+}
+
 void ModuleWindow::DrawGUI()
 {
 	if ((!fullscreen || !fullscreen_desktop) && (ImGui::InputInt("width", &width,10,50) ||

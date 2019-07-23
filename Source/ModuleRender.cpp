@@ -872,8 +872,13 @@ void ModuleRender::AddBlockUniforms(const Shader &shader) const
 
 void ModuleRender::changeResolution(Resolutions res)
 {
-	int gameWidth = 1920;
-	int gameHeight = 1080;
+#ifndef  GAME_BUILD
+	return;
+#else
+	math::float2 tmpSize = App->window->GetWindowSize();
+	int gameWidth = (int)tmpSize.x;
+	int gameHeight = (int)tmpSize.y;
+
 	switch (res)
 	{
 	case BEST19:
@@ -889,21 +894,11 @@ void ModuleRender::changeResolution(Resolutions res)
 		gameHeight = 720;
 		break;
 	}
-#ifndef  GAME_BUILD
-	if (!App->renderer->viewGame->hidden)
-	{
-		App->renderer->viewGame->current_width = gameWidth;
-		App->renderer->viewGame->current_height = gameHeight;
-	}
-	else
-	{
-		App->renderer->viewScene->current_width = gameWidth;
-		App->renderer->viewScene->current_height = gameHeight;
-	}
-#else
-	App->window->Resize(gameWidth, gameHeight);
-	//App->window.pos
+	//App->window->Resize(gameWidth, gameHeight);
+	App->window->setWindowSize(gameWidth, gameHeight);
+	App->window->centerWindow();
 #endif
+
 }
 
 void ModuleRender::SetViewUniform(const ComponentCamera &camera) const
