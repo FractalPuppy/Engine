@@ -25,9 +25,6 @@ public:
 	math::float2 GetWindowSize() const;
 	math::float2 GetWindowPos() const;
 
-	void setWindowSize(int w, int h);
-	void centerWindow();
-
 	void DrawGUI() override;
 
 public:

@@ -244,7 +244,7 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 	glBindFramebuffer(GL_FRAMEBUFFER, postprocessFBO);
 #endif //  GAME_BUILD
 
-	glViewport(0, 0, width, height);
+	glViewport(offsetX, offsetY, width, height);
 	glClearColor(0.3f, 0.3f, 0.3f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -872,31 +872,33 @@ void ModuleRender::AddBlockUniforms(const Shader &shader) const
 
 void ModuleRender::changeResolution(Resolutions res)
 {
-#ifndef  GAME_BUILD
-	return;
-#else
+#ifdef  GAME_BUILD
 	math::float2 tmpSize = App->window->GetWindowSize();
 	int gameWidth = (int)tmpSize.x;
 	int gameHeight = (int)tmpSize.y;
-
+	//for every resolution first we set the window size and then the place the window should start
 	switch (res)
 	{
 	case BEST19:
 		gameWidth = 1920;
 		gameHeight = 1080;
+		offsetX = 0;
+		offsetY = 0;
 		break;
 	case MEDIUM16:
 		gameWidth = 1600;
 		gameHeight = 900;
+		offsetX = 320;
+		offsetY = 180;
 		break;
 	case LOW12:
 		gameWidth = 1280;
 		gameHeight = 720;
+		offsetX = 640;
+		offsetY = 360;
 		break;
 	}
-	//App->window->Resize(gameWidth, gameHeight);
-	App->window->setWindowSize(gameWidth, gameHeight);
-	App->window->centerWindow();
+	App->window->Resize(gameWidth, gameHeight);
 #endif
 
 }

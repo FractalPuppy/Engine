@@ -101,6 +101,9 @@ private:
 	bool wireframe = false;
 	int item_current = 0;//scale index
 
+	float offsetX = 0.f;
+	float offsetY = 0.f;
+
 	ResourceSkybox* skybox = nullptr;
 
 	//shadows stuff
