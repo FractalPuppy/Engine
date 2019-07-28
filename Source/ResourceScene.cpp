@@ -9,6 +9,7 @@
 #include "ModuleResourceManager.h"
 
 #include "GameObject.h"
+#include "ResourcePrefab.h"
 #include "ComponentRenderer.h"
 
 #include "JSON.h"
@@ -159,12 +160,17 @@ bool ResourceScene::Load()
 	gameobjectsMap.insert(std::pair<unsigned, GameObject*>(App->scene->canvas->UUID, sceneCanvas));
 
 	std::list<ComponentRenderer*> renderers;
+	std::vector<GameObject*> prefabs;
 
 	for (unsigned i = 0; i < gameobjectsJSON->Size(); i++)
 	{
 		JSON_value* gameobjectJSON = gameobjectsJSON->GetValue(i);
 		GameObject *gameobject = new GameObject();
 		gameobject->Load(gameobjectJSON);
+		if (gameobject->isPrefab && gameobject->isPrefabSync)
+		{
+			prefabs.emplace_back(gameobject);
+		}
 		if (gameobject->UUID != 1)
 		{
 			gameobjectsMap.insert(std::pair<unsigned, GameObject*>(gameobject->UUID, gameobject));
@@ -190,6 +196,13 @@ bool ResourceScene::Load()
 		}
 	}
 
+	for (size_t i = 0; i < prefabs.size(); i++)
+	{
+		if (App->scene->PrefabWasUpdated(prefabs[i]->prefabUID))
+		{
+			prefabs[i]->UpdateToPrefab(prefabs[i]->prefab->RetrievePrefab());
+		}
+	}
 	if (!App->scene->isCleared()) //Already a scene is loaded
 	{
 		//Recursive UID reassign

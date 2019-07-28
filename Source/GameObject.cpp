@@ -1176,13 +1176,6 @@ void GameObject::Load(JSON_value *value, bool prefabTemplate)
 		movedFlag = true;
 	}
 
-	if (isPrefab && isPrefabSync)
-	{
-		if(!prefabTemplate && App->scene->PrefabWasUpdated(prefabUID))
-		{
-			UpdateToPrefab(prefab->RetrievePrefab());
-		}
-	}
 }
 
 bool GameObject::IsParented(const GameObject & gameobject) const
