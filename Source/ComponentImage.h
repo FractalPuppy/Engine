@@ -4,6 +4,11 @@
 #include "Component.h"
 #include "Math/float4.h"
 #include <vector>
+extern "C"
+{
+	#include "libavcodec/avcodec.h"
+}
+#define INBUF_SIZE 4096
 
 class ResourceTexture;
 
@@ -29,6 +34,7 @@ public:
 
 	bool IsMasked() const;
 
+	void LoadVideo();
 	float4 color = float4(1.0f, 1.0f, 1.0f, 1.0f);
 	ResourceTexture* texture = nullptr;
 	bool flipVertical = false;
@@ -50,6 +56,17 @@ private:
 	int maskAmount = 100;
 
 	bool updateImageList = false;
+
+	const AVCodec *codec;
+	AVCodecParserContext *parser;
+	AVCodecContext *c = NULL;
+	FILE *f;
+	AVFrame *frame;
+	uint8_t inbuf[INBUF_SIZE + AV_INPUT_BUFFER_PADDING_SIZE];
+	uint8_t *data;
+	size_t   data_size;
+	int ret;
+	AVPacket *pkt;
 };
 
 #endif // __ComponentImage_h__

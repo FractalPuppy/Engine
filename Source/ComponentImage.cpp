@@ -5,6 +5,7 @@
 #include "ModuleResourceManager.h"
 #include "ModuleUI.h"
 #include "ModuleInput.h"
+#include "ModuleFileSystem.h"
 #include "ModuleRender.h"
 
 #include "ResourceTexture.h"
@@ -134,7 +135,7 @@ void ComponentImage::DrawProperties()
 			ImGui::Checkbox("Hover Detection Mouse1", &hoverDetectionMouse1);
 			ImGui::Checkbox("Hover Detection Mouse3", &hoverDetectionMouse3);
 		}
-
+		LoadVideo();
 		ImGui::Separator();
 	}
 }
@@ -227,4 +228,57 @@ int ComponentImage::GetMaskAmount() const
 bool ComponentImage::IsMasked() const
 {
 	return isMasked;
+}
+
+void ComponentImage::LoadVideo()
+{
+
+	pkt = av_packet_alloc();
+	if (!pkt)
+		exit(1);
+
+	/* set end of buffer to 0 (this ensures that no overreading happens for damaged MPEG streams) */
+	memset(inbuf + INBUF_SIZE, 0, AV_INPUT_BUFFER_PADDING_SIZE);
+
+	/* find the MPEG-1 video decoder */
+	codec = avcodec_find_decoder(AV_CODEC_ID_MPEG1VIDEO);
+	if (!codec) {
+		fprintf(stderr, "Codec not found\n");
+		exit(1);
+	}
+
+	parser = av_parser_init(codec->id);
+	if (!parser) {
+		fprintf(stderr, "parser not found\n");
+		exit(1);
+	}
+
+	c = avcodec_alloc_context3(codec);
+	if (!c) {
+		fprintf(stderr, "Could not allocate video codec context\n");
+		exit(1);
+	}
+
+	/* For some codecs, such as msmpeg4 and mpeg4, width and height
+	   MUST be initialized there because this information is not
+	   available in the bitstream. */
+
+	   /* open it */
+	if (avcodec_open2(c, codec, NULL) < 0) {
+		fprintf(stderr, "Could not open codec\n");
+		exit(1);
+	}
+
+	f = fopen("testVideo.mp4", "rb");
+	if (!f) {
+		fprintf(stderr, "Could not open %s\n", "testVideo.mp4");
+		exit(1);
+	}
+
+	frame = av_frame_alloc();
+	if (!frame) {
+		fprintf(stderr, "Could not allocate video frame\n");
+		exit(1);
+	}
+
 }
