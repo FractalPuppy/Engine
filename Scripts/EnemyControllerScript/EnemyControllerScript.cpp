@@ -21,6 +21,7 @@
 #include "DamageController.h"
 #include "EnemyLifeBarController.h"
 #include "EnemyLoot.h"
+#include "CombatAudioEvents.h"
 
 #include "imgui.h"
 #include "JSON.h"
@@ -160,6 +161,20 @@ void EnemyControllerScript::Awake()
 	{
 		hitMaterial = defaultMaterial;
 	}
+
+	GameObject* playerGO = App->scene->FindGameObjectByName("Player");
+	if (playerGO == nullptr)
+	{
+		LOG("Player couldn't be found \n");
+	}
+	else
+	{
+		combataudioevents = playerGO->GetComponent<CombatAudioEvents>();
+		if (combataudioevents == nullptr)
+		{
+			LOG("combataudioevents couldn't be found \n");
+		}
+	}
 }
 
 void EnemyControllerScript::Update()
@@ -247,6 +262,7 @@ void EnemyControllerScript::TakeDamage(unsigned damage)
 {
 	if (!isDead)
 	{
+		combataudioevents->enemyGotHit(0);
 		if (actualHealth - damage < 0 )
 		{
 			actualHealth = 0;

@@ -165,7 +165,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;$(SolutionDir)Source\OpenCV;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -192,7 +193,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;$(SolutionDir)\Scripts\CombatAudioEvents;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -242,7 +243,8 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;$(SolutionDir)Source\OpenCV;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -273,7 +275,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;$(SolutionDir)\Scripts\CombatAudioEvents;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -330,6 +332,9 @@ set ERRORLEVEL=0</Command>
     <ClInclude Include="EnemyControllerScript.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CombatAudioEvents\CombatAudioEvents.vcxproj">
+      <Project>{bff12be8-a1de-4cd3-acbb-e614fd9dafd5}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\DamageController\DamageController.vcxproj">
       <Project>{d8141fa2-e862-4706-a9f3-e8441c2b68fd}</Project>
     </ProjectReference>
