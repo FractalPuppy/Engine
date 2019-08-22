@@ -75,7 +75,7 @@ ComponentAudioSource* ComponentAudioSource::Clone() const
 
 void ComponentAudioSource::Play() 
 {
-	if (enabled && audio != nullptr) 
+	if (enabled) 
 	{
 		Stop();
 		if (audio != nullptr)
@@ -184,6 +184,20 @@ void ComponentAudioSource::DrawProperties()
 		{
 			return;
 		}
+		//ImGui::Text("File: \"%s\"", FXname.c_str());
+
+		//Blocked till file exlorer returns the selected path
+		
+		/*if (ImGui::Button("Load Audio"))
+		{
+			fileExplorer->currentOperation = MenuOperations::GETPATH;
+			fileExplorer->extensionToFilter = FILETYPE::AUDIO;
+			std::string audiosPath = AUDIOS;
+			audiosPath = audiosPath.substr(0, audiosPath.size() - 1);
+			fileExplorer->SetPath(*audiosPath.c_str());
+			sprintf_s(fileExplorer->title, "Load Audio");
+			fileExplorer->openFileExplorer = true;
+		}*/
 
 		// Audio selector
 		if (ImGui::BeginCombo("Audio", audio != nullptr ? audio->GetName() : None))
@@ -214,7 +228,27 @@ void ComponentAudioSource::DrawProperties()
 					ImGui::SetItemDefaultFocus();
 			}
 			ImGui::EndCombo();
+			/*std::set<std::string> files;
+
+			App->fsystem->ListFileNames(AUDIOS, files);
+
+
+			for each (std::string file in files)
+			{
+				bool is_selected = (path.c_str() == file);
+				if (ImGui::Selectable(file.c_str(), is_selected) && path.c_str() != file)
+				{
+					const char * asd = file.c_str();
+					LoadSoundFile((AUDIOS + file).c_str());
+				}
+				if (is_selected)
+				{
+					ImGui::SetItemDefaultFocus();
+				}
+
+			}
 		
+			ImGui::EndCombo();*/
 		}
 		if (ImGui::Button("Refresh List"))
 		{
@@ -222,6 +256,12 @@ void ComponentAudioSource::DrawProperties()
 		}
 
 		ImGui::NewLine();
+		/*if (ImGui::Checkbox("Streamed", &streamed)) 
+		{
+			LoadSoundFile(this->path.c_str());
+		}
+		toolTip("Streamed audio files will load into memory gradualy\n- Uncheck if its an FX");*/
+
 
 		ImGui::SliderFloat("Volume", &volume, 0, 2, "%.1f");
 		if (!Sound3D) {
