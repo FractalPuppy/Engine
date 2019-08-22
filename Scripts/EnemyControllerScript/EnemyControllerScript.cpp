@@ -384,12 +384,12 @@ void EnemyControllerScript::LookAt2D(math::float3& position)
 	gameobject->transform->LookAt(auxPos);
 }
 
-void EnemyControllerScript::OnTriggerEnter(GameObject* go)
+void EnemyControllerScript::OnTriggerExit(GameObject* go)
 {
 	if (go == playerHitBox->gameobject)
 	{
 		auto overlaper = attackBoxTrigger->overlapList.find(playerHitBox);
-		if (overlaper != attackBoxTrigger->overlapList.end() && overlaper->second == OverlapState::PostIdle)
+		if (overlaper != attackBoxTrigger->overlapList.end() && overlaper->second == OverlapState::Idle)
 		{
 			playerMovement->Damage(5);
 		}

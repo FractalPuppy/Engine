@@ -56,7 +56,7 @@ public:
 	void Move(float speed, float& refreshTime, math::float3 position, std::vector<float3>& path) const; // Move using nav mesh
 	void LookAt2D(math::float3& position);
 
-	void OnTriggerEnter(GameObject* go) override;
+	void OnTriggerExit(GameObject* go) override;
 public:
 
 	bool isDead = false;
