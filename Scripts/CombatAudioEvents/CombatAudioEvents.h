@@ -23,6 +23,8 @@ public:
 	ComponentAudioSource* attack2 = nullptr;
 	ComponentAudioSource* spin_attack = nullptr;
 	ComponentAudioSource* drill_attack = nullptr;
+	ComponentAudioSource* knive_attack_stomp = nullptr;
+	ComponentAudioSource* knive_attack_fall = nullptr;
 
 	//Enemy
 	ComponentAudioSource* enemy_got_hit = nullptr;

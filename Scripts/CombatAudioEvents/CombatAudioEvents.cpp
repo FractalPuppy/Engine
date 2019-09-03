@@ -103,6 +103,26 @@ void CombatAudioEvents::Start()
 	{
 		LOG("Warning: enemy_got_hit game object not found");
 	}
+	GO = App->scene->FindGameObjectByName("knive_attack_stomp");
+	if (GO != nullptr)
+	{
+		knive_attack_stomp = GO->GetComponent<ComponentAudioSource>();
+		assert(knive_attack_stomp != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knive_attack_stomp game object not found");
+	}
+	GO = App->scene->FindGameObjectByName("knive_attack_fall");
+	if (GO != nullptr)
+	{
+		knive_attack_fall = GO->GetComponent<ComponentAudioSource>();
+		assert(knive_attack_fall != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knive_attack_fall game object not found");
+	}
 }
 
 void CombatAudioEvents::OnAnimationEvent(std::string name)
@@ -141,6 +161,14 @@ void CombatAudioEvents::OnAnimationEvent(std::string name)
 	else if (name == "drill_attack")
 	{
 		drill_attack->Play();
+	}
+	else if (name == "knive_attack_stomp")
+	{
+		knive_attack_stomp->Play();
+	}
+	else if (name == "knive_attack_fall")
+	{
+		knive_attack_fall->Play();
 	}
 }
 
