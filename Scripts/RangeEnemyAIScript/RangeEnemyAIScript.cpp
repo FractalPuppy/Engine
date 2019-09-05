@@ -19,7 +19,8 @@
 #include "EnemyStateReturnToStart.h"
 #include "EnemyStateAttack.h"
 #include "EnemyStateCooldown.h"
-#include "EnemyStateDeath.h"
+#include "BasicEnemyAIScript/BasicEnemyAIScript.h"
+#include "BasicEnemyAIScript/EnemyStateDeath.h"
 
 #include "imgui.h"
 #include "JSON.h"
@@ -41,7 +42,7 @@ void RangeEnemyAIScript::Start()
 	enemyStates.push_back(returnToStart = new EnemyStateReturnToStart(this));
 	enemyStates.push_back(attack = new EnemyStateAttack(this));
 	enemyStates.push_back(cooldown = new EnemyStateCooldown(this));
-	enemyStates.push_back(death = new EnemyStateDeath(this));
+	enemyStates.push_back(death = new EnemyStateDeath((BasicEnemyAIScript*)this));
 
 	currentState = patrol;
 

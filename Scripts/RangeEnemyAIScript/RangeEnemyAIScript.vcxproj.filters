@@ -30,9 +30,6 @@
     <ClCompile Include="EnemyStateCooldown.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyStateDeath.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyStatePatrol.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -57,9 +54,6 @@
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="EnemyStateCooldown.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyStateDeath.h">
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="EnemyStatePatrol.h">

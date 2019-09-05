@@ -289,7 +289,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;GameLoop_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\Soloud\fractal_includes;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Source;$(SolutionDir)\Scripts\EnemyMovementScript;$(SolutionDir)\Scripts\CreditsScript;$(SolutionDir)\Scripts\IntroScript;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\EquipPopupController;$(SolutionDir)\Scripts\SkillTreeController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)\Scripts\PlayerMovement;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;$(SolutionDir)\Source\Soloud\fractal_includes;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Source;$(SolutionDir)\Scripts\EnemyMovementScript;$(SolutionDir)\Scripts\CreditsScript;$(SolutionDir)\Scripts\IntroScript;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\EquipPopupController;$(SolutionDir)\Scripts\SkillTreeController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)\Scripts\PlayerMovement;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

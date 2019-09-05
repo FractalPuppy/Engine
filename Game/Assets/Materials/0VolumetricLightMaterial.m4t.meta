@@ -1,12 +1,16 @@
 {
     "Material": {
+        "metaVersion": 2,
+        "timeCreated": 1564763264,
         "GUID": 2165503361,
-        "timeCreated": 1563551982,
+        "Name": "0VolumetricLightMaterial",
+        "File": "Assets/Materials/0VolumetricLightMaterial.m4t",
+        "ExportedFile": "Library/Materials/2165503361.m4t",
         "DifusseColor": [
-            0.9882352948188782,
-            0.8156862854957581,
-            0.08235294371843338,
-            0.0117647061124444
+            1.0,
+            1.0,
+            1.0,
+            1.0
         ],
         "specularColor": [
             0.10000000149011612,
@@ -17,8 +21,6 @@
             1.0,
             1.0,
             1.0
-        ],
-        "diffuseUID": 1998382583,
-        "shader": "FX"
+        ]
     }
 }

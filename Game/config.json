@@ -22,9 +22,7 @@
         "frustumMainCamera": 1,
         "skybox": 1,
         "gammaCorrector": 2.200000047683716,
-        "exposure": 3.5,
-        "bloomSpread": 2.200000047683716,
-        "kernelRadius": 4
+        "exposure": 3.5
     },
     "textures": {
         "filter": 3
@@ -60,7 +58,7 @@
             0.07771362364292145,
             0.10655736923217774
         ],
-        "defaultsceneUID": 0,
+        "defaultsceneUID": 3727447632,
         "sizeScene": 10000
     },
     "navigation": {
@@ -70,6 +68,10 @@
         "MaxHeight": 5.0,
         "SlopeScaling": 50.0,
         "StepHeight": 49.58000183105469
+    },
+    "uiConfig": {
+        "uiCursor": "GhostGlow.cur",
+        "gameStandarCursor": "Glow.cur"
     },
     "scripts": {
         "hotReloading": 1

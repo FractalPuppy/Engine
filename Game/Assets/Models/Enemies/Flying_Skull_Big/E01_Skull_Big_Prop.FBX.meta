@@ -1,12 +1,16 @@
 {
-    "Mesh": {
+    "Model": {
+        "metaVersion": 2,
+        "timeCreated": 1567530661,
         "GUID": 124207473,
-        "timeCreated": 1563442958,
         "NumMeshes": 1,
-        "Mesh0": 3892981501
-    },
-    "Animation": {
-        "timeCreated": 1563442958,
         "NumAnimations": 0
+    },
+    "Mesh0": {
+        "MeshNumber": 0,
+        "GUID": 3892981501,
+        "Name": "E01_Skull_Big_Prop_0",
+        "File": "Assets/Models/Enemies/Flying_Skull_Big/E01_Skull_Big_Prop.FBX",
+        "ExportedFile": "Library/Meshes/3892981501.m3sh"
     }
 }

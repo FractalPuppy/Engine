@@ -19,18 +19,19 @@ EnemyStateDeath::EnemyStateDeath(BasicEnemyAIScript* AIScript)
 	trigger = "Idle";
 
 	renderer = (ComponentRenderer*) enemy->gameobject->GetComponentInChildren(ComponentType::Renderer);
-	//head = enemy->App->scene->FindGameObjectByName("joint5", enemy->gameobject);
-	//leftArm = enemy->App->scene->FindGameObjectByName("joint15", enemy->gameobject);
-	//rightArm = enemy->App->scene->FindGameObjectByName("joint10", enemy->gameobject);
 
 	bonesParent = enemy->App->scene->FindGameObjectByName("DeathBones", enemy->gameobject);
 	bonesDeathFX = enemy->App->scene->FindGameObjectByName("DeathFX", enemy->gameobject);
 	LCG rand;
-	for (GameObject* bone : bonesParent->children)
+
+	if (bonesParent != nullptr)
 	{
-		deathBones.emplace_back(bone);
-		boneInfo.emplace_back(std::make_pair(math::float3(rand.Float()*2-1, rand.Float(), rand.Float()*2-1),
-			math::float3(rand.Float() * 360, rand.Float() * 360, rand.Float() * 360)));
+		for (GameObject* bone : bonesParent->children)
+		{
+			deathBones.emplace_back(bone);
+			boneInfo.emplace_back(std::make_pair(math::float3(rand.Float() * 2 - 1, rand.Float(), rand.Float() * 2 - 1),
+				math::float3(rand.Float() * 360, rand.Float() * 360, rand.Float() * 360)));
+		}
 	}
 }
 
@@ -44,8 +45,11 @@ void EnemyStateDeath::Enter()
 	GameObject* meshScene = enemy->gameobject->children.front();
 	meshScene->children.front()->SetActive(false); //disactive bones with its trails
 	auxTimer = 0.0f;
-	bonesParent->SetActive(true);
-	bonesDeathFX->SetActive(true);
+	if (bonesParent != nullptr)
+	{
+		bonesParent->SetActive(true);
+		bonesDeathFX->SetActive(true);
+	}
 	renderer->highlighted = false;
 	
 }
@@ -56,7 +60,7 @@ void EnemyStateDeath::Update()
 
 	if (waitedTime > deathDuration * 0.3f)
 	{
-		if (bonesDeathFX->isActive())
+		if (bonesDeathFX != nullptr && bonesDeathFX->isActive())
 		{
 			bonesDeathFX->SetActive(false);
 		}
@@ -65,11 +69,14 @@ void EnemyStateDeath::Update()
 	if (waitedTime > deathDuration)
 	{
 		enemy->gameobject->SetActive(false);
-		bonesParent->SetActive(false);
+		if (bonesParent != nullptr)
+		{
+			bonesParent->SetActive(false);
+		}
 	}
 	else if(waitedTime > deathDuration*0.1f)
 	{
-		if (bonesDeathFX->children.front()->isActive())
+		if (bonesDeathFX != nullptr && bonesDeathFX->children.front()->isActive())
 		{
 			bonesDeathFX->children.front()->SetActive(false);
 		}
