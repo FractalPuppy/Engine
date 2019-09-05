@@ -152,6 +152,7 @@ update_status ModuleScene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::Green);
 	root->UpdateTransforms(math::float4x4::identity);
+	root->PreUpdate();
 	root->Update();
 	root->CheckDelete();
 

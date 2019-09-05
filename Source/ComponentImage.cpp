@@ -19,6 +19,7 @@
 #include "Viewport.h"
 #include "GameObject.h"
 #include "ComponentTransform2D.h"
+#include "ComponentButton.h"
 
 
 #define None "None Selected"
@@ -186,7 +187,9 @@ void ComponentImage::Update()
 	math::float2 buttonMin = float2(buttonX - size.x *.5f, -buttonY - size.y *.5f);
 	math::float2 buttonMax = float2(buttonX + size.x *.5f, -buttonY + size.y *.5f);
 
-	if (screenX > buttonMin.x && screenX < buttonMax.x && screenY > buttonMin.y && screenY < buttonMax.y)
+	if ((App->ui->GetButtonHover() == nullptr || App->ui->GetButtonHover()->uiOrder <= uiOrder) && 
+		screenX > buttonMin.x && screenX < buttonMax.x && 
+		screenY > buttonMin.y && screenY < buttonMax.y)
 	{
 		isHovered = true;
 		if (hoverDetectionMouse1) App->ui->uiHoveredMouse1 = true;

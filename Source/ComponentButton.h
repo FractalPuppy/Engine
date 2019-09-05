@@ -28,12 +28,13 @@ public:
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;
 
+	void PreUpdate() override;
 	void Update() override;
 	void Enable(bool enable) override;
 
 	void AssemblyButton();
 
-	ENGINE_API inline bool IsHovered() { return isHovered; };
+	ENGINE_API bool IsHovered();
 	ENGINE_API inline bool IsPressed() { return state == ButtonState::DOWN; };
 
 	ENGINE_API inline bool KeyUp()	 { return state == ButtonState::UP; }

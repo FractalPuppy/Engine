@@ -8,6 +8,7 @@
 #include "ComponentImage.h"
 #include "ComponentText.h"
 #include "ComponentTransform2D.h"
+#include "BaseScript.h"
 
 #include "GameObject.h"
 #include "Viewport.h"
@@ -134,20 +135,29 @@ void Button::Load(JSON_value* value)
 	uiOrder = value->GetInt("UIOrder", 0);
 }
 
-void Button::Update()
+void Button::PreUpdate()
 {
-	math::float2 mouse = reinterpret_cast<const float2&>(App->input->GetMousePosition());	
+	math::float2 mouse = reinterpret_cast<const float2&>(App->input->GetMousePosition());
 	float screenX = mouse.x - App->renderer->viewGame->winPos.x - (App->ui->currentWidth * .5f);
 	float screenY = mouse.y - App->renderer->viewGame->winPos.y - (App->ui->currentHeight * .5f);
 	math::float2 pos = rectTransform->getPosition();
 	math::float2 size = rectTransform->getSize();
 	float buttonX = pos.x;
 	float buttonY = pos.y;
-	
+
 	math::float2 buttonMin = float2(buttonX - size.x *.5f, -buttonY - size.y *.5f);
 	math::float2 buttonMax = float2(buttonX + size.x *.5f, -buttonY + size.y *.5f);
-	
+
 	if (screenX > buttonMin.x && screenX < buttonMax.x && screenY > buttonMin.y && screenY < buttonMax.y)
+	{
+		App->ui->SetButtonHover(this);
+	}
+}
+
+void Button::Update()
+{
+	
+	if (App->ui->GetButtonHover() == this)
 	{
 		isHovered = true;
 		
@@ -173,18 +183,21 @@ void Button::Update()
 		break;
 
 	case ButtonState::DOWN:
-		buttonImage->enabled = false;
+		buttonImage->enabled = !isHovered;
 		highlightedImage->enabled = false;
 		pressedImage->enabled = isHovered;
-
+		{
+			std::vector<Component*> components = gameobject->GetComponents(ComponentType::Script);
+			for (auto it = components.begin(); it != components.end(); ++it) ((Script*)*it)->OnButtonDown();
+		}
 		if (!isHovered) state = ButtonState::UP;
 		else if (App->input->GetMouseButtonDown(1) == KEY_UP) state = ButtonState::UP;
 		else if (App->input->GetMouseButtonDown(1) == KEY_IDLE) state = ButtonState::UP;
-		else state = ButtonState::REPEAT;				
+		else state = ButtonState::REPEAT;
 		break;
 
 	case ButtonState::REPEAT:
-		buttonImage->enabled = false;
+		buttonImage->enabled = !isHovered;
 		highlightedImage->enabled = false;
 		pressedImage->enabled = isHovered;
 
@@ -197,7 +210,10 @@ void Button::Update()
 		buttonImage->enabled = !isHovered;
 		highlightedImage->enabled = isHovered;
 		pressedImage->enabled = false;
-
+		{
+			std::vector<Component*> components = gameobject->GetComponents(ComponentType::Script);
+			for (auto it = components.begin(); it != components.end(); ++it) ((Script*)*it)->OnButtonUp();
+		}
 		if (isHovered && App->input->GetMouseButtonDown(1) == KEY_DOWN) state = ButtonState::DOWN;
 		else state = ButtonState::NONE;
 		break;
@@ -228,6 +244,11 @@ void Button::AssemblyButton()
 	buttonImage->enabled = true;
 	highlightedImage->enabled = false;
 	pressedImage->enabled = false;
+}
+
+bool Button::IsHovered()
+{
+	return App->ui->GetButtonHover() == this;
 }
 
 void Button::UpdateImageByName(std::string name)

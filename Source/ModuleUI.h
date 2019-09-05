@@ -12,6 +12,7 @@ struct Texture;
 class Component;
 class ComponentCamera;
 class ComponentImage;
+class Button;
 class Text;
 
 struct RenderOrdering
@@ -33,7 +34,7 @@ public:
 
 	bool Init(JSON* config) override;
 	void SaveConfig(JSON* config) override;
-	update_status PreUpdate() override { uiHoveredMouse1 = false; uiHoveredMouse3 = false; return update_status::UPDATE_CONTINUE; }
+	update_status PreUpdate() override { uiHoveredMouse1 = false; uiHoveredMouse3 = false; topButton = nullptr; return update_status::UPDATE_CONTINUE; }
 	update_status Update(float dt) override;
 	update_status PostUpdate() override;
 	bool CleanUp() override;
@@ -44,6 +45,8 @@ public:
 	inline bool UIHovered(bool checkMouse1 = true, bool checkMouse3 = true) { return (uiHoveredMouse1 && checkMouse1) || (uiHoveredMouse3 && checkMouse3); }
 	ENGINE_API inline bool IsHover() { return isHover; }
 	ENGINE_API inline void SetIsItemHover(bool isItemHover) { this->isItemHover = isItemHover; }
+	void SetButtonHover(const Button* button);
+	inline const Button* GetButtonHover() { return topButton; }
 
 public:
 	int currentWidth;
@@ -67,6 +70,7 @@ private:
 	unsigned EBO = 0;
 
 	float mask[MASK_DIVISIONS];
+	const Button* topButton = nullptr;
 
 	std::string uiCursor = "GhostGlow.cur";
 	bool isHover = false;
@@ -77,6 +81,7 @@ private:
 public:
 	bool uiHoveredMouse1 = false;
 	bool uiHoveredMouse3 = false;
+
 };
 
 #endif // __ModuleUI_H__

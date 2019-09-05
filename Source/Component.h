@@ -41,6 +41,7 @@ public:
 
 	virtual void Enable(bool enable);
 
+	virtual void PreUpdate() {}
 	virtual void Update() {}
 	virtual void OnPlay() {}
 

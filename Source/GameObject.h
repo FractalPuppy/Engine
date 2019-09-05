@@ -32,6 +32,7 @@ public:
 
 	void DrawProperties();
 
+	void PreUpdate();
 	void Update();
 	ENGINE_API inline bool isActive() const
 	{

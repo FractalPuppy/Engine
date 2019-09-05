@@ -328,6 +328,24 @@ void GameObject::DrawProperties()
 	}
 }
 
+void GameObject::PreUpdate()
+{
+	if (!isActive()) return;
+
+	for (auto& component : components)
+	{
+		if (component->enabled && component->type != ComponentType::Script)
+		{
+			component->PreUpdate();
+		}
+	}
+
+	for (const auto& child : children)
+	{
+		child->PreUpdate();
+	}
+}
+
 void GameObject::Update()
 {
 	if (!isActive()) return;

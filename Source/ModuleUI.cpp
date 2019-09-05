@@ -229,6 +229,14 @@ void ModuleUI::Draw(int currentWidth, int currentHeight)
 	glEnable(GL_DEPTH_TEST);
 }
 
+void ModuleUI::SetButtonHover(const Button* button)
+{
+	if (topButton == nullptr || topButton->uiOrder < button->uiOrder)
+	{
+		topButton = button;
+	}
+}
+
 
 void ModuleUI::RenderImage(const ComponentImage& componentImage, int currentWidth, int currentHeight)
 {
