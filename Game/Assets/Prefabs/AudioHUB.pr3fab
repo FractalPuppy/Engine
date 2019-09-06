@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 602727053,
-            "ParentUID": 776240899,
+            "UID": 3918149947,
+            "ParentUID": 652642298,
             "Name": "AudioHUB",
             "Tag": "Default",
             "Static": 0,
@@ -31,8 +31,8 @@
             "No Walkable": 0,
             "openInHierarchy": 1,
             "isPrefab": 1,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
+            "isPrefabSync": 1,
+            "prefabUID": 1936312501,
             "Components": [
                 {
                     "Type": 0,
@@ -80,8 +80,8 @@
             ]
         },
         {
-            "UID": 2648540828,
-            "ParentUID": 602727053,
+            "UID": 2907482455,
+            "ParentUID": 3918149947,
             "Name": "SelectItemAudio",
             "Tag": "Default",
             "Static": 0,
@@ -172,8 +172,8 @@
             ]
         },
         {
-            "UID": 2863316100,
-            "ParentUID": 602727053,
+            "UID": 2025805311,
+            "ParentUID": 3918149947,
             "Name": "DropItemAudio",
             "Tag": "Default",
             "Static": 0,
@@ -264,8 +264,8 @@
             ]
         },
         {
-            "UID": 1871872958,
-            "ParentUID": 602727053,
+            "UID": 1159051244,
+            "ParentUID": 3918149947,
             "Name": "MenuButtonsAudio",
             "Tag": "Default",
             "Static": 0,
@@ -352,6 +352,98 @@
                     "Loop": 0,
                     "Rolloff": 0.30000001192092898,
                     "Pitch": 1.399999976158142
+                }
+            ]
+        },
+        {
+            "UID": 2275459863,
+            "ParentUID": 3918149947,
+            "Name": "TalentsButtonsAudio",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 310384081,
+                    "Volume": 1.0,
+                    "PlayOnAwake": 0,
+                    "Sound3D": 0,
+                    "LimitPan": 0.5,
+                    "FadeDist": 500.0,
+                    "Loop": 0,
+                    "Rolloff": 0.30000001192092898,
+                    "Pitch": 1.0
                 }
             ]
         }

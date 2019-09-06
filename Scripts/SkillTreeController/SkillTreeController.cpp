@@ -10,6 +10,7 @@
 #include "ComponentText.h"
 #include "ComponentImage.h"
 #include "ComponentTransform2D.h"
+#include "ComponentAudioSource.h"
 
 #include "imgui.h"
 #include "JSON.h"
@@ -77,6 +78,17 @@ void SkillTreeController::Start()
 			((Text*)skillUI[i]->GetComponentInChildren(ComponentType::Text))->color = math::float4(0, 0, 0, 0);
 		}
 	}
+
+	GameObject* GOtemp = App->scene->FindGameObjectByName("TalentsButtonsAudio");
+	if (GOtemp != nullptr)
+	{
+		talentsButtonsAudio = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(menuButtonsSound != nullptr);
+	}
+	else
+	{
+		LOG("The Game Object 'talentsButtonsAudio' couldn't be found.");
+	}
 }
 
 
@@ -106,6 +118,7 @@ void SkillTreeController::Update()
 				--skillPoints;
 				skillPointsLabel->text = std::to_string(skillPoints);
 				UnlockNextLevel(i);
+				talentsButtonsAudio->Play();
 			}
 		}
 	}

@@ -15,6 +15,7 @@ class GameObject;
 class Text;
 class JSON_value;
 class Transform2D;
+class ComponentAudioSource;
 
 #define NUM_SKILLS 11
 
@@ -54,6 +55,9 @@ private:
 	Skill skillList[NUM_SKILLS];
 
 	int initialSkillPoints = 10;
+
+	//Audio
+	ComponentAudioSource* talentsButtonsAudio = nullptr;
 };
 
 extern "C" SkillTreeController_API Script* CreateScript();
