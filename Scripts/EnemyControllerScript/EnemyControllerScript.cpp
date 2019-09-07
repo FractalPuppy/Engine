@@ -421,8 +421,17 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		}
 	}
 
-	if (go->tag == "PlayerHitBoxAttack")
+	if (go != lastHittedGO && go->tag == "PlayerHitBoxAttack")
 	{
 		TakeDamage(playerMovement->stats.strength * 0.1);
+		lastHittedGO = go;
+	}
+}
+
+void EnemyControllerScript::OnTriggerExit(GameObject* go)
+{
+	if (go == lastHittedGO)
+	{
+		lastHittedGO = nullptr;
 	}
 }

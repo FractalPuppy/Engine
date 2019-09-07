@@ -58,6 +58,7 @@ public:
 	void LookAt2D(math::float3& position);
 
 	void OnTriggerEnter(GameObject* go) override;
+	void OnTriggerExit(GameObject* go) override;
 public:
 
 	bool isDead = false;
@@ -101,6 +102,7 @@ private:
 	float hitColorTimer = 0.f;
 	bool enemyHit = false;
 
+	GameObject* lastHittedGO = nullptr;			// Ptr to the last GO, with "PlayerHitBoxAttack", that triggered the enemy hitbox collision
 };
 
 extern "C" EnemyControllerScript_API Script* CreateScript();
