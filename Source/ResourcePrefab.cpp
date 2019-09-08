@@ -201,7 +201,7 @@ void ResourcePrefab::Update(GameObject* go)
 {
 	for (auto& instance : instances)
 	{
-		if (instance == go || !instance->isPrefabSync) continue;
+		if (instance == go) continue;
 		instance->UpdateToPrefab(go);
 	}
 	Save(go);
@@ -248,7 +248,6 @@ GameObject* ResourcePrefab::RetrievePrefab()
 		{
 			root = gameobject;
 		}
-		root->isPrefabSync = true;
 		root->isPrefab = true;
 		root->prefabUID = UID;
 

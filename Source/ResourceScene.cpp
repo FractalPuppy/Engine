@@ -168,7 +168,7 @@ bool ResourceScene::Load()
 		JSON_value* gameobjectJSON = gameobjectsJSON->GetValue(i);
 		GameObject *gameobject = new GameObject();
 		gameobject->Load(gameobjectJSON);
-		if (gameobject->isPrefab && gameobject->isPrefabSync)
+		if (gameobject->isPrefab)
 		{
 			prefabs.emplace_back(gameobject);
 		}
