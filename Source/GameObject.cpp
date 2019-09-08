@@ -230,10 +230,11 @@ void GameObject::DrawProperties()
 		if (isPrefab)
 		{
 			ImGui::NewLine();
-			if (ImGui::Button("Sync Prefab"))
+			if (ImGui::Button("Update & Sync Prefab"))
 			{
 				if (prefab != nullptr)
 				{
+					prefab->Update(this);
 					UpdateToPrefab(prefab->RetrievePrefab());
 				}
 			}
@@ -241,10 +242,6 @@ void GameObject::DrawProperties()
 			{
 				ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
 				ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-			}
-			if (ImGui::Button("Update Prefab"))
-			{
-				prefab->Update(this);
 			}
 			ImGui::SameLine();
 			if (ImGui::Button("Set As New Prefab"))
