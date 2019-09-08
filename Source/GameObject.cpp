@@ -234,8 +234,8 @@ void GameObject::DrawProperties()
 			{
 				if (prefab != nullptr)
 				{
-					prefab->Update(this);
 					UpdateToPrefab(prefab->RetrievePrefab());
+					prefab->Update(this);					
 				}
 			}
 			if (App->time->gameState == GameState::RUN)
