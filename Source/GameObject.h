@@ -111,7 +111,7 @@ public:
 	bool isBoneRoot = false;
 	bool activeSelf = true;
 
-	bool isPrefabSync = false;
+	bool isPrefabSync;
 	ResourcePrefab* prefab = nullptr;
 	bool isPrefab = false;
 	unsigned prefabUID = 0;

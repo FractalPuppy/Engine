@@ -59,11 +59,11 @@
 #define MAX_NAME 128
 #define IMGUI_RIGHT_MOUSE_BUTTON 1
 
-GameObject::GameObject(const char * name, unsigned uuid) : name(name), UUID(uuid)
+GameObject::GameObject(const char * name, unsigned uuid) : name(name), UUID(uuid), isPrefabSync(false)
 {
 }
 
-GameObject::GameObject(const float4x4 & transform, const char * name, unsigned uuid) : name(name), UUID(uuid)
+GameObject::GameObject(const float4x4 & transform, const char * name, unsigned uuid) : name(name), UUID(uuid), isPrefabSync(false)
 {
 	this->transform = (ComponentTransform*)CreateComponent(ComponentType::Transform);
 	this->transform->AddTransform(transform);
