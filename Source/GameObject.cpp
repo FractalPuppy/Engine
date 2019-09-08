@@ -59,11 +59,11 @@
 #define MAX_NAME 128
 #define IMGUI_RIGHT_MOUSE_BUTTON 1
 
-GameObject::GameObject(const char * name, unsigned uuid) : name(name), UUID(uuid), isPrefabSync(false)
+GameObject::GameObject(const char * name, unsigned uuid) : name(name), UUID(uuid)
 {
 }
 
-GameObject::GameObject(const float4x4 & transform, const char * name, unsigned uuid) : name(name), UUID(uuid), isPrefabSync(false)
+GameObject::GameObject(const float4x4 & transform, const char * name, unsigned uuid) : name(name), UUID(uuid)
 {
 	this->transform = (ComponentTransform*)CreateComponent(ComponentType::Transform);
 	this->transform->AddTransform(transform);
@@ -84,7 +84,6 @@ GameObject::GameObject(const GameObject & gameobject)
 	openInHierarchy = gameobject.openInHierarchy;
 	animationIndexChannel = gameobject.animationIndexChannel;
 	isPrefab = gameobject.isPrefab;
-	isPrefabSync = gameobject.isPrefabSync;
 	prefabUID = gameobject.prefabUID;
 
 	if (isPrefab)
@@ -230,9 +229,10 @@ void GameObject::DrawProperties()
 
 		if (isPrefab)
 		{
-			if (ImGui::Checkbox("Sync to Prefab", &isPrefabSync))
+			ImGui::NewLine();
+			if (ImGui::Button("Sync Prefab"))
 			{
-				if (isPrefabSync && prefab != nullptr)
+				if (prefab != nullptr)
 				{
 					UpdateToPrefab(prefab->RetrievePrefab());
 				}
@@ -938,7 +938,6 @@ void GameObject::MarkAsPrefab()
 	}
 
 	prefab->AddInstance(this);
-	isPrefabSync = true;
 
 	if (wasPrefab)
 	{
@@ -1166,7 +1165,6 @@ void GameObject::Save(JSON_value *gameobjects, bool selected) const
 		gameobject->AddUint("openInHierarchy", openInHierarchy);
 
 		gameobject->AddUint("isPrefab", isPrefab);
-		gameobject->AddUint("isPrefabSync", isPrefabSync);
 		gameobject->AddUint("prefabUID", prefabUID);
 
 		JSON_value *componentsJSON = gameobject->CreateValue(rapidjson::kArrayType);
@@ -1212,7 +1210,6 @@ void GameObject::Load(JSON_value *value, bool prefabTemplate)
 	openInHierarchy = value->GetUint("openInHierarchy");
 
 	isPrefab = value->GetUint("isPrefab");
-	isPrefabSync = value->GetUint("isPrefabSync");
 	prefabUID = value->GetUint("prefabUID");
 	if (isPrefab && !prefabTemplate)
 	{
