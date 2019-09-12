@@ -8,6 +8,7 @@ struct ImGuiContext;
 #include "BaseScript.h"
 #include "Application.h"
 #include "Math/float3.h"
+
 #include <vector>
 #include <unordered_map>
 
@@ -149,6 +150,7 @@ public:
 class PlayerMovement_API PlayerMovement : public Script
 {
 public:
+
 	PlayerMovement();
 	virtual ~PlayerMovement();
 
@@ -289,7 +291,7 @@ public:
 	ComponentAudioSource* gotHitAudio = nullptr;
 
 private:
-	std::vector<PlayerState*> playerStates;	
+	std::vector<PlayerState*> playerStates;
 	GameObject* dustParticles = nullptr;
 	GameObject* dashFX = nullptr;
 	GameObject* dashMesh = nullptr;

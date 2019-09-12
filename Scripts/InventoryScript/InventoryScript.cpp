@@ -11,11 +11,11 @@
 #include "ComponentTransform2D.h"
 #include "ComponentAudioSource.h"
 
-#include "PlayerMovement.h"
-
 #include "GameObject.h"
 #include "Viewport.h"
 #include "PlayerPrefs.h"
+
+#include "PlayerMovement.h"
 
 InventoryScript_API Script* CreateScript()
 {
@@ -279,11 +279,32 @@ void InventoryScript::Update()
 
 					if (pair.first.isEquipped)
 					{
-						playerMovement->Equip(pair.first.stats);
+						for (std::vector<std::pair<Item, int>>::iterator it = items.begin(); it != items.end(); it++)
+						{
+							if (it._Ptr->first.type == pair.first.type && it._Ptr->first.isEquipped)
+							{
+								playerMovement->UnEquip(it._Ptr->first.stats);
+								it._Ptr->first.isEquipped = false;
+							}
+							if (it._Ptr->first.name == pair.first.name)
+							{
+								it._Ptr->first.isEquipped = true;
+								playerMovement->Equip(pair.first.stats);
+								break;
+							}
+						}						
 					} 
 					else 
 					{
-						playerMovement->UnEquip(pair.first.stats);
+						for (std::vector<std::pair<Item, int>>::iterator it = items.begin(); it != items.end(); it++)
+						{
+							if (it._Ptr->first.name == pair.first.name && it._Ptr->first.isEquipped)
+							{
+								it._Ptr->first.isEquipped = false;
+								playerMovement->UnEquip(pair.first.stats);
+								break;
+							}
+						}
 					}
 
 					break;
