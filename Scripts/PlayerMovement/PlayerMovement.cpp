@@ -1234,6 +1234,15 @@ void PlayerStats::Expose(const char* sectionTitle)
 	ImGui::InputFloat("Health", &health);
 	ImGui::InputFloat("Mana", &mana);
 
+	if (health <= 0.f)
+	{
+		health = 1.0f;
+	}
+	if (health > 100.0f)
+	{
+		health = 100.0f;
+	}
+
 	int uiStrength = (int)strength;
 	if (ImGui::InputInt("Strength", &uiStrength)) strength = uiStrength < 0 ? 0 : uiStrength;
 
