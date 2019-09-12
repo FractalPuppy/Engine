@@ -286,11 +286,10 @@ void InventoryScript::Update()
 								playerMovement->UnEquip(it._Ptr->first.stats);
 								it._Ptr->first.isEquipped = false;
 							}
-							if (it._Ptr->first.name == pair.first.name)
+							else if (it._Ptr->first.name == pair.first.name)
 							{
 								it._Ptr->first.isEquipped = true;
 								playerMovement->Equip(pair.first.stats);
-								break;
 							}
 						}						
 					} 
