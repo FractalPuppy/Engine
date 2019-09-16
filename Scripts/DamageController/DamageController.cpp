@@ -10,7 +10,7 @@
 #include "ComponentTransform.h"
 #include <list>
 #include <string>
-#include "Math/float4.h"
+#include "imgui.h"
 
 DamageController_API Script* CreateScript()
 {
@@ -51,7 +51,20 @@ void DamageController::Update()
 	}
 }
 
-bool DamageController::AddDamage(ComponentTransform* transform, int damage, int type)
+void DamageController::Expose(ImGuiContext* context)
+{
+	ImGui::Text("Damage UI Numbers Color:");
+	ImGui::ColorEdit4("Nomal Color", (float*)&normalColor);
+	ImGui::ColorEdit4("Critical Color", (float*)&criticalColor);
+	ImGui::ColorEdit4("Pollometer Color", (float*)&pollometerColor);
+	ImGui::ColorEdit4("Healing Color", (float*)&healingColor);
+	ImGui::ColorEdit4("Received Color", (float*)&receivedColor);
+	ImGui::ColorEdit4("Mana Color", (float*)&manaColor);
+
+	
+}
+
+bool DamageController::AddDamage(ComponentTransform* transform, int damage, DamageType type)
 {
 
 	for (int i = 0; i != 10; i++) {
@@ -69,23 +82,24 @@ bool DamageController::AddDamage(ComponentTransform* transform, int damage, int 
 			uiDamage[i]->GetComponent<Text>()->text = std::to_string(damage);
 			switch ((DamageType)type)
 			{
+			default:
 			case DamageType::NORMAL:
-				uiDamage[i]->GetComponent<Text>()->color = math::float4(1, 1, 1, 1);
+				uiDamage[i]->GetComponent<Text>()->color = normalColor;
 				break;
 			case DamageType::CRITICAL:
-				uiDamage[i]->GetComponent<Text>()->color = math::float4(1, 1, 1, 1);
+				uiDamage[i]->GetComponent<Text>()->color = criticalColor;
 				break;
 			case DamageType::POLLOMETER:
-				uiDamage[i]->GetComponent<Text>()->color = math::float4(1, 1, 1, 1);
+				uiDamage[i]->GetComponent<Text>()->color = pollometerColor;
 				break;
 			case DamageType::HEALING:
-				uiDamage[i]->GetComponent<Text>()->color = math::float4(0, 1, 0, 1);
+				uiDamage[i]->GetComponent<Text>()->color = healingColor;
 				break;
 			case DamageType::RECIEVED:
-				uiDamage[i]->GetComponent<Text>()->color = math::float4(1, 0, 0, 1);
+				uiDamage[i]->GetComponent<Text>()->color = receivedColor;
 				break;
-			default:
-				uiDamage[i]->GetComponent<Text>()->color = math::float4(1, 1, 1, 1);
+			case DamageType::MANA:
+				uiDamage[i]->GetComponent<Text>()->color = manaColor;
 				break;
 			}
 			

@@ -40,7 +40,7 @@ class ModuleResourceManager :
 	unsigned FindByFileInAssetsExcludingType(const char* fileInAssets, TYPE type) const;// Returns UID of resource by file variable, excludes files of the type given
 	unsigned FindByExportedFile(const char* exportedFile, TYPE type) const;				// Returns UID of resource by exportedFile and type
 	unsigned FindByExportedFile(const char* exportedFile) const;						// Returns UID of resource by exportedFile
-	unsigned FindByName(const char* name, TYPE type) const;								// Returns UID of resource by name and type
+	ENGINE_API unsigned FindByName(const char* name, TYPE type) const;								// Returns UID of resource by name and type
 	bool ImportFile(const char* newFileInAssets, const char* filePath, TYPE type);
 	bool ReImportFile(Resource* resource, const char* filePath, TYPE type);				// Imports again an already loaded resource
 	unsigned GenerateNewUID();
@@ -49,7 +49,7 @@ class ModuleResourceManager :
 	Resource* Get(const char* file, TYPE type) const;									// Returns the resource using exportedFileName and type, adding one to the references count and loads it to memory if not already
 	ENGINE_API Resource* GetByName(const char* name, TYPE type);									// Returns the resource using name variable.
 
-	Resource* GetWithoutLoad(unsigned uid) const;										// Returns the resource using UID and doesn't add one to the references count neither loads it to memory
+	ENGINE_API Resource* GetWithoutLoad(unsigned uid) const;										// Returns the resource using UID and doesn't add one to the references count neither loads it to memory
 	Resource* GetWithoutLoad(const char* file) const;									// Returns the resource using exportedFileName and doesn't add one to the references count neither loads it to memory
 	Resource* GetWithoutLoad(const char* file, TYPE type) const;						// Returns the resource using exportedFileName and type, also doesn't add one to the references count neither loads it to memory
 	Resource* CreateNewResource(TYPE type, unsigned forceUid = 0);

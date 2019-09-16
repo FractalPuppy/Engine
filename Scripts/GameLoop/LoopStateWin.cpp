@@ -4,6 +4,8 @@
 #include "ModuleTime.h"
 #include "ModuleScene.h"
 
+#include "ComponentAudioSource.h"
+#include "ComponentImage.h"
 #include "GameLoop.h"
 
 #include "GameObject.h"
@@ -21,17 +23,36 @@ LoopStateWin::~LoopStateWin()
 
 void LoopStateWin::Update()
 {
-	gLoop->loading += gLoop->App->time->gameDeltaTime;
-
-	if (gLoop->loading >= 1.0f)
+	//First Outro video then loading for credits
+	if (outroVideo == nullptr && gLoop->outroVideoGO != nullptr)
 	{
-		gLoop->loading = 0.0;
-		//ResetPositions();
-		gLoop->currentLoopState = (LoopState*)gLoop->loadingState;
-		gLoop->playerMenuGO->SetActive(false);
-		gLoop->sceneToLoad = MENU_SCENE;
-		gLoop->App->scene->actionAfterLoad = true;
-		gLoop->App->scene->stateAfterLoad = "Credits";
-		gLoop->stateAfterLoad = (LoopState*)gLoop->creditsState;
+		gLoop->outroVideoGO->SetActive(true);
+		outroVideo = gLoop->outroVideoGO->GetComponent<ComponentImage>();
+		outroVideo->PlayVideo();
+		StopLvlMusic();
 	}
+
+	if (outroVideo != nullptr && !outroVideo->videoFinished) return;
+	if (!gLoop->loadingGO->isActive())
+	{
+		gLoop->loadingGO->SetActive(true);
+	}
+
+	gLoop->currentLoopState = (LoopState*)gLoop->loadingState;
+	gLoop->playerMenuGO->SetActive(false);
+	gLoop->sceneToLoad = MENU_SCENE;
+	gLoop->App->scene->actionAfterLoad = true;
+	gLoop->App->scene->stateAfterLoad = "Credits";
+	gLoop->stateAfterLoad = (LoopState*)gLoop->creditsState;
+}
+
+void LoopStateWin::StopLvlMusic() //Temporal Fix to stop all music //TODO: we should have a musicLvlController
+{
+	if (gLoop->audioGO == nullptr) return;
+
+	for (GameObject* audio : gLoop->audioGO->children)
+	{
+		audio->GetComponent<ComponentAudioSource>()->Stop();
+	}
+	gLoop->audioGO->SetActive(false);
 }

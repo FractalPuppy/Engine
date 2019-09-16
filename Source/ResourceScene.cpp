@@ -243,7 +243,7 @@ bool ResourceScene::Load()
 
 	for (GameObject* goPrefab : prefabs)
 	{
-		if (App->scene->PrefabWasUpdated(goPrefab->prefabUID))
+		if (PrefabWasUpdated(goPrefab) || App->scene->SceneIsOlderThanPrefab(goPrefab->prefabUID))
 		{
 			goPrefab->UpdateToPrefab(goPrefab->prefab->RetrievePrefab());
 		}
@@ -274,4 +274,11 @@ void ResourceScene::AssignNewUUID(GameObject* go, unsigned parentUID)
 	{
 		AssignNewUUID(child, go->UUID);
 	}
+}
+
+bool ResourceScene::PrefabWasUpdated(GameObject* prefabGo) const
+{
+	Resource* prefab = App->resManager->GetWithoutLoad(prefabGo->prefabUID);
+	if (prefab == nullptr || prefabGo->prefabTimeStamp == 0u) return false;
+	return App->fsystem->GetModTime(prefab->GetFile()) > prefabGo->prefabTimeStamp;
 }

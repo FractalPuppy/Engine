@@ -33,6 +33,7 @@ public:
 
 	ComponentAudioSource* audioClick = nullptr;
 	ComponentAudioSource* audioHovered = nullptr;
+	ComponentAudioSource* ambienceMusic = nullptr;
 	ComponentAudioSource* mainMenuMusic = nullptr;
 private:
 

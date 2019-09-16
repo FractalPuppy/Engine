@@ -66,14 +66,7 @@ void CircularAttackSkill::Update()
 		attackBoxTrigger->Enable(true);
 		attackBoxTrigger->SetBoxSize(boxSize);
 		atatckStarted = true;
-		if (mesh1)
-		{
-			mesh1->SetActive(true);
-		}
-		if (mesh2)
-		{
-			mesh2->SetActive(true);
-		}
+
 		if (mesh3)
 		{
 			mesh3->SetActive(true);
@@ -81,6 +74,10 @@ void CircularAttackSkill::Update()
 		if (particles)
 		{
 			particles->SetActive(true);
+		}
+		if (player->slashTrail)
+		{
+			player->slashTrail->SetActive(true);
 		}
 	}
 }
@@ -114,14 +111,7 @@ void CircularAttackSkill::UseSkill()
 	}
 
 	//Rotate meshes
-	if (mesh1)
-	{	
-		mesh1->transform->Rotate(math::float3(0, MESH1_ROT_SPEED, 0));
-	}
-	if (mesh2)
-	{
-		mesh2->transform->Rotate(math::float3(0, MESH2_ROT_SPEED, 0));
-	}
+	
 	if (mesh3)
 	{
 		mesh3->transform->Rotate(math::float3(0, MESH3_ROT_SPEED, 0));
@@ -133,14 +123,7 @@ void CircularAttackSkill::Reset()
 	spinTimer = 0.0f;
 	atatckStarted = false;
 	MeleeSkill::Reset();
-	if (mesh1)
-	{
-		mesh1->SetActive(false);
-	}
-	if (mesh2)
-	{
-		mesh2->SetActive(false);
-	}
+
 	if (mesh3)
 	{
 		mesh3->SetActive(false);
@@ -148,6 +131,11 @@ void CircularAttackSkill::Reset()
 	if (particles)
 	{
 		particles->SetActive(false);
+	}
+
+	if (player->slashTrail)
+	{
+		player->slashTrail->SetActive(false);
 	}
 }
 

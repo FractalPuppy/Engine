@@ -31,8 +31,6 @@ protected:
 
 public:
 	// FX constant variables
-	GameObject* mesh1 = nullptr;
-	GameObject* mesh2 = nullptr;
 	GameObject* mesh3 = nullptr;
 	GameObject* particles = nullptr;
 

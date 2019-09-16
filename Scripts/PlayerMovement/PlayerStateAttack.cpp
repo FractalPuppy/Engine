@@ -17,6 +17,7 @@ PlayerStateAttack::~PlayerStateAttack()
 
 void PlayerStateAttack::Enter()
 {
+
 }
 
 void PlayerStateAttack::Update()

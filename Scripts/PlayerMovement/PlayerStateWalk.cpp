@@ -148,6 +148,10 @@ void PlayerStateWalk::CheckInput()
 	if (player->IsUsingSkill() || player->IsAttacking())
 	{
 		player->currentState = (PlayerState*)player->attack;
+		if (dustParticles)
+		{
+			dustParticles->SetActive(false);
+		}
 	}
 	else if (player->IsMovingToAttack())
 	{

@@ -10,7 +10,8 @@ enum class DamageType
 	NORMAL,
 	CRITICAL,
 	POLLOMETER,
-	RECIEVED
+	RECIEVED,
+	MANA
 };
 
 class ComponentTransform;

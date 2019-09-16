@@ -39,7 +39,7 @@ class EnemyControllerScript_API EnemyControllerScript : public Script
 		return new EnemyControllerScript(*this);
 	}
 public:
-	void TakeDamage(unsigned damage);
+	void TakeDamage(unsigned damage, int type = 1);
 	int GetHealth() const { return actualHealth; }
 	int GetMaxHealth() const { return maxHealth; }
 

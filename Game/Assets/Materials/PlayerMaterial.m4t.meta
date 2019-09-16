@@ -1,15 +1,15 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1563536364,
+        "timeCreated": 1565941293,
         "GUID": 4092157340,
         "Name": "PlayerMaterial",
         "File": "Assets/Materials/PlayerMaterial.m4t",
         "ExportedFile": "Library/Materials/4092157340.m4t",
         "DifusseColor": [
             1.0,
-            1.0,
-            1.0,
+            0.886904239654541,
+            0.0,
             1.0
         ],
         "specularColor": [
@@ -19,8 +19,11 @@
         ],
         "emissiveColor": [
             1.0,
-            1.0,
-            1.0
-        ]
+            0.860655665397644,
+            0.0
+        ],
+        "diffuseUID": 2544362769,
+        "emissiveUID": 2544362769,
+        "shader": "PBR"
     }
 }

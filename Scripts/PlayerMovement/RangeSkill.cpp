@@ -17,5 +17,6 @@ RangeSkill::~RangeSkill()
 void RangeSkill::Start()
 {
 	BasicSkill::Start();
-	player->App->scene->Spawn(prefabName.c_str(), spawnPosition, math::Quat::identity);
+	if (prefabName != "")
+		player->App->scene->Spawn(prefabName.c_str(), spawnPosition, math::Quat::identity);
 }

@@ -14,7 +14,9 @@ public:
 	
 	void Update() override;
 
+
 private:
+	void Win();
 	void LoadMainMenu();
 	void OpenMenu(GameObject* menu);
 	void CloseMenu();

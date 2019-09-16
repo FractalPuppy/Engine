@@ -29,6 +29,8 @@ public:
 	void Hovered(unsigned uid, bool hover);
 	void DisableName(unsigned uid);
 	bool Intersection(unsigned uid);
+	float4 GetColor(unsigned uid);
+
 private:
 	GameObject* itemName = nullptr;
 	GameObject* uiName[10];
@@ -48,6 +50,8 @@ private:
 	Text* myText = nullptr;
 
 	ItemName itemList[10];
+
+	math::float4 color[10];
 
 };
 

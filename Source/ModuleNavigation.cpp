@@ -1707,6 +1707,23 @@ ENGINE_API bool ModuleNavigation::FindClosestPoint2D(math::float3& initial) cons
 	}
 }
 
+ENGINE_API bool ModuleNavigation::IsValidPosition(math::float3& position) const
+{
+	dtPolyRef startPoly;
+	dtQueryFilter filter;
+	filter.setIncludeFlags(SAMPLE_POLYFLAGS_ALL ^ SAMPLE_POLYFLAGS_DISABLED);
+	filter.setExcludeFlags(0);
+
+
+	math::float3 diff = math::float3(.1f, .1f, .1f);
+
+	float polyPickExt[3] = { diff.x, diff.y, diff.z };
+
+	auto result = navQuery->findNearestPoly((float*)&position, polyPickExt, &filter, &startPoly, diff.ptr());
+	return Distance(diff, position) < 10.f;
+	
+}
+
 void ModuleNavigation::RecalcPath(math::float3 point)
 {
 	if (startPoint)

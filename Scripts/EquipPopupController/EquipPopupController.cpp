@@ -83,6 +83,15 @@ void EquipPopupController::Start()
 	hudButtonsText.emplace_back(App->scene->FindGameObjectByName("WText", HUD)->GetComponent<Transform2D>(), false);
 	hudButtonsText.emplace_back(App->scene->FindGameObjectByName("EText", HUD)->GetComponent<Transform2D>(), false);
 	hudButtonsText.emplace_back(App->scene->FindGameObjectByName("RText", HUD)->GetComponent<Transform2D>(), false);
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("RC_Number", HUD)->GetComponent<Text>());
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("One_Number", HUD)->GetComponent<Text>());
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("Two_Number", HUD)->GetComponent<Text>());
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("Three_Number", HUD)->GetComponent<Text>());
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("Four_Number", HUD)->GetComponent<Text>());
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("Q_Number", HUD)->GetComponent<Text>());
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("W_Number", HUD)->GetComponent<Text>());
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("E_Number", HUD)->GetComponent<Text>());
+	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("R_Number", HUD)->GetComponent<Text>());
 
 	std::list<GameObject*> listSkills = App->scene->FindGameObjectByName("PopUpSlotsSkills", popupGOSkills)->children;
 	std::list<GameObject*> listItems = App->scene->FindGameObjectByName("PopUpSlotsItems", popupGOItems)->children;
@@ -106,6 +115,19 @@ void EquipPopupController::Start()
 
 void EquipPopupController::Update()
 {
+	int positionClicked = inventory->ConsumeItemsController();
+
+	if (positionClicked != -1)
+	{
+		for (int i = 0; i < itemsEquiped.size(); ++i)
+		{
+			if (positionClicked == itemsEquiped[i].first)
+			{
+				hudConsumibleItemsQuantity[positionClicked]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));
+			}
+		}
+	}
+
 	//Check if has to close PopUp
 	if (gameobject->isActive() && !backgroundSkills->isHovered && !backgroundItems->isHovered && !items->IsHovered() && !skills->IsHovered() && (App->input->GetMouseButtonDown(1) == KEY_UP || App->input->GetMouseButtonDown(3) == KEY_UP))
 	{
@@ -116,7 +138,7 @@ void EquipPopupController::Update()
 	//Check if has to open PopUp
 	for (int i = 0; i < HUD_BUTTONS; ++i)
 	{
-		if (hudButtons[i]->IsHovered() && App->input->GetMouseButtonDown(3) == KEY_UP) {
+		if (hudButtons[i]->IsHovered() && (App->input->GetMouseButtonDown(3) == KEY_UP || App->input->GetMouseButtonDown(1) == KEY_UP)) {
 			activeButton = i;
 			if (!gameobject->isActive())
 			{
@@ -158,6 +180,7 @@ void EquipPopupController::Update()
 				//TODO: Show info
 				if (App->input->GetMouseButtonDown(1) == KEY_UP)
 				{
+					slotsSkills[i]->GetComponent<ComponentImage>()->isHovered = false;
 					Assign(i);
 				}
 			}
@@ -180,12 +203,12 @@ void EquipPopupController::Update()
 				//TODO: Show info
 				if (App->input->GetMouseButtonDown(1) == KEY_UP)
 				{
+					slotsItems[i]->GetComponent<ComponentImage>()->isHovered = false;
 					Assign(i);
 				}
 			}
 		}
 	}
-
 }
 
 void EquipPopupController::Assign(int i)
@@ -196,6 +219,7 @@ void EquipPopupController::Assign(int i)
 		skillsEquiped.emplace_back(activeButton, skillsList[i]);
 		hudImageSlots[activeButton]->UpdateTexture(skillsList[i].spriteActive->GetName());
 		hudImageSlots[activeButton]->gameobject->SetActive(true);
+		hudConsumibleItemsQuantity[activeButton]->gameobject->SetActive(false);
 		MoveNumber(activeButton);
 		player->AssignSkill((SkillType)skillsList[i].id, activeButton);
 	}
@@ -205,8 +229,11 @@ void EquipPopupController::Assign(int i)
 		itemsEquiped.emplace_back(activeButton, itemsList[i]);
 		hudImageSlots[activeButton]->UpdateTexture(itemsList[i].sprite);
 		hudImageSlots[activeButton]->gameobject->SetActive(true);
+		hudConsumibleItemsQuantity[activeButton]->gameobject->SetActive(true);
+		hudConsumibleItemsQuantity[activeButton]->uiOrder = 11;
+		hudConsumibleItemsQuantity[activeButton]->text = std::to_string(inventory->GetCurrentQuantity(itemsList[i]));
 		MoveNumber(activeButton);
-		//TODO: Pass info to player
+		inventory->AssignConsumableItem(itemsList[i], activeButton);
 	}
 	gameobject->SetActive(false);
 }
@@ -236,6 +263,7 @@ void EquipPopupController::RemoveEquiped()
 		if (itemsEquiped[j].first == activeButton)
 		{
 			itemsEquiped.erase(itemsEquiped.begin() + j);
+			inventory->UnAssignConsumableItem(activeButton);
 		}
 	}
 }
@@ -324,9 +352,10 @@ void EquipPopupController::CleanButton()
 		newPos.y += 15.7;
 		hudButtonsText[activeButton].first->SetPositionUsingAligment(newPos);
 		hudButtonsText[activeButton].second = false;
+		hudConsumibleItemsQuantity[activeButton]->gameobject->SetActive(false);
+		hudConsumibleItemsQuantity[activeButton]->text = std::to_string(1);
 	}
 }
-
 
 void EquipPopupController::SavePopUp()
 {

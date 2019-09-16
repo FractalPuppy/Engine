@@ -162,6 +162,10 @@ void ComponentImage::DrawProperties()
 		{
 			PlayVideo();
 		}
+		if (ImGui::Button("Stop video"))
+		{
+			StopVideo();
+		}
 
 		ImGui::Separator();
 	}
@@ -297,7 +301,7 @@ bool ComponentImage::IsMasked() const
 	return isMasked;
 }
 
-void ComponentImage::PlayVideo()
+float ComponentImage::PlayVideo()
 {
 	using namespace cv;	
 	cap.open(std::string("../Game/Video/") + videoPath.c_str());
@@ -313,4 +317,16 @@ void ComponentImage::PlayVideo()
 		frameTime = 1.0f / fps;
 		frameTimer = 0.f;
 	}
+
+	fps = cap.get(cv::CAP_PROP_FPS);
+	return int(cap.get(cv::CAP_PROP_FRAME_COUNT)) / fps;
+}
+
+void ComponentImage::StopVideo()
+{
+	videoPlaying = false;
+	videoFinished = true;
+	frame.release();
+	cap.release();
+	frameTimer = 0.f;
 }

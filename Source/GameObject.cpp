@@ -15,6 +15,7 @@
 #include "ModuleAudioManager.h"
 #include "ModuleNavigation.h"
 #include "ModuleParticles.h"
+#include "ModuleFileSystem.h"
 
 #include "Component.h"
 #include "ComponentTransform.h"
@@ -1038,6 +1039,7 @@ void GameObject::UpdateToPrefab(GameObject* prefabGo)
 	}
 
 	LinkBones();
+	prefabTimeStamp = App->fsystem->GetModTime(prefab->GetFile());
 }
 
 AABB GameObject::GetBoundingBox() const
@@ -1168,6 +1170,10 @@ void GameObject::Save(JSON_value *gameobjects, bool selected) const
 		gameobject->AddUint("isPrefab", isPrefab);
 		gameobject->AddUint("isPrefabSync", isPrefabSync);
 		gameobject->AddUint("prefabUID", prefabUID);
+		if (isPrefab && prefabTimeStamp != 0.0f)
+		{
+			gameobject->AddUint("prefabTimeStamp", prefabTimeStamp);
+		}
 
 		JSON_value *componentsJSON = gameobject->CreateValue(rapidjson::kArrayType);
 		for (auto &component : components)
@@ -1216,6 +1222,8 @@ void GameObject::Load(JSON_value *value, bool prefabTemplate)
 	prefabUID = value->GetUint("prefabUID");
 	if (isPrefab && !prefabTemplate)
 	{
+		prefabTimeStamp = value->GetUint("prefabTimeStamp");
+
 		prefab = (ResourcePrefab*) App->resManager->Get(prefabUID);
 		if (prefab != nullptr)
 		{

@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 2368270981,
+            "UID": 2165469532,
             "ParentUID": 1,
             "Name": "PopUpEquip",
             "Tag": "Default",
@@ -40,7 +40,7 @@
                     "Position": [
                         0.0,
                         0.0,
-                        0.0
+                        -200.0
                     ],
                     "Rotation": [
                         0.0,
@@ -70,7 +70,7 @@
                         0.0,
                         0.0,
                         1.0,
-                        0.0,
+                        -200.0,
                         0.0,
                         0.0,
                         0.0,
@@ -86,8 +86,8 @@
             ]
         },
         {
-            "UID": 1593655137,
-            "ParentUID": 2368270981,
+            "UID": 3159189160,
+            "ParentUID": 2165469532,
             "Name": "PopUpSkills",
             "Tag": "Default",
             "Static": 0,
@@ -185,7 +185,9 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "highlightedImage": {
                         "Type": 7,
@@ -205,7 +207,9 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "pressedImage": {
                         "Type": 7,
@@ -225,17 +229,19 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 10
                 }
             ]
         },
         {
-            "UID": 866370053,
-            "ParentUID": 2368270981,
+            "UID": 3047013986,
+            "ParentUID": 2165469532,
             "Name": "PopUpItems",
             "Tag": "Default",
             "Static": 0,
@@ -333,7 +339,9 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "highlightedImage": {
                         "Type": 7,
@@ -353,7 +361,9 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "pressedImage": {
                         "Type": 7,
@@ -373,17 +383,19 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 10
                 }
             ]
         },
         {
-            "UID": 3662860767,
-            "ParentUID": 2368270981,
+            "UID": 2546961628,
+            "ParentUID": 2165469532,
             "Name": "PopUpEquipSkills",
             "Tag": "Default",
             "Static": 0,
@@ -447,13 +459,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 10,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 2025520953,
-            "ParentUID": 3662860767,
+            "UID": 1210816451,
+            "ParentUID": 2546961628,
             "Name": "PopUpSlotsSkills",
             "Tag": "Default",
             "Static": 0,
@@ -491,7 +505,7 @@
                     "Position": [
                         0.0,
                         0.0,
-                        -100.0
+                        -200.0
                     ],
                     "Rotation": [
                         0.0,
@@ -521,7 +535,7 @@
                         0.0,
                         0.0,
                         1.0,
-                        -100.0,
+                        -200.0,
                         0.0,
                         0.0,
                         0.0,
@@ -531,8 +545,8 @@
             ]
         },
         {
-            "UID": 3976087575,
-            "ParentUID": 2025520953,
+            "UID": 3587663589,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot1",
             "Tag": "Default",
             "Static": 0,
@@ -596,13 +610,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 958823553,
-            "ParentUID": 2025520953,
+            "UID": 2399470540,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot2",
             "Tag": "Default",
             "Static": 0,
@@ -666,13 +682,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3456755498,
-            "ParentUID": 2025520953,
+            "UID": 4256021272,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot3",
             "Tag": "Default",
             "Static": 0,
@@ -736,13 +754,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 2153465688,
-            "ParentUID": 2025520953,
+            "UID": 743305473,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot4",
             "Tag": "Default",
             "Static": 0,
@@ -806,13 +826,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 1609463122,
-            "ParentUID": 2025520953,
+            "UID": 1201187814,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot5",
             "Tag": "Default",
             "Static": 0,
@@ -876,13 +898,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 2360309302,
-            "ParentUID": 2025520953,
+            "UID": 3425388513,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot6",
             "Tag": "Default",
             "Static": 0,
@@ -946,13 +970,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 214408018,
-            "ParentUID": 2025520953,
+            "UID": 1882890764,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot7",
             "Tag": "Default",
             "Static": 0,
@@ -1016,13 +1042,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 2027429912,
-            "ParentUID": 2025520953,
+            "UID": 2453573797,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot8",
             "Tag": "Default",
             "Static": 0,
@@ -1086,13 +1114,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3188401305,
-            "ParentUID": 2025520953,
+            "UID": 3224074416,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot9",
             "Tag": "Default",
             "Static": 0,
@@ -1156,13 +1186,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3238272629,
-            "ParentUID": 2025520953,
+            "UID": 2338263945,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot10",
             "Tag": "Default",
             "Static": 0,
@@ -1226,13 +1258,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 2734097149,
-            "ParentUID": 2025520953,
+            "UID": 20777871,
+            "ParentUID": 1210816451,
             "Name": "PopUPSlot11",
             "Tag": "Default",
             "Static": 0,
@@ -1296,13 +1330,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 4009934960,
-            "ParentUID": 2368270981,
+            "UID": 1761980818,
+            "ParentUID": 2165469532,
             "Name": "PopUpEquipItems",
             "Tag": "Default",
             "Static": 0,
@@ -1366,13 +1402,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 10,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 573646153,
-            "ParentUID": 4009934960,
+            "UID": 745719725,
+            "ParentUID": 1761980818,
             "Name": "PopUpSlotsItems",
             "Tag": "Default",
             "Static": 0,
@@ -1410,7 +1448,7 @@
                     "Position": [
                         0.0,
                         0.0,
-                        -100.0
+                        -200.0
                     ],
                     "Rotation": [
                         0.0,
@@ -1440,7 +1478,7 @@
                         0.0,
                         0.0,
                         1.0,
-                        -100.0,
+                        -200.0,
                         0.0,
                         0.0,
                         0.0,
@@ -1450,8 +1488,8 @@
             ]
         },
         {
-            "UID": 3630666956,
-            "ParentUID": 573646153,
+            "UID": 1471811542,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot1",
             "Tag": "Default",
             "Static": 0,
@@ -1515,13 +1553,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 909836121,
-            "ParentUID": 573646153,
+            "UID": 1929245476,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot2",
             "Tag": "Default",
             "Static": 0,
@@ -1585,13 +1625,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3470695400,
-            "ParentUID": 573646153,
+            "UID": 1066142851,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot3",
             "Tag": "Default",
             "Static": 0,
@@ -1655,13 +1697,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 180919406,
-            "ParentUID": 573646153,
+            "UID": 3026439498,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot4",
             "Tag": "Default",
             "Static": 0,
@@ -1725,13 +1769,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3352847618,
-            "ParentUID": 573646153,
+            "UID": 4042549910,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot5",
             "Tag": "Default",
             "Static": 0,
@@ -1795,13 +1841,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 1018153765,
-            "ParentUID": 573646153,
+            "UID": 2117070997,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot6",
             "Tag": "Default",
             "Static": 0,
@@ -1865,13 +1913,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 263747103,
-            "ParentUID": 573646153,
+            "UID": 2181016430,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot7",
             "Tag": "Default",
             "Static": 0,
@@ -1935,13 +1985,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 1115147711,
-            "ParentUID": 573646153,
+            "UID": 1154868045,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot8",
             "Tag": "Default",
             "Static": 0,
@@ -2005,13 +2057,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 1109789118,
-            "ParentUID": 573646153,
+            "UID": 2185107665,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot9",
             "Tag": "Default",
             "Static": 0,
@@ -2075,13 +2129,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 2482257830,
-            "ParentUID": 573646153,
+            "UID": 3140184910,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot10",
             "Tag": "Default",
             "Static": 0,
@@ -2145,13 +2201,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 708418072,
-            "ParentUID": 573646153,
+            "UID": 3841107509,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot11",
             "Tag": "Default",
             "Static": 0,
@@ -2215,13 +2273,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3543657206,
-            "ParentUID": 573646153,
+            "UID": 1264906990,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot12",
             "Tag": "Default",
             "Static": 0,
@@ -2285,13 +2345,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 1114623298,
-            "ParentUID": 573646153,
+            "UID": 3080864777,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot13",
             "Tag": "Default",
             "Static": 0,
@@ -2355,13 +2417,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 2765593315,
-            "ParentUID": 573646153,
+            "UID": 2633260461,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot14",
             "Tag": "Default",
             "Static": 0,
@@ -2425,13 +2489,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3446611388,
-            "ParentUID": 573646153,
+            "UID": 48436950,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot15",
             "Tag": "Default",
             "Static": 0,
@@ -2495,13 +2561,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 1302848159,
-            "ParentUID": 573646153,
+            "UID": 2722996911,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot16",
             "Tag": "Default",
             "Static": 0,
@@ -2565,13 +2633,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 673266878,
-            "ParentUID": 573646153,
+            "UID": 2752764517,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot17",
             "Tag": "Default",
             "Static": 0,
@@ -2635,13 +2705,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3519797121,
-            "ParentUID": 573646153,
+            "UID": 428488696,
+            "ParentUID": 745719725,
             "Name": "PopUPSlot18",
             "Tag": "Default",
             "Static": 0,
@@ -2705,13 +2777,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 2574360288,
-            "ParentUID": 2368270981,
+            "UID": 3780257845,
+            "ParentUID": 2165469532,
             "Name": "PopUpHover",
             "Tag": "Default",
             "Static": 0,
@@ -2775,13 +2849,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 1
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 3190410977,
-            "ParentUID": 2368270981,
+            "UID": 1307880136,
+            "ParentUID": 2165469532,
             "Name": "PopUpUnequip",
             "Tag": "Default",
             "Static": 0,
@@ -2879,7 +2955,9 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "highlightedImage": {
                         "Type": 7,
@@ -2899,7 +2977,9 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "pressedImage": {
                         "Type": 7,
@@ -2919,11 +2999,13 @@
                         "isMaskHorizontal": 0,
                         "hoverDetectionMouse1": 1,
                         "hoverDetectionMouse3": 1,
-                        "UIOrder": 0
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
                     },
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0
+                    "UIOrder": 10
                 }
             ]
         }

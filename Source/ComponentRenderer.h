@@ -30,7 +30,7 @@ public:
 	ENGINE_API void SetMaterial(const char* materialName);
 	ENGINE_API void ResetAnimation();
 
-	void SetMesh(const char* meshfile);
+	ENGINE_API void SetMesh(const char* meshfile);
 	void UpdateGameObject();
 	void LinkBones();
 
@@ -72,6 +72,8 @@ private:
 
 	void Update();
 	void PickMaterial();
+
+	void UpdateMeshesList();
 
 	std::vector<std::string> guiMaterials;
 	std::vector<std::string> guiMeshes;

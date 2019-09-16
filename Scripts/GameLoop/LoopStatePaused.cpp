@@ -33,12 +33,6 @@ void LoopStatePaused::Update()
 		return;
 	}
 
-	if (gLoop->pauseOptions && gLoop->pauseOptions->KeyUp())
-	{
-		LOG("OPTIONS MENU PRESSED");
-		return;
-	}
-
 	if (gLoop->pauseExit && gLoop->pauseExit->KeyUp())
 	{
 		gLoop->currentLoopState = (LoopState*)gLoop->loadingState;

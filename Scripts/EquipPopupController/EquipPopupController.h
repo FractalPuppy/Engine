@@ -70,6 +70,7 @@ private:
 	std::vector<ComponentImage*> hudImageSlots;
 	std::vector<Button*> hudButtons;
 	std::vector<std::pair<Transform2D*, bool>> hudButtonsText;
+	std::vector<Text*> hudConsumibleItemsQuantity;
 	int activeButton = -1;
 
 	std::vector<Item> itemsList;

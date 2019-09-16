@@ -27,13 +27,13 @@ public:
 	GameObject() {};
 	GameObject(const char* name, unsigned uuid);
 	GameObject(const float4x4& transform, const char* name, unsigned uuid);
-	GameObject(const GameObject& gameobject);
+	ENGINE_API  GameObject(const GameObject& gameobject);
 	~GameObject();
 
 	void DrawProperties();
 
+	ENGINE_API void Update();
 	void PreUpdate();
-	void Update();
 	ENGINE_API inline bool isActive() const
 	{
 		if (!activeInHierarchy) return false;
@@ -116,6 +116,7 @@ public:
 	bool isPrefab = false;
 	unsigned prefabUID = 0;
 	bool isDropablePlaceHolder = false;
+	unsigned prefabTimeStamp = 0u;
 
 	bool navigable = false;
 	bool noWalkable = false;

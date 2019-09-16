@@ -15,7 +15,6 @@
 class ComponentRenderer;
 class GameObject;
 
-
 struct BindBone
 {
 	math::float4x4 transform; //Transforms from mesh space to bone space
@@ -56,8 +55,8 @@ public:
 	// Mesh specific
 	void LinkBones(GameObject* gameobject);
 	void Draw(unsigned shaderProgram) const;
-	void DrawBbox(unsigned shaderProgram, const AABB& globalBBOX) const;
-	AABB GetBoundingBox() const;
+	void DrawBbox(unsigned shaderProgram, const math::AABB& globalBBOX) const;
+	math::AABB GetBoundingBox() const;
 	bool Intersects(const LineSegment& line, float* distance, math::float3* intersectionPoint = nullptr);
 
 	// File in Assets especific
@@ -76,7 +75,7 @@ public:
 	unsigned VBO = 0u;
 	unsigned EBO = 0u;
 
-	AABB boundingBox;
+	math::AABB boundingBox;
 	unsigned VAObox = 0u;
 	unsigned VBObox = 0u;
 	unsigned EBObox = 0u;

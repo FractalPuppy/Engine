@@ -17,8 +17,13 @@
 #include "JSON.h"
 #include "imgui.h"
 #include "Resource.h"
+#include "ResourceMesh.h"
+#include "ResourceMaterial.h"
 #include "ComponentAudioSource.h"
+#include "HashString.h"
 #include <algorithm>
+
+#define None "None Selected"
 
 #pragma warning(disable : 4996)
 
@@ -40,8 +45,8 @@ void ItemPicker::Expose(ImGuiContext* context)
 	ImGui::Separator();
 
 	ImGui::SetCurrentContext(context);
-	const char * types[] = { "NONE","QUICK","KEY","MATERIAL","WEAPON","HELMET","CHEST","PANTS","BOOTS","AMULET","RING" };
-	const char * rarities[] = { "BASIC","RARE","EPIC","LEGENDARY" };
+	const char* types[] = { "NONE","QUICK","KEY","MATERIAL","WEAPON","HELMET","CHEST","PANTS","BOOTS","AMULET","RING" };
+	const char* rarities[] = { "BASIC","RARE","EPIC","LEGENDARY" };
 	if (ImGui::BeginCombo("Type", types[(int)type]))
 	{
 		for (int n = 0; n < 11; n++)
@@ -111,6 +116,89 @@ void ItemPicker::Expose(ImGuiContext* context)
 	ImGui::InputText("My BBox Name", bboxName, 64);
 	myBboxName = bboxName;
 	delete[] bboxName;
+
+	// Mesh selector
+	ImGui::Text("Mesh");
+	ImGui::PushID("Mesh Combo");
+	if (ImGui::BeginCombo("", itemMesh != nullptr ? itemMesh->GetName() : "None selected"))
+	{
+		if (meshesList.empty())
+		{
+			meshesList.clear();
+			meshesList = App->resManager->GetResourceNamesList(TYPE::MESH, true);
+		}
+		bool none_selected = (itemMesh == nullptr);
+		if (ImGui::Selectable(None, none_selected))
+		{
+			item.meshUID = 0u;
+			itemMesh = nullptr;
+		}
+		if (none_selected)
+			ImGui::SetItemDefaultFocus();
+
+		for (int n = 0; n < meshesList.size(); n++)
+		{
+			bool is_selected = (itemMesh != nullptr ? itemMesh->GetName() == meshesList[n].c_str() : false);
+			if (ImGui::Selectable(meshesList[n].c_str(), is_selected))
+			{
+				if (itemMesh == nullptr || itemMesh->GetName() != meshesList[n])
+				{
+					unsigned meshUID = App->resManager->FindByName(meshesList[n].c_str(), TYPE::MESH);
+					if (meshUID != 0u)
+					{
+						item.meshUID = meshUID;
+						itemMesh = (ResourceMesh*)App->resManager->GetWithoutLoad(meshUID);
+					}
+				}
+			}
+			if (is_selected)
+			{
+				ImGui::SetItemDefaultFocus();
+			}
+		}
+		ImGui::EndCombo();
+	}
+	else
+	{
+		meshesList.clear();
+	}
+
+	// Material selector
+	ImGui::Text("Material");
+	ImGui::PushID("Material Combo");
+	if (ImGui::BeginCombo("", itemMaterial != nullptr ? itemMaterial->GetName() : "None selected"))
+	{
+		if (materialsList.empty())
+		{
+			materialsList.clear();
+			materialsList = App->resManager->GetResourceNamesList(TYPE::MATERIAL, true);
+		}
+		for (int n = 0; n < materialsList.size(); n++)
+		{
+			bool is_selected = (itemMaterial != nullptr ? itemMaterial->GetName() == materialsList[n].c_str() : false);
+			if (ImGui::Selectable(materialsList[n].c_str(), is_selected))
+			{
+				if (itemMaterial == nullptr || itemMaterial->GetName() != materialsList[n])
+				{
+					unsigned materialUID = App->resManager->FindByName(materialsList[n].c_str(), TYPE::MATERIAL);
+					if (materialUID != 0u)
+					{
+						item.materialUID = materialUID;
+						itemMaterial = (ResourceMaterial*)App->resManager->GetWithoutLoad(materialUID);
+					}
+				}
+			}
+			if (is_selected)
+			{
+				ImGui::SetItemDefaultFocus();
+			}
+		}
+		ImGui::EndCombo();
+	}
+	else
+	{
+		materialsList.clear();
+	}
 
 	item.stats.Expose("Item Stats");
 }
@@ -216,25 +304,14 @@ void ItemPicker::Update()
 	GameObject* myRenderGO = App->scene->FindGameObjectByName(myBboxName.c_str(), gameobject);
 	if (myRenderGO != nullptr)
 		myRender = (ComponentRenderer*)myRenderGO->GetComponent<ComponentRenderer>();
-	switch (rarity)
+
+	if (myRender != nullptr)
 	{
-	case ItemRarity::BASIC:
-		myRender->highlightColor = math::float3(211, 211, 211);
-		rare = 0;
-		break;
-	case ItemRarity::RARE:
-		myRender->highlightColor = math::float3(0, 255, 0);
-		rare = 1;
-		break;
-	case ItemRarity::EPIC:
-		myRender->highlightColor = math::float3(255, 69, 0);
-		rare = 2;
-		break;
-	case ItemRarity::LEGENDARY:
-		myRender->highlightColor = math::float3(148, 0, 211);
-		rare = 3;
-		break;
+		myRender->highlighted = true;
+		math::float4 color = itemName->GetColor(gameobject->UUID);
+		myRender->highlightColor = math::float3(color.x, color.y, color.z);
 	}
+
 	
 	if (App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) == nameShowed.end() && gameobject->isActive())
 	{
@@ -263,11 +340,12 @@ void ItemPicker::Update()
 			changeStandarCursorIcon = true;
 		}
 	}
+	
 	else
 	{
 		if (myRender != nullptr)
 		{
-			myRender->highlighted = false;
+			//myRender->highlighted = false;
 			itemName->Hovered(gameobject->UUID, false);
 
 			if (changeStandarCursorIcon && !App->ui->IsHover())
@@ -296,6 +374,8 @@ void ItemPicker::Serialize(JSON_value* json) const
 	json->AddFloat("hpRegen", item.stats.hpRegen);
 	json->AddFloat("manaRegen", item.stats.manaRegen);
 	json->AddString("itemCursor", itemCursor.c_str());
+	json->AddUint("meshUID", item.meshUID);
+	json->AddUint("materialUID", item.materialUID);
 }
 
 void ItemPicker::DeSerialize(JSON_value* json)
@@ -313,6 +393,22 @@ void ItemPicker::DeSerialize(JSON_value* json)
 	item.stats.hpRegen = json->GetFloat("hpRegen");
 	item.stats.manaRegen = json->GetFloat("manaRegen");
 	itemCursor = json->GetString("itemCursor", "Pick.cur");
+
+	// Mesh
+	unsigned resourceMeshUID = json->GetUint("meshUID");
+	if (resourceMeshUID > 0u)
+	{
+		item.meshUID = resourceMeshUID;
+		itemMesh =(ResourceMesh*)App->resManager->GetWithoutLoad(resourceMeshUID);
+	}
+
+	//Material
+	unsigned resourceMaterialUID = json->GetUint("materialUID");
+	if (resourceMaterialUID > 0u)
+	{
+		item.materialUID = resourceMaterialUID;
+		itemMaterial = (ResourceMaterial*)App->resManager->GetWithoutLoad(resourceMaterialUID);
+	}
 }
 
 void ItemPicker::SetItem(ItemType type, std::string name, std::string sprite)

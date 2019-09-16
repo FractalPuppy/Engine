@@ -302,7 +302,7 @@ void EnemyControllerScript::DeSerialize(JSON_value* json)
 	enemyCursor = json->GetString("enemyCursor", "RedGlow.cur");
 }
 
-void EnemyControllerScript::TakeDamage(unsigned damage)
+void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 {
 	if (!isDead)
 	{
@@ -355,7 +355,7 @@ void EnemyControllerScript::TakeDamage(unsigned damage)
 					(*it)->highlighted = false;
 			}
 		}
-		damageController->AddDamage(gameobject->transform, damage, 2);
+		damageController->AddDamage(gameobject->transform, damage, (DamageType)type);
 	}
 }
 
@@ -466,8 +466,16 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		}
 	}
 
-	if (go->tag == "PlayerHitBoxAttack")
+	if (go->tag == "PlayerHitBoxAttack" || go->tag == "Machete")
 	{
-		TakeDamage(playerMovement->stats.strength * 0.1);
+		// Generate a random number and if it is below the critical chance the damage will be increased
+		if ((rand() % 100u) < playerMovement->criticalChance)
+		{
+			TakeDamage(playerMovement->stats.strength * 0.2f, (int)DamageType::CRITICAL);
+		}
+		else
+		{
+			TakeDamage(playerMovement->stats.strength * 0.1f, (int)DamageType::NORMAL);
+		}
 	}
 }

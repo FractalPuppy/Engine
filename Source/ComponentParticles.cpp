@@ -317,11 +317,13 @@ void ComponentParticles::Update(float dt, const math::float3& camPos)
 			switch (actualEmisor)
 			{
 			case EmisorType::QUAD:
+			{
 				quadEmitterSize.x = MAX(1, quadEmitterSize.x);
 				quadEmitterSize.y = MAX(1, quadEmitterSize.y);
 
 				//P starting position
-				p->position = pos + gameobject->transform->GetRotation() * float3(rand() % (int)quadEmitterSize.x - quadEmitterSize.x / 2, 0, rand() % (int)quadEmitterSize.y - quadEmitterSize.y / 2) ;
+				float3x3 rot = gameobject->transform->global.RotatePart();
+				p->position = pos + rot * float3(rand() % (int)quadEmitterSize.x - quadEmitterSize.x *.5f, 0, rand() % (int)quadEmitterSize.y - quadEmitterSize.y *.5f);
 
 				//P direction
 				p->direction = gameobject->transform->up;// *float3(0.f, 1.f, 0.f); //math::float3::unitY;
@@ -329,7 +331,7 @@ void ComponentParticles::Update(float dt, const math::float3& camPos)
 				//P starting rotation
 				p->axisRotation = math::DegToRad(mathRand.Float(axisRotation.x, axisRotation.y));
 				break;
-
+			}
 			case EmisorType::SPHERE:
 				//P starting position
 				p->position = pos;
@@ -633,11 +635,11 @@ void ComponentParticles::alternateEmisor(int newEmisor)
 void ComponentParticles::DrawDebugEmisor()
 {
 	float3 base = gameobject->transform->GetGlobalPosition();
-
-	float3 v1 = base + gameobject->transform->GetRotation() * float3(quadEmitterSize.x / 2.f, 0, -quadEmitterSize.y / 2.f);
-	float3 v2 = base + gameobject->transform->GetRotation() * float3(quadEmitterSize.x / 2.f, 0, quadEmitterSize.y / 2.f);
-	float3 v3 = base + gameobject->transform->GetRotation() * float3(-quadEmitterSize.x / 2.f, 0, quadEmitterSize.y / 2.f);
-	float3 v4 = base + gameobject->transform->GetRotation() * float3(-quadEmitterSize.x / 2.f, 0, -quadEmitterSize.y / 2.f);
+	float3x3 rot = gameobject->transform->global.RotatePart();
+	float3 v1 = base + rot * float3(quadEmitterSize.x * .5f, 0, -quadEmitterSize.y * .5f);
+	float3 v2 = base + rot * float3(quadEmitterSize.x * .5f, 0, quadEmitterSize.y * .5f);
+	float3 v3 = base + rot * float3(-quadEmitterSize.x *.5f, 0, quadEmitterSize.y * .5f);
+	float3 v4 = base + rot * float3(-quadEmitterSize.x *.5f, 0, -quadEmitterSize.y * .5f);
 
 	switch (actualEmisor) 
 	{

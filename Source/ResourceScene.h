@@ -22,6 +22,7 @@ public:
 	bool Load();
 
 private:
+	bool PrefabWasUpdated(GameObject* prefabGo) const;
 	void AssignNewUUID(GameObject* go, unsigned UID);
 };
 

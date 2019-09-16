@@ -20,6 +20,8 @@ class ComponentAudioSource;
 class ComponentRenderer;
 class ItemNameController;
 class PlayerMovement;
+class ResourceMesh;
+class ResourceMaterial;
 
 enum class ItemPicker_API ItemRarity
 {
@@ -48,7 +50,6 @@ public:
 		return new ItemPicker(*this);
 	}
 
-
 	std::string name;
 	std::string description;
 	std::string sprite;
@@ -57,12 +58,13 @@ public:
 	bool pickedUpViaPlayer = false;
 
 private:
+
 	PlayerMovement* playerMovementScript = nullptr;
 	InventoryScript* inventoryScript = nullptr;
 	math::AABB* playerBbox = nullptr;
 
 	std::vector<std::string> textureFiles;
-	const char * selectedTexture = "basicPostion";
+	const char* selectedTexture = "basicPostion";
 
 	ComponentAudioSource* itemPickedAudio = nullptr;
 	std::string myBboxName;
@@ -77,6 +79,14 @@ private:
 	std::string itemCursor = "Pick.cur";
 	bool changeItemCursorIcon = true;
 	bool changeStandarCursorIcon = true;
+
+	// Mesh to change to Player item (only weapons)
+	ResourceMesh* itemMesh = nullptr;
+	std::vector<std::string> meshesList;		// List of ResourceMeshes
+
+	// Material to change to Player item (only weapons)
+	ResourceMaterial* itemMaterial = nullptr;
+	std::vector<std::string> materialsList;		// List of ResourceMeshes
 };
 
 extern "C" ItemPicker_API Script* CreateScript();

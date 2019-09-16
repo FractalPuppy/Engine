@@ -68,7 +68,7 @@ public:
 	void DragNDrop(GameObject * go);
 	void DrawGUI() override;
 
-	bool PrefabWasUpdated(unsigned UID) const;
+	bool SceneIsOlderThanPrefab(unsigned UID) const;
 	unsigned CreatePrefab(GameObject* go);
 	void CreateCube(const char * name, GameObject* parent);
 	void CreateSphere(const char * name, GameObject* parent);

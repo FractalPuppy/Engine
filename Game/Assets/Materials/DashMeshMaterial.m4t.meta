@@ -1,26 +1,31 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1563536364,
+        "timeCreated": 1565941293,
         "GUID": 3778719503,
         "Name": "DashMeshMaterial",
         "File": "Assets/Materials/DashMeshMaterial.m4t",
         "ExportedFile": "Library/Materials/3778719503.m4t",
         "DifusseColor": [
             1.0,
-            1.0,
-            1.0,
-            1.0
+            0.8588235378265381,
+            0.0,
+            0.8549019694328308
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            1.0,
+            0.938524603843689,
+            0.938524603843689
         ],
         "emissiveColor": [
             1.0,
-            1.0,
-            1.0
-        ]
+            0.4999990463256836,
+            0.0
+        ],
+        "diffuseUID": 447500981,
+        "emissiveUID": 676697322,
+        "normalUID": 696331661,
+        "dissolveUID": 447500981,
+        "shader": "FX"
     }
 }

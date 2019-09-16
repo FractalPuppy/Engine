@@ -1,16 +1,16 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1563536364,
+        "timeCreated": 1565941293,
         "GUID": 3285793482,
         "Name": "CircularAttackSpiral",
         "File": "Assets/Materials/CircularAttackSpiral.m4t",
         "ExportedFile": "Library/Materials/3285793482.m4t",
         "DifusseColor": [
-            1.0,
-            1.0,
-            1.0,
-            1.0
+            0.4901960790157318,
+            0.45098039507865908,
+            0.45098039507865908,
+            0.6039215922355652
         ],
         "specularColor": [
             0.10000000149011612,
@@ -21,6 +21,8 @@
             1.0,
             1.0,
             1.0
-        ]
+        ],
+        "diffuseUID": 112553618,
+        "shader": "FX"
     }
 }

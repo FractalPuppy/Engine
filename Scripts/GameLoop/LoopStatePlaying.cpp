@@ -32,7 +32,6 @@ void LoopStatePlaying::Update()
 {
 	if (gLoop->inventoryButton->IsPressed() && !gLoop->inventoryMenuGO->isActive())	gLoop->menuButtonsSound->Play();
 	if (gLoop->skillsButton->IsPressed() && !gLoop->skillsMenuGO->isActive()) gLoop->menuButtonsSound->Play();
-	if (gLoop->missionsButton->IsPressed() && !gLoop->missionsMenuGO->isActive()) gLoop->menuButtonsSound->Play();
 
 	if (gLoop->hudBackToMenuButton->KeyUp() ||
 	   (!gLoop->playerMenuGO->isActive() && gLoop->App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN))
@@ -58,13 +57,6 @@ void LoopStatePlaying::Update()
 	{
 		if (gLoop->skillsMenuGO->isActive()) CloseMenu();
 		else OpenMenu(gLoop->skillsMenuGO);
-	}
-	
-
-	if (gLoop->missionsButton->KeyUp() || gLoop->App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-	{
-		if (gLoop->missionsMenuGO->isActive()) CloseMenu();
-		else OpenMenu(gLoop->missionsMenuGO);
 	}
 	
 	if (gLoop->playerScript->isPlayerDead)
@@ -99,11 +91,16 @@ void LoopStatePlaying::Update()
 		}
 		else if (gLoop->gameScene == GameScene::TEMPLE)
 		{
-			gLoop->winWindow->SetActive(true);
-			gLoop->currentLoopState = (LoopState*)gLoop->winState;
-			gLoop->gameScene = GameScene::MENU;
+			Win();
 		}
 	}
+}
+
+void LoopStatePlaying::Win()
+{
+	//gLoop->winWindow->SetActive(true); //No win panel, directly outro video then credits
+	gLoop->currentLoopState = (LoopState*)gLoop->winState;
+	gLoop->gameScene = GameScene::MENU;
 }
 
 void LoopStatePlaying::LoadMainMenu()
@@ -121,11 +118,9 @@ void LoopStatePlaying::OpenMenu(GameObject * menu)
 	
 	gLoop->inventoryButton->rectTransform->setPosition(math::float2(-485, gLoop->inventoryButton->rectTransform->getPosition().y));
 	gLoop->skillsButton->rectTransform->setPosition(math::float2(-485, gLoop->skillsButton->rectTransform->getPosition().y));
-	gLoop->missionsButton->rectTransform->setPosition(math::float2(-485, gLoop->missionsButton->rectTransform->getPosition().y));
 	
 	gLoop->inventoryMenuGO->SetActive(menu == gLoop->inventoryMenuGO);
 	gLoop->skillsMenuGO->SetActive(   menu == gLoop->skillsMenuGO);
-	gLoop->missionsMenuGO->SetActive( menu == gLoop->missionsMenuGO);
 }
 
 void LoopStatePlaying::CloseMenu()
@@ -134,10 +129,8 @@ void LoopStatePlaying::CloseMenu()
 
 	gLoop->inventoryMenuGO->SetActive(false);
 	gLoop->skillsMenuGO->SetActive(false);
-	gLoop->missionsMenuGO->SetActive(false);
 	gLoop->playerMenuGO->SetActive(false);
 
 	gLoop->inventoryButton->rectTransform->setPosition(math::float2(-50, gLoop->inventoryButton->rectTransform->getPosition().y));
 	gLoop->skillsButton->rectTransform->setPosition(math::float2(-50, gLoop->skillsButton->rectTransform->getPosition().y));
-	gLoop->missionsButton->rectTransform->setPosition(math::float2(-50, gLoop->missionsButton->rectTransform->getPosition().y));
 }

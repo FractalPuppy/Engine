@@ -30,6 +30,8 @@ public:
 	ItemType type = ItemType::NONE;
 	bool isEquipped = false;
 	//3D Material/Prefab/Mesh 
+	unsigned meshUID = 0u;
+	unsigned materialUID = 0u;
 
 	PlayerStats stats = { 0.0f, 0.0f, 0U, 0U, 0.0f, 0.0f };
 };

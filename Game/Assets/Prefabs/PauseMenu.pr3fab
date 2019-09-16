@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 1555091739,
+            "UID": 346425735,
             "ParentUID": 1,
             "Name": "PauseMenu",
             "Tag": "Default",
@@ -80,8 +80,8 @@
             ]
         },
         {
-            "UID": 2477244161,
-            "ParentUID": 1555091739,
+            "UID": 3622816069,
+            "ParentUID": 346425735,
             "Name": "Background",
             "Tag": "Default",
             "Static": 0,
@@ -130,8 +130,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 1290460716,
-                    "textureName": "backgroundPause",
+                    "textureUID": 622753234,
+                    "textureName": "Background_Pause",
                     "color": [
                         1.0,
                         1.0,
@@ -145,96 +145,15 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 100,
+                    "UIOrder": 1,
                     "videoPath": "flame.avi",
                     "fps": 24.0
                 }
             ]
         },
         {
-            "UID": 4083725987,
-            "ParentUID": 1555091739,
-            "Name": "PauseTitle",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -32.0,
-                        87.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 80.0,
-                    "text": "PAUSE",
-                    "font": "Fonts/TACOSRG.ttf",
-                    "color": [
-                        0.24313725531101228,
-                        0.8627451062202454,
-                        0.7137255072593689,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        0.24313725531101228,
-                        0.8627451062202454,
-                        0.7137255072593689,
-                        0.0
-                    ],
-                    "offset": [
-                        -40.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        1.0,
-                        1.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 100.0,
-                    "InterlineDistance": 24.0,
-                    "UIOrder": 100
-                }
-            ]
-        },
-        {
-            "UID": 4255083968,
-            "ParentUID": 1555091739,
+            "UID": 429714872,
+            "ParentUID": 346425735,
             "Name": "ResumeButton",
             "Tag": "Default",
             "Static": 0,
@@ -271,7 +190,7 @@
                     "Enabled": 1,
                     "Position": [
                         5.0,
-                        25.0
+                        10.899999618530274
                     ],
                     "Size": [
                         200.0,
@@ -287,7 +206,7 @@
                         "Type": 6,
                         "Enabled": 1,
                         "FontSize": 64.0,
-                        "text": "Resume",
+                        "text": "",
                         "font": "Fonts/TACOSRG.ttf",
                         "color": [
                             0.9647058844566345,
@@ -312,18 +231,18 @@
                         "IsTextWrapped": 0,
                         "WrapWidth": 100.0,
                         "InterlineDistance": 24.0,
-                        "UIOrder": 100
+                        "UIOrder": 2
                     },
                     "buttonImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
+                        "textureUID": 1898861212,
+                        "textureName": "Pause_Resume",
                         "color": [
-                            0.7843137383460999,
-                            0.7843137383460999,
-                            0.7843137383460999,
-                            0.7843137383460999
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0
                         ],
                         "FlipVertical": 0,
                         "FlipHorizontal": 0,
@@ -339,13 +258,13 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
+                        "textureUID": 1898861212,
+                        "textureName": "Pause_Resume",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            0.7843137383460999
+                            0.6705882549285889,
+                            0.6627451181411743,
+                            0.6627451181411743,
+                            1.0
                         ],
                         "FlipVertical": 0,
                         "FlipHorizontal": 0,
@@ -361,8 +280,8 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
+                        "textureUID": 1898861212,
+                        "textureName": "Pause_Resume",
                         "color": [
                             1.0,
                             1.0,
@@ -382,167 +301,13 @@
                     },
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 100
+                    "UIOrder": 2
                 }
             ]
         },
         {
-            "UID": 3714489300,
-            "ParentUID": 1555091739,
-            "Name": "OptionsButton",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        5.0,
-                        -35.0
-                    ],
-                    "Size": [
-                        200.0,
-                        50.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 8,
-                    "Enabled": 1,
-                    "text": {
-                        "Type": 6,
-                        "Enabled": 1,
-                        "FontSize": 64.0,
-                        "text": "Options",
-                        "font": "Fonts/TACOSRG.ttf",
-                        "color": [
-                            0.9647058844566345,
-                            0.8784313797950745,
-                            0.3921568691730499,
-                            0.0
-                        ],
-                        "colorHovered": [
-                            0.9647058844566345,
-                            0.8784313797950745,
-                            0.15294118225574494,
-                            0.0
-                        ],
-                        "offset": [
-                            -65.0,
-                            -10.0
-                        ],
-                        "scaleOffset": [
-                            0.5,
-                            2.0
-                        ],
-                        "IsTextWrapped": 0,
-                        "WrapWidth": 100.0,
-                        "InterlineDistance": 24.0,
-                        "UIOrder": 100
-                    },
-                    "buttonImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
-                        "color": [
-                            0.7843137383460999,
-                            0.7843137383460999,
-                            0.7843137383460999,
-                            0.7843137383460999
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 0,
-                        "isMasked": 0,
-                        "maskAmount": 100,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0
-                    },
-                    "highlightedImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
-                        "color": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            0.7843137383460999
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 0,
-                        "isMasked": 0,
-                        "maskAmount": 100,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0
-                    },
-                    "pressedImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
-                        "color": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            1.0
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 0,
-                        "isMasked": 0,
-                        "maskAmount": 100,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0
-                    },
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 100
-                }
-            ]
-        },
-        {
-            "UID": 1400821282,
-            "ParentUID": 1555091739,
+            "UID": 4292938465,
+            "ParentUID": 346425735,
             "Name": "ExitButton",
             "Tag": "Default",
             "Static": 0,
@@ -579,7 +344,7 @@
                     "Enabled": 1,
                     "Position": [
                         5.0,
-                        -95.0
+                        -69.0
                     ],
                     "Size": [
                         200.0,
@@ -595,7 +360,7 @@
                         "Type": 6,
                         "Enabled": 1,
                         "FontSize": 64.0,
-                        "text": "Exit",
+                        "text": "",
                         "font": "Fonts/TACOSRG.ttf",
                         "color": [
                             0.9647058844566345,
@@ -620,18 +385,18 @@
                         "IsTextWrapped": 0,
                         "WrapWidth": 100.0,
                         "InterlineDistance": 24.0,
-                        "UIOrder": 100
+                        "UIOrder": 2
                     },
                     "buttonImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
+                        "textureUID": 1288748702,
+                        "textureName": "Pause_Exit",
                         "color": [
-                            0.7843137383460999,
-                            0.7843137383460999,
-                            0.7843137383460999,
-                            0.7843137383460999
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0
                         ],
                         "FlipVertical": 0,
                         "FlipHorizontal": 0,
@@ -647,13 +412,13 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
+                        "textureUID": 1288748702,
+                        "textureName": "Pause_Exit",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            0.7843137383460999
+                            0.6721311807632446,
+                            0.6638672947883606,
+                            0.6638672947883606,
+                            1.0
                         ],
                         "FlipVertical": 0,
                         "FlipHorizontal": 0,
@@ -669,8 +434,8 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 2592195707,
-                        "textureName": "transparentButton",
+                        "textureUID": 1288748702,
+                        "textureName": "Pause_Exit",
                         "color": [
                             1.0,
                             1.0,
@@ -690,367 +455,7 @@
                     },
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 100
-                }
-            ]
-        },
-        {
-            "UID": 1029850048,
-            "ParentUID": 1555091739,
-            "Name": "OrangeLineTop",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        132.0
-                    ],
-                    "Size": [
-                        250.0,
-                        6.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 7,
-                    "Enabled": 1,
-                    "textureUID": 3445086204,
-                    "textureName": "lineOrange",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "FlipVertical": 0,
-                    "FlipHorizontal": 0,
-                    "isMasked": 0,
-                    "maskAmount": 100,
-                    "isMaskHorizontal": 0,
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 100,
-                    "videoPath": "flame.avi",
-                    "fps": 24.0
-                }
-            ]
-        },
-        {
-            "UID": 3013590857,
-            "ParentUID": 1555091739,
-            "Name": "OrangeLineBottom",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        70.0
-                    ],
-                    "Size": [
-                        250.0,
-                        6.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 7,
-                    "Enabled": 1,
-                    "textureUID": 3445086204,
-                    "textureName": "lineOrange",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "FlipVertical": 0,
-                    "FlipHorizontal": 0,
-                    "isMasked": 0,
-                    "maskAmount": 100,
-                    "isMaskHorizontal": 0,
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 100,
-                    "videoPath": "flame.avi",
-                    "fps": 24.0
-                }
-            ]
-        },
-        {
-            "UID": 4217229277,
-            "ParentUID": 1555091739,
-            "Name": "FlameRight",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        93.0,
-                        100.0
-                    ],
-                    "Size": [
-                        100.0,
-                        40.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 7,
-                    "Enabled": 1,
-                    "textureUID": 3226539889,
-                    "textureName": "soulSkeletonIcon",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "FlipVertical": 0,
-                    "FlipHorizontal": 1,
-                    "isMasked": 1,
-                    "maskAmount": 60,
-                    "isMaskHorizontal": 1,
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 100,
-                    "videoPath": "flame.avi",
-                    "fps": 24.0
-                }
-            ]
-        },
-        {
-            "UID": 603363595,
-            "ParentUID": 1555091739,
-            "Name": "FlameLeft",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -93.0,
-                        100.0
-                    ],
-                    "Size": [
-                        100.0,
-                        40.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 7,
-                    "Enabled": 1,
-                    "textureUID": 3226539889,
-                    "textureName": "soulSkeletonIcon",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "FlipVertical": 0,
-                    "FlipHorizontal": 0,
-                    "isMasked": 1,
-                    "maskAmount": 60,
-                    "isMaskHorizontal": 1,
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 100,
-                    "videoPath": "flame.avi",
-                    "fps": 24.0
-                }
-            ]
-        },
-        {
-            "UID": 694241628,
-            "ParentUID": 1555091739,
-            "Name": "BackgroundOutline",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        0.0
-                    ],
-                    "Size": [
-                        308.0,
-                        308.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 7,
-                    "Enabled": 1,
-                    "textureUID": 1290460716,
-                    "textureName": "backgroundPause",
-                    "color": [
-                        0.2515452802181244,
-                        0.6298394203186035,
-                        0.6393442749977112,
-                        1.0
-                    ],
-                    "FlipVertical": 0,
-                    "FlipHorizontal": 0,
-                    "isMasked": 0,
-                    "maskAmount": 100,
-                    "isMaskHorizontal": 0,
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 99,
-                    "videoPath": "flame.avi",
-                    "fps": 24.0
+                    "UIOrder": 2
                 }
             ]
         }

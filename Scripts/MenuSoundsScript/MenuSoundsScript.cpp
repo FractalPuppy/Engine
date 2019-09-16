@@ -30,15 +30,15 @@ void MenuSoundsScript::Start()
 	audioClick = (ComponentAudioSource*)App->scene->FindGameObjectByName("ClickAudio")->GetComponentOld(ComponentType::AudioSource);
 	assert(audioClick != nullptr);
 
+	ambienceMusic = App->scene->FindGameObjectByName("Ambience")->GetComponent<ComponentAudioSource>();
+	assert(ambienceMusic != nullptr);
+
 	mainMenuMusic = (ComponentAudioSource*)App->scene->FindGameObjectByName("Main Music")->GetComponentOld(ComponentType::AudioSource);
 	assert(mainMenuMusic != nullptr);
 
 	GameObject* gameController = App->scene->FindGameObjectByName("GameController");
 	gameLoopScript = gameController->GetComponent<GameLoop>();
 	assert(gameLoopScript != nullptr);
-
-
-	
 
 }
 
@@ -68,5 +68,13 @@ void MenuSoundsScript::Update()
 	itemHovered = !nothingHovered;
 	itemClicked = !nothingClicked;
 
-	mainMenuMusic->SetVolume((float)gameLoopScript->volume / 10.f);
+	if (gameLoopScript->introvideoPlaying)
+	{
+		mainMenuMusic->SetVolume(0.f);
+		ambienceMusic->SetVolume(0.f);
+	}
+	else
+	{
+		mainMenuMusic->SetVolume((float)gameLoopScript->volume / 10.f);
+	}
 }

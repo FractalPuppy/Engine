@@ -36,17 +36,34 @@ public:
 
 	bool AddItem(Item item);
 	std::vector<Item> GetQuickItems();
+	int GetCurrentQuantity(const Item& item);
+	int GetCurrentQuantity(std::string itemName);
+	void AssignConsumableItem(const Item& item, int position);
+	void UnAssignConsumableItem(int position);
+	int ConsumeItemsController();
 	void SaveInventory();
 	void LoadInventory();
 
 private:
+	void showDescription(int i);
+	int ManageConsumableItemsQuantity(const Item& item);
+	void ManageConsumableItemsQuantityText(const Item& item, int quantity);
+	int GetItemIndexPosition(const Item& item);
+	void HideConsumableItemText(int position);
+	void UseItemConsumableOnPlayer(int itemPosition);
 
 	std::vector<Component*> slotsTransform;
 	std::vector<GameObject*> itemsSlots;
+	std::vector<GameObject*> itemsSlotsNumbers;
 	std::vector<std::pair<Item, int>> items;
+	std::vector<std::pair<std::string, int>> consumableItems; //name of the item, quantity
+
+	std::string assignedConsumableItem[9] = { "", "", "", "", "", "", "", "", "" };
 
 	GameObject* inventory = nullptr;
+	GameObject* itemDesc = nullptr;
 	Transform2D* menuPlayer = nullptr;
+	ComponentImage* imageHover = nullptr;
 
 	math::float2 initialitemPos = math::float2::zero;
 
@@ -56,6 +73,7 @@ private:
 	PlayerMovement* playerMovement = nullptr;
 
 	bool itemGrabbed = false;
+
 };
 
 extern "C" InventoryScript_API Script* CreateScript();
