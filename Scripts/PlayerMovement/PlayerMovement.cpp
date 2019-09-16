@@ -773,6 +773,11 @@ void PlayerMovement::Equip(const PlayerStats & equipStats)
 {
 	this->stats += equipStats;
 
+	if (this->stats.health < MIN_HEALTH)
+	{
+		this->stats.health = MIN_HEALTH;
+	}
+
 	int healthPercentage = (health / stats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 

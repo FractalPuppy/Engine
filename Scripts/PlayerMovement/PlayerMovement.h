@@ -40,6 +40,8 @@ struct ImGuiContext;
 #define MACHETE_RAIN_START_HEIGHT 3300.0f
 #define MACHETE_RAIN_SPEED 3000.0f
 
+#define MIN_HEALTH 1
+
 class ComponentAnimation;
 class ComponentTransform;
 class ComponentBoxTrigger;
