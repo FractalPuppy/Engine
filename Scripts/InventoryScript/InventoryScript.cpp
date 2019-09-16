@@ -12,11 +12,11 @@
 #include "ComponentAudioSource.h"
 #include "ComponentText.h"
 
+#include "PlayerMovement.h"
+
 #include "GameObject.h"
 #include "Viewport.h"
 #include "PlayerPrefs.h"
-
-#include "PlayerMovement.h"
 
 InventoryScript_API Script* CreateScript()
 {
@@ -128,14 +128,14 @@ void InventoryScript::Update()
 
 		Transform2D* rectTransform = itemsSlots[i]->GetComponent<Transform2D>();
 		ComponentImage* image = itemsSlots[i]->GetComponent<ComponentImage>();
-		
+
 
 		if (image->isHovered && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 		{
 			image->isPressed = true;
 			initialitemPos = rectTransform->getPosition();
 			if (!itemGrabbed) selectItemAudio->Play();
-			itemGrabbed = true; 
+			itemGrabbed = true;
 			HideConsumableItemText(i);
 		}
 
@@ -435,34 +435,6 @@ void InventoryScript::Update()
 							}
 						}
 
-					if (pair.first.isEquipped)
-					{
-						for (std::vector<std::pair<Item, int>>::iterator it = items.begin(); it != items.end(); it++)
-						{
-							if (it._Ptr->first.type == pair.first.type && it._Ptr->first.isEquipped)
-							{
-								playerMovement->UnEquip(it._Ptr->first.stats, (unsigned) pair.first.type);
-								it._Ptr->first.isEquipped = false;
-							}
-							else if (it._Ptr->first.name == pair.first.name)
-							{
-								it._Ptr->first.isEquipped = true;
-								playerMovement->Equip(pair.first.stats);
-							}
-						}						
-					} 
-					else 
-					{
-						for (std::vector<std::pair<Item, int>>::iterator it = items.begin(); it != items.end(); it++)
-						{
-							if (it._Ptr->first.name == pair.first.name && it._Ptr->first.isEquipped)
-							{
-								it._Ptr->first.isEquipped = false;
-								playerMovement->UnEquip(pair.first.stats, (unsigned)pair.first.type);
-								break;
-							}
-						}
-					}
 
 					}
 					break;
