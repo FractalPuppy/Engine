@@ -789,11 +789,28 @@ void PlayerMovement::Equip(const PlayerStats & equipStats)
 
 void PlayerMovement::UnEquip(const PlayerStats & equipStats)
 {
-	this->stats -= equipStats;
-
-	if (this->stats.health > DEFAULT_HEALTH)
+	if (equipStats.health < 0) 
 	{
-		this->stats.health -= DEFAULT_HEALTH + 1;
+		if (this->stats.health - equipStats.health > DEFAULT_HEALTH)
+		{
+			if (this->stats.health == 1)
+			{
+				this->stats.health--;
+			}
+			this->stats.health -= DEFAULT_HEALTH;
+		}
+
+		this->stats -= equipStats;
+
+		if (this->stats.health < DEFAULT_HEALTH)
+		{
+			this->stats.health = DEFAULT_HEALTH;
+		}
+	}
+	
+	else
+	{
+		this->stats -= equipStats;
 	}
 
 	health = health > stats.health ? stats.health : health;
