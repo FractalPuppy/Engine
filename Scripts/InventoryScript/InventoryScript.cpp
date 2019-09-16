@@ -441,7 +441,7 @@ void InventoryScript::Update()
 						{
 							if (it._Ptr->first.type == pair.first.type && it._Ptr->first.isEquipped)
 							{
-								playerMovement->UnEquip(it._Ptr->first.stats);
+								playerMovement->UnEquip(it._Ptr->first.stats, (unsigned) pair.first.type);
 								it._Ptr->first.isEquipped = false;
 							}
 							else if (it._Ptr->first.name == pair.first.name)
@@ -458,7 +458,7 @@ void InventoryScript::Update()
 							if (it._Ptr->first.name == pair.first.name && it._Ptr->first.isEquipped)
 							{
 								it._Ptr->first.isEquipped = false;
-								playerMovement->UnEquip(pair.first.stats);
+								playerMovement->UnEquip(pair.first.stats, (unsigned)pair.first.type);
 								break;
 							}
 						}
