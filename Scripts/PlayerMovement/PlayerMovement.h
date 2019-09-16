@@ -41,6 +41,7 @@ struct ImGuiContext;
 #define MACHETE_RAIN_SPEED 3000.0f
 
 #define MIN_HEALTH 1
+#define DEFAULT_HEALTH 100
 
 class ComponentAnimation;
 class ComponentTransform;

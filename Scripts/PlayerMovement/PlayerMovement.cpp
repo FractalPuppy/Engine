@@ -790,6 +790,12 @@ void PlayerMovement::Equip(const PlayerStats & equipStats)
 void PlayerMovement::UnEquip(const PlayerStats & equipStats)
 {
 	this->stats -= equipStats;
+
+	if (this->stats.health > DEFAULT_HEALTH)
+	{
+		this->stats.health -= DEFAULT_HEALTH + 1;
+	}
+
 	health = health > stats.health ? stats.health : health;
 	mana = mana > stats.mana ? stats.mana : mana;
 
