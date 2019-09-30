@@ -2085,11 +2085,10 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
-            "isPrefab": 1,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
             "isPrefabSync": 1,
             "prefabUID": 201218189,
-            "prefabTimeStamp": 1569520977,
             "Components": [
                 {
                     "Type": 0,
@@ -2157,13 +2156,13 @@
                     "script": "LootDropScript",
                     "scriptInfo": {
                         "NumberOfItems": 1,
-                        "ItemPrefabName0": "Shovel"
+                        "ItemPrefabName0": "Health Potion"
                     }
                 }
             ]
         },
         {
-            "UID": 3752944490,
+            "UID": 4082826196,
             "ParentUID": 3013945825,
             "Name": "transform1",
             "Tag": "Default",
@@ -2242,8 +2241,8 @@
             ]
         },
         {
-            "UID": 73861617,
-            "ParentUID": 3752944490,
+            "UID": 2446815887,
+            "ParentUID": 4082826196,
             "Name": "joint2",
             "Tag": "Default",
             "Static": 0,
@@ -2321,8 +2320,8 @@
             ]
         },
         {
-            "UID": 3400530050,
-            "ParentUID": 73861617,
+            "UID": 1047147542,
+            "ParentUID": 2446815887,
             "Name": "joint1",
             "Tag": "Default",
             "Static": 0,
@@ -2400,7 +2399,7 @@
             ]
         },
         {
-            "UID": 1079507288,
+            "UID": 1446750411,
             "ParentUID": 3013945825,
             "Name": "ChestMesh",
             "Tag": "Default",
@@ -5145,7 +5144,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 426311,
-            "prefabTimeStamp": 1569519728,
+            "prefabTimeStamp": 1569836438,
             "Components": [
                 {
                     "Type": 0,
@@ -5304,7 +5303,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2896294178,
-            "prefabTimeStamp": 1569516325,
+            "prefabTimeStamp": 1569836438,
             "Components": [
                 {
                     "Type": 0,
@@ -64943,6 +64942,91 @@
             ]
         },
         {
+            "UID": 3228031017,
+            "ParentUID": 0,
+            "Name": "WorldController",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "WorldControllerScript",
+                    "scriptInfo": {}
+                }
+            ]
+        },
+        {
             "UID": 2970544186,
             "ParentUID": 1,
             "Name": "LoseWindow",
@@ -92034,91 +92118,6 @@
                     "WrapWidth": 0.0,
                     "InterlineDistance": 0.0,
                     "UIOrder": 101
-                }
-            ]
-        },
-        {
-            "UID": 3228031017,
-            "ParentUID": 0,
-            "Name": "WorldController",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "Euler": [
-                        -0.0,
-                        0.0,
-                        -0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "Global": [
-                        1.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                },
-                {
-                    "Type": 9,
-                    "Enabled": 1,
-                    "script": "WorldControllerScript",
-                    "scriptInfo": {}
                 }
             ]
         }
