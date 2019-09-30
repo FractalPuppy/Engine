@@ -16,6 +16,13 @@ class ImGuiContext;
 
 class LootDropScript_API LootDropScript : public Script
 {
+public:
+	inline virtual LootDropScript* Clone() const
+	{
+		return new LootDropScript(*this);
+	}
+
+private:
 	void Start() override;
 	void Expose(ImGuiContext* context);
 
