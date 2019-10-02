@@ -28,6 +28,7 @@ class InventoryScript;
 class EquipPopupController;
 class SkillTreeController;
 class ExperienceController;
+class CameraController;
 class JSON_value;
 class ComponentAudioSource;
 class WorldControllerScript;
@@ -173,6 +174,7 @@ public:
 	GameObject* audioGO = nullptr;
 	GameObject* introVideoGO = nullptr;
 	GameObject* outroVideoGO = nullptr;
+	GameObject* playerCamera = nullptr;
 	std::vector<GameObject*> sunHoverGO;
 
 	//BBOX
@@ -193,6 +195,7 @@ public:
 	EquipPopupController* equipPopUpScript = nullptr;
 	SkillTreeController* skillTreeScript = nullptr;
 	ExperienceController* experienceScript = nullptr;
+	CameraController* cameraController = nullptr;
 
 	//Camera
 	ComponentCamera* componentIntroCamera = nullptr;
@@ -203,6 +206,7 @@ public:
 	float3 playerStartPosition = float3::zero;
 	float3 enemyStartPosition = float3::zero;
 
+	bool zoom = false;
 	bool runningCredits = false;
 	bool runningIntro = false;
 	bool introvideoPlaying = false;

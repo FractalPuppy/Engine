@@ -1,4 +1,5 @@
 #include "CameraController.h"
+#include "ModuleTime.h"
 #include "Application.h"
 #include "ModuleScene.h"
 #include "ModuleTime.h"
@@ -19,8 +20,13 @@ CameraController_API Script* CreateScript()
 void CameraController::Start()
 {
 	player = App->scene->FindGameObjectByName("Player");
+	enemyPos = App->scene->FindGameObjectByName("BasicEnemy")->transform->GetPosition();
 	assert(player != nullptr);
 	offset = gameobject->transform->GetPosition() - player->transform->GetPosition();
+	math::float3 newPosition = offset + player->transform->GetPosition();
+	gameobject->transform->SetPosition(newPosition);
+	
+
 	//Shake(10.0f, 30.0f, 0.25f, 0.75f);
 }
 
@@ -91,5 +97,21 @@ void CameraController::ShakeCamera(math::float3& position)
 		roll = ANGLE_MULTIPLIER * range * (rand.Float() * 2 - 1);
 		roll = (lastRoll + roll) * 0.5f;
 		gameobject->transform->SetRotation(originalRotation.Mul(Quat::RotateZ(math::DegToRad(roll))));
+	}
+}
+
+void CameraController::zoom(math::float3 newPosition)
+{
+	float time = App->time->realDeltaTime;
+	math::float3 move = math::float3((gameobject->transform->GetPosition().x - enemyPos.x) / 150, (gameobject->transform->GetPosition().x - 1000) / 150, (gameobject->transform->GetPosition().z - enemyPos.z) / 150);
+	while (App->time->realDeltaTime <= (time + 150))
+	{
+		newPosition = newPosition += move;
+		gameobject->transform->SetPosition(newPosition);
+	}
+	while (App->time->realDeltaTime <= (time + 300))
+	{
+		newPosition = newPosition -= move;
+		gameobject->transform->SetPosition(newPosition);
 	}
 }

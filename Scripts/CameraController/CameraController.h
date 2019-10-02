@@ -28,6 +28,7 @@ public:
 	@@ param fadeOutTime value between [0,1].
 	Represents percentage of shake time that fadeIn ends and fadeOut starts**/
 	void Shake(float duration, float intensity = 5.0f, float fadeInTime = 0.2f, float fadeOutTime = 0.8f, bool linearFade = false);
+	void zoom(math::float3 newPosition);
 
 private:
 	void ShakeCamera(math::float3& position);
@@ -35,6 +36,7 @@ private:
 private:
 	GameObject* player;
 	math::float3 offset;
+	math::float3 enemyPos;
 
 	bool isShaking = false;
 	float shakeDuration = 0.0f;
