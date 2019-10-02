@@ -2,7 +2,7 @@
 #define  __GameLoop_h__
 
 #include "BaseScript.h"
-
+#include "Application.h"
 #include "Math/float3.h"
 
 #ifdef GameLoop_EXPORTS
@@ -10,6 +10,8 @@
 #else
 #define GameLoop_API __declspec(dllimport)
 #endif
+
+#define MENU_SCENE "MenuScene"
 
 #include <vector>
 
@@ -22,60 +24,65 @@ class PlayerMovement;
 class EnemyMovementScript;
 class IntroScript;
 class CreditsScript;
-class AABB;
+class InventoryScript;
+class EquipPopupController;
+class SkillTreeController;
+class ExperienceController;
 class JSON_value;
+class ComponentAudioSource;
+class WorldControllerScript;
+
+class LoopState;
+class LoopStateControls;
+class LoopStateCredits;
+class LoopStateDead;
+class LoopStateIntro;
+class LoopStateLoading;
+class LoopStateMenu;
+class LoopStateOptions;
+class LoopStatePaused;
+class LoopStatePlaying;
+class LoopStateQuit;
+class LoopStateWin;
+
+enum class GameScene
+{
+	MENU,
+	CEMENTERY,
+	TEMPLE,
+	HUD
+};
 
 class GameLoop_API GameLoop : public Script
 {
-	enum class GameState
-	{		
-		MENU,
-		INTRO,
-		PLAYING,
-		DEAD,
-		WIN,
-		PAUSED,
-		OPTIONS,
-		CREDITS,
-		CONTROLS,
-		QUIT,
-		LOADING
-	};
 
-	enum class GameScene
-	{
-		MENU,
-		CEMENTERY,
-		HUD
-	};
 public :
 	void Expose(ImGuiContext* context) override;
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
-private:
+	inline virtual GameLoop* Clone() const
+	{
+		return new GameLoop(*this);
+	}
+
+public:
 
 	void Start() override;
 	void Update() override;
 
 	void LoadMenuScene();
 	void LoadCementeryScene();
+	void LoadTempleScene();
 	void LoadHUDScene();
+	void LoadLvl(unsigned lvl);
 
-	void ManageDead();
-	void ManageMenu();
-	void ManageIntro();
-	void ManagePlaying();
-	void ManageWin();
-	void ManagePaused();
-	void ManageOptions();
-	void ManageCredits();
-	void ManageControls();
-	void ManageQuit();
-	void ManageLoading();
+	void CreateGameStates();
+	void CheckStates(LoopState* previous);
 
 	void EnableMenuButtons(bool enable);
 
+	void GetStateAfterLoad();
 	void VolumeManagement();
 	void SoundManagement();
 	void VsyncManagement();
@@ -83,14 +90,38 @@ private:
 
 	void ResetPositions();
 
-	void ChangeGameState(GameState newState); //Set initial conditions for each state here if required
+	bool HasImageHoveredInChildren(const GameObject* go) const;
 
-	GameState gameState = GameState::MENU;
+	//world controller management
+	GameObject* DeleteAllEnemies();
+	void AddPlayerToWorld(GameObject* Player);
+	void navMeshReloaded();
+
+
+	LoopState* currentLoopState = nullptr;
+
+	LoopStateControls* controlsState = nullptr;
+	LoopStateCredits* creditsState = nullptr;
+	LoopStateDead* deadState = nullptr;
+	LoopStateIntro* introState = nullptr;
+	LoopStateLoading* loadingState = nullptr;
+	LoopStateMenu* menuState = nullptr;
+	LoopStateOptions* optionsState = nullptr;
+	LoopStatePaused* pausedState = nullptr;
+	LoopStatePlaying* playingState = nullptr;
+	LoopStateQuit* quitState = nullptr;
+	LoopStateWin* winState = nullptr;
+
 	GameScene gameScene = GameScene::MENU;
+	std::vector<LoopState*> loopStates;
 
 private:
-	//UI Values
+	void ManageNavigationCursorIcon();
+
+public:
 	int volume = 10;
+
+	//UI Values
 	int minVolume = 0;
 	int maxVolume = 10;
 	int sound = 6;
@@ -114,9 +145,10 @@ private:
 	Button* toTheAltarButton = nullptr;
 	Button* hudBackToMenuButton = nullptr;
 	Button* inventoryButton = nullptr;
-	Button* missionsButton = nullptr;
 	Button* skillsButton = nullptr;
 	Button* closePlayerMenuButton = nullptr;
+	Button* pauseResume = nullptr;
+	Button* pauseExit = nullptr;
 	std::vector<Component*> volumeButtons;
 	std::vector<Component*> soundButtons;
 
@@ -128,6 +160,7 @@ private:
 	GameObject* winWindow = nullptr;
 	GameObject* hudGO = nullptr;
 	GameObject* playerGO = nullptr;
+	GameObject* worldControllerGO = nullptr;
 	GameObject* enemyGO = nullptr;
 	GameObject* creditsGO = nullptr;
 	GameObject* vsyncGO = nullptr;
@@ -135,8 +168,12 @@ private:
 	GameObject* loadingGO = nullptr;
 	GameObject* playerMenuGO = nullptr;
 	GameObject* inventoryMenuGO = nullptr;
-	GameObject* missionsMenuGO = nullptr;
 	GameObject* skillsMenuGO = nullptr;
+	GameObject* pauseMenuGO = nullptr;
+	GameObject* audioGO = nullptr;
+	GameObject* introVideoGO = nullptr;
+	GameObject* outroVideoGO = nullptr;
+	std::vector<GameObject*> sunHoverGO;
 
 	//BBOX
 	math::AABB* playerBbox = nullptr;
@@ -149,21 +186,40 @@ private:
 	//Script
 	PlayerMovement* playerScript = nullptr;
 	EnemyMovementScript* enemyMovementScript = nullptr;
+	WorldControllerScript* worldController = nullptr;
 	IntroScript* introScript = nullptr;
 	CreditsScript* creditsScript = nullptr;
+	InventoryScript* inventoryScript = nullptr;
+	EquipPopupController* equipPopUpScript = nullptr;
+	SkillTreeController* skillTreeScript = nullptr;
+	ExperienceController* experienceScript = nullptr;
 
 	//Camera
 	ComponentCamera* componentIntroCamera = nullptr;
+
+	//Audio
+	ComponentAudioSource* menuButtonsSound = nullptr;
 
 	float3 playerStartPosition = float3::zero;
 	float3 enemyStartPosition = float3::zero;
 
 	bool runningCredits = false;
 	bool runningIntro = false;
+	bool introvideoPlaying = false;
 	bool vsync = false;
 
 	std::string sceneToLoad = "";
-	int actionAfterLoad = -1;
+	LoopState* stateAfterLoad = nullptr;
+	bool actionAfterLoad = false;
+	bool bossDeath = false;
+
+	float xPickingCorrection = 0.0f;
+	float yPickingCorrection = 0.0f;
+	float zPickingCorrection = 0.0f;
+	bool changeNavigationCursorIcon = true;
+	bool changeStandarCursorIcon = true;
 };
+
+extern "C" GameLoop_API Script* CreateScript();
 
 #endif __GameLoop_h__

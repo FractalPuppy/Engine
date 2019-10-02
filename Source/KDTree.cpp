@@ -68,6 +68,8 @@ KDTree::~KDTree()
 }
 void KDTree::Init()
 {
+	maxDepth = 6;
+	bucketSize = 5;
 	LOG("Initializating KDTree with depth %d", maxDepth);
 	RELEASE(treeRoot);
 	std::queue<KDTNode*> Q;
@@ -120,6 +122,8 @@ void KDTree::Calculate()
 			{
 				if (go2 == nullptr)
 					return false;
+				if (go1 == nullptr)
+					return true;
 				return go1->transform->GetGlobalPosition()[dimension] > go2->transform->GetGlobalPosition()[dimension];
 			});
 			if (current->bucketOccupation % 2 == 0)

@@ -36,7 +36,7 @@ public:
 	bool CleanUp();
 
 	// Check key states (includes mouse and joy buttons)
-	KeyState GetKey(int id) const
+	ENGINE_API KeyState GetKey(int id) const
 	{
 		return keyboard[id];
 	}
@@ -54,7 +54,7 @@ public:
 	// Get mouse / axis position
 	const void SetMouseMotion(float &x, float &y) const;
 	const fPoint& GetMouseMotion() const;
-	const fPoint& GetMousePosition() const;
+	ENGINE_API const fPoint& GetMousePosition() const;
 	const float GetMouseWheel() const;
 
 	void DrawGUI() override;

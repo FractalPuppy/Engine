@@ -20,7 +20,7 @@ public:
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;
 public:
-	float fontSize = 14;
+	float fontSize = 64;
 	std::string text = "Fractal Text";
 	std::string font = "";
 	math::float4 color = math::float4(1.0f, 1.0f, 1.0f, 0.0f);
@@ -28,6 +28,10 @@ public:
 	math::float2 offset = math::float2::zero;
 	math::float2 scaleOffset = math::float2::one;
 	bool isHovered = false;
+	bool isTextWrapped = false;
+	float wrapWidth = 100;
+	float interlineDistance = 24;
+	int uiOrder = 0;
 };
 
 #endif

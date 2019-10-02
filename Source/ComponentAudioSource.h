@@ -13,6 +13,7 @@
 class GameObject;
 class JSON_value;
 class FileExplorer;
+class ResourceAudio;
 
 class ComponentAudioSource :
 	public Component
@@ -30,7 +31,6 @@ public:
 	ENGINE_API void SetPitch(float newPitch);
 
 	ComponentAudioSource* Clone() const;
-	void LoadSoundFile(const char* pathFile);
 
 	void Awake();
 	void Update() override;
@@ -44,21 +44,23 @@ public:
 	ENGINE_API void UpdateState();
 
 private:
+
+	void UpdateAudiosList();
 	
 	float Volume3D();
 	float Pan3D();
 
-	void toolTip(char * tooltip);
+	void toolTip(char* tooltip);
 
 
 public:
-	std::string FXname = "";
+
+	ResourceAudio* audio = nullptr;
+
 	float volume = 1.f;
 	bool playOnAwake = true;
 	float PAN = 0.f;
 	bool loop = false;
-
-	bool streamed = false;
 
 	bool Sound3D = true;
 	bool OnlyVolume3D = false;
@@ -69,14 +71,10 @@ public:
 
 
 private:
-
-	SoLoud::Wav wavFX;
-	SoLoud::WavStream wavstream;
-	int lastHandler = -1;
-	std::string path = "";
 	
 	float volume3d = volume;
 	float3 dirListener;
+	int lastHandler = -1;
 
 	bool playing = false;	
 	bool awaken = false;
@@ -85,7 +83,7 @@ private:
 
 	bool filterSeted = false;
 
-
+	std::vector<std::string> audioFiles;
 };
 
 #endif

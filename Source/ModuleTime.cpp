@@ -1,4 +1,10 @@
 #include "ModuleTime.h"
+#include "Math/MathFunc.h"
+
+
+#define MAX_FRAME_MS 0.04F
+#define NORMAL_SPEED 1.0f
+#define FREEZE 0.0f
 
 ModuleTime::ModuleTime()
 {
@@ -16,7 +22,7 @@ bool ModuleTime::Init(JSON* json)
 	return true;
 }
 
-update_status ModuleTime::Update(float dt) 
+void ModuleTime::UpdateTime() 
 {
 	++frameCount;
 	++realFrameCount;
@@ -25,11 +31,24 @@ update_status ModuleTime::Update(float dt)
 	realDeltaTime = frameTimer.ReadSeconds();
 	realTime += realDeltaTime;
 
-	//App->editor->AddFPSCount(FPS, realDeltaTime * 1000.0f);
-
-	//App->editor->AddGameFPSCount(FPS, gameDeltaTime * gameTimeScale * 1000.0f);
 	++totalFrames;
-	gameDeltaTime = frameTimer.ReadSeconds();
+	gameDeltaTime = realDeltaTime;
+
+	if (temporaryFreeze)
+	{
+		freezeTimer += realDeltaTime;
+		if (freezeTimer >= freezeDuration)
+		{
+			UnFreezeGame();
+		}
+		else
+		{
+			HandleFreeze();
+		}
+	}
+
+	//Gamedeltatime is partitioned if it is too high
+	fullGameDeltaTime = gameDeltaTime * gameTimeScale;
 	gameTime += gameDeltaTime * gameTimeScale;
 	
 	frameTimer.Reset();
@@ -42,7 +61,49 @@ update_status ModuleTime::Update(float dt)
 		fpsTimer.Reset();
 	}
 
-	return UPDATE_CONTINUE;
+	gameDeltaTime *= gameTimeScale;
+	if (gameDeltaTime > MAX_FRAME_MS)
+	{
+		PartitionTime();
+	}
+	else
+	{
+		isTimePartitioned = false;
+	}
+}
+
+void ModuleTime::ResetGameDetaTime()
+{
+	gameDeltaTime = 0.0f;
+	fullGameDeltaTime = 0.0f;
+	isTimePartitioned = false;
+}
+
+void ModuleTime::PartitionTime()
+{
+	gameDeltaTime = MAX_FRAME_MS;
+	aggregateGameDeltaTime = gameDeltaTime;
+
+	isTimePartitioned = true;
+}
+
+bool ModuleTime::IteratePartition()
+{
+	if (aggregateGameDeltaTime < fullGameDeltaTime)
+	{
+		if (aggregateGameDeltaTime + MAX_FRAME_MS <= fullGameDeltaTime)
+		{
+			gameDeltaTime = MAX_FRAME_MS;
+		}
+		else
+		{
+			gameDeltaTime = fullGameDeltaTime - aggregateGameDeltaTime;
+		}
+		aggregateGameDeltaTime += MAX_FRAME_MS;
+		return true;
+	}
+	isTimePartitioned = false;
+	return false;
 }
 
 bool ModuleTime::CleanUp() 
@@ -81,4 +142,43 @@ void ModuleTime::StopGameClock()
 void ModuleTime::Step() 
 {
 	nextFrame = true;
+}
+
+void ModuleTime::FreezeGame(float duration, float fadeInTime, float fadeOutTime, bool linealFade)
+{
+	temporaryFreeze = true;
+	freezeDuration = duration;
+	freezeFadeIn = fadeInTime;
+	freezeFadeOut = fadeOutTime;
+	this->linealFade = linealFade;
+	freezeTimer = 0.0f;
+	gameTimeScale = FREEZE;
+}
+
+void ModuleTime::UnFreezeGame()
+{
+	temporaryFreeze = false;
+	gameTimeScale = NORMAL_SPEED;
+}
+
+void ModuleTime::HandleFreeze()
+{
+	if (freezeTimer < freezeFadeIn * freezeDuration)
+	{
+		gameTimeScale = Lerp(NORMAL_SPEED, FREEZE, freezeTimer / (freezeFadeIn * freezeDuration));
+		if (!linealFade)
+		{
+			gameTimeScale = SmoothStep(FREEZE, NORMAL_SPEED, gameTimeScale);
+		}
+	}
+	else if (freezeTimer >= freezeFadeOut * freezeDuration)
+	{
+		float fadeOutTime = (1 - freezeFadeOut) * freezeDuration;
+		gameTimeScale = Lerp(FREEZE, NORMAL_SPEED, 
+			(freezeTimer - freezeFadeOut * freezeDuration) / fadeOutTime);
+		if (!linealFade)
+		{
+			gameTimeScale = SmoothStep(FREEZE, NORMAL_SPEED, gameTimeScale);
+		}
+	}
 }

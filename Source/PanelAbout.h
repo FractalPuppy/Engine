@@ -2,7 +2,6 @@
 #define __PanelAbout_h__
 
 #include "Panel.h"
-
 class PanelAbout : public Panel
 {
 public:

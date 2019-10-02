@@ -56,6 +56,12 @@ public:
 	float oldAspect = 0.f;
 	bool aspectDirty = false;
 
+
+	float fogFalloff = 1.f;
+	float fogQuadratic = 1.f;
+	float maxFog = .8f;
+	math::float3 fogColor = math::float3::one;
+	bool fogEnabled = false;
 };
 
 #endif __ComponentCamera_h__

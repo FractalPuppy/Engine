@@ -5,6 +5,14 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="GameBuild Debug|Win32">
+      <Configuration>GameBuild Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GameBuild Debug|x64">
+      <Configuration>GameBuild Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="GameBuild|Win32">
       <Configuration>GameBuild</Configuration>
       <Platform>Win32</Platform>
@@ -45,6 +53,12 @@
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -60,6 +74,12 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
@@ -87,6 +107,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -94,6 +117,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -107,7 +133,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,19 +165,61 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;$(SolutionDir)Source\OpenCV;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\WorldControllerScript;$(SolutionDir)\Scripts\LootDropScript;$(SolutionDir)\Scripts\LootDropScript</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Source\Imgui\lib; $(SolutionDir)$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionName).lib;ImGui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)\Source\Imgui\lib; $(SolutionDir)$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionName).lib;MathGeoLib.lib;ImGui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"
+if ERRORLEVEL 1 goto hotreload
+goto exit
+:hotreload
+echo Le HotReload
+xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts\$(ProjectName).hot"*
+:exit
+set ERRORLEVEL=0</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;$(SolutionDir)\Scripts\CombatAudioEvents;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot;$(SolutionDir)\Scripts\WorldControllerScript;$(SolutionDir)\Scripts\LootDropScript</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)\Source\Imgui\lib; $(SolutionDir)$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionName).lib;MathGeoLib.lib;ImGui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -168,18 +243,26 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;$(SolutionDir)Source\OpenCV;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\LootDropScript;$(SolutionDir)\Scripts\WorldControllerScript;$(SolutionDir)\Scripts\LootDropScript</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\BaseScript\$(IntDir); $(SolutionDir)\Source\Imgui\lib; $(SolutionDir)$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionName).lib;ImGui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;..\BaseScript\$(IntDir); $(SolutionDir)\Source\Imgui\lib; $(SolutionDir)$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionName).lib;MathGeoLib.lib;ImGui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"</Command>
+      <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"
+if ERRORLEVEL 1 goto hotreload
+goto exit
+:hotreload
+echo Le HotReload
+xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts\$(ProjectName).hot"*
+:exit
+set ERRORLEVEL=0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameBuild|Win32'">
@@ -192,15 +275,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;EnemyControllerScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Scripts\CombatAudioEvents;$(SolutionDir)\Scripts\CombatAudioEvents;..\BaseScript;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)\Scripts\PlayerMovement;$(SolutionDir)\Scripts\EnemyLifeBarController;$(SolutionDir)\Scripts\ExperienceController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\EnemyLoot;$(SolutionDir)\Scripts\WorldControllerScript;$(SolutionDir)\Scripts\LootDropScript</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Source\Imgui\lib; $(SolutionDir)$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionName).lib;ImGui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\MathGeoLib\lib;$(SolutionDir)\Source\Imgui\lib; $(SolutionDir)$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionName).lib;MathGeoLib.lib;ImGui.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(OutDir)$(ProjectName).dll" "..\..\Game\Scripts"</Command>
@@ -247,6 +330,29 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnemyControllerScript.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CombatAudioEvents\CombatAudioEvents.vcxproj">
+      <Project>{bff12be8-a1de-4cd3-acbb-e614fd9dafd5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DamageController\DamageController.vcxproj">
+      <Project>{d8141fa2-e862-4706-a9f3-e8441c2b68fd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EnemyLifeBarController\EnemyLifeBarController.vcxproj">
+      <Project>{25a279f6-6460-43e6-83c1-59ab067f3f05}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ExperienceController\ExperienceController.vcxproj">
+      <Project>{7306983d-f81f-488d-9548-d68509fef4c8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\LootDropScript\LootDropScript.vcxproj">
+      <Project>{da1500b1-4822-4064-bd5f-851bc4ecba92}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\PlayerMovement\PlayerMovement.vcxproj">
+      <Project>{da319d4a-70a8-42c8-a54f-db7ead02ca0d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\WorldControllerScript\WorldControllerScript.vcxproj">
+      <Project>{b97e59db-aa43-47e5-b587-57a95e855c97}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

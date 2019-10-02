@@ -15,20 +15,25 @@ class ComponentTrail;
 
 class ParticleModule;
 class PMSizeOverTime;
+class ImGradient;
+class ImGradientMark;
 
 class ModuleParticles :
 	public Module
 {
 public:
 
+	enum class BlendModes
+	{
+		ADDITIVE,
+		ALPHA
+	};
 
 	//ModuleParticles();
 	~ModuleParticles();
 
 	bool Start() override;
 	bool CleanUp() override;
-
-	void Render(float dt, const ComponentCamera* camera);
 
 	void AddParticleSystem(ComponentParticles* cp);
 	void RemoveParticleSystem(ComponentParticles * cp);
@@ -37,12 +42,13 @@ public:
 
 	void Reset();
 
-private:
-	
 	void DrawParticleSystem(ComponentParticles* cp, const ComponentCamera* camera) const;
 	void RenderTrail(ComponentTrail* ct, const ComponentCamera* camera) const;
 
+	std::list<ComponentTrail*> trails;
 	std::list<ComponentParticles*> particleSystems;
+
+private:
 
 	unsigned billBoardVAO = 0u;
 	unsigned billBoardVBO = 0u;
@@ -56,9 +62,6 @@ private:
 	Shader* shader = nullptr;
 	Shader* trailShader = nullptr;
 
-
-	std::list<ComponentTrail*> trails;
-
 	float trailData[MAX_TRAIL_VERTICES];
 };
 
@@ -69,9 +72,11 @@ public:
 
 	enum class ParticleModulesType
 	{
-		SIZE_OVER_TIME
+		SIZE_OVER_TIME,
+		COLOR_OVER_TIME
 	};
 
+	bool enabled = false;
 	virtual void Update() {};
 	virtual void InspectorDraw() = 0;
 
@@ -82,11 +87,39 @@ class PMSizeOverTime : public ParticleModule
 {
 public:
 
+
 	PMSizeOverTime() { type = ParticleModulesType::SIZE_OVER_TIME; };
+	PMSizeOverTime(const PMSizeOverTime& sizeOverTime);
+
+	PMSizeOverTime* Clone() const;
 
 	inline float GetSize(float percent, float total);
 	void InspectorDraw() override;
 
 	float v[5] = { .0f, .0f, 1.f, 1.f };
+};
+
+class PMColorOverTime : public ParticleModule
+{
+public:
+	PMColorOverTime();
+	PMColorOverTime(const PMColorOverTime& colorOverTime);
+
+	PMColorOverTime* Clone() const;
+
+	ImGradient* Imgradient;
+
+	//float3 color1 = math::float3::one;
+	//float3 color2 = math::float3::one;
+
+	ImGradientMark* gradient1;
+	ImGradientMark* gradient2;
+
+
+public:
+	void InspectorDraw() override;
+	void UpdateGradientPointers();
+
+
 };
 #endif __ModuleParticles_h__

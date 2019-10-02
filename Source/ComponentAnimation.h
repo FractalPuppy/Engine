@@ -25,11 +25,11 @@ public:
 	void DrawProperties();
 	Component* Clone() const;
 
-	void SetAnimation(const char* animationFile);
 	void SetStateMachine(const char* stateMachineFile);
 	ENGINE_API void SendTriggerToStateMachine(const char* trigger);
 	ResourceAnimation* GetAnimFromStateMachine();
 	bool GetLoopFromStateMachine();
+	ENGINE_API float GetDurationFromClip();
 	float GetSpeedFromStateMachine();
 	bool GetMustFinishFromStateMachine();
 	void PlayNextNode(float blend);
@@ -60,11 +60,11 @@ public:
 	bool channelsSetted = false;
 	bool deletePopup = false;
 
+	unsigned currentNode = 0u;
 
 public:
 	AnimationController* editorController = nullptr;
 	AnimationController* controller = nullptr;
-	ResourceAnimation* anim = nullptr;
 	ResourceStateMachine* stateMachine = nullptr;
 
 	EditorContext* context = nullptr;

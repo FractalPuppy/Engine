@@ -3,102 +3,6 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MathGeoLib\include\Geometry\AABB.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\BitOps.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Capsule.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Circle.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Time\Clock.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Cone.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Cylinder.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float2.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float3.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float3x3.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float3x4.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float4.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float4x4.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\MathFunc.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\MathLog.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\MathOps.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Frustum.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Algorithm\Random\LCG.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Line.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\LineSegment.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\OBB.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Plane.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Polygon.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Polyhedron.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\Polynomial.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\Quat.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Ray.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Sphere.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\SSEMath.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Triangle.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\TriangleMesh.cpp">
-      <Filter>GeoLib</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleInput.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -284,7 +188,6 @@
       <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="NodeEditor\Source\Editor.cpp" />
-    <ClCompile Include="Soloud\fractal_includes\dr_impl.cpp" />
     <ClCompile Include="ComponentAudioListener.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -388,281 +291,43 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="Recast\DebugUtils\DebugDraw.cpp" />
-    <ClCompile Include="Recast\Recast\Recast.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastAlloc.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastArea.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastAssert.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastContour.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DebugUtils\RecastDebugDraw.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DebugUtils\RecastDump.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastFilter.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastLayers.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastMesh.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastMeshDetail.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastRasterization.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Recast\RecastRegion.cpp">
-      <Filter>Recast</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourAlloc.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourAssert.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourCommon.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourCrowd.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DebugUtils\DetourDebugDraw.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourLocalBoundary.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourNavMesh.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourNavMeshBuilder.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourNavMeshQuery.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\Detour\DetourNode.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourObstacleAvoidance.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourPathCorridor.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourPathQueue.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="DetourPoints.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourCrowd\DetourProximityGrid.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourTileCache\DetourTileCache.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
-    <ClCompile Include="Recast\DetourTileCache\DetourTileCacheBuilder.cpp">
-      <Filter>Detour</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleNavigation.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="PanelNavigation.cpp">
       <Filter>Panels</Filter>
     </ClCompile>
-    <ClCompile Include="DetourDebugInterface.cpp">
-    </ClCompile>
+    <ClCompile Include="DetourDebugInterface.cpp" />
     <ClCompile Include="BaseScript.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentBoxTrigger.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleCollisions.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Soloud\fractal_includes\dr_impl.cpp">
+      <Filter>SoLoud</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_color_gradient.cpp" />
     <ClCompile Include="ResourceStateMachine.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceAudio.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourcePrefab.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPrefs.cpp" />
+    <ClCompile Include="ComponentVolumetricLight.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="MathGeoLib\include\Geometry\AABB.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\AABB2D.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\assume.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\BitOps.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Capsule.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Circle.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Time\Clock.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Complex.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Cone.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\CoordinateAxisConvention.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Cylinder.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float2.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float3.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float3x3.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float3x4.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4_neon.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4_sse.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4x4.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4x4_neon.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4x4_sse.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\FloatCmp.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathAll.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathConstants.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathFunc.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathLog.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathNamespace.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathTypes.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MatrixProxy.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\FixedPoint.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Frustum.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\GeometryAll.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\GeomType.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\HitInfo.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\KDTree.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Algorithm\Random\LCG.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Line.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\LineSegment.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\TriangleMesh.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\OBB.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\PBVolume.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Plane.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Polygon.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Polyhedron.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Polynomial.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\QuadTree.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Quat.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\quat_simd.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Ray.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Rect.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Reinterpret.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Sphere.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\sse_mathfun.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\SSEMath.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\TransformOps.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Triangle.h">
-      <Filter>GeoLib</Filter>
-    </ClInclude>
     <ClInclude Include="Module.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -839,9 +504,6 @@
     <ClInclude Include="MemoryModule.h">
       <Filter>ScriptingResources</Filter>
     </ClInclude>
-    <ClInclude Include="engineResource.h">
-      <Filter>ScriptingResources</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -885,9 +547,6 @@
     <ClInclude Include="NodeEditor\Include\ax\Math2D.h" />
     <ClInclude Include="NodeEditor\Source\Editor.h" />
     <ClInclude Include="NodeEditor\Source\Interop.h" />
-    <ClInclude Include="Soloud\fractal_includes\dr_flac.h" />
-    <ClInclude Include="Soloud\fractal_includes\dr_mp3.h" />
-    <ClInclude Include="Soloud\fractal_includes\dr_wav.h" />
     <ClInclude Include="ComponentAudioListener.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -1012,78 +671,6 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="Recast\DebugUtils\DebugDraw.h" />
-    <ClInclude Include="Recast\Recast\Recast.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Recast\RecastAlloc.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Recast\RecastAssert.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DebugUtils\RecastDebugDraw.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DebugUtils\RecastDump.h">
-      <Filter>Recast</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourAlloc.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourAssert.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourCommon.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourCrowd.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DebugUtils\DetourDebugDraw.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourLocalBoundary.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourMath.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourNavMesh.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourNavMeshBuilder.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourNavMeshQuery.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourNode.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourObstacleAvoidance.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourPathCorridor.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourPathQueue.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="DetourPoints.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourCrowd\DetourProximityGrid.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\Detour\DetourStatus.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourTileCache\DetourTileCache.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
-    <ClInclude Include="Recast\DetourTileCache\DetourTileCacheBuilder.h">
-      <Filter>Detour</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleNavigation.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -1094,14 +681,38 @@
     <ClInclude Include="BaseScript.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentBoxTrigger.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleCollisions.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\dr_wav.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\dr_flac.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="Soloud\fractal_includes\dr_mp3.h">
+      <Filter>SoLoud</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_color_gradient.h" />
     <ClInclude Include="ResourceStateMachine.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceAudio.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourcePrefab.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPrefs.h" />
+    <ClInclude Include="ComponentVolumetricLight.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseController.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="GeoLib">
-      <UniqueIdentifier>{4e6fa6eb-a274-42c9-a7e6-6e1d502d9cf4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Modules">
       <UniqueIdentifier>{42368395-6424-4d64-a4e1-676457c71a6b}</UniqueIdentifier>
     </Filter>
@@ -1147,12 +758,6 @@
     <Filter Include="SoLoud">
       <UniqueIdentifier>{2999c853-b5ef-41d3-b71b-d7547af0c9f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Recast">
-      <UniqueIdentifier>{288d07c0-f4f8-42f4-9767-1d3c6a9cc1ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Detour">
-      <UniqueIdentifier>{1a714dfd-2e78-4c91-a433-5bdd61b2d7f7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\Shaders\FragmentShaders\Default.fs">
@@ -1178,9 +783,6 @@
     </None>
     <None Include="..\Game\Shaders\VertexShaders\Fonts.vs">
       <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\Game\Scripts\PlayerMovement.dll">
-      <Filter>ScriptingResources</Filter>
     </None>
     <None Include="NodeEditor\Include\ax\Math2D.inl" />
     <None Include="..\Game\Shaders\FragmentShaders\Particles.fs">
@@ -1219,10 +821,25 @@
     <None Include="..\Game\Shaders\VertexShaders\DebugNav.vs">
       <Filter>Shaders</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Engine.rc">
-      <Filter>ScriptingResources</Filter>
-    </ResourceCompile>
+    <None Include="..\Game\Shaders\VertexShaders\Bloom.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\Bloom.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\FX.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\VertexShaders\FX.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Scripts\PlayerMovement.dll" />
+    <None Include="cpp.hint" />
+    <None Include="..\Game\Shaders\VertexShaders\PBR_NoRigging.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\Shaders\FragmentShaders\PBR_NoRigging.fs">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

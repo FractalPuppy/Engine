@@ -37,7 +37,7 @@ ResourceSkybox::ResourceSkybox(const ResourceSkybox& resource) : Resource(resour
 
 ResourceSkybox::~ResourceSkybox()
 {
-	DeleteFromMemory();
+	//DeleteFromMemory();
 }
 
 bool ResourceSkybox::LoadInMemory()
@@ -113,7 +113,7 @@ void ResourceSkybox::DeleteFromMemory()
 	for (unsigned int i = 0; i < NUMFACES; ++i)
 	{
 		if (textures[i] != nullptr)
-		textures[i]->DeleteFromMemory();
+			textures[i]->DeleteFromMemory();
 	}
 
 	if (skybox_cubemap != 0)

@@ -72,7 +72,7 @@ void Viewport::Draw(ComponentCamera * cam, bool isEditor)
 			return;
 		}
 		
-		if (ImGui::IsWindowHovered() || ImGui::IsWindowAppearing())
+		if (ImGui::IsAnyMouseDown() && ImGui::IsWindowHovered() || ImGui::IsWindowAppearing())
 		{
 			ImGui::SetWindowFocus();
 		}
@@ -232,14 +232,13 @@ void Viewport::DrawGuizmoButtons()
 void Viewport::CreateFrameBuffer(int width, int height)
 {
 	BROFILER_CATEGORY("Create FrameBuffer", Profiler::Color::Azure);
-	//CleanUp(); //Delete old FBO,RBO and texture
+	
 	if (width != current_width || height != current_height)
 	{
 		if (FBO == 0)
 		{
 			glGenFramebuffers(1, &FBO);
 		}
-		glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
 		if (texture == 0)
 		{
@@ -248,29 +247,31 @@ void Viewport::CreateFrameBuffer(int width, int height)
 
 		glBindTexture(GL_TEXTURE_2D, texture);
 
-		glTexImage2D(
-			GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_FLOAT, NULL
-		);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glFramebufferTexture2D(
-			GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0
-		);
+
+		if (depthTexture == 0)
+		{
+			glGenTextures(1, &depthTexture);
+		}
+
+		glBindTexture(GL_TEXTURE_2D, depthTexture);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_BYTE, NULL);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		if (RBO == 0)
-		{
-			glGenRenderbuffers(1, &RBO);
-		}
-
-		glBindRenderbuffer(GL_RENDERBUFFER, RBO);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RBO);
-
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -279,7 +280,7 @@ void Viewport::CreateFrameBuffer(int width, int height)
 	}
 }
 
-void Viewport::CreateMSAABuffers(int width, int height)
+void Viewport::CreateMSAABuffers(int width, int height)  //deprecated
 {
 	if (MSAAFBO == 0)
 	{

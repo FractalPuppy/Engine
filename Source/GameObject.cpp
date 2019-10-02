@@ -9,10 +9,13 @@
 #include "ModuleScene.h"
 #include "ModuleScript.h"
 #include "ModuleTextures.h"
+#include "ModuleResourceManager.h"
 #include "ModuleRender.h"
 #include "ModuleSpacePartitioning.h"
 #include "ModuleAudioManager.h"
 #include "ModuleNavigation.h"
+#include "ModuleParticles.h"
+#include "ModuleFileSystem.h"
 
 #include "Component.h"
 #include "ComponentTransform.h"
@@ -29,6 +32,8 @@
 #include "ComponentAudioListener.h"
 #include "ComponentAudioSource.h"
 #include "ComponentReverbZone.h"
+#include "ComponentBoxTrigger.h"
+#include "ComponentVolumetricLight.h"
 #include "BaseScript.h"
 
 
@@ -37,6 +42,7 @@
 #include "GUICreator.h"
 #include "ResourceMaterial.h"
 #include "ResourceMesh.h"
+#include "ResourcePrefab.h"
 
 #include "HashString.h"
 #include "myQuadTree.h"
@@ -49,6 +55,7 @@
 #include "Geometry/LineSegment.h"
 #include "GL/glew.h"
 #include "imgui.h"
+#include "imgui_internal.h"
 
 #define MAX_NAME 128
 #define IMGUI_RIGHT_MOUSE_BUTTON 1
@@ -66,6 +73,7 @@ GameObject::GameObject(const float4x4 & transform, const char * name, unsigned u
 GameObject::GameObject(const GameObject & gameobject)
 {
 	name = gameobject.name;
+	tag = gameobject.tag;
 	UUID = App->scene->GetNewUID();
 	parentUUID = gameobject.parentUUID;
 	isStatic = gameobject.isStatic;
@@ -75,11 +83,20 @@ GameObject::GameObject(const GameObject & gameobject)
 	hasLight = gameobject.hasLight;
 	isBoneRoot = gameobject.isBoneRoot;
 	openInHierarchy = gameobject.openInHierarchy;
+	animationIndexChannel = gameobject.animationIndexChannel;
+	isPrefab = gameobject.isPrefab;
+	isPrefabSync = gameobject.isPrefabSync;
+	prefabUID = gameobject.prefabUID;
+
+	if (isPrefab)
+	{
+		prefab = (ResourcePrefab*)App->resManager->Get(prefabUID);
+		prefab->AddInstance(this);
+	}
 
 	assert(!(isVolumetric && hasLight));
 	bbox = gameobject.bbox;
 	navigable = gameobject.navigable;
-	walkable = gameobject.walkable;
 	noWalkable = gameobject.noWalkable;
 
 	for (const auto& component : gameobject.components)
@@ -87,26 +104,39 @@ GameObject::GameObject(const GameObject & gameobject)
 		Component *componentcopy = component->Clone();
 		componentcopy->gameobject = this;
 		components.push_back(componentcopy);
-		if (componentcopy->type == ComponentType::Transform)
+		switch (component->type)
 		{
-			transform = (ComponentTransform*)componentcopy;
-		}
-		if (componentcopy->type == ComponentType::Button)
-		{
-			((Button*)componentcopy)->text->gameobject = this;
-			((Button*)componentcopy)->buttonImage->gameobject = this;
-			((Button*)componentcopy)->highlightedImage->gameobject = this;
-			((Button*)componentcopy)->pressedImage->gameobject = this;
-			((Button*)componentcopy)->rectTransform->gameobject = this;
+			case ComponentType::Transform:
+				transform = (ComponentTransform*)componentcopy;
+				break;
+
+			case ComponentType::Button:
+				{
+					Button* button = (Button*)componentcopy;
+					button->text->gameobject = this;
+					button->buttonImage->gameobject = this;
+					button->highlightedImage->gameobject = this;
+					button->pressedImage->gameobject = this;
+					button->rectTransform->gameobject = this;
+				}
+				break;
+
+			case ComponentType::Light:
+				light = (ComponentLight*)componentcopy;
+				break;
+			
+			case ComponentType::VolumetricLight:
+				((ComponentVolumetricLight*)componentcopy)->renderer->gameobject = this;
+				break;
 		}
 	}
-	if (!App->scene->photoEnabled)
+
+	if (GetComponentOld(ComponentType::Renderer) != nullptr || GetComponentOld(ComponentType::Light) != nullptr
+		|| GetComponentOld(ComponentType::VolumetricLight) != nullptr)
 	{
-		if (GetComponentOld(ComponentType::Renderer) != nullptr || GetComponentOld(ComponentType::Light) != nullptr)
-		{
-			App->scene->AddToSpacePartition(this);
-		}
+		App->scene->AddToSpacePartition(this);
 	}
+
 	for (const auto& child : gameobject.children)
 	{
 		GameObject* childcopy = new GameObject(*child);
@@ -118,6 +148,15 @@ GameObject::GameObject(const GameObject & gameobject)
 
 GameObject::~GameObject()
 {
+	if (prefab != nullptr)
+	{
+		if (prefab->RemoveInstance(this))
+		{
+			App->resManager->DeleteResource(prefabUID);
+		}
+		prefab = nullptr;
+	}
+
 	for (auto &component : components)
 	{
 		RELEASE(component);
@@ -138,12 +177,19 @@ GameObject::~GameObject()
 void GameObject::DrawProperties()
 {
 	char *go_name = new char[MAX_NAME];
-	strcpy(go_name, name.c_str());
-	ImGui::InputText("Name", go_name, MAX_NAME);
-	name = go_name;
-	delete[] go_name;
+	char *go_tag = new char[MAX_NAME];
 
-	if (this != App->scene->root)
+	strcpy(go_name, name.c_str());
+	strcpy(go_tag, tag.c_str());
+	ImGui::InputText("Name", go_name, MAX_NAME);
+	ImGui::InputText("TAG", go_tag, MAX_NAME);
+	name = go_name;
+	tag = go_tag;
+
+	delete[] go_name;
+	delete[] go_tag;
+
+	if (this != App->scene->root || this != App->scene->canvas)
 	{
 		bool active = activeSelf;
 		if (ImGui::Checkbox("Active", &active))
@@ -152,37 +198,112 @@ void GameObject::DrawProperties()
 		}
 
 		ImGui::SameLine();
-		//navigability
-		if (isVolumetric && isStatic) 
+
+		if (ImGui::Checkbox("isPrefab", &isPrefab))
 		{
-			if (ImGui::Checkbox("Navigable", &navigable))
+			if (isPrefab)
 			{
-				App->navigation->navigableObjectToggled(this, navigable);
+				if (ParentPrefab())
+				{
+					isPrefab = false;
+					App->editor->GenerateGenericPopUp("Error", "This GameObject is child of a prefab!");
+				}
+				else if (ChildPrefab())
+				{
+					isPrefab = false;
+					App->editor->GenerateGenericPopUp("Error", "This GameObject is parent of a prefab!");
+				}
+				else
+				{
+					MarkAsPrefab();
+				}
 			}
-			if (navigable)
+			else
 			{
-				//defines walls and this stuff
-				ImGui::Checkbox("Walkable", &walkable);
-				ImGui::Checkbox("No Walkable", &noWalkable);
+				if (prefab != nullptr)
+				{
+					prefab->RemoveInstance(this);
+					App->resManager->DeleteResource(prefabUID);
+					prefab = nullptr;
+				}
 			}
 		}
 
+		if (isPrefab)
+		{
+			if (ImGui::Checkbox("Sync to Prefab", &isPrefabSync))
+			{
+				if (isPrefabSync && prefab != nullptr)
+				{
+					UpdateToPrefab(prefab->RetrievePrefab());
+				}
+			}
+			if (App->time->gameState == GameState::RUN)
+			{
+				ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+				ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+			}
+			if (ImGui::Button("Update Prefab"))
+			{
+				prefab->Update(this);
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Set As New Prefab"))
+			{
+				prefab->RemoveInstance(this);
+				App->resManager->DeleteResource(prefabUID);
+				prefab = nullptr;
+				prefabUID = 0;
+				MarkAsPrefab();
+			}
+			if (App->time->gameState == GameState::RUN)
+			{
+				ImGui::PopItemFlag();
+				ImGui::PopStyleVar();
+			}
+		}
+
+		if (isVolumetric && isStatic) 
+		{
+			ImGui::Checkbox("Navigable", &navigable);
+			if (navigable)
+			{
+				//defines walls and this stuff
+				ImGui::Checkbox("Is obstacle", &noWalkable);
+			}
+		}
+		if (children.size() > 1)
+		{
+			ImGui::NewLine();
+			ImGui::Checkbox("Show navigation options", &showNavOptions);
+			if (showNavOptions)
+			{
+				if (ImGui::Button("Make childs static"))
+				{
+					SetStaticAllChildsWithMesh();
+					App->spacePartitioning->kDTree.Calculate();
+				}
+				if (ImGui::Button("Make childs navigable"))
+				{
+					SetNavigableAllChildsWithMesh();
+					App->spacePartitioning->kDTree.Calculate();
+				}
+				if (ImGui::Button("Make childs obstacles"))
+				{
+					SetObstacleAllChildsWithMesh();
+					App->spacePartitioning->kDTree.Calculate();
+				}
+				if (ImGui::Button("Add childs to navMesh"))
+				{
+					AddAllNavigableChildsToNavMesh();
+				}
+			}
+		}
 		if (ImGui::Checkbox("Static", &isStatic))
 		{
 			if (isStatic && GetComponentOld(ComponentType::Renderer) != nullptr)
 			{
-				SetStaticAncestors();
-				App->scene->dynamicGOs.erase(this);
-				App->scene->staticGOs.insert(this);
-				assert(!(hasLight && isVolumetric)); //Impossible combination
-				if (hasLight && treeNode != nullptr)
-				{
-					App->spacePartitioning->aabbTreeLighting.ReleaseNode(treeNode);
-				}
-				if (isVolumetric && treeNode != nullptr)
-				{
-					App->spacePartitioning->aabbTree.ReleaseNode(treeNode);
-				}
+				MakeObjectWithMeshStatic();
 			}
 			else if (!isStatic)
 			{
@@ -208,6 +329,24 @@ void GameObject::DrawProperties()
 	}
 }
 
+void GameObject::PreUpdate()
+{
+	if (!isActive()) return;
+
+	for (auto& component : components)
+	{
+		if (component->enabled && component->type != ComponentType::Script)
+		{
+			component->PreUpdate();
+		}
+	}
+
+	for (const auto& child : children)
+	{
+		child->PreUpdate();
+	}
+}
+
 void GameObject::Update()
 {
 	if (!isActive()) return;
@@ -219,21 +358,6 @@ void GameObject::Update()
 			component->Update();
 		}
 	}
-	//TESTING
-	//---------------------------------------------
-	if (isBoneRoot && App->time->gameState == GameState::RUN)
-	{
-		ComponentAnimation* compAnim = (ComponentAnimation*)GetComponentOld(ComponentType::Animation);
-		if (App->input->GetKey(SDL_SCANCODE_X))
-		{
-			compAnim->SendTriggerToStateMachine("trigger1");
-		}
-		if (App->input->GetKey(SDL_SCANCODE_C))
-		{
-			compAnim->SendTriggerToStateMachine("trigger2");
-		}
-	}
-	//---------------------------------------------
 
 	for (const auto& child : children)
 	{
@@ -243,12 +367,22 @@ void GameObject::Update()
 	for (std::list<GameObject*>::iterator itChild = children.begin(); itChild != children.end();)
 	{
 
-		if ((*itChild)->copyFlag) //Moved GO
+		if ((*itChild)->copyFlag) //Copied GO
 		{
 			(*itChild)->copyFlag = false;
 			GameObject *copy = new GameObject(**itChild);
 			copy->parent = this;
 			this->children.push_back(copy);
+
+			std::vector<ComponentRenderer*> renderers;
+
+			copy->LinkRendererToBones(renderers);
+
+			for (const auto& renderer : renderers)
+			{
+				renderer->LinkBones();
+			}
+
 		}
 		++itChild;
 	}
@@ -275,7 +409,7 @@ void GameObject::OnChangeActiveState(bool wasActive)
 			if (!wasActive)
 			{
 				if (App->time->gameState == GameState::RUN && component->type == ComponentType::Script 
-					&& ((Script*)component)->hasBeenAwoken)
+					&& !((Script*)component)->hasBeenAwoken)
 				{
 					Script* script = (Script*)component;
 					script->Awake();
@@ -301,14 +435,16 @@ void GameObject::SetActiveInHierarchy(bool active)
 	OnChangeActiveState(wasActive);
 }
 
-Component* GameObject::CreateComponent(ComponentType type, JSON_value* value)
+Component* GameObject::CreateComponent(ComponentType type, JSON_value* value, bool prefabTemplate)
 {
 	Component* component = nullptr;
+	ComponentVolumetricLight* volLight = nullptr;
 	switch (type)
 	{
 	case ComponentType::Transform:
 		component = new ComponentTransform(this);
 		this->transform = (ComponentTransform*)component;
+		this->transform->UpdateTransform();
 		break;
 	case ComponentType::Renderer:
 		if (!hasLight)
@@ -324,10 +460,13 @@ Component* GameObject::CreateComponent(ComponentType type, JSON_value* value)
 		if (!hasLight && !isVolumetric)
 		{
 			component = new ComponentLight(this);
-			App->scene->lights.push_back((ComponentLight*)component);
+			if (!prefabTemplate)
+			{
+				App->scene->lights.push_back((ComponentLight*)component);
+				App->spacePartitioning->aabbTreeLighting.InsertGO(this);
+			}
 			hasLight = true;
 			light = (ComponentLight*)component;
-			App->spacePartitioning->aabbTreeLighting.InsertGO(this);
 			movedFlag = true;
 		}
 		else
@@ -344,7 +483,7 @@ Component* GameObject::CreateComponent(ComponentType type, JSON_value* value)
 		break;
 	case ComponentType::Camera:
 		component = new ComponentCamera(this);
-		if (App->scene->maincamera == nullptr)
+		if (App->scene->maincamera == nullptr && !prefabTemplate)
 		{
 			App->scene->maincamera = (ComponentCamera*)component;
 			App->scene->maincamera->isMainCamera = true;
@@ -371,8 +510,20 @@ Component* GameObject::CreateComponent(ComponentType type, JSON_value* value)
 			assert(value != nullptr); //Only used for loading from json
 			std::string name = value->GetString("script");
 			Script* script = App->scripting->GetScript(name);
-			script->SetGameObject(this);
-			component = (Component*)script;
+			if (script)
+			{
+				script->SetGameObject(this);
+				component = (Component*)script;
+				if (prefabTemplate)
+				{
+					App->scripting->RemoveScript(script, name);
+				}
+				//if is prefab then remove from componentlist + remove script don't rest reference if not found
+			}
+			else
+			{
+				LOG("%s script not loaded", name.c_str());
+			}
 		}
 		break;
 	case ComponentType::Particles:
@@ -387,7 +538,7 @@ Component* GameObject::CreateComponent(ComponentType type, JSON_value* value)
 	case ComponentType::AudioListener:
 		component = new ComponentAudioListener(this);
 		App->audioManager->audioListeners.push_back((ComponentAudioListener*)component);
-		if (App->audioManager->audioListeners.size() == 1)
+		if (App->audioManager->audioListeners.size() == 1u)
 		{
 			App->audioManager->mainListener = (ComponentAudioListener*)component;
 			App->audioManager->mainListener->isMainListener = true; 
@@ -396,7 +547,13 @@ Component* GameObject::CreateComponent(ComponentType type, JSON_value* value)
 	case ComponentType::ReverbZone:
 		component = new ComponentReverbZone(this);
 		App->audioManager->reverbZones.push_back((ComponentReverbZone*)component);
-
+		break;
+	case ComponentType::BoxTrigger:
+		component = new ComponentBoxTrigger(this);
+		break;
+	case ComponentType::VolumetricLight:
+		component = new ComponentVolumetricLight(this);
+		volLight = (ComponentVolumetricLight*)component;
 		break;
 	default:
 		break;
@@ -405,6 +562,9 @@ Component* GameObject::CreateComponent(ComponentType type, JSON_value* value)
 	{
 		components.push_back(component);
 	}
+
+	if (volLight) //Spawn default vol. light after the component creation is completed
+		volLight->UpdateMesh();
 	return component;
 }
 
@@ -456,6 +616,7 @@ void GameObject::RemoveComponent(const Component& component)
 			(*it)->CleanUp();
 			trash = *it; // Delete elements of an iterated container causes crashes inside the loop
 			trashIt = it;
+			break;
 		}
 	}
 	if (trash != nullptr) // Safely remove component
@@ -478,29 +639,6 @@ void GameObject::RemoveComponent(const Component& component)
 	}
 }
 
-//Script* GameObject::GetScript() const
-//{
-//	ComponentScript* component = (ComponentScript*)GetComponentOld(ComponentType::Script);
-//	if (component != nullptr)
-//	{
-//		return component->GetScript();
-//	}
-//	return nullptr;
-//}
-
-//Script * GameObject::FindScriptByName(const char * name) const
-//{
-//	std::vector<Component*> components = GetComponents(ComponentType::Script);
-//	for (const auto& component : components)
-//	{
-//		if (((ComponentScript*)component)->GetScriptName() == name)
-//		{
-//			return ((ComponentScript*)component)->GetScript();
-//		}
-//	}
-//	return nullptr;
-//}
-
 void GameObject::RemoveChild(GameObject* bastard)
 {
 	children.remove(bastard);
@@ -511,6 +649,16 @@ void GameObject::InsertChild(GameObject* child)
 {
 	children.push_back(child);
 	child->parent = this;
+}
+
+void GameObject::ChangeParent(GameObject* oldParent, GameObject* newParent)
+{
+	oldParent->children.remove(this);
+	newParent->children.push_back(this);
+	this->parent = newParent;
+	this->parentUUID = newParent->UUID;
+	transform->NewAttachment();
+	UpdateBBox();
 }
 
 ENGINE_API Component * GameObject::GetComponentOld(ComponentType type) const //Deprecated
@@ -527,11 +675,11 @@ ENGINE_API Component * GameObject::GetComponentOld(ComponentType type) const //D
 
 ENGINE_API Component * GameObject::GetComponentInChildren(ComponentType type) const
 {
-	std::stack<const GameObject *>GOs;
+	std::queue<const GameObject *>GOs;
 	GOs.push(this);
 	while (!GOs.empty())
 	{
-		const GameObject* go = GOs.top();
+		const GameObject* go = GOs.front();
 		GOs.pop();
 
 		Component* component = go->GetComponentOld(type);
@@ -736,10 +884,162 @@ void GameObject::SetLightUniforms(unsigned shader) const
 		glUniformMatrix4fv(glGetUniformLocation(shader,
 			"lightProjView"), 1, GL_TRUE, &App->renderer->shadowsFrustum.ViewProjMatrix()[0][0]);
 
-		glActiveTexture(GL_TEXTURE5);
+		glActiveTexture(GL_TEXTURE6);
 		glBindTexture(GL_TEXTURE_2D, App->renderer->shadowsTex);
-		glUniform1i(glGetUniformLocation(shader, "shadowTex"), 5);
+		glUniform1i(glGetUniformLocation(shader, "shadowTex"), 6);
 	}
+}
+
+void GameObject::LinkRendererToBones(std::vector<ComponentRenderer*>& renderers)
+{
+	ComponentRenderer* rend = GetComponent<ComponentRenderer>();
+
+	if (rend != nullptr)
+	{
+		renderers.push_back(rend);
+	}
+
+	for (const auto& child : children)
+	{
+		child->LinkRendererToBones(renderers);
+	}
+}
+
+void GameObject::LinkBones() const
+{
+	for (Component* c : GetComponentsInChildren(ComponentType::Renderer))
+	{
+		ComponentRenderer* cr = (ComponentRenderer*)c;
+		if (cr->mesh != nullptr)
+		{
+			cr->LinkBones();
+		}
+	}
+}
+
+void GameObject::MarkAsPrefab()
+{
+	bool wasPrefab = false;
+
+	if (prefabUID == 0)
+	{
+		prefabUID = App->scene->CreatePrefab(this);
+	}
+	else
+	{
+		wasPrefab = true;
+	}
+
+	prefab = (ResourcePrefab*)App->resManager->Get(prefabUID);
+	if (prefab == nullptr)
+	{
+		prefabUID = App->scene->CreatePrefab(this);
+		prefab = (ResourcePrefab*)App->resManager->Get(prefabUID);
+		wasPrefab = false;
+	}
+
+	prefab->AddInstance(this);
+	isPrefabSync = true;
+
+	if (wasPrefab)
+	{
+		UpdateToPrefab(prefab->RetrievePrefab());
+	}
+}
+
+bool GameObject::ChildPrefab() const
+{
+	if (this == App->scene->root) return false;
+	for (const auto& child : children)
+	{
+		if (child->isPrefab)
+		{
+			return true;
+		}
+		else if(child->ChildPrefab())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool GameObject::ParentPrefab() const
+{
+	if (parent == App->scene->root || parent == nullptr) return false;
+	if (parent->isPrefab)
+	{
+		return true;
+	}
+	return parent->ParentPrefab();
+}
+
+void GameObject::UpdateToPrefab(GameObject* prefabGo)
+{
+	if (prefabGo == nullptr)
+	{
+		LOG("Cannot update to prefab");
+		return;
+	}
+
+	Component* myTransform = nullptr;
+	if (transform != nullptr)
+	{
+		myTransform = transform->Clone();
+	}
+	else
+	{
+		Transform2D* transformUI = GetComponent<Transform2D>();
+		if (transformUI != nullptr)
+		{
+			myTransform = transformUI->Clone();
+		}
+	}
+
+	GameObject* myParent = parent;
+	CleanUp();
+	for (auto& component: components)
+	{
+		RELEASE(component);
+	}
+	for (auto& child : children)
+	{
+		RELEASE(child);
+	}
+	components.clear();
+	children.clear();
+	parent = myParent;
+
+	if (myTransform != nullptr)
+	{
+		components.push_back(myTransform);
+		if (myTransform->type == ComponentType::Transform)
+		{
+			transform = (ComponentTransform*)myTransform;
+		}
+	}
+
+	for (const auto &component : prefabGo->components)
+	{
+		if (component->type == ComponentType::Transform ||
+			component->type == ComponentType::Transform2D) continue;
+		Component* newComponent = component->Clone();
+		newComponent->gameobject = this;
+		components.push_back(newComponent);
+	}
+	for (auto& child : prefabGo->children)
+	{
+		GameObject* newChild = new GameObject(*child);
+		children.push_back(newChild);
+		newChild->parent = this;
+	}
+	if (GetComponentOld(ComponentType::Renderer) != nullptr || GetComponentOld(ComponentType::Light) != nullptr)
+	{
+		App->scene->AddToSpacePartition(this);
+	}
+
+	LinkBones();
+	prefabTimeStamp = App->fsystem->GetModTime(prefab->GetFile());
 }
 
 AABB GameObject::GetBoundingBox() const
@@ -798,6 +1098,14 @@ void GameObject::UpdateBBox()
 
 		bbox.TransformAsAABB(GetGlobalTransform());
 	}
+	ComponentVolumetricLight* volLight = (ComponentVolumetricLight*)GetComponentOld(ComponentType::VolumetricLight);
+	if (volLight != nullptr)
+	{
+		if (volLight->renderer->mesh != nullptr)
+			bbox = volLight->renderer->mesh->GetBoundingBox();
+
+		bbox.TransformAsAABB(GetGlobalTransform());
+	}
 }
 
 void GameObject::DrawBBox() const
@@ -808,22 +1116,22 @@ void GameObject::DrawBBox() const
 	}
 
 	ComponentRenderer *renderer = (ComponentRenderer*)GetComponentOld(ComponentType::Renderer);
-	if (renderer == nullptr || renderer->mesh == nullptr) return;
+	if (renderer != nullptr && renderer->mesh != nullptr)
+	{
+		if (renderer->mesh->GetReferences() > 0u)
+			renderer->mesh->DrawBbox(App->program->defaultShader->id[0], bbox);
+	}
 
-	if (renderer->mesh->GetReferences() > 0u)
-		renderer->mesh->DrawBbox(App->program->defaultShader->id[0], bbox);
+	ComponentVolumetricLight* volLight = (ComponentVolumetricLight*)GetComponentOld(ComponentType::VolumetricLight);
+	if (volLight != nullptr && volLight->renderer && volLight->renderer->mesh)
+	{
+		volLight->renderer->mesh->DrawBbox(App->program->defaultShader->id[0], bbox);
+	}
 }
 
 bool GameObject::CleanUp()
 {
-	if (isStatic)
-	{
-		App->scene->quadtree->Remove(*this);
-	}
-	else
-	{
-		App->scene->dynamicGOs.erase(this);
-	}
+	App->scene->DeleteFromSpacePartition(this);
 
 	for (auto &component : components)
 	{
@@ -841,23 +1149,31 @@ bool GameObject::CleanUp()
 	return true;
 }
 
-void GameObject::Save(JSON_value *gameobjects) const
+void GameObject::Save(JSON_value *gameobjects, bool selected) const
 {
-	if (parent != nullptr && App->scene->canvas != this) // we don't add gameobjects without parent (ex: World)
-	{
+	if (parent != nullptr && App->scene->canvas != this && (App->scene->selected == this || !selected)) // we don't add gameobjects without parent (ex: World)
+	{		
 		JSON_value *gameobject = gameobjects->CreateValue();
 		gameobject->AddUint("UID", UUID);
 		gameobject->AddUint("ParentUID", parent->UUID);
 		gameobject->AddString("Name", name.c_str());
+		gameobject->AddString("Tag", tag.c_str());
 		gameobject->AddUint("Static", isStatic);
 		gameobject->AddUint("ActiveInHierarchy", activeInHierarchy);
 		gameobject->AddUint("ActiveSelf", activeSelf);
 		gameobject->AddUint("isBoneRoot", isBoneRoot);
 		gameobject->AddFloat4x4("baseState", baseState);
 		gameobject->AddUint("Navigable", navigable);
-		gameobject->AddUint("Walkable", walkable);
 		gameobject->AddUint("No Walkable", noWalkable);
 		gameobject->AddUint("openInHierarchy", openInHierarchy);
+
+		gameobject->AddUint("isPrefab", isPrefab);
+		gameobject->AddUint("isPrefabSync", isPrefabSync);
+		gameobject->AddUint("prefabUID", prefabUID);
+		if (isPrefab && prefabTimeStamp != 0.0f)
+		{
+			gameobject->AddUint("prefabTimeStamp", prefabTimeStamp);
+		}
 
 		JSON_value *componentsJSON = gameobject->CreateValue(rapidjson::kArrayType);
 		for (auto &component : components)
@@ -873,43 +1189,93 @@ void GameObject::Save(JSON_value *gameobjects) const
 
 	for (auto &child : children)
 	{
-		child->Save(gameobjects);
+		bool wasSelected = App->scene->selected == this;
+		if (selected && App->scene->selected == this)
+		{
+			App->scene->selected = child;
+		}
+		child->Save(gameobjects, selected);
+		if (wasSelected)
+		{
+			App->scene->selected = const_cast<GameObject*>(this);
+		}
 	}
 }
 
-void GameObject::Load(JSON_value *value)
+void GameObject::Load(JSON_value *value, bool prefabTemplate)
 {
 	UUID = value->GetUint("UID");
 	parentUUID = value->GetUint("ParentUID");
 	name = value->GetString("Name");
+	tag = value->GetString("Tag", tag.c_str());
 	isStatic = value->GetUint("Static");
 	activeInHierarchy = value->GetUint("ActiveInHierarchy", 1);
 	activeSelf = value->GetUint("ActiveSelf", 1);
 	isBoneRoot = value->GetUint("isBoneRoot");
 	baseState = value->GetFloat4x4("baseState");
 	navigable = value->GetUint("Navigable");
-	walkable = value->GetUint("Walkable"); //TODO: why 2 variables for walkable?
 	noWalkable = value->GetUint("No Walkable");
 	openInHierarchy = value->GetUint("openInHierarchy");
 
+	isPrefab = value->GetUint("isPrefab");
+	isPrefabSync = value->GetUint("isPrefabSync");
+	prefabUID = value->GetUint("prefabUID");
+	if (isPrefab && !prefabTemplate)
+	{
+		prefabTimeStamp = value->GetUint("prefabTimeStamp");
+
+		prefab = (ResourcePrefab*) App->resManager->Get(prefabUID);
+		if (prefab != nullptr)
+		{
+			prefab->AddInstance(this);
+		}
+		else
+		{
+			LOG("Cannot find prefab with UID:%u", prefabUID);
+			isPrefab = false;
+		}
+	}
+
 	JSON_value* componentsJSON = value->GetValue("Components");
+	ComponentVolumetricLight* volLight = nullptr;
+
 	for (unsigned i = 0; i < componentsJSON->Size(); i++)
 	{
 		JSON_value* componentJSON = componentsJSON->GetValue(i);
 		ComponentType type = (ComponentType)componentJSON->GetUint("Type");
-		Component* component = CreateComponent(type, componentJSON);
-		component->Load(componentJSON);
+		Component* component = CreateComponent(type, componentJSON, prefabTemplate);
+		if (component)
+		{
+			component->Load(componentJSON);
+			switch (type)
+			{
+			case ComponentType::VolumetricLight:
+				volLight = (ComponentVolumetricLight*)component;
+				break;
+			case ComponentType::Particles:
+				if (prefabTemplate)
+				{
+					App->particles->RemoveParticleSystem((ComponentParticles*)component);
+				}
+				break;
+			case ComponentType::Trail:
+				if (prefabTemplate)
+				{
+					App->particles->RemoveTrailRenderer((ComponentTrail*)component);
+				}
+				break;
+			}
+		}
 	}
 
-	if (transform != nullptr)
-	{
-		transform->UpdateTransform();
-	}
+	if (volLight)
+		volLight->UpdateMesh();
 
 	if (isBoneRoot)
 	{
 		movedFlag = true;
 	}
+
 }
 
 bool GameObject::IsParented(const GameObject & gameobject) const
@@ -930,7 +1296,7 @@ bool GameObject::IsParented(const GameObject & gameobject) const
 
 void GameObject::DrawHierarchy()
 {
-	if (parent != nullptr && parent->parent !=nullptr && parent->parent->isBoneRoot) return;
+	//if (parent != nullptr && parent->parent !=nullptr && parent->parent->isBoneRoot) return; //Direct bone access needed to put fx
 
 	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | 
 		(openInHierarchy ? ImGuiTreeNodeFlags_DefaultOpen: 0)
@@ -939,8 +1305,20 @@ void GameObject::DrawHierarchy()
 	ImGui::PushID(this);
 	if (!isActive())
 	{
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.6f, 0.6f, 0.6f, 1.00f));
+		if (isPrefab)
+		{
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.1f, 0.4f, 0.4f, 1.00f));
+		}
+		else
+		{
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.6f, 0.6f, 0.6f, 1.00f));
+		}
 	}
+	else if(isPrefab)
+	{
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 0.8f, 0.8f, 1.00f));
+	}
+
 	if (children.empty())
 	{
 		node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
@@ -996,7 +1374,7 @@ void GameObject::DrawHierarchy()
 			ImGui::TreePop();
 		}
 	}
-	if (!isActive())
+	if (!isActive() || isPrefab)
 	{
 		ImGui::PopStyleColor();
 	}
@@ -1041,59 +1419,89 @@ void GameObject::OnPlay()
 	}
 }
 
+void GameObject::SetAllMoveFlags()
+{
+	for (const auto& child : children)
+	{
+		child->movedFlag = true;
+		child->SetAllMoveFlags();
+	}
+}
+
 void GameObject::UpdateTransforms(math::float4x4 parentGlobal)
 {
 	PROFILE;
-	if (movedFlag && transform)
+	if (movedFlag)
 	{
-		transform->local = math::float4x4::FromTRS(transform->position, transform->rotation, transform->scale);
+		if (App->time->gameState == GameState::STOP)
+		{
+			particlesDirty = true;
+		}
+		for (const auto& child : children)
+		{
+			if (!child->isStatic)
+			{
+				child->movedFlag = true;
+			}
+		}
 		movedFlag = false;
-		if (!isStatic)
+		if (transform)
 		{
-			if (treeNode != nullptr && hasLight)
-			{
-				light->CalculateGuizmos();
-				if (!treeNode->aabb.Contains(bbox))
-				{
-					App->spacePartitioning->aabbTreeLighting.ReleaseNode(treeNode);
-					App->spacePartitioning->aabbTreeLighting.InsertGO(this);
-				}
-			}
-			if (treeNode != nullptr && isVolumetric)
-			{
-				if (!treeNode->aabb.Contains(bbox))
-				{
-					App->spacePartitioning->aabbTree.ReleaseNode(treeNode);
-					App->spacePartitioning->aabbTree.InsertGO(this);
-				}
-			}
-		}
-		else
-		{
-			App->spacePartitioning->kDTree.Calculate();
-		}
-	}
+			transform->local = math::float4x4::FromTRS(transform->position, transform->rotation, transform->scale);
 
-	math::float4x4 global = math::float4x4::identity;
-	if (this != App->scene->root && transform != nullptr)
-	{
-		math::float4x4 original = transform->global;
-		transform->global = parentGlobal * transform->local;
-		global = transform->global;
-		transform->UpdateTransform();
-		if (this == App->scene->selected)
-		{
-			transform->MultiSelectionTransform(global - original);
+			math::float4x4 global = math::float4x4::identity;
+			if (this != App->scene->root && transform != nullptr)
+			{
+				math::float4x4 original = transform->global;
+				transform->global = parentGlobal * transform->local;
+				global = transform->global;
+				transform->UpdateTransform();
+				if (this == App->scene->selected)
+				{
+					transform->MultiSelectionTransform(global - original);
+				}
+			}
+
+			UpdateBBox();
+
+			if (!isStatic)
+			{
+				if (treeNode != nullptr && hasLight)
+				{
+					light->CalculateGuizmos();
+					if (!treeNode->aabb.Contains(bbox))
+					{
+						App->spacePartitioning->aabbTreeLighting.ReleaseNode(treeNode);
+						App->spacePartitioning->aabbTreeLighting.InsertGO(this);
+					}
+				}
+				if (treeNode != nullptr && isVolumetric)
+				{
+					if (!treeNode->aabb.Contains(bbox))
+					{
+						App->spacePartitioning->aabbTree.ReleaseNode(treeNode);
+						App->spacePartitioning->aabbTree.InsertGO(this);
+					}
+				}
+			}
+			else
+			{
+				App->spacePartitioning->kDTree.Calculate();
+			}
 		}
 	}
 
 	for (const auto& child : children)
 	{
-		child->movedFlag = true;
-		child->UpdateTransforms(global);
+		if (transform != nullptr)
+		{
+			child->UpdateTransforms(transform->global);
+		}
+		else
+		{
+			child->UpdateTransforms(math::float4x4::identity);
+		}
 	}
-
-	UpdateBBox();
 }
 
 bool GameObject::CheckDelete()
@@ -1120,4 +1528,88 @@ bool GameObject::CheckDelete()
 		}
 	}
 	return false;
+}
+
+
+void GameObject::SetStaticAllChildsWithMesh()
+{
+	for (const auto& child : children)
+	{
+		if (child->isVolumetric)
+		{
+			if (!child->isStatic)
+			{
+				child->MakeObjectWithMeshStatic();
+				child->isStatic = true;
+			}
+		}
+		child->SetStaticAllChildsWithMesh();
+	}
+}
+void GameObject::SetNavigableAllChildsWithMesh()
+{
+	for (const auto& child : children)
+	{
+		if (child->isVolumetric)
+		{
+			if (!child->isStatic)
+			{
+				child->MakeObjectWithMeshStatic();
+				child->isStatic = true;
+			}
+			child->navigable = true;
+			
+		}
+		child->SetNavigableAllChildsWithMesh();
+	}
+}
+void GameObject::SetObstacleAllChildsWithMesh()
+{
+	for (const auto& child : children)
+	{
+		if (child->isVolumetric)
+		{
+			if (!child->isStatic)
+			{
+				child->MakeObjectWithMeshStatic();
+				child->isStatic = true;
+				
+			}
+			child->navigable = true;
+			child->noWalkable = true;
+			
+		}
+		child->SetObstacleAllChildsWithMesh();
+	}
+}
+
+void GameObject::AddAllNavigableChildsToNavMesh()
+{
+	for (const auto& child : children)
+	{
+		if (child->isVolumetric && child->isStatic &&child->navigable)
+		{
+			App->navigation->AddNavigableMeshFromObject(child);
+		}
+		child->AddAllNavigableChildsToNavMesh();
+	}
+}
+
+void GameObject::MakeObjectWithMeshStatic()
+{
+	SetStaticAncestors();
+	App->scene->DeleteFromSpacePartition(this);
+	App->scene->AddToSpacePartition(this);
+	assert(!(hasLight && isVolumetric)); //Impossible combination
+	if (hasLight && treeNode != nullptr)
+	{
+		App->spacePartitioning->aabbTreeLighting.ReleaseNode(treeNode);
+	}
+	if (isVolumetric && treeNode != nullptr)
+	{
+		App->spacePartitioning->aabbTree.ReleaseNode(treeNode);
+	}
+	LOG(name.c_str());
+	std::string s = std::to_string(App->scene->staticGOs.size());
+	LOG(s.c_str());
 }

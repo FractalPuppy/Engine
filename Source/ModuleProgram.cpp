@@ -84,10 +84,16 @@ Shader* ModuleProgram::GetProgram(const char* name)
 	if (std::string(name) == "PostProcess")
 	{
 		return CreateVariations(name, PostProcessDefines, POSTPRO_VARIATIONS);
-	}
+	} 
 	if (std::string(name) == "Skybox")
 	{
 		return CreateVariations(name, SkyboxDefines, SKYBOX_VARIATIONS);
+	}
+	if (std::string(name) == "FX")
+	{
+		Shader* fxShader = CreateProgram(name);
+		fxShader->isFX = true;
+		return fxShader;
 	}
 
 	else

@@ -16,10 +16,13 @@
 #include "ResourceStateMachine.h"
 #include "ResourceAnimation.h"
 #include "ResourceSkybox.h"
+#include "ResourcePrefab.h"
 #include "ResourceScene.h"
+#include "ResourceAudio.h"
 
 #include "FileImporter.h"
 
+#include "JSON.h"
 #include "HashString.h"
 #include <algorithm>
 
@@ -37,6 +40,24 @@ ModuleResourceManager::~ModuleResourceManager()
 bool ModuleResourceManager::Init(JSON * config)
 {
 	LoadEngineResources();
+	return true;
+}
+
+bool ModuleResourceManager::CleanUp()
+{
+	// Delete every resource from memory
+	for each (auto& resource in resources)
+	{
+		if (resource.second->IsLoadedToMemory())
+			resource.second->DeleteFromMemory();
+	}
+
+	// Delete pointers
+	for (auto it = resources.begin(); it != resources.end(); it++)
+	{
+		RELEASE(it->second);
+	}
+	resources.clear();
 	return true;
 }
 
@@ -226,7 +247,7 @@ bool ModuleResourceManager::ImportFile(const char* newFileInAssets, const char* 
 	{
 	case TYPE::TEXTURE:		
 		success = App->textures->ImportImage(newFileInAssets, filePath,	(ResourceTexture*)resource);
-		exportedFile = TEXTURES + name + TEXTUREEXT;
+		exportedFile = TEXTURES + std::to_string(resource->GetUID()) + TEXTUREEXT;
 		break;
 	case TYPE::MODEL:
 		success = App->fsystem->importer.ImportFBX(newFileInAssets, filePath, (ResourceModel*)resource);
@@ -235,18 +256,32 @@ bool ModuleResourceManager::ImportFile(const char* newFileInAssets, const char* 
 	/*case TYPE::MESH:		
 		success = App->fsystem->importer.ImportFBX(newFileInAssets, filePath, (ResourceMesh*)resource);	
 		exportedFile = MESHES + name + MESHEXTENSION;	
-		break;
-	case TYPE::AUDIO:		
-		success = App->audio->Import(newFileInAssets, written_file);									
-		exportedFile = IMPORTED_AUDIO + name + AUDIOEXTENSION;	
 		break;*/
+	case TYPE::AUDIO:
+		// TODO: Add importer for audios
+		//success = App->audio->Import(newFileInAssets, written_file);	
+		success = App->fsystem->Copy(filePath, IMPORTED_AUDIOS, newFileInAssets);
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_AUDIOS, (name + App->fsystem->GetExtension(newFileInAssets)).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
+		exportedFile = IMPORTED_AUDIOS + std::to_string(resource->GetUID()) + App->fsystem->GetExtension(newFileInAssets);
+		break;
 	case TYPE::SCENE:		
-		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, newFileInAssets);						
-		exportedFile = IMPORTED_SCENES + name + SCENEEXTENSION;
+		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, newFileInAssets);	
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_SCENES, (name + SCENEEXTENSION).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
+		exportedFile = IMPORTED_SCENES + std::to_string(resource->GetUID()) + SCENEEXTENSION;
 		break;
 	case TYPE::MATERIAL:	
-		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, newFileInAssets);					
-		exportedFile = IMPORTED_MATERIALS + name + MATERIALEXT;
+		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, newFileInAssets);	
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_MATERIALS, (name + MATERIALEXT).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
+		exportedFile = IMPORTED_MATERIALS + std::to_string(resource->GetUID()) + MATERIALEXT;
 		break;
 	case TYPE::ANIMATION:
 		success = App->fsystem->Copy(filePath, IMPORTED_ANIMATIONS, newFileInAssets);
@@ -264,14 +299,18 @@ bool ModuleResourceManager::ImportFile(const char* newFileInAssets, const char* 
 		}
 		exportedFile = IMPORTED_STATEMACHINES + std::to_string(resource->GetUID()) + STATEMACHINEEXTENSION;
 		break;
+	case TYPE::PREFAB: //TODO: update reimport PREFAB
+		success = App->fsystem->importer.ImportPrefab(newFileInAssets, filePath, (ResourcePrefab*)resource);
+		exportedFile = IMPORTED_PREFABS + std::to_string(resource->GetUID()) + PREFABEXTENSION;
+		break;
 	}
 
 	// If export was successful, create a new resource
 	if (success) 
 	{ 
-		resource->SaveMetafile(assetPath.c_str());
 		resource->SetName(name.c_str());
 		resource->SetExportedFile(exportedFile.c_str());
+		resource->SaveMetafile(assetPath.c_str());
 		LOG("%s imported.", resource->GetFile());
 	}
 	else
@@ -299,15 +338,29 @@ bool ModuleResourceManager::ReImportFile(Resource* resource, const char* filePat
 		break;
 	/*case TYPE::MESH:	
 	success = App->fsystem->importer.ImportFBX(file.c_str(), filePath, (ResourceMesh*)resource);	
-	break;
-	case TYPE::AUDIO:	
-	success = App->audio->Import(newFileInAssets, written_file);	
 	break;*/
+	case TYPE::AUDIO:	
+	// TODO: Add importer for audios
+	//success = App->audio->Import(newFileInAssets, written_file);	
+		success = App->fsystem->Copy(filePath, IMPORTED_AUDIOS, file.c_str());
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_AUDIOS, App->fsystem->GetFile(file).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
+	break;
 	case TYPE::MATERIAL:	
-		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, file.c_str());				
+		success = App->fsystem->Copy(filePath, IMPORTED_MATERIALS, file.c_str());
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_MATERIALS, App->fsystem->GetFile(file).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
 		break;
 	case TYPE::SCENE:	
-		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, file.c_str());						
+		success = App->fsystem->Copy(filePath, IMPORTED_SCENES, file.c_str());			
+		if (success)
+		{
+			success = App->fsystem->Rename(IMPORTED_SCENES, App->fsystem->GetFile(file).c_str(), std::to_string(resource->GetUID()).c_str());
+		}
 		break;
 	case TYPE::ANIMATION:	
 		success = App->fsystem->Copy(filePath, IMPORTED_ANIMATIONS, file.c_str());		
@@ -325,6 +378,8 @@ bool ModuleResourceManager::ReImportFile(Resource* resource, const char* filePat
 				std::to_string(resource->GetUID()).c_str());
 		}
 		break;
+	case TYPE::PREFAB:
+		success = App->fsystem->importer.ImportPrefab(file.c_str(), filePath, (ResourcePrefab*)resource);
 	}
 
 	// If export was successful, update resource
@@ -366,7 +421,8 @@ Resource* ModuleResourceManager::CreateNewResource(TYPE type, unsigned forceUid)
 	case TYPE::MATERIAL:		resource = (Resource*) new ResourceMaterial(uid);		break;
 	case TYPE::SKYBOX:			resource = (Resource*) new ResourceSkybox(uid);			break;
 	case TYPE::STATEMACHINE:	resource = (Resource*) new ResourceStateMachine(uid);	break;
-	/*case TYPE::AUDIO:			resource = (Resource*) new ResourceAudio(uid);			break;*/
+	case TYPE::AUDIO:			resource = (Resource*) new ResourceAudio(uid);			break;
+	case TYPE::PREFAB:          resource = (Resource*) new ResourcePrefab(uid);			break;
 	}
 
 	if (resource != nullptr)
@@ -382,6 +438,8 @@ unsigned ModuleResourceManager::GenerateNewUID()
 
 Resource* ModuleResourceManager::Get(unsigned uid) const
 {
+	if (uid == 0u) return nullptr;
+
 	std::map<unsigned, Resource*>::const_iterator it = resources.find(uid);
 	if (it == resources.end())
 		return nullptr;
@@ -525,46 +583,35 @@ std::vector<Resource*> ModuleResourceManager::GetResourcesList()
 	return resourcesList;
 }
 
-std::vector<ResourceTexture*> ModuleResourceManager::GetTexturesList()
+std::vector<Resource*> ModuleResourceManager::GetResourcesList(TYPE type)
 {
-	std::vector<ResourceTexture*> resourcesList;
+	std::vector<Resource*> resourcesList;
 	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
 	{
-		if(it->second->GetType() == TYPE::TEXTURE)
-			resourcesList.push_back((ResourceTexture*)it->second);
+		if (it->second->GetType() == type)
+			resourcesList.push_back(it->second);
 	}
 	return resourcesList;
 }
 
-std::vector<ResourceMaterial*> ModuleResourceManager::GetMaterialsList()
+std::vector<Resource*> ModuleResourceManager::GetResourcesList(bool loaded)
 {
-	std::vector<ResourceMaterial*> resourcesList;
+	std::vector<Resource*> resourcesList;
 	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
 	{
-		if (it->second->GetType() == TYPE::MATERIAL)
-			resourcesList.push_back((ResourceMaterial*)it->second);
+		if (it->second->IsLoadedToMemory() == loaded)
+			resourcesList.push_back(it->second);
 	}
 	return resourcesList;
 }
 
-std::vector<ResourceAnimation*> ModuleResourceManager::GetAnimationsList()
+std::vector<Resource*> ModuleResourceManager::GetResourcesList(TYPE type, bool loaded)
 {
-	std::vector<ResourceAnimation*> resourcesList;
+	std::vector<Resource*> resourcesList;
 	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
 	{
-		if (it->second->GetType() == TYPE::ANIMATION)
-			resourcesList.push_back((ResourceAnimation*)it->second);
-	}
-	return resourcesList;
-}
-
-std::vector<ResourceStateMachine*> ModuleResourceManager::GetSMList()
-{
-	std::vector<ResourceStateMachine*> resourcesList;
-	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
-	{
-		if (it->second->GetType() == TYPE::STATEMACHINE)
-			resourcesList.push_back((ResourceStateMachine*)it->second);
+		if (it->second->GetType() == type && it->second->IsLoadedToMemory() == loaded)
+			resourcesList.push_back(it->second);
 	}
 	return resourcesList;
 }
@@ -598,6 +645,7 @@ TYPE ModuleResourceManager::GetResourceType(FILETYPE fileType) const
 	case FILETYPE::SKYBOX:				return TYPE::SKYBOX;		break;
 	case FILETYPE::STATEMACHINE:		return TYPE::STATEMACHINE;	break;
 	case FILETYPE::AUDIO:				return TYPE::AUDIO;			break;
+	case FILETYPE::PREFAB:				return TYPE::PREFAB;		break;
 	default:
 	case FILETYPE::NONE:				return TYPE::UNKNOWN;		break;
 	}
@@ -700,23 +748,7 @@ Resource* ModuleResourceManager::AddResource(const char* file, const char* direc
 	{
 		// Create new resource 
 		Resource* res = CreateNewResource(type);
-
-		// Set Exported File
-		switch (type)
-		{
-		case TYPE::TEXTURE:		exportedFile = TEXTURES					+	App->fsystem->GetFilename(file) + TEXTUREEXT;			break;
-		case TYPE::MODEL:		exportedFile =								App->fsystem->GetFilename(file) + FBXEXTENSION;			break;
-		/*case TYPE::MESH:		exportedFile = MESHES;					+	App->fsystem->GetFilename(file) + MESHEXTENSION;		break;
-		case TYPE::AUDIO:		exportedFile = IMPORTED_AUDIOS			+	App->fsystem->GetFilename(file) + AUDIOEXTENSION;		break;*/
-		case TYPE::SCENE:		exportedFile = IMPORTED_SCENES			+	App->fsystem->GetFilename(file) + SCENEEXTENSION;		break;
-		case TYPE::MATERIAL:	exportedFile = IMPORTED_MATERIALS		+	App->fsystem->GetFilename(file) + MATERIALEXT;			break;
-		case TYPE::ANIMATION:	exportedFile = IMPORTED_ANIMATIONS		+   App->fsystem->GetFilename(file) + ANIMATIONEXTENSION;	break;
-		case TYPE::STATEMACHINE:exportedFile = IMPORTED_STATEMACHINES	+	App->fsystem->GetFilename(file) + STATEMACHINEEXTENSION;break;
-		default:
-			break;
-		}
 		res->SetName(name.c_str());
-		res->SetExportedFile(exportedFile.c_str());
 		res->SetFile(path.c_str());
 		return res;
 	}
@@ -725,6 +757,68 @@ Resource* ModuleResourceManager::AddResource(const char* file, const char* direc
 		// Resource already exist
 		return GetWithoutLoad(UID);
 	}
+}
+
+Resource* ModuleResourceManager::AddResource(const char* file, const char* directory, TYPE type, unsigned uid)
+{
+	std::string path(directory);
+	path += file;
+	std::string exportedFile;
+	std::string name(App->fsystem->GetFilename(file));
+ 
+	// Check if resource was already added
+	if (uid != FindByFileInAssets(path.c_str()))
+	{
+		// Create new resource 
+		Resource* res = CreateNewResource(type, uid);
+
+		// Set Exported File
+		switch (type)
+		{
+		case TYPE::TEXTURE:		exportedFile = TEXTURES					+ std::to_string(uid) + TEXTUREEXT;				break;
+		case TYPE::MODEL:		exportedFile = App->fsystem->GetFilename(file)				  + FBXEXTENSION;			break;
+		/*case TYPE::MESH:		exportedFile = MESHES;					+ std::to_string(uid) + MESHEXTENSION;			break;*/
+		case TYPE::AUDIO:		exportedFile = IMPORTED_AUDIOS			+ std::to_string(uid) + App->fsystem->GetExtension(file);			break;
+		case TYPE::SCENE:		exportedFile = IMPORTED_SCENES			+ std::to_string(uid) + SCENEEXTENSION;			break;
+		case TYPE::MATERIAL:	exportedFile = IMPORTED_MATERIALS		+ std::to_string(uid) + MATERIALEXT;			break;
+		case TYPE::ANIMATION:	exportedFile = IMPORTED_ANIMATIONS		+ std::to_string(uid) + ANIMATIONEXTENSION;		break;
+		case TYPE::STATEMACHINE:exportedFile = IMPORTED_STATEMACHINES	+ std::to_string(uid) + STATEMACHINEEXTENSION;	break;
+		case TYPE::PREFAB:		exportedFile = IMPORTED_PREFABS			+ std::to_string(uid) + PREFABEXTENSION;		break;
+		default:
+			break;
+			}
+		res->SetName(name.c_str());
+		res->SetExportedFile(exportedFile.c_str());
+		res->SetFile(path.c_str());
+		return res;
+	}
+	else
+	{
+		// Resource already exist
+		return GetWithoutLoad(uid);
+	}
+}
+
+Resource* ModuleResourceManager::AddResourceFromLibrary(const char* exportedFile, TYPE type)
+{
+	unsigned uid = std::stoul(App->fsystem->GetFilename(exportedFile));
+
+	// Check if resource was already added
+	if (GetWithoutLoad(uid) == nullptr)
+	{
+		// Create new resource 
+		Resource* res = CreateNewResource(type, uid);
+		res->SetExportedFile(exportedFile);
+		res->LoadConfigFromLibraryMeta();
+		return res;
+	}
+	else
+	{
+		// Resource already exist
+		return GetWithoutLoad(uid);
+	}
+
+	return nullptr;
 }
 
 Resource* ModuleResourceManager::ReplaceResource(unsigned oldResourceUID, Resource* newResource)
@@ -740,4 +834,105 @@ void ModuleResourceManager::DeleteResourceFromList(unsigned uid)
 	std::map<unsigned, Resource*>::const_iterator it = resources.find(uid);
 	if (it != resources.end())
 		resources.erase(it);
+}
+
+unsigned ModuleResourceManager::GetUIDFromMeta(const char* metaFile, FILETYPE fileType) const
+{
+	char* data = nullptr;
+	if (App->fsystem->Load(metaFile, &data) == 0)
+	{
+		LOG("Warning: %s couldn't be loaded", metaFile);
+		RELEASE_ARRAY(data);
+		return 0;
+	}
+
+	JSON* json = new JSON(data);
+	JSON_value* value = nullptr;
+	TYPE type = GetResourceType(fileType);
+	switch (type)
+	{
+	case TYPE::TEXTURE:		value = json->GetValue("Texture");		break;
+	case TYPE::MATERIAL:	value = json->GetValue("Material");		break;
+	case TYPE::MESH:		value = json->GetValue("Mesh");			break;
+	case TYPE::AUDIO:		value = json->GetValue("Audio");		break;
+	case TYPE::SCENE:		value = json->GetValue("Scene");		break;
+	case TYPE::ANIMATION:	value = json->GetValue("Animation");	break;
+	case TYPE::STATEMACHINE:value = json->GetValue("StateMachine");	break;
+	case TYPE::PREFAB:      value = json->GetValue("Prefab");		break;
+	case TYPE::MODEL:		
+		value = json->GetValue("Model");	// Try old meta version
+		if (value == nullptr)
+			value = json->GetValue("Mesh");
+		break;
+	default:
+		return 0;
+		break;
+	}
+	if (value != nullptr)
+	{
+		unsigned guid = value->GetUint("GUID");
+		RELEASE_ARRAY(data);
+		RELEASE(json);
+		return guid;
+	}
+	else
+	{
+		RELEASE_ARRAY(data);
+		RELEASE(json);
+		return 0;
+	}
+}
+
+void ModuleResourceManager::CleanUnusedMetaFiles() const
+{
+	// Get lists with all resource files assets
+	std::set<std::string> assetFiles;
+	App->fsystem->ListFiles(ASSETS, assetFiles);
+
+	for (auto& file : assetFiles)
+	{
+		if (HashString(App->fsystem->GetExtension(file).c_str()) == HashString(METAEXT))
+		{
+			std::string fileAssignedToMeta = App->fsystem->RemoveExtension(file);
+			if (!App->fsystem->Exists(fileAssignedToMeta.c_str()))
+			{
+				App->fsystem->Delete(file.c_str());
+			}
+		}
+	}
+
+	// Get lists with all resource files in library
+	std::set<std::string> libraryFiles;
+	App->fsystem->ListFiles(LIBRARY, libraryFiles);
+
+	for (auto& file : libraryFiles)
+	{
+		if (HashString(App->fsystem->GetExtension(file).c_str()) == HashString(METAEXT))
+		{
+			std::string fileAssignedToMeta = App->fsystem->RemoveExtension(file);
+			if (!App->fsystem->Exists(fileAssignedToMeta.c_str()))
+			{
+				App->fsystem->Delete(file.c_str());
+			}
+		}
+	}
+}
+
+void ModuleResourceManager::CleanUnusedExportedFiles() const
+{
+	// Get lists with all imported files
+	std::set<std::string> importedFiles;
+	App->fsystem->ListFiles(LIBRARY, importedFiles);
+
+	for (auto& file : importedFiles)
+	{
+		// Exclude metas
+		if (HashString(App->fsystem->GetExtension(file).c_str()) != HashString(METAEXT))
+		{
+			if (!App->resManager->Exists(file.c_str()))
+			{
+				App->fsystem->Delete(file.c_str());
+			}
+		}
+	}
 }

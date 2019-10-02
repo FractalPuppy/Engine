@@ -1,0 +1,4421 @@
+{
+    "GameObjects": [
+        {
+            "UID": 336147222,
+            "ParentUID": 4074180566,
+            "Name": "Skills",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 2325434735,
+            "Components": [
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "SkillTreeController",
+                    "scriptInfo": {
+                        "skills": [
+                            {
+                                "id": 0,
+                                "name": "Dash",
+                                "description": "Your new legs allow you to dash towards the cursor, damaging enemies on your path.",
+                                "locked": 0,
+                                "maxLevel": 1,
+                                "nextSkill": 1,
+                                "connection": 0,
+                                "mana": 20,
+                                "activeTextureUID": 885453344,
+                                "inactiveTextureUID": 1891334666
+                            },
+                            {
+                                "id": 1,
+                                "name": "Circular attack",
+                                "description": "Rapidly spinning your weapon around your body allows you to damage nearby enemies.",
+                                "locked": 1,
+                                "maxLevel": 1,
+                                "nextSkill": 2,
+                                "connection": 1,
+                                "mana": 50,
+                                "activeTextureUID": 3774178758,
+                                "inactiveTextureUID": 1814959232
+                            },
+                            {
+                                "id": 2,
+                                "name": "Smash",
+                                "description": "Unleashing your power through your arms allows you to jump towards the cursor and smash the floor damaging enemies in small area.",
+                                "locked": 1,
+                                "maxLevel": 1,
+                                "nextSkill": -1,
+                                "connection": -1,
+                                "mana": 40,
+                                "activeTextureUID": 2296932366,
+                                "inactiveTextureUID": 3063042807
+                            },
+                            {
+                                "id": 3,
+                                "name": "Machete rain",
+                                "description": "Machetes will rain from the sky damaging enemies in a large area. Hold the KEY and select the area where you want to cast the skill, then release the same key to activate the hability.",
+                                "locked": 0,
+                                "maxLevel": 1,
+                                "nextSkill": -1,
+                                "connection": -1,
+                                "mana": 70,
+                                "activeTextureUID": 101418882,
+                                "inactiveTextureUID": 386296996
+                            },
+                            {
+                                "id": 4,
+                                "name": "Skill4",
+                                "description": "",
+                                "locked": 1,
+                                "maxLevel": 1,
+                                "nextSkill": -1,
+                                "connection": -1,
+                                "mana": 0,
+                                "activeTextureUID": 4157880507,
+                                "inactiveTextureUID": 1052833000
+                            },
+                            {
+                                "id": 5,
+                                "name": "Skill5",
+                                "description": "",
+                                "locked": 1,
+                                "maxLevel": 2,
+                                "nextSkill": 6,
+                                "connection": 4,
+                                "mana": 0,
+                                "activeTextureUID": 2353223529,
+                                "inactiveTextureUID": 4140996810
+                            },
+                            {
+                                "id": 6,
+                                "name": "Skill6",
+                                "description": "",
+                                "locked": 1,
+                                "maxLevel": 3,
+                                "nextSkill": 7,
+                                "connection": 5,
+                                "mana": 0,
+                                "activeTextureUID": 4037492790,
+                                "inactiveTextureUID": 1474843939
+                            },
+                            {
+                                "id": 7,
+                                "name": "Skill7",
+                                "description": "",
+                                "locked": 1,
+                                "maxLevel": 1,
+                                "nextSkill": -1,
+                                "connection": -1,
+                                "mana": 0,
+                                "activeTextureUID": 3595172473,
+                                "inactiveTextureUID": 2604386210
+                            },
+                            {
+                                "id": 8,
+                                "name": "Skill8",
+                                "description": "",
+                                "locked": 1,
+                                "maxLevel": 2,
+                                "nextSkill": 9,
+                                "connection": 6,
+                                "mana": 0,
+                                "activeTextureUID": 2868511582,
+                                "inactiveTextureUID": 4145295781
+                            },
+                            {
+                                "id": 9,
+                                "name": "Skill9",
+                                "description": "",
+                                "locked": 1,
+                                "maxLevel": 1,
+                                "nextSkill": 10,
+                                "connection": 7,
+                                "mana": 0,
+                                "activeTextureUID": 2089509454,
+                                "inactiveTextureUID": 184765913
+                            },
+                            {
+                                "id": 10,
+                                "name": "Skill10",
+                                "description": "",
+                                "locked": 1,
+                                "maxLevel": 1,
+                                "nextSkill": -1,
+                                "connection": -1,
+                                "mana": 0,
+                                "activeTextureUID": 3921259047,
+                                "inactiveTextureUID": 472688446
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "UID": 1306854157,
+            "ParentUID": 336147222,
+            "Name": "SkillsBackgroundImage",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -234.6999969482422,
+                        0.0
+                    ],
+                    "Size": [
+                        455.0,
+                        679.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 962080884,
+                    "textureName": "Background_skills",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 0,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 4095466823,
+            "ParentUID": 1306854157,
+            "Name": "SkillConnections",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        -400.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -400.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 2395280322,
+            "ParentUID": 4095466823,
+            "Name": "Connection0",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -386.3500061035156,
+                        116.0999984741211
+                    ],
+                    "Size": [
+                        9.5,
+                        34.5
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2901523971,
+                    "textureName": "Desactivated_Bar_Short",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1455775278,
+            "ParentUID": 4095466823,
+            "Name": "Connection1",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -386.3500061035156,
+                        -53.79999923706055
+                    ],
+                    "Size": [
+                        9.5,
+                        155.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 491920706,
+                    "textureName": "Desactivated_Bar",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 4195432578,
+            "ParentUID": 4095466823,
+            "Name": "Connection2",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -284.54998779296877,
+                        59.599998474121097
+                    ],
+                    "Size": [
+                        9.5,
+                        148.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 491920706,
+                    "textureName": "Desactivated_Bar",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 2767846983,
+            "ParentUID": 4095466823,
+            "Name": "Connection3",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -283.95001220703127,
+                        -110.4000015258789
+                    ],
+                    "Size": [
+                        9.5,
+                        42.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2901523971,
+                    "textureName": "Desactivated_Bar_Short",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 2367589939,
+            "ParentUID": 4095466823,
+            "Name": "Connection4",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -183.35000610351563,
+                        115.19999694824219
+                    ],
+                    "Size": [
+                        9.5,
+                        46.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2901523971,
+                    "textureName": "Desactivated_Bar_Short",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3869345039,
+            "ParentUID": 4095466823,
+            "Name": "Connection5",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -182.35000610351563,
+                        -53.5
+                    ],
+                    "Size": [
+                        9.5,
+                        158.5
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 491920706,
+                    "textureName": "Desactivated_Bar",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 2969907254,
+            "ParentUID": 4095466823,
+            "Name": "Connection6",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -80.3499984741211,
+                        1.399999976158142
+                    ],
+                    "Size": [
+                        9.5,
+                        269.5
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 491920706,
+                    "textureName": "Desactivated_Bar",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1994955300,
+            "ParentUID": 1306854157,
+            "Name": "SkillSlots",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        -400.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -400.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 3854178428,
+            "ParentUID": 1994955300,
+            "Name": "Skill0",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -386.70001220703127,
+                        170.1999969482422
+                    ],
+                    "Size": [
+                        58.0,
+                        75.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3314799403,
+            "ParentUID": 3854178428,
+            "Name": "SkillIcon0",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -386.6000061035156,
+                        180.0
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 1891334666,
+                    "textureName": "Desactivated_Hability_4",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1929567271,
+            "ParentUID": 3854178428,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -397.5,
+                        137.39999389648438
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/1",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.019607843831181527,
+                        0.019607843831181527,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 1371115465,
+            "ParentUID": 1994955300,
+            "Name": "Skill1",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -386.6000061035156,
+                        61.099998474121097
+                    ],
+                    "Size": [
+                        58.0,
+                        75.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1506457175,
+            "ParentUID": 1371115465,
+            "Name": "SkillIcon1",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -387.20001220703127,
+                        69.5
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 1814959232,
+                    "textureName": "Desactivated_Hability_5",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 2038784504,
+            "ParentUID": 1371115465,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -396.20001220703127,
+                        29.200000762939454
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/1",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.019607843831181527,
+                        0.019607843831181527,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 1938576968,
+            "ParentUID": 1994955300,
+            "Name": "Skill2",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -386.6000061035156,
+                        -167.3000030517578
+                    ],
+                    "Size": [
+                        58.0,
+                        75.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 555480386,
+            "ParentUID": 1938576968,
+            "Name": "SkillIcon2",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -387.20001220703127,
+                        -158.5
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 3063042807,
+                    "textureName": "Desactivated_Hability_2",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 2008317325,
+            "ParentUID": 1938576968,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -397.20001220703127,
+                        -197.3000030517578
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/1",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.0901639461517334,
+                        0.020323842763900758,
+                        0.020323842763900758,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 604574894,
+            "ParentUID": 1994955300,
+            "Name": "Skill3",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -284.6000061035156,
+                        170.1999969482422
+                    ],
+                    "Size": [
+                        58.0,
+                        75.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1850769417,
+            "ParentUID": 604574894,
+            "Name": "SkillIcon3",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -284.8999938964844,
+                        180.0
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 386296996,
+                    "textureName": "Desactivated_Hability_7",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 54650402,
+            "ParentUID": 604574894,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -295.29998779296877,
+                        137.8000030517578
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/1",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.019607843831181527,
+                        0.019607843831181527,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 2793076516,
+            "ParentUID": 1994955300,
+            "Name": "Skill4",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -283.79998779296877,
+                        -50.5
+                    ],
+                    "Size": [
+                        58.0,
+                        75.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1463492838,
+            "ParentUID": 2793076516,
+            "Name": "SkillIcon4",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -283.79998779296877,
+                        -40.5
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 1052833000,
+                    "textureName": "Desactivated_Hability_1",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3338615963,
+            "ParentUID": 2793076516,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -295.29998779296877,
+                        -80.9000015258789
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/1",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.019607843831181527,
+                        0.019607843831181527,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 1415491653,
+            "ParentUID": 1994955300,
+            "Name": "Skill5",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -284.6000061035156,
+                        -167.3000030517578
+                    ],
+                    "Size": [
+                        58.0,
+                        73.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 809589207,
+            "ParentUID": 1415491653,
+            "Name": "SkillIcon5",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -283.79998779296877,
+                        -158.6999969482422
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 4140996810,
+                    "textureName": "Desactivated_Hability_9",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1782110344,
+            "ParentUID": 1415491653,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -294.8999938964844,
+                        -196.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/1",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.019607843831181527,
+                        0.019607843831181527,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 1953516591,
+            "ParentUID": 1994955300,
+            "Name": "Skill6",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -183.39999389648438,
+                        170.1999969482422
+                    ],
+                    "Size": [
+                        58.0,
+                        75.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3330109572,
+            "ParentUID": 1953516591,
+            "Name": "SkillIcon6",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -183.89999389648438,
+                        180.0
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 1474843939,
+                    "textureName": "Desactivated_Hability_3",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1849832111,
+            "ParentUID": 1953516591,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -195.1999969482422,
+                        137.6999969482422
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/5",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.007843137718737126,
+                        0.0,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 3158717343,
+            "ParentUID": 1994955300,
+            "Name": "Skill7",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -183.39999389648438,
+                        61.099998474121097
+                    ],
+                    "Size": [
+                        58.0,
+                        73.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 510246000,
+            "ParentUID": 3158717343,
+            "Name": "SkillIcon7",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -183.39999389648438,
+                        71.0
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2604386210,
+                    "textureName": "Desactivated_Hability_6",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 4026835439,
+            "ParentUID": 3158717343,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -194.5,
+                        29.899999618530275
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/5",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.019607843831181527,
+                        0.019607843831181527,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 2103252585,
+            "ParentUID": 1994955300,
+            "Name": "Skill8",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -183.39999389648438,
+                        -167.3000030517578
+                    ],
+                    "Size": [
+                        58.0,
+                        73.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 4129215127,
+            "ParentUID": 2103252585,
+            "Name": "SkillIcon8",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -183.39999389648438,
+                        -158.6999969482422
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 4145295781,
+                    "textureName": "Desactivated_Hability_10",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 829743560,
+            "ParentUID": 2103252585,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -195.3000030517578,
+                        -196.10000610351563
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/5",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.019607843831181527,
+                        0.019607843831181527,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 2778831358,
+            "ParentUID": 1994955300,
+            "Name": "Skill9",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -81.0999984741211,
+                        170.1999969482422
+                    ],
+                    "Size": [
+                        58.0,
+                        73.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 558301429,
+            "ParentUID": 2778831358,
+            "Name": "SkillIcon9",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -80.69999694824219,
+                        180.0
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 184765913,
+                    "textureName": "Desactivated_Hability_8",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1147513129,
+            "ParentUID": 2778831358,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -93.4000015258789,
+                        137.5
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/5",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.007843137718737126,
+                        0.0,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 1387534604,
+            "ParentUID": 1994955300,
+            "Name": "Skill10",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -80.69999694824219,
+                        -167.3000030517578
+                    ],
+                    "Size": [
+                        58.0,
+                        73.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2936790765,
+                    "textureName": "Desactivated_Hability_Container",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 2190133059,
+            "ParentUID": 1387534604,
+            "Name": "SkillIcon10",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -81.30000305175781,
+                        -158.6999969482422
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 472688446,
+                    "textureName": "Desactivated_Hability_11",
+                    "color": [
+                        1.0,
+                        0.9999899864196777,
+                        0.9999899864196777,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3906134891,
+            "ParentUID": 1387534604,
+            "Name": "SkillCounter",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -92.69999694824219,
+                        -196.8000030517578
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 21.0,
+                    "text": "0/5",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        0.09019608050584793,
+                        0.019607843831181527,
+                        0.019607843831181527,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.2000000476837159,
+                        1.2000000476837159
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 3983926908,
+            "ParentUID": 1306854157,
+            "Name": "HoverGO",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        -400.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -400.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 3463676512,
+            "ParentUID": 3983926908,
+            "Name": "SkillHover",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -386.5,
+                        179.10000610351563
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 258563022,
+                    "textureName": "Hover_Skill",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 7,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 4235914040,
+            "ParentUID": 1306854157,
+            "Name": "Candado",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        -400.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -400.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 2618884812,
+            "ParentUID": 4235914040,
+            "Name": "C1",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -183.3000030517578,
+                        179.0
+                    ],
+                    "Size": [
+                        58.0,
+                        58.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 316327585,
+                    "textureName": "Candado",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 6,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3210615039,
+            "ParentUID": 4235914040,
+            "Name": "C2",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -81.19999694824219,
+                        178.6999969482422
+                    ],
+                    "Size": [
+                        58.0,
+                        58.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 316327585,
+                    "textureName": "Candado",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 6,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1927356968,
+            "ParentUID": 4235914040,
+            "Name": "C3",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -284.29998779296877,
+                        -41.5
+                    ],
+                    "Size": [
+                        58.0,
+                        58.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 316327585,
+                    "textureName": "Candado",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 6,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 451375207,
+            "ParentUID": 1306854157,
+            "Name": "SkillPoints",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -154.3000030517578,
+                        -291.3999938964844
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 15.0,
+                    "text": "0",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.9139344096183777,
+                        0.6966870427131653,
+                        0.0,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        4.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 2503792638,
+            "ParentUID": 336147222,
+            "Name": "SkillInfo",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -744.2999877929688,
+                        0.0
+                    ],
+                    "Size": [
+                        364.0,
+                        543.5
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 1929599824,
+                    "textureName": "PopUp_Skills",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 2865128019,
+            "ParentUID": 2503792638,
+            "Name": "SkillInfoIcon",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -862.0,
+                        220.6999969482422
+                    ],
+                    "Size": [
+                        50.0,
+                        50.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 5,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 1030017003,
+            "ParentUID": 2503792638,
+            "Name": "SkillInfoName",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -809.0999755859375,
+                        222.5
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 64.0,
+                    "text": "Machete Rain",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.881147563457489,
+                        0.7194998860359192,
+                        0.20223060250282288,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.0,
+                        1.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 100.0,
+                    "InterlineDistance": 24.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 1769238872,
+            "ParentUID": 2503792638,
+            "Name": "SkillInfoDescription",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -888.7000122070313,
+                        155.60000610351563
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 40.0,
+                    "text": "Machete will rain from the sky damaging enemies in a large area. Hold the KEY and select the area where you want to cast the skill, then release the same key to activate the hability.",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.0,
+                        1.0
+                    ],
+                    "IsTextWrapped": 1,
+                    "WrapWidth": 501.0,
+                    "InterlineDistance": 24.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 4188150626,
+            "ParentUID": 2503792638,
+            "Name": "SkillInfoManaCostTitle",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -886.0,
+                        20.600000381469728
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 47.0,
+                    "text": "Mana Cost:",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.881147563457489,
+                        0.7194998860359192,
+                        0.20223060250282288,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.0,
+                        1.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 100.0,
+                    "InterlineDistance": 24.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 3886036119,
+            "ParentUID": 2503792638,
+            "Name": "SkillInfoManaCostText",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -766.9000244140625,
+                        19.600000381469728
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 53.0,
+                    "text": "50",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.0,
+                        1.0
+                    ],
+                    "IsTextWrapped": 1,
+                    "WrapWidth": 501.0,
+                    "InterlineDistance": 24.0,
+                    "UIOrder": 5
+                }
+            ]
+        }
+    ]
+}

@@ -13,15 +13,129 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{40d3fb76-03e1-4523-ba14-13b304348c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skills">
+      <UniqueIdentifier>{b02e1762-7ce6-4ea7-858c-3894e4d32b40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skills\Melee">
+      <UniqueIdentifier>{38646026-71f4-4864-b81a-5a34a2e1f08f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skills\Range">
+      <UniqueIdentifier>{8f26a0f2-9d35-4792-9883-f9cc63b909e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMovement.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateIdle.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateDeath.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateWalk.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateAttack.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeSkill.h">
+      <Filter>Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicSkill.h">
+      <Filter>Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeSkill.h">
+      <Filter>Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="BombDropSkill.h">
+      <Filter>Skills\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="ChainAttackSkill.h">
+      <Filter>Skills\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularAttackSkill.h">
+      <Filter>Skills\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="DashSkill.h">
+      <Filter>Skills\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="RainSkill.h">
+      <Filter>Skills\Range</Filter>
+    </ClInclude>
+    <ClInclude Include="SliceSkill.h">
+      <Filter>Skills\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="StompSkill.h">
+      <Filter>Skills\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateWalkToHitEnemy.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateWalkToPickItem.h">
+      <Filter>States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerMovement.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateIdle.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateDeath.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateWalk.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateAttack.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeSkill.cpp">
+      <Filter>Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicSkill.cpp">
+      <Filter>Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeSkill.cpp">
+      <Filter>Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="BombDropSkill.cpp">
+      <Filter>Skills\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="ChainAttackSkill.cpp">
+      <Filter>Skills\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="CircularAttackSkill.cpp">
+      <Filter>Skills\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="DashSkill.cpp">
+      <Filter>Skills\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="RainSkill.cpp">
+      <Filter>Skills\Range</Filter>
+    </ClCompile>
+    <ClCompile Include="SliceSkill.cpp">
+      <Filter>Skills\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="StompSkill.cpp">
+      <Filter>Skills\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateWalkToHitEnemy.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateWalkToPickItem.cpp">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

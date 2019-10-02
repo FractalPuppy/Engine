@@ -5,7 +5,7 @@
 const float PI = 3.14159265359f; 
 
 layout (location = 0) out vec4 Fragcolor;
-layout (location = 1) out vec4 highlightColor;
+layout (location = 1) out vec4 highlightColor; 
 layout (location = 2) out vec4 brightColor;
 
 struct Material
@@ -22,7 +22,11 @@ struct Material
     sampler2D emissive_texture;
     vec3      emissive_color;
 
+	sampler2D dissolve_texture;
+	vec3 dissolve_color;
+
     float roughness;
+	float bloomIntensity;
 	vec3 specular;
 };
 
@@ -72,8 +76,10 @@ layout (std140) uniform Matrices
 
 in vec3 normalIn;
 in vec3 position;
+in vec3 positionWorld;
 in vec2 uv0;
 in vec3 viewPos;
+in vec3 eye_pos;
 in vec4 shadow_coord;
 
 in vec3 pointPositions[MAX_POINT_LIGHTS]; //positions in tangent space
@@ -87,6 +93,11 @@ uniform int hasNormalMap;
 uniform sampler2D shadowTex;
 uniform vec3 highlightColorUniform;
 uniform float useHighlight;
+uniform float borderAmount;
+uniform float sliceAmount;
+uniform float time;
+uniform float waterMix;
+
 
 vec4 textureGammaCorrected(sampler2D tex)
 {
@@ -94,11 +105,17 @@ vec4 textureGammaCorrected(sampler2D tex)
 	return vec4(pow(texRaw.r, 2.2), pow(texRaw.g, 2.2), pow(texRaw.b, 2.2), texRaw.a);
 }
 
-
+#ifndef WATER
 vec4 get_albedo()
 {
 	return textureGammaCorrected(material.diffuse_texture) * material.diffuse_color;
 }
+#else
+vec4 get_albedo()
+{
+	return mix(textureGammaCorrected(material.diffuse_texture), textureGammaCorrected(material.dissolve_texture), waterMix)  * material.diffuse_color;
+}
+#endif
 
 vec3 get_occlusion_color()
 {
@@ -166,12 +183,21 @@ vec3 CalculateNormal()
 
 void main()
 {
+#ifndef WATER
 	vec3 normal = CalculateNormal();	
 	vec4 albedo = get_albedo();
-	
-	vec3 F0 = material.specular;
+#else
+	vec3 normal = normalIn;
+	vec4 albedo = get_albedo();
+#endif
+	if (albedo.a < 0.1f)
+		discard;
 
-	vec3 color = vec3(0); 
+	float metallic = min(1.f, length(material.specular));
+
+	vec3 F0 = mix(albedo.rgb, material.specular, metallic);
+
+	vec3 color = albedo.rgb * lights.ambient_color; 
 	
 	vec3 N = normal;
 	vec3 V = normalize(viewPos - position);
@@ -182,9 +208,13 @@ void main()
 		sCoord = sCoord * .5f + .5f;
 		bool isLit = !(sCoord.x >= .0f && sCoord.x <= 1.f 
 					&& sCoord.y >= .0f && sCoord.y <= 1.f
-					&& texture2D(shadowTex, sCoord.xy).x < clamp(sCoord.z, 0, 1) - 0.0005f);
+					&& texture2D(shadowTex, sCoord.xy).x < clamp(sCoord.z, 0, 1) - 0.005f);
 #endif					
+#ifndef WATER
 		vec3 L = directionalDirections[i];
+#else
+		vec3 L = lights.directional[i].direction;
+#endif
 		vec3 H = normalize(V + L);	
 
 		vec3 radiance = lights.directional[i].color * lights.directional[i].intensity;				
@@ -193,6 +223,7 @@ void main()
 
 		vec3 kS = F;
 		vec3 kD = vec3(1.0) - kS;
+		kD *= 1.0f - metallic;
 		
 		float NdotL = max(dot(N, L), 0.0);        
 		color += (kD * albedo.rgb / PI + BRDF(F, L, V, N, H)) * radiance * NdotL;  
@@ -205,9 +236,14 @@ void main()
 	}
 	for(int i=0; i < lights.num_points; ++i)
 	{	
+#ifndef WATER
 		vec3 lightPos = pointPositions[i];
+#else
+		vec3 lightPos = lights.points[i].position;
+#endif
 		vec3 L = normalize(lightPos - position);
 		vec3 H = normalize(V + L);
+
 		float distance = length(lightPos - position);
 
 		float att = max(get_attenuation(distance, lights.points[i].radius, lights.points[i].intensity), 0);
@@ -218,7 +254,8 @@ void main()
 
 		vec3 kS = F;
         vec3 kD = vec3(1.0) - kS;
-      
+		kD *= 1.0f - metallic;
+
 		float NdotL = max(dot(N, L), 0.0);        
 		color += (kD * albedo.rgb / PI + BRDF(F, L, V, N, H)) * radiance * NdotL;  
 	}
@@ -241,25 +278,40 @@ void main()
 
 		vec3 kS = F;
         vec3 kD = vec3(1.0) - kS;
+		kD *= 1.0f - metallic;
       
 		float NdotL = max(dot(N, L), 0.0);        
 		color += (kD * albedo.rgb / PI + BRDF(F, L, V, N, H)) * radiance * NdotL;
 	}
 	
-	
-	color *= lights.ambient_color;
 	//color *= get_occlusion_color();
-	color += get_emissive_color() * 10;
+	color += get_emissive_color() * material.bloomIntensity;
+
 #ifdef IS_EDITOR
 	color = vec3(pow(color.r, (1.0 / 2.2)), pow(color.g, (1.0 / 2.2)), pow(color.b, (1.0 / 2.2)));
 #endif
 	Fragcolor = vec4(color, albedo.a);
+	
 	highlightColor = vec4(highlightColorUniform, 1);
 	
 	float brightness = dot(Fragcolor.rgb, vec3(0.2126, 0.7152, 0.0722));
-    if(brightness > 1.0)
-        brightColor = vec4(Fragcolor.rgb, 1.0);
+    if(brightness > 1)
+        brightColor = vec4(Fragcolor.rgb, albedo.a);
     else
         brightColor = vec4(0.0, 0.0, 0.0, 1.0);
+#ifdef DISSOLVE
+	float phi = texture2D(material.dissolve_texture, uv0).r - sliceAmount;
+	if (phi < 0 && phi > -borderAmount) 
+	{
+		Fragcolor = vec4(material.dissolve_color, Fragcolor.a);
+	}
+	else if (phi < 0)
+	{
+		discard;
+	}		
+#endif	
 
+	//Fragcolor = vec4(normal,1);
+			
+	//Fragcolor = texture2D(material.dissolve_texture, uv0);
 }

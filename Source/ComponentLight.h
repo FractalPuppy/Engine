@@ -3,8 +3,8 @@
 
 #include "Component.h"
 #include "Math/float3.h"
-#include "MathGeoLib/include/Geometry/Sphere.h"
-#include "MathGeoLib/include/Geometry/AABB.h"
+#include "Geometry/Sphere.h"
+#include "Geometry/AABB.h"
 #define LIGHTTYPES 3
 
 enum class LightType
@@ -33,7 +33,7 @@ public:
 
 	void Load(JSON_value* value) override;
 	void Save(JSON_value* value) const override;
-	
+
 	void Paste() override;
 	void Reset() override;
 
@@ -46,7 +46,7 @@ public:
 	math::float3 position = math::float3::zero; //Captured in transform
 	math::float3 direction = math::float3::one;
 	math::float3 color = math::float3::one;
-	
+
 	float inner = 20.f;
 	float outer = 25.f;
 	float intensity = 1.f;
@@ -57,8 +57,8 @@ public:
 
 private:
 
-	float spotDistance = .0f;	
-	float spotEndRadius = .0f;		
+	float spotDistance = .0f;
+	float spotEndRadius = .0f;
 };
 
 #endif __ComponentLight_h__

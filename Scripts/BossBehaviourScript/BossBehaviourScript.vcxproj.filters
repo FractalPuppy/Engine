@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{269c5309-46cf-4543-95e6-2bd4342c8168}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BossBehaviourScript.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="BossState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateNotActive.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateIdle.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateCast.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStatePreCast.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateInterPhase.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateActivated.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateDeath.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateSummonArmy.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateCutScene.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BossBehaviourScript.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="BossState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateNotActive.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateIdle.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateCast.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStatePreCast.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateInterPhase.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateActivated.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateDeath.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateSummonArmy.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateCutScene.h">
+      <Filter>States</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

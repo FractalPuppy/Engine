@@ -1,4 +1,3 @@
-#define MAX_KERNEL_RADIUS 100
 
 layout (location = 0) out vec4 color;
 layout (location = 1) out vec4 hlight;
@@ -6,13 +5,17 @@ layout (location = 1) out vec4 hlight;
 uniform sampler2D gColor;
 uniform sampler2D gHighlight;
 uniform sampler2D gBrightness;
+uniform sampler2D gDepth;
 
 uniform float gammaCorrector;
 uniform float exposure;
 
-uniform bool horizontal = true;
-uniform float weight[MAX_KERNEL_RADIUS];
-uniform int kernelRadius;
+uniform float fogFalloff;
+uniform float fogQuadratic;
+uniform float maxFog;
+uniform vec3 fogColor;
+uniform float zNear;
+uniform float zFar;
 
 in vec2 UV0;
 
@@ -51,7 +54,7 @@ vec4 ProcessHighlights(vec4 hColorIn)
 	return (1 - lC) * hColorIn + lC * hColor;
 }
 
-vec3 GetTexel(in vec2 uv) //MSAA
+vec4 GetTexel(in vec2 uv) //MSAA
 {
 	ivec2 vp = textureSize(gColor, 0);
 	vp = ivec2(vec2(vp)*uv);
@@ -59,38 +62,33 @@ vec3 GetTexel(in vec2 uv) //MSAA
 	vec4 sample2 = texelFetch(gColor, vp, 1);
 	vec4 sample3 = texelFetch(gColor, vp, 2);
 	vec4 sample4 = texelFetch(gColor, vp, 3);
-	return (sample1.rgb + sample2.rgb + sample3.rgb + sample4.rgb) / 4.0f;
+	return (sample1 + sample2 + sample3 + sample4) / 4.0f;
 }
 
 void main()
 {
-	color = vec4(GetTexel(UV0), 1.0f);	
+#ifdef FOG
+	float depth = max(texture2D(gDepth, UV0).x, 0.0001f);
 
-	vec2 tex_offset = 1.0 / textureSize(gBrightness, 0); // gets size of single texel
-    
-	vec3 bloomColor = texture(gBrightness, UV0).rgb * weight[0]; // current fragment's contribution
-    
-	for(int i = 1; i < kernelRadius; ++i)
-    {
-        bloomColor += texture(gBrightness, UV0 + vec2(tex_offset.x * i, 0.0)).rgb * weight[i];
-        bloomColor += texture(gBrightness, UV0 - vec2(tex_offset.x * i, 0.0)).rgb * weight[i];
-	bloomColor += texture(gBrightness, UV0 + vec2(tex_offset.x * i, tex_offset.y * i)).rgb * weight[i];
-        bloomColor += texture(gBrightness, UV0 - vec2(tex_offset.x * i, tex_offset.y * i)).rgb * weight[i];
-        bloomColor += texture(gBrightness, UV0 + vec2(0.0, tex_offset.y * i)).rgb * weight[i];
-        bloomColor += texture(gBrightness, UV0 - vec2(0.0, tex_offset.y * i)).rgb * weight[i];
-    }
-    
+    depth = (2.0f * zNear) / (zFar + zNear - depth * (zFar - zNear));
+#endif
+	color = GetTexel(UV0);	
+
+	vec3 bloomColor = texture2D(gBrightness, UV0).rgb;
 	
 	color += vec4(bloomColor, 1);
+#ifdef FOG		
+	float fogAmount = min(fogFalloff * depth + fogQuadratic * pow(depth, 6), maxFog);
 
+	color = color + vec4(vec3(fogAmount, fogAmount, fogAmount) * fogColor, 0.f);	
+#endif
 	vec4 mapped = vec4(1.0) - exp(-color * exposure); //Tone mapping
 	
 	color = pow(mapped, vec4(1.0 / gammaCorrector)); // gamma correction
 	
 	color = ProcessHighlights(color);  //Draw highlights
-
-	//color = vec4(bloomColor,1);
-
-	//color = texture2D(gBrightness, UV0);
 	
+
+	//color.rgb = texture2D(gBrightness, UV0).rgb;
+
 }

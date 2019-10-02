@@ -14,9 +14,12 @@
 #include "ComponentTransform.h"
 #include "ResourceTexture.h"
 
+#include <list>
 #include "GL/glew.h"
 #include <algorithm>
 #include "ImGUICurveUtils.h"
+#include "Brofiler.h"
+#include "imgui_color_gradient.h"
 
 ModuleParticles::~ModuleParticles()
 {
@@ -41,13 +44,13 @@ bool ModuleParticles::Start()
 		0.5f, -0.5f, 0.0f, // bottom right 2
 		0.5f,  0.5f, 0.0f, // top right 3
 
-		0.0f, 0.0f, // 0
-		1.0f, 0.0f, // 2
-		0.0f, 1.0f, // 1
+		1.0f, 1.0f, // 0
+		0.0f, 1.0f, // 2
+		1.0f, 0.0f, // 1
 
-		0.0f, 1.0f, // 1
-		1.0f, 0.0f, // 2
-		1.0f, 1.0f  // 3
+		1.0f, 0.0f, // 1
+		0.0f, 1.0f, // 2
+		0.0f, 0.0f  // 3
 	};
 
 	unsigned int quadIndices[] =
@@ -84,23 +87,27 @@ bool ModuleParticles::Start()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 18));
 
 	glBindBuffer(GL_ARRAY_BUFFER, billBoardInstanceVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 16 * MAX_PARTICLES, nullptr, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 20 * MAX_PARTICLES, nullptr, GL_DYNAMIC_DRAW);
 
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 16, (void*)(0));
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 20, (void*)(0));
 	glVertexAttribDivisor(2, 1);
 
 	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 16, (void*)(sizeof(float) * 4));
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 20, (void*)(sizeof(float) * 4));
 	glVertexAttribDivisor(3, 1);
 
 	glEnableVertexAttribArray(4);
-	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 16, (void*)(sizeof(float) * 8));
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 20, (void*)(sizeof(float) * 8));
 	glVertexAttribDivisor(4, 1);
 
 	glEnableVertexAttribArray(5);
-	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 16, (void*)(sizeof(float) * 12));
+	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 20, (void*)(sizeof(float) * 12));
 	glVertexAttribDivisor(5, 1);
+	
+	glEnableVertexAttribArray(6);
+	glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 20, (void*)(sizeof(float) * 16));
+	glVertexAttribDivisor(6, 1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -129,37 +136,6 @@ bool ModuleParticles::Start()
 	glBindVertexArray(0);
 
 	return true;
-}
-
-void ModuleParticles::Render(float dt, const ComponentCamera* camera) 
-{
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_ONE, GL_ONE);	
-	particleSystems.sort(
-		[camera](const ComponentParticles* cp1, const ComponentParticles* cp2) -> bool
-		{
-			return cp1->gameobject->transform->GetGlobalPosition().Distance(camera->frustum->pos) > cp2->gameobject->transform->GetGlobalPosition().Distance(camera->frustum->pos);
-		});
-	for (ComponentParticles* cp : particleSystems)
-	{
-		cp->Update(dt, camera->frustum->pos);
-		
-		DrawParticleSystem(cp, camera);
-	
-	}
-
-	glDisable(GL_CULL_FACE);
-	for (ComponentTrail* trail : trails)
-	{
-		if (trail->trail.size() > 1)
-		{
-			RenderTrail(trail, camera);
-		}
-	}
-	glEnable(GL_CULL_FACE);	
-	glDisable(GL_BLEND);
-
-	glUseProgram(0);
 }
 
 void ModuleParticles::RenderTrail(ComponentTrail* ct, const ComponentCamera* camera) const
@@ -191,11 +167,15 @@ void ModuleParticles::RenderTrail(ComponentTrail* ct, const ComponentCamera* cam
 			float width = point.width;
 			for (ParticleModule* pm : ct->modules)
 			{
-				switch (pm->type)
+				if (pm->enabled)
 				{
-				case ParticleModule::ParticleModulesType::SIZE_OVER_TIME:
-					width = ((PMSizeOverTime*)pm)->GetSize(point.remainingTime / point.totalTime, point.width);
-					break;
+					switch (pm->type)
+					{
+					case ParticleModule::ParticleModulesType::SIZE_OVER_TIME:
+						width = ((PMSizeOverTime*)pm)->GetSize(point.remainingTime / point.totalTime, point.width);
+						break;
+					
+					}
 				}
 			}
 			P0L = point.position + point.rightPoint * width;
@@ -218,9 +198,11 @@ void ModuleParticles::RenderTrail(ComponentTrail* ct, const ComponentCamera* cam
 	glUniformMatrix4fv(glGetUniformLocation(trailShader->id[0], "projection"), 1, GL_FALSE, &camera->GetProjectionMatrix()[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(trailShader->id[0], "view"), 1, GL_FALSE, &camera->GetViewMatrix()[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(trailShader->id[0], "model"), 1, GL_TRUE, float4x4::identity.ptr());
+	glUniform4f(glGetUniformLocation(trailShader->id[0], "colorU"), ct->trailColor.x, ct->trailColor.y, ct->trailColor.z, ct->trailColor.w);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, ct->texture->gpuID);
 	glUniform1i(glGetUniformLocation(trailShader->id[0], "texture0"), 0);
+	glUniform1f(glGetUniformLocation(trailShader->id[0], "bloomIntensity"), ct->bloomIntensity);
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, (trailVertices - discarded) * 2);
 
@@ -260,6 +242,7 @@ void ModuleParticles::Reset()
 
 void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const ComponentCamera* camera) const
 {
+	PROFILE
 	if (cp->texture == nullptr)
 	{
 		return;
@@ -267,24 +250,37 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 	glUseProgram(shader->id[0]);
 	glBindVertexArray(billBoardVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, billBoardInstanceVBO);
-	float* matrices = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-
-	cp->particles.sort(
-		[camera](const Particle* cp1, const Particle* cp2) -> bool
+	float* matrices = (float*)glMapBufferRange(GL_ARRAY_BUFFER, 0, cp->particles.size() * sizeof(float) * 20, GL_MAP_WRITE_BIT);
+	if (cp->billboarded)
 	{
-		return cp1->position.Distance(camera->frustum->pos) > cp2->position.Distance(camera->frustum->pos);
-	});
-
+		cp->particles.sort(
+			[camera](const Particle* cp1, const Particle* cp2) -> bool
+		{
+			return cp1->position.Distance(camera->frustum->pos) > cp2->position.Distance(camera->frustum->pos);
+		});
+	}
+	else
+	{
+		math::float3 orderPoint = cp->gameobject->transform->position + cp->lookAtTarget * MAX_DISTANCE;
+		cp->particles.sort(
+			[orderPoint](const Particle* cp1, const Particle* cp2) -> bool
+		{
+			return cp1->position.Distance(orderPoint) > cp2->position.Distance(orderPoint);
+		});
+	}
 	unsigned nParticles = cp->particles.size();
 	for (; nParticles > 0; --nParticles)
 	{
-		cp->particles.front()->lifeTimer -= App->time->gameDeltaTime;
+		cp->particles.front()->lifeTimer -= App->time->fullGameDeltaTime;
 		if (cp->particles.front()->lifeTimer > .0f)
 		{
 			memcpy(matrices, &cp->particles.front()->global.Col(0), sizeof(float) * 4); matrices += 4;
 			memcpy(matrices, &cp->particles.front()->global.Col(1), sizeof(float) * 4); matrices += 4;
 			memcpy(matrices, &cp->particles.front()->global.Col(2), sizeof(float) * 4); matrices += 4;
 			memcpy(matrices, &cp->particles.front()->global.Col(3), sizeof(float) * 4); matrices += 4;
+
+			memcpy(matrices, &cp->particles.front()->color, sizeof(float) * 4); matrices += 4;
+
 			cp->particles.push_back(cp->particles.front());
 		}
 		else
@@ -297,6 +293,7 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 
 	glUnmapBuffer(GL_ARRAY_BUFFER);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisable(GL_CULL_FACE);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader->id[0], "projection"), 1, GL_FALSE, &camera->GetProjectionMatrix()[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(shader->id[0], "view"), 1, GL_FALSE, &camera->GetViewMatrix()[0][0]);
@@ -310,12 +307,25 @@ void ModuleParticles::DrawParticleSystem(ComponentParticles* cp, const Component
 	glUniform1i(glGetUniformLocation(shader->id[0], "f2Xpos"), cp->f2Xpos);
 	glUniform1i(glGetUniformLocation(shader->id[0], "f2Ypos"), cp->f2Ypos);
 	glUniform1f(glGetUniformLocation(shader->id[0], "mixAmount"), cp->frameMix);
-	glUniform3fv(glGetUniformLocation(shader->id[0],"particleColor"), 1, (GLfloat*)&cp->particleColor);	
+	glUniform1f(glGetUniformLocation(shader->id[0], "intensity"), cp->intensity);
+	//glUniform3fv(glGetUniformLocation(shader->id[0],"particleColor"), 1, (GLfloat*)&cp->particleColor);	
 
 	glDrawArraysInstanced(GL_TRIANGLES,0, 6, cp->particles.size());
 
 	glBindVertexArray(0);
+	glEnable(GL_CULL_FACE);
 
+}
+
+PMSizeOverTime::PMSizeOverTime(const PMSizeOverTime& sizeOverTime)
+{
+	type = ParticleModulesType::SIZE_OVER_TIME;
+	enabled = sizeOverTime.enabled;
+}
+
+PMSizeOverTime* PMSizeOverTime::Clone() const
+{
+	return new PMSizeOverTime(*this);
 }
 
 inline float PMSizeOverTime::GetSize(float percent, float total)
@@ -325,6 +335,74 @@ inline float PMSizeOverTime::GetSize(float percent, float total)
 
 void PMSizeOverTime::InspectorDraw()
 {
-	ImGui::Text("Size Over Time");
-	ImGui::Bezier("easeInExpo", v);
+	ImGui::Checkbox("Size Over Time", &enabled);
+	if (enabled)
+	{
+		ImGui::Bezier("easeInExpo", v);
+	}
+	
+}
+
+PMColorOverTime::PMColorOverTime()
+{
+	type = ParticleModulesType::COLOR_OVER_TIME;
+	Imgradient = new ImGradient();
+
+	UpdateGradientPointers();
+}
+
+PMColorOverTime::PMColorOverTime(const PMColorOverTime& colorOverTime)
+{
+	type = ParticleModulesType::COLOR_OVER_TIME;
+	Imgradient = new ImGradient();
+	UpdateGradientPointers();
+
+	Imgradient->clearMarks();
+
+	for (ImGradientMark* mark : colorOverTime.Imgradient->getMarks())
+	{
+		if (mark->alpha)
+		{
+			Imgradient->addAlphaMark(mark->position, mark->color[0]);
+		}
+		else
+		{
+			Imgradient->addMark(mark->position, ImColor(mark->color[0], mark->color[1], mark->color[2]));
+		}
+	}
+
+	enabled = colorOverTime.enabled;
+}
+
+PMColorOverTime* PMColorOverTime::Clone() const
+{
+	return new PMColorOverTime(*this);
+}
+
+void PMColorOverTime::InspectorDraw()
+{
+	ImGui::Checkbox("Color Over Time", &enabled);
+	if (enabled)
+	{
+		ImGui::GradientEditor(Imgradient ,gradient1, gradient2);
+		if (ImGui::Button("Add Mark")) 
+		{
+			// 2 Marks max for now 
+			if (Imgradient->getMarks().size() < 4) Imgradient->addMark(0.5f, 0.f);	
+		}
+		ImGui::SameLine();
+		ImGui::Text("4 Max");
+	}
+
+}
+
+void PMColorOverTime::UpdateGradientPointers()
+{
+	std::list<ImGradientMark*> marks = Imgradient->getMarks();
+
+	gradient1 = marks.front();
+	marks.pop_front();
+	gradient2 = marks.front();
+	marks.pop_front();
+
 }

@@ -23,7 +23,7 @@ MaterialEditor::~MaterialEditor()
 {
 }
 
-void MaterialEditor::Draw()
+void MaterialEditor::Draw(bool onlyDiffuse)
 {
 	if (material == NULL)
 	{
@@ -31,9 +31,11 @@ void MaterialEditor::Draw()
 	}
 
 	ImGui::Spacing();
-	
-	ImGui::ColorEdit3("Specular Color", (float*)&material->specularColor);
-	ImGui::DragFloat("Roughness", &material->roughness, .01f, .001f, 1.f);
+	if (material->shader && !material->shader->isFX && !onlyDiffuse)
+	{
+		ImGui::ColorEdit3("Specular Color", (float*)&material->specularColor);
+		ImGui::DragFloat("Roughness", &material->roughness, .01f, .001f, 1.f);
+	}
 	
 	ShaderSelector(currentShader);
 
@@ -45,24 +47,36 @@ void MaterialEditor::Draw()
 		ImGui::Separator();
 		ImGui::PopID();
 	}
-	if (ImGui::CollapsingHeader("Occlusion"))
+	if (material->shader && !material->shader->isFX && !onlyDiffuse)
 	{
-		ImGui::PushID(&material->textures[(unsigned)TextureType::OCCLUSION]);
-		TextureSelector((unsigned)TextureType::OCCLUSION, currentOcclusion, 2);
-		ImGui::Separator();
-		ImGui::PopID();
+		if (ImGui::CollapsingHeader("Occlusion"))
+		{
+			ImGui::PushID(&material->textures[(unsigned)TextureType::OCCLUSION]);
+			TextureSelector((unsigned)TextureType::OCCLUSION, currentOcclusion, 2);
+			ImGui::Separator();
+			ImGui::PopID();
+		}
+		if (ImGui::CollapsingHeader("Emissive"))
+		{
+			ImGui::ColorEdit3("Color", (float*)&material->emissiveColor);
+			TextureSelector((unsigned)TextureType::EMISSIVE, currentEmissive, 3);
+			ImGui::DragFloat("Bloom intensity", &material->bloomIntenstiy, 0.01f, 1.0f, 10.0f);
+			ImGui::Separator();
+		}
+		if (ImGui::CollapsingHeader("Normal"))
+		{
+			TextureSelector((unsigned)TextureType::NORMAL, currentNormal, 4);
+		}
+		if (ImGui::CollapsingHeader("Dissolve"))
+		{
+			TextureSelector((unsigned)TextureType::DISSOLVE, currentDissolve, 5);
+			ImGui::ColorEdit3("Dissolve Color", (float*)&material->dissolveColor);
+		}
 	}
-	if (ImGui::CollapsingHeader("Emissive"))
+	else
 	{
-		ImGui::ColorEdit3("Color", (float*)&material->emissiveColor);
-		TextureSelector((unsigned)TextureType::EMISSIVE, currentEmissive, 3);
-		ImGui::Separator();
+		ImGui::DragFloat("Bloom intensity", &material->bloomIntenstiy, 0.01f, 1.0f, 10.0f);
 	}
-	if (ImGui::CollapsingHeader("Normal"))
-	{
-		TextureSelector((unsigned)TextureType::NORMAL, currentNormal, 4);
-	}
-
 	ImGui::SetCursorPosX(ImGui::GetWindowWidth()/2 - ImGui::CalcTextSize("Cancel Changes").x /2);
 	if (ImGui::Button("Cancel Changes"))
 	{
@@ -103,7 +117,7 @@ void MaterialEditor::TextureSelector(unsigned i, std::string &current_texture, i
 {
 	ImGui::PushID(id);
 
-	if (ImGui::BeginCombo("Texture", current_texture.c_str()))
+	if (ImGui::BeginCombo("Texture", material->textures[i] != nullptr ? material->textures[i]->GetName() : None))
 	{
 		bool none_selected = (current_texture == None);
 		if (ImGui::Selectable(None, none_selected))
@@ -158,6 +172,7 @@ void MaterialEditor::SetCurrentTextures()
 	ResourceTexture* occlusion_texture = material->GetTexture(TextureType::OCCLUSION);
 	ResourceTexture* emissive_texture = material->GetTexture(TextureType::EMISSIVE);
 	ResourceTexture* normal_texture = material->GetTexture(TextureType::NORMAL);
+	ResourceTexture* dissolve_texture = material->GetTexture(TextureType::DISSOLVE);
 
 	// Set current textures strings
 	if (diffuse_texture != nullptr)		
@@ -199,6 +214,14 @@ void MaterialEditor::SetCurrentTextures()
 	else 
 	{ 
 		currentNormal = None; 
+	}
+	if (dissolve_texture != nullptr)
+	{
+		currentDissolve = dissolve_texture->GetName();
+	}
+	else
+	{
+		currentDissolve = None;
 	}
 }
 
@@ -291,6 +314,8 @@ void MaterialEditor::CleanUp()
 	currentSpecular = None;
 	currentOcclusion = None;
 	currentEmissive = None;
+	currentNormal = None;
+	currentDissolve = None;
 
 	textureFiles.clear();
 	shaders.clear();

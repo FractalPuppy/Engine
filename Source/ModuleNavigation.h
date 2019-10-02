@@ -4,7 +4,10 @@
 #include "Module.h"
 
 #include <vector>
+#include <memory>
 #include "Math/float3.h"
+#include "MathGeoLib/Geometry/AABB.h"
+#include "Math/MathConstants.h"
 
 #define MAX_DETOUR_PATH 1024
 #define MAX_POLYS 256
@@ -30,6 +33,11 @@ class rcPolyMeshDetail;
 class dtNavMesh;
 class dtNavMeshQuery;
 class DetourDebugInterface;
+//from detour crowd
+class dtCrowd;
+struct dtCrowdAgentDebugInfo;
+//from obstacle avoidance
+class dtObstacleAvoidanceDebugData;
 
 namespace dd
 {
@@ -64,12 +72,12 @@ enum SamplePartitionType
 	SAMPLE_PARTITION_LAYERS,
 };
 
-enum class PathFindType
+ENGINE_API enum class PathFindType
 {
 	FOLLOW,
-	STRAIGHT
+	STRAIGHT,
+	NODODGE
 };
-
 
 class ModuleNavigation :
 	public Module
@@ -80,41 +88,54 @@ public:
 
 	bool Init(JSON* config);
 	void SaveConfig(JSON* config) override;
-	update_status Update(float dt)override;
 	void sceneLoaded(JSON* config);
 	void sceneSaved(JSON* config);
 
 	void DrawGUI()override;
-	void navigableObjectToggled(GameObject* obj, const bool newState);
 	
 	void renderNavMesh();
 
-	void cleanValuesPRE();
-	void cleanValuesPOST();
-	inline void checkSceneLoaded();
+	void AddNavigableMeshFromObject(GameObject* obj);
 
+	ENGINE_API bool FindPath(	math::float3 start, math::float3 end, std::vector<math::float3> &path, 
+								PathFindType type = PathFindType::FOLLOW, math::float3 diff = math::float3(0.f, 0.f, 0.f),
+								float maxDist = 10000.0f, float ignoreDist = floatMax) const;
+	//there is a default really big limitating path distance for the calls that are not supposed to be limitated
+	ENGINE_API bool NavigateTowardsCursor(math::float3 start, std::vector<math::float3>& path, 
+										  math::float3 positionCorrection, math::float3& intersectionPos, 
+										  float maxPathDistance = 10000.0f, PathFindType type = PathFindType::FOLLOW,
+										  float ignoreDist = floatMax) const;
+	ENGINE_API bool FindIntersectionPoint(math::float3 start, math::float3& intersectionPoint) const;
+	ENGINE_API bool FindClosestPoint2D(math::float3& initial) const;
+	ENGINE_API bool IsValidPosition(math::float3& position) const;
 
-	ENGINE_API bool FindPath(math::float3 start, math::float3 end, std::vector<math::float3> &path, PathFindType type = PathFindType::FOLLOW) const;
+	ENGINE_API bool HighQualityMouseDetection(math::float3* intersection) const;
+	ENGINE_API bool NavMeshPolygonQuery(unsigned int* targetRef, math::float3* endPos, math::float3 correction) const;
+
+	ENGINE_API bool IsCursorPointingToNavigableZone(float xPickingCorrection = 0.0f, float yPickingCorrection = 0.0f, float zPickingCorrection = 0.0f) const;
+
+	ENGINE_API void setPlayerBB(math::AABB bbox);
+
+	ENGINE_API void GenerateNavigabilityFromGOs(std::vector<GameObject*>& vectorGOs);
+
 	void RecalcPath(math::float3 point);
-
-	//variables
-	std::vector<GameObject*> navigationMeshes;
-	std::vector<GameObject*> agents;
-	std::vector<GameObject*> obstacles;
 
 	//Constants
 	//static const int ERROR = -1;
 	static const int ERROR_NEARESTPOLY = -2;
+
+	//info from other sources
+	std::string sceneName = "";
 
 private:
 	// Explicitly-disabled copy constructor and copy assignment operator.
 	ModuleNavigation(const ModuleNavigation&);
 	ModuleNavigation& operator=(const ModuleNavigation);
 
-	void removeNavMesh(unsigned ID);
 	void generateNavigability(bool render);
 	void addNavigableMesh();
-	void addNavigableMesh(const GameObject* obj);
+	void CleanValuesPRE();
+	void CleanValuesPOST();
 
 	void fillVertices();
 	void fillIndices();
@@ -129,27 +150,28 @@ private:
 
 	bool inRange(const float * v1, const float * v2, const float r, const float h) const;
 
+	float GetXZDistance(float3 a, float3 b) const;
+	float GetXZDistanceWithoutSQ(float3 a, float3 b) const;
 
-	// Detour stuff
-	std::vector<math::float3> returnPath(math::float3 pStart, math::float3 pEnd);
-	//void handleClick(const float* s, const float* p, bool shift);
-	//std::vector<math::float3> returnPath(math::float3 pStart, math::float3 pEnd);
-	//void handleClick(const float* s, const float* p, bool shift);
-	//int FindStraightPath(WOWPOS start, WOWPOS end, WOWPOS* path, int size);
+	float3 getNextStraightPoint(float3 current, float3 pathDirection, float3 end, bool* destination) const;
+	bool checkNododgePathPoints(int numPoints) const;
 	
 private:
 	//variables
-	float maxRadius = 0.6f;
-	float maxHeight = 5.0f;
-	float maxSlopeScaling = 45.0f;
-	float maxStepHeightScaling = 5.0f;
-	
-	char newCharacter[64] = "New Character";
+
+	friend class crowdTool;
+
+	dtNavMesh* navMesh = nullptr;
+	dtNavMeshQuery* navQuery = nullptr;
+
+	math::AABB playerBB;
+	//char newCharacter[64] = "New Character";//implementation postponed, possibly aborted
 	float characterMaxRadius = 0.6f;
-	float characterMaxHeight = 5.0f;//might need higher val
+	float characterMaxHeight = 5.0f;
 	float characterMaxSlopeScaling = 50.0f;
-	float characterMaxStepHeightScaling = 5.0f;//might need higher value
+	float characterMaxStepHeightScaling = 5.0f;
 	
+	//UI modificiators
 	const float sliderIncreaseSpeed = 0.03f;
 	const float minSliderValue = 0.01f;
 	const float maxSliderValue = 100.0f;
@@ -170,6 +192,8 @@ private:
 	float sampleDistance = 6;
 	float sampleMaxError = 1;
 
+	unsigned minNododgePathPoints = 10u;
+
 	//filters
 	bool filterLowHangingObstacles = true;
 	bool filterLedgeSpans = true;
@@ -178,12 +202,12 @@ private:
 	//partition type
 	int partitionType = 0;
 
+	//load info
+	int navDataSize = 0;
+
 	//navigation mesh properties
 	bool meshGenerated = false;
 	bool renderMesh = false;
-	const char* objectName = "";
-	bool autoNavGeneration = false;
-	GameObject* objToRender = nullptr;
 
 	enum DrawMode
 	{
@@ -211,6 +235,8 @@ private:
 
 	std::vector < const ComponentRenderer*> meshComponents;
 	std::vector < const ComponentTransform*> transformComponents;
+	std::vector <bool> unwalkableVerts;
+	std::vector <bool> isObstacle;
 
 	rcConfig* cfg = nullptr;
 	rcContext* ctx = nullptr;
@@ -219,9 +245,6 @@ private:
 	rcContourSet* cset = nullptr;
 	rcPolyMesh* pmesh = nullptr;
 	rcPolyMeshDetail* dmesh = nullptr;
-
-	dtNavMesh* navMesh = nullptr;
-	dtNavMeshQuery* navQuery = nullptr;
 
 	DetourDebugInterface* ddi = nullptr;
 
@@ -241,13 +264,52 @@ private:
 	const AABB* meshbox = nullptr;
 
 	//Debugging
-	bool pathGenerated = false;
-	std::vector<math::float3> path;
+	mutable bool pathGenerated = false;
+	mutable std::vector<std::pair<math::float3, float>> pathDist;
+	mutable std::vector<math::float3> path;
 	math::float3 start = math::float3::inf;
 	math::float3 end = math::float3::inf;
 
 	bool startPoint = true; //defines if we are going to select start or end point in debug mode
 	bool drawNavMesh = true;
+
+	bool logDebugPathing = false;
+};
+
+ENGINE_API class crowdTool
+{
+public:
+	//public functions
+	ENGINE_API crowdTool();
+	ENGINE_API ~crowdTool();
+
+	ENGINE_API int AddNewAgent(float* pos, float* vel, float speed = 200.f);
+	ENGINE_API void UpdateCrowd(float dtime);
+	ENGINE_API void MoveRequest(int idAgent, unsigned int targetRef, float* endPos);
+	ENGINE_API void ChangeVelocity(int idAgent, float velocity);
+
+	//public variables
+	static const int MAX_AGENTS = 50;
+
+private:
+	//private functions
+	static void calcVel(float* vel, const float* pos, const float* tgt, const float speed);
+
+	//private variables
+	dtNavMeshQuery* m_navQuery = nullptr;
+	dtNavMesh* m_nav = nullptr;
+	dtCrowd* m_crowd = nullptr;
+
+	float m_targetPos[3];
+
+	dtObstacleAvoidanceDebugData* m_vod = nullptr;
+
+	dtCrowdAgentDebugInfo* debug;
+
+	//struct that should be declared close by if needed, its for debug draw
+	//CrowdToolParams 
+
+	bool m_run = true;
 };
 
 #endif __MODULENAVIGATION_H__

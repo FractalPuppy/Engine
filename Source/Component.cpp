@@ -1,8 +1,10 @@
 #include "Application.h"
 #include "ModuleScene.h"
 #include "Component.h"
+#include "ComponentTransform.h"
 #include "GameObject.h"
 #include "ModuleScene.h"
+#include "ModuleRender.h"
 #include "Application.h"
 #include "imgui.h"
 #include "JSON.h"
@@ -16,6 +18,7 @@ Component::Component(const Component & component)
 	gameobject = component.gameobject;
 	type = component.type;
 	enabled = component.enabled;
+	//gameobject->transform->SetGlobalPosition(gameobject->transform->GetGlobalPosition() + gameobject->transform->front * App->renderer->current_scale);
 }
 
 Component::~Component()

@@ -14,8 +14,11 @@
 #include "ModuleResourceManager.h"
 #include "ModuleFileSystem.h"
 #include "ModuleInput.h"
-#include "ModuleTextures.h"
+#include "ModuleScene.h"
 #include "GameObject.h"
+
+#include "ResourceTexture.h"
+#include "ResourcePrefab.h"
 
 // Icons
 #define FOLDER_ICON			IMPORTED_RESOURCES "folderIconBlue.dds"
@@ -31,6 +34,10 @@
 #define SC3NE_ICON			IMPORTED_RESOURCES "sc3neIconBlue.dds"
 #define ANIMATI0N_ICON		IMPORTED_RESOURCES "animati0nIconBlue.dds"
 #define ST4TEM4CHINE_ICON	IMPORTED_RESOURCES "st4tem4chineIconBlue.dds"
+#define WAV_ICON			IMPORTED_RESOURCES "wavIconBlue.dds"
+#define OGG_ICON			IMPORTED_RESOURCES "oggIconBlue.dds"
+#define MP3_ICON			IMPORTED_RESOURCES "mp3IconBlue.dds"
+#define PR3FAB_ICON			IMPORTED_RESOURCES "pr3fabIconBlue.dds"
 
 // ImGui elements sizes:
 #define WINDOW_LOW_MARGIN 60
@@ -97,10 +104,15 @@ bool PanelBrowser::Init()
 	sc3neIcon = (ResourceTexture*)App->resManager->Get(SC3NE_ICON);
 	animati0nIcon = (ResourceTexture*)App->resManager->Get(ANIMATI0N_ICON);
 	st4tem4chineIcon = (ResourceTexture*)App->resManager->Get(ST4TEM4CHINE_ICON);
+	wavIcon = (ResourceTexture*)App->resManager->Get(WAV_ICON);
+	oggIcon = (ResourceTexture*)App->resManager->Get(OGG_ICON);
+	mp3Icon = (ResourceTexture*)App->resManager->Get(MP3_ICON);
+	pr3fabIcon = (ResourceTexture*)App->resManager->Get(PR3FAB_ICON);
 
 	if (folderIcon == nullptr || fileIcon == nullptr || fbxIcon == nullptr || pngIcon == nullptr || jpgIcon == nullptr
 		|| tgaIcon == nullptr || tifIcon == nullptr || ddsIcon == nullptr || m4tIcon == nullptr || jsonIcon == nullptr 
-		|| sc3neIcon == nullptr)
+		|| sc3neIcon == nullptr || animati0nIcon == nullptr || st4tem4chineIcon == nullptr || wavIcon == nullptr 
+		|| oggIcon == nullptr || mp3Icon == nullptr || pr3fabIcon == nullptr)
 	{
 		LOG("Warning: Some icons missing");
 		return false;
@@ -187,22 +199,21 @@ void PanelBrowser::Draw()
 
 	ImGui::EndChild();
 
-	// Import Configuration Pop-up
-	if (openImportConfigPopUp)
-		DrawImportConfigurationPopUp();
-
-	// Rename File Pop-up
-	if (openRenameFilePopUp)
-		DrawRenameFilePopUp();
-
-	// Rename Folder Pop-up
-	if (openRenameFolderPopUp)
-		DrawRenameFolderPopUp();
-
-	// New Folder Pop-up
-	if (openNewFolderPopUp)
-		DrawNewFolderPopUp();
-
+	// If a browser option has been selected; draw the corresponding Pop-up
+	switch (browserOption)
+	{
+	case BROWSER_OPTIONS::IMPORT_CONFIGURTATION: 	DrawImportConfigurationPopUp(); break;
+	case BROWSER_OPTIONS::LOAD_SETTINGS:			DrawLoadSettingsPopUp();		break;
+	case BROWSER_OPTIONS::RENAME_FILE:				DrawRenameFilePopUp();			break;
+	case BROWSER_OPTIONS::RENAME_FOLDER: 			DrawRenameFolderPopUp();		break;
+	case BROWSER_OPTIONS::DELETE_FILE: 				DrawDeleteFilePopUp();			break;
+	case BROWSER_OPTIONS::DELETE_FOLDER: 			DrawDeleteFolderPopUp();		break;
+	case BROWSER_OPTIONS::NEW_FOLDER: 				DrawNewFolderPopUp();			break;
+	case BROWSER_OPTIONS::NONE:
+	default:
+		break;
+	}
+	
 	ImGui::End();	
 }
 
@@ -301,13 +312,43 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 	else if (extension == SCENEEXTENSION)		{ ImGui::ImageButton(sc3neIcon != nullptr ? (ImTextureID)sc3neIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 	else if (extension == ANIMATIONEXTENSION)	{ ImGui::ImageButton(animati0nIcon != nullptr ? (ImTextureID)animati0nIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 	else if (extension == STATEMACHINEEXTENSION){ ImGui::ImageButton(st4tem4chineIcon != nullptr ? (ImTextureID)st4tem4chineIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
-	else								{ ImGui::ImageButton(fileIcon != nullptr ? (ImTextureID)fileIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else if (extension == WAVEXTENSION)			{ ImGui::ImageButton(wavIcon != nullptr ? (ImTextureID)wavIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else if (extension == OGGEXTENSION)			{ ImGui::ImageButton(oggIcon != nullptr ? (ImTextureID)oggIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else if (extension == MP3EXTENSION)			{ ImGui::ImageButton(mp3Icon != nullptr ? (ImTextureID)mp3Icon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else if (extension == PREFABEXTENSION)		{ ImGui::ImageButton(pr3fabIcon != nullptr ? (ImTextureID)pr3fabIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
+	else										{ ImGui::ImageButton(fileIcon != nullptr ? (ImTextureID)fileIcon->gpuID : 0, ImVec2(ICON_SIZE, ICON_SIZE), ImVec2(0, 1), ImVec2(1, 0), 1); }
 
 	if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
-		unsigned selectedUID = App->resManager->FindByFileInAssetsExcludingType((path + file).c_str(), TYPE::MESH);
+		TYPE resourceType = App->resManager->GetResourceType(App->fsystem->GetFileType(extension));
+		unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
 		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
 		ImGui::OpenPopup("File Context Menu");
+	}
+	else if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (App->fsystem->GetExtension(file) == PREFABEXTENSION)
+		{
+			unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), TYPE::PREFAB);
+
+			dragAsset = new GameObject();
+			dragAsset->UUID = 2; //dummy value for passing uuid > 1 check
+			dragAsset->isPrefab = true;
+			dragAsset->prefabUID = selectedUID;
+			dragAsset->isDropablePlaceHolder = true;
+			dragAsset->name = "Prefab";
+		}
+		//else TODO: Scenes or FBX drop
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && dragAsset != nullptr)
+	{
+		App->scene->DragNDrop(dragAsset);
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && dragAsset != nullptr)
+	{
+		dragAsset->CleanUp();
+		RELEASE(dragAsset);
 	}
 
 	ImGui::SetCursorPosX(LEFT_INDENTATION + (ICON_SIZE + ICON_X_MARGIN) * (itemNumber % maxNumberElements));
@@ -327,7 +368,8 @@ void PanelBrowser::DrawFileIcon(const char* file, int itemNumber)
 
 	if (ImGui::IsItemHovered() && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
-		unsigned selectedUID = App->resManager->FindByFileInAssetsExcludingType((path + file).c_str(), TYPE::MESH);
+		TYPE resourceType = App->resManager->GetResourceType(App->fsystem->GetFileType(extension));
+		unsigned selectedUID = App->resManager->FindByFileInAssetsOfType((path + file).c_str(), resourceType);
 		fileSelected = App->resManager->GetWithoutLoad(selectedUID);
 		ImGui::OpenPopup("File Context Menu");
 	}
@@ -349,7 +391,7 @@ void PanelBrowser::DrawBrowserContextMenu()
 	{
 		if (ImGui::Selectable("New Folder"))
 		{
-			openNewFolderPopUp = true;
+			browserOption = BROWSER_OPTIONS::NEW_FOLDER;
 		}
 		ImGui::EndPopup();
 	}
@@ -371,18 +413,21 @@ void PanelBrowser::DrawFileContextMenu()
 		if (ImGui::Selectable("Rename"))
 		{
 			strcpy(newFileName, App->fsystem->GetFilename(fileSelected->GetFile()).c_str());
-			openRenameFilePopUp = true;
+			browserOption = BROWSER_OPTIONS::RENAME_FILE;
 		}
 		if(ImGui::Selectable("Delete"))
 		{
-			fileSelected->Delete();
-			folderContentDirty = true;
+			browserOption = BROWSER_OPTIONS::DELETE_FILE;
 		}
+		ImGui::Separator();
 		if (ImGui::Selectable("Import Configuration"))
 		{
-			//Code to change import settings
-			openImportConfigPopUp = true;
+			browserOption = BROWSER_OPTIONS::IMPORT_CONFIGURTATION;
 		}	
+		if (ImGui::Selectable("Load Settings"))
+		{
+			browserOption = BROWSER_OPTIONS::LOAD_SETTINGS;
+		}
 		ImGui::EndPopup();
 	}
 }
@@ -403,12 +448,11 @@ void PanelBrowser::DrawFolderContextMenu()
 		if (ImGui::Selectable("Rename"))
 		{
 			strcpy(newFolderName, folderSelected.c_str());
-			openRenameFolderPopUp = true;
+			browserOption = BROWSER_OPTIONS::RENAME_FOLDER;
 		}
 		if (ImGui::Selectable("Delete"))
 		{
-			App->fsystem->Delete((path + folderSelected).c_str());
-			folderContentDirty = true;
+			browserOption = BROWSER_OPTIONS::DELETE_FOLDER;
 		}
 		ImGui::EndPopup();
 	}
@@ -419,21 +463,49 @@ void PanelBrowser::DrawImportConfigurationPopUp()
 	ImGui::OpenPopup("Import configuration");
 
 	ImGui::SetNextWindowSizeConstraints(ImVec2(250.0f, 130.0f), ImVec2((float)App->window->width, (float)App->window->height));
-	if (ImGui::BeginPopupModal("Import configuration", &openImportConfigPopUp))
+	if (ImGui::BeginPopupModal("Import configuration"))
 	{
 		ImGui::Text("%s", fileSelected->GetExportedFile());
 		fileSelected->DrawImportConfiguration();
 
 		if (ImGui::Button("Accept"))
 		{
-			// Add accept logic
-			openImportConfigPopUp = false;
+			// File is reimported
+			browserOption = BROWSER_OPTIONS::NONE;
 			App->resManager->ReImportFile(fileSelected, path.c_str(), fileSelected->GetType());
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Cancel"))
 		{
-			openImportConfigPopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
+		}
+		ImGui::EndPopup();
+	}
+}
+
+void PanelBrowser::DrawLoadSettingsPopUp()
+{
+	if (fileSelected == nullptr) return;
+
+	ImGui::OpenPopup("Load settings");
+
+	ImGui::SetNextWindowSizeConstraints(ImVec2(250.0f, 130.0f), ImVec2((float)App->window->width, (float)App->window->height));
+	if (ImGui::BeginPopupModal("Load settings"))
+	{
+		ImGui::Text("%s", fileSelected->GetFile());
+		fileSelected->DrawLoadSettings();
+
+		if (ImGui::Button("Accept"))
+		{
+			// File is reloaded in memory and the settings saved on the meta file
+			browserOption = BROWSER_OPTIONS::NONE;
+			fileSelected->ReloadInMemory();
+			fileSelected->SaveMetafile(fileSelected->GetFile());
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel"))
+		{
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 		ImGui::EndPopup();
 	}
@@ -441,10 +513,12 @@ void PanelBrowser::DrawImportConfigurationPopUp()
 
 void PanelBrowser::DrawRenameFilePopUp()
 {
+	if (fileSelected == nullptr) return;
+
 	ImGui::OpenPopup("Rename File");
 
 	ImGui::SetNextWindowSizeConstraints(ImVec2(270.0f, 150.0f), ImVec2((float)App->window->width, (float)App->window->height));
-	if (ImGui::BeginPopupModal("Rename File", &openRenameFilePopUp))
+	if (ImGui::BeginPopupModal("Rename File"))
 	{
 		ImGui::Text("New name:");
 		ImGui::SameLine();
@@ -454,7 +528,7 @@ void PanelBrowser::DrawRenameFilePopUp()
 			fileSelected->Rename(newFileName);
 			folderContentDirty = true;
 			strcpy(newFileName, "");
-			openRenameFilePopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 
 		// Check if there isn't already a file with the same name
@@ -471,13 +545,13 @@ void PanelBrowser::DrawRenameFilePopUp()
 			fileSelected->Rename(newFileName);
 			folderContentDirty = true;
 			strcpy(newFileName,"");
-			openRenameFilePopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 		ImGui::SameLine(0, 110);
 		if (ImGui::Button("Cancel"))
 		{
 			strcpy(newFileName, "");
-			openRenameFilePopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 		ImGui::EndPopup();
 	}
@@ -488,7 +562,7 @@ void PanelBrowser::DrawRenameFolderPopUp()
 	ImGui::OpenPopup("Rename Folder");
 
 	ImGui::SetNextWindowSizeConstraints(ImVec2(270.0f, 150.0f), ImVec2((float)App->window->width, (float)App->window->height));
-	if (ImGui::BeginPopupModal("Rename Folder", &openRenameFolderPopUp))
+	if (ImGui::BeginPopupModal("Rename Folder"))
 	{
 		ImGui::Text("New name:");
 		ImGui::SameLine();
@@ -498,7 +572,7 @@ void PanelBrowser::DrawRenameFolderPopUp()
 			App->fsystem->Rename(path.c_str(), folderSelected.c_str(), newFolderName);
 			folderContentDirty = true;
 			strcpy(newFolderName, "");
-			openRenameFolderPopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 
 		// Check if there isn't already a file with the same name
@@ -515,13 +589,67 @@ void PanelBrowser::DrawRenameFolderPopUp()
 			App->fsystem->Rename(path.c_str(), folderSelected.c_str(), newFolderName);
 			folderContentDirty = true;
 			strcpy(newFolderName, "");
-			openRenameFolderPopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 		ImGui::SameLine(0, 110);
 		if (ImGui::Button("Cancel"))
 		{
 			strcpy(newFolderName, "");
-			openRenameFolderPopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
+		}
+		ImGui::EndPopup();
+	}
+}
+
+void PanelBrowser::DrawDeleteFilePopUp()
+{
+
+	ImGui::OpenPopup("Delete");
+
+	ImGui::SetNextWindowSizeConstraints(ImVec2(250.0f, 130.0f), ImVec2((float)App->window->width, (float)App->window->height));
+	if (ImGui::BeginPopupModal("Delete"))
+	{
+		ImGui::Text("Delete %s?", fileSelected->GetFile());
+
+		ImGui::NewLine();
+
+		if (ImGui::ButtonEx("Yes", ImVec2(0, 0), invalidName ? ImGuiButtonFlags_Disabled : 0))
+		{
+			fileSelected->Delete();
+			folderContentDirty = true;
+			browserOption = BROWSER_OPTIONS::NONE;
+		}
+		ImGui::SameLine(0, 110);
+		if (ImGui::Button("No"))
+		{
+			browserOption = BROWSER_OPTIONS::NONE;
+		}
+		ImGui::EndPopup();
+	}
+}
+
+void PanelBrowser::DrawDeleteFolderPopUp()
+{
+
+	ImGui::OpenPopup("Delete");
+
+	ImGui::SetNextWindowSizeConstraints(ImVec2(250.0f, 130.0f), ImVec2((float)App->window->width, (float)App->window->height));
+	if (ImGui::BeginPopupModal("Delete"))
+	{
+		ImGui::Text("Delete %s?", (path + folderSelected).c_str());
+
+		ImGui::NewLine();
+
+		if (ImGui::ButtonEx("Yes", ImVec2(0, 0), invalidName ? ImGuiButtonFlags_Disabled : 0))
+		{
+			App->fsystem->Delete((path + folderSelected).c_str());
+			folderContentDirty = true;
+			browserOption = BROWSER_OPTIONS::NONE;
+		}
+		ImGui::SameLine(0, 110);
+		if (ImGui::Button("No"))
+		{
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 		ImGui::EndPopup();
 	}
@@ -532,7 +660,7 @@ void PanelBrowser::DrawNewFolderPopUp()
 	ImGui::OpenPopup("New Folder");
 
 	ImGui::SetNextWindowSizeConstraints(ImVec2(270.0f, 150.0f), ImVec2((float)App->window->width, (float)App->window->height));
-	if (ImGui::BeginPopupModal("New Folder", &openNewFolderPopUp))
+	if (ImGui::BeginPopupModal("New Folder"))
 	{
 		ImGui::Text("New folder name:");
 		ImGui::SameLine();
@@ -542,7 +670,7 @@ void PanelBrowser::DrawNewFolderPopUp()
 			App->fsystem->MakeDirectory((path + newFolderName).c_str());
 			folderContentDirty = true;
 			strcpy(newFolderName, "");
-			openNewFolderPopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 
 		// Check if there isn't already a file with the same name
@@ -559,13 +687,13 @@ void PanelBrowser::DrawNewFolderPopUp()
 			App->fsystem->MakeDirectory((path + newFolderName).c_str());
 			folderContentDirty = true;
 			strcpy(newFolderName, "");
-			openNewFolderPopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 		ImGui::SameLine(0, 110);
 		if (ImGui::Button("Cancel"))
 		{
 			strcpy(newFolderName, "");
-			openNewFolderPopUp = false;
+			browserOption = BROWSER_OPTIONS::NONE;
 		}
 		ImGui::EndPopup();
 	}

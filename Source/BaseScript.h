@@ -23,6 +23,7 @@ public:
 
 	void SetApp(Application* app);
 	void SetGameObject(GameObject* go);
+	void SetGameStandarCursor(std::string gameStandarCursor);
 	
 	void DrawProperties();
 
@@ -36,20 +37,22 @@ public:
 	virtual void Start() {}
 	virtual void Update() {}
 
-	virtual void OnAnimationEvent(int keyframe) {}
+	virtual void OnAnimationEvent(std::string name) {}
 	//virtual void OnCollisionEnter(GameObject* go) {} //TODO: collision module
 	//virtual void OnCollisionExit(GameObject* go) {} //TODO: collision module
+
+	virtual void OnTriggerEnter(GameObject* go) {}
+	virtual void OnTrigger(GameObject* go) {}
+	virtual void OnTriggerExit(GameObject* go) {}
+	virtual void OnButtonDown() {}
+	virtual void OnButtonUp() {}
 
 public:
 	std::string name = "Script";
 	bool hasBeenAwoken = false;
 	bool hasBeenStarted = false;
-
-protected:
 	Application* App = nullptr;
-
+	std::string gameStandarCursor = "Glow.cur";
 };
-
-extern "C" ENGINE_API Script* CreateScript();
 
 #endif __BaseScript_h__

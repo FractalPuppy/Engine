@@ -28,19 +28,20 @@ public:
 private:
 	void DrawGuizmoButtons();
 	void CreateFrameBuffer(int width, int height);
-	void CreateMSAABuffers(int width, int height);
+	void CreateMSAABuffers(int width, int height);  //deprecated
 
 public:
 	int current_width = 0;
 	int current_height = 0;
 
-	unsigned texture = 0; //Handled allocation inside class
-	unsigned FBO = 0;
-	unsigned RBO = 0;
+	unsigned texture = 0u; //Handled allocation inside class
+	unsigned depthTexture = 0u;
+	unsigned FBO = 0u;
+	unsigned RBO = 0u;
 
-	unsigned MSAAFBO = 0;
-	unsigned MSAADEPTH = 0;
-	unsigned MSAACOLOR = 0;
+	unsigned MSAAFBO = 0u;
+	unsigned MSAADEPTH = 0u;
+	unsigned MSAACOLOR = 0u;
 	bool focus = true;
 	bool hover = false;
 	bool hidden = false;

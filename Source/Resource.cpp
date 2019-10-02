@@ -51,6 +51,25 @@ void Resource::SaveMetafile(const char * file) const
 {
 }
 
+bool Resource::ReloadInMemory()
+{
+	if (!IsLoadedToMemory())
+	{
+		return true;
+	}
+	else
+	{
+		unsigned references = loaded;
+		DeleteFromMemory();
+		if (LoadInMemory())
+		{
+			SetReferences(references);
+			return true;
+		}
+	}
+	return false;
+}
+
 void Resource::Rename(const char* newName)
 {
 	std::string ruteToFile = App->fsystem->GetFilePath(file);
@@ -69,25 +88,13 @@ void Resource::Rename(const char* newName)
 		std::string newMeta(newName);
 		newMeta += extension;
 		App->fsystem->Rename(ruteToFile.c_str(), (fileInAssets + ".meta").c_str(), newMeta.c_str());
+
+		// Update file variable
+		file = ruteToFile + newName + extension;
 	}
-	// Update file variable
-	file = ruteToFile + newName + extension;
 
-	std::string ruteToExportedFile = App->fsystem->GetFilePath(exportedFile);
-	std::string fileInLibrary = App->fsystem->GetFile(exportedFile);
-	std::string exportedExtension = App->fsystem->GetExtension(exportedFile);
-
-	if (type != TYPE::MESH && type != TYPE::ANIMATION && type != TYPE::STATEMACHINE)
-	{
-		if (type != TYPE::MODEL) 
-		{
-			// Rename of file in Library
-			App->fsystem->Rename(ruteToExportedFile.c_str(), fileInLibrary.c_str(), newName);
-		}
-
-		// Update exportedFile variable
-		exportedFile = (ruteToExportedFile + newName + exportedExtension).c_str();
-	}
+	// Update meta info
+	SaveMetafile(file.c_str());
 }
 
 void Resource::Delete()
@@ -109,4 +116,9 @@ void Resource::Delete()
 void Resource::DrawImportConfiguration()
 {
 	ImGui::Text("No import options.");
+}
+
+void Resource::DrawLoadSettings()
+{
+	ImGui::Text("No load settings.");
 }

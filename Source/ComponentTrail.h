@@ -5,8 +5,10 @@
 #include <queue>
 #include <list>
 #include "Math/float3.h"
+#include "Math/float4.h"
 
 class ParticleModule;
+class ResourceTexture;
 
 struct TrailPoint
 {
@@ -35,6 +37,8 @@ struct TrailPoint
 class ComponentTrail :
 	public Component
 {
+	friend class ModuleParticles;
+
 public:
 		
 	ComponentTrail(GameObject* gameobject);
@@ -42,21 +46,25 @@ public:
 
 	~ComponentTrail();
 
-	void Update() override;
+	void UpdateTrail();
 	void DrawProperties() override;
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;
+	virtual void Enable(bool enable) override;
 
 	ComponentTrail* Clone() const;
 	std::queue<TrailPoint> trail;
-	std::list<ParticleModule*> modules;
+	std::vector<ParticleModule*> modules;
 	ResourceTexture* texture = nullptr;
 
-private:
+public:
 
 	float width = 100.f;
 	float duration = .5f;
 	float minDistance = 1.f;
+	float bloomIntensity = 1.f;
+
+	math::float4 trailColor = math::float4::one;
 
 	std::string textureName = "None Selected";
 	std::vector<std::string> textureFiles;

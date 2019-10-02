@@ -1,0 +1,282 @@
+{
+    "navigationScene": {
+        "navDataSize": 2433
+    },
+    "GameObjects": [
+        {
+            "UID": 1184482032,
+            "ParentUID": 0,
+            "Name": "MacheteRain",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        -1843.7022705078126,
+                        4146.650390625,
+                        2741.9833984375
+                    ],
+                    "Rotation": [
+                        0.06104861572384834,
+                        -5.555213533625647e-8,
+                        -0.9981347918510437,
+                        9.082656333703198e-7
+                    ],
+                    "Euler": [
+                        -1.8457574010866119e-11,
+                        -7.000008583068848,
+                        -179.99989318847657
+                    ],
+                    "Scale": [
+                        1.4859999418258668,
+                        1.4860013723373414,
+                        1.4859999418258668
+                    ],
+                    "Global": [
+                        -1.4749233722686768,
+                        0.000002684253786355839,
+                        -0.1810980588197708,
+                        -1843.7022705078126,
+                        -0.0000027044097805628555,
+                        -1.4860013723373414,
+                        4.751398927083095e-13,
+                        4146.650390625,
+                        -0.1810980588197708,
+                        3.295858164165111e-7,
+                        1.4749234914779664,
+                        2741.9833984375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 1613369247,
+                    "materialUID": 2920954603,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "water": 0,
+                    "dissolve": 1
+                }
+            ]
+        },
+        {
+            "UID": 2038149895,
+            "ParentUID": 1184482032,
+            "Name": "MacheteRainParticles",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        -11.74737548828125,
+                        0.00006103515625,
+                        95.7042236328125
+                    ],
+                    "Rotation": [
+                        1.0,
+                        1.4210854715202005e-14,
+                        -1.862645371275562e-9,
+                        9.099629210140847e-7
+                    ],
+                    "Euler": [
+                        179.99989318847657,
+                        -2.1344342826523644e-7,
+                        -1.8226696194001413e-12
+                    ],
+                    "Scale": [
+                        1.0000001192092896,
+                        1.0,
+                        0.9999998807907105
+                    ],
+                    "Global": [
+                        -1.4749234914779664,
+                        -0.0000030138387501210674,
+                        0.18109804391860963,
+                        -1843.7076416015626,
+                        -0.0000027044100079365309,
+                        1.4860013723373414,
+                        0.000002704411599552259,
+                        4146.650390625,
+                        -0.181098073720932,
+                        0.0000023546654119854795,
+                        -1.4749233722686768,
+                        2885.267333984375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 10,
+                    "Enabled": 1,
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "textureUID": 4093146203,
+                    "lifetime": [
+                        0.20000000298023225,
+                        0.6000000238418579
+                    ],
+                    "ConstantPlaying": 1,
+                    "speed": [
+                        394.0,
+                        364.0
+                    ],
+                    "rate": 200.0,
+                    "maxParticles": 200,
+                    "size": [
+                        100.0,
+                        424.0
+                    ],
+                    "quadEmitterSize": [
+                        680.0,
+                        1020.0
+                    ],
+                    "sphereEmitterRadius": 500.0,
+                    "particleColor": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "directionNoise": 0,
+                    "directionNoiseProbability": 5,
+                    "directionNoiseTotalProbability": 500,
+                    "actualEmisor": 0,
+                    "sizeOT": 0,
+                    "colorOT": 0,
+                    "defaultColor": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "billboarded": 1,
+                    "localEmitter": 1,
+                    "lookAtTarget": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    "intensity": 1.0,
+                    "bezier14": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0
+                    ],
+                    "bezier5": 0.0,
+                    "color1": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "color1Position": 0.0,
+                    "alpha1": 1.0,
+                    "alpha1Position": 0.0,
+                    "color2": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "color2Position": 1.0,
+                    "alpha2": 0.0,
+                    "alpha2Position": 1.0
+                }
+            ]
+        }
+    ]
+}

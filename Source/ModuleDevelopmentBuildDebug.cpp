@@ -90,23 +90,33 @@ update_status ModuleDevelopmentBuildDebug::PreUpdate()
 // Called every draw update
 update_status ModuleDevelopmentBuildDebug::Update(float dt)
 {
-	ImGui::Begin("Neta - Vertical Slice 1 - Development build debug");
+	ImGui::Begin("Neta - Vertical Slice 3 - Development build debug");
 	++frames;
 	float avgTime = (totalTime / (float)frames);
 	float fps = 1 / avgTime;	
 	totalTime += dt;
 	ImGui::Text("Performance");
 	ImGui::Separator();
-	ImGui::Text("Average fps %.3f | Average frame time %.3f", fps, avgTime);
-	if (frames > 1000)
+	timer += dt;
+	if (timer > 1.0f && current.size() > 0)
 	{
-		minFps = MIN(minFps, fps);
-		maxFps = MAX(maxFps, fps);
-		minTime = MIN(minTime, dt);
-		maxTime = MAX(maxTime, dt);
-		ImGui::Text("Min fps %.3f | Max fps %.3f", minFps, maxFps);
-		ImGui::Text("Min time %.3f | Max time %.3f", minTime, maxTime);
+		for (size_t i = 0; i < current.size(); i++)
+		{
+			currentFrameTime += current[i];
+		}
+		currentFrameTime /= current.size();
+		currentFps = 1 / currentFrameTime;
+		current.clear();
+		timer = 0.0f;
 	}
+	current.push_back(dt);
+	if (currentFps == 0.0f && currentFrameTime == .0f)
+	{
+		currentFps = fps;
+		currentFrameTime = avgTime;
+	}
+	ImGui::Text("Current fps %.3f | Current frame time %.3f ms", currentFps, currentFrameTime*1000.f);
+	ImGui::Text("Average fps %.3f | Average frame time %.3f ms", fps, avgTime*1000.f);
 	ImGui::Separator();
 	ImGui::Separator();
 	ImGui::Text("Camera selector");

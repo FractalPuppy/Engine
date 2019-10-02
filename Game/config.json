@@ -1,1 +1,79 @@
-{"window":{"fullscreen":0,"resizable":1,"borderless":0,"fullscreen_desktop":0,"width":1920,"height":1027,"brightness":1.0},"renderer":{"msaa":1,"msaa_level":2,"picker_debug":0,"light_debug":0,"quadtree_debug":0,"grid_debug":0,"current_scale":100,"depthTest":1,"wireframe":0,"vsync":0,"frustumMainCamera":1,"skybox":1},"camera":{"position":[-1484.9642333984376,2804.73193359375,3839.730224609375],"forward":[-0.028739914298057557,-0.6580726504325867,-0.7524058222770691],"up":[-0.025118019431829454,0.7529557347297669,-0.6575916409492493],"movement":5.0,"rotation":200.0,"zoom":0.10000000149011612,"fov":1.0452078580856324,"znear":10.0,"zfar":100000.0},"textures":{"filter":3},"camera":{"position":[-1484.9642333984376,2804.73193359375,3839.730224609375],"forward":[-0.028739914298057557,-0.6580726504325867,-0.7524058222770691],"up":[-0.025118019431829454,0.7529557347297669,-0.6575916409492493],"movement":5.0,"rotation":200.0,"zoom":0.10000000149011612,"fov":1.0452078580856324,"znear":10.0,"zfar":100000.0},"scene":{"sphereUID":4069615675,"cubeUID":3441925136,"ambient":[0.05764579027891159,0.07771362364292145,0.10655736923217774],"defaultscene":"MenuScene","sizeScene":10000},"navigation":{"Cellwidth":21.0,"StepHeight":49.58000183105469,"Generated":1}}
+{
+    "window": {
+        "fullscreen": 0,
+        "resizable": 1,
+        "borderless": 0,
+        "fullscreen_desktop": 0,
+        "width": 1920,
+        "height": 1017,
+        "brightness": 1.0
+    },
+    "renderer": {
+        "msaa": 1,
+        "msaa_level": 2,
+        "picker_debug": 0,
+        "light_debug": 0,
+        "aabbTreeDebug": 0,
+        "grid_debug": 0,
+        "current_scale": 100,
+        "depthTest": 1,
+        "wireframe": 0,
+        "vsync": 0,
+        "frustumMainCamera": 1,
+        "skybox": 1,
+        "gammaCorrector": 2.200000047683716,
+        "exposure": 3.5
+    },
+    "textures": {
+        "filter": 3
+    },
+    "camera": {
+        "position": [
+            -2577.671142578125,
+            1075.16748046875,
+            843.2453002929688
+        ],
+        "forward": [
+            -0.20731540024280549,
+            -0.556506872177124,
+            -0.8045622706413269
+        ],
+        "up": [
+            -0.13886100053787232,
+            0.8308462500572205,
+            -0.5388990640640259
+        ],
+        "movement": 5.0,
+        "rotation": 200.0,
+        "zoom": 0.10000000149011612,
+        "fov": 1.0452078580856324,
+        "znear": 10.0,
+        "zfar": 100000.0
+    },
+    "scene": {
+        "sphereUID": 4069615675,
+        "cubeUID": 3441925136,
+        "ambient": [
+            0.05764579027891159,
+            0.07771362364292145,
+            0.10655736923217774
+        ],
+        "defaultsceneUID": 1970657006,
+        "sizeScene": 10000
+    },
+    "navigation": {
+        "Cellwidth": 21.0,
+        "CellHeight": 11.5,
+        "MaxRadius": 40.0,
+        "MaxHeight": 5.0,
+        "SlopeScaling": 50.0,
+        "StepHeight": 49.58000183105469
+    },
+    "uiConfig": {
+        "uiCursor": "GhostGlow.cur",
+        "gameStandarCursor": "Glow.cur"
+    },
+    "scripts": {
+        "hotReloading": 1
+    }
+}

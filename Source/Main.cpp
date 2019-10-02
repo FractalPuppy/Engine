@@ -5,6 +5,8 @@
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 #include "Brofiler.h"
 
+#include "MouseController.h"
+
 enum main_states
 {
 	MAIN_CREATION,
@@ -16,10 +18,18 @@ enum main_states
 
 Application* App = nullptr;
 
+void OnExit()
+{
+	MouseController::ChangeWindowsCursorIcon();
+}
+
 int main(int argc, char ** argv)
 {
+	std::atexit(OnExit);
+
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
+
 
 	while (state != MAIN_EXIT)
 	{

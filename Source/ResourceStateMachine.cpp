@@ -87,12 +87,25 @@ void ResourceStateMachine::SaveMetafile(const char* file) const
 	JSON_value* meta = json->CreateValue();
 	struct stat statFile;
 	stat(filepath.c_str(), &statFile);
-	meta->AddUint("GUID", UID);
+	meta->AddUint("metaVersion", META_VERSION);
 	meta->AddUint("timeCreated", statFile.st_ctime);
-	meta->AddString("name", name.c_str());
+
+	// Resource info
+	meta->AddUint("GUID", UID);
+	meta->AddString("Name", name.c_str());
+	meta->AddString("File", file);
+	meta->AddString("ExportedFile", exportedFile.c_str());
+
 	json->AddValue("StateMachine", *meta);
 	filepath += METAEXT;
+
+	// Save meta in Assets
 	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+
+	// Save meta in Library
+	std::string libraryPath(exportedFile + METAEXT);
+	App->fsystem->Save(libraryPath.c_str(), json->ToString().c_str(), json->Size());
+	RELEASE(json);
 }
 
 void ResourceStateMachine::LoadConfigFromMeta()
@@ -117,12 +130,62 @@ void ResourceStateMachine::LoadConfigFromMeta()
 	}
 	JSON* json = new JSON(data);
 	JSON_value* value = json->GetValue("StateMachine");
-	UID = value->GetUint("GUID");
-	name = value->GetString("name");
-	std::string name = App->fsystem->GetFilename(file);
+	name = value->GetString("Name", "");
 
-	//Updates resource UID on resourcelist
-	App->resManager->ReplaceResource(oldUID, this);
+	if(name.empty())	// Try old meta version
+		name = value->GetString("name");
+
+	// Make sure the UID from meta is the same
+	unsigned checkUID = value->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+		exportedFile = IMPORTED_STATEMACHINES + std::to_string(UID) + STATEMACHINEEXTENSION;
+	}
+
+	// Check the meta file version
+	if (value->GetUint("metaVersion", 0u) < META_VERSION)
+		SaveMetafile(file.c_str());
+
+	// Check the meta saved in library, if not save it
+	if (!App->fsystem->Exists((exportedFile + METAEXT).c_str()))
+		SaveMetafile(file.c_str());
+
+	RELEASE_ARRAY(data);
+	RELEASE(json);
+}
+
+void ResourceStateMachine::LoadConfigFromLibraryMeta()
+{
+	Resource::LoadConfigFromMeta();
+
+	std::string metaFile(exportedFile);
+	metaFile += ".meta";
+
+	// Check if meta file exists
+	if (!App->fsystem->Exists(metaFile.c_str()))
+		return;
+
+	unsigned oldUID = GetUID();
+	char* data = nullptr;
+
+	if (App->fsystem->Load(metaFile.c_str(), &data) == 0)
+	{
+		LOG("Warning: %s couldn't be loaded", metaFile.c_str());
+		RELEASE_ARRAY(data);
+		return;
+	}
+	JSON* json = new JSON(data);
+	JSON_value* value = json->GetValue("StateMachine");
+
+	// Get resource variables
+	name = value->GetString("Name");
+	file = value->GetString("File");
+
+	RELEASE_ARRAY(data);
+	RELEASE(json);
 }
 
 void ResourceStateMachine::SetStateMachine(const char* data)
@@ -337,17 +400,17 @@ void ResourceStateMachine::Save()
 
 void ResourceStateMachine::AddClip(const HashString name, unsigned UID, const bool loop)
 {
-	clips.push_back(Clip(name, UID, loop, false, 1.0f));
+	clips.emplace_back(name, UID, loop, false, 1.0f);
 }
 
 void ResourceStateMachine::AddNode(const HashString name, const HashString clipName)
 {
-	nodes.push_back(Node(name, clipName));
+	nodes.emplace_back(name, clipName);
 }
 
 void ResourceStateMachine::AddTransition(const HashString origin, const HashString destiny, const HashString trigger, unsigned blend)
 {
-	transitions.push_back(Transition(origin, destiny, trigger, blend));
+	transitions.emplace_back(origin, destiny, trigger, blend);
 }
 
 unsigned ResourceStateMachine::FindClip(const HashString name)
@@ -573,15 +636,15 @@ void ResourceStateMachine::RemoveTransition(unsigned index)
 	transitions.erase(transitions.begin() + index);
 }
 
-void ResourceStateMachine::ReceiveTrigger(HashString trigger, float &blend)
+void ResourceStateMachine::ReceiveTrigger(HashString trigger, float &blend, unsigned &node)
 {
-	HashString defaultNodeName = GetNodeName(defaultNode);
+	HashString currentNodeName = GetNodeName(node);
 
 	for (auto& trans : transitions)
 	{
-		if (trans.origin == defaultNodeName && trans.trigger == trigger)
+		if (trans.origin == currentNodeName && trans.trigger == trigger)
 		{
-			defaultNode = FindNode(trans.destiny);
+			node = FindNode(trans.destiny);
 			blend = trans.blend;
 			break;
 		}

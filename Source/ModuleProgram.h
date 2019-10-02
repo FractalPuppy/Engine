@@ -5,19 +5,19 @@
 #include <string>
 #include <map>
 #define DEFAULTPROGRAM "Default"
-#define PBR_VARIATIONS 4
+#define PBR_VARIATIONS 6
 #define SHADOW_VARIATIONS 2
-#define POSTPRO_VARIATIONS 4
+#define POSTPRO_VARIATIONS 2
 #define SKYBOX_VARIATIONS 2
 
 struct Shader
 {
 	std::map<unsigned, unsigned> id;
 	unsigned variation = 0u;
-
+	bool isFX = false;
 	std::string file;
 	Shader(unsigned program, std::string file) : file(file) { id[0] = program; }
-	~Shader();
+	~Shader(); 
 };
 
 class ModuleProgram : public Module
@@ -26,21 +26,21 @@ public:
 
 	enum class PBR_Variations
 	{
-		SKINNED					= 1 << 0,
-		SHADOWS_ENABLED			= 1 << 1,
-		EDITOR_RENDER			= 1 << 2
+		SKINNED						= 1 << 0,
+		SHADOWS_ENABLED				= 1 << 1,
+		EDITOR_RENDER				= 1 << 2,
+		DISSOLVE					= 1 << 3,
+		WATER						= 1 << 4
 	};
 
 	enum class Shadows_Variations
 	{
-		SKINNED = 1 << 0
+		SKINNED			= 1 << 0
 	};
 
 	enum class Postprocess_Variations
 	{
-		BLOOM_X5				= 1 << 0,
-		BLOOM_X10				= 1 << 1,
-		BLOOM_X15				= 1 << 2
+		FOG				= 1 << 0	
 	};
 
 	enum class Skybox_Variations
@@ -51,7 +51,9 @@ public:
 	const char* PBRDefines[PBR_VARIATIONS] = {
 		"#define SKINNED\n",		//Skinned
 		"#define SHADOWS_ENABLED\n",
-		"#define IS_EDITOR\n"
+		"#define IS_EDITOR\n",
+		"#define DISSOLVE\n",
+		"#define WATER\n"
 	};
 
 	const char* ShadowDefines[SHADOW_VARIATIONS] = {
@@ -59,9 +61,7 @@ public:
 	};
 
 	const char* PostProcessDefines[POSTPRO_VARIATIONS] = {
-		"#define BLOOM_X5\n",
-		"#define BLOOM_X10\n",
-		"#define BLOOM_X15\n"
+		"#define FOG\n"		
 	};
 
 	const char* SkyboxDefines[SKYBOX_VARIATIONS] = {

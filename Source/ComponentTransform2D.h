@@ -20,8 +20,15 @@ public:
 	void Load(JSON_value* value) override;
 	ENGINE_API math::float2 getPosition() const;
 	ENGINE_API void setPosition(const math::float2& position);
+	ENGINE_API void SetPositionUsingAligment(math::float2& position);
 
-	math::float2 getSize() const;
+	ENGINE_API math::float2 getSize() const;
+	ENGINE_API void SetSize(math::float2 newSize);
+
+private:
+	void DrawAnchor();
+	void DrawStretch();
+
 private:
 	enum aligns {
 		TOPLEFT = 0,
@@ -35,8 +42,17 @@ private:
 		BOTTOMRIGHT
 	};
 
+	enum stretch
+	{
+		VERTICAL,
+		HORIZONTAL,
+		BOTH,
+		NONE
+	};
+
 	//variables
 	int currentAnchor = MIDDLECENTER;
+	int currentStretch = NONE;
 	std::vector<float2> alignments = std::vector<float2>(9);
 
 	math::float2 position = math::float2::zero;

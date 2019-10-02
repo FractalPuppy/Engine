@@ -157,7 +157,9 @@ int JSON_value::GetInt(const char * name, int defaultValue) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return defaultValue;
 	}
 }
@@ -171,7 +173,9 @@ unsigned JSON_value::GetUint(const char * name, unsigned defaultValue) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return defaultValue;
 	}
 }
@@ -185,7 +189,9 @@ float JSON_value::GetFloat(const char * name, float defaultValue) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return defaultValue;
 	}
 }
@@ -200,7 +206,9 @@ float2 JSON_value::GetFloat2(const char * name) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return float2::zero;
 	}
 }
@@ -215,7 +223,9 @@ float3 JSON_value::GetFloat3(const char * name) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return float3::zero;
 	}
 }
@@ -230,7 +240,9 @@ float3 JSON_value::GetColor3(const char * name) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return float3::one;
 	}
 }
@@ -246,7 +258,9 @@ float4 JSON_value::GetFloat4(const char * name) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return float4::zero;
 	}
 }
@@ -262,7 +276,9 @@ float4 JSON_value::GetColor4(const char * name) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return float4::one;
 	}
 }
@@ -285,7 +301,9 @@ float4x4 JSON_value::GetFloat4x4(const char * name) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return float4x4::identity;
 	}
 }
@@ -301,12 +319,14 @@ Quat JSON_value::GetQuat(const char * name) const
 	}
 	else
 	{
+#ifdef DEBUG_JSON
 		LOG("Member %s not found!", name);
+#endif // DEBUG_JSON
 		return Quat::identity;
 	}
 }
 
-const char* JSON_value::GetString(const char * name) const
+const char* JSON_value::GetString(const char * name, const char* defaultValue) const
 {
 	rapidjson::Value::ConstMemberIterator itr = rapidjsonValue->FindMember(name);
 	if (itr != rapidjsonValue->MemberEnd())
@@ -315,8 +335,7 @@ const char* JSON_value::GetString(const char * name) const
 	}
 	else
 	{
-		LOG("Member %s not found!", name);
-		return nullptr;
+		return defaultValue;
 	}
 }
 
@@ -410,8 +429,9 @@ JSON_value * JSON::GetValue(const char* name)
 
 std::string JSON::ToString() const
 {
-	jsonBuffer->Clear();
-	rapidjson::Writer<rapidjson::StringBuffer> writer(*jsonBuffer);
+	//jsonBuffer->Clear();
+	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(*jsonBuffer);
+
 	document->Accept(writer);
 
 	return jsonBuffer->GetString();
@@ -420,7 +440,7 @@ std::string JSON::ToString() const
 unsigned JSON::Size()
 {
 	jsonBuffer->Clear();
-	rapidjson::Writer<rapidjson::StringBuffer> writer(*jsonBuffer);
+	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(*jsonBuffer);
 	document->Accept(writer);
 	return jsonBuffer->GetSize();
 }

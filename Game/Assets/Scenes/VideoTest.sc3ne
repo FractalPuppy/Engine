@@ -1,0 +1,264 @@
+{
+    "navigationScene": {
+        "navDataSize": 0
+    },
+    "GameObjects": [
+        {
+            "UID": 690283922,
+            "ParentUID": 0,
+            "Name": "Camera",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 2,
+                    "Enabled": 1,
+                    "MovementSpeed": 5.0,
+                    "RotationSpeed": 200.0,
+                    "ZoomSpeed": 0.4000000059604645,
+                    "Znear": 10.0,
+                    "Zfar": 100000.0,
+                    "vFOV": 1.0471975803375245,
+                    "hFOV": 1.3898354768753052,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Front": [
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Up": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    "isMain": 1,
+                    "fogFalloff": 1.0,
+                    "fogQuadratic": 1.0,
+                    "maxFog": 0.800000011920929,
+                    "fogColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "fogEnabled": 0
+                }
+            ]
+        },
+        {
+            "UID": 555078656,
+            "ParentUID": 1,
+            "Name": "Pete_El_Anguila",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        341.5,
+                        0.0
+                    ],
+                    "Size": [
+                        444.0,
+                        320.5
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 86294471,
+                    "textureName": "0_Floor_3_DF",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 0,
+                    "videoPath": "flame.avi"
+                }
+            ]
+        },
+        {
+            "UID": 3267108394,
+            "ParentUID": 1,
+            "Name": "Neta",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -237.0,
+                        0.0
+                    ],
+                    "Size": [
+                        444.0,
+                        320.5
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 86294471,
+                    "textureName": "0_Floor_3_DF",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 0,
+                    "videoPath": "neta.mp4"
+                }
+            ]
+        }
+    ]
+}

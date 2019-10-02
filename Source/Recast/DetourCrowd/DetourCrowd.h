@@ -142,11 +142,12 @@ struct dtCrowdAgent
 	/// The desired speed.
 	float desiredSpeed;
 
-	float npos[3];		///< The current agent position. [(x, y, z)]
+	float* npos;		///< The current agent position. [(x, y, z)]
 	float disp[3];		///< A temporary value used to accumulate agent displacement during iterative collision resolution. [(x, y, z)]
 	float dvel[3];		///< The desired velocity of the agent. Based on the current path, calculated from scratch each frame. [(x, y, z)]
 	float nvel[3];		///< The desired velocity adjusted by obstacle avoidance, calculated from scratch each frame. [(x, y, z)]
 	float vel[3];		///< The actual velocity of the agent. The change from nvel -> vel is constrained by max acceleration. [(x, y, z)]
+	float* publicVel;
 
 	/// The agent's configuration parameters.
 	dtCrowdAgentParams params;
@@ -169,6 +170,8 @@ struct dtCrowdAgent
 	dtPathQueueRef targetPathqRef;		///< Path finder ref.
 	bool targetReplan;					///< Flag indicating that the current path is being replanned.
 	float targetReplanTime;				/// <Time since the agent's target was replanned.
+
+	inline void updateVel() { publicVel[0] = vel[0]; publicVel[1] = vel[1]; publicVel[2] = vel[2];}
 };
 
 struct dtCrowdAgentAnimation
@@ -277,7 +280,7 @@ public:
 	///  @param[in]		pos		The requested position of the agent. [(x, y, z)]
 	///  @param[in]		params	The configutation of the agent.
 	/// @return The index of the agent in the agent pool. Or -1 if the agent could not be added.
-	int addAgent(const float* pos, const dtCrowdAgentParams* params);
+	int addAgent(float* pos, const dtCrowdAgentParams* params, float* vel);
 
 	/// Updates the specified agent's configuration.
 	///  @param[in]		idx		The agent index. [Limits: 0 <= value < #getAgentCount()]

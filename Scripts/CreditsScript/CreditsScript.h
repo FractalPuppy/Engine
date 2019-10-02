@@ -25,6 +25,11 @@ public:
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
+
+	inline virtual CreditsScript* Clone() const
+	{
+		return new CreditsScript(*this);
+	}
 public:
 	bool creditsDone = false;
 	Transform2D* transform2D = nullptr;
@@ -34,4 +39,7 @@ private:
 	float speed = 100.0f;
 	float stopValue = 900.0f;
 };
+
+extern "C" CreditsScript_API Script* CreateScript();
+
 #endif __CreditsScript_h__

@@ -13,15 +13,90 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="LoopStates">
+      <UniqueIdentifier>{5d428d58-0c57-4f26-a66b-8c8afa5d3fc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLoop.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="LoopState.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateControls.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateCredits.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateDead.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateIntro.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateLoading.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateMenu.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateOptions.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStatePaused.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStatePlaying.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateQuit.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopStateWin.cpp">
+      <Filter>LoopStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopState.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateControls.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateCredits.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateDead.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateIntro.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateLoading.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateMenu.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateOptions.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStatePaused.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStatePlaying.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateQuit.h">
+      <Filter>LoopStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopStateWin.h">
+      <Filter>LoopStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

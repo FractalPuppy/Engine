@@ -23,6 +23,7 @@ public:
 	void Delete() override;
 	void SaveMetafile(const char* file) const override;
 	void LoadConfigFromMeta() override;
+	void LoadConfigFromLibraryMeta() override;
 
 	unsigned GetStateMachineSize();
 	void SetStateMachine(const char* data);
@@ -77,7 +78,7 @@ public:
 	void RemoveNode(unsigned UID);
 	void RemoveTransition(unsigned UID);
 
-	void ReceiveTrigger(HashString trigger, float &blend);
+	void ReceiveTrigger(HashString trigger, float &blend, unsigned &node);
 
 	bool isClipsEmpty() { return clips.empty(); }
 	bool isNodesEmpty() { return nodes.empty(); }

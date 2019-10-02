@@ -42,6 +42,7 @@ public:
 	char filename[1024] = "";
 	std::string path = "";
 	std::stack<std::string> pathStack;
+	bool saveSelected = false;
 
 	FILETYPE extensionToFilter;
 	MenuOperations currentOperation = MenuOperations::NONE;

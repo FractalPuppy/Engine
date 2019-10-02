@@ -1,0 +1,3013 @@
+{
+    "GameObjects": [
+        {
+            "UID": 2165469532,
+            "ParentUID": 1,
+            "Name": "PopUpEquip",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 4204400161,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        -200.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -200.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "EquipPopupController",
+                    "scriptInfo": {}
+                }
+            ]
+        },
+        {
+            "UID": 3159189160,
+            "ParentUID": 2165469532,
+            "Name": "PopUpSkills",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -203.60000610351563,
+                        242.10000610351563
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 8,
+                    "Enabled": 1,
+                    "text": {
+                        "Type": 6,
+                        "Enabled": 1,
+                        "FontSize": 64.0,
+                        "text": "",
+                        "font": "Fonts/DroidSans.ttf",
+                        "color": [
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            1.0
+                        ],
+                        "colorHovered": [
+                            1.0,
+                            1.0,
+                            1.0,
+                            0.0
+                        ],
+                        "offset": [
+                            0.0,
+                            0.0
+                        ],
+                        "scaleOffset": [
+                            1.0,
+                            1.0
+                        ],
+                        "IsTextWrapped": 0,
+                        "WrapWidth": 100.0,
+                        "InterlineDistance": 24.0,
+                        "UIOrder": 0
+                    },
+                    "buttonImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 4145752307,
+                        "textureName": "Button_skills",
+                        "color": [
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "highlightedImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 4145752307,
+                        "textureName": "Button_skills",
+                        "color": [
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "pressedImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 4145752307,
+                        "textureName": "Button_skills",
+                        "color": [
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 10
+                }
+            ]
+        },
+        {
+            "UID": 3047013986,
+            "ParentUID": 2165469532,
+            "Name": "PopUpItems",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -203.89999389648438,
+                        283.29998779296877
+                    ],
+                    "Size": [
+                        40.0,
+                        40.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 8,
+                    "Enabled": 1,
+                    "text": {
+                        "Type": 6,
+                        "Enabled": 1,
+                        "FontSize": 64.0,
+                        "text": "",
+                        "font": "Fonts/DroidSans.ttf",
+                        "color": [
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            1.0
+                        ],
+                        "colorHovered": [
+                            1.0,
+                            1.0,
+                            1.0,
+                            0.0
+                        ],
+                        "offset": [
+                            0.0,
+                            0.0
+                        ],
+                        "scaleOffset": [
+                            1.0,
+                            1.0
+                        ],
+                        "IsTextWrapped": 0,
+                        "WrapWidth": 100.0,
+                        "InterlineDistance": 24.0,
+                        "UIOrder": 0
+                    },
+                    "buttonImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 795237118,
+                        "textureName": "Button_Inventory",
+                        "color": [
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "highlightedImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 795237118,
+                        "textureName": "Button_Inventory",
+                        "color": [
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "pressedImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 795237118,
+                        "textureName": "Button_Inventory",
+                        "color": [
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 10
+                }
+            ]
+        },
+        {
+            "UID": 2546961628,
+            "ParentUID": 2165469532,
+            "Name": "PopUpEquipSkills",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        254.1999969482422
+                    ],
+                    "Size": [
+                        369.5,
+                        235.5
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 4115206618,
+                    "textureName": "Skills_PopUp",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 10,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1210816451,
+            "ParentUID": 2546961628,
+            "Name": "PopUpSlotsSkills",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        -200.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -200.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 3587663589,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot1",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -136.6999969482422,
+                        267.0
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2399470540,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot2",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -81.5,
+                        266.70001220703127
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 4256021272,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot3",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -26.700000762939454,
+                        266.70001220703127
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 743305473,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot4",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        27.100000381469728,
+                        266.5
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1201187814,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot5",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        82.4000015258789,
+                        267.0
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 3425388513,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot6",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        137.10000610351563,
+                        266.20001220703127
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1882890764,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot7",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -118.5999984741211,
+                        210.10000610351563
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2453573797,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot8",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -64.69999694824219,
+                        210.10000610351563
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 3224074416,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot9",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -8.0,
+                        209.6999969482422
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2338263945,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot10",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        46.900001525878909,
+                        210.3000030517578
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 20777871,
+            "ParentUID": 1210816451,
+            "Name": "PopUPSlot11",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        102.4000015258789,
+                        209.0
+                    ],
+                    "Size": [
+                        36.0,
+                        36.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1761980818,
+            "ParentUID": 2165469532,
+            "Name": "PopUpEquipItems",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        254.1999969482422
+                    ],
+                    "Size": [
+                        369.5,
+                        235.5
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 3208987140,
+                    "textureName": "Inventory_PopUp",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 10,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 745719725,
+            "ParentUID": 1761980818,
+            "Name": "PopUpSlotsItems",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        -200.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -200.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 1471811542,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot1",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -107.0999984741211,
+                        277.6000061035156
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1929245476,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot2",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -64.5999984741211,
+                        277.8999938964844
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1066142851,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot3",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -21.200000762939454,
+                        279.3999938964844
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 3026439498,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot4",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        21.100000381469728,
+                        278.70001220703127
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 4042549910,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot5",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        64.30000305175781,
+                        278.29998779296877
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2117070997,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot6",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        107.19999694824219,
+                        279.0
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2181016430,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot7",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -107.30000305175781,
+                        239.60000610351563
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1154868045,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot8",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -64.5999984741211,
+                        240.0
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2185107665,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot9",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -21.600000381469728,
+                        240.3000030517578
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 3140184910,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot10",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        21.899999618530275,
+                        239.8000030517578
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 3841107509,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot11",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        64.30000305175781,
+                        239.0
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1264906990,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot12",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        107.80000305175781,
+                        238.89999389648438
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 3080864777,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot13",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -107.0,
+                        200.8000030517578
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2633260461,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot14",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -64.5,
+                        201.3000030517578
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 48436950,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot15",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -21.399999618530275,
+                        200.89999389648438
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2722996911,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot16",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        21.700000762939454,
+                        201.10000610351563
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 2752764517,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot17",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        64.4000015258789,
+                        201.5
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 428488696,
+            "ParentUID": 745719725,
+            "Name": "PopUPSlot18",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        107.0999984741211,
+                        199.8000030517578
+                    ],
+                    "Size": [
+                        30.0,
+                        30.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 0,
+                    "textureName": "",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 3780257845,
+            "ParentUID": 2165469532,
+            "Name": "PopUpHover",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -137.3000030517578,
+                        265.0
+                    ],
+                    "Size": [
+                        80.0,
+                        80.0
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 258563022,
+                    "textureName": "Hover_Skill",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 11,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 1307880136,
+            "ParentUID": 2165469532,
+            "Name": "PopUpUnequip",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        161.89999389648438
+                    ],
+                    "Size": [
+                        47.0,
+                        28.5
+                    ],
+                    "Anchor": 7,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 8,
+                    "Enabled": 1,
+                    "text": {
+                        "Type": 6,
+                        "Enabled": 1,
+                        "FontSize": 64.0,
+                        "text": "Unfit",
+                        "font": "Fonts/Vision-Regular.ttf",
+                        "color": [
+                            0.4959016442298889,
+                            0.10771632939577103,
+                            0.10771632939577103,
+                            0.0
+                        ],
+                        "colorHovered": [
+                            0.4941176474094391,
+                            0.10588235408067703,
+                            0.10588235408067703,
+                            0.0
+                        ],
+                        "offset": [
+                            -18.0,
+                            0.0
+                        ],
+                        "scaleOffset": [
+                            1.2000000476837159,
+                            1.5
+                        ],
+                        "IsTextWrapped": 0,
+                        "WrapWidth": 100.0,
+                        "InterlineDistance": 24.0,
+                        "UIOrder": 0
+                    },
+                    "buttonImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 2636218214,
+                        "textureName": "Button_Unfit",
+                        "color": [
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "highlightedImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 2636218214,
+                        "textureName": "Button_Unfit",
+                        "color": [
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "pressedImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 2636218214,
+                        "textureName": "Button_Unfit",
+                        "color": [
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            0.5882353186607361,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 100,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 10
+                }
+            ]
+        }
+    ]
+}

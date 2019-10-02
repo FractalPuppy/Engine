@@ -102,7 +102,12 @@ bool ResourceTexture::LoadTexture()
 
 	ilGenImages(1, &imageID); 		// Generate the image ID
 	ilBindImage(imageID); 			// Bind the image
-	ILboolean success = ilLoadL(IL_DDS, data, size);
+
+	ILboolean success = 0;
+	if (dxtFormat == DXT::NO_COMPRESSION)
+		success = ilLoadL(IL_TYPE_UNKNOWN, data, size);
+	else
+		success = ilLoadL(IL_DDS, data, size);
 
 	if (success)
 	{
@@ -258,18 +263,27 @@ void ResourceTexture::SaveMetafile(const char* file) const
 	JSON_value* meta = json->CreateValue();
 	struct stat statFile;
 	stat(filepath.c_str(), &statFile);
-	meta->AddUint("GUID", UID);
+	meta->AddUint("metaVersion", META_VERSION);
 	meta->AddUint("timeCreated", statFile.st_ctime);
-	meta->AddUint("height", height);
-	meta->AddUint("width", width);
-	meta->AddUint("depth", depth);
-	meta->AddUint("mips", mips);
-	meta->AddUint("format", format);
-	meta->AddUint("DX compresion", ilGetInteger(IL_DXTC_FORMAT));
-	meta->AddUint("mipmap", ilGetInteger(IL_ACTIVE_MIPMAP));
+
+	// Resource info
+	meta->AddUint("GUID", UID);
+	meta->AddString("Name", name.c_str());
+	meta->AddString("File", file);
+	meta->AddString("ExportedFile", exportedFile.c_str());
+
+	// Texture info
+	meta->AddUint("DX compresion", (unsigned)dxtFormat);
 	json->AddValue("Texture", *meta);
 	filepath += METAEXT;
+
+	// Save meta in Assets
 	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+
+	// Save meta in Library
+	std::string libraryPath(exportedFile + METAEXT);
+	App->fsystem->Save(libraryPath.c_str(), json->ToString().c_str(), json->Size());
+	RELEASE(json);
 }
 
 void ResourceTexture::LoadConfigFromMeta()
@@ -292,33 +306,99 @@ void ResourceTexture::LoadConfigFromMeta()
 	}
 	JSON* json = new JSON(data);
 	JSON_value* value = json->GetValue("Texture");
-	UID = value->GetUint("GUID");
 
-	// Update resource UID on resource list
-	App->resManager->ReplaceResource(oldUID, this);
+	// Make sure the UID from meta is the same
+	unsigned checkUID = value->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+		exportedFile = TEXTURES + std::to_string(UID) + TEXTUREEXT;
+	}
 
 	dxtFormat = (DXT)value->GetInt("DX compresion");
 
 	switch (dxtFormat)
 	{
-	case DXT::DXT1:	compression = 0; break;
-	//case DXT::DXT2:	compression = 1; break;
-	case DXT::DXT3:	compression = 1; break;
-	//case DXT::DXT4:	compression = 3; break;
-	case DXT::DXT5:	compression = 2; break;
-	//case DXT::DXT_NO_COMP:	compression = 5; break;
-	//case DXT::KEEP_DXTC_DATA:	compression = 3; break;
+	case DXT::DXT1:					compression = 0; break;
+	//case DXT::DXT2:				compression = 1; break;
+	case DXT::DXT3:					compression = 1; break;
+	//case DXT::DXT4:				compression = 3; break;
+	case DXT::DXT5:					compression = 2; break;
+	//case DXT::DXT_NO_COMP:		compression = 5; break;
+	//case DXT::KEEP_DXTC_DATA:		compression = 3; break;
 	//case DXT::DXTC_DATA_FORMAT:	compression = 4; break;
-	case DXT::THREE_DC:	compression = 3; break;
-	case DXT::RXGB:	compression = 4; break;
-	case DXT::ATI1N:	compression = 5; break;
-	case DXT::DXT1A:	compression = 6; break;
+	case DXT::THREE_DC:				compression = 3; break;
+	case DXT::RXGB:					compression = 4; break;
+	case DXT::ATI1N:				compression = 5; break;
+	case DXT::DXT1A:				compression = 6; break;
+	case DXT::NO_COMPRESSION:		compression = 7; break;
 	}
+
+	// Check the meta file version
+	if (value->GetUint("metaVersion", 0u) < META_VERSION)
+		SaveMetafile(file.c_str());
+
+	// Check the meta saved in library, if not save it
+	if (!App->fsystem->Exists((exportedFile + METAEXT).c_str()))
+		SaveMetafile(file.c_str());
+
+	RELEASE_ARRAY(data);
+	RELEASE(json);
+}
+
+void ResourceTexture::LoadConfigFromLibraryMeta()
+{
+	std::string metaFile(exportedFile);
+	metaFile += ".meta";
+
+	// Check if meta file exists
+	if (!App->fsystem->Exists(metaFile.c_str()))
+		return;
+
+	char* data = nullptr;
+	unsigned oldUID = GetUID();
+
+	if (App->fsystem->Load(metaFile.c_str(), &data) == 0)
+	{
+		LOG("Warning: %s couldn't be loaded", metaFile.c_str());
+		RELEASE_ARRAY(data);
+		return;
+	}
+	JSON* json = new JSON(data);
+	JSON_value* value = json->GetValue("Texture");
+
+	dxtFormat = (DXT)value->GetInt("DX compresion");
+
+	switch (dxtFormat)
+	{
+	case DXT::DXT1:						compression = 0; break;
+		//case DXT::DXT2:				compression = 1; break;
+	case DXT::DXT3:						compression = 1; break;
+		//case DXT::DXT4:				compression = 3; break;
+	case DXT::DXT5:						compression = 2; break;
+		//case DXT::DXT_NO_COMP:		compression = 5; break;
+		//case DXT::KEEP_DXTC_DATA:		compression = 3; break;
+		//case DXT::DXTC_DATA_FORMAT:	compression = 4; break;
+	case DXT::THREE_DC:					compression = 3; break;
+	case DXT::RXGB:						compression = 4; break;
+	case DXT::ATI1N:					compression = 5; break;
+	case DXT::DXT1A:					compression = 6; break;
+	case DXT::NO_COMPRESSION:			compression = 7; break;
+	}
+
+	// Get resource variables
+	name = value->GetString("Name");
+	file = value->GetString("File");
+
+	RELEASE_ARRAY(data);
+	RELEASE(json);
 }
 
 void ResourceTexture::DrawImportConfiguration()
 {
-	const char* compressionTypes[] = { "DXT1", /*"DXT2",*/ "DXT3", /*"DXT4",*/ "DXT5", /*"DXT_NO_COMP", "KEEP_DXTC_DATA", "DXTC_DATA_FORMAT",*/ "THREE_DC", "RXGB", "ATI1N", "DXT1A" };
+	const char* compressionTypes[] = { "DXT1", /*"DXT2",*/ "DXT3", /*"DXT4",*/ "DXT5", /*"DXT_NO_COMP", "KEEP_DXTC_DATA", "DXTC_DATA_FORMAT",*/ "THREE_DC", "RXGB", "ATI1N", "DXT1A", "NO_COMPRESSION" };
 	if (ImGui::Combo("Compression type", &compression, compressionTypes, IM_ARRAYSIZE(compressionTypes)))
 	{
 		switch (compression)
@@ -335,6 +415,7 @@ void ResourceTexture::DrawImportConfiguration()
 		case 4:	dxtFormat = DXT::RXGB; break;
 		case 5:	dxtFormat = DXT::ATI1N; break;
 		case 6:	dxtFormat = DXT::DXT1A; break;
+		case 7: dxtFormat = DXT::NO_COMPRESSION; break;
 		}
 	}
 }

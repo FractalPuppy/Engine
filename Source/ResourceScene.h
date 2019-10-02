@@ -14,12 +14,15 @@ public:
 	virtual ~ResourceScene();
 
 	void SaveMetafile(const char* file) const override;
+	void LoadConfigFromMeta() override;
+	void LoadConfigFromLibraryMeta() override;
 
 	// Scene especific
-	void Save(const GameObject &rootGO);
+	void Save(const GameObject &rootGO, bool selected = false);
 	bool Load();
 
 private:
+	bool PrefabWasUpdated(GameObject* prefabGo) const;
 	void AssignNewUUID(GameObject* go, unsigned UID);
 };
 

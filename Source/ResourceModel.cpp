@@ -26,7 +26,7 @@ ResourceModel::ResourceModel(const ResourceModel& resource) : Resource(resource)
 
 ResourceModel::~ResourceModel()
 {
-	DeleteFromMemory();
+	//DeleteFromMemory();
 }
 
 bool ResourceModel::LoadInMemory()
@@ -62,32 +62,60 @@ void ResourceModel::SaveMetafile(const char* file) const
 	filepath.append(file);
 	JSON *json = new JSON();
 
-	JSON_value* meshMeta = json->CreateValue();
+	// Model information
+	JSON_value* modelMeta = json->CreateValue();
 	struct stat statFile;
 	stat(filepath.c_str(), &statFile);
-	meshMeta->AddUint("GUID", UID);
-	meshMeta->AddUint("timeCreated", statFile.st_ctime);
-	meshMeta->AddUint("NumMeshes", numMeshes);
+	modelMeta->AddUint("metaVersion", META_VERSION);
+	modelMeta->AddUint("timeCreated", statFile.st_ctime);
+	modelMeta->AddUint("GUID", UID);
+	modelMeta->AddUint("NumMeshes", numMeshes);
+	modelMeta->AddUint("NumAnimations", numAnimations);
+	json->AddValue("Model", *modelMeta);
+
+	// Meshes info
 	for (int i = 0; i < numMeshes; ++i)
 	{
-		meshMeta->AddUint(("Mesh" + std::to_string(i)).c_str(), meshList[i]->GetUID());
-	}
-	json->AddValue("Mesh", *meshMeta);
+		JSON_value* meshMeta = json->CreateValue();
+		meshMeta->AddUint("MeshNumber", i);
 
-	JSON_value* animMeta = json->CreateValue();
-	struct stat statFileAnim;
-	stat(filepath.c_str(), &statFileAnim);
-	animMeta->AddUint("timeCreated", statFileAnim.st_ctime);
-	animMeta->AddUint("NumAnimations", numAnimations);
+		// Resource info
+		meshMeta->AddUint("GUID", meshList[i]->GetUID());
+		meshMeta->AddString("Name", meshList[i]->GetName());
+		meshMeta->AddString("File", file);
+		meshMeta->AddString("ExportedFile", meshList[i]->GetExportedFile());
+
+		json->AddValue(("Mesh" + std::to_string(i)).c_str(), *meshMeta);
+
+		// Save meta in Library
+		meshList[i]->SaveMetafile(file);
+		//RELEASE(meshMeta);
+	}
+
+	// Animations info
 	for (int i = 0; i < numAnimations; ++i)
 	{
-		animMeta->AddUint(("Animation" + std::to_string(i)).c_str(), animationList[i]->GetUID());
-	}
-	json->AddValue("Animation", *animMeta);
+		JSON_value* animMeta = json->CreateValue();
+		animMeta->AddUint("AnimationNumber", i);
 
+		// Resource info
+		animMeta->AddUint("GUID", animationList[i]->GetUID());
+		animMeta->AddString("Name", animationList[i]->GetName());
+		animMeta->AddString("File", file);
+		animMeta->AddString("ExportedFile", animationList[i]->GetExportedFile());
+
+		json->AddValue(("Animation" + std::to_string(i)).c_str(), *animMeta);
+
+		// Save meta in Library
+		animationList[i]->SaveMetafile(file);
+		//RELEASE(animMeta);
+	}
 
 	filepath += METAEXT;
+
+	// Save meta in Assets
 	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+	RELEASE(json);
 }
 
 void ResourceModel::LoadConfigFromMeta()
@@ -109,47 +137,177 @@ void ResourceModel::LoadConfigFromMeta()
 		return;
 	}
 	JSON* json = new JSON(data);
-	JSON_value* value = json->GetValue("Mesh");
-	UID = value->GetUint("GUID");
-	numMeshes = value->GetUint("NumMeshes");
+	JSON_value* modelValue = json->GetValue("Model");
+
+	if (modelValue == nullptr)
+	{
+		// Try with older meta version
+		RELEASE_ARRAY(data);
+		RELEASE(json);
+
+		LoadConfigFromOlderMetaVersion();
+		SaveMetafile(file.c_str());
+		return;
+	}
+
+	// Check the meta file version
+	unsigned metaVersion = modelValue->GetUint("metaVersion", 0u);
+	if (metaVersion < META_VERSION)
+	{
+		RELEASE_ARRAY(data);
+		RELEASE(json);
+
+		LoadConfigFromOlderMetaVersion();
+		SaveMetafile(file.c_str());
+		return;
+	}
+
+	numMeshes = modelValue->GetUint("NumMeshes");
 	std::string name = App->fsystem->GetFilename(file);
 
-	// Update resource UID on resource list
-	App->resManager->ReplaceResource(oldUID, this);
+	// Make sure the UID from meta is the same
+	unsigned checkUID = modelValue->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+	}
 
 	for (int i = 0; i < numMeshes; ++i)
 	{
-		unsigned meshUID = value->GetUint(("Mesh" + std::to_string(i)).c_str());
+		JSON_value* meshValue = json->GetValue(("Mesh" + std::to_string(i)).c_str());
+
+		unsigned meshUID = meshValue->GetUint("GUID");	
 		ResourceMesh* mesh = (ResourceMesh*)App->resManager->CreateNewResource(TYPE::MESH, meshUID);
 		mesh->SetFile(file.c_str());
 
 		// Set Exported File
-		mesh->SetExportedFile((MESHES + std::to_string(mesh->GetUID()) + MESHEXTENSION).c_str());
-		mesh->SetName((name + "_" + std::to_string(i)).c_str());
+		std::string exportedMeshFile(meshValue->GetString("ExportedFile"));
+		mesh->SetExportedFile(exportedMeshFile.c_str());
+
+		mesh->SetName(meshValue->GetString("Name"));
+
+		// Check the meta saved in library, if not save it
+		if (!App->fsystem->Exists((exportedMeshFile + METAEXT).c_str()))
+			mesh->SaveMetafile(file.c_str());
 
 		meshList.push_back(mesh);
 	}
 
-	value = json->GetValue("Animation");
-	numAnimations = value->GetUint("NumAnimations");
+	numAnimations = modelValue->GetUint("NumAnimations");
 
 	for (int i = 0; i < numAnimations; ++i)
 	{
-		unsigned animUID = value->GetUint(("Animation" + std::to_string(i)).c_str());
+		JSON_value* animationValue = json->GetValue(("Animation" + std::to_string(i)).c_str());
+		unsigned animUID = animationValue->GetUint("GUID");
+
 		ResourceAnimation* anim = (ResourceAnimation*)App->resManager->CreateNewResource(TYPE::ANIMATION, animUID);
 		anim->SetFile(file.c_str());
-		anim->SetExportedFile((IMPORTED_ANIMATIONS + std::to_string(anim->GetUID()) + ANIMATIONEXTENSION).c_str());
-		anim->SetName((name + "_" + std::to_string(i)).c_str());
+
+		// Set Exported File
+		std::string exportedAnimFile(animationValue->GetString("ExportedFile"));
+		anim->SetExportedFile(exportedAnimFile.c_str());
+
+		anim->SetName(animationValue->GetString("Name"));
+
+		// Check the meta saved in library, if not save it
+		if (!App->fsystem->Exists((exportedAnimFile + METAEXT).c_str()))
+			anim->SaveMetafile(file.c_str());
 
 		animationList.push_back(anim);
 	}
 
+	RELEASE_ARRAY(data);
+	RELEASE(json);
+}
+
+void ResourceModel::LoadConfigFromOlderMetaVersion()
+{
+	std::string metaFile(file);
+	metaFile += ".meta";
+
+	// Check if meta file exists
+	if (!App->fsystem->Exists(metaFile.c_str()))
+		return;
+
+	char* data = nullptr;
+	unsigned oldUID = GetUID();
+
+	if (App->fsystem->Load(metaFile.c_str(), &data) == 0)
+	{
+		LOG("Warning: %s couldn't be loaded", metaFile.c_str());
+		RELEASE_ARRAY(data);
+		return;
+	}
+	JSON* json = new JSON(data);
+	JSON_value* meshValue = json->GetValue("Mesh");
+
+	numMeshes = meshValue->GetUint("NumMeshes");
+	std::string name = App->fsystem->GetFilename(file);
+
+	// Make sure the UID from meta is the same
+	unsigned checkUID = meshValue->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+	}
+
+	for (int i = 0; i < numMeshes; ++i)
+	{
+		// Meta version 1
+		unsigned meshUID = meshValue->GetUint(("Mesh" + std::to_string(i)).c_str());
+
+		ResourceMesh* mesh = (ResourceMesh*)App->resManager->CreateNewResource(TYPE::MESH, meshUID);
+		mesh->SetFile(file.c_str());
+
+		// Set Exported File
+		std::string exportedMeshFile((MESHES + std::to_string(mesh->GetUID()) + MESHEXTENSION));
+		mesh->SetExportedFile(exportedMeshFile.c_str());
+
+		mesh->SetName((name + "_" + std::to_string(i)).c_str());
+
+		// Check the meta saved in library, if not save it
+		if (!App->fsystem->Exists((exportedMeshFile + METAEXT).c_str()))
+			mesh->SaveMetafile(file.c_str());
+
+		meshList.push_back(mesh);
+	}
+
+	JSON_value* animationValue = animationValue = json->GetValue("Animation");;
+	numAnimations = animationValue->GetUint("NumAnimations");
+
+	for (int i = 0; i < numAnimations; ++i)
+	{
+		// Meta version 1
+		unsigned animUID = meshValue->GetUint(("Animation" + std::to_string(i)).c_str());
+
+		ResourceAnimation* anim = (ResourceAnimation*)App->resManager->CreateNewResource(TYPE::ANIMATION, animUID);
+		anim->SetFile(file.c_str());
+
+		// Set Exported File
+		std::string exportedAnimFile((IMPORTED_ANIMATIONS + std::to_string(anim->GetUID()) + ANIMATIONEXTENSION));
+		anim->SetExportedFile(exportedAnimFile.c_str());
+
+		anim->SetName((name + "_" + std::to_string(i)).c_str());
+
+		// Check the meta saved in library, if not save it
+		if (!App->fsystem->Exists((exportedAnimFile + METAEXT).c_str()))
+			anim->SaveMetafile(file.c_str());
+
+		animationList.push_back(anim);
+	}
+
+	RELEASE_ARRAY(data);
+	RELEASE(json);
 }
 
 bool ResourceModel::CheckImportedMeshes()
 {
 	std::set<std::string> importedMeshes;
-	App->fsystem->ListFilesWithExtension(MESHES, importedMeshes);
+	App->fsystem->ListFiles(MESHES, importedMeshes);
 
 	for each(auto mesh in meshList)
 	{
@@ -231,11 +389,23 @@ void ResourceModel::Rename(const char* newName)
 
 	Resource::Rename(newName);
 
+	// Update exported file
+	exportedFile = App->fsystem->GetFile(file.c_str());
+
+	// Rename meshes
 	for (int i = 0; i < meshList.size(); ++i)
 	{
 		std::string name(newName);
 		meshList[i]->Rename((name + "_" + std::to_string(i)).c_str());
 		meshList[i]->SetFile(file.c_str());		// Update file variable
+	}
+
+	// Rename animations
+	for (int i = 0; i < animationList.size(); ++i)
+	{
+		std::string name(newName);
+		animationList[i]->Rename((name + "_" + std::to_string(i)).c_str());
+		animationList[i]->SetFile(file.c_str());		// Update file variable
 	}
 }
 

@@ -12,7 +12,7 @@
 #include "ComponentTransform2D.h"
 //fonts lib
 #include <ft2build.h>
-#include "MathGeoLib/include/Math/float4x4.h"
+#include "Math/float4x4.h"
 #include FT_FREETYPE_H 
 
 ModuleFontLoader::ModuleFontLoader()
@@ -93,15 +93,15 @@ void ModuleFontLoader::LoadFonts(const char* newFont)
 		// Now store character for later use
 		Character character =
 		{
-			textureFonts,
-			float2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-			float2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-			face->glyph->advance.x
+		textureFonts,
+		float2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+		float2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+		face->glyph->advance.x
 		};
 		//Characters.insert(std::pair<GLchar, Character>(c, character));
 		Characters[c] = character;
 	}
-	fonts.insert(std::pair<const char*, std::vector<Character>>(newFont, Characters) );
+	fonts.insert(std::pair<const char*, std::vector<Character>>(newFont, Characters));
 	//when we are done processing glyphs
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
@@ -127,6 +127,8 @@ bool ModuleFontLoader::Init(JSON* json)
 	LoadFonts("Fonts/MATADOR.ttf");
 	LoadFonts("Fonts/TACOM.ttf");
 	LoadFonts("Fonts/TACOSRG.ttf");
+	LoadFonts("Fonts/Vision-BoldItalic.ttf");
+	LoadFonts("Fonts/Vision-Regular.ttf");
 	return true;
 }
 
@@ -184,7 +186,13 @@ void ModuleFontLoader::RenderText(const Text& compText, int currentWidth, int cu
 
 	// Iterate through all characters
 	float scale = compText.fontSize*FontScaleFactor;//this scale does not change with the window size, its something else
+	float interlineDistanceScaled = compText.interlineDistance * scale;
+	float wrapWidthScaled = compText.wrapWidth * scale;
 	std::string::const_iterator c;
+	bool first = true;
+	GLfloat firstXPos;
+	float acumulatedWidth = 0;
+
 	for (c = text.begin(); c != text.end(); ++c)
 	{
 		Character ch = fonts[font][static_cast<int>(*c)];
@@ -194,15 +202,38 @@ void ModuleFontLoader::RenderText(const Text& compText, int currentWidth, int cu
 
 		GLfloat w = ch.Size.x * scale;
 		GLfloat h = ch.Size.y * scale;
+
+		if (compText.isTextWrapped)
+		{
+			acumulatedWidth = acumulatedWidth + w;
+
+			if (first)
+			{
+				firstXPos = xpos;
+				first = false;
+			}
+
+			if (acumulatedWidth >= wrapWidthScaled)
+			{
+				y = y - h - interlineDistanceScaled;
+				//x = firstXPos >= 0 ? -firstXPos : firstXPos;
+				x = firstXPos;
+				acumulatedWidth = 0;
+
+				xpos = x + ch.Bearing.x * scale;
+				ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+			}
+		}
+
 		// Update VBO for each character
 		GLfloat vertices[6][4] = {
-			{ xpos,     ypos + h,   0.0, 0.0 },
-			{ xpos,     ypos,       0.0, 1.0 },
-			{ xpos + w, ypos,       1.0, 1.0 },
+		{ xpos,     ypos + h,   0.0, 0.0 },
+		{ xpos,     ypos,       0.0, 1.0 },
+		{ xpos + w, ypos,       1.0, 1.0 },
 
-			{ xpos,     ypos + h,   0.0, 0.0 },
-			{ xpos + w, ypos,       1.0, 1.0 },
-			{ xpos + w, ypos + h,   1.0, 0.0 }
+		{ xpos,     ypos + h,   0.0, 0.0 },
+		{ xpos + w, ypos,       1.0, 1.0 },
+		{ xpos + w, ypos + h,   1.0, 0.0 }
 		};
 		// Render glyph texture over quad
 		glBindTexture(GL_TEXTURE_2D, ch.TextureID);

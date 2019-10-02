@@ -1,13 +1,32 @@
 {
-  "material": {
-    "diffuseColor": [ 1.0, 1.0, 1.0, 1.0 ],
-    "specularColor": [ 1.0, 1.0, 1.0 ],
-    "metallic": 0.07100000232458115,
-    "roughness": 0.5299999713897705,
-    "diffuse": "PlayerDiffuse.dds",
-    "specular": "PlanksSpecular.dds",
-    "occlusion": "PlayerOcclusion.dds",
-    "normal": "PlayerNormals.dds",
-    "shader": "PBR"
-  }
+    "material": {
+        "diffuseColor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "bloomIntenstiy": 1.0,
+        "roughness": 0.14000000059604646,
+        "specularColor": [
+            0.09836065769195557,
+            0.09835967421531677,
+            0.09835967421531677
+        ],
+        "emissiveColor": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "dissolveColor": [
+            0.9959016442298889,
+            0.5632558465003967,
+            0.0
+        ],
+        "diffuseUID": 2544362769,
+        "occlusionUID": 1476091526,
+        "normalUID": 1517943331,
+        "dissolveUID": 1688119901,
+        "shader": "PBR"
+    }
 }

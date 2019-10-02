@@ -44,11 +44,8 @@ enum update_status
 // Configuration -----------
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
-#ifndef GAME_BUILD
 #define TITLE "FRACTAL ENGINE"
-#else
-#define TITLE "Neta Vertical Slice 1"
-#endif
+#define VERSION_BUILD "0.3" // this constant is the version build for the fractal engine.
 #define MAX_BONE_NAME_LENGTH 1024
 
 #define MAX_BONE_NAME_LENGTH 1024

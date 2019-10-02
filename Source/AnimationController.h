@@ -46,6 +46,8 @@ public:
 	bool CanSwitch();
 
 	void ResetClipping();
+	void SetNextEvent();
+	bool CheckEvents(ResourceAnimation* anim);
 
 public:
 

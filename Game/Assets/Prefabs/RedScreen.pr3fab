@@ -1,0 +1,85 @@
+{
+    "GameObjects": [
+        {
+            "UID": 797125762,
+            "ParentUID": 1,
+            "Name": "RedScreen",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 504491251,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 2
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 1540738474,
+                    "textureName": "Low_Vida",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 0,
+                    "hoverDetectionMouse3": 0,
+                    "UIOrder": 0,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "DamageFeedbackUI",
+                    "scriptInfo": {
+                        "FadeInTime": 0.20000000298023225,
+                        "FadeOutTime": 0.5
+                    }
+                }
+            ]
+        }
+    ]
+}

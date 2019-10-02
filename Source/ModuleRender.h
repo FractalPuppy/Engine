@@ -1,11 +1,11 @@
 #ifndef __ModuleRender_h__
 #define __ModuleRender_h__
 
-#define MAX_KERNEL_RADIUS 100
+#define BLOOM_AMOUNT 10
 
 #include "Module.h"
 #include "Math/float3.h"
-#include "MathGeoLib/include/Geometry/Frustum.h"
+#include "Geometry/Frustum.h"
 #include <unordered_set>
 
 class ComponentCamera;
@@ -32,6 +32,7 @@ public:
 	void Draw(const ComponentCamera& cam, int width, int height, bool isEditor = false) const;
 	bool IsSceneViewFocused() const;
 	bool IsSceneHovered() const;
+	Viewport * GetActiveViewport() const;
 	bool CleanUp() override;
 	void OnResize();
 	void ENGINE_API SetVsync(bool active);
@@ -52,9 +53,7 @@ private:
 	void ShadowVolumeDrawDebug() const;
 	void BlitShadowTexture();
 	void CreatePostProcessFramebuffer();
-	inline float Gaussian(float x, float mu, float sigma);
-	void ComputeBloomKernel();
-
+		
 public:
 	void* context = nullptr;
 
@@ -69,6 +68,7 @@ public:
 	bool grid_debug = true;
 	bool shadowDebug = false;
 	bool boneDebug = false;
+	bool pathfindingDebug = false;
 	bool useMainCameraFrustum = false;
 	bool vsync = false;
 
@@ -84,6 +84,7 @@ public:
 	unsigned highlightBufferGame = 0u;
 	unsigned brightnessBufferGame = 0u;
 	unsigned renderedSceneGame = 0u;
+	float exposure = 1.0f;
 
 private:
 	unsigned UBO = 0;
@@ -109,6 +110,7 @@ private:
 	
 	Shader* shadowsShader = nullptr;
 	Shader* postProcessShader = nullptr;
+	Shader* blur = nullptr;
 
 	unsigned postprocessFBO = 0u;
 	unsigned postprocessRBO = 0u;
@@ -116,11 +118,13 @@ private:
 	unsigned postprocessVBO = 0u;
 	unsigned postprocessEBO = 0u;
 
+	unsigned int pingpongFBO[2];
+	unsigned int pingpongColorbuffers[2];
+
+	unsigned depthTexture = 0u;
+
 	float gammaCorrector = 2.2f;
-	float exposure = 1.0f;
-	float bloomSpread = 80.f;
-	int kernelRadius = 10;
-	float* kernel = nullptr;
+	
 };
 
 #endif /* __ModuleRender_h__ */

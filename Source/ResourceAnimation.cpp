@@ -12,6 +12,8 @@
 #include "JSON.h"
 #include <assert.h>
 
+#include <algorithm>
+
 
 ResourceAnimation::ResourceAnimation(unsigned uid) : Resource(uid, TYPE::ANIMATION)
 {
@@ -111,12 +113,28 @@ void ResourceAnimation::SaveMetafile(const char* file) const
 	JSON_value* meta = json->CreateValue();
 	struct stat statFile;
 	stat(filepath.c_str(), &statFile);
-	meta->AddUint("GUID", UID);
+	meta->AddUint("metaVersion", META_VERSION);
 	meta->AddUint("timeCreated", statFile.st_ctime);
-	meta->AddString("name", name.c_str());
+
+	// Resource info
+	meta->AddUint("GUID", UID);
+	meta->AddString("Name", name.c_str());
+	meta->AddString("File", file);
+	meta->AddString("ExportedFile", exportedFile.c_str());
+
 	json->AddValue("Animation", *meta);
-	filepath += METAEXT;
-	App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+
+	// Save meta in Assets if animation comes from animation file
+	if (App->fsystem->GetExtension(filepath) == ANIMATIONEXTENSION)
+	{
+		filepath += METAEXT;
+		App->fsystem->Save(filepath.c_str(), json->ToString().c_str(), json->Size());
+	}
+
+	// Save meta in Library
+	std::string libraryPath(exportedFile + METAEXT);
+	App->fsystem->Save(libraryPath.c_str(), json->ToString().c_str(), json->Size());
+	RELEASE(json);
 }
 
 void ResourceAnimation::LoadConfigFromMeta()
@@ -139,15 +157,61 @@ void ResourceAnimation::LoadConfigFromMeta()
 	}
 	JSON* json = new JSON(data);
 	JSON_value* value = json->GetValue("Animation");
-	UID = value->GetUint("GUID");
-	name = value->GetString("name");
 
-	//Updates resource UID on resourcelist
-	App->resManager->ReplaceResource(oldUID, this);
+	// Make sure the UID from meta is the same
+	unsigned checkUID = value->GetUint("GUID");
+	if (oldUID != checkUID)
+	{
+		UID = checkUID;
+		// Update resource UID on resource list
+		App->resManager->ReplaceResource(oldUID, this);
+		exportedFile = IMPORTED_ANIMATIONS + std::to_string(UID) + ANIMATIONEXTENSION;
+	}
+
+	// Check the meta file version
+	if (value->GetUint("metaVersion", 0u) < META_VERSION)
+		SaveMetafile(file.c_str());
+
+	// Check the meta saved in library, if not save it
+	if (!App->fsystem->Exists((exportedFile + METAEXT).c_str()))
+		SaveMetafile(file.c_str());
+
+	RELEASE_ARRAY(data);
+	RELEASE(json);
+}
+
+void ResourceAnimation::LoadConfigFromLibraryMeta()
+{
+	std::string metaFile(exportedFile);
+	metaFile += ".meta";
+
+	// Check if meta file exists
+	if (!App->fsystem->Exists(metaFile.c_str()))
+		return;
+
+	char* data = nullptr;
+	unsigned oldUID = GetUID();
+
+	if (App->fsystem->Load(metaFile.c_str(), &data) == 0)
+	{
+		LOG("Warning: %s couldn't be loaded", metaFile.c_str());
+		RELEASE_ARRAY(data);
+		return;
+	}
+	JSON* json = new JSON(data);
+	JSON_value* value = json->GetValue("Animation");
+
+	// Get resource variables
+	name = value->GetString("Name");
+	file = value->GetString("File");
+
+	RELEASE_ARRAY(data);
+	RELEASE(json);
 }
 
 void ResourceAnimation::SetAnimation(const char* animationData)
 {
+	const char* data = animationData; //used as a base pointer for release
 	for (const auto& channel : channels)
 	{
 		channel->numPositionKeys = 0u;
@@ -207,6 +271,32 @@ void ResourceAnimation::SetAnimation(const char* animationData)
 
 		channels.push_back(newChannel);
 	}
+
+	//load events
+	events.clear();
+
+	memcpy(&totalEvents, animationData, sizeof(int));
+	animationData += sizeof(int);
+
+	for (unsigned i = 0u; i < totalEvents; i++)
+	{
+		int newKey;
+		memcpy(&newKey, animationData, sizeof(int));
+		animationData += sizeof(int);
+
+		int newFrame;
+		memcpy(&newFrame, animationData, sizeof(int));
+		animationData += sizeof(int);
+
+		char newName[MAX_BONE_NAME_LENGTH];
+		memcpy(newName, animationData, sizeof(char) * MAX_BONE_NAME_LENGTH);
+		animationData += sizeof(char)* MAX_BONE_NAME_LENGTH;
+
+		Event* newEvent = new Event(newKey, newFrame, std::string(newName));
+		events.push_back(newEvent);
+	}
+
+	RELEASE_ARRAY(data);
 }
 
 unsigned ResourceAnimation::GetAnimationSize()
@@ -230,6 +320,16 @@ unsigned ResourceAnimation::GetAnimationSize()
 			size += sizeof(Quat);
 		}
 	}
+
+	//get events
+	size += sizeof(int);
+
+	for (unsigned i = 0u; i < totalEvents; i++)
+	{
+		size += sizeof(int) * 2;
+		size += sizeof(char)* MAX_BONE_NAME_LENGTH;
+	}
+
 	return size;
 }
 
@@ -276,6 +376,23 @@ void ResourceAnimation::SaveAnimationData(char * data)
 			cursor += sizeof(math::Quat);
 		}
 	}
+
+	//save events
+	memcpy(cursor, &totalEvents, sizeof(int));
+	cursor += sizeof(int);
+
+	for (unsigned i = 0u; i < totalEvents; i++)
+	{
+		memcpy(cursor, &events[i]->key, sizeof(int));
+		cursor += sizeof(int);
+
+		memcpy(cursor, &events[i]->frame, sizeof(int));
+		cursor += sizeof(int);
+
+		memcpy(cursor, events[i]->name.c_str(), sizeof(char) * MAX_BONE_NAME_LENGTH);
+		cursor += sizeof(char) * MAX_BONE_NAME_LENGTH;
+	}
+
 }
 
 void ResourceAnimation::SaveNewAnimation()
@@ -288,6 +405,45 @@ void ResourceAnimation::SaveNewAnimation()
 	App->fsystem->Save((ANIMATIONS + name + ANIMATIONEXTENSION).c_str(), animationData, animationSize);
 	SetFile((ANIMATIONS + name + ANIMATIONEXTENSION).c_str());
 	RELEASE_ARRAY(animationData);
+}
+
+void ResourceAnimation::AddEvent(std::string name)
+{
+	events.push_back(new Event(totalEvents, currentFrame, name));
+	++totalEvents;
+
+	if (totalEvents > 1)
+	{
+		std::sort(events.begin(), events.end(), [](const Event* lhs, const Event* rhs) 
+			{ return lhs->frame < rhs->frame; });
+	}
+
+	SetEventKeys();
+}
+
+void ResourceAnimation::DeleteEvent(int key)
+{
+	for (std::vector<Event*>::iterator it = events.begin(); it != events.end(); ++it)
+	{
+		if ((*it)->key == key)
+		{
+			events.erase(it);
+			--totalEvents;
+			break;
+		}
+	}
+
+	SetEventKeys();
+}
+
+void ResourceAnimation::SetEventKeys()
+{
+	int contador = 0;
+	for (std::vector<Event*>::iterator it = events.begin(); it != events.end(); ++it)
+	{
+		(*it)->key = contador;
+		++contador;
+	}
 }
 
 unsigned ResourceAnimation::GetNumPositions(unsigned indexChannel) const

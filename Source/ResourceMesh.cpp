@@ -43,6 +43,26 @@ ResourceMesh::ResourceMesh(const ResourceMesh& resource) : Resource(resource)
 	meshTangents = resource.meshTangents;
 	meshTexCoords = resource.meshTexCoords;
 	meshIndices = resource.meshIndices;
+
+	drawingMode = resource.drawingMode;
+}
+
+ResourceMesh::ResourceMesh(unsigned nVertices, float* vertices, unsigned nIndexes, int* indexes, unsigned nUVs, float* UVs) : Resource(0, TYPE::MESH)
+{
+	assert(nVertices % 3 == 0 && vertices && indexes && UVs); 
+	for (unsigned i = 0u; i < nVertices; i += 3)
+	{
+		meshVertices.push_back(math::float3(vertices[i], vertices[i + 1], vertices[i + 2]));
+	}
+	meshIndices.resize(nIndexes);
+	memcpy(&meshIndices[0], indexes, sizeof(unsigned) * nIndexes);
+	meshTexCoords.resize(nUVs);
+	memcpy(&meshTexCoords[0], UVs, sizeof(float) * nUVs);
+	drawingMode = DRAW_GL_STRIP;
+	SetMeshBuffers();
+	SetBboxBuffers();
+	ComputeBBox();
+
 }
 
 ResourceMesh::~ResourceMesh()
@@ -62,6 +82,7 @@ bool ResourceMesh::LoadInMemory()
 		SetMesh(data); //Deallocates data
 		SetMeshBuffers();
 		SetBboxBuffers();
+
 		++loaded;
 	}
 	return true;
@@ -110,6 +131,62 @@ void ResourceMesh::DeleteFromMemory()
 	bindBones.clear();
 }
 
+void ResourceMesh::SaveMetafile(const char* file) const
+{
+	std::string filepath;
+	filepath.append(file);
+	JSON *json = new JSON();
+
+	// Mesh information
+	JSON_value* meshMeta = json->CreateValue();
+	struct stat statFile;
+	stat(filepath.c_str(), &statFile);
+	meshMeta->AddUint("metaVersion", META_VERSION);
+	meshMeta->AddUint("timeCreated", statFile.st_ctime);
+
+	// Resource info
+	meshMeta->AddUint("GUID", UID);
+	meshMeta->AddString("Name", name.c_str());
+	meshMeta->AddString("File", file);
+	meshMeta->AddString("ExportedFile", exportedFile.c_str());
+
+	json->AddValue("Mesh", *meshMeta);
+
+	// Save meta in Library
+	std::string libraryPath(exportedFile + METAEXT);
+	App->fsystem->Save(libraryPath.c_str(), json->ToString().c_str(), json->Size());
+	RELEASE(json);
+}
+
+void ResourceMesh::LoadConfigFromLibraryMeta()
+{
+	std::string metaFile(exportedFile);
+	metaFile += ".meta";
+
+	// Check if meta file exists
+	if (!App->fsystem->Exists(metaFile.c_str()))
+		return;
+
+	char* data = nullptr;
+	unsigned oldUID = GetUID();
+
+	if (App->fsystem->Load(metaFile.c_str(), &data) == 0)
+	{
+		LOG("Warning: %s couldn't be loaded", metaFile.c_str());
+		RELEASE_ARRAY(data);
+		return;
+	}
+	JSON* json = new JSON(data);
+	JSON_value* value = json->GetValue("Mesh");
+
+	// Get resource variables
+	name = value->GetString("Name");
+	file = value->GetString("File");
+
+	RELEASE_ARRAY(data);
+	RELEASE(json);
+}
+
 void ResourceMesh::Draw(unsigned shaderProgram) const
 {
 	if (bindBones.size() > 0)
@@ -127,7 +204,7 @@ void ResourceMesh::Draw(unsigned shaderProgram) const
 
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glDrawElements(GL_TRIANGLES, meshIndices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(drawingMode, meshIndices.size(), GL_UNSIGNED_INT, 0);
 
 	// We disable VAO
 	glBindVertexArray(0);
@@ -199,6 +276,8 @@ void ResourceMesh::SetMesh(const char* meshData)
 {
 	assert(meshData != nullptr);
 	if (meshData == nullptr) return;
+
+	const char* data = meshData; //base pointer used to release
 
 	unsigned numIndices = *(int*)meshData;
 	meshData += sizeof(int);
@@ -317,11 +396,13 @@ void ResourceMesh::SetMesh(const char* meshData)
 	ComputeBBox();
 	SetMeshBuffers();
 	SetBboxBuffers();
+
+	RELEASE_ARRAY(data);
 }
 
 void ResourceMesh::SetMeshBuffers()
 {
-	if (meshTangents.size() == 0) //if the mesh don't have tangents -> calculate them
+	if (meshTangents.size() == 0 && drawingMode == DRAW_GL_TRIANGLES) //if the mesh don't have tangents -> calculate them
 		CalculateTangents();
 
 	unsigned offsetTexCoords = meshVertices.size() * sizeof(math::float3);
@@ -447,8 +528,7 @@ void ResourceMesh::SetBboxBuffers()
 }
 
 void ResourceMesh::DrawBbox(unsigned shader, const AABB &globalBBOX) const
-{
-	if (globalBBOX.Volume() <= 0) return;
+{	
 	glUseProgram(shader);
 
 	float4x4 boxtransform = float4x4::FromTRS(globalBBOX.CenterPoint(), Quat::identity, globalBBOX.Size());

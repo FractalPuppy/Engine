@@ -9,18 +9,24 @@
 
 #include "BaseScript.h"
 #include "Math/float3.h"
+#include <vector>
 
-class GameObject;
-class ComponentAnimation;
-class ComponentRenderer;
-class PlayerMovement;
 class EnemyControllerScript;
 class JSON_value;
-enum class EnemyState;
+class EnemyState;
+class EnemyStatePatrol;
+class EnemyStateChase;
+class EnemyStateReturnToStart;
+class EnemyStateAttack;
+class EnemyStateCooldown;
+class EnemyStateDeath;
+class EnemyStateFlee;
+
 
 class BasicEnemyAIScript_API BasicEnemyAIScript : public Script
 {
 public:
+	void Awake() override;
 	void Start() override;
 	void Update() override;
 
@@ -29,26 +35,33 @@ public:
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
 
+	inline virtual BasicEnemyAIScript* Clone() const
+	{
+		return new BasicEnemyAIScript(*this);
+	}
 private:
-	void Wait();
-	void StandUp();
-	void Chase();
-	void ReturnToStartPosition();
-	void Laydown();
-	void Attack();
-	void Cooldown();
-	void Die();
+	void CheckStates(EnemyState* previous, EnemyState* current);
 
-	void MoveTowards(float speed) const;
-	void CheckStateChange(EnemyState previous, EnemyState newState);
+	void DrawDebug() const;
 
-private:
-	// Wait variables
-	float activationDistance = 100.0f;	// Distance to player needed to start chasing the player (only X,Z axis is taken into account)
+	void OnTriggerEnter(GameObject* go) override;
 
-	// Stand-Up variables
-	float standupSpeed = 1.0f;			// Tranlation speed on stand-up
-	float yTranslation = 20.0f;			// Y axis translation on stand-up 
+public:
+	EnemyState* currentState = nullptr;
+
+	EnemyStateFlee* flee = nullptr;
+	EnemyStatePatrol* patrol = nullptr;
+	EnemyStateChase* chase = nullptr;
+	EnemyStateReturnToStart* returnToStart = nullptr;
+	EnemyStateAttack* attack = nullptr;
+	EnemyStateCooldown* cooldown = nullptr;
+	EnemyStateDeath* death = nullptr;
+
+	bool drawDebug = true;				// If true will draw all debug for enemy behaviour
+
+	// Patrol variables
+	float activationDistance = 1000.0f;	// Distance to player needed to start chasing the player (only X,Z axis is taken into account)
+	float attackRange = 400.f;
 
 	// Chase variables
 	float chaseSpeed = 2.0f;			// Tranlation speed when chasing player
@@ -58,19 +71,21 @@ private:
 	float returnDistance = 150.f;		// Distance to player to stop chasing player and return to start position
 	float returnSpeed = 1.0f;			// Tranlation speed towards start position
 
+	// Attack variables
+	float attackDuration = 1.0f;
+	float attackDamage = 20.0f;
+
 	// Cooldown variables
 	float cooldownTime = 1.0f;			// Seconds to wait between attacks
 
-	float auxTranslation = 0.0f;
-	float auxTimer = 0.0f;
+	bool scared = false;
 
-	//Damage variables
-	float damage = 20.0f;
+	EnemyControllerScript* enemyController = nullptr;
 
-	ComponentAnimation* anim = nullptr;
-
-	EnemyControllerScript* enemyController;
-	PlayerMovement* playerScript;
+protected:
+	std::vector<EnemyState*> enemyStates;
 };
+
+extern "C" BasicEnemyAIScript_API Script* CreateScript();
 
 #endif __BasicEnemyAIScript_h__

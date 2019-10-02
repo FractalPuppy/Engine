@@ -16,9 +16,15 @@ class AudioSourceScript_API AudioSourceScript : public Script
 {
 	void Start() override;
 	void Update() override;
+	inline virtual AudioSourceScript* Clone() const
+	{
+		return new AudioSourceScript(*this);
+	}
 
 private:
 	ComponentAudioSource* audioSource = nullptr;
 };
+
+extern "C" AudioSourceScript_API Script* CreateScript();
 
 #endif __AudioSourceScript_h__

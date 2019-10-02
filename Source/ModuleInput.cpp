@@ -2,6 +2,7 @@
 
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
+#include "ModuleTime.h"
 #include "ModuleEditor.h"
 #include "ModuleFileSystem.h"
 
@@ -138,8 +139,14 @@ update_status ModuleInput::PreUpdate()
 		}
 	}
 
-	if (GetWindowEvent(EventWindow::WE_QUIT) == true || GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && App->time->gameState != GameState::RUN)
+	{
 		return UPDATE_STOP;
+	}	
+	else if (GetWindowEvent(EventWindow::WE_QUIT) == true)
+	{
+		return UPDATE_STOP;
+	}
 
 	return UPDATE_CONTINUE;
 }

@@ -1,0 +1,554 @@
+{
+    "GameObjects": [
+        {
+            "UID": 17377664,
+            "ParentUID": 0,
+            "Name": "Boss",
+            "Tag": "Boss",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 3166434820,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 2399448192,
+            "ParentUID": 17377664,
+            "Name": "Main",
+            "Tag": "Boss",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        530.9488525390625,
+                        629.8148803710938,
+                        -3870.121826171875
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.5,
+                        1.5,
+                        1.5
+                    ],
+                    "Global": [
+                        1.5,
+                        0.0,
+                        0.0,
+                        530.9488525390625,
+                        0.0,
+                        1.5,
+                        0.0,
+                        629.8148803710938,
+                        0.0,
+                        0.0,
+                        1.5,
+                        -3870.121826171875,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 2415656665,
+                    "materialUID": 2160207956,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 1,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0,
+                    "borderAmount": 0.05999999865889549
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "EnemyControllerScript",
+                    "scriptInfo": {
+                        "type": 0,
+                        "level": 3,
+                        "playerTag": "Player",
+                        "health": 120,
+                        "experience": 20,
+                        "enemyCursor": "RedGlow.cur",
+                        "lootDelay": 1.0,
+                        "lootRadius": 100.0
+                    }
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "BossBehaviourScript",
+                    "scriptInfo": {
+                        "floatConstant": 0.699999988079071,
+                        "angleConstant": 2.5,
+                        "activationDistance": 1800.0,
+                        "doorClosingDistance": 2000.0,
+                        "activationTime": 10.0,
+                        "firstSpawnLocation": [
+                            -500.0,
+                            370.0,
+                            -2952.0
+                        ],
+                        "secondSpawnLocation": [
+                            1533.0,
+                            370.0,
+                            -2879.0
+                        ],
+                        "highPointFirstCS": [
+                            567.0,
+                            814.0,
+                            -2974.0
+                        ],
+                        "pointStartFight": [
+                            567.0,
+                            448.0,
+                            -3025.0
+                        ],
+                        "finalDoorHeight": 653.0,
+                        "skullsToShootFirst": 5,
+                        "topTP": [
+                            577.0,
+                            448.0,
+                            -2940.0
+                        ],
+                        "bottomTP": [
+                            598.0,
+                            448.0,
+                            -2045.0
+                        ],
+                        "leftTP": [
+                            -344.0,
+                            448.0,
+                            -2830.0
+                        ],
+                        "rightTP": [
+                            1668.0,
+                            448.0,
+                            -2800.0
+                        ],
+                        "northSecondSkull": [
+                            530.0,
+                            740.0,
+                            -4079.0
+                        ],
+                        "northEastSecondSkull": [
+                            1380.0,
+                            740.0,
+                            -3811.0
+                        ],
+                        "eastSecondSkull": [
+                            1470.0,
+                            740.0,
+                            -3069.0
+                        ],
+                        "southEastSecondSkull": [
+                            1278.0,
+                            740.0,
+                            -2427.0
+                        ],
+                        "southSecondSkull": [
+                            493.0,
+                            740.0,
+                            -2279.0
+                        ],
+                        "southWestSecondSkull": [
+                            -325.0,
+                            740.0,
+                            -2400.0
+                        ],
+                        "westSecondSkull": [
+                            -416.0,
+                            740.0,
+                            -3121.0
+                        ],
+                        "northWestSecondSkull": [
+                            -372.0,
+                            740.0,
+                            -3827.0
+                        ],
+                        "circleNoise": 50.0,
+                        "cameraRotationDoorCS": [
+                            0.23251014947891236,
+                            -0.15254740417003632,
+                            0.0014810040593147278,
+                            0.9605551362037659
+                        ],
+                        "cameraRotationDoorEulerCS": [
+                            27.875999450683595,
+                            -17.0,
+                            4.425000190734863
+                        ],
+                        "cameraPositionDoorCS": [
+                            864.0,
+                            1141.0,
+                            -2806.0
+                        ],
+                        "cameraRotationBossCS": [
+                            0.017322296276688577,
+                            0.9923949837684631,
+                            -0.12185076624155045,
+                            0.0021269102580845358
+                        ],
+                        "cameraRotationBossEulerCS": [
+                            166.0,
+                            0.0,
+                            -178.0
+                        ],
+                        "cameraPositionBossCS": [
+                            516.0,
+                            1078.0,
+                            -2920.0
+                        ],
+                        "cutsceneDoorDuration": 4.0,
+                        "cutsceneBossDuration": 4.0,
+                        "cutsceneBackToPlayerDuration": 5.0,
+                        "cutsceneDoorRisingDuration": 2.0
+                    }
+                }
+            ]
+        },
+        {
+            "UID": 523591386,
+            "ParentUID": 2399448192,
+            "Name": "Empty",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        -12.597991943359375,
+                        125.48370361328125,
+                        -5.4794921875
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        0.31121623516082766,
+                        0.31121623516082766,
+                        0.31121623516082766
+                    ],
+                    "Global": [
+                        0.46682435274124148,
+                        0.0,
+                        0.0,
+                        512.0518798828125,
+                        0.0,
+                        0.46682435274124148,
+                        0.0,
+                        818.0404052734375,
+                        0.0,
+                        0.0,
+                        0.46682435274124148,
+                        -3878.341064453125,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 15,
+                    "Enabled": 1,
+                    "pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "r": [
+                        250.0,
+                        600.0,
+                        250.0
+                    ],
+                    "boxType": 3,
+                    "debug_draw": 1
+                }
+            ]
+        },
+        {
+            "UID": 797441131,
+            "ParentUID": 2399448192,
+            "Name": "Point",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        455.215576171875,
+                        134.261962890625
+                    ],
+                    "Rotation": [
+                        -0.5012205839157105,
+                        0.0,
+                        0.0,
+                        0.865319550037384
+                    ],
+                    "Euler": [
+                        -60.16156768798828,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0000009536743165,
+                        1.0000009536743165
+                    ],
+                    "Global": [
+                        1.5,
+                        0.0,
+                        0.0,
+                        530.9488525390625,
+                        0.0,
+                        0.7463344931602478,
+                        1.3011491298675538,
+                        1312.63818359375,
+                        0.0,
+                        -1.3011491298675538,
+                        0.7463344931602478,
+                        -3668.72900390625,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 3,
+                    "Enabled": 1,
+                    "Lighttype": 1,
+                    "color": [
+                        0.636124849319458,
+                        0.13050927221775056,
+                        0.9098360538482666
+                    ],
+                    "radius": 631.1321411132813,
+                    "range": 572.0,
+                    "intensity": 49.0,
+                    "produceShadows": 0
+                }
+            ]
+        }
+    ]
+}

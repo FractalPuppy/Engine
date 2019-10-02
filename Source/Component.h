@@ -21,7 +21,9 @@ enum class ComponentType
 	Trail,
 	ReverbZone,
 	AudioListener,
-	AudioSource
+	AudioSource,
+	BoxTrigger,
+	VolumetricLight
 };
 
 class ENGINE_API Component
@@ -39,6 +41,7 @@ public:
 
 	virtual void Enable(bool enable);
 
+	virtual void PreUpdate() {}
 	virtual void Update() {}
 	virtual void OnPlay() {}
 

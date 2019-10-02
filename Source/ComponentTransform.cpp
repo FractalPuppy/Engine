@@ -3,17 +3,22 @@
 
 #include "Application.h"
 #include "ModuleSpacePartitioning.h"
+#include "ModuleInput.h"
+#include "ModuleWindow.h"
+#include "ModuleTime.h"
+#include "ModuleScene.h"
+#include "ModuleUI.h"
 
 #include "GameObject.h"
 #include "ComponentLight.h"
-#include "GameObject.h"
-#include "ModuleTime.h"
-#include "ModuleScene.h"
-
+#include "ComponentCamera.h"
 
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "Math/MathFunc.h"
+#include "Math/float2.h"
+#include "Geometry/Plane.h"
+#include "Geometry/Line.h"
 #include "JSON.h"
 #include "AABBTree.h"
 
@@ -31,6 +36,10 @@ ComponentTransform::ComponentTransform(const ComponentTransform& component) : Co
 	scale = component.scale;
 	local = component.local;
 	global = component.global;
+
+	up = component.up;
+	right = component.right;
+	front = component.front;
 }
 
 
@@ -105,7 +114,7 @@ void ComponentTransform::MultiSelectionTransform(float4x4 &difference)
 {
 	for (GameObject* go : App->scene->selection)
 	{
-		if (go != App->scene->selected)
+		if (go != App->scene->selected && go->transform)
 		{
 			go->SetGlobalTransform(go->transform->global + difference);
 			if (go->parent->transform != nullptr)
@@ -123,8 +132,6 @@ void ComponentTransform::MultiSelectionTransform(float4x4 &difference)
 void ComponentTransform::UpdateTransform()
 {
 	UpdateOldTransform();
-
-
 	
 	front = -global.Col3(2);
 	up = global.Col3(1);
@@ -232,10 +239,11 @@ void ComponentTransform::SetLocalTransform(const math::float4x4& newLocal, const
 	RotationToEuler();
 }
 
-void ComponentTransform::SetPosition(const math::float3 & newPosition)
+void ComponentTransform::SetPosition(const math::float3& newPosition)
 {
 	position = newPosition;
 	gameobject->movedFlag = true;
+	
 }
 
 math::float3 ComponentTransform::GetPosition()
@@ -243,7 +251,20 @@ math::float3 ComponentTransform::GetPosition()
 	return position;
 }
 
-void ComponentTransform::SetRotation(const math::Quat & newRotation)
+math::float2 ComponentTransform::GetScreenPosition()
+{
+	math::float3 projection = App->scene->maincamera->frustum->Project(GetGlobalPosition());
+	if (projection.z > 0)
+	{
+		math::float2 screenPosition;
+		screenPosition.x = (int)(projection.x * (App->ui->currentWidth / 2.0));
+		screenPosition.y = (int)(projection.y * (App->ui->currentHeight / 2.0));
+		return screenPosition;
+	}
+	return math::float2::zero;
+}
+
+void ComponentTransform::SetRotation(const math::Quat& newRotation)
 {
 	rotation = newRotation;
 	RotationToEuler();
@@ -251,9 +272,36 @@ void ComponentTransform::SetRotation(const math::Quat & newRotation)
 	UpdateTransform();
 }
 
+void ComponentTransform::SetScale(const math::float3& newScale)
+{
+	scale = newScale;
+	gameobject->movedFlag = true;
+}
+
+ENGINE_API void ComponentTransform::Scale(float scalar)
+{
+	scale *= scalar;
+	gameobject->movedFlag = true;
+}
+
 math::Quat ComponentTransform::GetRotation()
 {
 	return rotation;
+}
+
+ENGINE_API math::Quat ComponentTransform::GetGlobalRotation()
+{
+	if (gameobject->movedFlag)
+	{
+		float4x4 newlocal = math::float4x4::FromTRS(position, rotation, scale);
+		if (gameobject->parent != nullptr)
+		{
+			return gameobject->parent->GetGlobalTransform().RotatePart().ToQuat()
+				* newlocal.RotatePart().ToQuat();
+		}
+		return newlocal.RotatePart().ToQuat();
+	}
+	return global.RotatePart().ToQuat();
 }
 
 math::float3 ComponentTransform::GetGlobalPosition()
@@ -270,11 +318,43 @@ math::float3 ComponentTransform::GetGlobalPosition()
 	return global.Col3(3);
 }
 
+ENGINE_API void ComponentTransform::Rotate(math::float3 rot)
+{
+	SetRotation(Quat::FromEulerXYZ(rot.x, rot.y, rot.z) * rotation);
+}
+
 void ComponentTransform::LookAt(const math::float3 & targetPosition)
 {
 	math::float3 direction = (targetPosition - GetGlobalPosition());
 	math::Quat newRotation = rotation.LookAt(float3::unitZ, direction.Normalized(), float3::unitY, float3::unitY);	
 	SetRotation(newRotation);
+}
+
+ENGINE_API void ComponentTransform::LookAtMouse() //POS SIZE!!
+{
+	//App->renderer->gam
+	math::float2 pos= App->window->GetWindowPos();
+	math::float2 size = App->window->GetWindowSize();
+
+	math::float2 mouse((float*)&App->input->GetMousePosition());
+
+	float normalized_x = ((mouse.x - pos.x) /size.x) * 2 - 1; //0 to 1 -> -1 to 1
+	float normalized_y = (1 - (mouse.y - pos.y) / size.y) * 2 - 1; //0 to 1 -> -1 to 1
+
+	LineSegment segment = App->scene->maincamera->DrawRay(normalized_x, normalized_y);
+	Line line(segment);
+	Plane plane(position, float3::unitY);
+
+	float d = 0;
+	if (!line.Intersects(plane, &d))
+	{
+		assert(true, "Mouse didn't intersect with gameobject base plane!");
+	}
+	if (&d != nullptr)
+	{
+		math::float3 point = line.GetPoint(d);
+		LookAt(point);
+	}
 }
 
 void ComponentTransform::Align(const math::float3 & targetFront)
@@ -323,7 +403,35 @@ void ComponentTransform::Paste()
 
 void ComponentTransform::Reset()
 {
-	position = math::float3(0.f, 0.f, 0.f);
-	eulerRotation = math::float3(0.f, 0.f, 0.f);
-	scale = math::float3(1.0f, 1.0f, 1.0f);
+	math::float3 position = math::float3::zero;
+	rotation = math::Quat::identity;
+	math::float3 eulerRotation = math::float3::zero;
+	math::float3 scale = math::float3::one;
+	math::float4x4 local = math::float4x4::identity;
+	math::float4x4 animatedLocal = math::float4x4::identity;
+	math::float4x4 global = math::float4x4::identity;
+}
+
+ENGINE_API void ComponentTransform::SetGlobalPosition(const math::float3 & newPos)
+{
+	global.SetTranslatePart(newPos);
+	NewAttachment();
+}
+
+void ComponentTransform::NewAttachment()
+{
+	if (gameobject->parent != nullptr && gameobject->parent->transform != nullptr)
+	{
+		local = gameobject->parent->transform->global.Inverted().Mul(global);
+	}
+	else
+	{
+		local = global;
+	}
+
+	float3x3 rot;
+	local.Decompose(position, rot, scale);
+	rotation = rot.ToQuat();
+	UpdateGlobalTransform();
+	gameobject->movedFlag = true;
 }

@@ -30,4 +30,7 @@ private:
 	math::float3 finalPosition = math::float3(0, 0, 1000);
 	float speed = 2.0f;
 };
+
+extern "C" IntroScript_API Script* CreateScript();
+
 #endif __IntroScript_h__

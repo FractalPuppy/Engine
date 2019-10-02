@@ -1,0 +1,155 @@
+{
+    "GameObjects": [
+        {
+            "UID": 694128066,
+            "ParentUID": 1,
+            "Name": "MacheteRain",
+            "Tag": "Machete",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 1224957921,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        386.25897216796877,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.3604899048805237,
+                        0.4063374400138855,
+                        0.5572261214256287,
+                        0.6280413866043091
+                    ],
+                    "Euler": [
+                        -0.005378346424549818,
+                        65.80309295654297,
+                        83.16519927978516
+                    ],
+                    "Scale": [
+                        45.38605880737305,
+                        45.38597106933594,
+                        45.38579559326172
+                    ],
+                    "Global": [
+                        2.21384334564209,
+                        -18.470327377319337,
+                        41.39830017089844,
+                        0.0,
+                        45.063053131103519,
+                        5.405120849609375,
+                        0.001740798819810152,
+                        386.25897216796877,
+                        -4.930961608886719,
+                        41.10374450683594,
+                        18.602455139160158,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 1941511768,
+                    "materialUID": 2920954603,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "water": 0,
+                    "dissolve": 1,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0
+                },
+                {
+                    "Type": 15,
+                    "Enabled": 1,
+                    "pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "r": [
+                        2.0,
+                        0.30000001192092898,
+                        0.30000001192092898
+                    ],
+                    "is_player": 1,
+                    "debug_draw": 1
+                }
+            ]
+        }
+    ]
+}

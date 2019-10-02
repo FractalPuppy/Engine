@@ -150,7 +150,6 @@ void PanelState::DrawTransitions(ResourceStateMachine * stateMachine)
 		if (origin < numNodes && destiny < numNodes)
 		{
 			ed::Link(numNodes * 3 + i + 1, origin * 3 + 3, destiny * 3 + 2);
-			stateMachine->Save();
 		}
 	}
 	ed::PopStyleVar(1);

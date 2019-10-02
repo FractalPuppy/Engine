@@ -15,7 +15,7 @@ PanelHierarchy::~PanelHierarchy()
 
 void PanelHierarchy::Draw()
 {
-	if (!ImGui::Begin("Hierarchy", &enabled))
+	if (!ImGui::Begin("Hierarchy", &enabled, ImGuiWindowFlags_HorizontalScrollbar))
 	{
 		ImGui::End();
 		return;

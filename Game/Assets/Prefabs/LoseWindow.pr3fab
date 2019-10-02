@@ -1,0 +1,265 @@
+{
+    "GameObjects": [
+        {
+            "UID": 4049440528,
+            "ParentUID": 1,
+            "Name": "LoseWindow",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 686480184,
+            "Components": []
+        },
+        {
+            "UID": 3234088939,
+            "ParentUID": 4049440528,
+            "Name": "Background",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0
+                    ],
+                    "Size": [
+                        400.0,
+                        250.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 557422955,
+                    "textureName": "Background_Chicken",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 0,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 0,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0
+                }
+            ]
+        },
+        {
+            "UID": 4090758665,
+            "ParentUID": 4049440528,
+            "Name": "Button",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -0.20000000298023225,
+                        -87.19999694824219
+                    ],
+                    "Size": [
+                        122.5,
+                        46.5
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 8,
+                    "Enabled": 1,
+                    "text": {
+                        "Type": 6,
+                        "Enabled": 1,
+                        "FontSize": 27.0,
+                        "text": "",
+                        "font": "Fonts/TACOSRG.ttf",
+                        "color": [
+                            1.0431373119354249,
+                            0.9529411792755127,
+                            0.0235294122248888,
+                            0.0
+                        ],
+                        "colorHovered": [
+                            0.8588235378265381,
+                            0.4431372582912445,
+                            0.03529411926865578,
+                            1.0
+                        ],
+                        "offset": [
+                            -54.0,
+                            -9.0
+                        ],
+                        "scaleOffset": [
+                            1.0,
+                            4.0
+                        ],
+                        "IsTextWrapped": 0,
+                        "WrapWidth": 0.0,
+                        "InterlineDistance": 0.0,
+                        "UIOrder": 0
+                    },
+                    "buttonImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 2151650093,
+                        "textureName": "ToAltar_Button",
+                        "color": [
+                            0.9999899864196777,
+                            0.9999948740005493,
+                            1.0,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 0,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "highlightedImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 2151650093,
+                        "textureName": "ToAltar_Button",
+                        "color": [
+                            0.6270492076873779,
+                            0.62578946352005,
+                            0.6193395853042603,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 0,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "pressedImage": {
+                        "Type": 7,
+                        "Enabled": 1,
+                        "textureUID": 2151650093,
+                        "textureName": "ToAltar_Button",
+                        "color": [
+                            0.9999899864196777,
+                            0.9999946355819702,
+                            1.0,
+                            1.0
+                        ],
+                        "FlipVertical": 0,
+                        "FlipHorizontal": 0,
+                        "isMasked": 0,
+                        "maskAmount": 0,
+                        "isMaskHorizontal": 0,
+                        "hoverDetectionMouse1": 1,
+                        "hoverDetectionMouse3": 1,
+                        "UIOrder": 0,
+                        "videoPath": "flame.avi",
+                        "fps": 24.0
+                    },
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 0
+                }
+            ]
+        }
+    ]
+}

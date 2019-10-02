@@ -24,6 +24,8 @@
 #include "encodedstream.h"
 #include <new>      // placement new
 #include <limits>
+#undef min
+#undef max
 
 RAPIDJSON_DIAG_PUSH
 #ifdef _MSC_VER

@@ -334,7 +334,7 @@ static void calcTriNormal(const float* v0, const float* v1, const float* v2, flo
 void rcMarkWalkableTriangles(rcContext* ctx, const float walkableSlopeAngle,
 							 const float* verts, int nv,
 							 const int* tris, int nt,
-							 unsigned char* areas)
+							 unsigned char* areas, std::vector<bool>& unwalkableVerts)
 {
 	rcIgnoreUnused(ctx);
 	rcIgnoreUnused(nv);
@@ -349,7 +349,9 @@ void rcMarkWalkableTriangles(rcContext* ctx, const float walkableSlopeAngle,
 		tris[0]; tris[1]; tris[2]; tris[3]; tris[4]; tris[5]; tris[6];
 		calcTriNormal(&verts[tri[0]*3], &verts[tri[1]*3], &verts[tri[2]*3], norm);
 		// Check if the face is walkable.
-		if (norm[1] > walkableThr)
+		if (unwalkableVerts[tri[0] * 3] || unwalkableVerts[tri[1] * 3] || unwalkableVerts[tri[2] * 3])
+			areas[i] = 10;//make it unwalkable if its declared as unwalkable
+		else if (norm[1] > walkableThr)
 			areas[i] = RC_WALKABLE_AREA;
 	}
 }

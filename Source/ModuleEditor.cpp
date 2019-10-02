@@ -28,6 +28,7 @@
 #include "MaterialEditor.h"
 #include "FileExplorer.h"
 #include "GUICreator.h"
+#include "PlayerPrefs.h"
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
@@ -376,6 +377,10 @@ void ModuleEditor::ToolsMenu()
 		if (ImGui::MenuItem("Resource Manager", nullptr, resource->IsEnabled()))
 		{
 			resource->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("Delete Player Prefs", nullptr))
+		{
+			PlayerPrefs::DeleteAll(true);
 		}
 		ImGui::EndMenu();
 	}

@@ -28,6 +28,7 @@ class ModuleDevelopmentBuildDebug;
 class ModuleParticles;
 class ModuleAudioManager;
 class ModuleNavigation;
+class ModuleCollisions;
 
 class Application
 {
@@ -39,8 +40,6 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
-
-	void SetTimer();
 
 public:
 	ModuleRender* renderer = nullptr;
@@ -63,11 +62,10 @@ public:
 	ModuleParticles* particles = nullptr;
 	ModuleAudioManager* audioManager = nullptr;
 	ModuleNavigation* navigation = nullptr;
+	ModuleCollisions* collisions = nullptr;
 
 private:
 	std::list<Module*> modules;
-	Timer ms_timer;
-	float dt;
 
 };
 
