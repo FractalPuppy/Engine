@@ -8,6 +8,7 @@
 #include "ComponentTransform.h"
 #include "ComponentAnimation.h"
 #include "ComponentRenderer.h"
+#include "ComponentAudioSource.h"
 
 #include "LootDropScript.h"
 
@@ -40,6 +41,18 @@ void ChestScript::Start()
 	lootDrop = gameobject->GetComponent<LootDropScript>();
 	if (lootDrop != nullptr)
 		lootDrop->positionOffset = lootPosition;
+
+	GameObject* GO = nullptr;
+	GO = App->scene->FindGameObjectByName("open_chest");
+	if (GO != nullptr)
+	{
+		open_chest = GO->GetComponent<ComponentAudioSource>();
+		assert(open_chest != nullptr);
+	}
+	else
+	{
+		LOG("Warning: open_chest game object not found");
+	}
 }
 
 void ChestScript::Update()
@@ -56,7 +69,11 @@ void ChestScript::Update()
 				state = chestState::OPENING;
 			else
 				state = chestState::OPENED;
-			
+			if (!activated)
+			{
+				open_chest->Play();
+				activated = true;
+			}
 		}
 		break;
 	case chestState::OPENING:
