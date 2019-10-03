@@ -16,6 +16,8 @@ class Text;
 class JSON_value;
 class Transform2D;
 class ComponentImage;
+class ComponentAudioSource;
+
 
 #define NUM_SKILLS 11
 
@@ -60,6 +62,9 @@ private:
 
 	int initialSkillPoints = 0;
 	bool item = false;
+
+	//Audio
+	ComponentAudioSource* skill_button = nullptr;
 };
 
 extern "C" SkillTreeController_API Script* CreateScript();

@@ -11,6 +11,7 @@
 #include "ComponentImage.h"
 #include "ComponentTransform2D.h"
 
+
 #include "imgui.h"
 #include "JSON.h"
 #include "Resource.h"
@@ -19,6 +20,8 @@
 #include "ResourceTexture.h"
 
 #include "PlayerPrefs.h"
+
+#include "ComponentAudioSource.h"
 
 #define None "None Selected"
 
@@ -52,6 +55,17 @@ void SkillTreeController::Start()
 	skillInfoManaCostText = App->scene->FindGameObjectByName("SkillInfoManaCostText", skillInfo)->GetComponent<Text>();
 	skillInfoIcon = App->scene->FindGameObjectByName("SkillInfoIcon", skillInfo)->GetComponent<ComponentImage>();
 
+	GameObject* GO = nullptr;
+	GO = App->scene->FindGameObjectByName("skill_button");
+	if (GO != nullptr)
+	{
+		skill_button = GO->GetComponent<ComponentAudioSource>();
+		assert(skill_button != nullptr);
+	}
+	else
+	{
+		LOG("Warning: skill_button game object not found");
+	}
 
 	for (int i = 0; i < NUM_SKILLS; ++i)
 	{
@@ -118,6 +132,7 @@ void SkillTreeController::Update()
 			skillInfo->SetActive(true);
 			if (skillPoints > 0 && skillList[i].currentLevel < skillList[i].maxLevels && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			{
+				skill_button->Play();
 				++skillList[i].currentLevel;
 				skillList[i].available = true;
 				((ComponentImage*)(skillUI[i]->children.front())->GetComponentInChildren(ComponentType::Image))->UpdateTexture(skillList[i].spriteActive->GetName());

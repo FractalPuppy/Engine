@@ -57,7 +57,7 @@ void DoorScript::Start()
 	}
 	else
 	{
-		LOG("Warning: stepSound game object not found");
+		LOG("Warning: open_gate game object not found");
 	}
 
 }
