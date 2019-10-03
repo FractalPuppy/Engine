@@ -9,6 +9,7 @@
 #include "ComponentBoxTrigger.h"
 #include "ComponentRenderer.h"
 #include "ComponentTransform.h"
+#include "ComponentAudioSource.h"
 #include "GameObject.h"
 
 #include "JSON.h"
@@ -46,6 +47,19 @@ void DoorScript::Start()
 	if (renderer2 != nullptr)
 		myBbox2 = &App->scene->FindGameObjectByName(myBboxName2.c_str(), gameobject)->bbox;
 
+	GameObject* GO = nullptr;
+
+	GO = App->scene->FindGameObjectByName("open_gate");
+	if (GO != nullptr)
+	{
+		open_gate = GO->GetComponent<ComponentAudioSource>();
+		assert(open_gate != nullptr);
+	}
+	else
+	{
+		LOG("Warning: stepSound game object not found");
+	}
+
 }
 
 void DoorScript::Update()
@@ -57,12 +71,22 @@ void DoorScript::Update()
 		{
 			// Open door:
 			anim->SendTriggerToStateMachine("Open");
+			if (!activated)
+			{
+				open_gate->Play();
+				activated = true;
+			}
 		}
 
 		if (myBbox2 != nullptr && myBbox2->Intersects(*playerBbox))
 		{
 			// Open door:
 			anim->SendTriggerToStateMachine("Open");
+			if (!activated)
+			{
+				open_gate->Play();
+				activated = true;
+			}
 		}
 	}
 }
@@ -79,3 +103,4 @@ void DoorScript::Serialize(JSON_value * json) const
 void DoorScript::DeSerialize(JSON_value * json)
 {
 }
+

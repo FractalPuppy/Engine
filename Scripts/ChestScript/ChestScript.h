@@ -16,6 +16,7 @@ class GameObject;
 class ComponentRenderer;
 class ComponentAnimation;
 class LootDropScript;
+class ComponentAudioSource;
 
 enum class chestState { CLOSED, OPENING, OPENED};
 

@@ -33,6 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2770674638,
+            "prefabTimeStamp": 1570098706,
             "Components": [
                 {
                     "Type": 0,
@@ -80,7 +81,7 @@
             ]
         },
         {
-            "UID": 2831558835,
+            "UID": 1401529260,
             "ParentUID": 4137625082,
             "Name": "WindAudio",
             "Tag": "Default",
@@ -172,7 +173,7 @@
             ]
         },
         {
-            "UID": 245156973,
+            "UID": 3541657442,
             "ParentUID": 4137625082,
             "Name": "CrowsAudio1",
             "Tag": "Default",
@@ -264,7 +265,7 @@
             ]
         },
         {
-            "UID": 2473585081,
+            "UID": 1287596181,
             "ParentUID": 4137625082,
             "Name": "CrowsAudio2",
             "Tag": "Default",
@@ -356,7 +357,7 @@
             ]
         },
         {
-            "UID": 421863606,
+            "UID": 2304837167,
             "ParentUID": 4137625082,
             "Name": "WolfAudio",
             "Tag": "Default",
@@ -448,7 +449,7 @@
             ]
         },
         {
-            "UID": 1736238113,
+            "UID": 3385233305,
             "ParentUID": 4137625082,
             "Name": "Music1",
             "Tag": "Default",
@@ -540,7 +541,7 @@
             ]
         },
         {
-            "UID": 3042043765,
+            "UID": 2179123278,
             "ParentUID": 4137625082,
             "Name": "torch1",
             "Tag": "Default",
@@ -632,7 +633,7 @@
             ]
         },
         {
-            "UID": 2942490938,
+            "UID": 3154819891,
             "ParentUID": 4137625082,
             "Name": "torch2",
             "Tag": "Default",
@@ -724,7 +725,7 @@
             ]
         },
         {
-            "UID": 3563812866,
+            "UID": 620943225,
             "ParentUID": 4137625082,
             "Name": "torch3",
             "Tag": "Default",
@@ -816,7 +817,7 @@
             ]
         },
         {
-            "UID": 1797251107,
+            "UID": 2106187893,
             "ParentUID": 4137625082,
             "Name": "torch5",
             "Tag": "Default",
@@ -908,7 +909,7 @@
             ]
         },
         {
-            "UID": 3508086658,
+            "UID": 2025420819,
             "ParentUID": 4137625082,
             "Name": "torch4",
             "Tag": "Default",
@@ -1000,7 +1001,7 @@
             ]
         },
         {
-            "UID": 2074478543,
+            "UID": 3297930990,
             "ParentUID": 4137625082,
             "Name": "torch6",
             "Tag": "Default",
@@ -1087,6 +1088,98 @@
                     "FadeDist": 90.0999984741211,
                     "Loop": 1,
                     "Rolloff": 1.5,
+                    "Pitch": 1.0
+                }
+            ]
+        },
+        {
+            "UID": 1196374734,
+            "ParentUID": 4137625082,
+            "Name": "open_gate",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        -3219.742919921875,
+                        387.5404052734375,
+                        2671.866943359375
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        -3219.742919921875,
+                        0.0,
+                        1.0,
+                        0.0,
+                        387.5404052734375,
+                        0.0,
+                        0.0,
+                        1.0,
+                        2671.866943359375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 4247212037,
+                    "Volume": 1.7999999523162842,
+                    "PlayOnAwake": 0,
+                    "Sound3D": 1,
+                    "LimitPan": 0.5,
+                    "FadeDist": 1470.0999755859376,
+                    "Loop": 0,
+                    "Rolloff": 19.899999618530275,
                     "Pitch": 1.0
                 }
             ]

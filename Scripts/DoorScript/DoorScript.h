@@ -14,6 +14,8 @@
 
 class ComponentAnimation;
 class ComponentRenderer;
+class ComponentAudioSource;
+
 
 class DoorScript_API DoorScript : public Script
 {
@@ -24,6 +26,7 @@ class DoorScript_API DoorScript : public Script
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
+
 
 	inline virtual DoorScript* Clone() const
 	{
@@ -46,6 +49,10 @@ private:
 	ComponentAnimation* anim = nullptr;
 	ComponentRenderer* renderer1 = nullptr;
 	ComponentRenderer* renderer2 = nullptr;
+
+	//Audio
+	ComponentAudioSource* open_gate = nullptr;
+	bool activated = false;
 
 	bool opened = false;
 };
