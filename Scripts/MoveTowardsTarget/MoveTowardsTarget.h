@@ -11,6 +11,7 @@
 #endif
 
 class GameObject;
+class ExperienceController;
 
 class MoveTowardsTarget_API MoveTowardsTarget : public Script
 {
@@ -32,8 +33,13 @@ public:
 	float speed = 100.0f;
 	math::float3 offset;
 
+	int experience = 0;		// Experience to give to player on pick up
+
 private:
 	GameObject* targetGO;
+
+	// Experience script
+	ExperienceController* experienceController = nullptr;
 };
 
 extern "C" MoveTowardsTarget_API Script* CreateScript();

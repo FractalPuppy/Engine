@@ -7,6 +7,8 @@
 #include "GameObject.h"
 #include "ComponentTransform.h"
 
+#include "ExperienceController.h"
+
 #include "imgui.h"
 #include "JSON.h"
 
@@ -25,6 +27,20 @@ void MoveTowardsTarget::Start()
 		LOG("Target GO with tag '%s' couldn't be found", targetTag.c_str());
 		gameobject->deleteFlag = true;
 	}
+
+	GameObject* xpGO = App->scene->FindGameObjectByName("Xp");
+	if (xpGO == nullptr)
+	{
+		LOG("Xp controller GO couldn't be found \n");
+	}
+	else
+	{
+		experienceController = xpGO->GetComponent<ExperienceController>();
+		if (experienceController == nullptr)
+		{
+			LOG("experienceController couldn't be found \n");
+		}
+	}
 }
 
 void MoveTowardsTarget::Update()
@@ -34,7 +50,8 @@ void MoveTowardsTarget::Update()
 
 	float distance = myPosition.Distance(targetPosition);
 
-	if (distance > 0.5f)
+	// If is near enough pick up else chase
+	if (distance > 1.5f)
 	{
 		// Look at target
 		gameobject->transform->LookAt(targetPosition);
@@ -45,6 +62,10 @@ void MoveTowardsTarget::Update()
 	}
 	else
 	{
+		// Give experience to player
+		if (experienceController != nullptr)
+			experienceController->AddXP(experience);
+
 		gameobject->deleteFlag = true;
 	}
 }

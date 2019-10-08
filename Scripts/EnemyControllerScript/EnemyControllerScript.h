@@ -17,7 +17,6 @@ class ComponentBoxTrigger;
 class DamageController;
 class EnemyLifeBarController;
 class PlayerMovement;
-class ExperienceController;
 class ResourceMaterial;
 class CombatAudioEvents;
 class LootDropScript;
@@ -81,7 +80,7 @@ public:
 	DamageController* damageController = nullptr;
 	EnemyLifeBarController* enemyLifeBar = nullptr;
 
-	ExperienceController* experienceController = nullptr;
+
 
 	
 	// BBoxes

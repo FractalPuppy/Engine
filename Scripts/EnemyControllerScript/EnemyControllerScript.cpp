@@ -18,12 +18,12 @@
 
 #include "PlayerMovement.h"
 #include "ResourceMaterial.h"
-#include "ExperienceController.h"
 #include "DamageController.h"
 #include "EnemyLifeBarController.h"
 #include "CombatAudioEvents.h"
 #include "LootDropScript.h"
 #include "WorldControllerScript.h"
+#include "MoveTowardsTarget.h"
 
 #include "imgui.h"
 #include "JSON.h"
@@ -165,21 +165,6 @@ void EnemyControllerScript::Awake()
 			attackBoxTrigger->Enable(false);
 		}
 	}
-	
-
-	GameObject* xpGO = App->scene->FindGameObjectByName("Xp");
-	if (xpGO == nullptr)
-	{
-		LOG("Xp controller GO couldn't be found \n");
-	}
-	else
-	{
-		experienceController = xpGO->GetComponent<ExperienceController>();
-		if (experienceController == nullptr)
-		{
-			LOG("experienceController couldn't be found \n");
-		}
-	}
 
 	GameObject* playerGO = App->scene->FindGameObjectByName("Player");
 	if (playerGO == nullptr)
@@ -279,7 +264,7 @@ void EnemyControllerScript::Update()
 		{
 			if (lootDrop != nullptr)
 			{
-				// If chest has more than one item drop them in circle
+				// If enemy has more than one item drop them in circle
 				if (lootDrop->itemList.size() > 1)
 					lootDrop->DropItemsInCircle(lootRadius);
 				else
@@ -412,9 +397,6 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 				isDeadByCritOrSkill = true; //by default is false (Normal)
 			}
 
-			if (experienceController != nullptr)
-				experienceController->AddXP(experience);
-
 			// Disable hit boxes
 			hpBoxTrigger->Enable(false);
 			
@@ -431,7 +413,13 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 			}
 
 			// Spawn experience sphere
-			App->scene->Spawn("ExpSphere", nullptr, gameobject->transform->position);
+			GameObject* expSphere = App->scene->Spawn("ExpSphere", nullptr, gameobject->transform->position);
+			if (expSphere != nullptr)
+			{
+				MoveTowardsTarget* expScript = expSphere->GetComponent<MoveTowardsTarget>();
+				if (expScript != nullptr)
+					expScript->experience = experience;
+			}
 		}
 		damageController->AddDamage(gameobject->transform, damage, (DamageType)type);
 	}
