@@ -23,7 +23,7 @@
 #include "CombatAudioEvents.h"
 #include "LootDropScript.h"
 #include "WorldControllerScript.h"
-#include "MoveTowardsTarget.h"
+#include "ExperienceSphereScript.h"
 
 #include "imgui.h"
 #include "JSON.h"
@@ -416,7 +416,7 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 			GameObject* expSphere = App->scene->Spawn("ExpSphere", nullptr, gameobject->transform->position);
 			if (expSphere != nullptr)
 			{
-				MoveTowardsTarget* expScript = expSphere->GetComponent<MoveTowardsTarget>();
+				ExperienceSphereScript* expScript = expSphere->GetComponent<ExperienceSphereScript>();
 				if (expScript != nullptr)
 					expScript->experience = experience;
 			}

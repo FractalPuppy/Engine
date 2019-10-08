@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 3476290788,
+            "UID": 3554340292,
             "ParentUID": 0,
             "Name": "ExpSphere",
             "Tag": "Default",
@@ -29,18 +29,19 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1815441971,
+            "prefabTimeStamp": 1570563830,
             "Components": [
                 {
                     "Type": 0,
                     "Enabled": 1,
                     "Position": [
-                        0.0,
-                        0.00000762939453125,
-                        0.0
+                        -1012.7297973632813,
+                        684.4437866210938,
+                        643.083251953125
                     ],
                     "Rotation": [
                         0.0,
@@ -62,34 +63,20 @@
                         1.0,
                         0.0,
                         0.0,
-                        0.0,
-                        0.0,
-                        1.0,
-                        0.0,
-                        0.00000762939453125,
-                        0.0,
+                        -1012.7297973632813,
                         0.0,
                         1.0,
                         0.0,
+                        684.4437866210938,
+                        0.0,
+                        0.0,
+                        1.0,
+                        643.083251953125,
                         0.0,
                         0.0,
                         0.0,
                         1.0
                     ]
-                },
-                {
-                    "Type": 9,
-                    "Enabled": 1,
-                    "script": "MoveTowardsTarget",
-                    "scriptInfo": {
-                        "targetTag": "Player",
-                        "speed": 350.0,
-                        "offset": [
-                            0.0,
-                            170.0,
-                            0.0
-                        ]
-                    }
                 },
                 {
                     "Type": 1,
@@ -147,12 +134,26 @@
                     ],
                     "distorsionSpeed": 0.0010000000474974514,
                     "loop": 0
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "ExperienceSphereScript",
+                    "scriptInfo": {
+                        "targetTag": "Player",
+                        "speed": 350.0,
+                        "offset": [
+                            0.0,
+                            170.0,
+                            0.0
+                        ]
+                    }
                 }
             ]
         },
         {
-            "UID": 3062435496,
-            "ParentUID": 3476290788,
+            "UID": 1457358647,
+            "ParentUID": 3554340292,
             "Name": "Trail",
             "Tag": "Default",
             "Static": 0,
@@ -212,15 +213,15 @@
                         1.0,
                         0.0,
                         0.0,
-                        7.667476654052734,
+                        -1005.0623168945313,
                         0.0,
                         1.0,
                         0.0,
-                        1.9634382724761963,
+                        686.4072265625,
                         0.0,
                         0.0,
                         1.0,
-                        6.600000381469727,
+                        649.6832275390625,
                         0.0,
                         0.0,
                         0.0,

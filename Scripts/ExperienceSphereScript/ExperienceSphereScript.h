@@ -1,24 +1,24 @@
-#ifndef  __MoveTowardsTarget_h__
-#define  __MoveTowardsTarget_h__
+#ifndef  __ExperienceSphereScript_h__
+#define  __ExperienceSphereScript_h__
 
 #include "BaseScript.h"
 #include "Math/float3.h"
 
-#ifdef MoveTowardsTarget_EXPORTS
-#define MoveTowardsTarget_API __declspec(dllexport)
+#ifdef ExperienceSphereScript_EXPORTS
+#define ExperienceSphereScript_API __declspec(dllexport)
 #else
-#define MoveTowardsTarget_API __declspec(dllimport)
+#define ExperienceSphereScript_API __declspec(dllimport)
 #endif
 
 class GameObject;
 class ExperienceController;
 
-class MoveTowardsTarget_API MoveTowardsTarget : public Script
+class ExperienceSphereScript_API ExperienceSphereScript : public Script
 {
 public:
-	inline virtual MoveTowardsTarget* Clone() const
+	inline virtual ExperienceSphereScript* Clone() const
 	{
-		return new MoveTowardsTarget(*this);
+		return new ExperienceSphereScript(*this);
 	}
 
 	void Start() override;
@@ -42,5 +42,5 @@ private:
 	ExperienceController* experienceController = nullptr;
 };
 
-extern "C" MoveTowardsTarget_API Script* CreateScript();
-#endif __MoveTowardsTarget_h__
+extern "C" ExperienceSphereScript_API Script* CreateScript();
+#endif __ExperienceSphereScript_h__

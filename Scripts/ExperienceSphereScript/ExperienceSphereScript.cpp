@@ -1,4 +1,4 @@
-#include "MoveTowardsTarget.h"
+#include "ExperienceSphereScript.h"
 
 #include "Application.h"
 #include "ModuleScene.h"
@@ -12,13 +12,13 @@
 #include "imgui.h"
 #include "JSON.h"
 
-MoveTowardsTarget_API Script* CreateScript()
+ExperienceSphereScript_API Script* CreateScript()
 {
-	MoveTowardsTarget* instance = new MoveTowardsTarget;
+	ExperienceSphereScript* instance = new ExperienceSphereScript;
 	return instance;
 }
 
-void MoveTowardsTarget::Start()
+void ExperienceSphereScript::Start()
 {
 	targetGO = App->scene->FindGameObjectByTag(targetTag.c_str());
 
@@ -43,7 +43,7 @@ void MoveTowardsTarget::Start()
 	}
 }
 
-void MoveTowardsTarget::Update()
+void ExperienceSphereScript::Update()
 {
 	math::float3 targetPosition = targetGO->transform->position + offset;
 	math::float3 myPosition = gameobject->transform->position;
@@ -70,7 +70,7 @@ void MoveTowardsTarget::Update()
 	}
 }
 
-void MoveTowardsTarget::Expose(ImGuiContext* context)
+void ExperienceSphereScript::Expose(ImGuiContext* context)
 {
 	char* goName = new char[64];
 	strcpy_s(goName, strlen(targetTag.c_str()) + 1, targetTag.c_str());
@@ -82,7 +82,7 @@ void MoveTowardsTarget::Expose(ImGuiContext* context)
 	ImGui::DragFloat3("Offset", (float*)&offset);
 }
 
-void MoveTowardsTarget::Serialize(JSON_value* json) const
+void ExperienceSphereScript::Serialize(JSON_value* json) const
 {
 	assert(json != nullptr);
 	json->AddString("targetTag", targetTag.c_str());
@@ -90,7 +90,7 @@ void MoveTowardsTarget::Serialize(JSON_value* json) const
 	json->AddFloat3("offset", offset);
 }
 
-void MoveTowardsTarget::DeSerialize(JSON_value* json)
+void ExperienceSphereScript::DeSerialize(JSON_value* json)
 {
 	assert(json != nullptr);
 	targetTag = json->GetString("targetTag", "Player");
