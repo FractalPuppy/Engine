@@ -25,11 +25,11 @@ public:
 
 	void Expose(ImGuiContext* context) override;
 
-	//void Serialize(JSON_value* json) const override;
-	//void DeSerialize(JSON_value* json) override;
+	void Serialize(JSON_value* json) const override;
+	void DeSerialize(JSON_value* json) override;
 
 	std::string targetTag = "Player";
-	float speed = 1.0f;
+	float speed = 100.0f;
 
 private:
 	GameObject* targetGO;

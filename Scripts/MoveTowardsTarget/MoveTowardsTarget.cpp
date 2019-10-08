@@ -8,6 +8,7 @@
 #include "ComponentTransform.h"
 
 #include "imgui.h"
+#include "JSON.h"
 
 MoveTowardsTarget_API Script* CreateScript()
 {
@@ -51,4 +52,18 @@ void MoveTowardsTarget::Update()
 void MoveTowardsTarget::Expose(ImGuiContext* context)
 {
 	ImGui::DragFloat("Speed", &speed);
+}
+
+void MoveTowardsTarget::Serialize(JSON_value* json) const
+{
+	assert(json != nullptr);
+	json->AddString("targetTag", targetTag.c_str());
+	json->AddFloat("speed", speed);
+}
+
+void MoveTowardsTarget::DeSerialize(JSON_value* json)
+{
+	assert(json != nullptr);
+	targetTag = json->GetString("targetTag", "Player");
+	speed = json->GetFloat("speed", 100.0f);
 }
