@@ -29,7 +29,7 @@ void MoveTowardsTarget::Start()
 
 void MoveTowardsTarget::Update()
 {
-	math::float3 targetPosition = targetGO->transform->position;
+	math::float3 targetPosition = targetGO->transform->position + offset;
 	math::float3 myPosition = gameobject->transform->position;
 
 	float distance = myPosition.Distance(targetPosition);
@@ -51,7 +51,14 @@ void MoveTowardsTarget::Update()
 
 void MoveTowardsTarget::Expose(ImGuiContext* context)
 {
+	char* goName = new char[64];
+	strcpy_s(goName, strlen(targetTag.c_str()) + 1, targetTag.c_str());
+	ImGui::InputText("playerTag", goName, 64);
+	targetTag = goName;
+	delete[] goName;
+
 	ImGui::DragFloat("Speed", &speed);
+	ImGui::DragFloat3("Offset", (float*)&offset);
 }
 
 void MoveTowardsTarget::Serialize(JSON_value* json) const
@@ -59,6 +66,7 @@ void MoveTowardsTarget::Serialize(JSON_value* json) const
 	assert(json != nullptr);
 	json->AddString("targetTag", targetTag.c_str());
 	json->AddFloat("speed", speed);
+	json->AddFloat3("offset", offset);
 }
 
 void MoveTowardsTarget::DeSerialize(JSON_value* json)
@@ -66,4 +74,5 @@ void MoveTowardsTarget::DeSerialize(JSON_value* json)
 	assert(json != nullptr);
 	targetTag = json->GetString("targetTag", "Player");
 	speed = json->GetFloat("speed", 100.0f);
+	offset = json->GetFloat3("offset");
 }

@@ -30,6 +30,7 @@ public:
 
 	std::string targetTag = "Player";
 	float speed = 100.0f;
+	math::float3 offset;
 
 private:
 	GameObject* targetGO;
