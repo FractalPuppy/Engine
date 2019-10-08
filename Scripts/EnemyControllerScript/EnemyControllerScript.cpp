@@ -429,6 +429,9 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 				for (std::vector<ComponentRenderer*>::iterator it = myRenders.begin(); it != myRenders.end(); ++it)
 					(*it)->highlighted = false;
 			}
+
+			// Spawn experience sphere
+			App->scene->Spawn("ExpSphere", nullptr, gameobject->transform->position);
 		}
 		damageController->AddDamage(gameobject->transform, damage, (DamageType)type);
 	}
