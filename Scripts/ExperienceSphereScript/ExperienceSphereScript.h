@@ -31,15 +31,13 @@ public:
 
 	std::string targetTag = "Player";
 	float speed = 100.0f;
-	math::float3 offset;
+	math::float3 offset = math::float3::zero;
 
 	int experience = 0;		// Experience to give to player on pick up
 
 private:
 	GameObject* targetGO;
-
-	// Experience script
-	ExperienceController* experienceController = nullptr;
+	ExperienceController* experienceController = nullptr; // Experience script
 };
 
 extern "C" ExperienceSphereScript_API Script* CreateScript();

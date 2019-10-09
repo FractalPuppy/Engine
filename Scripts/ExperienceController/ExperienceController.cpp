@@ -4,6 +4,7 @@
 #include "ModuleScene.h"
 #include "ModuleTime.h"
 #include "ModuleInput.h"
+#include "ModuleResourceManager.h"
 
 #include "GameObject.h"
 #include "ComponentText.h"
@@ -63,6 +64,25 @@ void ExperienceController::Start()
 	levelText->text = std::to_string(currentLevel);
 	
 	skillTreeScript = App->scene->FindGameObjectByName("Skills")->GetComponent<SkillTreeController>();
+
+	GameObject* playerMesh = App->scene->FindGameObjectByName("PlayerMesh");
+	if (playerMesh == nullptr)
+	{
+		LOG("Player couldn't be found \n");
+	}
+	else
+	{
+		playerRender = playerMesh->GetComponent< ComponentRenderer>();
+
+		if (playerRender == nullptr)
+		{
+			LOG("Player Render couldn't be found \n");
+		}
+		else
+		{
+			playerRender->highlightColor = expColor;
+		}
+	}
 }
 
 void ExperienceController::Update()
@@ -87,7 +107,25 @@ void ExperienceController::Update()
 			levelUpParticles->SetActive(false);
 		}
 	}
-	
+
+	/*if (expDisolve)
+	{
+		currentTime += App->time->gameDeltaTime;
+		playerRender->dissolveAmount = 0.3f + currentTime / 10;
+	}*/
+
+	if (expDisolve)
+	{
+		if (dissolveTimer > 0.0f)
+		{
+			dissolveTimer -= App->time->gameDeltaTime;
+		}
+		else
+		{
+			//playerRender->material->diffuseColor = defaultColor;
+			playerRender->highlighted = false;
+		}
+	}	
 }
 
 void ExperienceController::AddXP(int xp)
@@ -127,6 +165,14 @@ void ExperienceController::AddXP(int xp)
 		xpTextMax->text = std::to_string(maxXPLevel);
 		xpProgressHUD->SetMaskAmount(mask);
 		xpProgressInventory->SetMaskAmount(mask);
+	}
+
+	if (playerRender != nullptr)
+	{
+		// Play effect on player render
+		expDisolve = true;
+		playerRender->highlighted = true;
+		dissolveTimer = dissolveDuration;
 	}
 }
 
