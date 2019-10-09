@@ -108,22 +108,22 @@ void ExperienceController::Update()
 		}
 	}
 
-	/*if (expDisolve)
-	{
-		currentTime += App->time->gameDeltaTime;
-		playerRender->dissolveAmount = 0.3f + currentTime / 10;
-	}*/
-
 	if (expDisolve)
 	{
-		if (dissolveTimer > 0.0f)
+		if (dissolveTimer > (dissolveDuration/2.0f))
 		{
 			dissolveTimer -= App->time->gameDeltaTime;
+			playerRender->dissolveAmount = dissolveTimer / dissolveDuration;
+		}
+		else if (dissolveTimer > 0.0f)
+		{
+			dissolveTimer -= App->time->gameDeltaTime;
+			playerRender->dissolveAmount -= dissolveTimer / dissolveDuration;
 		}
 		else
 		{
-			//playerRender->material->diffuseColor = defaultColor;
-			playerRender->highlighted = false;
+			playerRender->dissolve = false;
+			expDisolve = false;
 		}
 	}	
 }
@@ -171,8 +171,9 @@ void ExperienceController::AddXP(int xp)
 	{
 		// Play effect on player render
 		expDisolve = true;
-		playerRender->highlighted = true;
 		dissolveTimer = dissolveDuration;
+		playerRender->dissolve = true;
+		playerRender->dissolveAmount = 0.0f;
 	}
 }
 

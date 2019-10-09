@@ -65,7 +65,7 @@ private:
 
 	ComponentRenderer* playerRender = nullptr;
 
-	float dissolveDuration = 1.0f;
+	float dissolveDuration = 0.4f;
 	float dissolveTimer = 0.f;
 	bool expDisolve = false;
 
