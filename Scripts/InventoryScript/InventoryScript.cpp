@@ -137,14 +137,14 @@ void InventoryScript::Update()
 
 		Transform2D* rectTransform = itemsSlots[i]->GetComponent<Transform2D>();
 		ComponentImage* image = itemsSlots[i]->GetComponent<ComponentImage>();
-		
+
 
 		if (image->isHovered && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 		{
 			image->isPressed = true;
 			initialitemPos = rectTransform->getPosition();
 			if (!itemGrabbed) selectItemAudio->Play();
-			itemGrabbed = true; 
+			itemGrabbed = true;
 			HideConsumableItemText(i);
 		}
 
@@ -404,11 +404,30 @@ void InventoryScript::Update()
 							break;
 						}
 
-						if (exit) break;
+						if (exit)
+						{
+							int quantity = GetCurrentQuantity(*pair.first);
+							ManageConsumableItemsQuantityText(*pair.first, quantity);
+							break;
+						}
 					}
 					else
 					{
-					// It has been dropped inside an inventory slot
+						bool slotOcupate = false;
+						//dont unequip if there is some item in that slot
+						for (int z = 0; z < items.size(); ++z)
+						{
+							if (items[z].second == j)
+							{
+								slotOcupate = true;
+								break;
+							}
+						}
+						if (slotOcupate)
+						{
+							break;
+						}
+						// It has been dropped inside an inventory slot
 						for (int l = 0; l < items.size(); ++l)
 						{
 							if (items[l].first->isEqual(*pair.first) && pair.first->isEquipped)
@@ -426,7 +445,7 @@ void InventoryScript::Update()
 
 					if (itemsSlots[j]->UUID != itemsSlots[i]->UUID)
 					{
-
+						LOG("I %d, J %d", i, j);
 						itemsSlots[j]->GetComponent<Transform2D>()->SetPositionUsingAligment(initialitemPos);
 						GameObject* tmp(std::move(itemsSlots[j]));
 						itemsSlots[j] = std::move(itemsSlots[i]);
@@ -455,7 +474,6 @@ void InventoryScript::Update()
 								continue;
 							}
 						}
-
 
 					}
 					break;
@@ -747,7 +765,7 @@ void InventoryScript::ManageConsumableItemsQuantityText(const Item& item, int qu
 	{
 		int itemPosition = GetItemIndexPosition(item);
 
-		if (itemPosition != -1)
+		if (itemPosition != -1 && itemPosition <= INVENTARY_SLOTS)
 		{
 			itemsSlotsNumbers[itemPosition]->SetActive(true);
 			Text* itemsSlotNumber = itemsSlotsNumbers[itemPosition]->GetComponent<Text>();

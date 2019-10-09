@@ -968,15 +968,16 @@ void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
 
 void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 {
-	health = health + equipStats.health;
-	mana = mana + equipStats.mana;
-
 	if (equipStats.health > 0)
 	{
-		damageController->AddDamage(gameobject->transform, equipStats.health, DamageType::HEALING);
+		int amountToIncrease = (health + equipStats.health <= stats.health) ? equipStats.health : stats.health - health;
+		health = health + amountToIncrease;
+		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::HEALING);
 	} else if (equipStats.mana > 0)
 	{
-		damageController->AddDamage(gameobject->transform, equipStats.mana, DamageType::MANA);
+		int amountToIncrease = (mana + equipStats.mana <= stats.mana) ? equipStats.mana : stats.mana - mana;
+		mana = mana + amountToIncrease;
+		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::MANA);
 	}
 }
 
