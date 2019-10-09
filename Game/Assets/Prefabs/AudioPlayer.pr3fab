@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 3754959443,
-            "ParentUID": 251857274,
+            "UID": 4097038979,
+            "ParentUID": 652642298,
             "Name": "AudioPlayer",
             "Tag": "Default",
             "Static": 0,
@@ -32,7 +32,7 @@
             "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
-            "prefabUID": 1349318240,
+            "prefabUID": 2855789593,
             "Components": [
                 {
                     "Type": 0,
@@ -80,8 +80,8 @@
             ]
         },
         {
-            "UID": 1476830080,
-            "ParentUID": 3754959443,
+            "UID": 4291151318,
+            "ParentUID": 4097038979,
             "Name": "gotHitAudio",
             "Tag": "Default",
             "Static": 0,
@@ -172,8 +172,8 @@
             ]
         },
         {
-            "UID": 1897734326,
-            "ParentUID": 3754959443,
+            "UID": 2943754523,
+            "ParentUID": 4097038979,
             "Name": "itemPickedAudio",
             "Tag": "Default",
             "Static": 0,
@@ -264,8 +264,8 @@
             ]
         },
         {
-            "UID": 1405066981,
-            "ParentUID": 3754959443,
+            "UID": 760295957,
+            "ParentUID": 4097038979,
             "Name": "stepSound",
             "Tag": "Default",
             "Static": 0,
@@ -356,8 +356,8 @@
             ]
         },
         {
-            "UID": 161828601,
-            "ParentUID": 3754959443,
+            "UID": 4080590950,
+            "ParentUID": 4097038979,
             "Name": "bomb_take_off",
             "Tag": "Default",
             "Static": 0,
@@ -448,8 +448,8 @@
             ]
         },
         {
-            "UID": 3968110738,
-            "ParentUID": 3754959443,
+            "UID": 3356942101,
+            "ParentUID": 4097038979,
             "Name": "bomb_impact",
             "Tag": "Default",
             "Static": 0,
@@ -540,8 +540,8 @@
             ]
         },
         {
-            "UID": 1731232581,
-            "ParentUID": 3754959443,
+            "UID": 4262965277,
+            "ParentUID": 4097038979,
             "Name": "attack1",
             "Tag": "Default",
             "Static": 0,
@@ -632,8 +632,8 @@
             ]
         },
         {
-            "UID": 3898249433,
-            "ParentUID": 3754959443,
+            "UID": 627657690,
+            "ParentUID": 4097038979,
             "Name": "attack2",
             "Tag": "Default",
             "Static": 0,
@@ -712,7 +712,7 @@
                     "Type": 14,
                     "Enabled": 1,
                     "audioUID": 2886417709,
-                    "Volume": 0.699999988079071,
+                    "Volume": 0.4000000059604645,
                     "PlayOnAwake": 0,
                     "Sound3D": 0,
                     "LimitPan": 0.5,
@@ -724,8 +724,8 @@
             ]
         },
         {
-            "UID": 2763155399,
-            "ParentUID": 3754959443,
+            "UID": 384496390,
+            "ParentUID": 4097038979,
             "Name": "spin_attack",
             "Tag": "Default",
             "Static": 0,
@@ -816,8 +816,8 @@
             ]
         },
         {
-            "UID": 2721418151,
-            "ParentUID": 3754959443,
+            "UID": 3882886770,
+            "ParentUID": 4097038979,
             "Name": "drill_attack",
             "Tag": "Default",
             "Static": 0,

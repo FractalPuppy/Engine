@@ -173,6 +173,11 @@ void ChestScript::OnChestClosedHover()
 		{
 			// Open chest:
 			anim->SendTriggerToStateMachine("Open");
+			if (!activated)
+			{
+				open_chest->Play();
+				activated = true;
+			}
 			if (lootDrop != nullptr)
 				state = chestState::OPENING;
 			else
