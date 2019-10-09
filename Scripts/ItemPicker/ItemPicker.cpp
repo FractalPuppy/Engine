@@ -80,8 +80,6 @@ ItemPicker::ItemPicker(const ItemPicker& itemPicker) : Script(itemPicker)
 	else
 		itemName = nullptr;
 
-	nameShowed = itemPicker.nameShowed;
-
 	itemCursor = itemPicker.itemCursor;
 	changeItemCursorIcon = itemPicker.changeItemCursorIcon;
 	changeStandarCursorIcon = itemPicker.changeStandarCursorIcon;
@@ -149,8 +147,6 @@ ItemPicker& ItemPicker::operator=(const ItemPicker& itemPicker)
 		itemName = new ItemNameController(*itemPicker.itemName);
 	else
 		itemName = nullptr;
-
-	nameShowed = itemPicker.nameShowed;
 
 	itemCursor = itemPicker.itemCursor;
 	changeItemCursorIcon = itemPicker.changeItemCursorIcon;
@@ -413,11 +409,6 @@ void ItemPicker::Update()
 {
 	if (!gameobject->isActive())
 	{
-		if (std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) != nameShowed.end())
-		{
-			nameShowed.erase(std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID));
-			itemName->DisableName(gameobject->UUID);
-		}
 		return;
 	}
 	//checking if gotta pickup item
@@ -462,25 +453,15 @@ void ItemPicker::Update()
 		myRender->highlightColor = math::float3(color.x, color.y, color.z);
 	}
 
-	
-	if (App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) == nameShowed.end() && gameobject->isActive())
-	{
-		itemName->SetNameBar(gameobject->UUID, rarity);
-		nameShowed.emplace_back(gameobject->UUID);
-	}
-	else if (!App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) != nameShowed.end())
-	{
-		nameShowed.erase(std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID));
-		itemName->DisableName(gameobject->UUID);
-	}
-
 	if (App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID))
 	{
 		if (itemName != nullptr)
 			itemName->Hovered(gameobject->UUID, true);
+			itemName->SetNameBar(gameobject->UUID, rarity);
 
 		if (myRender != nullptr)
 			myRender->highlighted = true;
+
 
 		if (changeItemCursorIcon && !App->ui->IsHover())
 		{
@@ -495,7 +476,7 @@ void ItemPicker::Update()
 	{
 		if (myRender != nullptr)
 		{
-			//myRender->highlighted = false;
+			myRender->highlighted = false;
 			itemName->Hovered(gameobject->UUID, false);
 
 			if (changeStandarCursorIcon && !App->ui->IsHover())
@@ -504,6 +485,7 @@ void ItemPicker::Update()
 				App->ui->SetIsItemHover(false);
 				changeStandarCursorIcon = false;
 				changeItemCursorIcon = true;
+				itemName->DisableName(gameobject->UUID);
 			}
 		}
 	}

@@ -81,7 +81,6 @@ private:
 	int rare = 0;
 
 	ItemNameController* itemName = nullptr;
-	std::list<unsigned> nameShowed;
 
 	std::string itemCursor = "Pick.cur";
 	bool changeItemCursorIcon = true;
