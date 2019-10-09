@@ -1,7 +1,7 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1568802784,
+        "timeCreated": 1569050015,
         "GUID": 3920195752,
         "Name": "BG_Floor_1",
         "File": "Assets/Materials/BG_Floor_1.m4t",
@@ -13,14 +13,16 @@
             1.0
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            0.5901639461517334,
+            0.5127654075622559,
+            0.5127654075622559
         ],
         "emissiveColor": [
             1.0,
             1.0,
             1.0
-        ]
+        ],
+        "diffuseUID": 3922257785,
+        "shader": "PBR"
     }
 }

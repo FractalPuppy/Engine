@@ -711,6 +711,7 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="MouseController.h" />
+    <ClInclude Include="resource1.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -841,5 +842,11 @@
     <None Include="..\Game\Shaders\FragmentShaders\PBR_NoRigging.fs">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="dll1.bin" />
+    <None Include="dll2.bin" />
+    <None Include="dll3.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
 </Project>

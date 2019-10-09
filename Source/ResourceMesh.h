@@ -36,7 +36,7 @@ class ResourceMesh : public Resource
 {
 public:
 	ResourceMesh(unsigned uid);
-	ResourceMesh(const ResourceMesh& resource);
+	ENGINE_API ResourceMesh(const ResourceMesh& resource);
 	ResourceMesh(unsigned nVertices, float* vertices, unsigned nIndexes, int* indexes, unsigned nUVs, float* UVs); //This constructor is used by volumetric lights | Assume triangle strip drawing method
 	virtual ~ResourceMesh();
 

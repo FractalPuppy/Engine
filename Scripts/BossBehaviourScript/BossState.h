@@ -3,6 +3,8 @@
 
 class BossBehaviourScript;
 
+#include <string>
+
 class BossState
 {
 public:
@@ -23,6 +25,8 @@ protected:
 	BossBehaviourScript* boss = nullptr;
 
 	float duration = 0.0f;
+
+	std::string trigger = "";
 };
 
 #endif // __BOSSSTATE_H_

@@ -19,6 +19,8 @@ public:
 	std::vector<float3>path;
 	unsigned pathIndex = 0;
 	GameObject* dustParticles = nullptr;
+	//bool that can help us avoid some pathfinding calls
+	bool currentPathAlreadyCalculated = false;
 
 private:
 	float moveTimer = 0.0f;

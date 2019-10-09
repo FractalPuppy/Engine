@@ -1,6 +1,5 @@
 #include "ResourceTexture.h"
 
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "ModuleTextures.h"

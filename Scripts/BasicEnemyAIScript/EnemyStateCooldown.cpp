@@ -14,6 +14,11 @@ EnemyStateCooldown::~EnemyStateCooldown()
 {
 }
 
+void EnemyStateCooldown::Enter()
+{
+	enemy->enemyController->LookAt2D(enemy->enemyController->GetPlayerPosition());
+}
+
 void EnemyStateCooldown::HandleIA()
 {
 	float distance = enemy->enemyController->GetDistanceToPlayer2D();

@@ -1,6 +1,5 @@
 #include "ResourceScene.h"
 
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "ModuleScene.h"

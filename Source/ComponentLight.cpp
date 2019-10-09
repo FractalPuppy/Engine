@@ -179,7 +179,7 @@ void ComponentLight::Load(JSON_value* value)
 	Component::Load(value);
 	if (gameobject->transform == nullptr) return;
 
-	lightType = (LightType)value->GetUint("Lighttype");
+	lightType = (LightType)value->GetInt("Lighttype");
 	color = value->GetColor3("color");
 	position = gameobject->transform->GetPosition();
 	direction = gameobject->transform->rotation*float3::unitZ;
@@ -192,7 +192,8 @@ void ComponentLight::Load(JSON_value* value)
 	else
 	{
 		App->renderer->directionalLight = this;
-		App->spacePartitioning->aabbTreeLighting.ReleaseNode(gameobject->treeNode);
+		if (gameobject->treeNode)
+			App->spacePartitioning->aabbTreeLighting.ReleaseNode(gameobject->treeNode);
 		gameobject->treeNode = nullptr;
 	}
 
@@ -214,7 +215,7 @@ void ComponentLight::Save(JSON_value* value) const
 {
 	Component::Save(value);
 
-	value->AddUint("Lighttype", (unsigned)lightType);
+	value->AddInt("Lighttype", (int)lightType);
 	value->AddFloat3("color", color);
 	if (lightType != LightType::DIRECTIONAL)
 	{

@@ -27,11 +27,11 @@ void EnemyStateChase::HandleIA()
 		// Too far: Return to start position
 		enemy->currentState = (EnemyState*)enemy->returnToStart;
 	}
-	else if (distanceToPlayer < enemy->minAttackDistance)
-	{
-		enemy->currentState = (EnemyState*)enemy->flee;
-	}
-	else if(distanceToPlayer < enemy->maxAttackDistance && distanceToPlayer > enemy->minAttackDistance)
+	//else if (distanceToPlayer < enemy->minAttackDistance)
+	//{
+	//	enemy->currentState = (EnemyState*)enemy->flee;
+	//}
+	else if(distanceToPlayer < enemy->maxAttackDistance /*&& distanceToPlayer > enemy->minAttackDistance*/)
 	{
 		// Player in range: change to attack
 		enemy->currentState = (EnemyState*)enemy->attack;

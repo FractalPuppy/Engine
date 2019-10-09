@@ -1,26 +1,29 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1568802784,
+        "timeCreated": 1569050015,
         "GUID": 3482691988,
         "Name": "WallStones",
         "File": "Assets/Materials/WallStones.m4t",
         "ExportedFile": "Library/Materials/3482691988.m4t",
         "DifusseColor": [
             1.0,
-            1.0,
-            1.0,
+            0.9999940395355225,
+            0.9999899864196777,
             1.0
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            9.999999974752428e-7,
+            9.999899930335233e-7,
+            9.999899930335233e-7
         ],
         "emissiveColor": [
             1.0,
             1.0,
             1.0
-        ]
+        ],
+        "diffuseUID": 1622187561,
+        "normalUID": 2917950989,
+        "shader": "PBR"
     }
 }

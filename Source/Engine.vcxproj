@@ -270,6 +270,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Recast\DebugUtils\DebugDraw.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="ResourceAnimation.h" />
     <ClInclude Include="ResourceAudio.h" />
     <ClInclude Include="ResourceMaterial.h" />
@@ -465,7 +466,13 @@
     <None Include="..\Game\Shaders\VertexShaders\Trail.vs" />
     <None Include="..\Game\Shaders\VertexShaders\UI.vs" />
     <None Include="cpp.hint" />
+    <None Include="dll1.bin" />
+    <None Include="dll2.bin" />
+    <None Include="dll3.bin" />
     <None Include="NodeEditor\Include\ax\Math2D.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

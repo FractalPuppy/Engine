@@ -1,6 +1,7 @@
 #include "LoopStateMenu.h"
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleInput.h"
 #include "GameLoop.h"
 
 #include "GameObject.h"
@@ -38,6 +39,19 @@ void LoopStateMenu::Update()
 	if (introVideo != nullptr && introVideo->videoPlaying)
 	{
 		videoTimer += gLoop->App->time->gameDeltaTime;
+
+		if (gLoop->App->input->AnyKeyPressed())
+		{
+			if (gLoop->introSkipTextGO->isActive())
+			{
+				StartGame();
+			}
+			else
+			{
+				gLoop->introSkipTextGO->SetActive(true);
+			}
+		}
+
 		if (videoTimer >= videoDuration)
 		{
 			StartGame();

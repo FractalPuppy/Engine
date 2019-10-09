@@ -112,7 +112,7 @@ public:
 	ENGINE_API bool HighQualityMouseDetection(math::float3* intersection) const;
 	ENGINE_API bool NavMeshPolygonQuery(unsigned int* targetRef, math::float3* endPos, math::float3 correction) const;
 
-	ENGINE_API bool IsCursorPointingToNavigableZone(float xPickingCorrection = 0.0f, float yPickingCorrection = 0.0f, float zPickingCorrection = 0.0f) const;
+	ENGINE_API bool IsCursorPointingToNavigableZone(float xPickingCorrection = 0.0f, float yPickingCorrection = 0.0f, float zPickingCorrection = 0.0f, bool player = false) const;
 
 	ENGINE_API void setPlayerBB(math::AABB bbox);
 
@@ -287,6 +287,10 @@ public:
 	ENGINE_API void UpdateCrowd(float dtime);
 	ENGINE_API void MoveRequest(int idAgent, unsigned int targetRef, float* endPos);
 	ENGINE_API void ChangeVelocity(int idAgent, float velocity);
+	ENGINE_API void StopAgent(int idAgent);
+	ENGINE_API bool IsAgentRequesting(int idAgent);
+	ENGINE_API bool IsAgentIdle(int idAgent);
+	ENGINE_API bool IsAgentStuck(int idAgent);
 
 	//public variables
 	static const int MAX_AGENTS = 50;

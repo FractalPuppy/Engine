@@ -50,10 +50,18 @@ void SkillTreeController::Start()
 
 	skillInfo = App->scene->FindGameObjectByName("SkillInfo", gameobject);
 	assert(skillInfo != nullptr);
-	skillInfoName = App->scene->FindGameObjectByName("SkillInfoName", skillInfo)->GetComponent<Text>();
-	skillInfoDescription = App->scene->FindGameObjectByName("SkillInfoDescription", skillInfo)->GetComponent<Text>();
-	skillInfoManaCostText = App->scene->FindGameObjectByName("SkillInfoManaCostText", skillInfo)->GetComponent<Text>();
-	skillInfoIcon = App->scene->FindGameObjectByName("SkillInfoIcon", skillInfo)->GetComponent<ComponentImage>();
+	GameObject* go = App->scene->FindGameObjectByName("SkillInfoName", skillInfo);
+	if (go)
+		skillInfoName = go->GetComponent<Text>();
+	go = App->scene->FindGameObjectByName("SkillInfoDescription", skillInfo);
+	if (go)
+		skillInfoDescription = go->GetComponent<Text>();
+	go = App->scene->FindGameObjectByName("SkillInfoManaCostText", skillInfo);
+	if (go)
+		skillInfoManaCostText = go->GetComponent<Text>();
+	go = App->scene->FindGameObjectByName("SkillInfoIcon", skillInfo);
+	if (go)
+		skillInfoIcon = go->GetComponent<ComponentImage>();
 
 	GameObject* GO = nullptr;
 	GO = App->scene->FindGameObjectByName("skill_button");

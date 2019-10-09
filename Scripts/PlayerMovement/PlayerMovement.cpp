@@ -1244,23 +1244,49 @@ bool PlayerMovement::IsMoving() const
 	return (IsPressingMouse1() && !IsAttacking() && !IsMovingToAttack() && (!IsMovingToItem() || (IsMovingToItem() && stoppedGoingToItem)));
 }
 
-float PlayerMovement::DistPlayerToMouse() const
+//this functionchecks the mouse position, which includes 2 things:
+//1- the distance between the mouse and the player (if both point to the same position, FALSe)
+//2- if the cursor points to a navigable zone
+bool PlayerMovement::CorrectMousePosition() const 
 {
 	math::float3 destinationPoint;
 	App->navigation->FindIntersectionPoint(gameobject->transform->position, destinationPoint);
 	float dist = destinationPoint.DistanceSq(gameobject->transform->position);
-	return dist;
+
+	return (dist > closestDistToPlayer && dist < furthestDistToPlayer && App->navigation->IsCursorPointingToNavigableZone(0.f, 1000.f, 0.f, true));
 }
+
+/*
+function that does a path finding call to see if values are correct. It also modifies a bool
+that avoids a pathfinding call if we end up actually entering the walk state
+*/
+
+bool PlayerMovement::PathFindingCall() const
+{
+	if (walk == nullptr) return false;
+	math::float3 intPos(0.f, 0.f, 0.f);
+	bool path = App->navigation->NavigateTowardsCursor(gameobject->transform->position, walk->path,
+		math::float3(OutOfMeshCorrectionXZ, OutOfMeshCorrectionY, OutOfMeshCorrectionXZ),
+		intPos, 10000, PathFindType::FOLLOW, straightPathingDistance);
+	if (path && walk->path.size() > 2)
+	{
+		walk->pathIndex = 0;
+		walk->currentPathAlreadyCalculated = true;
+		return true;
+	}
+	return false;
+}
+
+
 
 bool PlayerMovement::IsPressingMouse1() const
 {
 	math::float3 temp;
-	
 	return (
 		(App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) ||
 		(currentState != nullptr && currentState->playerWalking && !currentState->playerWalkingToHit) ||
 		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) && !App->scene->Intersects("PlayerMesh", false, temp) &&
-		(currentState != nullptr && currentState->playerWalking || DistPlayerToMouse() > closestDistToPlayer)));
+		(PathFindingCall())));
 
 }
 

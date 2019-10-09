@@ -97,14 +97,14 @@ void EnemyControllerScript::Awake()
 	player = App->scene->FindGameObjectByTag(playerTag.c_str());
 	if (player == nullptr)
 	{
-		LOG("The Player GO with tag %s couldn't be found \n", playerTag);
+		LOG("The Player GO with tag %s couldn't be found \n", playerTag.c_str());
 	}
 	else
 	{
 		playerHitBox = player->GetComponent<ComponentBoxTrigger>();
 		if (playerHitBox == nullptr)
 		{
-			LOG("The GameObject %s has no bbox attached \n", player->name);
+			LOG("The GameObject %s has no ComponentTrigger attached \n", player->name.c_str());
 		}
 
 		playerMovement = (PlayerMovement*)player->GetComponentInChildren(ComponentType::Script);
@@ -443,7 +443,7 @@ inline math::float3 EnemyControllerScript::GetPosition() const
 inline math::Quat EnemyControllerScript::GetRotation() const
 {
 	assert(gameobject->transform != nullptr);
-	return gameobject->transform->GetRotation();
+	return gameobject->transform->GetGlobalRotation();
 }
 
 inline math::float3 EnemyControllerScript::GetPlayerPosition() const
@@ -499,7 +499,7 @@ void EnemyControllerScript::Move(float speed, math::float3& direction) const
 	gameobject->transform->SetPosition(gameobject->transform->GetPosition() + movement);
 }
 
-void EnemyControllerScript::Move(float speed, float& refreshTime, math::float3 position, std::vector<float3>& path) const
+bool EnemyControllerScript::Move(float speed, float& refreshTime, math::float3 position, std::vector<float3>& path) const
 {
 	if (speed != currentSpeed)
 	{
@@ -509,14 +509,30 @@ void EnemyControllerScript::Move(float speed, float& refreshTime, math::float3 p
 		currentWorldControllerScript->changeVelocity(gameobject->UUID, currentSpeed);
 	}
 	currentWorldControllerScript->EnemyMoveRequest(gameobject->UUID, position);
-	gameobject->transform->LookAt(gameobject->transform->movingOrientation);
+	//gameobject->transform->LookAt(gameobject->transform->movingOrientation);
+	return true;
 }
 
-void EnemyControllerScript::LookAt2D(math::float3& position)
+bool EnemyControllerScript::IsIdle() const
+{
+	return currentWorldControllerScript->IsAgentIdle(gameobject->UUID);
+}
+
+bool EnemyControllerScript::IsStuck() const
+{
+	return currentWorldControllerScript->IsAgentStuck(gameobject->UUID);
+}
+
+void EnemyControllerScript::Stop()
+{
+	currentWorldControllerScript->StopAgent(gameobject->UUID);
+}
+
+void EnemyControllerScript::LookAt2D(const math::float3& position)
 {
 	math::float3 auxPos = position;
 	auxPos.y = GetPosition().y;
-	gameobject->transform->LookAt(auxPos);
+	gameobject->transform->LookAtLocal(auxPos);
 }
 
 void EnemyControllerScript::OnTriggerEnter(GameObject* go)
@@ -532,14 +548,26 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 
 	if (go->tag == "PlayerHitBoxAttack" || go->tag == "Machete")
 	{
-		// Generate a random number and if it is below the critical chance the damage will be increased
-		if ((rand() % 100u) < playerMovement->criticalChance)
+		if (gameobject->tag.c_str() != "Boss")
 		{
-			TakeDamage(playerMovement->stats.strength * 0.2f, (int)DamageType::CRITICAL);
+			// Generate a random number and if it is below the critical chance the damage will be increased
+			if ((rand() % 100u) < playerMovement->criticalChance)
+			{
+				TakeDamage(playerMovement->stats.strength * 0.2f, (int)DamageType::CRITICAL);
+			}
+			else
+			{
+				TakeDamage(playerMovement->stats.strength * 0.1f, (int)DamageType::NORMAL);
+			}
 		}
-		else
-		{
-			TakeDamage(playerMovement->stats.strength * 0.1f, (int)DamageType::NORMAL);
-		}
+		//else
+		//{
+		//	float distanceToPlayer = GetDistanceToPlayer2D();
+		//	if (distanceToPlayer > 500.0f)
+		//	{
+
+		//	}
+		//}
+
 	}
 }

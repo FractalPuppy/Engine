@@ -2,6 +2,9 @@
 
 #include "EnemyControllerScript.h"
 #include "BuriedEnemyAIScript.h"
+#include "GameObject.h"
+#include "ComponentTransform.h"
+#include "ProjectileScript.h"
 
 EnemyStateCooldown::EnemyStateCooldown(BuriedEnemyAIScript* AIScript)
 {
@@ -62,5 +65,6 @@ void EnemyStateCooldown::HandleIA()
 
 void EnemyStateCooldown::Update()
 {
-
+	math::float3 playerPosition = enemy->enemyController->GetPlayerPosition();
+	enemy->enemyController->LookAt2D(playerPosition + math::float3(0, enemy->projectileScript->offsetHeight, 0));
 }

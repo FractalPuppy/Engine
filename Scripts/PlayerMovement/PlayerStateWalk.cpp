@@ -42,25 +42,29 @@ PlayerStateWalk::~PlayerStateWalk()
 
 void PlayerStateWalk::Update()
 {
-	math:float2 mouse((float*)&player->App->input->GetMousePosition());
 	if ((player->App->input->GetMouseButtonDown(1) == KEY_DOWN 
 		|| player->App->input->GetMouseButtonDown(1) == KEY_REPEAT) && !player->App->ui->UIHovered(true,false))
 	{
 		moveTimer = 0.0f;
 		math::float3 intPos(0.f, 0.f, 0.f);
-		if (player->App->navigation->NavigateTowardsCursor(player->gameobject->transform->position, path,
-					math::float3(player->OutOfMeshCorrectionXZ, player->OutOfMeshCorrectionY, player->OutOfMeshCorrectionXZ), 
-					intPos, 10000, PathFindType::FOLLOW, player->straightPathingDistance))
+		//in case we already calculated this path in the PlayerMovement.cpp, we dont have to call again
+		if (!currentPathAlreadyCalculated)
 		{
-			//case the player clicks outside of the floor mesh but we want to get close to the floors edge
-			pathIndex = 0;
+			if (player->App->navigation->NavigateTowardsCursor(player->gameobject->transform->position, path,
+				math::float3(player->OutOfMeshCorrectionXZ, player->OutOfMeshCorrectionY, player->OutOfMeshCorrectionXZ),
+				intPos, 10000, PathFindType::FOLLOW, player->straightPathingDistance))
+			{
+				//case the player clicks outside of the floor mesh but we want to get close to the floors edge
+				pathIndex = 0;
+			}
+			else
+			{
+				//distance 0 or clicked outside of the navmesh
+				playerWalking = false;
+				return;
+			}
 		}
-		else
-		{
-			//distance 0 or clicked outside of the navmesh
-			playerWalking = false;
-			return;
-		}
+		currentPathAlreadyCalculated = false;
 	}
 	else if (player->App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 	{

@@ -1,7 +1,6 @@
 #include "ResourceMesh.h"
 #include "GL/glew.h"
 
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "ModuleResourceManager.h"

@@ -101,6 +101,12 @@ void ComponentTrail::UpdateTrail()
 	}
 }
 
+void ComponentTrail::CleanTrail()
+{
+	std::queue<TrailPoint> empty;
+	std::swap(trail, empty);
+}
+
 void ComponentTrail::DrawProperties()
 {
 	ImGui::PushID(this);

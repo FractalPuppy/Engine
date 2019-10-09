@@ -34,6 +34,19 @@ enum class ItemPicker_API ItemRarity
 class ItemPicker_API ItemPicker : public Script
 {
 public:
+	ItemPicker() : Script() {};
+	ItemPicker(const ItemPicker& itemPicker);
+	ItemPicker& operator=(const ItemPicker& itemPicker);
+
+	inline virtual ItemPicker* Clone() const
+	{
+		return new ItemPicker(*this);
+	}
+
+	void SetItem(ItemType type, std::string name, std::string sprite);
+	void PickupItem() const;
+
+private:
 	void Expose(ImGuiContext* context) override;
 
 	void Start() override;
@@ -41,15 +54,9 @@ public:
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
-	void SetItem(ItemType type, std::string name, std::string sprite);
 
-	void PickupItem() const;
 
-	inline virtual ItemPicker* Clone() const
-	{
-		return new ItemPicker(*this);
-	}
-
+public:
 	std::string name;
 	std::string description;
 	std::string sprite;

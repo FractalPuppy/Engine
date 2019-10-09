@@ -56,6 +56,7 @@ public:
 	const fPoint& GetMouseMotion() const;
 	ENGINE_API const fPoint& GetMousePosition() const;
 	const float GetMouseWheel() const;
+	ENGINE_API bool AnyKeyPressed() const;
 
 	void DrawGUI() override;
 

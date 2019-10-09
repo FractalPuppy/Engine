@@ -7,7 +7,6 @@
 
 #include "ResourceAnimation.h"
 
-#include "Globals.h"
 #include "imgui.h"
 #include "JSON.h"
 #include <assert.h>

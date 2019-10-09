@@ -1,0 +1,268 @@
+{
+    "GameObjects": [
+        {
+            "UID": 264278140,
+            "ParentUID": 0,
+            "Name": "BuriedProjectile",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 3140851128,
+            "prefabTimeStamp": 1570548634,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        2243.240966796875,
+                        -0.000030517578125,
+                        3348.436767578125
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.999999761581421,
+                        2.0,
+                        1.999999761581421
+                    ],
+                    "Global": [
+                        1.999999761581421,
+                        0.0,
+                        0.0,
+                        2243.240966796875,
+                        0.0,
+                        2.0,
+                        0.0,
+                        -0.000030517578125,
+                        0.0,
+                        0.0,
+                        1.999999761581421,
+                        3348.436767578125,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 15,
+                    "Enabled": 1,
+                    "pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "r": [
+                        4.099999904632568,
+                        1.600000023841858,
+                        13.0
+                    ],
+                    "boxType": 4,
+                    "debug_draw": 0
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "ProjectileScript",
+                    "scriptInfo": {
+                        "speed": 1200.0,
+                        "lifeTime": 2.0,
+                        "playerName": "Player",
+                        "rotate": 1,
+                        "rotateX": 1,
+                        "rotateY": 0,
+                        "rotateZ": 0,
+                        "rotatingSpeed": 7.0
+                    }
+                }
+            ]
+        },
+        {
+            "UID": 2932530668,
+            "ParentUID": 264278140,
+            "Name": "ProjectileMesh",
+            "Tag": "ProjectileMesh",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.999999761581421,
+                        0.0,
+                        0.0,
+                        2243.240966796875,
+                        0.0,
+                        2.0,
+                        0.0,
+                        -0.000030517578125,
+                        0.0,
+                        0.0,
+                        1.999999761581421,
+                        3348.436767578125,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 200180328,
+                    "materialUID": 3257774589,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 1,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0,
+                    "borderAmount": 0.5
+                },
+                {
+                    "Type": 11,
+                    "Enabled": 1,
+                    "width": 15.0,
+                    "duration": 0.10000000149011612,
+                    "minDistance": 1.0,
+                    "trailColor": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "textureUID": 676697322,
+                    "bloomIntensity": 1.0,
+                    "sizeOT": 1
+                }
+            ]
+        }
+    ]
+}

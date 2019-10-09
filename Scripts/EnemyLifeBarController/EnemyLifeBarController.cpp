@@ -42,11 +42,11 @@ void EnemyLifeBarController::Update()
 void EnemyLifeBarController::SetLifeBar(int maxHP, int actualHP, EnemyLifeBarType type, std::string name)
 {
 	draw = true;
-	enemyTypeName->GetComponent<Text>()->text = name;
-
 	lifeBackground->SetActive(true);
 	hPbar->SetActive(true);
 	enemyTypeName->SetActive(true);
+	enemyTypeName->GetComponent<Text>()->text = name;
+
 	switch (type)
 	{
 	case EnemyLifeBarType::NORMAL:

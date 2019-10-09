@@ -1,0 +1,164 @@
+{
+    "GameObjects": [
+        {
+            "UID": 2276881255,
+            "ParentUID": 3067108787,
+            "Name": "Machete",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 2405749781,
+            "prefabTimeStamp": 1569853838,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        -4901.4208984375,
+                        787.4401245117188,
+                        1076.50634765625
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Euler": [
+                        -90.00000762939453,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        0.9999743700027466,
+                        0.9999743700027466
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        -4901.4208984375,
+                        0.0,
+                        -1.1920623421701748e-7,
+                        0.9999743103981018,
+                        787.4401245117188,
+                        0.0,
+                        -0.9999743103981018,
+                        -1.1920623421701748e-7,
+                        1076.50634765625,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 564438762,
+                    "materialUID": 3474316475,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        0.0,
+                        0.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0,
+                    "borderAmount": 0.5
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "ItemPicker",
+                    "scriptInfo": {
+                        "name": "Machete",
+                        "description": "Machete calling for revenge.",
+                        "sprite": "Machete_icon",
+                        "type": 4,
+                        "rarity": 1,
+                        "isEquipped": 0,
+                        "health": 0.0,
+                        "mana": 0.0,
+                        "strength": 10,
+                        "dexterity": 0,
+                        "hpRegen": 0.0,
+                        "manaRegen": 0.0,
+                        "itemCursor": "Pick.cur",
+                        "meshUID": 1423194597,
+                        "materialUID": 2582063686
+                    }
+                }
+            ]
+        }
+    ]
+}

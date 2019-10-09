@@ -115,7 +115,7 @@ public:
 	unsigned GetNewUID();
 	std::list<ComponentLight*> GetClosestLights(LightType type, math::float3 position = math::float3::zero) const;
 
-	ComponentLight* GetDirectionalLight() const;
+	ENGINE_API ComponentLight* GetDirectionalLight() const;
 	void DeleteDirectionalLight(ComponentLight* light);
 
 	ENGINE_API math::LineSegment SceneRaycast(math::float2 position);

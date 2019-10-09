@@ -27,7 +27,7 @@ class ResourceMaterial :
 {
 public:
 	ResourceMaterial(unsigned uid);
-	ResourceMaterial(const ResourceMaterial& resource);
+	ENGINE_API ResourceMaterial(const ResourceMaterial& resource);
 	~ResourceMaterial();
 
 	bool LoadInMemory() override;

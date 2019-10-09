@@ -10,6 +10,8 @@ public:
 	BasicEnemyAIScript_API EnemyStateCooldown(BasicEnemyAIScript* AIScript);
 	BasicEnemyAIScript_API ~EnemyStateCooldown();
 
+	void Enter() override;
+
 	void HandleIA() override;
 	void Update() override;
 

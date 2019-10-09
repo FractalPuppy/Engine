@@ -1,7 +1,8 @@
 #include "EnemyStateCooldown.h"
 
 #include "GameObject.h"
-
+#include "Application.h"
+#include "ModuleTime.h"
 #include "EnemyControllerScript.h"
 #include "ProjectileScript.h"
 #include "RangeEnemyAIScript.h"
@@ -42,14 +43,15 @@ void EnemyStateCooldown::HandleIA()
 	}
 	else
 	{
-		if (distanceToPlayer < enemy->minAttackDistance)
+		if (distanceToPlayer < enemy->minAttackDistance && disengageTimer >= disengageCooldown)
 		{
 			enemy->currentState = (EnemyState*)enemy->flee;
+			disengageTimer = 0.0f;
 		}
 	}
 }
 
 void EnemyStateCooldown::Update()
 {
-	
+	disengageTimer += enemy->App->time->gameDeltaTime;
 }

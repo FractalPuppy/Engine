@@ -1,1 +1,30 @@
-{"material":{"diffuseColor":[1.0,1.0,1.0,1.0],"metallic":0.5,"roughness":0.11100000143051148,"specularColor":[1.0,0.9999899864196777,0.9999899864196777],"emissiveColor":[1.0,1.0,1.0],"diffuseUID":4264571548,"normalUID":125018184,"shader":"PBR"}}
+{
+    "material": {
+        "diffuseColor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "bloomIntenstiy": 1.0,
+        "roughness": 0.11100000143051148,
+        "specularColor": [
+            9.999999974752428e-7,
+            9.999899930335233e-7,
+            9.999899930335233e-7
+        ],
+        "emissiveColor": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "dissolveColor": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "diffuseUID": 4264571548,
+        "normalUID": 125018184,
+        "shader": "PBR"
+    }
+}

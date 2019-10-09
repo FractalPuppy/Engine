@@ -58,6 +58,7 @@ ComponentParticles::ComponentParticles(const ComponentParticles& component) : Co
 	directionNoiseProbability = component.directionNoiseProbability;
 	directionNoiseTotalProbability = component.directionNoiseTotalProbability;
 	actualEmisor = component.actualEmisor;
+	localEmitter = component.localEmitter;
 	alternateEmisor(actualEmisor);
 	baseRadius = component.baseRadius;
 	apexRadius = component.apexRadius;
@@ -291,6 +292,7 @@ void ComponentParticles::Update(float dt, const math::float3& camPos)
 	//Create new Particle P
 	if (gameobject->isActive() && rateTimer <= 0.f && particles.size() < maxParticles)
 	{
+		timer = float(rand() % 1000);
 		int amount = MIN(MAX(dt / (1.f / rate), 1), maxParticles);
 		for (; amount > 0; --amount)
 		{

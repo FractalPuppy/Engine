@@ -184,6 +184,8 @@ public:
 	bool IsAttacking() const;
 	bool IsMoving() const;
 	bool IsMovingToAttack() const;
+	bool CorrectMousePosition() const;
+	bool PathFindingCall() const;
 	bool IsPressingMouse1() const;
 	bool IsUsingRightClick() const;
 	bool IsUsingOne() const;
@@ -326,7 +328,8 @@ private:
 	Text* uiStrengthText = nullptr;
 	Text* uiManaText = nullptr;
 
-	float closestDistToPlayer = 31000.0f;
+	float closestDistToPlayer = 1000.0f;
+	float furthestDistToPlayer = 100000.0f;
 	float hubCooldown[9]	  = { 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F };
 	float hubCooldownMax[9] = { 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F };
 	float hubCooldownTimer[9] = { 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F };

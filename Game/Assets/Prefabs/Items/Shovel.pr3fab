@@ -31,8 +31,9 @@
             "No Walkable": 0,
             "openInHierarchy": 1,
             "isPrefab": 1,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
+            "isPrefabSync": 1,
+            "prefabUID": 2896294178,
+            "prefabTimeStamp": 1569853990,
             "Components": [
                 {
                     "Type": 0,
@@ -55,8 +56,8 @@
                     ],
                     "Scale": [
                         1.0,
-                        0.9999448657035828,
-                        0.9999448657035828
+                        1.0,
+                        1.0
                     ],
                     "Global": [
                         1.0,
@@ -64,12 +65,12 @@
                         0.0,
                         -5450.34716796875,
                         0.0,
-                        -1.1920271703047547e-7,
-                        0.999944806098938,
+                        -1.1920928955078126e-7,
+                        0.9999999403953552,
                         787.4401245117188,
                         0.0,
-                        -0.999944806098938,
-                        -1.1920271703047547e-7,
+                        -0.9999999403953552,
+                        -1.1920928955078126e-7,
                         1330.8565673828126,
                         0.0,
                         0.0,
@@ -140,10 +141,11 @@
                     "Enabled": 1,
                     "script": "ItemPicker",
                     "scriptInfo": {
-                        "name": "Machete",
-                        "sprite": "Item_Machete",
+                        "name": "Shovel",
+                        "description": "Seems like its brand new, good for you!",
+                        "sprite": "Shovel_icon",
                         "type": 4,
-                        "rarity": 1,
+                        "rarity": 0,
                         "isEquipped": 0,
                         "health": 0.0,
                         "mana": 0.0,
@@ -153,7 +155,7 @@
                         "manaRegen": 0.0,
                         "itemCursor": "Pick.cur",
                         "meshUID": 244729783,
-                        "materialUID": 3164674970
+                        "materialUID": 3187938879
                     }
                 }
             ]

@@ -1321,7 +1321,7 @@
                     "Znear": 10.0,
                     "Zfar": 100000.0,
                     "vFOV": 1.0471975803375245,
-                    "hFOV": 1.5192210674285889,
+                    "hFOV": 0.0,
                     "Position": [
                         374.6440734863281,
                         7210.78076171875,
@@ -4665,7 +4665,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 426311,
-            "prefabTimeStamp": 1569519728,
+            "prefabTimeStamp": 1569838011,
             "Components": [
                 {
                     "Type": 0,
@@ -4824,7 +4824,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2896294178,
-            "prefabTimeStamp": 1569516325,
+            "prefabTimeStamp": 1569941596,
             "Components": [
                 {
                     "Type": 0,
@@ -4946,19 +4946,6 @@
                         "itemCursor": "Pick.cur",
                         "meshUID": 244729783,
                         "materialUID": 3164674970
-                    }
-                },
-                {
-                    "Type": 9,
-                    "Enabled": 1,
-                    "script": "ScaleOverTime",
-                    "scriptInfo": {
-                        "speed": 0.10000000149011612,
-                        "finalScale": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ]
                     }
                 }
             ]
@@ -53548,7 +53535,10 @@
                         "NumberOfItems": 3,
                         "ItemPrefabName0": "Shovel_animated",
                         "ItemPrefabName1": "Health Potion_animated",
-                        "ItemPrefabName2": "Mana Potion_animated"
+                        "ItemPrefabName2": "Mana Potion_animated",
+                        "animate": 1,
+                        "animDuration": 0.800000011920929,
+                        "animHigh": 200.0
                     }
                 }
             ]
@@ -64564,495 +64554,6 @@
             ]
         },
         {
-            "UID": 4169397080,
-            "ParentUID": 0,
-            "Name": "LeChesto",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
-            "isBoneRoot": 1,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 0,
-            "isPrefab": 1,
-            "isPrefabSync": 1,
-            "prefabUID": 201218189,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        -2465.70068359375,
-                        372.947509765625,
-                        2525.36474609375
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.06537523865699768,
-                        0.0,
-                        0.9978607296943665
-                    ],
-                    "Euler": [
-                        -0.0,
-                        7.496796607971191,
-                        -0.0
-                    ],
-                    "Scale": [
-                        0.9999964833259583,
-                        1.0,
-                        0.9999964833259583
-                    ],
-                    "Global": [
-                        0.991448700428009,
-                        0.0,
-                        0.13047030568122865,
-                        -2465.70068359375,
-                        0.0,
-                        1.0,
-                        0.0,
-                        372.947509765625,
-                        -0.13047030568122865,
-                        0.0,
-                        0.991448700428009,
-                        2525.36474609375,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                },
-                {
-                    "Type": 4,
-                    "Enabled": 1,
-                    "stateMachineUID": 2660823773
-                },
-                {
-                    "Type": 9,
-                    "Enabled": 1,
-                    "script": "ChestScript",
-                    "scriptInfo": {
-                        "playerName": "Player",
-                        "playerBboxName": "PlayerMesh",
-                        "myBboxName": "ChestMesh",
-                        "spawnGOName": "SpawnableGO",
-                        "state": 0,
-                        "lootPosition": [
-                            0.0,
-                            0.0,
-                            100.0
-                        ],
-                        "lootDelay": 2.5,
-                        "lootRadius": 100.0
-                    }
-                },
-                {
-                    "Type": 9,
-                    "Enabled": 1,
-                    "script": "LootDropScript",
-                    "scriptInfo": {
-                        "NumberOfItems": 4,
-                        "ItemPrefabName0": "Mana Potion",
-                        "ItemPrefabName1": "Shovel",
-                        "ItemPrefabName2": "Health Potion",
-                        "ItemPrefabName3": "Health Potion"
-                    }
-                }
-            ]
-        },
-        {
-            "UID": 3008756252,
-            "ParentUID": 4169397080,
-            "Name": "transform1",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 0,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "Euler": [
-                        -0.0,
-                        0.0,
-                        -0.0
-                    ],
-                    "Scale": [
-                        2.25,
-                        2.25,
-                        2.25
-                    ],
-                    "Global": [
-                        2.230759620666504,
-                        0.0,
-                        0.29355818033218386,
-                        -2465.70068359375,
-                        0.0,
-                        2.25,
-                        0.0,
-                        372.947509765625,
-                        -0.29355818033218386,
-                        0.0,
-                        2.230759620666504,
-                        2525.36474609375,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                }
-            ]
-        },
-        {
-            "UID": 275795572,
-            "ParentUID": 3008756252,
-            "Name": "joint2",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        9.154500007629395,
-                        6.50534725189209
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "Euler": [
-                        -0.0,
-                        0.0,
-                        -0.0
-                    ],
-                    "Scale": [
-                        0.9999999403953552,
-                        1.0,
-                        1.0
-                    ],
-                    "Global": [
-                        2.230759382247925,
-                        0.0,
-                        0.29355818033218386,
-                        -2463.791015625,
-                        0.0,
-                        2.25,
-                        0.0,
-                        393.5451354980469,
-                        -0.29355815052986147,
-                        0.0,
-                        2.230759620666504,
-                        2539.876708984375,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                }
-            ]
-        },
-        {
-            "UID": 3164434496,
-            "ParentUID": 275795572,
-            "Name": "joint1",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        0.22008587419986726,
-                        17.79373550415039,
-                        -19.131399154663087
-                    ],
-                    "Rotation": [
-                        0.4782058298587799,
-                        0.0,
-                        0.0,
-                        0.8782477974891663
-                    ],
-                    "Euler": [
-                        57.13656997680664,
-                        0.0,
-                        -0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "Global": [
-                        2.230759382247925,
-                        0.24657900631427766,
-                        0.1592959314584732,
-                        -2468.916259765625,
-                        0.0,
-                        1.2209362983703614,
-                        -1.88992440700531,
-                        433.5810546875,
-                        -0.29355815052986147,
-                        1.8737632036209107,
-                        1.2104957103729249,
-                        2497.134521484375,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                }
-            ]
-        },
-        {
-            "UID": 2064423289,
-            "ParentUID": 4169397080,
-            "Name": "ChestMesh",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 1,
-                    "Enabled": 1,
-                    "meshUID": 2474038388,
-                    "materialUID": 3833961095,
-                    "castShadows": 0,
-                    "useAlpha": 0,
-                    "highlighted": 0,
-                    "highlightColor": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "xTiles": 1,
-                    "yTiles": 1,
-                    "fps": 24.0,
-                    "waterAmplitude1": 10.0,
-                    "waterDecay1": 1.0,
-                    "waterFrequency1": 10.0,
-                    "waterSource1": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "waterAmplitude2": 10.0,
-                    "waterDecay2": 1.0,
-                    "waterFrequency2": 10.0,
-                    "waterSource2": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "texSpeed": [
-                        0.0,
-                        0.0
-                    ],
-                    "waterSpeed": 2.0,
-                    "loop": 0,
-                    "water": 0,
-                    "dissolve": 0,
-                    "waterSource1": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "waterSource2": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "uvScaler": [
-                        0.0,
-                        0.0
-                    ],
-                    "distorsionSpeed": 0.0010000000474974514,
-                    "loop": 0,
-                    "borderAmount": 0.5
-                },
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        80.01000213623047,
-                        0.0
-                    ],
-                    "Rotation": [
-                        -0.7071068286895752,
-                        0.0,
-                        0.0,
-                        0.7071067094802856
-                    ],
-                    "Euler": [
-                        -90.00000762939453,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        5.715000152587891,
-                        5.715000152587891,
-                        5.715000152587891
-                    ],
-                    "Global": [
-                        5.6661295890808109,
-                        -0.7456377744674683,
-                        -8.888695646191991e-8,
-                        -2465.70068359375,
-                        0.0,
-                        -6.812811079726089e-7,
-                        5.714999675750732,
-                        452.95751953125,
-                        -0.745637834072113,
-                        -5.666129112243652,
-                        -6.754552828169835e-7,
-                        2525.36474609375,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                }
-            ]
-        },
-        {
             "UID": 3610114754,
             "ParentUID": 0,
             "Name": "BasicEnemy",
@@ -65081,7 +64582,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2319626357,
@@ -65181,7 +64682,10 @@
                     "script": "LootDropScript",
                     "scriptInfo": {
                         "NumberOfItems": 1,
-                        "ItemPrefabName0": "Mana Potion"
+                        "ItemPrefabName0": "Mana Potion",
+                        "animate": 0,
+                        "animDuration": 0.800000011920929,
+                        "animHigh": 200.0
                     }
                 }
             ]
@@ -103203,6 +102707,496 @@
                     "WrapWidth": 0.0,
                     "InterlineDistance": 0.0,
                     "UIOrder": 101
+                }
+            ]
+        },
+        {
+            "UID": 251231505,
+            "ParentUID": 0,
+            "Name": "LeChesto",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 1,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 201218189,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        -2465.70068359375,
+                        372.947509765625,
+                        2525.36474609375
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.06537523120641709,
+                        0.0,
+                        0.9978607892990112
+                    ],
+                    "Euler": [
+                        -0.0,
+                        7.496795654296875,
+                        -0.0
+                    ],
+                    "Scale": [
+                        0.9999964833259583,
+                        1.0,
+                        0.9999964833259583
+                    ],
+                    "Global": [
+                        0.991448700428009,
+                        0.0,
+                        0.13047030568122865,
+                        -2465.70068359375,
+                        0.0,
+                        1.0,
+                        0.0,
+                        372.947509765625,
+                        -0.13047030568122865,
+                        0.0,
+                        0.991448700428009,
+                        2525.36474609375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 4,
+                    "Enabled": 1,
+                    "stateMachineUID": 2660823773
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "ChestScript",
+                    "scriptInfo": {
+                        "playerTag": "Player",
+                        "pickCursor": "Pick.cur",
+                        "state": 0,
+                        "lootPosition": [
+                            0.0,
+                            0.0,
+                            100.0
+                        ],
+                        "lootDelay": 2.0,
+                        "lootRadius": 100.0
+                    }
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "LootDropScript",
+                    "scriptInfo": {
+                        "NumberOfItems": 4,
+                        "ItemPrefabName0": "Mana Potion_animated",
+                        "ItemPrefabName1": "Shovel_animated",
+                        "ItemPrefabName2": "Health Potion_animated",
+                        "ItemPrefabName3": "Health Potion_animated",
+                        "animate": 1,
+                        "animDuration": 0.800000011920929,
+                        "animHigh": 200.0
+                    }
+                }
+            ]
+        },
+        {
+            "UID": 1666912087,
+            "ParentUID": 251231505,
+            "Name": "transform1",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 0,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        2.25,
+                        2.25,
+                        2.25
+                    ],
+                    "Global": [
+                        2.230759620666504,
+                        0.0,
+                        0.29355818033218386,
+                        -2465.70068359375,
+                        0.0,
+                        2.25,
+                        0.0,
+                        372.947509765625,
+                        -0.29355818033218386,
+                        0.0,
+                        2.230759620666504,
+                        2525.36474609375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 3764210674,
+            "ParentUID": 1666912087,
+            "Name": "joint2",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        9.154500007629395,
+                        6.50534725189209
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        0.9999999403953552,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        2.230759382247925,
+                        0.0,
+                        0.29355818033218386,
+                        -2463.791015625,
+                        0.0,
+                        2.25,
+                        0.0,
+                        393.5451354980469,
+                        -0.29355815052986147,
+                        0.0,
+                        2.230759620666504,
+                        2539.876708984375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 1190039324,
+            "ParentUID": 3764210674,
+            "Name": "joint1",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.22008587419986726,
+                        17.79373550415039,
+                        -19.131399154663087
+                    ],
+                    "Rotation": [
+                        0.4782058298587799,
+                        0.0,
+                        0.0,
+                        0.8782477974891663
+                    ],
+                    "Euler": [
+                        57.13656997680664,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        2.230759382247925,
+                        0.24657900631427766,
+                        0.1592959314584732,
+                        -2468.916259765625,
+                        0.0,
+                        1.2209362983703614,
+                        -1.88992440700531,
+                        433.5810546875,
+                        -0.29355815052986147,
+                        1.8737632036209107,
+                        1.2104957103729249,
+                        2497.134521484375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 2326603053,
+            "ParentUID": 251231505,
+            "Name": "ChestMesh",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 2474038388,
+                    "materialUID": 3833961095,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        0.7295081615447998,
+                        0.5288003087043762,
+                        0.029897883534431459
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        0.0,
+                        0.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0,
+                    "borderAmount": 0.5
+                },
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        80.01000213623047,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Euler": [
+                        -90.00000762939453,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.715000152587891,
+                        5.715000152587891,
+                        5.715000152587891
+                    ],
+                    "Global": [
+                        5.6661295890808109,
+                        -0.7456377744674683,
+                        -8.888695646191991e-8,
+                        -2465.70068359375,
+                        0.0,
+                        -6.812811079726089e-7,
+                        5.714999675750732,
+                        452.95751953125,
+                        -0.745637834072113,
+                        -5.666129112243652,
+                        -6.754552828169835e-7,
+                        2525.36474609375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
                 }
             ]
         }

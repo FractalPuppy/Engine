@@ -16,6 +16,7 @@ class GameObject;
 class ComponentRenderer;
 class ComponentAnimation;
 class LootDropScript;
+class PlayerMovement;
 class ComponentAudioSource;
 
 enum class chestState { CLOSED, OPENING, OPENED};
@@ -35,11 +36,14 @@ class ChestScript_API ChestScript : public Script
 		return new ChestScript(*this);
 	}
 
+	void OnChestClosedHover();	// Shows the highlight and changes the cursor if the chest is hovered
+
 private:
 	GameObject* player = nullptr;
-	std::string playerName = "Player";
-	std::string playerBboxName = "PlayerMesh";
-	std::string myBboxName = "ChestMesh";
+	std::string playerTag = "Player";
+	std::string pickCursor = "Pick.cur";
+
+	PlayerMovement* playerMovementScript = nullptr;
 
 	ComponentRenderer* myRender = nullptr;
 	ComponentAnimation* anim = nullptr;
@@ -48,10 +52,9 @@ private:
 	math::AABB* myBbox = nullptr;
 	math::AABB* playerBbox = nullptr;
 
-	// GO to spawn
-	std::string spawnGOName = "SpawnableGO";
+	chestState state = chestState::CLOSED;	// Is the chest already opened?
 
-	chestState state = chestState::CLOSED; // Is the chest already opened?
+	bool lastClickOnChest = false;			// True if last click was done on chest
 
 	// Loot variables
 	LootDropScript* lootDrop = nullptr;							// If != nullptr on chest open will drop item(s) (The variable is set automatically if the LootDropScript is found on Start)

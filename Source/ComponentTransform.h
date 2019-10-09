@@ -21,13 +21,14 @@ public:
 
 	void UpdateTransform();
 	void UpdateOldTransform();
-	void UpdateGlobalTransform();
+	ENGINE_API void UpdateGlobalTransform();
 
 	void SetLocalToWorld();
 	void SetWorldToLocal(const math::float4x4& newparentGlobalMatrix);
 	void SetGlobalTransform(const math::float4x4& newglobal, const math::float4x4& parentglobal);
 	void SetLocalTransform(const math::float4x4& newLocal, const math::float4x4& parentGlobal); //only for importing purposes / if used later watch the trees
 
+	ENGINE_API void UpdateLocalTransform();
 	ENGINE_API void SetPosition(const math::float3& newPosition);
 	ENGINE_API void SetRotation(const math::Quat & newRotation);
 	ENGINE_API void SetScale(const math::float3& newScale);
@@ -42,6 +43,7 @@ public:
 	ENGINE_API void Rotate(math::float3 rotation);
 
 	ENGINE_API void LookAt(const math::float3& target);
+	ENGINE_API void LookAtLocal(const math::float3& localTarget);
 	ENGINE_API void LookAtMouse();
 	ENGINE_API void Align(const math::float3& target);
 
@@ -53,7 +55,8 @@ public:
 	void Paste() override;
 	void Reset() override;
 
-	ENGINE_API void SetGlobalPosition(const math::float3 & newPos);
+	ENGINE_API void SetGlobalPosition(const math::float3& newPos);
+	ENGINE_API void SetGlobalRotation(const math::Quat& newRotation);
 
 	void NewAttachment();
 
@@ -75,6 +78,8 @@ public:
 	math::float3 up = math::float3::zero;
 	math::float3 right = math::float3::zero;
 	math::float3 front = math::float3::zero;
+
+	bool lockLookAt = false;
 
 private:
 	math::float3 old_position = math::float3::zero;

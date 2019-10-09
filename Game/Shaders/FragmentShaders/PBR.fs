@@ -1,5 +1,5 @@
 #define MAX_DIRECTIONAL_LIGHTS 2
-#define MAX_POINT_LIGHTS 4
+#define MAX_POINT_LIGHTS 6
 #define MAX_SPOT_LIGHTS 4
 
 const float PI = 3.14159265359f; 

@@ -7,7 +7,6 @@
 #include "ResourceAnimation.h"
 
 #include "JSON.h"
-#include "Globals.h"
 
 
 ResourceStateMachine::ResourceStateMachine(unsigned uid) : Resource(uid, TYPE::STATEMACHINE)

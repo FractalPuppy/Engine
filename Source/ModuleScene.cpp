@@ -1785,7 +1785,7 @@ std::list<ComponentLight*> ModuleScene::GetClosestLights(LightType type, math::f
 	return closest;
 }
 
-ComponentLight* ModuleScene::GetDirectionalLight() const
+ENGINE_API ComponentLight* ModuleScene::GetDirectionalLight() const
 {
 	for (const auto& light : lights)
 	{

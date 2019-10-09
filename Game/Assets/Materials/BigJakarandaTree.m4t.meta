@@ -1,7 +1,7 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1568802784,
+        "timeCreated": 1569050015,
         "GUID": 2989707829,
         "Name": "BigJakarandaTree",
         "File": "Assets/Materials/BigJakarandaTree.m4t",
@@ -13,14 +13,17 @@
             1.0
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            9.999999974752428e-7,
+            9.999899930335233e-7,
+            9.999899930335233e-7
         ],
         "emissiveColor": [
             1.0,
             1.0,
             1.0
-        ]
+        ],
+        "diffuseUID": 2026982099,
+        "normalUID": 3025985485,
+        "shader": "PBR"
     }
 }

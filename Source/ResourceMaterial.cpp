@@ -1,6 +1,5 @@
 #include "ResourceMaterial.h"
 
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleProgram.h"
 #include "ModuleTextures.h"

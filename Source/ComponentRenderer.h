@@ -16,7 +16,7 @@ class ComponentRenderer :
 
 public:
 	ComponentRenderer(GameObject* gameobject);
-	ComponentRenderer(const ComponentRenderer& component);
+	ENGINE_API ComponentRenderer(const ComponentRenderer& component);
 	~ComponentRenderer();
 
 
