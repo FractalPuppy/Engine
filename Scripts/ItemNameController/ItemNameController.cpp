@@ -40,7 +40,7 @@ void ItemNameController::Update()
 		math::float2 pos = itemList.actualPosition - math::float2((itemBackground->GetComponent<Transform2D>()->getSize().x / 2) - 10.0f, 5.0f);
 		uiName->children.back()->GetComponent<Transform2D>()->SetPositionUsingAligment(pos);
 		myText = uiName->children.back()->GetComponent<Text>();
-		itemBackground->GetComponent<Transform2D>()->SetSize(math::float2(myText->text.size() * 14, 30));
+		itemBackground->GetComponent<Transform2D>()->SetSize(math::float2((myText->text.size() * 9.5)+45 , 30));
 		switch (itemList.rarity)
 		{
 		case ItemRarity::BASIC:
@@ -105,7 +105,7 @@ void ItemNameController::SetNameBar(unsigned uid, ItemRarity rarity)
 		itemTypeName = (uiName->children).back();
 		myText = itemTypeName->GetComponent<Text>();
 		itemList.rarity = rarity;
-		myText->text = go->name;
+		myText->text = go->GetComponent<ItemPicker>()->name;
 		itemBackground->GetComponent<Transform2D>()->SetPositionUsingAligment(itemList.actualPosition);
 		math::float2 textPos = itemList.actualPosition + math::float2(60, 0);
 		itemTypeName->GetComponent<Transform2D>()->SetPositionUsingAligment(textPos);
