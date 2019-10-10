@@ -41,55 +41,12 @@ void ItemNameController::Update()
 		uiName->children.back()->GetComponent<Transform2D>()->SetPositionUsingAligment(pos);
 		myText = uiName->children.back()->GetComponent<Text>();
 		itemBackground->GetComponent<Transform2D>()->SetSize(math::float2((myText->text.size() * 9.5)+45 , 30));
-		switch (itemList.rarity)
-		{
-		case ItemRarity::BASIC:
-			if (itemList.hovered)
-			{
-				myText->color = white / 255;
-			}
-			else
-			{
-				myText->color = grey / 255;
-			}
-			break;
-		case ItemRarity::RARE:
-			if (itemList.hovered)
-			{
-				myText->color = green / 255;
-			}
-			else
-			{
-				myText->color = darkGreen / 255;
-			}
-			break;
-		case ItemRarity::EPIC:
-			if (itemList.hovered)
-			{
-				myText->color = orange / 255;
-			}
-			else
-			{
-				myText->color = darkOrange / 255;
-			}
-			break;
-		case ItemRarity::LEGENDARY:
-			if (itemList.hovered)
-			{
-				myText->color = purple / 255;
-			}
-			else
-			{
-				myText->color = darkPurple / 255;
-			}
-			break;
-		}
-		color = myText->color;
+		myText->color = color;
 	}
 }
 
 
-void ItemNameController::SetNameBar(unsigned uid, ItemRarity rarity)
+void ItemNameController::SetNameBar(unsigned uid, ItemRarity rarity, math::float4 rarityColor)
 {
 
 	if (!itemList.show)
@@ -111,6 +68,7 @@ void ItemNameController::SetNameBar(unsigned uid, ItemRarity rarity)
 		itemTypeName->GetComponent<Transform2D>()->SetPositionUsingAligment(textPos);
 		itemBackground->SetActive(true);
 		itemTypeName->SetActive(true);
+		color = rarityColor;
 		return;
 	}
 }
@@ -143,12 +101,11 @@ bool ItemNameController::Intersection(unsigned uid)
 	return false;
 }
 
-math::float4 ItemNameController::GetColor(unsigned uid)
+bool ItemNameController::isHovered(unsigned uid)
 {
-
 	if (itemList.UID == uid)
 	{
-		return color;
+		return itemList.hovered;
 	}
-	return math::float4(0, 0, 0, 0);
+	return false;
 }

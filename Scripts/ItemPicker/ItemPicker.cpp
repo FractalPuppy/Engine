@@ -413,6 +413,7 @@ void ItemPicker::Update()
 	}
 	//checking if gotta pickup item
 	math::float3 closestPoint;
+	math::float4 color = GetRarityColor();
 	//first check if item clicked (either the item mesh or its name)
 	if ((App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID)) &&
 		App->input->GetMouseButtonDown(1) == KEY_DOWN)
@@ -448,16 +449,20 @@ void ItemPicker::Update()
 
 	if (myRender != nullptr)
 	{
-		myRender->highlighted = true;
-		math::float4 color = itemName->GetColor(gameobject->UUID);
+		//myRender->highlighted = true;
 		myRender->highlightColor = math::float3(color.x, color.y, color.z);
+	}
+
+	if (App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && gameobject->isActive())
+	{
+		myRender->highlighted = true;
 	}
 
 	if (App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID))
 	{
 		if (itemName != nullptr)
 			itemName->Hovered(gameobject->UUID, true);
-			itemName->SetNameBar(gameobject->UUID, rarity);
+			itemName->SetNameBar(gameobject->UUID, rarity, color);
 
 		if (myRender != nullptr)
 			myRender->highlighted = true;
@@ -476,7 +481,7 @@ void ItemPicker::Update()
 	{
 		if (myRender != nullptr)
 		{
-			myRender->highlighted = false;
+			//myRender->highlighted = false;
 			itemName->Hovered(gameobject->UUID, false);
 
 			if (changeStandarCursorIcon && !App->ui->IsHover())
@@ -628,4 +633,48 @@ void ItemPicker::SetItem(ItemType type, std::string name, std::string sprite)
 	item->name = name;
 	item->sprite = sprite;
 	item->type = type;
+}
+
+math::float4 ItemPicker::GetRarityColor()
+{
+	switch (rarity)
+	{
+	case ItemRarity::BASIC:
+		if (itemName->isHovered(gameobject->UUID))
+		{
+			return white / 255;
+		}
+		else
+		{
+			return grey / 255;
+		}
+		break;
+	case ItemRarity::RARE:
+		if (itemName->isHovered(gameobject->UUID))
+		{
+			return green / 255;
+		}
+		else
+		{
+			return darkGreen / 255;
+		}
+	case ItemRarity::EPIC:
+		if (itemName->isHovered(gameobject->UUID))
+		{
+			return orange / 255;
+		}
+		else
+		{
+			return darkOrange / 255;
+		}
+	case ItemRarity::LEGENDARY:
+		if (itemName->isHovered(gameobject->UUID))
+		{
+			return purple / 255;
+		}
+		else
+		{
+			return darkPurple / 255;
+		}
+	}
 }
