@@ -138,6 +138,7 @@ void CircularAttackSkill::Reset()
 	{
 		player->slashTrail->SetActive(false);
 	}
+	path.clear();
 }
 
 void CircularAttackSkill::CheckInput()
