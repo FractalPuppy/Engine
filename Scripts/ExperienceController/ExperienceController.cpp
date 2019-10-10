@@ -113,12 +113,12 @@ void ExperienceController::Update()
 		if (dissolveTimer > (dissolveDuration/2.0f))
 		{
 			dissolveTimer -= App->time->gameDeltaTime;
-			playerRender->dissolveAmount = dissolveTimer / dissolveDuration;
+			playerRender->dissolveAmount = (dissolveTimer / dissolveDuration);
 		}
 		else if (dissolveTimer > 0.0f)
 		{
 			dissolveTimer -= App->time->gameDeltaTime;
-			playerRender->dissolveAmount -= dissolveTimer / dissolveDuration;
+			playerRender->dissolveAmount = 1.0f - (dissolveTimer / dissolveDuration);
 		}
 		else
 		{
@@ -174,6 +174,7 @@ void ExperienceController::AddXP(int xp)
 		dissolveTimer = dissolveDuration;
 		playerRender->dissolve = true;
 		playerRender->dissolveAmount = 0.0f;
+		playerRender->borderAmount = 0.4f;
 	}
 }
 

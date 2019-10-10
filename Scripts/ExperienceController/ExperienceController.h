@@ -65,8 +65,8 @@ private:
 
 	ComponentRenderer* playerRender = nullptr;
 
-	float dissolveDuration = 0.4f;
-	float dissolveTimer = 0.f;
+	float dissolveDuration = 0.8f;
+	float dissolveTimer = 0.0f;
 	bool expDisolve = false;
 
 	math::float3 expColor = math::float3(0.980, 0.880, 0.0f);
