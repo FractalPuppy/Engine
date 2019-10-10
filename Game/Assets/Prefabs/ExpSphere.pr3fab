@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 3554340292,
+            "UID": 1065126654,
             "ParentUID": 0,
             "Name": "ExpSphere",
             "Tag": "Default",
@@ -33,7 +33,6 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1815441971,
-            "prefabTimeStamp": 1570563830,
             "Components": [
                 {
                     "Type": 0,
@@ -82,7 +81,7 @@
                     "Type": 1,
                     "Enabled": 1,
                     "meshUID": 1756895620,
-                    "materialUID": 2559511270,
+                    "materialUID": 2249643378,
                     "castShadows": 0,
                     "useAlpha": 0,
                     "highlighted": 0,
@@ -141,7 +140,7 @@
                     "script": "ExperienceSphereScript",
                     "scriptInfo": {
                         "targetTag": "Player",
-                        "speed": 350.0,
+                        "speed": 550.0,
                         "offset": [
                             0.0,
                             170.0,
@@ -152,8 +151,8 @@
             ]
         },
         {
-            "UID": 1457358647,
-            "ParentUID": 3554340292,
+            "UID": 2329942157,
+            "ParentUID": 1065126654,
             "Name": "Trail",
             "Tag": "Default",
             "Static": 0,
