@@ -349,6 +349,9 @@ set ERRORLEVEL=0</Command>
     <ProjectReference Include="..\EnemyControllerScript\EnemyControllerScript.vcxproj">
       <Project>{acc36cc8-ada1-4cfa-ae5a-c51cf877b885}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectileScript\ProjectileScript.vcxproj">
+      <Project>{c8f06c07-dc7e-4ea9-baa0-d19aad547470}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
