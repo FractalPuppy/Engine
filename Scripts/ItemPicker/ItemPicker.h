@@ -63,6 +63,7 @@ public:
 	ItemType type = ItemType::NONE;
 	Item* item = nullptr;
 	bool pickedUpViaPlayer = false;
+	unsigned amount = 1;
 
 private:
 

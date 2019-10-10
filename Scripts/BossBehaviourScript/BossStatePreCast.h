@@ -15,6 +15,10 @@ private:
 	void Update() override;
 
 	void Enter() override;
+	void Exit() override;
+
+	float timerOrbs = 0.0f;
+	bool orbsSet = false;
 };
 
 #endif // __BOSSSTATEPRECAST_H_

@@ -22,12 +22,11 @@ public:
 
 private:
 	int enemiesSpawned = 0;
-	std::vector<EnemyControllerScript*> enemies;
 
 	float downTime = 8.0f; //time until she starts summoning
 	float timerSkeletons = 0.0f;
-	bool AllEnemiesDead();
-	math::float3 ChooseFurthestSpawn();
+	bool AllEnemiesAppeared();
+	
 };
 
 #endif // __BOSSSTATESUMMONARMY_H_

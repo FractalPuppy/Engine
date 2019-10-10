@@ -16,6 +16,7 @@
 BossStateCutScene::BossStateCutScene(BossBehaviourScript* AIBoss)
 {
 	boss = AIBoss;
+	trigger = "Idle";
 }
 
 BossStateCutScene::~BossStateCutScene()
