@@ -51,13 +51,15 @@ void ExperienceSphereScript::Update()
 	float distance = myPosition.Distance(targetPosition);
 
 	// If is near enough pick up else chase
-	if (distance > 3.5f)
+	if (distance > 10.0f)
 	{
+		timer += App->time->gameDeltaTime;
+
 		// Look at target
 		gameobject->transform->LookAt(targetPosition);
 
 		// Move towards target
-		math::float3 movement = gameobject->transform->front.Normalized() * -speed * App->time->gameDeltaTime;
+		math::float3 movement = gameobject->transform->front.Normalized() * -speed * App->time->gameDeltaTime * timer;
 		gameobject->transform->SetPosition(myPosition + movement);
 	}
 	else
@@ -66,6 +68,7 @@ void ExperienceSphereScript::Update()
 		if (experienceController != nullptr)
 			experienceController->AddXP(experience);
 
+		timer = 0.0f;
 		gameobject->deleteFlag = true;
 	}
 }

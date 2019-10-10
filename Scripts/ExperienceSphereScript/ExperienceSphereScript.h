@@ -38,6 +38,8 @@ public:
 private:
 	GameObject* targetGO;
 	ExperienceController* experienceController = nullptr; // Experience script
+
+	float timer = 0.0f;
 };
 
 extern "C" ExperienceSphereScript_API Script* CreateScript();
