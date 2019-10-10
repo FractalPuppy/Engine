@@ -100,12 +100,3 @@ bool ItemNameController::Intersection(unsigned uid)
 	}
 	return false;
 }
-
-bool ItemNameController::isHovered(unsigned uid)
-{
-	if (itemList.UID == uid)
-	{
-		return itemList.hovered;
-	}
-	return false;
-}

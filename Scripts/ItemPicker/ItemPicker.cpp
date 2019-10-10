@@ -642,41 +642,12 @@ math::float4 ItemPicker::GetRarityColor()
 	switch (rarity)
 	{
 	case ItemRarity::BASIC:
-		if (itemName->isHovered(gameobject->UUID))
-		{
-			return white / 255;
-		}
-		else
-		{
-			return grey / 255;
-		}
-		break;
+		return white / 255;
 	case ItemRarity::RARE:
-		if (itemName->isHovered(gameobject->UUID))
-		{
-			return green / 255;
-		}
-		else
-		{
-			return darkGreen / 255;
-		}
+		return green / 255;
 	case ItemRarity::EPIC:
-		if (itemName->isHovered(gameobject->UUID))
-		{
-			return orange / 255;
-		}
-		else
-		{
-			return darkOrange / 255;
-		}
+		return orange / 255;
 	case ItemRarity::LEGENDARY:
-		if (itemName->isHovered(gameobject->UUID))
-		{
-			return purple / 255;
-		}
-		else
-		{
-			return darkPurple / 255;
-		}
+		return purple / 255;
 	}
 }

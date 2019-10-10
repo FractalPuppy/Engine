@@ -27,7 +27,6 @@ public:
 
 	void SetNameBar(unsigned uid, ItemRarity rarity, math::float4 color);
 	void Hovered(unsigned uid, bool hover);
-	bool isHovered(unsigned uid);
 	void DisableName(unsigned uid);
 	bool Intersection(unsigned uid);
 
