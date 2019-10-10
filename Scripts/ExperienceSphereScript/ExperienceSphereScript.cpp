@@ -51,7 +51,7 @@ void ExperienceSphereScript::Update()
 	float distance = myPosition.Distance(targetPosition);
 
 	// If is near enough pick up else chase
-	if (distance > 1.5f)
+	if (distance > 3.5f)
 	{
 		// Look at target
 		gameobject->transform->LookAt(targetPosition);
