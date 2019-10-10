@@ -65,8 +65,11 @@ private:
 
 	ComponentRenderer* playerRender = nullptr;
 
+	// Dissolve Effect
+	bool useDissolveEffect = true;
 	float dissolveDuration = 0.8f;
 	float dissolveTimer = 0.0f;
+	float borderAmount = 0.4f;
 	bool expDisolve = false;
 
 	math::float3 expColor = math::float3(0.980, 0.880, 0.0f);

@@ -108,20 +108,22 @@ void ExperienceController::Update()
 		}
 	}
 
-	if (expDisolve)
+	// Dissolve effect
+	if (useDissolveEffect && expDisolve)
 	{
-		if (dissolveTimer > (dissolveDuration/2.0f))
+		if (dissolveTimer > (dissolveDuration/2.0f))	// Increment dissolve
 		{
 			dissolveTimer -= App->time->gameDeltaTime;
 			playerRender->dissolveAmount = (dissolveTimer / dissolveDuration);
 		}
-		else if (dissolveTimer > 0.0f)
+		else if (dissolveTimer > 0.0f)					// Decrease dissolve
 		{
 			dissolveTimer -= App->time->gameDeltaTime;
 			playerRender->dissolveAmount = 1.0f - (dissolveTimer / dissolveDuration);
 		}
 		else
 		{
+			// End Effect
 			playerRender->dissolve = false;
 			expDisolve = false;
 		}
@@ -167,14 +169,14 @@ void ExperienceController::AddXP(int xp)
 		xpProgressInventory->SetMaskAmount(mask);
 	}
 
-	if (playerRender != nullptr)
+	if (useDissolveEffect && playerRender != nullptr)
 	{
 		// Play effect on player render
 		expDisolve = true;
 		dissolveTimer = dissolveDuration;
 		playerRender->dissolve = true;
 		playerRender->dissolveAmount = 0.0f;
-		playerRender->borderAmount = 0.4f;
+		playerRender->borderAmount = borderAmount;
 	}
 }
 
@@ -197,6 +199,15 @@ void ExperienceController::Expose(ImGuiContext* context)
 		ImGui::InputInt(("Level " + std::to_string(i + 1) + " XP: ").c_str(), &levelsExp[i]);
 		ImGui::PopID();
 	}
+
+	ImGui::Separator();
+	ImGui::Text("Dissolve Effect:");
+	ImGui::Checkbox("Use Effect", &useDissolveEffect);
+	if (useDissolveEffect)
+	{
+		ImGui::DragFloat("Duration", &dissolveDuration, 0.1f);
+		ImGui::DragFloat("Border Amount", &borderAmount, 0.1f);
+	}
 }
 
 void ExperienceController::Serialize(JSON_value* json) const
@@ -206,6 +217,12 @@ void ExperienceController::Serialize(JSON_value* json) const
 	json->AddInt("numLevels", maxLevel);
 	for (int i = 0; i < 23; ++i) {
 		json->AddInt(std::to_string(i).c_str(), levelsExp[i]);
+	}
+	json->AddUint("useDissolveEffect", useDissolveEffect);
+	if (useDissolveEffect)
+	{
+		json->AddFloat("dissolveDuration", dissolveDuration);
+		json->AddFloat("borderAmount", borderAmount);
 	}
 }
 
@@ -217,6 +234,9 @@ void ExperienceController::DeSerialize(JSON_value* json)
 	for (int i = 0; i < 23; ++i) {
 		levelsExp[i] = json->GetInt(std::to_string(i).c_str(), levelsExp[i]);
 	}
+	useDissolveEffect = json->GetUint("useDissolveEffect", 1.0f);
+	dissolveDuration = json->GetFloat("dissolveDuration", 0.8f);
+	borderAmount = json->GetFloat("borderAmount", 0.4f);
 }
 
 void ExperienceController::SaveExperience()
