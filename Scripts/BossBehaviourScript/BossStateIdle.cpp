@@ -2,10 +2,12 @@
 
 #include "BossBehaviourScript.h"
 #include "EnemyControllerScript/EnemyControllerScript.h"
+#include "ComponentAnimation.h"
 
 BossStateIdle::BossStateIdle(BossBehaviourScript* AIBoss)
 {
 	boss = AIBoss;
+	trigger = "Idle";
 }
 
 
@@ -29,4 +31,5 @@ void BossStateIdle::Update()
 void BossStateIdle::Enter()
 {
 	duration = (std::rand() % 100) / 100.f;
+	boss->anim->SendTriggerToStateMachine(trigger.c_str());
 }

@@ -369,6 +369,7 @@ void ItemPicker::Start()
 	item->description = this->description;
 	item->sprite = this->sprite;
 	item->type = this->type;
+	item->gameobjectUID = gameobject->UUID;
 
 	GameObject* GOtemp = App->scene->FindGameObjectByName("itemPickedAudio");
 	if (GOtemp != nullptr)
@@ -398,7 +399,7 @@ void ItemPicker::Start()
 
 void ItemPicker::PickupItem() const
 {
-	if (inventoryScript->AddItem(item))
+	if (inventoryScript->AddItem(*item, amount))
 	{
 		gameobject->SetActive(false);
 		if (itemPickedAudio != nullptr) itemPickedAudio->Play();
@@ -448,6 +449,7 @@ void ItemPicker::Update()
 	//if the player has gotten to the item by walking towards it, this variable will be true, so we pick up
 	if (pickedUpViaPlayer)
 	{
+		pickedUpViaPlayer = false;
 		PickupItem();
 	}
 

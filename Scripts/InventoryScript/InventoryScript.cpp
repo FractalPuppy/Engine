@@ -11,8 +11,10 @@
 #include "ComponentTransform2D.h"
 #include "ComponentAudioSource.h"
 #include "ComponentText.h"
+#include "ComponentTransform.h"
 
 #include "PlayerMovement.h"
+#include "../ItemPicker/ItemPicker.h"
 
 #include "GameObject.h"
 #include "Viewport.h"
@@ -22,6 +24,16 @@ InventoryScript_API Script* CreateScript()
 {
 	InventoryScript* instance = new InventoryScript;
 	return instance;
+}
+
+InventoryScript::~InventoryScript()
+{
+	for (auto x : items)
+	{
+		delete x.first;
+		x.first = nullptr;
+	}
+	items.clear();
 }
 
 void InventoryScript::Awake()
@@ -89,7 +101,7 @@ void InventoryScript::Start()
 	}
 
 	// Player
-	GameObject* player = App->scene->FindGameObjectByName("Player");
+	player = App->scene->FindGameObjectByName("Player");
 	assert(player != nullptr);
 	if (player != nullptr)
 	{
@@ -104,10 +116,19 @@ void InventoryScript::Start()
 
 void InventoryScript::Update()
 {
+	// All return paths should check for slots activation! (code as follows:)
+	/* 
+		for (GameObject* slot : slotsToActivate) slot->SetActive(true);
+		slotsToActivate.clear();
+	 */
+
 	if (!inventory->isActive())
 	{
 		if (skill) App->scene->FindGameObjectByName("NewSkillPoint")->SetActive(true);
 		skill = false;
+
+		for (GameObject* slot : slotsToActivate) slot->SetActive(true);
+		slotsToActivate.clear();
 		return;
 	}
 
@@ -185,19 +206,50 @@ void InventoryScript::Update()
 			math::float2 menuMax = float2(menuPos.x + menuSize.x *.5f, -menuPos.y + menuSize.y *.5f);
 			if (!(screenX > menuMin.x && screenX < menuMax.x && screenY > menuMin.y && screenY < menuMax.y))
 			{
+				// Drop Outside the menu
 				rectTransform->SetPositionUsingAligment(initialitemPos);
 				itemsSlots[i]->SetActive(false);
+				itemDesc->SetActive(false);
+				imageHover = nullptr;
+		
+
 				for (int j = 0; j < items.size(); ++j)
 				{
 					if (items[j].second == i)
 					{
-						items.erase(items.begin() + j);
+						GameObject* go = App->scene->FindGameObjectByUID(items[j].first->gameobjectUID);
+						int amount = static_cast<int>(GetCurrentQuantity(*items[j].first));
+						if (go) 
+						{
+							go->transform->SetGlobalPosition(player->transform->GetGlobalPosition());
+							go->GetComponent<ItemPicker>()->amount = amount;
+							go->SetActive(true);
+						}
 
+						if (items[j].first->isEquipped)
+						{
+							playerMovement->UnEquip(items[j].first->stats, (unsigned)items[j].first->type);
+						}
+
+						for (int h = 0; h < ASSIGNED_CONSUMABLES_SIZE; ++h)
+						{
+							if (items[j].first->name == assignedConsumableItem[h])
+							{
+								equipedConsumablesToRemove.emplace_back(h);
+							}
+						}
+
+						ManageConsumableItemsQuantity(*items[j].first, -amount);
+						items.erase(items.begin() + j);
 						HideConsumableItemText(i);
 
+						for (GameObject* slot : slotsToActivate) slot->SetActive(true);
+						slotsToActivate.clear();
 						return;
 					}
 				}
+				for (GameObject* slot : slotsToActivate) slot->SetActive(true);
+				slotsToActivate.clear();
 				return;
 			}
 
@@ -466,30 +518,49 @@ void InventoryScript::Update()
 			{
 				rectTransform->SetPositionUsingAligment(initialitemPos);
 				initialitemPos = math::float2::zero;
+
+				for (GameObject* slot : slotsToActivate) slot->SetActive(true);
+				slotsToActivate.clear();
 				return;
 			}
 
 		}
 	}
+
+
+	for (GameObject* slot : slotsToActivate) slot->SetActive(true);
+	slotsToActivate.clear();
 }
 
-bool InventoryScript::AddItem(Item* item)
+bool InventoryScript::AddItem(Item item, unsigned amount)
 {
 	for (int i = 0; i < INVENTARY_SLOTS; ++i)
 	{
 		if (!itemsSlots[i]->activeSelf)
 		{
-			int quantity = ManageConsumableItemsQuantity(*item);
-			if (quantity <= 1)
+			bool found = false;
+			for (GameObject* slot : slotsToActivate)
 			{
-				itemsSlots[i]->SetActive(true);
+				if (itemsSlots[i] == slot)
+				{
+					found = true;
+					break;
+				}
+			}
+			if (found) continue;
+
+			int quantity = ManageConsumableItemsQuantity(item, amount);
+			if (quantity <= amount)
+			{
+				//itemsSlots[i]->SetActive(true);
+				slotsToActivate.emplace_back(itemsSlots[i]);
 				ComponentImage* image = itemsSlots[i]->GetComponent<ComponentImage>();
-				image->UpdateTexture(item->sprite);
-				items.emplace_back(std::make_pair(item, i));
+				image->UpdateTexture(item.sprite);
+				items.emplace_back(std::make_pair(new Item(item), i));
 				App->scene->FindGameObjectByName("NewItem")->SetActive(true);
 			}
 
-			ManageConsumableItemsQuantityText(*item, quantity);
+			ManageConsumableItemsQuantityText(item, quantity);
 
 			return true;
 		}
@@ -525,6 +596,7 @@ void InventoryScript::SaveInventory()
 		item->AddInt("equiped", items[i].first->isEquipped);
 		item->AddUint("meshUID", items[i].first->meshUID);
 		item->AddUint("materialUID", items[i].first->materialUID);
+		item->AddUint("UID", items[i].first->gameobjectUID);
 		item->AddFloat("dexterity", items[i].first->stats.dexterity);
 		item->AddFloat("health", items[i].first->stats.health);
 		item->AddFloat("hpRegen", items[i].first->stats.hpRegen);
@@ -556,6 +628,7 @@ void InventoryScript::LoadInventory()
 			item->isEquipped = itemJSON->GetInt("equiped");
 			item->meshUID = itemJSON->GetUint("meshUID");
 			item->materialUID = itemJSON->GetUint("materialUID");
+			item->gameobjectUID = itemJSON->GetUint("UID");
 			item->stats.dexterity = itemJSON->GetFloat("dexterity");
 			item->stats.health = itemJSON->GetFloat("health");
 			item->stats.hpRegen = itemJSON->GetFloat("hpRegen");
@@ -637,7 +710,7 @@ void InventoryScript::showDescription(int i)
 	itemDesc->SetActive(true);
 }
 
-int InventoryScript::ManageConsumableItemsQuantity(const Item& item)
+int InventoryScript::ManageConsumableItemsQuantity(const Item& item, int value)
 {
 	if (item.type == ItemType::QUICK)
 	{
@@ -645,13 +718,16 @@ int InventoryScript::ManageConsumableItemsQuantity(const Item& item)
 		{
 			if (consumableItems[i].first == item.name)
 			{
-				consumableItems[i].second += 1;
+				consumableItems[i].second += value;
 				return consumableItems[i].second;
 			}
 		}
-
-		consumableItems.emplace_back(std::make_pair(item.name, 1));
-		return 1;
+		
+		if (value > 0)
+		{
+			consumableItems.emplace_back(std::make_pair(item.name, value));
+			return value;
+		}
 	}
 
 	return 0;

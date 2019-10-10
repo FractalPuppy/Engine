@@ -22,12 +22,11 @@ BossStateSummonArmy::BossStateSummonArmy(BossBehaviourScript* AIBoss)
 
 BossStateSummonArmy::~BossStateSummonArmy()
 {
-	enemies.clear();
 }
 
 void BossStateSummonArmy::HandleIA()
 {
-	if (AllEnemiesDead())
+	if (AllEnemiesAppeared())
 	{
 		boss->currentState = (BossState*)boss->activated;
 	}
@@ -40,29 +39,18 @@ void BossStateSummonArmy::Update()
 		timerSkeletons += boss->App->time->gameDeltaTime;
 		if (timerSkeletons > boss->timerBetweenSummons)
 		{
-			//SPAWN two guys
-			math::float3 spawnLocation = ChooseFurthestSpawn();
-			math::float3 directionToPlayer = boss->playerPosition - spawnLocation;
-			math::float3 sideVector = directionToPlayer.Cross(math::float3::unitY);
-			sideVector.Normalize();
+			//SPAWN one enemy at a random spawn location
+			math::float3 spawnLocation = boss->ChooseRandomSpawn();
 
+			GameObject* firstSkeleton = boss->App->scene->Spawn(BASICSUMMON, spawnLocation, math::Quat::identity);
 
-			GameObject* firstSkeleton = boss->App->scene->Spawn(BASICSUMMON, spawnLocation + sideVector * 200.0f, math::Quat::identity);
-			GameObject* secondSkeleton = boss->App->scene->Spawn(BASICSUMMON, spawnLocation - sideVector * 200.0f, math::Quat::identity);
-
+			//We need this so they agro automatically
 			firstSkeleton->GetComponent<BasicEnemyAIScript>()->activationDistance = 9000.0f;
 			firstSkeleton->GetComponent<BasicEnemyAIScript>()->returnDistance = 9000.0f;
-			secondSkeleton->GetComponent<BasicEnemyAIScript>()->activationDistance = 9000.0f;
-			secondSkeleton->GetComponent<BasicEnemyAIScript>()->returnDistance = 9000.0f;
 
-
-			enemiesSpawned += 2;
-
-			enemies.push_back(firstSkeleton->GetComponent<EnemyControllerScript>());
-			enemies.push_back(secondSkeleton->GetComponent<EnemyControllerScript>());
+			enemiesSpawned += 1;
 
 			firstSkeleton->transform->LookAt(boss->playerPosition);
-			secondSkeleton->transform->LookAt(boss->playerPosition);
 
 			timerSkeletons = 0.0f;
 		}
@@ -78,36 +66,13 @@ void BossStateSummonArmy::Exit()
 {
 }
 
-bool BossStateSummonArmy::AllEnemiesDead()
+bool BossStateSummonArmy::AllEnemiesAppeared()
 {
 	bool ret = false;
 
 	if (enemiesSpawned >= boss->summonSkeletonsNumber)
 	{
-		for (auto enemy : enemies)
-		{
-			if (!enemy->isDead)
-			{
-				ret = false;
-				break;
-			}
-		}
 		ret = true;
 	}
 	return ret;
-}
-
-math::float3 BossStateSummonArmy::ChooseFurthestSpawn()
-{
-	float distanceFirst = boss->playerPosition.DistanceSq(boss->firstSpawnLocation);
-	float distanceSecond = boss->playerPosition.DistanceSq(boss->secondSpawnLocation);
-	if (distanceFirst > distanceSecond)
-	{
-		return boss->firstSpawnLocation;
-	}
-	else
-	{
-		return boss->secondSpawnLocation;
-	}
-
 }

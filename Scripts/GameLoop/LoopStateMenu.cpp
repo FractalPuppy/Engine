@@ -87,6 +87,7 @@ void LoopStateMenu::Update()
 	}
 	else if (gLoop->creditsButton->IsPressed())
 	{
+		gLoop->creditsVideo = gLoop->creditsVideoGO->GetComponent<ComponentImage>();
 		gLoop->currentLoopState = (LoopState*)gLoop->creditsState;
 	}
 	else if (gLoop->exitButton->IsPressed())

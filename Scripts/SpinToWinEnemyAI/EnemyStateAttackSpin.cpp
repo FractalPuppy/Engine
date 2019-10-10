@@ -77,6 +77,7 @@ void EnemyStateAttackSpin::Update()
 
 void EnemyStateAttackSpin::Enter()
 {
+	enemy->enemyController->Stop();
 }
 
 void EnemyStateAttackSpin::Exit()
@@ -87,7 +88,7 @@ void EnemyStateAttackSpin::Exit()
 	}
 }
 
-void EnemyStateAttackSpin::Attack() //Split into SPIN or normal ATTACK
+void EnemyStateAttackSpin::Attack() //Splited into SPIN or normal ATTACK
 {
 
 	if ((!LessThanHalfHP() || lcg.Float() < 0.25 || isOnCooldown) && !spinning) //Normal attack
@@ -156,6 +157,7 @@ void EnemyStateAttackSpin::ChangeToSpinMaterial(MATERIALTYPE type) const
 
 void EnemyStateAttackSpin::EnableSpin()
 {
+	enemy->gameobject->transform->lockLookAt = true;
 	spinning = true;
 	PunchFX(true);
 	attacked = false;
@@ -164,6 +166,7 @@ void EnemyStateAttackSpin::EnableSpin()
 
 void EnemyStateAttackSpin::DisableSpin()
 {
+	enemy->gameobject->transform->lockLookAt = false;
 	PunchFX(false);
 	enemyRenderer->avoidSkinning = false;
 	spinOff->SetActive(false);
