@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "ComponentRenderer.h"
 #include "ComponentTransform.h"
+#include "ComponentAnimation.h"
 
 #include "BossStateDeath.h"
 
@@ -15,6 +16,7 @@
 BossStateDeath::BossStateDeath(BossBehaviourScript* AIBoss)
 {
 	boss = AIBoss;
+	trigger = "Kneel";
 }
 
 
@@ -35,4 +37,9 @@ void BossStateDeath::Update()
 		//superdead, allegedly
 		boss->gLoop->bossDeath = true;
 	}
+}
+
+void BossStateDeath::Enter()
+{
+	boss->anim->SendTriggerToStateMachine(trigger.c_str());
 }

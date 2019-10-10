@@ -14,11 +14,14 @@ public:
 
 	void HandleIA() override;
 	void Update() override;
-
+	void Exit() override;
 	void Enter() override;
 
 private:
 	BossSkill SelectSkillToUse();
+
+	bool orbsUnset = false;
+	float orbsTimer = 0.0f;
 };
 
 #endif // _BOSSSTATECAST_H_

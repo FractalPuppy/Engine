@@ -51,6 +51,21 @@
     <ClCompile Include="BossStateCutScene.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="BossStateSecondInterPhase.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateThirdIdle.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateThirdRight.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateThirdLeft.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStateThirdDeath.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BossBehaviourScript.h">
@@ -84,6 +99,21 @@
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="BossStateCutScene.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateSecondInterPhase.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateThirdIdle.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateThirdRight.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateThirdLeft.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStateThirdDeath.h">
       <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>

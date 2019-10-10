@@ -25,6 +25,7 @@ void EnemyStateChase::HandleIA()
 	else if (distanceToPlayer < enemy->maxAttackRange && distanceToPlayer > enemy->minAttackRange)
 	{
 		enemy->currentState = (EnemyState*)enemy->attack;
+		enemy->enemyController->Stop();
 	}
 	else if (distanceToPlayer < enemy->minAttackRange && enemy->teleportAvailable)
 	{

@@ -61,6 +61,7 @@ class DamageFeedbackUI;
 class ComponentAudioSource;
 class ComponentCamera;
 class ItemPicker;
+class InventoryScript;
 
 class Text;
 class BasicSkill;
@@ -345,6 +346,8 @@ private:
 	// Player equippable parts (Weapon, Helmet)
 	ComponentRenderer* weaponRenderer = nullptr;
 	ComponentRenderer* helmetRenderer = nullptr;
+
+	InventoryScript* inventoryScript = nullptr;
 };
 
 extern "C" PlayerMovement_API Script* CreateScript();

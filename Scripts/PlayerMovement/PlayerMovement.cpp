@@ -31,6 +31,7 @@
 #include "DamageController.h"
 #include "DamageFeedbackUI.h"
 #include "EnemyControllerScript.h"
+#include "InventoryScript.h"
 
 #include "BasicSkill.h"
 #include "SliceSkill.h"
@@ -691,6 +692,12 @@ void PlayerMovement::Start()
 	assignedSkills[HUD_BUTTON_R] = (SkillType)PlayerPrefs::GetInt("R", 20);
 
 	InitializeUIStatsObjects();
+
+	GameObject* inventoryGO = App->scene->FindGameObjectByName("Inventory");
+	if (inventoryGO) inventoryScript = inventoryGO->GetComponent<InventoryScript>();
+
+	assert(!inventoryGO || !inventoryScript);
+
 	LOG("Started player movement script");
 }
 
@@ -1241,7 +1248,7 @@ bool PlayerMovement::IsMovingToAttack() const
 
 bool PlayerMovement::IsMoving() const
 {
-	return (IsPressingMouse1() && !IsAttacking() && !IsMovingToAttack() && (!IsMovingToItem() || (IsMovingToItem() && stoppedGoingToItem)));
+	return (IsPressingMouse1() && !IsAttacking() && !IsMovingToAttack() && !inventoryScript->itemGrabbed && (!IsMovingToItem() || (IsMovingToItem() && stoppedGoingToItem)));
 }
 
 //this functionchecks the mouse position, which includes 2 things:
@@ -1263,6 +1270,7 @@ that avoids a pathfinding call if we end up actually entering the walk state
 
 bool PlayerMovement::PathFindingCall() const
 {
+	if (walk == nullptr) return false;
 	math::float3 intPos(0.f, 0.f, 0.f);
 	bool path = App->navigation->NavigateTowardsCursor(gameobject->transform->position, walk->path,
 		math::float3(OutOfMeshCorrectionXZ, OutOfMeshCorrectionY, OutOfMeshCorrectionXZ),

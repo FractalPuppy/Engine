@@ -116,6 +116,8 @@ void EquipPopupController::Start()
 void EquipPopupController::Update()
 {
 	int positionClicked = inventory->ConsumeItemsController();
+	for (int i : inventory->equipedConsumablesToRemove) RemoveEquipedConsumable(i);
+	inventory->equipedConsumablesToRemove.clear();
 
 	if (positionClicked != -1)
 	{
@@ -394,6 +396,33 @@ void EquipPopupController::SavePopUp()
 	}
 	popup->AddValue("items", *itemsJSON);
 	PlayerPrefs::SaveJson(popup, "PopUp");
+}
+
+void EquipPopupController::RemoveEquipedConsumable(int assignedButton)
+{
+
+	player->AssignSkill(SkillType::NONE, assignedButton);
+
+	for (int j = 0; j < itemsEquiped.size(); ++j)
+	{
+		if (itemsEquiped[j].first == assignedButton)
+		{
+			itemsEquiped.erase(itemsEquiped.begin() + j);
+			inventory->UnAssignConsumableItem(assignedButton);
+		}
+	}
+
+	hudImageSlots[assignedButton]->gameobject->SetActive(false);
+
+	if (hudButtonsText[assignedButton].second)
+	{
+		math::float2 newPos = hudButtonsText[assignedButton].first->getPosition();
+		newPos.y += 15.7;
+		hudButtonsText[assignedButton].first->SetPositionUsingAligment(newPos);
+		hudButtonsText[assignedButton].second = false;
+		hudConsumibleItemsQuantity[assignedButton]->gameobject->SetActive(false);
+		hudConsumibleItemsQuantity[assignedButton]->text = std::to_string(1);
+	}
 }
 
 void EquipPopupController::LoadPopUp()
