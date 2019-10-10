@@ -31,6 +31,7 @@ class ExperienceController;
 class JSON_value;
 class ComponentAudioSource;
 class WorldControllerScript;
+class ComponentImage;
 
 class LoopState;
 class LoopStateControls;
@@ -201,6 +202,13 @@ public:
 
 	//Audio
 	ComponentAudioSource* menuButtonsSound = nullptr;
+
+	//Credits video
+	GameObject* menuMusic = nullptr;
+	GameObject* creditsAudio = nullptr;
+	ComponentImage* creditsVideo = nullptr;
+	GameObject* creditsVideoGO = nullptr;
+
 
 	float3 playerStartPosition = float3::zero;
 	float3 enemyStartPosition = float3::zero;

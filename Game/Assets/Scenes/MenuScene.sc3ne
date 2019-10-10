@@ -589,7 +589,7 @@
                     "Znear": 10.0,
                     "Zfar": 100000.0,
                     "vFOV": 1.0471975803375245,
-                    "hFOV": 1.3765232563018799,
+                    "hFOV": 1.4374819993972779,
                     "Position": [
                         0.0,
                         0.0,
@@ -7216,166 +7216,11 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
             "Components": []
-        },
-        {
-            "UID": 3247281563,
-            "ParentUID": 3695133008,
-            "Name": "Background",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        0.0
-                    ],
-                    "Size": [
-                        1920.0,
-                        1080.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 7,
-                    "Enabled": 1,
-                    "textureUID": 676697322,
-                    "textureName": "White",
-                    "color": [
-                        9.999999974752428e-7,
-                        9.999899930335233e-7,
-                        9.999899930335233e-7,
-                        1.0
-                    ],
-                    "FlipVertical": 0,
-                    "FlipHorizontal": 0,
-                    "isMasked": 0,
-                    "maskAmount": 0,
-                    "isMaskHorizontal": 0,
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 1,
-                    "videoPath": "flame.avi",
-                    "fps": 24.0,
-                    "loop": 0
-                }
-            ]
-        },
-        {
-            "UID": 725006800,
-            "ParentUID": 3695133008,
-            "Name": "ImageCredits",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 1,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        -1532.0
-                    ],
-                    "Size": [
-                        718.5,
-                        3662.5
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 7,
-                    "Enabled": 1,
-                    "textureUID": 207791388,
-                    "textureName": "Credits",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "FlipVertical": 0,
-                    "FlipHorizontal": 0,
-                    "isMasked": 0,
-                    "maskAmount": 0,
-                    "isMaskHorizontal": 0,
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 1,
-                    "videoPath": "flame.avi",
-                    "fps": 24.0,
-                    "loop": 0
-                },
-                {
-                    "Type": 9,
-                    "Enabled": 1,
-                    "script": "CreditsScript",
-                    "scriptInfo": {
-                        "speed": 100.0,
-                        "stopValue": 900.0
-                    }
-                }
-            ]
         },
         {
             "UID": 3534857915,
@@ -7531,6 +7376,171 @@
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
                     "UIOrder": 1
+                }
+            ]
+        },
+        {
+            "UID": 2583492277,
+            "ParentUID": 3695133008,
+            "Name": "CreditsVideo",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 2
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 676697322,
+                    "textureName": "White",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 0,
+                    "videoPath": "Credits.mp4",
+                    "fps": 25.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3616005905,
+            "ParentUID": 2583492277,
+            "Name": "CreditsAudio",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 2168133814,
+                    "Volume": 2.0,
+                    "PlayOnAwake": 1,
+                    "Sound3D": 0,
+                    "LimitPan": 0.5,
+                    "FadeDist": 500.0,
+                    "Loop": 0,
+                    "Rolloff": 0.30000001192092898,
+                    "Pitch": 1.0
                 }
             ]
         },
