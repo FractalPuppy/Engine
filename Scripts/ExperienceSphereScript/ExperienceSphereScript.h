@@ -30,7 +30,7 @@ public:
 	void DeSerialize(JSON_value* json) override;
 
 	std::string targetTag = "Player";
-	float speed = 100.0f;
+	float speed = 550.0f;
 	math::float3 offset = math::float3::zero;
 
 	int experience = 0;		// Experience to give to player on pick up

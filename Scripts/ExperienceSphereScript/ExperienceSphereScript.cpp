@@ -97,6 +97,6 @@ void ExperienceSphereScript::DeSerialize(JSON_value* json)
 {
 	assert(json != nullptr);
 	targetTag = json->GetString("targetTag", "Player");
-	speed = json->GetFloat("speed", 100.0f);
+	speed = json->GetFloat("speed", 550.0f);
 	offset = json->GetFloat3("offset");
 }
