@@ -1696,9 +1696,9 @@ bool ModuleNavigation::IsCursorPointingToNavigableZone(float xPickingCorrection,
 	if (navMesh && navQuery)
 	{
 		navQuery->findNearestPoly((float*)& intersectionPos, polyPickExt, &filter, &resultPoly, 0); // find closest poly
+		return resultPoly;
 	}
-
-	return resultPoly;
+	return false;
 }
 
 ENGINE_API bool ModuleNavigation::FindClosestPoint2D(math::float3& initial) const
