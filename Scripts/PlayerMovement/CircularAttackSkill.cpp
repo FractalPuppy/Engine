@@ -167,7 +167,6 @@ void CircularAttackSkill::CheckInput()
 	{
 		// Move while using the attack
 		MoveSpinning();
-		player->currentState->playerWalking = false;
 	}
 }
 
@@ -231,7 +230,6 @@ void CircularAttackSkill::MoveSpinning()
 			else
 			{
 				//distance 0 or clicked outside of the navmesh
-				player->currentState->playerWalking = false;
 				return;
 			}
 		}
@@ -257,17 +255,11 @@ void CircularAttackSkill::MoveSpinning()
 			math::float3 finalWalkingSpeed = player->walkingSpeed * direction * player->App->time->gameDeltaTime;
 			finalWalkingSpeed *= (1 + (player->stats.dexterity * 0.005f));
 			player->gameobject->transform->SetPosition(currentPosition + finalWalkingSpeed);
-			player->currentState->playerWalking = true;
 		}
 		else
 		{
-			player->currentState->playerWalking = false;
 			return;
 		}
-	}
-	else
-	{
-		player->currentState->playerWalking = false;
 	}
 }
 
