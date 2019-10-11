@@ -13,6 +13,7 @@
 
 #include "GameObject.h"
 #include "ComponentRenderer.h"
+#include "ComponentAnimation.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 
@@ -398,6 +399,12 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 		if (actualHealth <= 0)
 		{
 			isDead = true;
+
+			if (gameobject->tag.c_str() != "Boss")
+			{
+				anim->SetAnimationFreeze(true);
+			}
+
 			if ((DamageType)type == DamageType::CRITICAL || playerMovement->IsExecutingSkill())
 			{
 				isDeadByCritOrSkill = true; //by default is false (Normal)
