@@ -694,9 +694,12 @@ void PlayerMovement::Start()
 	InitializeUIStatsObjects();
 
 	GameObject* inventoryGO = App->scene->FindGameObjectByName("Inventory");
-	if (inventoryGO) inventoryScript = inventoryGO->GetComponent<InventoryScript>();
-
-	assert(!inventoryGO || !inventoryScript);
+	if (inventoryGO) 
+	{
+		inventoryScript = inventoryGO->GetComponent<InventoryScript>();
+	}
+	//assert breaks if evaluated to false
+	assert(inventoryGO && inventoryScript);
 
 	LOG("Started player movement script");
 }

@@ -4,6 +4,7 @@
 #include "ModuleScene.h"
 #include "ModuleTime.h"
 #include "ModuleInput.h"
+#include "ModuleResourceManager.h"
 
 #include "GameObject.h"
 #include "ComponentText.h"
@@ -63,6 +64,25 @@ void ExperienceController::Start()
 	levelText->text = std::to_string(currentLevel);
 	
 	skillTreeScript = App->scene->FindGameObjectByName("Skills")->GetComponent<SkillTreeController>();
+
+	GameObject* playerMesh = App->scene->FindGameObjectByName("PlayerMesh");
+	if (playerMesh == nullptr)
+	{
+		LOG("Player couldn't be found \n");
+	}
+	else
+	{
+		playerRender = playerMesh->GetComponent< ComponentRenderer>();
+
+		if (playerRender == nullptr)
+		{
+			LOG("Player Render couldn't be found \n");
+		}
+		else
+		{
+			playerRender->highlightColor = expColor;
+		}
+	}
 }
 
 void ExperienceController::Update()
@@ -87,7 +107,27 @@ void ExperienceController::Update()
 			levelUpParticles->SetActive(false);
 		}
 	}
-	
+
+	// Dissolve effect
+	if (useDissolveEffect && expDisolve)
+	{
+		if (dissolveTimer > (dissolveDuration/2.0f))	// Increment dissolve
+		{
+			dissolveTimer -= App->time->gameDeltaTime;
+			playerRender->dissolveAmount = (dissolveTimer / dissolveDuration);
+		}
+		else if (dissolveTimer > 0.0f)					// Decrease dissolve
+		{
+			dissolveTimer -= App->time->gameDeltaTime;
+			playerRender->dissolveAmount = 1.0f - (dissolveTimer / dissolveDuration);
+		}
+		else
+		{
+			// End Effect
+			playerRender->dissolve = false;
+			expDisolve = false;
+		}
+	}	
 }
 
 void ExperienceController::AddXP(int xp)
@@ -128,6 +168,16 @@ void ExperienceController::AddXP(int xp)
 		xpProgressHUD->SetMaskAmount(mask);
 		xpProgressInventory->SetMaskAmount(mask);
 	}
+
+	if (useDissolveEffect && playerRender != nullptr)
+	{
+		// Play effect on player render
+		expDisolve = true;
+		dissolveTimer = dissolveDuration;
+		playerRender->dissolve = true;
+		playerRender->dissolveAmount = 0.0f;
+		playerRender->borderAmount = borderAmount;
+	}
 }
 
 void ExperienceController::Expose(ImGuiContext* context)
@@ -149,6 +199,15 @@ void ExperienceController::Expose(ImGuiContext* context)
 		ImGui::InputInt(("Level " + std::to_string(i + 1) + " XP: ").c_str(), &levelsExp[i]);
 		ImGui::PopID();
 	}
+
+	ImGui::Separator();
+	ImGui::Text("Dissolve Effect:");
+	ImGui::Checkbox("Use Effect", &useDissolveEffect);
+	if (useDissolveEffect)
+	{
+		ImGui::DragFloat("Duration", &dissolveDuration, 0.1f);
+		ImGui::DragFloat("Border Amount", &borderAmount, 0.1f);
+	}
 }
 
 void ExperienceController::Serialize(JSON_value* json) const
@@ -158,6 +217,12 @@ void ExperienceController::Serialize(JSON_value* json) const
 	json->AddInt("numLevels", maxLevel);
 	for (int i = 0; i < 23; ++i) {
 		json->AddInt(std::to_string(i).c_str(), levelsExp[i]);
+	}
+	json->AddUint("useDissolveEffect", useDissolveEffect);
+	if (useDissolveEffect)
+	{
+		json->AddFloat("dissolveDuration", dissolveDuration);
+		json->AddFloat("borderAmount", borderAmount);
 	}
 }
 
@@ -169,6 +234,9 @@ void ExperienceController::DeSerialize(JSON_value* json)
 	for (int i = 0; i < 23; ++i) {
 		levelsExp[i] = json->GetInt(std::to_string(i).c_str(), levelsExp[i]);
 	}
+	useDissolveEffect = json->GetUint("useDissolveEffect", 1.0f);
+	dissolveDuration = json->GetFloat("dissolveDuration", 0.8f);
+	borderAmount = json->GetFloat("borderAmount", 0.4f);
 }
 
 void ExperienceController::SaveExperience()
