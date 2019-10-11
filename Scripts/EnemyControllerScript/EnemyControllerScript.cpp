@@ -277,7 +277,7 @@ void EnemyControllerScript::Update()
 			deathTimer += App->time->gameDeltaTime;
 		}
 	}
-	if (isDead && !removedFromCrowd)
+	if (currentWorldControllerScript != nullptr && isDead && !removedFromCrowd)
 	{
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
