@@ -510,6 +510,18 @@ void InventoryScript::Update()
 
 
 					}
+					else
+					{
+						for (int z = 0; z < items.size(); ++z)
+						{
+							if (items[z].second == i)
+							{
+								int quantity = GetCurrentQuantity(*items[z].first);
+								ManageConsumableItemsQuantityText(*items[z].first, quantity);
+								continue;
+							}
+						}
+					}
 					break;
 				}
 			}
