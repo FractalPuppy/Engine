@@ -167,6 +167,7 @@ void CircularAttackSkill::CheckInput()
 	{
 		// Move while using the attack
 		MoveSpinning();
+		player->currentState->playerWalking = false;
 	}
 }
 
