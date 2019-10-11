@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModuleNavigation.h"
 #include "ModuleScene.h"
+#include "ModuleUI.h"
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
@@ -137,6 +138,7 @@ void CircularAttackSkill::Reset()
 	{
 		player->slashTrail->SetActive(false);
 	}
+	path.clear();
 }
 
 void CircularAttackSkill::CheckInput()
@@ -207,6 +209,56 @@ void CircularAttackSkill::MoveSpinning()
 				math::float3 direction = (path[pathIndex] - currentPosition).Normalized();
 				player->gameobject->transform->SetPosition(currentPosition + player->walkingSpeed * direction * player->App->time->gameDeltaTime);
 			}
+		}
+	}
+
+	if ((player->App->input->GetMouseButtonDown(1) == KEY_DOWN
+		|| player->App->input->GetMouseButtonDown(1) == KEY_REPEAT) && !player->App->ui->UIHovered(true, false))
+	{
+		moveTimer = 0.0f;
+		math::float3 intPos(0.f, 0.f, 0.f);
+		//in case we already calculated this path in the PlayerMovement.cpp, we dont have to call again
+		if (!currentPathAlreadyCalculated)
+		{
+			if (player->App->navigation->NavigateTowardsCursor(player->gameobject->transform->position, path,
+				math::float3(player->OutOfMeshCorrectionXZ, player->OutOfMeshCorrectionY, player->OutOfMeshCorrectionXZ),
+				intPos, 10000, PathFindType::FOLLOW, player->straightPathingDistance))
+			{
+				//case the player clicks outside of the floor mesh but we want to get close to the floors edge
+				pathIndex = 0;
+			}
+			else
+			{
+				//distance 0 or clicked outside of the navmesh
+				return;
+			}
+		}
+		currentPathAlreadyCalculated = false;
+	}
+	else if (player->App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+	{
+		moveTimer += player->App->time->gameDeltaTime;
+	}
+	if (path.size() > 0)
+	{
+		math::float3 currentPosition = player->gameobject->transform->GetPosition();
+		while (pathIndex < path.size() && currentPosition.DistanceSq(path[pathIndex]) < MINIMUM_PATH_DISTANCE)
+		{
+			pathIndex++;
+		}
+		if (pathIndex < path.size())
+		{
+
+			math::float3 direction = (path[pathIndex] - currentPosition).Normalized();
+			player->currentState->lerpCalculations(direction, -player->gameobject->transform->front, path[pathIndex]);
+
+			math::float3 finalWalkingSpeed = player->walkingSpeed * direction * player->App->time->gameDeltaTime;
+			finalWalkingSpeed *= (1 + (player->stats.dexterity * 0.005f));
+			player->gameobject->transform->SetPosition(currentPosition + finalWalkingSpeed);
+		}
+		else
+		{
+			return;
 		}
 	}
 }
