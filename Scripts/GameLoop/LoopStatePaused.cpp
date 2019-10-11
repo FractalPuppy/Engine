@@ -29,8 +29,20 @@ void LoopStatePaused::Update()
 		gLoop->App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN ||
 		gLoop->hudBackToMenuButton->IsPressed())
 	{
+		gLoop->hudBackToMenuButton->state = ButtonState::NONE;
 		gLoop->currentLoopState = (LoopState*)gLoop->playingState;
 		return;
+	}
+
+	if (gLoop->pauseControls && gLoop->pauseControls->KeyUp())
+	{
+		gLoop->controls->SetActive(true);
+	}
+
+	if (gLoop->backControlsButton && gLoop->backControlsButton->KeyUp())
+	{
+		gLoop->backControlsButton->state = ButtonState::NONE;
+		gLoop->controls->SetActive(false);
 	}
 
 	if (gLoop->pauseExit && gLoop->pauseExit->KeyUp())
