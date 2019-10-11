@@ -50,6 +50,8 @@ private:
 	Text* skillInfoName = nullptr;
 	Text* skillInfoDescription = nullptr;
 	Text* skillInfoManaCostText = nullptr;
+	Text* skillInfoCDText = nullptr;
+	Text* skillInfoDMGText = nullptr;
 	ComponentImage* skillInfoIcon = nullptr;
 
 	std::vector<GameObject*> skillUI;
