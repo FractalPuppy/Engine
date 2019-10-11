@@ -1,6 +1,6 @@
 {
     "navigationScene": {
-        "navDataSize": 7028
+        "navDataSize": 0
     },
     "GameObjects": [
         {
@@ -5135,11 +5135,11 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2983922135,
-            "prefabTimeStamp": 1570468978,
+            "prefabTimeStamp": 1570723770,
             "Components": []
         },
         {
-            "UID": 2518844712,
+            "UID": 1308133346,
             "ParentUID": 550356827,
             "Name": "Background",
             "Tag": "Default",
@@ -5204,7 +5204,7 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 1,
+                    "UIOrder": 15,
                     "videoPath": "flame.avi",
                     "fps": 24.0,
                     "loop": 0
@@ -5212,7 +5212,7 @@
             ]
         },
         {
-            "UID": 3980608383,
+            "UID": 93883108,
             "ParentUID": 550356827,
             "Name": "Back",
             "Tag": "Default",
@@ -5364,7 +5364,7 @@
                     },
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 1
+                    "UIOrder": 15
                 }
             ]
         },
@@ -5776,16 +5776,16 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7213114500045776,
+                            0.6267132759094238,
+                            0.6267132759094238,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 0,
+                        "FlipHorizontal": 1,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -5799,16 +5799,16 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 0,
+                        "FlipHorizontal": 1,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -5933,16 +5933,16 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 1,
+                        "FlipHorizontal": 0,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -5956,16 +5956,16 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 1,
+                        "FlipHorizontal": 0,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -6206,16 +6206,16 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 0,
+                        "FlipHorizontal": 1,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -6229,16 +6229,16 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 0,
+                        "FlipHorizontal": 1,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -6363,16 +6363,16 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 1,
+                        "FlipHorizontal": 0,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -6386,16 +6386,16 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 1,
+                        "FlipHorizontal": 0,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -6901,16 +6901,16 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 0,
+                        "FlipHorizontal": 1,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -6924,16 +6924,16 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 0,
+                        "FlipHorizontal": 1,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -7058,16 +7058,16 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 1,
+                        "FlipHorizontal": 0,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -7081,16 +7081,16 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 1043020160,
-                        "textureName": "Options_arrow_pressed",
+                        "textureUID": 2870565265,
+                        "textureName": "Options_Arrow",
                         "color": [
-                            1.0,
-                            1.0,
-                            1.0,
+                            0.7215686440467835,
+                            0.6274510025978088,
+                            0.6274510025978088,
                             1.0
                         ],
                         "FlipVertical": 0,
-                        "FlipHorizontal": 1,
+                        "FlipHorizontal": 0,
                         "isMasked": 0,
                         "maskAmount": 0,
                         "isMaskHorizontal": 0,
@@ -7159,7 +7159,7 @@
                     "Type": 6,
                     "Enabled": 1,
                     "FontSize": 17.0,
-                    "text": "1920x1800",
+                    "text": "1920x1080",
                     "font": "Fonts/Vision-BoldItalic.ttf",
                     "color": [
                         0.8235294222831726,
