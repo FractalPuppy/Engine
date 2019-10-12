@@ -198,10 +198,10 @@ void ExperienceController::LevelUpStats()
 {
 	// Upgrade stats
 	PlayerStats* stats = &playerScript->stats;
-	stats->health += 10;
-	stats->mana += 10;
-	stats->strength += 5;
-	stats->dexterity += 1;
+	stats->health += healthIncrease;
+	stats->mana += manaIncrease;
+	stats->strength += strengthIncrease;
+	stats->dexterity += dexterityIncrease;
 }
 
 void ExperienceController::Expose(ImGuiContext* context)
@@ -232,6 +232,12 @@ void ExperienceController::Expose(ImGuiContext* context)
 		ImGui::DragFloat("Duration", &dissolveDuration, 0.1f);
 		ImGui::DragFloat("Border Amount", &borderAmount, 0.1f);
 	}
+	ImGui::Separator();
+	ImGui::Text("Stat Increase on Lvl up:");
+	ImGui::DragFloat("Health", &healthIncrease);
+	ImGui::DragFloat("Mana", &manaIncrease);
+	ImGui::DragInt("Strength", &strengthIncrease, 1.0f, 0);
+	ImGui::DragInt("Dexterity", &dexterityIncrease, 1.0f, 0);
 }
 
 void ExperienceController::Serialize(JSON_value* json) const
@@ -248,6 +254,10 @@ void ExperienceController::Serialize(JSON_value* json) const
 		json->AddFloat("dissolveDuration", dissolveDuration);
 		json->AddFloat("borderAmount", borderAmount);
 	}
+	json->AddFloat("healthIncrease", healthIncrease);
+	json->AddFloat("manaIncrease", manaIncrease);
+	json->AddInt("strengthIncrease", strengthIncrease);
+	json->AddInt("dexterityIncrease", dexterityIncrease);
 }
 
 void ExperienceController::DeSerialize(JSON_value* json)
@@ -261,6 +271,10 @@ void ExperienceController::DeSerialize(JSON_value* json)
 	useDissolveEffect = json->GetUint("useDissolveEffect", 1.0f);
 	dissolveDuration = json->GetFloat("dissolveDuration", 0.8f);
 	borderAmount = json->GetFloat("borderAmount", 0.4f);
+	healthIncrease = json->GetFloat("healthIncrease", 10.0f);
+	manaIncrease = json->GetFloat("manaIncrease", 10.0f);
+	strengthIncrease = json->GetInt("strengthIncrease", 5);
+	dexterityIncrease = json->GetInt("dexterityIncrease", 1);
 }
 
 void ExperienceController::SaveExperience()

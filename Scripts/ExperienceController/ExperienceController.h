@@ -76,6 +76,12 @@ private:
 	bool expDisolve = false;
 
 	math::float3 expColor = math::float3(0.980, 0.880, 0.0f);
+
+	// Player Stats
+	float healthIncrease = 10.0f;
+	float manaIncrease = 10.0f;
+	int strengthIncrease = 5;
+	int dexterityIncrease = 1;
 };
 
 extern "C" ExperienceController_API Script* CreateScript();
