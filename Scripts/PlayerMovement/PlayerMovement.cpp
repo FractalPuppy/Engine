@@ -65,11 +65,11 @@ PlayerMovement::PlayerMovement()
 	// Register Skills
 	allSkills[SkillType::NONE] = new PlayerSkill();
 	allSkills[SkillType::STOMP] = new PlayerSkill(SkillType::STOMP);
-	allSkills[SkillType::RAIN] = new PlayerSkill(SkillType::RAIN);
+	allSkills[SkillType::RAIN] = new PlayerSkill(SkillType::RAIN, 0.5f);
 	allSkills[SkillType::CHAIN] = new PlayerSkill(SkillType::CHAIN, 10.0f, 0.0f);
 	allSkills[SkillType::DASH] = new PlayerSkill(SkillType::DASH);
-	allSkills[SkillType::SLICE] = new PlayerSkill(SkillType::SLICE);
-	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP);
+	allSkills[SkillType::SLICE] = new PlayerSkill(SkillType::SLICE, 1.5f);
+	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP, 2.0f);
 	allSkills[SkillType::CIRCULAR] = new PlayerSkill(SkillType::CIRCULAR);
 
 	// Default ability keyboard allocation
@@ -1563,7 +1563,7 @@ void PlayerSkill::Serialize(JSON_value* json) const
 void PlayerSkill::DeSerialize(JSON_value* json, BasicSkill* playerSkill)
 {
 	//type = (SkillType)json->GetInt("type"); 
-	damage = json->GetFloat("damage");
+	damage = json->GetFloat("damage", 1.0f);
 	manaCost = json->GetFloat("mana_cost");
 	cooldown = json->GetFloat("cooldown");
 	skill = playerSkill;

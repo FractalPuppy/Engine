@@ -91,7 +91,7 @@ struct PlayerMovement_API PlayerSkill
 {
 public:
 	PlayerSkill() {}
-	PlayerSkill(SkillType type, float manaCost = 10.0f, float cooldown = 0.0f) : type(type), manaCost(manaCost), cooldown(cooldown){}
+	PlayerSkill(SkillType type, float damage = 1.0f, float manaCost = 10.0f, float cooldown = 0.0f) : damage(damage), type(type), manaCost(manaCost), cooldown(cooldown){}
 	void Expose(const char* title);
 	void Serialize(JSON_value* json) const;
 	void DeSerialize(JSON_value* json, BasicSkill* playerSkill);
