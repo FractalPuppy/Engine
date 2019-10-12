@@ -78,8 +78,8 @@ class RainSkill;
 enum class PlayerMovement_API SkillType
 {
 	DASH,
-	CIRCULAR,
 	BOMB_DROP,
+	CIRCULAR,
 	RAIN,
 	SLICE,
 	STOMP,
