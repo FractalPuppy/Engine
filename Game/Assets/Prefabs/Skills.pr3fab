@@ -50,37 +50,37 @@
                                 "connection": 0,
                                 "mana": 5,
                                 "cooldown": 2,
-                                "dmg": "x1",
+                                "damage": 1.0,
                                 "activeTextureUID": 885453344,
                                 "inactiveTextureUID": 1891334666
                             },
                             {
                                 "id": 1,
-                                "name": "La picadora",
-                                "description": "Rapidly spinning your weapon around your body allows you to damage nearby enemies.",
-                                "locked": 1,
-                                "maxLevel": 1,
-                                "nextSkill": 2,
-                                "connection": 1,
-                                "mana": 10,
-                                "cooldown": 7,
-                                "dmg": "x1",
-                                "activeTextureUID": 3774178758,
-                                "inactiveTextureUID": 1814959232
-                            },
-                            {
-                                "id": 2,
                                 "name": "Smash",
                                 "description": "Jump and smash the floor damaging enemies in a small area.",
                                 "locked": 1,
                                 "maxLevel": 1,
-                                "nextSkill": -1,
-                                "connection": -1,
+                                "nextSkill": 2,
+                                "connection": 1,
                                 "mana": 15,
                                 "cooldown": 5,
-                                "dmg": "x2",
+                                "damage": 2.0,
                                 "activeTextureUID": 2296932366,
                                 "inactiveTextureUID": 3063042807
+                            },
+                            {
+                                "id": 2,
+                                "name": "La picadora",
+                                "description": "Rapidly spinning your weapon around your body allows you to damage nearby enemies.",
+                                "locked": 1,
+                                "maxLevel": 1,
+                                "nextSkill": -1,
+                                "connection": -1,
+                                "mana": 10,
+                                "cooldown": 7,
+                                "damage": 1.0,
+                                "activeTextureUID": 3774178758,
+                                "inactiveTextureUID": 1814959232
                             },
                             {
                                 "id": 3,
@@ -92,7 +92,7 @@
                                 "connection": -1,
                                 "mana": 20,
                                 "cooldown": 15,
-                                "dmg": "x0.5",
+                                "damage": 0.5,
                                 "activeTextureUID": 101418882,
                                 "inactiveTextureUID": 386296996
                             },
@@ -106,7 +106,7 @@
                                 "connection": -1,
                                 "mana": 15,
                                 "cooldown": 5,
-                                "dmg": "x1.5",
+                                "damage": 1.5,
                                 "activeTextureUID": 4157880507,
                                 "inactiveTextureUID": 1052833000
                             },
@@ -120,7 +120,7 @@
                                 "connection": 4,
                                 "mana": 25,
                                 "cooldown": 20,
-                                "dmg": "x3",
+                                "damage": 3.0,
                                 "activeTextureUID": 2353223529,
                                 "inactiveTextureUID": 4140996810
                             },
@@ -134,7 +134,7 @@
                                 "connection": 5,
                                 "mana": 25,
                                 "cooldown": 50,
-                                "dmg": "x0.5",
+                                "damage": 1.0,
                                 "activeTextureUID": 4037492790,
                                 "inactiveTextureUID": 1474843939
                             },
@@ -148,7 +148,7 @@
                                 "connection": -1,
                                 "mana": 0,
                                 "cooldown": 0,
-                                "dmg": "-",
+                                "damage": 0.0,
                                 "activeTextureUID": 3595172473,
                                 "inactiveTextureUID": 2604386210
                             },
@@ -162,7 +162,7 @@
                                 "connection": 6,
                                 "mana": 0,
                                 "cooldown": 0,
-                                "dmg": "-",
+                                "damage": 0.0,
                                 "activeTextureUID": 2868511582,
                                 "inactiveTextureUID": 4145295781
                             },
@@ -176,7 +176,7 @@
                                 "connection": 7,
                                 "mana": 30,
                                 "cooldown": 30,
-                                "dmg": "x1",
+                                "damage": 1.0,
                                 "activeTextureUID": 2089509454,
                                 "inactiveTextureUID": 184765913
                             },
@@ -190,7 +190,7 @@
                                 "connection": -1,
                                 "mana": 50,
                                 "cooldown": 60,
-                                "dmg": "x4",
+                                "damage": 4.0,
                                 "activeTextureUID": 3921259047,
                                 "inactiveTextureUID": 472688446
                             }
@@ -1292,8 +1292,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 1814959232,
-                    "textureName": "Desactivated_Hability_5",
+                    "textureUID": 3063042807,
+                    "textureName": "Desactivated_Hability_2",
                     "color": [
                         1.0,
                         0.9999899864196777,
@@ -1519,8 +1519,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 3063042807,
-                    "textureName": "Desactivated_Hability_2",
+                    "textureUID": 1814959232,
+                    "textureName": "Desactivated_Hability_5",
                     "color": [
                         1.0,
                         0.9999899864196777,

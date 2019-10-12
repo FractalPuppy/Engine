@@ -22,7 +22,7 @@ public:
 	int connection = -1;
 	int mana = 0;
 	int cooldown = 0;
-	std::string damage;
+	float damage;
 };
 
 #endif
