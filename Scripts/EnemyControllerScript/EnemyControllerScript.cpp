@@ -557,11 +557,11 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 			// Generate a random number and if it is below the critical chance the damage will be increased
 			if ((rand() % 100u) < playerMovement->criticalChance)
 			{
-				TakeDamage(totalDamage * 0.2f, (int)DamageType::CRITICAL);
+				TakeDamage(totalDamage * 2, (int)DamageType::CRITICAL);
 			}
 			else
 			{
-				TakeDamage(totalDamage * 0.1f, (int)DamageType::NORMAL);
+				TakeDamage(totalDamage, (int)DamageType::NORMAL);
 			}
 		}
 	}
