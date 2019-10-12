@@ -83,8 +83,13 @@ enum class PlayerMovement_API SkillType
 	RAIN,
 	SLICE,
 	STOMP,
-	CHAIN = 10,
-	NONE = 20
+	DANCE,
+	SOUL,
+	BORRACHO,
+	FEATHER,
+	FURIA,
+	CHAIN,
+	NONE
 };
 
 struct PlayerMovement_API PlayerSkill
