@@ -105,6 +105,7 @@ public:
 public:
 	bool available = true;
 	SkillType type = SkillType::NONE;
+	int damage = 1.0f;
 	float manaCost = 10.f;
 	float cooldown = 0.f;
 	BasicSkill* skill = nullptr;
@@ -199,6 +200,7 @@ public:
 	bool IsUsingR() const;
 	bool IsUsingSkill() const;
 	bool IsExecutingSkill() const;
+	PlayerSkill* GetSkillInUse() const;
 
 	void PrepareSkills() const;
 

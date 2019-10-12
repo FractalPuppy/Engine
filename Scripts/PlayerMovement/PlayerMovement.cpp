@@ -168,13 +168,13 @@ void PlayerMovement::Expose(ImGuiContext* context)
 	{
 		switch (it->first)
 		{
-		case SkillType::CHAIN: it->second->Expose("Chain Attack"); break;
-		case SkillType::DASH: it->second->Expose("Dash"); break;
-		case SkillType::SLICE: it->second->Expose("Slice"); break;
-		case SkillType::BOMB_DROP: it->second->Expose("Bomb Drop"); break;
-		case SkillType::CIRCULAR: it->second->Expose("Circular Attack"); break;
-		case SkillType::STOMP: it->second->Expose("Stomp Attack"); break;
-		case SkillType::RAIN: it->second->Expose("Rain"); break;
+		case SkillType::CHAIN:		it->second->Expose("Chain Attack");		break;
+		case SkillType::DASH:		it->second->Expose("Dash");				break;
+		case SkillType::SLICE:		it->second->Expose("Slice");			break;
+		case SkillType::BOMB_DROP:	it->second->Expose("Bomb Drop");		break;
+		case SkillType::CIRCULAR:	it->second->Expose("Circular Attack");	break;
+		case SkillType::STOMP:		it->second->Expose("Stomp Attack");		break;
+		case SkillType::RAIN:		it->second->Expose("Rain");				break;
 		case SkillType::NONE:
 		default:
 			break;
@@ -1363,6 +1363,25 @@ bool PlayerMovement::IsExecutingSkill() const
 	return currentSkill != nullptr && currentSkill != chain;
 }
 
+PlayerSkill* PlayerMovement::GetSkillInUse() const
+{
+	int slotNumber = -1;
+	if (IsUsingRightClick()) slotNumber = HUD_BUTTON_RC;
+	else if (IsUsingOne()) slotNumber = HUD_BUTTON_1;
+	else if (IsUsingTwo()) slotNumber = HUD_BUTTON_2;
+	else if (IsUsingThree()) slotNumber = HUD_BUTTON_3;
+	else if (IsUsingFour()) slotNumber = HUD_BUTTON_4;
+	else if (IsUsingQ()) slotNumber = HUD_BUTTON_Q;
+	else if (IsUsingW()) slotNumber = HUD_BUTTON_W;
+	else if (IsUsingE()) slotNumber = HUD_BUTTON_E;
+	else if (IsUsingR()) slotNumber = HUD_BUTTON_R;
+
+	if (slotNumber > -1)
+		return allSkills.find(assignedSkills[slotNumber])->second;
+	
+	return nullptr;
+}
+
 void PlayerMovement::PrepareSkills() const
 {
 	if (allSkills.find(assignedSkills[HUD_BUTTON_1])->second->IsUsable(mana) && App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
@@ -1533,6 +1552,7 @@ void PlayerSkill::Expose(const char* title)
 	{
 		ImGui::PushID(title);
 		ImGui::Bullet(); ImGui::SameLine(); ImGui::Text(title);
+		ImGui::DragInt("Damage", &damage);
 		ImGui::DragFloat("Mana Cost", &manaCost);
 		ImGui::DragFloat("Cooldown", &this->cooldown);
 		ImGui::Text("Timer: %f (%f)", cooldownTimer, CooldownRatio());
@@ -1543,6 +1563,7 @@ void PlayerSkill::Expose(const char* title)
 void PlayerSkill::Serialize(JSON_value* json) const
 {
 	json->AddInt("type", (int)type);
+	json->AddInt("damage", damage);
 	json->AddFloat("mana_cost", manaCost);
 	json->AddFloat("cooldown", cooldown);
 }
@@ -1550,6 +1571,7 @@ void PlayerSkill::Serialize(JSON_value* json) const
 void PlayerSkill::DeSerialize(JSON_value* json, BasicSkill* playerSkill)
 {
 	//type = (SkillType)json->GetInt("type"); 
+	damage = json->GetInt("damage");
 	manaCost = json->GetFloat("mana_cost");
 	cooldown = json->GetFloat("cooldown");
 	skill = playerSkill;
