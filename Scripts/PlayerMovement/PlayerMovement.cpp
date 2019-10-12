@@ -228,14 +228,12 @@ void PlayerMovement::CreatePlayerSkills()
 	circular->particles = App->scene->FindGameObjectByName("CircularAttackParticles");
 	stomp = new StompSkill(this, "Stomp", attackBoxTrigger);
 	rain = new RainSkill(this, "Rain", "");
-	//rain->decal = App->scene->Spawn("MacheteRainDecal");
-	rain->decal = App->scene->Spawn("MacheteRain");
+	rain->decal = App->scene->Spawn("MacheteDecal");
 	if (rain->decal)
 	{
 		rain->decal->transform->scale *= 2;
 		rain->decal->UpdateGlobalTransform();
 		rain->decal->SetActive(false);
-
 	}
 	GameObject* machete = App->scene->Spawn("MacheteRain");	
 	if (machete)
