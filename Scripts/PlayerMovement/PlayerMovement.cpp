@@ -1365,19 +1365,11 @@ bool PlayerMovement::IsExecutingSkill() const
 
 PlayerSkill* PlayerMovement::GetSkillInUse() const
 {
-	int slotNumber = -1;
-	if (IsUsingRightClick()) slotNumber = HUD_BUTTON_RC;
-	else if (IsUsingOne()) slotNumber = HUD_BUTTON_1;
-	else if (IsUsingTwo()) slotNumber = HUD_BUTTON_2;
-	else if (IsUsingThree()) slotNumber = HUD_BUTTON_3;
-	else if (IsUsingFour()) slotNumber = HUD_BUTTON_4;
-	else if (IsUsingQ()) slotNumber = HUD_BUTTON_Q;
-	else if (IsUsingW()) slotNumber = HUD_BUTTON_W;
-	else if (IsUsingE()) slotNumber = HUD_BUTTON_E;
-	else if (IsUsingR()) slotNumber = HUD_BUTTON_R;
-
-	if (slotNumber > -1)
-		return allSkills.find(assignedSkills[slotNumber])->second;
+	for (auto it = allSkills.begin(); it != allSkills.end(); ++it)
+	{
+		if (it->second->skill == currentSkill)
+			return it->second;
+	}
 	
 	return nullptr;
 }
