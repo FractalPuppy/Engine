@@ -552,7 +552,7 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 
 			// Add damage of the skill
 			if (skill != nullptr)
-				totalDamage += skill->damage;
+				totalDamage *= skill->damage;
 
 			// Generate a random number and if it is below the critical chance the damage will be increased
 			if ((rand() % 100u) < playerMovement->criticalChance)

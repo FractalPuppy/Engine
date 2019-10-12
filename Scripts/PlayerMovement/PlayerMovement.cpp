@@ -1544,7 +1544,7 @@ void PlayerSkill::Expose(const char* title)
 	{
 		ImGui::PushID(title);
 		ImGui::Bullet(); ImGui::SameLine(); ImGui::Text(title);
-		ImGui::DragInt("Damage", &damage);
+		ImGui::DragFloat("Damage", &damage, 0.1f);
 		ImGui::DragFloat("Mana Cost", &manaCost);
 		ImGui::DragFloat("Cooldown", &this->cooldown);
 		ImGui::Text("Timer: %f (%f)", cooldownTimer, CooldownRatio());
@@ -1555,7 +1555,7 @@ void PlayerSkill::Expose(const char* title)
 void PlayerSkill::Serialize(JSON_value* json) const
 {
 	json->AddInt("type", (int)type);
-	json->AddInt("damage", damage);
+	json->AddFloat("damage", damage);
 	json->AddFloat("mana_cost", manaCost);
 	json->AddFloat("cooldown", cooldown);
 }
@@ -1563,7 +1563,7 @@ void PlayerSkill::Serialize(JSON_value* json) const
 void PlayerSkill::DeSerialize(JSON_value* json, BasicSkill* playerSkill)
 {
 	//type = (SkillType)json->GetInt("type"); 
-	damage = json->GetInt("damage");
+	damage = json->GetFloat("damage");
 	manaCost = json->GetFloat("mana_cost");
 	cooldown = json->GetFloat("cooldown");
 	skill = playerSkill;

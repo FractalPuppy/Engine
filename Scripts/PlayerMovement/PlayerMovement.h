@@ -105,7 +105,7 @@ public:
 public:
 	bool available = true;
 	SkillType type = SkillType::NONE;
-	int damage = 1.0f;
+	float damage = 1.0f;	// Multiplies base damage
 	float manaCost = 10.f;
 	float cooldown = 0.f;
 	BasicSkill* skill = nullptr;
