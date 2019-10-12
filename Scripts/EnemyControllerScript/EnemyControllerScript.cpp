@@ -547,22 +547,20 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 	{
 		if (gameobject->tag.c_str() != "Boss")
 		{
+			// Get base damage
 			int totalDamage = playerMovement->stats.strength;
-			PlayerSkill* skill = playerMovement->GetSkillInUse();
+
+			// Generate a random number and if it is below the critical chance -> double base damage
+			bool critical = (rand() % 100u) < playerMovement->criticalChance;	
+			if (critical)
+				totalDamage *= 2;
 
 			// Add damage of the skill
+			PlayerSkill* skill = playerMovement->GetSkillInUse();
 			if (skill != nullptr)
 				totalDamage *= skill->damage;
 
-			// Generate a random number and if it is below the critical chance the damage will be increased
-			if ((rand() % 100u) < playerMovement->criticalChance)
-			{
-				TakeDamage(totalDamage * 2, (int)DamageType::CRITICAL);
-			}
-			else
-			{
-				TakeDamage(totalDamage, (int)DamageType::NORMAL);
-			}
+			TakeDamage(totalDamage, critical ? (int)DamageType::CRITICAL : (int)DamageType::NORMAL);
 		}
 	}
 }
