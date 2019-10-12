@@ -12,6 +12,7 @@
 #include "ComponentRenderer.h"
 
 #include "SkillTreeController.h"
+#include "PlayerMovement.h"
 
 #include "JSON.h"
 #include "imgui.h"
@@ -65,10 +66,22 @@ void ExperienceController::Start()
 	
 	skillTreeScript = App->scene->FindGameObjectByName("Skills")->GetComponent<SkillTreeController>();
 
+	GameObject* player = App->scene->FindGameObjectByTag("Player");
+	if (player != nullptr)
+	{
+		playerScript = player->GetComponent<PlayerMovement>();
+		if(playerScript == nullptr)
+			LOG("PlayerMovement script couldn't be found \n");
+	}
+	else
+	{
+		LOG("Player couldn't be found \n");
+	}
+
 	GameObject* playerMesh = App->scene->FindGameObjectByName("PlayerMesh");
 	if (playerMesh == nullptr)
 	{
-		LOG("Player couldn't be found \n");
+		LOG("PlayerMesh couldn't be found \n");
 	}
 	else
 	{
@@ -153,8 +166,9 @@ void ExperienceController::AddXP(int xp)
 				maxXPLevel = levelsExp[currentLevel - 1];
 				skillTreeScript->AddSkillPoint();
 				App->scene->FindGameObjectByName("NewSkillPoint")->SetActive(true);
-				//playermovement->addStats (subir de lvl)
+				LevelUpStats(); // Upgrade stats
 			}
+
 			levelText->text = std::to_string(currentLevel);
 			levelReached->text = "LEVEL " + std::to_string(currentLevel) + " REACHED";
 			levelUPGO->SetActive(true);
@@ -180,11 +194,21 @@ void ExperienceController::AddXP(int xp)
 	}
 }
 
+void ExperienceController::LevelUpStats()
+{
+	// Upgrade stats
+	PlayerStats* stats = &playerScript->stats;
+	stats->health += 10;
+	stats->mana += 10;
+	stats->strength += 5;
+	stats->dexterity += 1;
+}
+
 void ExperienceController::Expose(ImGuiContext* context)
 {
 	ImGui::SetCurrentContext(context);
 
-	ImGui::DragFloat("Time showing levelUp meassage", &timeShowing, 1.0f, 0.0f, 10.0f);
+	ImGui::DragFloat("Time showing levelUp message", &timeShowing, 1.0f, 0.0f, 10.0f);
 	int oldMaxLevel = maxLevel;
 	if (ImGui::InputInt("Number of levels", &maxLevel, ImGuiInputTextFlags_EnterReturnsTrue))
 	{

@@ -17,6 +17,7 @@ class SkillTreeController;
 class GameObject;
 class JSON_value;
 class ComponentRenderer;
+class PlayerMovement;
 
 class ExperienceController_API ExperienceController : public Script
 {
@@ -34,6 +35,7 @@ class ExperienceController_API ExperienceController : public Script
 
 public:
 	void AddXP(int xp);
+	void LevelUpStats();
 
 	void SaveExperience();
 
@@ -64,6 +66,7 @@ private:
 	float currentTime = 0.0f;
 
 	ComponentRenderer* playerRender = nullptr;
+	PlayerMovement* playerScript = nullptr;
 
 	// Dissolve Effect
 	bool useDissolveEffect = true;
