@@ -213,6 +213,7 @@ public:
 	void ToggleInfiniteHealth();
 	void ToggleInfiniteMana();
 	void SavePlayerStats();
+	void UpdateUIStats();
 
 private:
 	void CheckStates(PlayerState* previous, PlayerState* current);
@@ -221,12 +222,9 @@ private:
 
 	void ActivateHudCooldownMask(bool activate, unsigned first = HUD_BUTTON_Q, unsigned last = HUD_BUTTON_4);
 
-	float DistPlayerToMouse() const;
-
 	// Skills
 	void CreatePlayerSkills();
 
-	void UpdateUIStats();
 	void InitializeUIStatsObjects();
 public:
 	bool isPlayerDead = false;
