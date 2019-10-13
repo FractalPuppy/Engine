@@ -72,7 +72,7 @@ PlayerMovement::PlayerMovement()
 	allSkills[SkillType::SLICE] = new PlayerSkill(SkillType::SLICE, 1.5f);
 	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP, 2.0f);
 	allSkills[SkillType::CIRCULAR] = new PlayerSkill(SkillType::CIRCULAR);
-	allSkills[SkillType::DANCE] = new PlayerSkill(SkillType::DANCE,0.5f, 25.0f, 50.0f);
+	allSkills[SkillType::DANCE] = new PlayerSkill(SkillType::DANCE, 0.5f, 25.0f, 50.0f);
 	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::SOUL,0.0f, 0.0f);
 	allSkills[SkillType::BORRACHO] = new PlayerSkill(SkillType::BORRACHO, 0.0f, 0.0f);
 	allSkills[SkillType::FEATHER] = new PlayerSkill(SkillType::FEATHER, 1.0f, 30.0f, 30.0f);
@@ -274,8 +274,10 @@ void PlayerMovement::CreatePlayerSkills()
 	{
 		LOG("Machete rain mesh not found");
 	}
+
 	dance = new MacheteDanceSkill(this, "Dance");
-	// Spawn prefab
+
+	// Spawn machete dance prefab
 	GameObject* danceMachetes = App->scene->Spawn("MacheteDance", gameobject);
 	if (danceMachetes && dance)
 	{
@@ -860,6 +862,8 @@ void PlayerMovement::Update()
 	if (macheteDanceActivated && dance != nullptr)
 	{
 		dance->danceTimer += App->time->gameDeltaTime;
+
+		// End skill
 		if (dance->danceTimer > dance->macheteDuration)
 		{
 			// Hide machetes
