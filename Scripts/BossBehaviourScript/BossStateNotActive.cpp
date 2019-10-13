@@ -18,6 +18,8 @@ void BossStateNotActive::HandleIA()
 	{
 		boss->currentState = (BossState*)boss->cutscene;
 		
+		boss->stopPlayerMovement();
+
 		boss->PrepareBossFight(boss->floorBossGOs);
 	}
 }

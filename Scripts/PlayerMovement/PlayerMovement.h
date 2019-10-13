@@ -183,6 +183,7 @@ public:
 	void EquipMesh(unsigned itemType, unsigned meshUID, unsigned materialUID);								// Equip only the item mesh
 	void UnEquip(const PlayerStats& equipStats, unsigned itemType);
 	void ConsumeItem(const PlayerStats& equipStats);
+	void stopPlayerWalking();
 
 	void OnAnimationEvent(std::string name) override;
 
