@@ -329,6 +329,7 @@ ENGINE_API void ComponentTransform::Rotate(math::float3 rot)
 
 ENGINE_API void ComponentTransform::LookAt(const math::float3& targetPosition)
 {
+	if (lockLookAt) return;
 	math::float3 direction = (targetPosition - GetGlobalPosition());
 	math::Quat newRotation = GetGlobalRotation().LookAt(float3::unitZ, direction.Normalized(), float3::unitY, float3::unitY);	
 	SetGlobalRotation(newRotation);
@@ -336,6 +337,7 @@ ENGINE_API void ComponentTransform::LookAt(const math::float3& targetPosition)
 
 void ComponentTransform::LookAtLocal(const math::float3& localTarget)
 {
+	if (lockLookAt) return;
 	math::float3 direction = (localTarget - position);
 	math::Quat newRotation = rotation.LookAt(float3::unitZ, direction.Normalized(), float3::unitY, float3::unitY);
 	SetRotation(newRotation);

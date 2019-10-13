@@ -21,6 +21,8 @@ public:
 	int nextSkill = -1;
 	int connection = -1;
 	int mana = 0;
+	int cooldown = 0;
+	float damage;
 };
 
 #endif

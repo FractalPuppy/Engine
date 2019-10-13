@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleScene.h"
 
 #include "BossStateActivated.h"
 #include "BossBehaviourScript.h"
@@ -14,8 +15,8 @@
 BossStateActivated::BossStateActivated(BossBehaviourScript* AIBoss)
 {
 	boss = AIBoss;
+	trigger = "Idle";
 }
-
 
 BossStateActivated::~BossStateActivated()
 {
@@ -46,9 +47,10 @@ void BossStateActivated::Update()
 		math::float3 newPosition = boss->enemyController->GetPosition() + directionToGround * speedDescend * boss->App->time->gameDeltaTime;
 		boss->enemyController->SetPosition(newPosition);
 	}
-
+	//while getting to the ground, she cannot be attacked
+	boss->App->scene->enemyHovered.object = nullptr;
+	boss->App->scene->enemyHovered.health = 0;
 }
-
 
 void BossStateActivated::Enter()
 {

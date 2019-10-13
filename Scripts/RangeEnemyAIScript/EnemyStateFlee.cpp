@@ -103,7 +103,7 @@ void EnemyStateFlee::ChangeDirection()
 	math::Quat quat;
 	math::LCG rand;
 
-	if (changedTimes < 3)
+	if (changedTimes < 2)
 	{
 		quat = Quat::RotateY(math::DegToRad(rand.Float() * 40 - 20));
 	}
@@ -114,9 +114,9 @@ void EnemyStateFlee::ChangeDirection()
 		fleeDir = quat.Mul(fleeDir);
 		fleeDestiny = playerPos + fleeDir * enemy->maxAttackDistance;
 		changedTimes++;
-	} while (changedTimes < 4 && !enemy->App->navigation->FindPath(enemy->enemyController->GetPosition(), fleeDestiny, path));
+	} while (changedTimes < 3 && !enemy->App->navigation->FindPath(enemy->enemyController->GetPosition(), fleeDestiny, path));
 
-	if (changedTimes > 3)
+	if (changedTimes > 2)
 	{
 		skipFlee = true;
 	}

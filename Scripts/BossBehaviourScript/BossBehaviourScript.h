@@ -56,11 +56,17 @@ class BossStateDeath;
 class BossStateNotActive;
 class BossStateActivated;
 class BossStateInterPhase;
+class BossStateSecondInterPhase;
 class BossStateSummonArmy;
 class BossStateCutScene;
+class BossStateThirdIdle;
+class BossStateThirdRight;
+class BossStateThirdLeft;
+class BossStateThirdDeath;
 class EnemyControllerScript;
 class PlayerMovement;
 class GameLoop;
+class ComponentAnimation;
 
 class BossBehaviourScript_API BossBehaviourScript : public Script
 {
@@ -93,11 +99,18 @@ public:
 	BossStatePreCast* precast = nullptr;
 	BossStateSummonArmy* summonArmy = nullptr;
 	BossStateInterPhase* interPhase = nullptr;
+	BossStateSecondInterPhase* secondInterphase = nullptr;
 	BossStateDeath* death = nullptr;
 	BossStateCast* cast = nullptr;
 	BossStateCutScene* cutscene = nullptr;
+	BossStateThirdIdle* thirdIdle = nullptr;
+	BossStateThirdRight* thirdRight = nullptr;
+	BossStateThirdLeft* thirdLeft = nullptr;
+	BossStateThirdDeath* thirdDeath = nullptr;
 
 public:
+	ComponentAnimation* anim = nullptr;
+
 	GameObject* gameLoopGO = nullptr;
 	GameLoop* gLoop = nullptr;
 
@@ -106,12 +119,20 @@ public:
 
 	GameObject* firstMeshFloor = nullptr;
 	GameObject* secondMeshFloor = nullptr;
+	GameObject* stairsBlocker1 = nullptr;
+	GameObject* stairsBlocker2 = nullptr;
+	GameObject* stairsBlocker3 = nullptr;
+	GameObject* stairsBlocker4 = nullptr;
 	GameObject* mainFirstFloor = nullptr;
 	GameObject* mainSecondFloor = nullptr;
 	GameObject* mainThirdFloor = nullptr;
 	GameObject* mainFourthFloor = nullptr;
 	GameObject* mainFifthFloor = nullptr;
 	GameObject* mainSixthFloor = nullptr;
+	GameObject* stairsObstacle1 = nullptr;
+	GameObject* stairsObstacle2 = nullptr;
+	GameObject* stairsObstacle3 = nullptr;
+	GameObject* stairsObstacle4 = nullptr;
 
 	std::vector<GameObject*> floorBossGOs;
 	std::vector<GameObject*> floorMainGOs;
@@ -152,6 +173,25 @@ public:
 	float cutsceneBackToPlayerDuration = 10.0f;
 	float cutsceneDoorRisingDuration = 2.0f;
 
+	//Second interphase variables
+	math::float3 secondInterphaseFinalPosition = math::float3::zero;
+	float secondInterphaseFinalScale = 2.0f;
+	float secondInterphaseKneelTime = 0.0f;
+	float secondInterphaseCryTime = 0.0f;
+	float secondInterphaseFloorVanishTime = 0.0f;
+	float secondInterphaseFadeOffTime = 0.0f;
+	float secondInterphaseFadeInTime = 0.0f;
+	std::vector<GameObject*> secondInterphaseVanishGOs;
+	std::vector<GameObject*> secondInterphaseFlameGOs;
+
+	//Casting variables
+	float percOrbs = 0.0f;
+	float percOrbsDisappear = 0.0f;
+	GameObject* leftHandParticles = nullptr;
+	GameObject* rightHandParticles = nullptr;
+	GameObject* rightHandBall = nullptr;
+	GameObject* leftHandBall = nullptr;
+
 	//first cutscene
 	math::float3 startingPoint = math::float3::zero;
 	math::float3 highPointFirstCS = math::float3::zero;
@@ -169,14 +209,28 @@ public:
 	math::float3 rightTP = math::float3::zero;
 
 	//Summon in summon phase
-	int summonSkeletonsNumber = 20;
-	float timerBetweenSummons = 4.0f;
+	int summonSkeletonsNumber = 10;
+	float timerBetweenSummons = 5.0f;
 	math::float3 firstSpawnLocation = math::float3::zero;
-	math::float3 secondSpawnLocation = math::float3::zero;
+	//giving default intended values to the spawn locations
+	math::float3 secondSpawnLocation = math::float3(1654.f, 370.f, -3333.f);
+	math::float3 thirdSpawnLocation = math::float3(-308.f, 370.f, -2376.f);
+	math::float3 fourthSpawnLocation = math::float3(466.f, 370.f, -1796.f);
+	math::float3 fifthSpawnLocation = math::float3(1240.f, 370.f, -2320.f);
+	math::float3 sixthSpawnLocation = math::float3(1675.f, 370.f, -2796.f);
+	std::vector<math::float3*> spawns;//array of locations
+
+	//Variables for the first interphase
+	float firstInterphaseDuration = 0.0f;
+	math::float3 firstInterphasePowerUpPosition = math::float3::zero;
+	math::float3 firstInterphasePosition = math::float3::zero;
+	math::float3 pointToLookAtFirstInterphase = math::float3::zero;
+	float relocateInterPhaseTime = 0.0f;
 
 	//Skulls in second phase
 	int numberSkullsSecondTotal = 8;
 	float timeBetweenSkullsSecond = 0.0f;
+	float endingHeightKneel = 0.0f;
 	math::float3 northSecondSkull = math::float3::zero;
 	math::float3 northEastSecondSkull = math::float3::zero;
 	math::float3 eastSecondSkull = math::float3::zero;
@@ -188,9 +242,17 @@ public:
 	std::vector<math::float3> positionsSkullsSecond;
 	int positionsIt = 0;
 
+	//ThirdPhase
+	GameObject* leftFist = nullptr;
+	GameObject* rightFist = nullptr;
+
 public:
 		math::Quat InterpolateQuat(const math::Quat first, const math::Quat second, float lambda);
 		math::float3 InterpolateFloat3(const math::float3 first, const math::float3 second, float lambda);
+		float InterpolateFloat(const float first, const float second, float lambda);
+		math::float3 ChooseRandomSpawn();
+
+		void ResetVariables();
 
 private:
 	std::vector<BossState*> bossStates;
@@ -199,6 +261,7 @@ private:
 	void CheckHealth();
 	void FloatInSpace();
 	void HandleSkills();
+	void HandleSummon();
 
 	void HandleFirstTP();
 	void HandleSecondTP();
@@ -210,13 +273,13 @@ private:
 	void HandleSecondPhaseCircles();
 	void HandleThirdPhaseCircles();
 	
-	void HandleFirstSummons();
-	void HandleSecondSummons();
-	void HandleThirdSummons();
+	void ActuallySummon(int type);
 
 	void HandleFirstBombs();
 	void HandleSecondBombs();
 	void HandleThirdBombs();
+
+	void loadSpawningPositions(JSON_value* json);
 
 	int circlesInFirstPhase = 3;
 	float timeBetweenCirclesFirst = 2.0f;
@@ -237,6 +300,7 @@ private:
 	bool fadeInComplete = false;
 	bool skullsShot = false;
 	TPState teleportState = TPState::None;
+	float summonTimer = 0.0f;
 
 	float timeBetweenBombsFirst = 0.5f;
 	int totalBombsFirst = 5;

@@ -58,6 +58,7 @@ ComponentParticles::ComponentParticles(const ComponentParticles& component) : Co
 	directionNoiseProbability = component.directionNoiseProbability;
 	directionNoiseTotalProbability = component.directionNoiseTotalProbability;
 	actualEmisor = component.actualEmisor;
+	localEmitter = component.localEmitter;
 	alternateEmisor(actualEmisor);
 	baseRadius = component.baseRadius;
 	apexRadius = component.apexRadius;

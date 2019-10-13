@@ -6,6 +6,7 @@
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
+#include "Math/float3.h"
 
 #include "assert.h"
 
@@ -40,34 +41,32 @@ void EnemyStateAttack::Update()
 	//Make sure the delay makes sense
 	assert(enemy->projectileDelay < duration);
 
+	math::float3 playerPosition = enemy->enemyController->GetPlayerPosition();
+	enemy->enemyController->LookAt2D(playerPosition + math::float3(0, enemy->projectileScript->offsetHeight, 0));
 
 	if (timer > enemy->projectileDelay && !projShot)
 	{
 		math::float3 playerPosition = enemy->enemyController->GetPlayerPosition();
-		projShot = true;
-		enemy->projectileGO->transform->SetPosition(enemy->enemyController->GetPosition() + 
-			math::float3(0, enemy->projectileScript->offsetHeight, 0));
 
+		enemy->projectileScript->CleanTrailFX();
+		math::float3 dir = (enemy->enemyController->GetPosition() - playerPosition).Normalized();
+		enemy->projectileScript->direction = math::float3(dir.x, 0, dir.z);
+
+		enemy->projectileGO->transform->SetGlobalPosition(enemy->enemyController->GetPosition() + 
+			math::float3(0, enemy->projectileScript->offsetHeight, 0));
 		enemy->projectileGO->transform->SetRotation(enemy->enemyController->GetRotation());
-		enemy->projectileGO->transform->LookAt(playerPosition + math::float3(0, enemy->projectileScript->offsetHeight, 0));
+
 		enemy->projectileScript->shooted = true;
 		projShot = true;
 		enemy->projectileGO->SetActive(true);
 	}
-
-	//enemy->enemyController->LookAt(enemy->enemyController->GetPlayerPosition());
-
 }
 
 void EnemyStateAttack::Enter()
 {
 	projShot = false;
-
-	math::float3 playerPosition = enemy->enemyController->GetPlayerPosition();
-	enemy->enemyController->LookAt2D(playerPosition);
 }
 
 void EnemyStateAttack::Exit()
 {
-
 }
