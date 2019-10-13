@@ -41,6 +41,7 @@
 #include "CircularAttackSkill.h"
 #include "StompSkill.h"
 #include "RainSkill.h"
+#include "MacheteDanceSkill.h"
 
 #include "JSON.h"
 #include <assert.h>
@@ -72,10 +73,10 @@ PlayerMovement::PlayerMovement()
 	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP, 2.0f);
 	allSkills[SkillType::CIRCULAR] = new PlayerSkill(SkillType::CIRCULAR);
 	allSkills[SkillType::DANCE] = new PlayerSkill(SkillType::DANCE,0.5f, 25.0f, 50.0f);
-	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::DANCE,0.0f, 0.0f);
-	allSkills[SkillType::BORRACHO] = new PlayerSkill(SkillType::DANCE, 0.0f, 0.0f);
-	allSkills[SkillType::FEATHER] = new PlayerSkill(SkillType::DANCE, 1.0f, 30.0f, 30.0f);
-	allSkills[SkillType::FURIA] = new PlayerSkill(SkillType::DANCE, 4.0f, 50.0f, 60.0f);
+	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::SOUL,0.0f, 0.0f);
+	allSkills[SkillType::BORRACHO] = new PlayerSkill(SkillType::BORRACHO, 0.0f, 0.0f);
+	allSkills[SkillType::FEATHER] = new PlayerSkill(SkillType::FEATHER, 1.0f, 30.0f, 30.0f);
+	allSkills[SkillType::FURIA] = new PlayerSkill(SkillType::FURIA, 4.0f, 50.0f, 60.0f);
 
 	// Default ability keyboard allocation
 	assignedSkills[HUD_BUTTON_RC] = SkillType::NONE;
@@ -180,6 +181,7 @@ void PlayerMovement::Expose(ImGuiContext* context)
 		case SkillType::CIRCULAR:	it->second->Expose("Circular Attack");	break;
 		case SkillType::STOMP:		it->second->Expose("Stomp Attack");		break;
 		case SkillType::RAIN:		it->second->Expose("Rain");				break;
+		case SkillType::DANCE:		it->second->Expose("Dance");			break;
 		case SkillType::NONE:
 		default:
 			break;
@@ -272,6 +274,7 @@ void PlayerMovement::CreatePlayerSkills()
 	{
 		LOG("Machete rain mesh not found");
 	}
+	dance = new MacheteDanceSkill(this, "Dance");
 
 	// Player equippable parts
 	GameObject* playerWeapon = App->scene->FindGameObjectByTag("PlayerWeapon");
@@ -311,6 +314,7 @@ void PlayerMovement::CreatePlayerSkills()
 	allSkills[SkillType::CIRCULAR]->skill = (BasicSkill*)circular;
 	allSkills[SkillType::STOMP]->skill = (BasicSkill*)stomp;
 	allSkills[SkillType::RAIN]->skill = (BasicSkill*)rain;
+	allSkills[SkillType::DANCE]->skill = (BasicSkill*)dance;
 }
 
 void PlayerMovement::CheckSkillsInput()

@@ -72,6 +72,7 @@ class BombDropSkill;
 class CircularAttackSkill;
 class StompSkill;
 class RainSkill;
+class MacheteDanceSkill;
 
 #define MAX(a,b) ((a) < (b) ? (b) : (a))
 
@@ -294,6 +295,8 @@ public:
 	CircularAttackSkill* circular = nullptr;
 	StompSkill* stomp = nullptr;
 	RainSkill* rain = nullptr;
+	MacheteDanceSkill* dance = nullptr;
+
 	float basicAttackRange = 200.f;
 
 	bool macheteRainActivated = false;
