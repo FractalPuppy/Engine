@@ -168,6 +168,7 @@ void PlayerMovement::Expose(ImGuiContext* context)
 	else if (currentSkill == circular)	ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Circular");
 	else if (currentSkill == stomp)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Stomp");
 	else if (currentSkill == rain)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Rain");
+	else if (currentSkill == dance)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Dance");
 	else 								ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "None");
 
 	for (auto it = allSkills.begin(); it != allSkills.end(); ++it)
@@ -1156,6 +1157,11 @@ void PlayerMovement::Serialize(JSON_value* json) const
 		if (allSkills.find(SkillType::RAIN) != allSkills.end()) allSkills.find(SkillType::RAIN)->second->Serialize(rain_data);
 		abilities->AddValue("rain", *rain_data);
 	}
+	{
+		JSON_value* dance_data = json->CreateValue();
+		if (allSkills.find(SkillType::DANCE) != allSkills.end()) allSkills.find(SkillType::DANCE)->second->Serialize(dance_data);
+		abilities->AddValue("dance", *dance_data);
+	}
 	json->AddValue("abilities", *abilities);
 
 	stats.Serialize(json);
@@ -1222,7 +1228,10 @@ void PlayerMovement::DeSerialize(JSON_value* json)
 		if (circular_data) allSkills[SkillType::CIRCULAR]->DeSerialize(circular_data, circular);
 
 		JSON_value* rain_data = abilities->GetValue("rain");
-		if (rain_data) allSkills[SkillType::CIRCULAR]->DeSerialize(rain_data, rain);
+		if (rain_data) allSkills[SkillType::RAIN]->DeSerialize(rain_data, rain);
+
+		JSON_value* dance_data = abilities->GetValue("dance");
+		if (rain_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
 	}
 
 
