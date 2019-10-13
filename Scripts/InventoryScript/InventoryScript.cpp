@@ -799,19 +799,23 @@ void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 
 	for (int i = 0; i < consumableItems.size(); ++i)
 	{
-		if (consumableItems[i].first == assignedConsumableItem[itemPosition])
+		if (consumableItems[i].first == assignedConsumableItem[itemPosition] && consumableItems[i].second > 0)
 		{
-			for (int i = 0; i < items.size(); ++i)
+			for (int j = 0; j < items.size(); ++j)
 			{
-				if (items[i].first->name == assignedConsumableItem[itemPosition])
+				if (items[j].first->name == assignedConsumableItem[itemPosition])
 				{
-					playerMovement->ConsumeItem(items[i].first->stats);
+					playerMovement->ConsumeItem(items[j].first->stats);
 					consumableItems[i].second -= 1;
 
-					ManageConsumableItemsQuantityText(*items[i].first, consumableItems[i].second);
+					if (consumableItems[i].second < 0)
+					{
+						consumableItems[i].second = 0;
+					}
+
+					ManageConsumableItemsQuantityText(*items[j].first, consumableItems[i].second);
 				}
 			}
-
 		}
 	}
 }
