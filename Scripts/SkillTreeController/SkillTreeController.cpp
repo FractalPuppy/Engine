@@ -136,13 +136,13 @@ void SkillTreeController::Update()
 			skillInfoDescription->text = skillList[i].description;
 			if (i < playerMovement->allSkills.size() - 1 && playerMovement->allSkills[(SkillType)i] != nullptr)
 			{
-				// Show mana number with 2 decimals
+				// Show mana number with no decimals
 				std::string manaString = std::to_string(playerMovement->allSkills[(SkillType)i]->manaCost);
-				skillInfoManaCostText->text = manaString.substr(0, manaString.size() - 4);
+				skillInfoManaCostText->text = manaString.substr(0, manaString.size() - 7);
 
-				// Show cooldown number with 2 decimals
+				// Show cooldown number with 1 decimal
 				std::string cooldownString = std::to_string(playerMovement->allSkills[(SkillType)i]->cooldown);
-				cooldownString = cooldownString.substr(0, cooldownString.size() - 4);
+				cooldownString = cooldownString.substr(0, cooldownString.size() - 5);
 				skillInfoCDText->text = cooldownString + "s.";
 
 				skillInfoIcon->UpdateTexture(skillList[i].spriteActive->GetName());
