@@ -2860,7 +2860,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -3031,7 +3031,7 @@
                     ],
                     "Size": [
                         38.0,
-                        28.0
+                        38.0
                     ],
                     "Anchor": 7,
                     "Stretch": 3
@@ -5251,7 +5251,11 @@
                         "22": 2300,
                         "useDissolveEffect": 1,
                         "dissolveDuration": 0.800000011920929,
-                        "borderAmount": 0.4000000059604645
+                        "borderAmount": 0.4000000059604645,
+                        "healthIncrease": 10.0,
+                        "manaIncrease": 10.0,
+                        "strengthIncrease": 5,
+                        "dexterityIncrease": 1
                     }
                 }
             ]
