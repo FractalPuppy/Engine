@@ -39,7 +39,7 @@ void MacheteDanceSkill::Update()
 void MacheteDanceSkill::RotateMachetes()
 {
 	float rotationAmount = player->App->time->gameDeltaTime * macheteRotationSpeed;
-	spinMachetes[0]->parent->transform->Rotate(math::float3(0, -rotationAmount * 0.3f, 0));
+	spinMachetes[0]->parent->transform->Rotate(math::float3(0, -rotationAmount * 0.15f, 0));
 	for (size_t i = 0; i < spinMachetes.size(); i++)
 	{
 		spinMachetes[i]->transform->Rotate(math::float3(0, rotationAmount, 0));
