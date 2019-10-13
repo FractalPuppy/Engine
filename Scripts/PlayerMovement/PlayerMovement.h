@@ -36,11 +36,15 @@ struct ImGuiContext;
 #define MAX_BOMB_DROP_WAVE_SCALE 240.f
 #define BOMB_DROP_ROT 2.5f
 
+// Machete Rain variables
 #define MACHETE_RAIN_START_HEIGHT 3300.0f
 #define MACHETE_RAIN_SPEED 4000.0f
 #define MACHETE_RAIN_HORIZONTAL_SPEED 40.0f
 #define MACHETE_AMOUNT 40u
 #define MACHETE_SKILL_RANGE 900.f
+
+// Machete Dance variables
+#define MACHETE_SPIN "SpinMachete"
 
 class ComponentAnimation;
 class ComponentTransform;
@@ -300,6 +304,7 @@ public:
 	float basicAttackRange = 200.f;
 
 	bool macheteRainActivated = false;
+	bool macheteDanceActivated = false;
 	bool shaking = false;
 
 	std::unordered_map<SkillType, PlayerSkill*> allSkills;

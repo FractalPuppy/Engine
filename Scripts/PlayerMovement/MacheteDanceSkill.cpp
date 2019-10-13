@@ -8,8 +8,6 @@
 
 #include "PlayerMovement.h"
 
-#define MACHETE_SPIN "SpinMachete"
-
 MacheteDanceSkill::MacheteDanceSkill(PlayerMovement* PM, const char* trigger) : BasicSkill(PM, trigger)
 {
 }
@@ -21,9 +19,8 @@ MacheteDanceSkill::~MacheteDanceSkill()
 
 void MacheteDanceSkill::Start()
 {
-	// Spawn prefab
-	GameObject* spawnedMachete = player->App->scene->Spawn("MacheteDance", player->gameobject);
-	spinMachetes = player->App->scene->FindGameObjectsByTag(MACHETE_SPIN, spawnedMachete);
+
+	
 }
 
 void MacheteDanceSkill::Prepare()
@@ -32,17 +29,18 @@ void MacheteDanceSkill::Prepare()
 	{
 		spinMachetes[i]->SetActive(true);
 	}
+	player->macheteDanceActivated = true;
 }
 
 void MacheteDanceSkill::Update()
 {
 	BasicSkill::Update();
-	RotateMachetes();
 }
 
 void MacheteDanceSkill::RotateMachetes()
 {
-	float rotationAmount = player->App->time->gameDeltaTime * boneRotationSpeed;
+	float rotationAmount = player->App->time->gameDeltaTime * macheteRotationSpeed;
+	spinMachetes[0]->parent->transform->Rotate(math::float3(0, -rotationAmount * 0.3f, 0));
 	for (size_t i = 0; i < spinMachetes.size(); i++)
 	{
 		spinMachetes[i]->transform->Rotate(math::float3(0, rotationAmount, 0));

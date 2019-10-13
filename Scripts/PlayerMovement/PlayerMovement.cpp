@@ -275,6 +275,12 @@ void PlayerMovement::CreatePlayerSkills()
 		LOG("Machete rain mesh not found");
 	}
 	dance = new MacheteDanceSkill(this, "Dance");
+	// Spawn prefab
+	GameObject* danceMachetes = App->scene->Spawn("MacheteDance", gameobject);
+	if (danceMachetes && dance)
+	{
+		dance->spinMachetes = App->scene->FindGameObjectsByTag(MACHETE_SPIN, danceMachetes);
+	}
 
 	// Player equippable parts
 	GameObject* playerWeapon = App->scene->FindGameObjectByTag("PlayerWeapon");
@@ -848,6 +854,23 @@ void PlayerMovement::Update()
 			}
 			
 		}		
+	}
+
+	// Rotate machetes after MacheteDance skill is called
+	if (macheteDanceActivated && dance != nullptr)
+	{
+		dance->danceTimer += App->time->gameDeltaTime;
+		if (dance->danceTimer > dance->macheteDuration)
+		{
+			// Hide machetes
+			for (size_t i = 0; i < dance->spinMachetes.size(); i++)
+			{
+				dance->spinMachetes[i]->SetActive(false);
+			}
+			dance->danceTimer = 0.0f;
+			macheteDanceActivated = false;
+		}
+		dance->RotateMachetes();
 	}
 	//Check for changes in the state to send triggers to animation SM
 }

@@ -17,12 +17,14 @@ public:
 	void Prepare() override;
 	void Update() override;
 
-private:
 	void RotateMachetes();
+
 public:
 	std::vector<GameObject*> spinMachetes;
-	float boneRotationSpeed = 5.0f;
+	float macheteRotationSpeed = 20.0f;
 
+	float macheteDuration = 10.0f;
+	float danceTimer = 0.0f;
 };
 
 #endif __MacheteDanceSkill_h__
