@@ -279,6 +279,9 @@ set ERRORLEVEL=0</Command>
     <ClInclude Include="ExperienceController.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PlayerMovement\PlayerMovement.vcxproj">
+      <Project>{da319d4a-70a8-42c8-a54f-db7ead02ca0d}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\SkillTreeController\SkillTreeController.vcxproj">
       <Project>{55860826-2f36-4fbb-959e-e4ab93827c1f}</Project>
     </ProjectReference>
