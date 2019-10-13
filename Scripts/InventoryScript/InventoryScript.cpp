@@ -497,7 +497,6 @@ void InventoryScript::Update()
 
 					if (itemsSlots[j]->UUID != itemsSlots[i]->UUID)
 					{
-						LOG("I %d, J %d", i, j);
 						itemsSlots[j]->GetComponent<Transform2D>()->SetPositionUsingAligment(initialitemPos);
 						GameObject* tmp(std::move(itemsSlots[j]));
 						itemsSlots[j] = std::move(itemsSlots[i]);
@@ -551,6 +550,12 @@ void InventoryScript::Update()
 
 				for (GameObject* slot : slotsToActivate) slot->SetActive(true);
 				slotsToActivate.clear();
+
+				if (pair.first != nullptr)
+				{
+					int quantity = GetCurrentQuantity(*pair.first);
+					ManageConsumableItemsQuantityText(*pair.first, quantity);
+				}
 				return;
 			}
 
