@@ -43,132 +43,154 @@
                             {
                                 "id": 0,
                                 "name": "Dash",
-                                "description": "Your new legs allow you to dash towards the cursor, damaging enemies on your path.",
+                                "description": "Dash towards the cursor and damages enemies in your path.",
                                 "locked": 0,
                                 "maxLevel": 1,
                                 "nextSkill": 1,
                                 "connection": 0,
-                                "mana": 20,
+                                "mana": 5,
+                                "cooldown": 2,
+                                "damage": 1.0,
                                 "activeTextureUID": 885453344,
                                 "inactiveTextureUID": 1891334666
                             },
                             {
                                 "id": 1,
-                                "name": "Circular attack",
-                                "description": "Rapidly spinning your weapon around your body allows you to damage nearby enemies.",
+                                "name": "Smash",
+                                "description": "Jump and smash the floor damaging enemies in a small area.",
                                 "locked": 1,
                                 "maxLevel": 1,
                                 "nextSkill": 2,
                                 "connection": 1,
-                                "mana": 50,
-                                "activeTextureUID": 3774178758,
-                                "inactiveTextureUID": 1814959232
-                            },
-                            {
-                                "id": 2,
-                                "name": "Smash",
-                                "description": "Unleashing your power through your arms allows you to jump towards the cursor and smash the floor damaging enemies in small area.",
-                                "locked": 1,
-                                "maxLevel": 1,
-                                "nextSkill": -1,
-                                "connection": -1,
-                                "mana": 40,
+                                "mana": 15,
+                                "cooldown": 5,
+                                "damage": 2.0,
                                 "activeTextureUID": 2296932366,
                                 "inactiveTextureUID": 3063042807
                             },
                             {
+                                "id": 2,
+                                "name": "La picadora",
+                                "description": "Rapidly spinning your weapon around your body allows you to damage nearby enemies.",
+                                "locked": 1,
+                                "maxLevel": 1,
+                                "nextSkill": -1,
+                                "connection": -1,
+                                "mana": 10,
+                                "cooldown": 7,
+                                "damage": 1.0,
+                                "activeTextureUID": 3774178758,
+                                "inactiveTextureUID": 1814959232
+                            },
+                            {
                                 "id": 3,
                                 "name": "Machete rain",
-                                "description": "Machetes will rain from the sky damaging enemies in a large area. Hold the KEY and select the area where you want to cast the skill, then release the same key to activate the hability.",
+                                "description": "Summon thousands of machetes that will fall from the sky damaging in a big area. Hold the KEY and select the area where you want to cast the skill, once released the machetes are summoned.",
                                 "locked": 0,
                                 "maxLevel": 1,
                                 "nextSkill": -1,
                                 "connection": -1,
-                                "mana": 70,
+                                "mana": 20,
+                                "cooldown": 15,
+                                "damage": 0.5,
                                 "activeTextureUID": 101418882,
                                 "inactiveTextureUID": 386296996
                             },
                             {
                                 "id": 4,
-                                "name": "Skill4",
-                                "description": "",
+                                "name": "Slice",
+                                "description": "Slicing the air with your weapon casts a sharp wave that damages enemies in its path.",
                                 "locked": 1,
                                 "maxLevel": 1,
                                 "nextSkill": -1,
                                 "connection": -1,
-                                "mana": 0,
+                                "mana": 15,
+                                "cooldown": 5,
+                                "damage": 1.5,
                                 "activeTextureUID": 4157880507,
                                 "inactiveTextureUID": 1052833000
                             },
                             {
                                 "id": 5,
-                                "name": "Skill5",
-                                "description": "",
+                                "name": "Pollo picante",
+                                "description": "Summon a spicy chicken that will run to the nearest enemy and explode damaging foes in a big area.",
                                 "locked": 1,
                                 "maxLevel": 2,
                                 "nextSkill": 6,
                                 "connection": 4,
-                                "mana": 0,
+                                "mana": 25,
+                                "cooldown": 20,
+                                "damage": 3.0,
                                 "activeTextureUID": 2353223529,
                                 "inactiveTextureUID": 4140996810
                             },
                             {
                                 "id": 6,
-                                "name": "Skill6",
-                                "description": "",
+                                "name": "Machete dance",
+                                "description": "Summon a few machetes that will orbit around you, damaging enemies on their path.",
                                 "locked": 1,
                                 "maxLevel": 3,
                                 "nextSkill": 7,
                                 "connection": 5,
-                                "mana": 0,
+                                "mana": 25,
+                                "cooldown": 50,
+                                "damage": 1.0,
                                 "activeTextureUID": 4037492790,
                                 "inactiveTextureUID": 1474843939
                             },
                             {
                                 "id": 7,
-                                "name": "Skill7",
-                                "description": "",
+                                "name": "Soul gatherer",
+                                "description": "Killing enemies have a chance to drop a mana orb, picking it up will replenish your mana pool.",
                                 "locked": 1,
                                 "maxLevel": 1,
                                 "nextSkill": -1,
                                 "connection": -1,
                                 "mana": 0,
+                                "cooldown": 0,
+                                "damage": 0.0,
                                 "activeTextureUID": 3595172473,
                                 "inactiveTextureUID": 2604386210
                             },
                             {
                                 "id": 8,
-                                "name": "Skill8",
-                                "description": "",
+                                "name": "Maestro borracho",
+                                "description": "Enemies have a chance to drop tequila shots. Each tequila used will increase your DMG but will drain your mana for a short period of time.",
                                 "locked": 1,
                                 "maxLevel": 2,
                                 "nextSkill": 9,
                                 "connection": 6,
                                 "mana": 0,
+                                "cooldown": 0,
+                                "damage": 0.0,
                                 "activeTextureUID": 2868511582,
                                 "inactiveTextureUID": 4145295781
                             },
                             {
                                 "id": 9,
-                                "name": "Skill9",
-                                "description": "",
+                                "name": "Feather army",
+                                "description": "An army of chickens will be summoned to battle damaging nearby enemies.",
                                 "locked": 1,
                                 "maxLevel": 1,
                                 "nextSkill": 10,
                                 "connection": 7,
-                                "mana": 0,
+                                "mana": 30,
+                                "cooldown": 30,
+                                "damage": 1.0,
                                 "activeTextureUID": 2089509454,
                                 "inactiveTextureUID": 184765913
                             },
                             {
                                 "id": 10,
-                                "name": "Skill10",
-                                "description": "",
+                                "name": "Furia desatada",
+                                "description": "Unleash your inner fury, every attack deals critical damage. Each enemy killed will explode dealing damage to nearby enemies.",
                                 "locked": 1,
                                 "maxLevel": 1,
                                 "nextSkill": -1,
                                 "connection": -1,
-                                "mana": 0,
+                                "mana": 50,
+                                "cooldown": 60,
+                                "damage": 4.0,
                                 "activeTextureUID": 3921259047,
                                 "inactiveTextureUID": 472688446
                             }
@@ -206,7 +228,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -1270,8 +1292,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 1814959232,
-                    "textureName": "Desactivated_Hability_5",
+                    "textureUID": 3063042807,
+                    "textureName": "Desactivated_Hability_2",
                     "color": [
                         1.0,
                         0.9999899864196777,
@@ -1497,8 +1519,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 3063042807,
-                    "textureName": "Desactivated_Hability_2",
+                    "textureUID": 1814959232,
+                    "textureName": "Desactivated_Hability_5",
                     "color": [
                         1.0,
                         0.9999899864196777,
@@ -4131,7 +4153,7 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        -809.0999755859375,
+                        -817.2999877929688,
                         222.5
                     ],
                     "Size": [
@@ -4294,7 +4316,7 @@
                     "Enabled": 1,
                     "Position": [
                         -886.0,
-                        20.600000381469728
+                        -73.30000305175781
                     ],
                     "Size": [
                         100.0,
@@ -4374,8 +4396,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        -766.9000244140625,
-                        19.600000381469728
+                        -763.0,
+                        -73.30000305175781
                     ],
                     "Size": [
                         100.0,
@@ -4389,6 +4411,330 @@
                     "Enabled": 1,
                     "FontSize": 53.0,
                     "text": "50",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.0,
+                        1.0
+                    ],
+                    "IsTextWrapped": 1,
+                    "WrapWidth": 501.0,
+                    "InterlineDistance": 24.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 3796395861,
+            "ParentUID": 3133679061,
+            "Name": "SkillInfoCDTitle",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -886.0,
+                        -142.3000030517578
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 47.0,
+                    "text": "Cooldown:",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.881147563457489,
+                        0.7194998860359192,
+                        0.20223060250282288,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.0,
+                        1.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 100.0,
+                    "InterlineDistance": 24.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 2262452252,
+            "ParentUID": 3133679061,
+            "Name": "SkillInfoCDText",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -763.0,
+                        -142.3000030517578
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 53.0,
+                    "text": "50",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.0,
+                        1.0
+                    ],
+                    "IsTextWrapped": 1,
+                    "WrapWidth": 501.0,
+                    "InterlineDistance": 24.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 4097975122,
+            "ParentUID": 3133679061,
+            "Name": "SkillInfoDMGTitle",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -886.0,
+                        -208.5
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 47.0,
+                    "text": "Damage:",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.881147563457489,
+                        0.7194998860359192,
+                        0.20223060250282288,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        1.0,
+                        1.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 100.0,
+                    "InterlineDistance": 24.0,
+                    "UIOrder": 5
+                }
+            ]
+        },
+        {
+            "UID": 2275762826,
+            "ParentUID": 3133679061,
+            "Name": "SkillInfoDMGText",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -765.4000244140625,
+                        -208.5
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 53.0,
+                    "text": "x1",
                     "font": "Fonts/Vision-Regular.ttf",
                     "color": [
                         1.0,

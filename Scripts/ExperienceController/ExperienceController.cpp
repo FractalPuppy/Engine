@@ -151,8 +151,11 @@ void ExperienceController::AddXP(int xp)
 				}
 				currentXP -= maxXPLevel;
 				maxXPLevel = levelsExp[currentLevel - 1];
-				skillTreeScript->AddSkillPoint();
-				App->scene->FindGameObjectByName("NewSkillPoint")->SetActive(true);
+				if (currentLevel <= 5)
+				{
+					skillTreeScript->AddSkillPoint();
+					App->scene->FindGameObjectByName("NewSkillPoint")->SetActive(true);
+				}
 				//playermovement->addStats (subir de lvl)
 			}
 			levelText->text = std::to_string(currentLevel);

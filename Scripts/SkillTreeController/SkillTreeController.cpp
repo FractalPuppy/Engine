@@ -18,6 +18,8 @@
 #include "Math/float2.h"
 #include "ResourceTexture.h"
 
+#include "PlayerMovement.h"
+
 #include "PlayerPrefs.h"
 
 #define None "None Selected"
@@ -59,7 +61,22 @@ void SkillTreeController::Start()
 	go = App->scene->FindGameObjectByName("SkillInfoIcon", skillInfo);
 	if (go)
 		skillInfoIcon = go->GetComponent<ComponentImage>();
+	go = App->scene->FindGameObjectByName("SkillInfoCDText", skillInfo);
+	if (go)
+		skillInfoCDText = go->GetComponent<Text>();
 
+	go = App->scene->FindGameObjectByName("SkillInfoDMGText", skillInfo);
+	if (go)
+		skillInfoDMGText = go->GetComponent<Text>();
+
+	// Player
+	player = App->scene->FindGameObjectByName("Player");
+	assert(player != nullptr);
+	if (player != nullptr)
+	{
+		playerMovement = player->GetComponent<PlayerMovement>();
+		assert(playerMovement != nullptr);
+	}
 
 	for (int i = 0; i < NUM_SKILLS; ++i)
 	{
@@ -113,17 +130,33 @@ void SkillTreeController::Update()
 
 	for (int i = 0; i < NUM_SKILLS; ++i)
 	{
+		if (skillUI[i]->GetComponent<ComponentImage>()->isHovered)
+		{
+			skillInfoName->text = skillList[i].name;
+			skillInfoDescription->text = skillList[i].description;
+			skillInfoManaCostText->text = std::to_string(skillList[i].mana);
+			skillInfoCDText->text = std::to_string(skillList[i].cooldown) + "s.";
+			skillInfoIcon->UpdateTexture(skillList[i].spriteActive->GetName());
+			float dmg = skillList[i].damage * playerMovement->stats.strength;
+			if (dmg == (int)dmg)
+			{
+				skillInfoDMGText->text = std::to_string((int)dmg);
+			}
+			else
+			{
+				std::string str = std::to_string(dmg);
+				str.erase(str.find_last_not_of('0') + 1, std::string::npos);
+				skillInfoDMGText->text = str;
+			}
+			skillInfo->SetActive(true);
+		}
+
 		if (!skillList[i].locked && skillUI[i]->GetComponent<ComponentImage>()->isHovered)
 		{
 			math::float2 pos = skillUI[i]->children.front()->GetComponent<Transform2D>()->getPosition();
 			math::float2 newPos = math::float2(pos.x, pos.y);
 			hoverTransform->SetPositionUsingAligment(newPos);
 			hoverTransform->gameobject->SetActive(true);
-			skillInfoName->text = skillList[i].name;
-			skillInfoDescription->text = skillList[i].description;
-			skillInfoManaCostText->text = std::to_string(skillList[i].mana);
-			skillInfoIcon->UpdateTexture(skillList[i].spriteActive->GetName());
-			skillInfo->SetActive(true);
 			if (skillPoints > 0 && skillList[i].currentLevel < skillList[i].maxLevels && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			{
 				++skillList[i].currentLevel;
@@ -286,6 +319,8 @@ void SkillTreeController::Expose(ImGuiContext* context)
 			ImGui::InputInt("Next skill", &skillList[i].nextSkill);
 			ImGui::InputInt("Connection", &skillList[i].connection);
 			ImGui::InputInt("Mana Cost", &skillList[i].mana);
+			ImGui::InputInt("Cooldown", &skillList[i].cooldown);
+			ImGui::InputFloat("Damage", &skillList[i].damage);
 
 			ImGui::Checkbox("Locked", &skillList[i].locked);
 		}
@@ -311,6 +346,8 @@ void SkillTreeController::Serialize(JSON_value* json) const
 		skillJSON->AddInt("nextSkill", skill.nextSkill);
 		skillJSON->AddInt("connection", skill.connection);
 		skillJSON->AddInt("mana", skill.mana);
+		skillJSON->AddInt("cooldown", skill.cooldown);
+		skillJSON->AddFloat("damage", skill.damage);
 		skillJSON->AddUint("activeTextureUID", (skill.spriteActive != nullptr) ? skill.spriteActive->GetUID() : 0u);
 		skillJSON->AddUint("inactiveTextureUID", (skill.spriteInactive != nullptr) ? skill.spriteInactive->GetUID() : 0u);
 		skillsJson->AddValue("", *skillJSON);
@@ -334,6 +371,8 @@ void SkillTreeController::DeSerialize(JSON_value* json)
 		skillList[i].nextSkill = skillJSON->GetInt("nextSkill");
 		skillList[i].connection = skillJSON->GetInt("connection", -1);
 		skillList[i].mana = skillJSON->GetInt("mana", 0);
+		skillList[i].cooldown = skillJSON->GetInt("cooldown", 0);
+		skillList[i].damage = skillJSON->GetFloat("damage", 1.0f);
 		unsigned uid = skillJSON->GetUint("activeTextureUID");
 		skillList[i].spriteActive = (ResourceTexture*)App->resManager->Get(uid);
 		unsigned uidIn = skillJSON->GetUint("inactiveTextureUID");
