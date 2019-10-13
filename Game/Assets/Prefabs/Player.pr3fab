@@ -29,7 +29,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1460874546,
@@ -118,37 +118,44 @@
                         },
                         "abilities": {
                             "chain": {
-                                "type": 10,
+                                "type": 11,
+                                "damage": 1.0,
                                 "mana_cost": 0.0,
                                 "cooldown": 0.0
                             },
                             "dash": {
                                 "type": 0,
+                                "damage": 1.0,
                                 "mana_cost": 10.0,
                                 "cooldown": 0.0
                             },
                             "slice": {
                                 "type": 4,
+                                "damage": 1.5,
                                 "mana_cost": 10.0,
                                 "cooldown": 0.0
                             },
                             "bombDrop": {
                                 "type": 1,
+                                "damage": 2.0,
                                 "mana_cost": 10.0,
                                 "cooldown": 0.0
                             },
                             "circular": {
                                 "type": 2,
+                                "damage": 1.0,
                                 "mana_cost": 10.0,
                                 "cooldown": 0.0
                             },
                             "stomp": {
                                 "type": 5,
+                                "damage": 1.0,
                                 "mana_cost": 10.0,
                                 "cooldown": 0.0
                             },
                             "rain": {
                                 "type": 3,
+                                "damage": 0.5,
                                 "mana_cost": 10.0,
                                 "cooldown": 0.0
                             }
@@ -16286,340 +16293,6 @@
                     ],
                     "distorsionSpeed": 0.0010000000474974514,
                     "loop": 0
-                }
-            ]
-        },
-        {
-            "UID": 1560382371,
-            "ParentUID": 3653195144,
-            "Name": "ManaEffect",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        -10.9072265625,
-                        172.19720458984376,
-                        -35.07421875
-                    ],
-                    "Rotation": [
-                        0.000008577654625696596,
-                        -0.9886629581451416,
-                        0.000008441897080047056,
-                        0.1501525491476059
-                    ],
-                    "Euler": [
-                        179.99884033203126,
-                        -17.27153205871582,
-                        179.9988250732422
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        0.9999819397926331
-                    ],
-                    "Global": [
-                        0.2654668986797333,
-                        -0.0000155082561832387,
-                        0.9641276597976685,
-                        -5233.5283203125,
-                        0.000015729117876617239,
-                        1.0,
-                        0.000011755315426853486,
-                        983.2076416015625,
-                        -0.9641282558441162,
-                        0.000012044291906931904,
-                        0.2654821276664734,
-                        1278.796142578125,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                },
-                {
-                    "Type": 10,
-                    "Enabled": 1,
-                    "xTiles": 1,
-                    "yTiles": 1,
-                    "fps": 24.0,
-                    "textureUID": 1108081502,
-                    "lifetime": [
-                        0.5,
-                        0.5
-                    ],
-                    "speed": [
-                        400.0,
-                        400.0
-                    ],
-                    "rate": 6.5,
-                    "maxParticles": 50,
-                    "rotation": [
-                        0.0,
-                        0.0
-                    ],
-                    "sizeMin": [
-                        20.0,
-                        20.0
-                    ],
-                    "sizeMax": [
-                        40.0,
-                        25.0
-                    ],
-                    "quadEmitterSize": [
-                        80.0,
-                        80.0
-                    ],
-                    "particleColor": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "directionNoise": 1,
-                    "directionNoiseProbability": 5,
-                    "directionNoiseTotalProbability": 500,
-                    "actualEmisor": 0,
-                    "sizeOT": 0,
-                    "colorOT": 1,
-                    "defaultColor": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "billboarded": 0,
-                    "aligned": 0,
-                    "localEmitter": 0,
-                    "lookAtTarget": [
-                        0.0,
-                        1.0,
-                        0.0
-                    ],
-                    "intensity": 1.0,
-                    "bezier14": [
-                        0.0,
-                        0.0,
-                        1.0,
-                        1.0
-                    ],
-                    "bezier5": 0.0,
-                    "color0": [
-                        0.0,
-                        0.43442630767822268,
-                        1.0
-                    ],
-                    "colorPosition0": 0.02892560325562954,
-                    "alpha0": 1.0,
-                    "alphaPosition0": 0.03305784985423088,
-                    "alpha1": 0.0,
-                    "alphaPosition1": 0.9462810158729553,
-                    "alpha2": 0.6610000133514404,
-                    "alphaPosition2": 0.956476628780365,
-                    "color1": [
-                        0.02049177885055542,
-                        0.5898392796516419,
-                        1.0
-                    ],
-                    "colorPosition1": 0.9669421315193176,
-                    "alphas": 3,
-                    "colors": 2
-                }
-            ]
-        },
-        {
-            "UID": 3277839364,
-            "ParentUID": 3653195144,
-            "Name": "HPEffect",
-            "Tag": "HPEffect",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        -10.9072265625,
-                        172.19720458984376,
-                        -35.07421875
-                    ],
-                    "Rotation": [
-                        0.000008577654625696596,
-                        -0.9886629581451416,
-                        0.000008441897080047056,
-                        0.1501525491476059
-                    ],
-                    "Euler": [
-                        179.99884033203126,
-                        -17.27153205871582,
-                        179.9988250732422
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        0.9999819397926331
-                    ],
-                    "Global": [
-                        0.2654668986797333,
-                        -0.0000155082561832387,
-                        0.9641276597976685,
-                        -5233.5283203125,
-                        0.000015729117876617239,
-                        1.0,
-                        0.000011755315426853486,
-                        983.2076416015625,
-                        -0.9641282558441162,
-                        0.000012044291906931904,
-                        0.2654821276664734,
-                        1278.796142578125,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                },
-                {
-                    "Type": 10,
-                    "Enabled": 1,
-                    "xTiles": 1,
-                    "yTiles": 1,
-                    "fps": 24.0,
-                    "textureUID": 1108081502,
-                    "lifetime": [
-                        0.5,
-                        0.5
-                    ],
-                    "speed": [
-                        400.0,
-                        400.0
-                    ],
-                    "rate": 6.5,
-                    "maxParticles": 50,
-                    "rotation": [
-                        0.0,
-                        0.0
-                    ],
-                    "sizeMin": [
-                        20.0,
-                        20.0
-                    ],
-                    "sizeMax": [
-                        40.0,
-                        25.0
-                    ],
-                    "quadEmitterSize": [
-                        80.0,
-                        80.0
-                    ],
-                    "particleColor": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "directionNoise": 1,
-                    "directionNoiseProbability": 5,
-                    "directionNoiseTotalProbability": 500,
-                    "actualEmisor": 0,
-                    "sizeOT": 0,
-                    "colorOT": 1,
-                    "defaultColor": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "billboarded": 1,
-                    "aligned": 0,
-                    "localEmitter": 0,
-                    "lookAtTarget": [
-                        0.0,
-                        1.0,
-                        0.0
-                    ],
-                    "intensity": 1.0,
-                    "bezier14": [
-                        0.0,
-                        0.0,
-                        1.0,
-                        1.0
-                    ],
-                    "bezier5": 0.0,
-                    "color0": [
-                        0.450819730758667,
-                        1.0,
-                        0.0
-                    ],
-                    "colorPosition0": 0.02892560325562954,
-                    "alpha0": 1.0,
-                    "alphaPosition0": 0.03305784985423088,
-                    "alpha1": 0.0,
-                    "alphaPosition1": 0.9462810158729553,
-                    "alpha2": 0.6610000133514404,
-                    "alphaPosition2": 0.956476628780365,
-                    "color1": [
-                        0.3416420817375183,
-                        1.0,
-                        0.02049177885055542
-                    ],
-                    "colorPosition1": 0.9669421315193176,
-                    "alphas": 3,
-                    "colors": 2
                 }
             ]
         }
