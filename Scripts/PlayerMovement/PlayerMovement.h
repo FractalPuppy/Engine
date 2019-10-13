@@ -107,7 +107,7 @@ public:
 	void DeSerialize(JSON_value* json, BasicSkill* playerSkill);
 
 	bool IsUsable(float playerMana) const { return available && type != SkillType::NONE && (playerMana >= manaCost && cooldownTimer <= 0); }
-	float Use(float minCooldown = 0.f) { cooldownTimer = MAX(cooldown, minCooldown); maxCooldown = MAX(cooldown, minCooldown); return manaCost; }
+	float Use(float minCooldown = 0.f) { if (useCooldown) { cooldownTimer = MAX(cooldown, minCooldown); maxCooldown = MAX(cooldown, minCooldown); } return manaCost; }
 	void Update(float deltaTime) { if (cooldownTimer > 0) cooldownTimer -= deltaTime; }
 	void SetCooldown(float value) { if (type != SkillType::NONE && value > cooldownTimer) { cooldownTimer = value; maxCooldown = value; } }
 	float CooldownRatio() const { return cooldownTimer > 0 ? cooldownTimer / maxCooldown : 0; }
@@ -122,6 +122,8 @@ public:
 
 	float cooldownTimer = 0.f;
 	float maxCooldown = 0.f;
+
+	bool useCooldown = true;
 };
 
 struct PlayerMovement_API PlayerStats
