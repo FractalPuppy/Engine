@@ -123,9 +123,9 @@ void EquipPopupController::Update()
 	{
 		for (int i = 0; i < itemsEquiped.size(); ++i)
 		{
-			if (positionClicked == itemsEquiped[i].first)
+			for (int j = 0; j < HUD_BUTTONS; ++j)
 			{
-				hudConsumibleItemsQuantity[positionClicked]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));
+				hudConsumibleItemsQuantity[j]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));			
 			}
 		}
 	}
