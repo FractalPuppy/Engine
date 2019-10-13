@@ -107,7 +107,7 @@ void GodMode::Exposure() const
 
 void GodMode::DisableSkillsCooldown() const
 {
-	if (App->input->GetKey(SDL_SCANCODE_F8) != KEY_DOWN) return;
+	if (App->input->GetKey(SDL_SCANCODE_F9) != KEY_DOWN) return;
 
 	if (playerGO != nullptr)
 	{
