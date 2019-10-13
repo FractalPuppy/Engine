@@ -43,7 +43,7 @@ public:
 	int GetCurrentQuantity(std::string itemName);
 	void AssignConsumableItem(const Item& item, int position);
 	void UnAssignConsumableItem(int position);
-	int ConsumeItemsController();
+	std::string ConsumeItemsController();
 	void SaveInventory();
 	void LoadInventory();
 

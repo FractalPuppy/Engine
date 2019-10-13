@@ -701,6 +701,10 @@ void PlayerMovement::Start()
 	//assert breaks if evaluated to false
 	assert(inventoryGO && inventoryScript);
 
+
+	manaEffects = App->scene->FindGameObjectByName("ManaEffect");
+	hpEffects = App->scene->FindGameObjectByName("HPEffect");
+
 	LOG("Started player movement script");
 }
 
@@ -843,6 +847,19 @@ void PlayerMovement::Update()
 		}		
 	}
 	//Check for changes in the state to send triggers to animation SM
+
+	
+	currentTime += App->time->gameDeltaTime;
+	if (currentTime >= consumableItemTimeShowing)
+	{
+		if (hpEffects != nullptr)
+			hpEffects->SetActive(false);
+
+		if (manaEffects != nullptr)
+			manaEffects->SetActive(false);
+
+		currentTime = 0;
+	}
 }
 
 PlayerMovement_API void PlayerMovement::Damage(float amount)
@@ -983,11 +1000,17 @@ void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 		int amountToIncrease = (health + equipStats.health <= stats.health) ? equipStats.health : stats.health - health;
 		health = health + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::HEALING);
+
+		if (hpEffects != nullptr)
+			hpEffects->SetActive(true);
 	} else if (equipStats.mana > 0)
 	{
 		int amountToIncrease = (mana + equipStats.mana <= stats.mana) ? equipStats.mana : stats.mana - mana;
 		mana = mana + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::MANA);
+
+		if(manaEffects != nullptr)
+			manaEffects->SetActive(true);
 	}
 }
 

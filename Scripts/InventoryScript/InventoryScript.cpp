@@ -873,7 +873,7 @@ void InventoryScript::ManageConsumableItemsQuantityText(const Item& item, int qu
 }
 
 
-int InventoryScript::ConsumeItemsController()
+std::string InventoryScript::ConsumeItemsController()
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP)
 	{
@@ -883,7 +883,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_1);
 		}
 
-		return HUD_BUTTON_1;
+		return assignedConsumableItem[HUD_BUTTON_1];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_UP)
 	{
@@ -893,7 +893,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_2);
 		}
 
-		return HUD_BUTTON_2;
+		return assignedConsumableItem[HUD_BUTTON_2];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_UP)
 	{
@@ -903,7 +903,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_3);
 		}
 
-		return HUD_BUTTON_3;
+		return assignedConsumableItem[HUD_BUTTON_3];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_4) == KEY_UP)
 	{
@@ -913,7 +913,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_4);
 		}
 
-		return HUD_BUTTON_4;
+		return assignedConsumableItem[HUD_BUTTON_4];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_UP)
 	{
@@ -923,7 +923,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_Q);
 		}
 
-		return HUD_BUTTON_Q;
+		return assignedConsumableItem[HUD_BUTTON_Q];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 	{
@@ -933,7 +933,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_W);
 		}
 
-		return HUD_BUTTON_W;
+		return assignedConsumableItem[HUD_BUTTON_W];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_UP)
 	{
@@ -943,7 +943,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_E);
 		}
 
-		return HUD_BUTTON_E;
+		return assignedConsumableItem[HUD_BUTTON_E];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_R) == KEY_UP)
 	{
@@ -953,8 +953,8 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_R);
 		}
 
-		return HUD_BUTTON_R;
+		return assignedConsumableItem[HUD_BUTTON_R];
 	}
 
-	return -1;
+	return "";
 }

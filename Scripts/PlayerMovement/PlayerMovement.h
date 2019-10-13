@@ -348,6 +348,11 @@ private:
 	ComponentRenderer* helmetRenderer = nullptr;
 
 	InventoryScript* inventoryScript = nullptr;
+
+	GameObject* manaEffects = nullptr;
+	GameObject* hpEffects = nullptr;
+	float consumableItemTimeShowing = 2.0f;
+	float currentTime = 0.0f;
 };
 
 extern "C" PlayerMovement_API Script* CreateScript();

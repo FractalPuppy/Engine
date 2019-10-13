@@ -115,17 +115,20 @@ void EquipPopupController::Start()
 
 void EquipPopupController::Update()
 {
-	int positionClicked = inventory->ConsumeItemsController();
+	std::string itemUsed = inventory->ConsumeItemsController();
 	for (int i : inventory->equipedConsumablesToRemove) RemoveEquipedConsumable(i);
 	inventory->equipedConsumablesToRemove.clear();
 
-	if (positionClicked != -1)
+	if (itemUsed != "")
 	{
 		for (int i = 0; i < itemsEquiped.size(); ++i)
 		{
 			for (int j = 0; j < HUD_BUTTONS; ++j)
 			{
-				hudConsumibleItemsQuantity[j]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));			
+				if (itemUsed == itemsEquiped[i].second.name && j == itemsEquiped[i].first)
+				{
+					hudConsumibleItemsQuantity[j]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));
+				}		
 			}
 		}
 	}
