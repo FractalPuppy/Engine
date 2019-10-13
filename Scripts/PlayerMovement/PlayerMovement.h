@@ -89,7 +89,7 @@ enum class PlayerMovement_API SkillType
 	FEATHER,
 	FURIA,
 	CHAIN,
-	NONE
+	NONE = 20
 };
 
 struct PlayerMovement_API PlayerSkill
