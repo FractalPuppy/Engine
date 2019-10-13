@@ -279,7 +279,7 @@ void PlayerMovement::CreatePlayerSkills()
 	dance = new MacheteDanceSkill(this, "Dance");
 
 	// Spawn machete dance prefab
-	GameObject* danceMachetes = App->scene->Spawn("MacheteDance", gameobject);
+	GameObject* danceMachetes = App->scene->Spawn("MacheteDance");
 	if (danceMachetes && dance)
 	{
 		dance->spinMachetes = App->scene->FindGameObjectsByTag(MACHETE_SPIN, danceMachetes);
@@ -875,6 +875,7 @@ void PlayerMovement::Update()
 			dance->danceTimer = 0.0f;
 			macheteDanceActivated = false;
 		}
+		dance->spinMachetes[0]->parent->transform->SetPosition(this->gameobject->transform->position);
 		dance->RotateMachetes();
 	}
 	//Check for changes in the state to send triggers to animation SM
