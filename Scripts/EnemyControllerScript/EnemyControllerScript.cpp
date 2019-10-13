@@ -544,7 +544,7 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		}
 	}
 
-	if (go->tag == "PlayerHitBoxAttack" || go->tag == "Machete")
+	if (go->tag == "PlayerHitBoxAttack" || go->tag == "Machete" || go->tag == "SpinMachete")
 	{
 		if (gameobject->tag.c_str() != "Boss")
 		{
