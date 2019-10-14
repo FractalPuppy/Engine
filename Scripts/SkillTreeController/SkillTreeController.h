@@ -16,6 +16,7 @@ class Text;
 class JSON_value;
 class Transform2D;
 class ComponentImage;
+class PlayerMovement;
 class ComponentAudioSource;
 
 
@@ -52,7 +53,11 @@ private:
 	Text* skillInfoName = nullptr;
 	Text* skillInfoDescription = nullptr;
 	Text* skillInfoManaCostText = nullptr;
+	Text* skillInfoCDText = nullptr;
+	Text* skillInfoDMGText = nullptr;
 	ComponentImage* skillInfoIcon = nullptr;
+	GameObject* player = nullptr;
+	PlayerMovement* playerMovement = nullptr;
 
 	std::vector<GameObject*> skillUI;
 	std::vector<Component*> connUI;

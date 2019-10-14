@@ -1696,9 +1696,9 @@ bool ModuleNavigation::IsCursorPointingToNavigableZone(float xPickingCorrection,
 	if (navMesh && navQuery)
 	{
 		navQuery->findNearestPoly((float*)& intersectionPos, polyPickExt, &filter, &resultPoly, 0); // find closest poly
+		return resultPoly;
 	}
-
-	return resultPoly;
+	return false;
 }
 
 ENGINE_API bool ModuleNavigation::FindClosestPoint2D(math::float3& initial) const
@@ -1924,6 +1924,15 @@ int crowdTool::AddNewAgent(float* pos, float* vel, float speed)
 
 	int idx = m_crowd->addAgent(pos, &ap, vel);
 	return idx;
+}
+
+ENGINE_API void crowdTool::DeleteAgent(int idAgent)
+{
+	const dtCrowdAgent* ag = m_crowd->getAgent(idAgent);
+	if (ag && ag->active)
+	{
+		m_crowd->removeAgent(idAgent);
+	}
 }
 
 ENGINE_API void crowdTool::UpdateCrowd(float dtime)

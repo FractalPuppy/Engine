@@ -284,6 +284,7 @@ public:
 	ENGINE_API ~crowdTool();
 
 	ENGINE_API int AddNewAgent(float* pos, float* vel, float speed = 200.f);
+	ENGINE_API void DeleteAgent(int idAgent);
 	ENGINE_API void UpdateCrowd(float dtime);
 	ENGINE_API void MoveRequest(int idAgent, unsigned int targetRef, float* endPos);
 	ENGINE_API void ChangeVelocity(int idAgent, float velocity);

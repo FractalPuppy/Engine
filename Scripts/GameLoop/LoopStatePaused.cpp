@@ -7,6 +7,9 @@
 #include "GameObject.h"
 #include "ComponentButton.h"
 
+#include "Math/float2.h"
+#include "ComponentTransform2D.h"
+
 LoopStatePaused::LoopStatePaused(GameLoop* GL) : LoopState(GL)
 {
 }
@@ -20,6 +23,13 @@ void LoopStatePaused::Enter()
 {
 	gLoop->App->time->gameTimeScale = 0.0F;
 	if (gLoop->pauseMenuGO) gLoop->pauseMenuGO->SetActive(true);
+	
+	gLoop->inventoryMenuGO->SetActive(false);
+	gLoop->skillsMenuGO->SetActive(false);
+	gLoop->playerMenuGO->SetActive(false);
+
+	gLoop->inventoryButton->rectTransform->setPosition(math::float2(-50, gLoop->inventoryButton->rectTransform->getPosition().y));
+	gLoop->skillsButton->rectTransform->setPosition(math::float2(-50, gLoop->skillsButton->rectTransform->getPosition().y));
 }
 
 void LoopStatePaused::Update()
@@ -29,8 +39,20 @@ void LoopStatePaused::Update()
 		gLoop->App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN ||
 		gLoop->hudBackToMenuButton->IsPressed())
 	{
+		gLoop->hudBackToMenuButton->state = ButtonState::NONE;
 		gLoop->currentLoopState = (LoopState*)gLoop->playingState;
 		return;
+	}
+
+	if (gLoop->pauseControls && gLoop->pauseControls->KeyUp())
+	{
+		gLoop->controls->SetActive(true);
+	}
+
+	if (gLoop->backControlsButton && gLoop->backControlsButton->KeyUp())
+	{
+		gLoop->backControlsButton->state = ButtonState::NONE;
+		gLoop->controls->SetActive(false);
 	}
 
 	if (gLoop->pauseExit && gLoop->pauseExit->KeyUp())

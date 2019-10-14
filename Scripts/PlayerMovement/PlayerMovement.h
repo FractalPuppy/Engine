@@ -63,6 +63,7 @@ class ComponentCamera;
 class ComponentAudioSource;
 
 class ItemPicker;
+class InventoryScript;
 
 class Text;
 class BasicSkill;
@@ -79,12 +80,17 @@ class RainSkill;
 enum class PlayerMovement_API SkillType
 {
 	DASH,
-	CIRCULAR,
 	BOMB_DROP,
+	CIRCULAR,
 	RAIN,
 	SLICE,
 	STOMP,
-	CHAIN = 10,
+	DANCE,
+	SOUL,
+	BORRACHO,
+	FEATHER,
+	FURIA,
+	CHAIN,
 	NONE = 20
 };
 
@@ -92,7 +98,7 @@ struct PlayerMovement_API PlayerSkill
 {
 public:
 	PlayerSkill() {}
-	PlayerSkill(SkillType type, float manaCost = 10.0f, float cooldown = 0.0f) : type(type), manaCost(manaCost), cooldown(cooldown){}
+	PlayerSkill(SkillType type, float damage = 1.0f, float manaCost = 10.0f, float cooldown = 0.0f) : damage(damage), type(type), manaCost(manaCost), cooldown(cooldown){}
 	void Expose(const char* title);
 	void Serialize(JSON_value* json) const;
 	void DeSerialize(JSON_value* json, BasicSkill* playerSkill);
@@ -106,6 +112,7 @@ public:
 public:
 	bool available = true;
 	SkillType type = SkillType::NONE;
+	float damage = 1.0f;	// Multiplies base damage
 	float manaCost = 10.f;
 	float cooldown = 0.f;
 	BasicSkill* skill = nullptr;
@@ -200,6 +207,7 @@ public:
 	bool IsUsingR() const;
 	bool IsUsingSkill() const;
 	bool IsExecutingSkill() const;
+	PlayerSkill* GetSkillInUse() const;
 
 	void PrepareSkills() const;
 
@@ -212,6 +220,7 @@ public:
 	void ToggleInfiniteHealth();
 	void ToggleInfiniteMana();
 	void SavePlayerStats();
+	void UpdateUIStats();
 
 private:
 	void CheckStates(PlayerState* previous, PlayerState* current);
@@ -220,12 +229,9 @@ private:
 
 	void ActivateHudCooldownMask(bool activate, unsigned first = HUD_BUTTON_Q, unsigned last = HUD_BUTTON_4);
 
-	float DistPlayerToMouse() const;
-
 	// Skills
 	void CreatePlayerSkills();
 
-	void UpdateUIStats();
 	void InitializeUIStatsObjects();
 public:
 	bool isPlayerDead = false;
@@ -351,6 +357,8 @@ private:
 	//Audio
 	ComponentAudioSource* knives_attack = nullptr;
 	ComponentAudioSource* knives_ending = nullptr;
+
+	InventoryScript* inventoryScript = nullptr;
 };
 
 extern "C" PlayerMovement_API Script* CreateScript();
