@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ModuleTime.h"
 #include "ComponentTransform.h"
+#include "ComponentRenderer.h"
 #include "GameObject.h"
 
 #include "PlayerMovement.h"
@@ -26,6 +27,8 @@ void MacheteDanceSkill::Prepare()
 {
 	for (size_t i = 0; i < spinMachetes.size(); i++)
 	{
+		ComponentRenderer* macheteDanceRenderer = spinMachetes[i]->GetComponent<ComponentRenderer>();
+		macheteDanceRenderer->dissolveAmount = 1.0f;
 		spinMachetes[i]->SetActive(true);
 	}
 	player->macheteDanceActivated = true;
@@ -33,6 +36,11 @@ void MacheteDanceSkill::Prepare()
 
 void MacheteDanceSkill::Update()
 {
+	for (size_t i = 0; i < spinMachetes.size(); i++)
+	{
+		ComponentRenderer* macheteDanceRenderer = spinMachetes[i]->GetComponent<ComponentRenderer>();
+		macheteDanceRenderer->dissolveAmount = MAX(1.0f - (timer / duration), 0.0f);
+	}
 	BasicSkill::Update();
 }
 
