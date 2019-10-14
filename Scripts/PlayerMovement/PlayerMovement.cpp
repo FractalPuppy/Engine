@@ -304,6 +304,31 @@ void PlayerMovement::CreatePlayerSkills()
 	{
 		LOG("Player camera not found");
 	}
+
+	GameObject* GO = nullptr;
+	GO = App->scene->FindGameObjectByName("knives_attack");
+	if (GO != nullptr)
+	{
+		knives_attack = GO->GetComponent<ComponentAudioSource>();
+		assert(knives_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_attack game object not found");
+	}
+
+	GO = nullptr;
+	GO = App->scene->FindGameObjectByName("knives_ending");
+	if (GO != nullptr)
+	{
+		knives_ending = GO->GetComponent<ComponentAudioSource>();
+		assert(knives_ending != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_ending game object not found");
+	}
+
 	allSkills[SkillType::CHAIN]->skill = (BasicSkill*)chain;
 	allSkills[SkillType::DASH]->skill = (BasicSkill*)dash;
 	allSkills[SkillType::SLICE]->skill = (BasicSkill*)slice;
@@ -833,6 +858,8 @@ void PlayerMovement::Update()
 					{
 						LOG("Machete Rain end");
 						macheteRainActivated = false;
+						knives_attack->Stop();
+						knives_ending->Play();
 					}
 
 					if (macheteRainRenderer->dissolveAmount > 1.f)
