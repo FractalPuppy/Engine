@@ -45,6 +45,7 @@ struct ImGuiContext;
 
 // Machete Dance variables
 #define MACHETE_SPIN "SpinMachete"
+#define MACHETE_TRAILS "SpinTrails"
 
 class ComponentAnimation;
 class ComponentTransform;

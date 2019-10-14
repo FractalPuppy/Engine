@@ -48,6 +48,7 @@ void MacheteDanceSkill::Update()
 		// Dissolve animation
 		ComponentRenderer* macheteDanceRenderer = (ComponentRenderer*)spinMachetes[i]->GetComponentInChildren(ComponentType::Renderer);
 		macheteDanceRenderer->dissolveAmount = MAX(1.0f - (timer / duration), 0.0f);
+
 	}
 	BasicSkill::Update();
 }
@@ -59,6 +60,13 @@ void MacheteDanceSkill::Exit()
 	{
 		ComponentBoxTrigger* hitBox = (ComponentBoxTrigger*)spinMachetes[i]->GetComponentInChildren(ComponentType::BoxTrigger);
 		hitBox->Enable(true);
+	}
+
+	// Enable trails
+	for (size_t i = 0; i < spinTrails.size(); i++)
+	{
+		spinTrails[i]->SetActive(true);
+		trailsActive = true;
 	}
 	BasicSkill::Exit();
 }

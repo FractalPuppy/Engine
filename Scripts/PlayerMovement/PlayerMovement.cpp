@@ -283,6 +283,7 @@ void PlayerMovement::CreatePlayerSkills()
 	if (danceMachetes && dance)
 	{
 		dance->spinMachetes = App->scene->FindGameObjectsByTag(MACHETE_SPIN, danceMachetes);
+		dance->spinTrails = App->scene->FindGameObjectsByTag(MACHETE_TRAILS, danceMachetes);
 	}
 
 	// Player equippable parts
@@ -879,7 +880,17 @@ void PlayerMovement::Update()
 					dance->spinMachetes[i]->SetActive(false);
 			}
 
-			// Last machet disabled? End skill
+			// Dissable trails
+			if (dance->trailsActive)
+			{
+				for (size_t i = 0; i < dance->spinTrails.size(); i++)
+				{
+					dance->spinTrails[i]->SetActive(false);
+				}
+				dance->trailsActive = false;
+			}
+
+			// Last machete disabled? End skill
 			if (!dance->spinMachetes.empty() && !dance->spinMachetes[dance->spinMachetes.size() - 1]->isActive())
 			{
 				dance->danceTimer = 0.0f;

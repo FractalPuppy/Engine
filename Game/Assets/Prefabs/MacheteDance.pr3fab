@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 2427659641,
+            "UID": 4265864205,
             "ParentUID": 0,
             "Name": "MacheteDance",
             "Tag": "Default",
@@ -80,8 +80,8 @@
             ]
         },
         {
-            "UID": 1453809982,
-            "ParentUID": 2427659641,
+            "UID": 268302079,
+            "ParentUID": 4265864205,
             "Name": "Machete Pivot",
             "Tag": "SpinMachete",
             "Static": 0,
@@ -159,8 +159,8 @@
             ]
         },
         {
-            "UID": 453616005,
-            "ParentUID": 1453809982,
+            "UID": 3551712930,
+            "ParentUID": 268302079,
             "Name": "Machete",
             "Tag": "Default",
             "Static": 0,
@@ -208,8 +208,8 @@
                     ],
                     "Euler": [
                         5.732120333945545e-10,
-                        8.537733720004326e-7,
-                        3.6477137976831388e-10
+                        8.537733151570137e-7,
+                        3.6477135201273827e-10
                     ],
                     "Scale": [
                         1.0,
@@ -311,8 +311,8 @@
             ]
         },
         {
-            "UID": 626141838,
-            "ParentUID": 2427659641,
+            "UID": 1828557713,
+            "ParentUID": 4265864205,
             "Name": "Machete2 Pivot",
             "Tag": "SpinMachete",
             "Static": 0,
@@ -390,8 +390,8 @@
             ]
         },
         {
-            "UID": 3635214464,
-            "ParentUID": 626141838,
+            "UID": 1144829992,
+            "ParentUID": 1828557713,
             "Name": "Machete2",
             "Tag": "Default",
             "Static": 0,
@@ -542,8 +542,8 @@
             ]
         },
         {
-            "UID": 3650132749,
-            "ParentUID": 2427659641,
+            "UID": 1478172874,
+            "ParentUID": 4265864205,
             "Name": "Machete3 Pivot",
             "Tag": "SpinMachete",
             "Static": 0,
@@ -621,8 +621,8 @@
             ]
         },
         {
-            "UID": 70768484,
-            "ParentUID": 3650132749,
+            "UID": 3748089603,
+            "ParentUID": 1478172874,
             "Name": "Machete3",
             "Tag": "Default",
             "Static": 0,
@@ -773,13 +773,13 @@
             ]
         },
         {
-            "UID": 3341799008,
-            "ParentUID": 2427659641,
+            "UID": 4207495987,
+            "ParentUID": 4265864205,
             "Name": "Trail",
-            "Tag": "Default",
+            "Tag": "SpinTrails",
             "Static": 0,
             "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
+            "ActiveSelf": 0,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
@@ -868,13 +868,13 @@
             ]
         },
         {
-            "UID": 2472139117,
-            "ParentUID": 2427659641,
+            "UID": 2431995831,
+            "ParentUID": 4265864205,
             "Name": "Trail2",
-            "Tag": "Default",
+            "Tag": "SpinTrails",
             "Static": 0,
             "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
+            "ActiveSelf": 0,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
@@ -963,13 +963,13 @@
             ]
         },
         {
-            "UID": 319700960,
-            "ParentUID": 2427659641,
+            "UID": 2166689344,
+            "ParentUID": 4265864205,
             "Name": "Trail3",
-            "Tag": "Default",
+            "Tag": "SpinTrails",
             "Static": 0,
             "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
+            "ActiveSelf": 0,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,

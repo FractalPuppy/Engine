@@ -22,10 +22,13 @@ public:
 
 public:
 	std::vector<GameObject*> spinMachetes;
+	std::vector<GameObject*> spinTrails;
 	float macheteRotationSpeed = 20.0f;
 
 	float macheteDuration = 10.0f;
 	float danceTimer = 0.0f;
+
+	bool trailsActive = false;
 };
 
 #endif __MacheteDanceSkill_h__
