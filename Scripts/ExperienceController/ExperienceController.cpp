@@ -164,8 +164,13 @@ void ExperienceController::AddXP(int xp)
 				}
 				currentXP -= maxXPLevel;
 				maxXPLevel = levelsExp[currentLevel - 1];
-				skillTreeScript->AddSkillPoint();
-				App->scene->FindGameObjectByName("NewSkillPoint")->SetActive(true);
+
+				// Avoid giving more skill points than skills
+				if (currentLevel <= 6)
+				{
+					skillTreeScript->AddSkillPoint();
+					App->scene->FindGameObjectByName("NewSkillPoint")->SetActive(true);
+				}
 				LevelUpStats(); // Upgrade stats
 			}
 
