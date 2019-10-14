@@ -16,6 +16,7 @@ public:
 	void Start() override;
 	void Prepare() override;
 	void Update() override;
+	void Exit() override;
 
 	void RotateMachetes();
 

@@ -4,6 +4,7 @@
 #include "ModuleTime.h"
 #include "ComponentTransform.h"
 #include "ComponentRenderer.h"
+#include "ComponentBoxTrigger.h"
 #include "GameObject.h"
 
 #include "PlayerMovement.h"
@@ -27,8 +28,14 @@ void MacheteDanceSkill::Prepare()
 {
 	for (size_t i = 0; i < spinMachetes.size(); i++)
 	{
+		// Set dissolve at 1.0f
 		ComponentRenderer* macheteDanceRenderer = spinMachetes[i]->GetComponent<ComponentRenderer>();
 		macheteDanceRenderer->dissolveAmount = 1.0f;
+
+		// Dissable hitboxes
+		ComponentBoxTrigger* hitBox = spinMachetes[i]->GetComponent<ComponentBoxTrigger>();
+		hitBox->Enable(false);
+
 		spinMachetes[i]->SetActive(true);
 	}
 	player->macheteDanceActivated = true;
@@ -38,10 +45,22 @@ void MacheteDanceSkill::Update()
 {
 	for (size_t i = 0; i < spinMachetes.size(); i++)
 	{
+		// Dissolve animation
 		ComponentRenderer* macheteDanceRenderer = spinMachetes[i]->GetComponent<ComponentRenderer>();
 		macheteDanceRenderer->dissolveAmount = MAX(1.0f - (timer / duration), 0.0f);
 	}
 	BasicSkill::Update();
+}
+
+void MacheteDanceSkill::Exit()
+{
+	// Enable hitboxes
+	for (size_t i = 0; i < spinMachetes.size(); i++)
+	{
+		ComponentBoxTrigger* hitBox = spinMachetes[i]->GetComponent<ComponentBoxTrigger>();
+		hitBox->Enable(true);
+	}
+	BasicSkill::Exit();
 }
 
 void MacheteDanceSkill::RotateMachetes()
