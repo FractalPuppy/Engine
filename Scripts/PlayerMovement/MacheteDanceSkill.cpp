@@ -29,11 +29,11 @@ void MacheteDanceSkill::Prepare()
 	for (size_t i = 0; i < spinMachetes.size(); i++)
 	{
 		// Set dissolve at 1.0f
-		ComponentRenderer* macheteDanceRenderer = spinMachetes[i]->GetComponent<ComponentRenderer>();
+		ComponentRenderer* macheteDanceRenderer = (ComponentRenderer*)spinMachetes[i]->GetComponentInChildren(ComponentType::Renderer);
 		macheteDanceRenderer->dissolveAmount = 1.0f;
 
 		// Dissable hitboxes
-		ComponentBoxTrigger* hitBox = spinMachetes[i]->GetComponent<ComponentBoxTrigger>();
+		ComponentBoxTrigger* hitBox = (ComponentBoxTrigger*)spinMachetes[i]->GetComponentInChildren(ComponentType::BoxTrigger);
 		hitBox->Enable(false);
 
 		spinMachetes[i]->SetActive(true);
@@ -46,7 +46,7 @@ void MacheteDanceSkill::Update()
 	for (size_t i = 0; i < spinMachetes.size(); i++)
 	{
 		// Dissolve animation
-		ComponentRenderer* macheteDanceRenderer = spinMachetes[i]->GetComponent<ComponentRenderer>();
+		ComponentRenderer* macheteDanceRenderer = (ComponentRenderer*)spinMachetes[i]->GetComponentInChildren(ComponentType::Renderer);
 		macheteDanceRenderer->dissolveAmount = MAX(1.0f - (timer / duration), 0.0f);
 	}
 	BasicSkill::Update();
@@ -57,7 +57,7 @@ void MacheteDanceSkill::Exit()
 	// Enable hitboxes
 	for (size_t i = 0; i < spinMachetes.size(); i++)
 	{
-		ComponentBoxTrigger* hitBox = spinMachetes[i]->GetComponent<ComponentBoxTrigger>();
+		ComponentBoxTrigger* hitBox = (ComponentBoxTrigger*)spinMachetes[i]->GetComponentInChildren(ComponentType::BoxTrigger);
 		hitBox->Enable(true);
 	}
 	BasicSkill::Exit();

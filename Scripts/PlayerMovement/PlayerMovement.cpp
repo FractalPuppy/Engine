@@ -870,7 +870,7 @@ void PlayerMovement::Update()
 			// Dissolve animation
 			for (size_t i = 0; i < dance->spinMachetes.size(); i++)
 			{
-				ComponentRenderer* macheteDanceRenderer = dance->spinMachetes[i]->GetComponent<ComponentRenderer>();
+				ComponentRenderer* macheteDanceRenderer = (ComponentRenderer*)dance->spinMachetes[i]->GetComponentInChildren(ComponentType::Renderer);
 				if(macheteDanceRenderer != nullptr)
 					macheteDanceRenderer->dissolveAmount += 0.5f * App->time->gameDeltaTime;
 
