@@ -124,15 +124,15 @@ void ExperienceController::Update()
 	// Dissolve effect
 	if (useDissolveEffect && expDisolve)
 	{
-		if (dissolveTimer > (dissolveDuration/2.0f))	// Increment dissolve
+		if (dissolveTimer > (dissolveDuration/1.7f))	// Increment dissolve
 		{
 			dissolveTimer -= App->time->gameDeltaTime;
-			playerRender->dissolveAmount = (dissolveTimer / dissolveDuration);
+			playerRender->dissolveAmount = MIN(1.0f - (dissolveTimer / dissolveDuration), 1.0f);
 		}
 		else if (dissolveTimer > 0.0f)					// Decrease dissolve
 		{
-			dissolveTimer -= App->time->gameDeltaTime;
-			playerRender->dissolveAmount = 1.0f - (dissolveTimer / dissolveDuration);
+			dissolveTimer -= App->time->gameDeltaTime; 
+			playerRender->dissolveAmount = MAX(dissolveTimer / dissolveDuration , 0.0f);
 		}
 		else
 		{
@@ -275,7 +275,7 @@ void ExperienceController::DeSerialize(JSON_value* json)
 		levelsExp[i] = json->GetInt(std::to_string(i).c_str(), levelsExp[i]);
 	}
 	useDissolveEffect = json->GetUint("useDissolveEffect", 1.0f);
-	dissolveDuration = json->GetFloat("dissolveDuration", 0.8f);
+	dissolveDuration = json->GetFloat("dissolveDuration", 1.0f);
 	borderAmount = json->GetFloat("borderAmount", 0.4f);
 	healthIncrease = json->GetFloat("healthIncrease", 10.0f);
 	manaIncrease = json->GetFloat("manaIncrease", 10.0f);

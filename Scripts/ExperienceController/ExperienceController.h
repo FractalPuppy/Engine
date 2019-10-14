@@ -70,7 +70,7 @@ private:
 
 	// Dissolve Effect
 	bool useDissolveEffect = true;
-	float dissolveDuration = 0.8f;
+	float dissolveDuration = 1.0f;
 	float dissolveTimer = 0.0f;
 	float borderAmount = 0.4f;
 	bool expDisolve = false;
