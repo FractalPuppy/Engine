@@ -867,18 +867,28 @@ void PlayerMovement::Update()
 		// End skill
 		if (dance->danceTimer > dance->macheteDuration)
 		{
-			// Hide machetes
+			// Dissolve animation
 			for (size_t i = 0; i < dance->spinMachetes.size(); i++)
 			{
-				dance->spinMachetes[i]->SetActive(false);
+				ComponentRenderer* macheteDanceRenderer = dance->spinMachetes[i]->GetComponent<ComponentRenderer>();
+				if(macheteDanceRenderer != nullptr)
+					macheteDanceRenderer->dissolveAmount += 0.5f * App->time->gameDeltaTime;
+
+				// Dissolve animation ended, hide machetes
+				if(macheteDanceRenderer->dissolveAmount > 1.f)
+					dance->spinMachetes[i]->SetActive(false);
 			}
-			dance->danceTimer = 0.0f;
-			macheteDanceActivated = false;
+
+			// Last machet disabled? End skill
+			if (!dance->spinMachetes.empty() && !dance->spinMachetes[dance->spinMachetes.size() - 1]->isActive())
+			{
+				dance->danceTimer = 0.0f;
+				macheteDanceActivated = false;
+			}
 		}
 		dance->spinMachetes[0]->parent->transform->SetPosition(this->gameobject->transform->position);
 		dance->RotateMachetes();
 	}
-	//Check for changes in the state to send triggers to animation SM
 }
 
 PlayerMovement_API void PlayerMovement::Damage(float amount)
