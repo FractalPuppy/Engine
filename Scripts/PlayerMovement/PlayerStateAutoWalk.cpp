@@ -111,10 +111,30 @@ float PlayerStateAutoWalk::CalculateCameraLambda()
 
 math::float3 PlayerStateAutoWalk::InterpolateFloat3(const math::float3 first, const math::float3 second, float lambda)
 {
-	return math::float3();
+	return first * (1.0f - lambda) + second * lambda;
 }
 
 math::Quat PlayerStateAutoWalk::InterpolateQuat(const math::Quat first, const math::Quat second, float lambda)
 {
-	return math::Quat();
+	math::Quat result;
+	float dot = first.Dot(second);
+
+	if (dot >= 0.0f) // Interpolate through the shortest path
+	{
+		result.x = first.x*(1.0f - lambda) + second.x*lambda;
+		result.y = first.y*(1.0f - lambda) + second.y*lambda;
+		result.z = first.z*(1.0f - lambda) + second.z*lambda;
+		result.w = first.w*(1.0f - lambda) + second.w*lambda;
+	}
+	else
+	{
+		result.x = first.x*(1.0f - lambda) - second.x*lambda;
+		result.y = first.y*(1.0f - lambda) - second.y*lambda;
+		result.z = first.z*(1.0f - lambda) - second.z*lambda;
+		result.w = first.w*(1.0f - lambda) - second.w*lambda;
+	}
+
+	result.Normalize();
+
+	return result;
 }

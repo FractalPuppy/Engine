@@ -41,7 +41,7 @@ private:
 	float cameraMovementTimer = 0.0f;
 
 	float firstLambda = 0.0f;
-	float cameraMovementDuration = 10.0f;
+	float cameraMovementDuration = 5.0f;
 };
 
 #endif // __PLAYERSTATEAUTOWALK_H_
