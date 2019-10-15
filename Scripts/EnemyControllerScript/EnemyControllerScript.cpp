@@ -13,6 +13,7 @@
 
 #include "GameObject.h"
 #include "ComponentRenderer.h"
+#include "ComponentAnimation.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 
@@ -43,12 +44,11 @@ void EnemyControllerScript::Start()
 	//add the enemy to the world controller script
 	//this should be called everytime levels are switched
 	
-	if (gameobject->tag != "Boss")
+	if (gameobject->tag.c_str() != "Boss")
 	{
 		currentWorldControllerScript = App->scene->FindGameObjectByName("WorldController")->GetComponent<WorldControllerScript>();
 		currentWorldControllerScript->addEnemy(gameobject);
 	}
-	
 }
 
 void EnemyControllerScript::Awake()
@@ -278,7 +278,8 @@ void EnemyControllerScript::Update()
 			deathTimer += App->time->gameDeltaTime;
 		}
 	}
-	if (currentWorldControllerScript != nullptr && isDead && !removedFromCrowd)
+  
+	if (isDead && gameobject->tag.c_str() != "Boss" && currentWorldControllerScript != nullptr && !removedFromCrowd)
 	{
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
@@ -399,6 +400,7 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 		if (actualHealth <= 0)
 		{
 			isDead = true;
+
 			if ((DamageType)type == DamageType::CRITICAL || playerMovement->IsExecutingSkill())
 			{
 				isDeadByCritOrSkill = true; //by default is false (Normal)
