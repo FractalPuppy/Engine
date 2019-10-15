@@ -317,6 +317,31 @@ void PlayerMovement::CreatePlayerSkills()
 	{
 		LOG("Player camera not found");
 	}
+
+	GameObject* GO = nullptr;
+	GO = App->scene->FindGameObjectByName("knives_attack");
+	if (GO != nullptr)
+	{
+		knives_attack = GO->GetComponent<ComponentAudioSource>();
+		assert(knives_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_attack game object not found");
+	}
+
+	GO = nullptr;
+	GO = App->scene->FindGameObjectByName("knives_ending");
+	if (GO != nullptr)
+	{
+		knives_ending = GO->GetComponent<ComponentAudioSource>();
+		assert(knives_ending != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_ending game object not found");
+	}
+
 	allSkills[SkillType::CHAIN]->skill = (BasicSkill*)chain;
 	allSkills[SkillType::DASH]->skill = (BasicSkill*)dash;
 	allSkills[SkillType::SLICE]->skill = (BasicSkill*)slice;
@@ -718,6 +743,9 @@ void PlayerMovement::Start()
 	//assert breaks if evaluated to false
 	assert(inventoryGO && inventoryScript);
 
+	manaEffects = App->scene->FindGameObjectByName("ManaEffect");
+	hpEffects = App->scene->FindGameObjectByName("HPEffect");
+
 	LOG("Started player movement script");
 }
 
@@ -847,6 +875,8 @@ void PlayerMovement::Update()
 					{
 						LOG("Machete Rain end");
 						macheteRainActivated = false;
+						knives_attack->Stop();
+						knives_ending->Play();
 					}
 
 					if (macheteRainRenderer->dissolveAmount > 1.f)
@@ -858,6 +888,20 @@ void PlayerMovement::Update()
 			}
 			
 		}		
+	}
+	//Check for changes in the state to send triggers to animation SM
+
+
+	currentTime += App->time->gameDeltaTime;
+	if (currentTime >= consumableItemTimeShowing)
+	{
+		if (hpEffects != nullptr)
+			hpEffects->SetActive(false);
+
+		if (manaEffects != nullptr)
+			manaEffects->SetActive(false);
+
+		currentTime = 0;
 	}
 
 	// Rotate machetes after MacheteDance skill is called
@@ -1035,15 +1079,23 @@ void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
 
 void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 {
-	health = health + equipStats.health;
-	mana = mana + equipStats.mana;
-
 	if (equipStats.health > 0)
 	{
-		damageController->AddDamage(gameobject->transform, equipStats.health, DamageType::HEALING);
-	} else if (equipStats.mana > 0)
+		int amountToIncrease = (health + equipStats.health <= stats.health) ? equipStats.health : stats.health - health;
+		health = health + amountToIncrease;
+		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::HEALING);
+
+		if (hpEffects != nullptr)
+			hpEffects->SetActive(true);
+	}
+	else if (equipStats.mana > 0)
 	{
-		damageController->AddDamage(gameobject->transform, equipStats.mana, DamageType::MANA);
+		int amountToIncrease = (mana + equipStats.mana <= stats.mana) ? equipStats.mana : stats.mana - mana;
+		mana = mana + amountToIncrease;
+		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::MANA);
+
+		if (manaEffects != nullptr)
+			manaEffects->SetActive(true);
 	}
 }
 
