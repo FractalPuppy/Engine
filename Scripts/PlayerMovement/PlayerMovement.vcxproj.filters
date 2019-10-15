@@ -81,6 +81,9 @@
     <ClInclude Include="PlayerStateWalkToPickItem.h">
       <Filter>States</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerStateAutoWalk.h">
+      <Filter>States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerMovement.cpp">
@@ -135,6 +138,9 @@
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="PlayerStateWalkToPickItem.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateAutoWalk.cpp">
       <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
