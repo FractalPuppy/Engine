@@ -208,6 +208,11 @@ void EnemyControllerScript::Update()
 
 	if (playerMovement->isPlayerDead) return;
 
+	if (bossFightStarted)
+	{
+		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Santa Muerte");
+	}
+
 	auto mesh = std::find(intersects.begin(), intersects.end(), this->myMesh);
 	if(mesh != std::end(intersects) && *mesh == this->myMesh)
 	{
@@ -216,7 +221,6 @@ void EnemyControllerScript::Update()
 		{
 			switch (enemyType)
 			{
-			default:
 			case EnemyType::SKELETON:	enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Skeleton");	break;
 			case EnemyType::MINER:		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Miner"); 		break;
 			case EnemyType::SORCERER:	enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Sorcerer");	break;
@@ -259,6 +263,8 @@ void EnemyControllerScript::Update()
 		}
 	}
 
+
+
 	if (enemyHit && hitColorTimer > 0.f)
 	{
 		hitColorTimer -= App->time->gameDeltaTime;
@@ -298,10 +304,10 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 {
 
 	// Enemy Type
-	const char* types[] = { "Skeleton", "Miner", "Sorcerer", "Spinner", "Bandolero" };
+	const char* types[] = { "Skeleton", "Miner", "Sorcerer", "Spinner", "Bandolero" , "Boss"};
 	if (ImGui::BeginCombo("Type", types[(int)enemyType]))
 	{
-		for (int n = 0; n < 5; n++)
+		for (int n = 0; n < 6; n++)
 		{
 			bool isSelected = ((int)enemyType == n);
 			if (ImGui::Selectable(types[n], isSelected) && (int)enemyType != n)
