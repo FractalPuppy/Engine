@@ -65,6 +65,8 @@ class DamageController;
 class DamageFeedbackUI;
 class ComponentAudioSource;
 class ComponentCamera;
+class ComponentAudioSource;
+
 class ItemPicker;
 class InventoryScript;
 
@@ -363,7 +365,16 @@ private:
 	ComponentRenderer* weaponRenderer = nullptr;
 	ComponentRenderer* helmetRenderer = nullptr;
 
+	//Audio
+	ComponentAudioSource* knives_attack = nullptr;
+	ComponentAudioSource* knives_ending = nullptr;
+
 	InventoryScript* inventoryScript = nullptr;
+
+	GameObject* manaEffects = nullptr;
+	GameObject* hpEffects = nullptr;
+	float consumableItemTimeShowing = 2.0f;
+	float currentTime = 0.0f;
 };
 
 extern "C" PlayerMovement_API Script* CreateScript();
