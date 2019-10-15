@@ -1044,6 +1044,19 @@ void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 	}
 }
 
+void PlayerMovement::stopPlayerWalking()
+{
+	if (walk != nullptr)
+	{
+		walk->playerWalking = false;
+		if (walk->dustParticles)
+		{
+			walk->dustParticles->SetActive(false);
+		}
+
+	}
+}
+
 void PlayerMovement::OnAnimationEvent(std::string name)
 {
 	if (name == "BombDropLanding")
