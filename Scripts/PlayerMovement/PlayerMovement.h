@@ -30,7 +30,7 @@ struct ImGuiContext;
 #define HUD_BUTTON_E 7
 #define HUD_BUTTON_R 8
 
-#define NUMBER_OF_PLAYERSTATES 7
+#define NUMBER_OF_PLAYERSTATES 8
 
 #define MAX_BOMB_DROP_SCALE 200.f
 #define MAX_BOMB_DROP_WAVE_SCALE 240.f
@@ -56,6 +56,7 @@ class PlayerStateDeath;
 class PlayerStateWalk;
 class PlayerStateWalkToHitEnemy;
 class PlayerStateWalkToPickItem;
+class PlayerStateAutoWalk;
 class DamageController;
 class DamageFeedbackUI;
 class ComponentAudioSource;
@@ -243,6 +244,7 @@ public:
 	PlayerStateWalk* walk = nullptr;
 	PlayerStateWalkToHitEnemy* walkToHit = nullptr;
 	PlayerStateWalkToPickItem* walkToPickItem = nullptr;
+	PlayerStateAutoWalk* autoWalk = nullptr;
 	//walking to hit player orientation necessary info:
 	bool enemyTargeted = false;
 	GameObject* enemyTarget = nullptr;
