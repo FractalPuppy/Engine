@@ -60,6 +60,8 @@ class DamageController;
 class DamageFeedbackUI;
 class ComponentAudioSource;
 class ComponentCamera;
+class ComponentAudioSource;
+
 class ItemPicker;
 class InventoryScript;
 
@@ -351,6 +353,10 @@ private:
 	// Player equippable parts (Weapon, Helmet)
 	ComponentRenderer* weaponRenderer = nullptr;
 	ComponentRenderer* helmetRenderer = nullptr;
+
+	//Audio
+	ComponentAudioSource* knives_attack = nullptr;
+	ComponentAudioSource* knives_ending = nullptr;
 
 	InventoryScript* inventoryScript = nullptr;
 

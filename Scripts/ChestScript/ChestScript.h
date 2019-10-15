@@ -17,6 +17,7 @@ class ComponentRenderer;
 class ComponentAnimation;
 class LootDropScript;
 class PlayerMovement;
+class ComponentAudioSource;
 
 enum class chestState { CLOSED, OPENING, OPENED};
 
@@ -62,6 +63,10 @@ private:
 	float lootDelay = 2.5f;										// Time since chest is opened untill loot is spawned
 	float lootRadius = 100.0f;									// Distance from enemy position to drop Items around (only if Items to drop > 1)
 	bool changeItemCursorIcon = true;
+
+	//Audio
+	ComponentAudioSource* open_chest = nullptr;
+	bool activated = false;
 };
 
 extern "C" ChestScript_API Script* CreateScript();
