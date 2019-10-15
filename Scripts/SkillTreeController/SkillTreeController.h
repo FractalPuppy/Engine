@@ -16,6 +16,9 @@ class Text;
 class JSON_value;
 class Transform2D;
 class ComponentImage;
+class PlayerMovement;
+class ComponentAudioSource;
+
 
 #define NUM_SKILLS 11
 
@@ -50,7 +53,11 @@ private:
 	Text* skillInfoName = nullptr;
 	Text* skillInfoDescription = nullptr;
 	Text* skillInfoManaCostText = nullptr;
+	Text* skillInfoCDText = nullptr;
+	Text* skillInfoDMGText = nullptr;
 	ComponentImage* skillInfoIcon = nullptr;
+	GameObject* player = nullptr;
+	PlayerMovement* playerMovement = nullptr;
 
 	std::vector<GameObject*> skillUI;
 	std::vector<Component*> connUI;
@@ -58,8 +65,11 @@ private:
 	std::vector<std::string> textureFiles;
 	Skill skillList[NUM_SKILLS];
 
-	int initialSkillPoints = 0;
+	int initialSkillPoints = 20;
 	bool item = false;
+
+	//Audio
+	ComponentAudioSource* skill_button = nullptr;
 };
 
 extern "C" SkillTreeController_API Script* CreateScript();

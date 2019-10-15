@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleScene.h"
 
 #include "ComponentRenderer.h"
 #include "ComponentTransform.h"
@@ -31,7 +32,9 @@ void BossStateInterPhase::HandleIA()
 
 void BossStateInterPhase::Update()
 {
-
+	//while getting to the ground, she cannot be attacked
+	boss->App->scene->enemyHovered.object = nullptr;
+	boss->App->scene->enemyHovered.health = 0;
 	switch (ipState)
 	{
 	case IpState::None:

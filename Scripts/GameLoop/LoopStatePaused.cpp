@@ -7,6 +7,9 @@
 #include "GameObject.h"
 #include "ComponentButton.h"
 
+#include "Math/float2.h"
+#include "ComponentTransform2D.h"
+
 LoopStatePaused::LoopStatePaused(GameLoop* GL) : LoopState(GL)
 {
 }
@@ -20,6 +23,13 @@ void LoopStatePaused::Enter()
 {
 	gLoop->App->time->gameTimeScale = 0.0F;
 	if (gLoop->pauseMenuGO) gLoop->pauseMenuGO->SetActive(true);
+	
+	gLoop->inventoryMenuGO->SetActive(false);
+	gLoop->skillsMenuGO->SetActive(false);
+	gLoop->playerMenuGO->SetActive(false);
+
+	gLoop->inventoryButton->rectTransform->setPosition(math::float2(-50, gLoop->inventoryButton->rectTransform->getPosition().y));
+	gLoop->skillsButton->rectTransform->setPosition(math::float2(-50, gLoop->skillsButton->rectTransform->getPosition().y));
 }
 
 void LoopStatePaused::Update()

@@ -31,6 +31,7 @@
 
 #define MINIMUM_PATH_DISTANCE 400.0f
 #define MOVE_REFRESH_TIME 0.3f
+#define CRITICAL_DAMAGE 1.2f
 
 EnemyControllerScript_API Script* CreateScript()
 {
@@ -454,7 +455,7 @@ inline math::float3 EnemyControllerScript::GetPlayerPosition() const
 inline void EnemyControllerScript::SetPosition(math::float3 newPos) const
 {
 	assert(gameobject->transform != nullptr);
-	gameobject->transform->SetGlobalPosition(newPos);
+gameobject->transform->SetGlobalPosition(newPos);
 }
 
 inline float EnemyControllerScript::GetDistanceTo(math::float3& position) const
@@ -549,24 +550,23 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 	{
 		if (gameobject->tag.c_str() != "Boss")
 		{
-			// Generate a random number and if it is below the critical chance the damage will be increased
+			// Get base damage
+			int totalDamage = playerMovement->stats.strength;
+
+			// Add damage of the skill
+			PlayerSkill* skill = playerMovement->GetSkillInUse();
+			if (skill != nullptr)
+				totalDamage *= skill->damage;
+
+			// Generate a random number and if it is below the critical chance -> increase damage
 			if ((rand() % 100u) < playerMovement->criticalChance)
 			{
-				TakeDamage(playerMovement->stats.strength * 0.2f, (int)DamageType::CRITICAL);
+				TakeDamage(totalDamage * CRITICAL_DAMAGE, (int)DamageType::CRITICAL);
 			}
 			else
 			{
-				TakeDamage(playerMovement->stats.strength * 0.1f, (int)DamageType::NORMAL);
+				TakeDamage(totalDamage, (int)DamageType::NORMAL);
 			}
 		}
-		//else
-		//{
-		//	float distanceToPlayer = GetDistanceToPlayer2D();
-		//	if (distanceToPlayer > 500.0f)
-		//	{
-
-		//	}
-		//}
-
 	}
 }
