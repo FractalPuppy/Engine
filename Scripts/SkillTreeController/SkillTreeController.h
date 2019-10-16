@@ -65,7 +65,7 @@ private:
 	std::vector<std::string> textureFiles;
 	Skill skillList[NUM_SKILLS];
 
-	int initialSkillPoints = 20;
+	int initialSkillPoints = 0;
 	bool item = false;
 
 	//Audio
