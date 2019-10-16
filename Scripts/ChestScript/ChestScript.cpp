@@ -212,13 +212,22 @@ void ChestScript::OnChestClosedHover()
 		if (myRender != nullptr)
 			myRender->highlighted = true;
 
-		MouseController::ChangeCursorIcon(pickCursor);
+		if(changeItemCursorIcon)
+		{
+			MouseController::ChangeCursorIcon(pickCursor);
+			changeItemCursorIcon = false;
+		}
 	}
 	else
 	{
 		if (myRender != nullptr)
 			myRender->highlighted = false;
 
-		MouseController::ChangeCursorIcon(gameStandarCursor);
+
+		if (!changeItemCursorIcon)
+		{
+			MouseController::ChangeCursorIcon(gameStandarCursor);
+			changeItemCursorIcon = true;
+		}
 	}
 }

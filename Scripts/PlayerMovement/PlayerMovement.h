@@ -185,6 +185,7 @@ public:
 	void EquipMesh(unsigned itemType, unsigned meshUID, unsigned materialUID);								// Equip only the item mesh
 	void UnEquip(const PlayerStats& equipStats, unsigned itemType);
 	void ConsumeItem(const PlayerStats& equipStats);
+	void stopPlayerWalking();
 
 	void OnAnimationEvent(std::string name) override;
 
@@ -359,6 +360,11 @@ private:
 	ComponentAudioSource* knives_ending = nullptr;
 
 	InventoryScript* inventoryScript = nullptr;
+
+	GameObject* manaEffects = nullptr;
+	GameObject* hpEffects = nullptr;
+	float consumableItemTimeShowing = 2.0f;
+	float currentTime = 0.0f;
 };
 
 extern "C" PlayerMovement_API Script* CreateScript();
