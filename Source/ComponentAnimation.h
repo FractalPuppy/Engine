@@ -30,6 +30,7 @@ public:
 	ResourceAnimation* GetAnimFromStateMachine();
 	bool GetLoopFromStateMachine();
 	ENGINE_API float GetDurationFromClip();
+	ENGINE_API void SetAnimationFreeze(bool freeze);
 	float GetSpeedFromStateMachine();
 	bool GetMustFinishFromStateMachine();
 	void PlayNextNode(float blend);
@@ -70,6 +71,7 @@ public:
 	EditorContext* context = nullptr;
 	char* animName = new char[64];
 	bool isPlaying = false;
+	bool isFrozen = false;
 
 	std::vector<std::string> guiAnimations;
 	std::vector<std::string> guiStateMachines;
