@@ -44,7 +44,7 @@ void EnemyControllerScript::Start()
 	//add the enemy to the world controller script
 	//this should be called everytime levels are switched
 	
-	if (gameobject->tag.c_str() != "Boss")
+	if (gameobject->tag.c_str() != "Boss" && gameobject->tag != "Boss")
 	{
 		currentWorldControllerScript = App->scene->FindGameObjectByName("WorldController")->GetComponent<WorldControllerScript>();
 		currentWorldControllerScript->addEnemy(gameobject);
@@ -220,6 +220,18 @@ void EnemyControllerScript::Update()
 		//we need to keep track of current targeted enemy
 		App->scene->enemyHovered.object = gameobject;
 		App->scene->enemyHovered.health = actualHealth;
+		ComponentBoxTrigger* enemyTriggerBox = gameobject->GetComponent<ComponentBoxTrigger>();
+		if (enemyTriggerBox)
+		{
+			App->scene->enemyHovered.triggerboxMinWidth = enemyTriggerBox->getShortestDistObb();
+
+		}
+		else if(gameobject->tag == "Boss")
+		{
+			GameObject* hitboxGO = App->scene->FindGameObjectByName("Hitbox", gameobject);
+			enemyTriggerBox = hitboxGO->GetComponent<ComponentBoxTrigger>();
+			App->scene->enemyHovered.triggerboxMinWidth = enemyTriggerBox->getShortestDistObb();
+		}
 
 		if (App->scene->enemyHovered.object != nullptr &&
 			gameobject->UUID == App->scene->enemyHovered.object->UUID)
@@ -240,6 +252,7 @@ void EnemyControllerScript::Update()
 			{
 				App->scene->enemyHovered.object = nullptr;
 				App->scene->enemyHovered.health = 0;
+				App->scene->enemyHovered.triggerboxMinWidth = 0;
 				MouseController::ChangeCursorIcon(gameStandarCursor);
 			}
 		}

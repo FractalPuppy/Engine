@@ -54,7 +54,8 @@ public:
 	inline math::float3 GetBoxSize() const { return size; }
 	inline void SetBoxSize(math::float3 sizes) { size = sizes;  boxTrigger->r = sizes; }
 	inline void SetBoxSize(float width, float height, float depth) { size = math::float3(width, height, depth); boxTrigger->r = size; }
-
+	ENGINE_API inline float getShortestDistObb() { return MIN(fabsf(boxTrigger->Diagonal().x), fabsf(boxTrigger->Diagonal().z)); };
+	
 	void AddOverlap(const ComponentBoxTrigger* other);
 	void RemoveOverlap(const ComponentBoxTrigger* other);
 

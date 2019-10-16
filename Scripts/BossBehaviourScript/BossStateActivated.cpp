@@ -50,6 +50,7 @@ void BossStateActivated::Update()
 	//while getting to the ground, she cannot be attacked
 	boss->App->scene->enemyHovered.object = nullptr;
 	boss->App->scene->enemyHovered.health = 0;
+	boss->App->scene->enemyHovered.triggerboxMinWidth = 0;
 }
 
 void BossStateActivated::Enter()
