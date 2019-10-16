@@ -44,7 +44,7 @@ void EnemyControllerScript::Start()
 	//add the enemy to the world controller script
 	//this should be called everytime levels are switched
 	
-	if (gameobject->tag.c_str() != "Boss")
+	if (gameobject->tag.c_str() != "Boss" && gameobject->tag != "Boss")
 	{
 		currentWorldControllerScript = App->scene->FindGameObjectByName("WorldController")->GetComponent<WorldControllerScript>();
 		currentWorldControllerScript->addEnemy(gameobject);
