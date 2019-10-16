@@ -1255,10 +1255,23 @@ bool PlayerMovement::IsAttacking() const
 		Dist = Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position);
 	}
 	//and finally if enemy is on attack range
+
+	//we are gonna make it so that the condition changes slightly depending on
+	//whether the player is moving to attack or not.
+	float distanceCheckValue = 0.f;
+	if (currentSkill == chain)
+	{
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.5;
+	}
+	else
+	{
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1; 
+	}
+
 	if (App->scene->enemyHovered.object != nullptr &&
 		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
 			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) &&
-		Dist <= basicAttackRange)
+		Dist < distanceCheckValue)
 	{
 		return true;
 	}
@@ -1267,12 +1280,23 @@ bool PlayerMovement::IsAttacking() const
 
 bool PlayerMovement::IsMovingToAttack() const
 {
-
+	//we are gonna make it so that the condition changes slightly depending on
+	//whether the player is moving to attack or not.
+	float distanceCheckValue = 0.f;
+	if (currentState->playerWalkingToHit)
+	{
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1;
+	}
+	else
+	{
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.5;
+	}
 	if (App->scene->enemyHovered.object != nullptr && App->scene->enemyHovered.health > 0 &&
 		!App->input->IsKeyPressed(SDL_SCANCODE_LSHIFT) == KEY_DOWN &&
 		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
 			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) &&
-		Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position) > basicAttackRange)
+		Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position) >= 
+		distanceCheckValue)
 	{
 		return true;
 	}
