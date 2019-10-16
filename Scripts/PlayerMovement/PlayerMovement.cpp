@@ -41,6 +41,7 @@
 #include "CircularAttackSkill.h"
 #include "StompSkill.h"
 #include "RainSkill.h"
+#include "MacheteDanceSkill.h"
 
 #include "JSON.h"
 #include <assert.h>
@@ -71,11 +72,11 @@ PlayerMovement::PlayerMovement()
 	allSkills[SkillType::SLICE] = new PlayerSkill(SkillType::SLICE, 1.5f);
 	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP, 2.0f);
 	allSkills[SkillType::CIRCULAR] = new PlayerSkill(SkillType::CIRCULAR);
-	allSkills[SkillType::DANCE] = new PlayerSkill(SkillType::DANCE,0.5f, 25.0f, 50.0f);
-	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::DANCE,0.0f, 0.0f);
-	allSkills[SkillType::BORRACHO] = new PlayerSkill(SkillType::DANCE, 0.0f, 0.0f);
-	allSkills[SkillType::FEATHER] = new PlayerSkill(SkillType::DANCE, 1.0f, 30.0f, 30.0f);
-	allSkills[SkillType::FURIA] = new PlayerSkill(SkillType::DANCE, 4.0f, 50.0f, 60.0f);
+	allSkills[SkillType::DANCE] = new PlayerSkill(SkillType::DANCE, 0.5f, 25.0f, 50.0f);
+	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::SOUL,0.0f, 0.0f);
+	allSkills[SkillType::BORRACHO] = new PlayerSkill(SkillType::BORRACHO, 0.0f, 0.0f);
+	allSkills[SkillType::FEATHER] = new PlayerSkill(SkillType::FEATHER, 1.0f, 30.0f, 30.0f);
+	allSkills[SkillType::FURIA] = new PlayerSkill(SkillType::FURIA, 4.0f, 50.0f, 60.0f);
 
 	// Default ability keyboard allocation
 	assignedSkills[HUD_BUTTON_RC] = SkillType::NONE;
@@ -167,6 +168,7 @@ void PlayerMovement::Expose(ImGuiContext* context)
 	else if (currentSkill == circular)	ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Circular");
 	else if (currentSkill == stomp)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Stomp");
 	else if (currentSkill == rain)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Rain");
+	else if (currentSkill == dance)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Dance");
 	else 								ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "None");
 
 	for (auto it = allSkills.begin(); it != allSkills.end(); ++it)
@@ -180,6 +182,7 @@ void PlayerMovement::Expose(ImGuiContext* context)
 		case SkillType::CIRCULAR:	it->second->Expose("Circular Attack");	break;
 		case SkillType::STOMP:		it->second->Expose("Stomp Attack");		break;
 		case SkillType::RAIN:		it->second->Expose("Rain");				break;
+		case SkillType::DANCE:		it->second->Expose("Dance");			break;
 		case SkillType::NONE:
 		default:
 			break;
@@ -273,6 +276,16 @@ void PlayerMovement::CreatePlayerSkills()
 		LOG("Machete rain mesh not found");
 	}
 
+	dance = new MacheteDanceSkill(this, "Dance");
+
+	// Spawn machete dance prefab
+	GameObject* danceMachetes = App->scene->Spawn("MacheteDance");
+	if (danceMachetes && dance)
+	{
+		dance->spinMachetes = App->scene->FindGameObjectsByTag(MACHETE_SPIN, danceMachetes);
+		dance->spinTrails = App->scene->FindGameObjectsByTag(MACHETE_TRAILS, danceMachetes);
+	}
+
 	// Player equippable parts
 	GameObject* playerWeapon = App->scene->FindGameObjectByTag("PlayerWeapon");
 	if (playerWeapon != nullptr)
@@ -336,6 +349,7 @@ void PlayerMovement::CreatePlayerSkills()
 	allSkills[SkillType::CIRCULAR]->skill = (BasicSkill*)circular;
 	allSkills[SkillType::STOMP]->skill = (BasicSkill*)stomp;
 	allSkills[SkillType::RAIN]->skill = (BasicSkill*)rain;
+	allSkills[SkillType::DANCE]->skill = (BasicSkill*)dance;
 }
 
 void PlayerMovement::CheckSkillsInput()
@@ -729,7 +743,6 @@ void PlayerMovement::Start()
 	//assert breaks if evaluated to false
 	assert(inventoryGO && inventoryScript);
 
-
 	manaEffects = App->scene->FindGameObjectByName("ManaEffect");
 	hpEffects = App->scene->FindGameObjectByName("HPEffect");
 
@@ -878,7 +891,7 @@ void PlayerMovement::Update()
 	}
 	//Check for changes in the state to send triggers to animation SM
 
-	
+
 	currentTime += App->time->gameDeltaTime;
 	if (currentTime >= consumableItemTimeShowing)
 	{
@@ -889,6 +902,47 @@ void PlayerMovement::Update()
 			manaEffects->SetActive(false);
 
 		currentTime = 0;
+	}
+
+	// Rotate machetes after MacheteDance skill is called
+	if (macheteDanceActivated && dance != nullptr)
+	{
+		dance->danceTimer += App->time->gameDeltaTime;
+
+		// End skill
+		if (dance->danceTimer > dance->macheteDuration)
+		{
+			// Dissolve animation
+			for (size_t i = 0; i < dance->spinMachetes.size(); i++)
+			{
+				ComponentRenderer* macheteDanceRenderer = (ComponentRenderer*)dance->spinMachetes[i]->GetComponentInChildren(ComponentType::Renderer);
+				if(macheteDanceRenderer != nullptr)
+					macheteDanceRenderer->dissolveAmount += 0.5f * App->time->gameDeltaTime;
+
+				// Dissolve animation ended, hide machetes
+				if(macheteDanceRenderer->dissolveAmount > 1.f)
+					dance->spinMachetes[i]->SetActive(false);
+			}
+
+			// Dissable trails
+			if (dance->trailsActive)
+			{
+				for (size_t i = 0; i < dance->spinTrails.size(); i++)
+				{
+					dance->spinTrails[i]->SetActive(false);
+				}
+				dance->trailsActive = false;
+			}
+
+			// Last machete disabled? End skill
+			if (!dance->spinMachetes.empty() && !dance->spinMachetes[dance->spinMachetes.size() - 1]->isActive())
+			{
+				dance->danceTimer = 0.0f;
+				macheteDanceActivated = false;
+			}
+		}
+		dance->spinMachetes[0]->parent->transform->SetPosition(this->gameobject->transform->position);
+		dance->RotateMachetes();
 	}
 }
 
@@ -1033,13 +1087,14 @@ void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 
 		if (hpEffects != nullptr)
 			hpEffects->SetActive(true);
-	} else if (equipStats.mana > 0)
+	}
+	else if (equipStats.mana > 0)
 	{
 		int amountToIncrease = (mana + equipStats.mana <= stats.mana) ? equipStats.mana : stats.mana - mana;
 		mana = mana + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::MANA);
 
-		if(manaEffects != nullptr)
+		if (manaEffects != nullptr)
 			manaEffects->SetActive(true);
 	}
 }
@@ -1189,6 +1244,11 @@ void PlayerMovement::Serialize(JSON_value* json) const
 		if (allSkills.find(SkillType::RAIN) != allSkills.end()) allSkills.find(SkillType::RAIN)->second->Serialize(rain_data);
 		abilities->AddValue("rain", *rain_data);
 	}
+	{
+		JSON_value* dance_data = json->CreateValue();
+		if (allSkills.find(SkillType::DANCE) != allSkills.end()) allSkills.find(SkillType::DANCE)->second->Serialize(dance_data);
+		abilities->AddValue("dance", *dance_data);
+	}
 	json->AddValue("abilities", *abilities);
 
 	stats.Serialize(json);
@@ -1255,7 +1315,10 @@ void PlayerMovement::DeSerialize(JSON_value* json)
 		if (circular_data) allSkills[SkillType::CIRCULAR]->DeSerialize(circular_data, circular);
 
 		JSON_value* rain_data = abilities->GetValue("rain");
-		if (rain_data) allSkills[SkillType::CIRCULAR]->DeSerialize(rain_data, rain);
+		if (rain_data) allSkills[SkillType::RAIN]->DeSerialize(rain_data, rain);
+
+		JSON_value* dance_data = abilities->GetValue("dance");
+		if (rain_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
 	}
 
 

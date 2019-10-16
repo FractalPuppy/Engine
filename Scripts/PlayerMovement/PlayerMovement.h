@@ -36,11 +36,16 @@ struct ImGuiContext;
 #define MAX_BOMB_DROP_WAVE_SCALE 240.f
 #define BOMB_DROP_ROT 2.5f
 
+// Machete Rain variables
 #define MACHETE_RAIN_START_HEIGHT 3300.0f
 #define MACHETE_RAIN_SPEED 4000.0f
 #define MACHETE_RAIN_HORIZONTAL_SPEED 40.0f
 #define MACHETE_AMOUNT 40u
 #define MACHETE_SKILL_RANGE 900.f
+
+// Machete Dance variables
+#define MACHETE_SPIN "SpinMachete"
+#define MACHETE_TRAILS "SpinTrails"
 
 class ComponentAnimation;
 class ComponentTransform;
@@ -74,6 +79,7 @@ class BombDropSkill;
 class CircularAttackSkill;
 class StompSkill;
 class RainSkill;
+class MacheteDanceSkill;
 
 #define MAX(a,b) ((a) < (b) ? (b) : (a))
 
@@ -104,7 +110,7 @@ public:
 	void DeSerialize(JSON_value* json, BasicSkill* playerSkill);
 
 	bool IsUsable(float playerMana) const { return available && type != SkillType::NONE && (playerMana >= manaCost && cooldownTimer <= 0); }
-	float Use(float minCooldown = 0.f) { cooldownTimer = MAX(cooldown, minCooldown); maxCooldown = MAX(cooldown, minCooldown); return manaCost; }
+	float Use(float minCooldown = 0.f) { if (useCooldown) { cooldownTimer = MAX(cooldown, minCooldown); maxCooldown = MAX(cooldown, minCooldown); } return manaCost; }
 	void Update(float deltaTime) { if (cooldownTimer > 0) cooldownTimer -= deltaTime; }
 	void SetCooldown(float value) { if (type != SkillType::NONE && value > cooldownTimer) { cooldownTimer = value; maxCooldown = value; } }
 	float CooldownRatio() const { return cooldownTimer > 0 ? cooldownTimer / maxCooldown : 0; }
@@ -119,6 +125,8 @@ public:
 
 	float cooldownTimer = 0.f;
 	float maxCooldown = 0.f;
+
+	bool useCooldown = true;
 };
 
 struct PlayerMovement_API PlayerStats
@@ -297,9 +305,12 @@ public:
 	CircularAttackSkill* circular = nullptr;
 	StompSkill* stomp = nullptr;
 	RainSkill* rain = nullptr;
+	MacheteDanceSkill* dance = nullptr;
+
 	float basicAttackRange = 200.f;
 
 	bool macheteRainActivated = false;
+	bool macheteDanceActivated = false;
 	bool shaking = false;
 
 	std::unordered_map<SkillType, PlayerSkill*> allSkills;
