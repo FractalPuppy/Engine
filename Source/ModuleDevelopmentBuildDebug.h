@@ -31,7 +31,7 @@ public:
 	ComponentCamera* godModeCamera = nullptr;
 
 	//a variable for show and hide it
-	bool visible = true;
+	bool visible = false;
 };
 
 #endif //__ModuleEditor_h__
