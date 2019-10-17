@@ -1741,8 +1741,11 @@ GameObject* ModuleScene::Spawn(const char * name, GameObject * parent, math::flo
 GameObject * ModuleScene::Spawn(const char * name, math::float3 position, math::Quat rotation, GameObject * parent)
 {
 	GameObject* instance = Spawn(name, parent, position);
-	instance->transform->SetPosition(position);
-	instance->transform->SetRotation(rotation);
+	if (instance != nullptr)
+	{
+		instance->transform->SetPosition(position);
+		instance->transform->SetRotation(rotation);
+	}
 	return instance;
 }
 

@@ -2,6 +2,7 @@
 #define  __ExperienceController_h__
 
 #include "BaseScript.h"
+#include "Math/float3.h"
 
 #ifdef ExperienceController_EXPORTS
 #define ExperienceController_API __declspec(dllexport)
@@ -15,6 +16,8 @@ class ComponentRenderer;
 class SkillTreeController;
 class GameObject;
 class JSON_value;
+class ComponentRenderer;
+class PlayerMovement;
 
 class ExperienceController_API ExperienceController : public Script
 {
@@ -32,6 +35,7 @@ class ExperienceController_API ExperienceController : public Script
 
 public:
 	void AddXP(int xp);
+	void LevelUpStats();
 
 	void SaveExperience();
 
@@ -60,6 +64,24 @@ private:
 	//Timers
 	float timeShowing = 3.0f;
 	float currentTime = 0.0f;
+
+	ComponentRenderer* playerRender = nullptr;
+	PlayerMovement* playerScript = nullptr;
+
+	// Dissolve Effect
+	bool useDissolveEffect = true;
+	float dissolveDuration = 1.0f;
+	float dissolveTimer = 0.0f;
+	float borderAmount = 0.4f;
+	bool expDisolve = false;
+
+	math::float3 expColor = math::float3(0.980, 0.880, 0.0f);
+
+	// Player Stats
+	float healthIncrease = 10.0f;
+	float manaIncrease = 10.0f;
+	int strengthIncrease = 5;
+	int dexterityIncrease = 1;
 };
 
 extern "C" ExperienceController_API Script* CreateScript();

@@ -158,14 +158,14 @@ void InventoryScript::Update()
 
 		Transform2D* rectTransform = itemsSlots[i]->GetComponent<Transform2D>();
 		ComponentImage* image = itemsSlots[i]->GetComponent<ComponentImage>();
-		
+
 
 		if (image->isHovered && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 		{
 			image->isPressed = true;
 			initialitemPos = rectTransform->getPosition();
 			if (!itemGrabbed) selectItemAudio->Play();
-			itemGrabbed = true; 
+			itemGrabbed = true;
 			HideConsumableItemText(i);
 		}
 
@@ -456,11 +456,30 @@ void InventoryScript::Update()
 							break;
 						}
 
-						if (exit) break;
+						if (exit)
+						{
+							int quantity = GetCurrentQuantity(*pair.first);
+							ManageConsumableItemsQuantityText(*pair.first, quantity);
+							break;
+						}
 					}
 					else
 					{
-					// It has been dropped inside an inventory slot
+						bool slotOcupate = false;
+						//dont unequip if there is some item in that slot
+						for (int z = 0; z < items.size(); ++z)
+						{
+							if (items[z].second == j)
+							{
+								slotOcupate = true;
+								break;
+							}
+						}
+						if (slotOcupate)
+						{
+							break;
+						}
+						// It has been dropped inside an inventory slot
 						for (int l = 0; l < items.size(); ++l)
 						{
 							if (items[l].first->isEqual(*pair.first) && pair.first->isEquipped)
@@ -478,7 +497,6 @@ void InventoryScript::Update()
 
 					if (itemsSlots[j]->UUID != itemsSlots[i]->UUID)
 					{
-
 						itemsSlots[j]->GetComponent<Transform2D>()->SetPositionUsingAligment(initialitemPos);
 						GameObject* tmp(std::move(itemsSlots[j]));
 						itemsSlots[j] = std::move(itemsSlots[i]);
@@ -508,7 +526,18 @@ void InventoryScript::Update()
 							}
 						}
 
-
+					}
+					else
+					{
+						for (int z = 0; z < items.size(); ++z)
+						{
+							if (items[z].second == i)
+							{
+								int quantity = GetCurrentQuantity(*items[z].first);
+								ManageConsumableItemsQuantityText(*items[z].first, quantity);
+								continue;
+							}
+						}
 					}
 					break;
 				}
@@ -521,6 +550,12 @@ void InventoryScript::Update()
 
 				for (GameObject* slot : slotsToActivate) slot->SetActive(true);
 				slotsToActivate.clear();
+
+				if (pair.first != nullptr)
+				{
+					int quantity = GetCurrentQuantity(*pair.first);
+					ManageConsumableItemsQuantityText(*pair.first, quantity);
+				}
 				return;
 			}
 
@@ -764,19 +799,23 @@ void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 
 	for (int i = 0; i < consumableItems.size(); ++i)
 	{
-		if (consumableItems[i].first == assignedConsumableItem[itemPosition])
+		if (consumableItems[i].first == assignedConsumableItem[itemPosition] && consumableItems[i].second > 0)
 		{
-			for (int i = 0; i < items.size(); ++i)
+			for (int j = 0; j < items.size(); ++j)
 			{
-				if (items[i].first->name == assignedConsumableItem[itemPosition])
+				if (items[j].first->name == assignedConsumableItem[itemPosition])
 				{
-					playerMovement->ConsumeItem(items[i].first->stats);
+					playerMovement->ConsumeItem(items[j].first->stats);
 					consumableItems[i].second -= 1;
 
-					ManageConsumableItemsQuantityText(*items[i].first, consumableItems[i].second);
+					if (consumableItems[i].second < 0)
+					{
+						consumableItems[i].second = 0;
+					}
+
+					ManageConsumableItemsQuantityText(*items[j].first, consumableItems[i].second);
 				}
 			}
-
 		}
 	}
 }
@@ -823,7 +862,7 @@ void InventoryScript::ManageConsumableItemsQuantityText(const Item& item, int qu
 	{
 		int itemPosition = GetItemIndexPosition(item);
 
-		if (itemPosition != -1)
+		if (itemPosition != -1 && itemPosition <= INVENTARY_SLOTS)
 		{
 			itemsSlotsNumbers[itemPosition]->SetActive(true);
 			Text* itemsSlotNumber = itemsSlotsNumbers[itemPosition]->GetComponent<Text>();
@@ -834,7 +873,7 @@ void InventoryScript::ManageConsumableItemsQuantityText(const Item& item, int qu
 }
 
 
-int InventoryScript::ConsumeItemsController()
+std::string InventoryScript::ConsumeItemsController()
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP)
 	{
@@ -844,7 +883,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_1);
 		}
 
-		return HUD_BUTTON_1;
+		return assignedConsumableItem[HUD_BUTTON_1];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_UP)
 	{
@@ -854,7 +893,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_2);
 		}
 
-		return HUD_BUTTON_2;
+		return assignedConsumableItem[HUD_BUTTON_2];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_UP)
 	{
@@ -864,7 +903,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_3);
 		}
 
-		return HUD_BUTTON_3;
+		return assignedConsumableItem[HUD_BUTTON_3];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_4) == KEY_UP)
 	{
@@ -874,7 +913,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_4);
 		}
 
-		return HUD_BUTTON_4;
+		return assignedConsumableItem[HUD_BUTTON_4];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_UP)
 	{
@@ -884,7 +923,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_Q);
 		}
 
-		return HUD_BUTTON_Q;
+		return assignedConsumableItem[HUD_BUTTON_Q];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
 	{
@@ -894,7 +933,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_W);
 		}
 
-		return HUD_BUTTON_W;
+		return assignedConsumableItem[HUD_BUTTON_W];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_UP)
 	{
@@ -904,7 +943,7 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_E);
 		}
 
-		return HUD_BUTTON_E;
+		return assignedConsumableItem[HUD_BUTTON_E];
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_R) == KEY_UP)
 	{
@@ -914,8 +953,8 @@ int InventoryScript::ConsumeItemsController()
 			UseItemConsumableOnPlayer(HUD_BUTTON_R);
 		}
 
-		return HUD_BUTTON_R;
+		return assignedConsumableItem[HUD_BUTTON_R];
 	}
 
-	return -1;
+	return "";
 }

@@ -9,6 +9,7 @@
 #include "ModuleTime.h"
 
 #include "ComponentRenderer.h"
+#include "ComponentAnimation.h"
 #include "ComponentTransform.h"
 
 #include "Math/float3.h"
@@ -51,6 +52,8 @@ EnemyStateDeath::~EnemyStateDeath()
 
 void EnemyStateDeath::Enter()
 {
+	enemy->enemyController->anim->SetAnimationFreeze(true);
+
 	if (enemy->enemyController->IsDeadCritOrSkill())
 	{
 		deathType = DEATHTYPE::CRIT;
