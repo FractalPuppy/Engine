@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 694128066,
-            "ParentUID": 1,
+            "UID": 763492244,
+            "ParentUID": 0,
             "Name": "MacheteRain",
             "Tag": "Machete",
             "Static": 0,
@@ -114,6 +114,7 @@
                         0.0
                     ],
                     "waterSpeed": 2.0,
+                    "loop": 0,
                     "water": 0,
                     "dissolve": 1,
                     "waterSource1": [
@@ -146,7 +147,7 @@
                         0.30000001192092898,
                         0.30000001192092898
                     ],
-                    "is_player": 1,
+                    "boxType": 2,
                     "debug_draw": 1
                 }
             ]

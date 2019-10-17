@@ -251,6 +251,7 @@ public:
 		math::float3 InterpolateFloat3(const math::float3 first, const math::float3 second, float lambda);
 		float InterpolateFloat(const float first, const float second, float lambda);
 		math::float3 ChooseRandomSpawn();
+		void stopPlayerMovement();
 
 		void ResetVariables();
 

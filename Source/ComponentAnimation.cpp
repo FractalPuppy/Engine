@@ -346,6 +346,11 @@ float ComponentAnimation::GetDurationFromClip()
 	return (duration/speed);
 }
 
+ENGINE_API void ComponentAnimation::SetAnimationFreeze(bool freeze)
+{
+	isFrozen = freeze;
+}
+
 float ComponentAnimation::GetSpeedFromStateMachine()
 {
 	HashString clipName = stateMachine->GetNodeClip(currentNode);
@@ -385,7 +390,7 @@ ComponentAnimation::EditorContext* ComponentAnimation::GetEditorContext()
 void ComponentAnimation::Update()
 {
 	PROFILE;
-	if (App->time->gameState == GameState::RUN) //Game run time exclusive
+	if (App->time->gameState == GameState::RUN && !isFrozen) //Game run time exclusive
 	{
 		if (stateMachine != nullptr && stateMachine->GetClipsSize() > 0u &&
 			stateMachine->GetNodesSize() > 0u)

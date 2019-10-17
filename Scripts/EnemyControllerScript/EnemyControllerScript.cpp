@@ -13,6 +13,7 @@
 
 #include "GameObject.h"
 #include "ComponentRenderer.h"
+#include "ComponentAnimation.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 
@@ -30,6 +31,7 @@
 
 #define MINIMUM_PATH_DISTANCE 400.0f
 #define MOVE_REFRESH_TIME 0.3f
+#define CRITICAL_DAMAGE 1.2f
 
 EnemyControllerScript_API Script* CreateScript()
 {
@@ -42,12 +44,11 @@ void EnemyControllerScript::Start()
 	//add the enemy to the world controller script
 	//this should be called everytime levels are switched
 	
-	if (gameobject->tag != "Boss")
+	if (gameobject->tag.c_str() != "Boss" && gameobject->tag != "Boss")
 	{
 		currentWorldControllerScript = App->scene->FindGameObjectByName("WorldController")->GetComponent<WorldControllerScript>();
 		currentWorldControllerScript->addEnemy(gameobject);
 	}
-	
 }
 
 void EnemyControllerScript::Awake()
@@ -219,6 +220,18 @@ void EnemyControllerScript::Update()
 		//we need to keep track of current targeted enemy
 		App->scene->enemyHovered.object = gameobject;
 		App->scene->enemyHovered.health = actualHealth;
+		ComponentBoxTrigger* enemyTriggerBox = gameobject->GetComponent<ComponentBoxTrigger>();
+		if (enemyTriggerBox)
+		{
+			App->scene->enemyHovered.triggerboxMinWidth = enemyTriggerBox->getShortestDistObb();
+
+		}
+		else if(gameobject->tag == "Boss")
+		{
+			GameObject* hitboxGO = App->scene->FindGameObjectByName("Hitbox", gameobject);
+			enemyTriggerBox = hitboxGO->GetComponent<ComponentBoxTrigger>();
+			App->scene->enemyHovered.triggerboxMinWidth = enemyTriggerBox->getShortestDistObb();
+		}
 
 		if (App->scene->enemyHovered.object != nullptr &&
 			gameobject->UUID == App->scene->enemyHovered.object->UUID)
@@ -239,6 +252,7 @@ void EnemyControllerScript::Update()
 			{
 				App->scene->enemyHovered.object = nullptr;
 				App->scene->enemyHovered.health = 0;
+				App->scene->enemyHovered.triggerboxMinWidth = 0;
 				MouseController::ChangeCursorIcon(gameStandarCursor);
 			}
 		}
@@ -277,7 +291,8 @@ void EnemyControllerScript::Update()
 			deathTimer += App->time->gameDeltaTime;
 		}
 	}
-	if (currentWorldControllerScript != nullptr && isDead && !removedFromCrowd)
+  
+	if (isDead && gameobject->tag.c_str() != "Boss" && currentWorldControllerScript != nullptr && !removedFromCrowd)
 	{
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
@@ -398,6 +413,7 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 		if (actualHealth <= 0)
 		{
 			isDead = true;
+
 			if ((DamageType)type == DamageType::CRITICAL || playerMovement->IsExecutingSkill())
 			{
 				isDeadByCritOrSkill = true; //by default is false (Normal)
@@ -452,7 +468,7 @@ inline math::float3 EnemyControllerScript::GetPlayerPosition() const
 inline void EnemyControllerScript::SetPosition(math::float3 newPos) const
 {
 	assert(gameobject->transform != nullptr);
-	gameobject->transform->SetGlobalPosition(newPos);
+gameobject->transform->SetGlobalPosition(newPos);
 }
 
 inline float EnemyControllerScript::GetDistanceTo(math::float3& position) const
@@ -543,28 +559,27 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		}
 	}
 
-	if (go->tag == "PlayerHitBoxAttack" || go->tag == "Machete")
+	if (go->tag == "PlayerHitBoxAttack" || go->tag == "Machete" || go->tag == "SpinMacheteHitbox")
 	{
 		if (gameobject->tag.c_str() != "Boss")
 		{
-			// Generate a random number and if it is below the critical chance the damage will be increased
+			// Get base damage
+			int totalDamage = playerMovement->stats.strength;
+
+			// Add damage of the skill
+			PlayerSkill* skill = playerMovement->GetSkillInUse();
+			if (skill != nullptr)
+				totalDamage *= skill->damage;
+
+			// Generate a random number and if it is below the critical chance -> increase damage
 			if ((rand() % 100u) < playerMovement->criticalChance)
 			{
-				TakeDamage(playerMovement->stats.strength * 0.2f, (int)DamageType::CRITICAL);
+				TakeDamage(totalDamage * CRITICAL_DAMAGE, (int)DamageType::CRITICAL);
 			}
 			else
 			{
-				TakeDamage(playerMovement->stats.strength * 0.1f, (int)DamageType::NORMAL);
+				TakeDamage(totalDamage, (int)DamageType::NORMAL);
 			}
 		}
-		//else
-		//{
-		//	float distanceToPlayer = GetDistanceToPlayer2D();
-		//	if (distanceToPlayer > 500.0f)
-		//	{
-
-		//	}
-		//}
-
 	}
 }

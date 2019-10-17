@@ -7,6 +7,7 @@
 #include "ModuleTime.h"
 
 #include "ComponentRenderer.h"
+#include "ComponentAnimation.h"
 #include "ComponentTransform.h"
 #include "BuriedEnemyAIScript.h"
 #include "EnemyControllerScript.h"
@@ -94,6 +95,8 @@ void EnemyStateDeath::Update()
 
 void EnemyStateDeath::Enter()
 {
+	enemy->enemyController->anim->SetAnimationFreeze(true);
+
 	GameObject* meshScene = enemy->gameobject->children.front();
 	meshScene->children.front()->SetActive(false); //disactive bones with its trails
 	auxTimer = 0.0f;

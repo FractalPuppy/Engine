@@ -1,5 +1,8 @@
 #include "RainSkill.h"
 
+#include "Application.h"
+#include "ModuleScene.h"
+
 #include "PlayerMovement.h"
 
 #include "ModuleNavigation.h"
@@ -8,6 +11,7 @@
 #include "GameObject.h"
 #include "ComponentTransform.h"
 #include "ComponentRenderer.h"
+#include "ComponentAudioSource.h"
 #include "ResourceMaterial.h"
 
 //#include "Math/float2.h"
@@ -23,12 +27,29 @@ RainSkill::~RainSkill()
 
 void RainSkill::Start()
 {
+	
+	GameObject* GO = nullptr;
+	GO = player->App->scene->FindGameObjectByName("knives_attack");
+	if (GO != nullptr)
+	{
+		knives_attack = GO->GetComponent<ComponentAudioSource>();
+		assert(knives_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_attack game object not found");
+	}
+
+
 	//math::float2 mousePosition = player->gameobject->transform->GetScreenPosition();
 	if (!machetes.empty())
 	{
 		LOG("Machetes placed");
 		decal->SetActive(false);
 		decalMaterial->bloomIntenstiy = 7.0f;
+		
+		
+
 		for (unsigned i = 0u; i < MACHETE_AMOUNT; ++i)
 		{
 			GameObject* machete = machetes[i].machete;
@@ -44,8 +65,11 @@ void RainSkill::Start()
 			machete->UpdateTransforms(math::float4x4::identity);
 			machetes[i].colliderFrames = 5u;
 		}
+
+		
 	}
 	
+	knives_attack->Play();
 	RangeSkill::Start();
 }
 

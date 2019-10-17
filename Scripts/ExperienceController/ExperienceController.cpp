@@ -12,6 +12,7 @@
 #include "ComponentRenderer.h"
 
 #include "SkillTreeController.h"
+#include "PlayerMovement.h"
 
 #include "JSON.h"
 #include "imgui.h"
@@ -65,10 +66,22 @@ void ExperienceController::Start()
 	
 	skillTreeScript = App->scene->FindGameObjectByName("Skills")->GetComponent<SkillTreeController>();
 
+	GameObject* player = App->scene->FindGameObjectByTag("Player");
+	if (player != nullptr)
+	{
+		playerScript = player->GetComponent<PlayerMovement>();
+		if(playerScript == nullptr)
+			LOG("PlayerMovement script couldn't be found \n");
+	}
+	else
+	{
+		LOG("Player couldn't be found \n");
+	}
+
 	GameObject* playerMesh = App->scene->FindGameObjectByName("PlayerMesh");
 	if (playerMesh == nullptr)
 	{
-		LOG("Player couldn't be found \n");
+		LOG("PlayerMesh couldn't be found \n");
 	}
 	else
 	{
@@ -111,15 +124,15 @@ void ExperienceController::Update()
 	// Dissolve effect
 	if (useDissolveEffect && expDisolve)
 	{
-		if (dissolveTimer > (dissolveDuration/2.0f))	// Increment dissolve
+		if (dissolveTimer > (dissolveDuration/1.7f))	// Increment dissolve
 		{
 			dissolveTimer -= App->time->gameDeltaTime;
-			playerRender->dissolveAmount = (dissolveTimer / dissolveDuration);
+			playerRender->dissolveAmount = MIN(1.0f - (dissolveTimer / dissolveDuration), 1.0f);
 		}
 		else if (dissolveTimer > 0.0f)					// Decrease dissolve
 		{
-			dissolveTimer -= App->time->gameDeltaTime;
-			playerRender->dissolveAmount = 1.0f - (dissolveTimer / dissolveDuration);
+			dissolveTimer -= App->time->gameDeltaTime; 
+			playerRender->dissolveAmount = MAX(dissolveTimer / dissolveDuration , 0.0f);
 		}
 		else
 		{
@@ -151,10 +164,16 @@ void ExperienceController::AddXP(int xp)
 				}
 				currentXP -= maxXPLevel;
 				maxXPLevel = levelsExp[currentLevel - 1];
-				skillTreeScript->AddSkillPoint();
-				App->scene->FindGameObjectByName("NewSkillPoint")->SetActive(true);
-				//playermovement->addStats (subir de lvl)
+
+				// Avoid giving more skill points than skills
+				if (currentLevel <= 6)
+				{
+					skillTreeScript->AddSkillPoint();
+					App->scene->FindGameObjectByName("NewSkillPoint")->SetActive(true);
+				}
+				LevelUpStats(); // Upgrade stats
 			}
+
 			levelText->text = std::to_string(currentLevel);
 			levelReached->text = "LEVEL " + std::to_string(currentLevel) + " REACHED";
 			levelUPGO->SetActive(true);
@@ -180,11 +199,22 @@ void ExperienceController::AddXP(int xp)
 	}
 }
 
+void ExperienceController::LevelUpStats()
+{
+	// Upgrade stats
+	PlayerStats* stats = &playerScript->stats;
+	stats->health += healthIncrease;
+	stats->mana += manaIncrease;
+	stats->strength += strengthIncrease;
+	stats->dexterity += dexterityIncrease;
+	playerScript->UpdateUIStats();
+}
+
 void ExperienceController::Expose(ImGuiContext* context)
 {
 	ImGui::SetCurrentContext(context);
 
-	ImGui::DragFloat("Time showing levelUp meassage", &timeShowing, 1.0f, 0.0f, 10.0f);
+	ImGui::DragFloat("Time showing levelUp message", &timeShowing, 1.0f, 0.0f, 10.0f);
 	int oldMaxLevel = maxLevel;
 	if (ImGui::InputInt("Number of levels", &maxLevel, ImGuiInputTextFlags_EnterReturnsTrue))
 	{
@@ -208,6 +238,12 @@ void ExperienceController::Expose(ImGuiContext* context)
 		ImGui::DragFloat("Duration", &dissolveDuration, 0.1f);
 		ImGui::DragFloat("Border Amount", &borderAmount, 0.1f);
 	}
+	ImGui::Separator();
+	ImGui::Text("Stat Increase on Lvl up:");
+	ImGui::DragFloat("Health", &healthIncrease);
+	ImGui::DragFloat("Mana", &manaIncrease);
+	ImGui::DragInt("Strength", &strengthIncrease, 1.0f, 0);
+	ImGui::DragInt("Dexterity", &dexterityIncrease, 1.0f, 0);
 }
 
 void ExperienceController::Serialize(JSON_value* json) const
@@ -224,6 +260,10 @@ void ExperienceController::Serialize(JSON_value* json) const
 		json->AddFloat("dissolveDuration", dissolveDuration);
 		json->AddFloat("borderAmount", borderAmount);
 	}
+	json->AddFloat("healthIncrease", healthIncrease);
+	json->AddFloat("manaIncrease", manaIncrease);
+	json->AddInt("strengthIncrease", strengthIncrease);
+	json->AddInt("dexterityIncrease", dexterityIncrease);
 }
 
 void ExperienceController::DeSerialize(JSON_value* json)
@@ -235,8 +275,12 @@ void ExperienceController::DeSerialize(JSON_value* json)
 		levelsExp[i] = json->GetInt(std::to_string(i).c_str(), levelsExp[i]);
 	}
 	useDissolveEffect = json->GetUint("useDissolveEffect", 1.0f);
-	dissolveDuration = json->GetFloat("dissolveDuration", 0.8f);
+	dissolveDuration = json->GetFloat("dissolveDuration", 1.0f);
 	borderAmount = json->GetFloat("borderAmount", 0.4f);
+	healthIncrease = json->GetFloat("healthIncrease", 10.0f);
+	manaIncrease = json->GetFloat("manaIncrease", 10.0f);
+	strengthIncrease = json->GetInt("strengthIncrease", 5);
+	dexterityIncrease = json->GetInt("dexterityIncrease", 1);
 }
 
 void ExperienceController::SaveExperience()
