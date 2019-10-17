@@ -44148,59 +44148,64 @@
                             "E": 20,
                             "R": 20
                         },
-                        "abilities": {
-                            "chain": {
-                                "type": 11,
-                                "damage": 1.0,
-                                "mana_cost": 0.0,
-                                "cooldown": 0.0
-                            },
-                            "dash": {
-                                "type": 0,
-                                "damage": 1.0,
-                                "mana_cost": 10.0,
-                                "cooldown": 0.0
-                            },
-                            "slice": {
-                                "type": 4,
-                                "damage": 1.5,
-                                "mana_cost": 10.0,
-                                "cooldown": 0.0
-                            },
-                            "bombDrop": {
-                                "type": 1,
-                                "damage": 2.0,
-                                "mana_cost": 10.0,
-                                "cooldown": 0.0
-                            },
-                            "circular": {
-                                "type": 2,
-                                "damage": 0.5,
-                                "mana_cost": 10.0,
-                                "cooldown": 0.0
-                            },
-                            "stomp": {
-                                "type": 5,
-                                "damage": 1.0,
-                                "mana_cost": 10.0,
-                                "cooldown": 0.0
-                            },
-                            "rain": {
-                                "type": 3,
-                                "damage": 0.5,
-                                "mana_cost": 10.0,
-                                "cooldown": 0.0
-                            }
+                      "abilities": {
+                        "chain": {
+                          "type": 11,
+                          "damage": 1.0,
+                          "mana_cost": 0.0,
+                          "cooldown": 0.0
                         },
-                        "stats": {
-                            "health": 100.0,
-                            "mana": 100.0,
-                            "strength": 10,
-                            "dexterity": 10,
-                            "hp_regen": 5.0,
-                            "mana_regen": 5.0
+                        "dash": {
+                          "type": 0,
+                          "damage": 1.0,
+                          "mana_cost": 5.0,
+                          "cooldown": 2.0
+                        },
+                        "slice": {
+                          "type": 4,
+                          "damage": 1.5,
+                          "mana_cost": 15.0,
+                          "cooldown": 5.0
+                        },
+                        "bombDrop": {
+                          "type": 1,
+                          "damage": 2.0,
+                          "mana_cost": 15.0,
+                          "cooldown": 5.0
+                        },
+                        "circular": {
+                          "type": 2,
+                          "damage": 0.5,
+                          "mana_cost": 10.0,
+                          "cooldown": 7.0
+                        },
+                        "stomp": {
+                          "type": 5,
+                          "damage": 3.0,
+                          "mana_cost": 25.0,
+                          "cooldown": 20.0
+                        },
+                        "rain": {
+                          "type": 3,
+                          "damage": 0.5,
+                          "mana_cost": 20.0,
+                          "cooldown": 15.0
+                        },
+                        "dance": {
+                          "type": 6,
+                          "damage": 0.5,
+                          "mana_cost": 25.0
                         }
-                    }
+                      },
+                        "stats": {
+                          "health": 100.0,
+                          "mana": 100.0,
+                          "strength": 10,
+                          "dexterity": 10,
+                          "hp_regen": 5.0,
+                          "mana_regen": 5.0
+                        }
+                      }
                 },
                 {
                     "Type": 15,

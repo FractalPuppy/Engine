@@ -89,7 +89,9 @@ void PlayerStateWalkToHitEnemy::Update()
 		{
 			pathIndex++;
 		}
-		if (pathIndex < path.size() && player->basicAttackRange < Distance(player->gameobject->transform->position, enemyPosition))
+		if (pathIndex < path.size() && player->basicAttackRange + 
+			player->App->scene->enemyHovered.triggerboxMinWidth*0.5 <=
+			Distance(player->gameobject->transform->position, enemyPosition))
 		{
 			player->gameobject->transform->LookAt(path[pathIndex]);
 			math::float3 direction = (path[pathIndex] - currentPosition).Normalized();

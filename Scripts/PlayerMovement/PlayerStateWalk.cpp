@@ -14,6 +14,7 @@
 
 #include "PlayerStateWalk.h"
 #include "PlayerStateIdle.h"
+#include "PlayerStateAutoWalk.h"
 #include "WorldControllerScript.h"
 
 #include "BasicSkill.h"
@@ -24,6 +25,7 @@
 #include "imgui.h"
 #include "Globals.h"
 #include "debugdraw.h"
+#include "../GameLoop/GameLoop.h"
 
 
 #define RECALC_PATH_TIME 0.3f
@@ -33,6 +35,8 @@ PlayerStateWalk::PlayerStateWalk(PlayerMovement* PM, const char* trigger):
 {
 	GameObject* worldControllerGO = player->App->scene->FindGameObjectByName("WorldController");
 	worldController = worldControllerGO->GetComponent<WorldControllerScript>();
+
+	gameLoopGO = player->App->scene->FindGameObjectByName("GameController");
 	
 }
 
@@ -42,6 +46,18 @@ PlayerStateWalk::~PlayerStateWalk()
 
 void PlayerStateWalk::Update()
 {
+	if (gameLoopGO->GetComponent<GameLoop>()->gameScene == GameScene::CEMENTERY)
+	{
+		autoWalkPos.y = player->transform->GetGlobalPosition().y;
+		float dist = autoWalkPos.Distance(player->transform->GetGlobalPosition());
+
+		if (dist < 1500.f)
+		{
+			player->autoWalk->SetWalkPosition(math::float3(-6089.83f, 417.9f, -8394.95f));
+			player->currentState = (PlayerState*)player->autoWalk;
+		}
+	}
+
 	if ((player->App->input->GetMouseButtonDown(1) == KEY_DOWN 
 		|| player->App->input->GetMouseButtonDown(1) == KEY_REPEAT) && !player->App->ui->UIHovered(true,false))
 	{

@@ -343,10 +343,12 @@ void SkillTreeController::Expose(ImGuiContext* context)
 			ImGui::InputInt("Num. Levels", &skillList[i].maxLevels);
 			ImGui::InputInt("Next skill", &skillList[i].nextSkill);
 			ImGui::InputInt("Connection", &skillList[i].connection);
-			ImGui::Text("Mana Cost %f", playerMovement->allSkills[(SkillType)i]->manaCost);
-			ImGui::Text("Cooldown %f", playerMovement->allSkills[(SkillType)i]->cooldown);
-			ImGui::Text("Damage %i", playerMovement->allSkills[(SkillType)i]->damage);
-			
+			if (playerMovement != nullptr && playerMovement->allSkills[(SkillType)i] != nullptr)
+			{
+				ImGui::Text("Mana Cost %f", playerMovement->allSkills[(SkillType)i]->manaCost);
+				ImGui::Text("Cooldown %f", playerMovement->allSkills[(SkillType)i]->cooldown);
+				ImGui::Text("Damage %i", playerMovement->allSkills[(SkillType)i]->damage);
+			}
 
 			ImGui::Checkbox("Locked", &skillList[i].locked);
 		}
