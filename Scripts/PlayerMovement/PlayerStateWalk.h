@@ -22,9 +22,12 @@ public:
 	//bool that can help us avoid some pathfinding calls
 	bool currentPathAlreadyCalculated = false;
 
+	math::float3 autoWalkPos = math::float3(-6089.83f, 417.9f, -8394.95f);
+
 private:
 	float moveTimer = 0.0f;
 	
+	GameObject* gameLoopGO = nullptr;
 };
 
 #endif // __PLAYERSTATEWALK_H_

@@ -15,6 +15,7 @@
 #include "PlayerStateWalkToHitEnemy.h"
 #include "PlayerStateWalkToPickItem.h"
 #include "PlayerStateDeath.h"
+#include "PlayerStateAutoWalk.h"
 #include "ItemPicker.h"
 
 #include "ComponentAnimation.h"
@@ -222,6 +223,7 @@ void PlayerMovement::CreatePlayerStates()
 		math::float3(150.f, 100.f, 100.f), 0.7f, 0.9f));
 	playerStates.push_back(idle = new PlayerStateIdle(this, "Idle"));
 	playerStates.push_back(death = new PlayerStateDeath(this, "Death"));
+	playerStates.push_back(autoWalk = new PlayerStateAutoWalk(this, "Walk"));
 }
 
 void PlayerMovement::CreatePlayerSkills()

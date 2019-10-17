@@ -84,6 +84,9 @@
     <ClInclude Include="PlayerStateWalkToPickItem.h">
       <Filter>States</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerStateAutoWalk.h">
+      <Filter>States</Filter>
+    </ClInclude>
     <ClInclude Include="MacheteDanceSkill.h">
       <Filter>Skills\Passive</Filter>
     </ClInclude>
@@ -141,6 +144,9 @@
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="PlayerStateWalkToPickItem.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateAutoWalk.cpp">
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="MacheteDanceSkill.cpp">
