@@ -34,7 +34,7 @@ public:
 	bool playerWalkingToHit = false;
 	bool playerWalking = false;
 	float manaCost = 0.f;
-	const float lerpingIncrement = 1.0f;
+	const float lerpingIncrement = 1.5f;
 	float currentLerping = 0.0f;
 
 protected:
