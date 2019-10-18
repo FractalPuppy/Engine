@@ -577,6 +577,7 @@ void dtCrowd::removeAgent(const int idx)
 	if (idx >= 0 && idx < m_maxAgents)
 	{
 		m_agents[idx].active = false;
+		m_agents[idx].state = DT_CROWDAGENT_STATE_INVALID;
 	}
 }
 

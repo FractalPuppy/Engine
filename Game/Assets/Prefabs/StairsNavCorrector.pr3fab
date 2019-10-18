@@ -1,0 +1,627 @@
+{
+    "GameObjects": [
+        {
+            "UID": 2179883424,
+            "ParentUID": 1595315706,
+            "Name": "StairsNavCorrector",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 2529243517,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                }
+            ]
+        },
+        {
+            "UID": 1580017937,
+            "ParentUID": 2179883424,
+            "Name": "stairsObstacle1",
+            "Tag": "stairsObstacle1",
+            "Static": 1,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 1,
+            "No Walkable": 1,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        969.0130615234375,
+                        247.89739990234376,
+                        3767.93359375
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        146.3702392578125,
+                        196.49453735351563,
+                        20.014039993286134
+                    ],
+                    "Global": [
+                        146.3702392578125,
+                        0.0,
+                        0.0,
+                        969.0130615234375,
+                        0.0,
+                        196.49453735351563,
+                        0.0,
+                        247.89739990234376,
+                        0.0,
+                        0.0,
+                        20.014039993286134,
+                        3767.93359375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 2992830916,
+                    "materialUID": 735767494,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 614564117,
+            "ParentUID": 2179883424,
+            "Name": "stairsObstacle2",
+            "Tag": "stairsObstacle2",
+            "Static": 1,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 1,
+            "No Walkable": 1,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        1.2354736328125,
+                        231.33175659179688,
+                        3774.267822265625
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        160.85311889648438,
+                        165.41268920898438,
+                        20.014039993286134
+                    ],
+                    "Global": [
+                        160.85311889648438,
+                        0.0,
+                        0.0,
+                        1.2354736328125,
+                        0.0,
+                        165.41268920898438,
+                        0.0,
+                        231.33175659179688,
+                        0.0,
+                        0.0,
+                        20.014039993286134,
+                        3774.267822265625,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 2992830916,
+                    "materialUID": 735767494,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 678505744,
+            "ParentUID": 2179883424,
+            "Name": "stairsObstacle3",
+            "Tag": "stairsObstacle3",
+            "Static": 1,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 1,
+            "No Walkable": 1,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        234.7565155029297,
+                        250.57073974609376,
+                        3575.7255859375
+                    ],
+                    "Rotation": [
+                        0.0000012868819112554775,
+                        -0.7072288990020752,
+                        0.0000012868819112554775,
+                        -0.7069846391677856
+                    ],
+                    "Euler": [
+                        179.99989318847657,
+                        89.98020935058594,
+                        179.99989318847657
+                    ],
+                    "Scale": [
+                        143.80323791503907,
+                        110.6850357055664,
+                        20.014041900634767
+                    ],
+                    "Global": [
+                        -0.04967949166893959,
+                        -6.958637754905794e-8,
+                        20.014039993286134,
+                        234.7565155029297,
+                        -0.0005234224372543395,
+                        110.6850357055664,
+                        -1.2582591857324133e-8,
+                        250.57073974609376,
+                        -143.80322265625,
+                        -0.0004028771072626114,
+                        -0.006914221681654453,
+                        3575.7255859375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 2992830916,
+                    "materialUID": 735767494,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3889234125,
+            "ParentUID": 2179883424,
+            "Name": "stairsObstacle4",
+            "Tag": "stairsObstacle4",
+            "Static": 1,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 1,
+            "No Walkable": 1,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        753.6149291992188,
+                        250.57073974609376,
+                        3570.967529296875
+                    ],
+                    "Rotation": [
+                        0.0000012868819112554775,
+                        -0.7072288990020752,
+                        0.0000012868819112554775,
+                        -0.7069846391677856
+                    ],
+                    "Euler": [
+                        179.99989318847657,
+                        89.98020935058594,
+                        179.99989318847657
+                    ],
+                    "Scale": [
+                        150.84556579589845,
+                        110.6850357055664,
+                        20.014041900634767
+                    ],
+                    "Global": [
+                        -0.0521123930811882,
+                        -6.958637754905794e-8,
+                        20.014039993286134,
+                        753.6149291992188,
+                        -0.0005490554613061249,
+                        110.6850357055664,
+                        -1.2582591857324133e-8,
+                        250.57073974609376,
+                        -150.84555053710938,
+                        -0.0004028771072626114,
+                        -0.006914221681654453,
+                        3570.967529296875,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 2992830916,
+                    "materialUID": 735767494,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0
+                }
+            ]
+        }
+    ]
+}

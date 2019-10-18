@@ -132,7 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;DoorScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)Source\MathGeoLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Source\Soloud\fractal_includes;$(SolutionDir)Source\OpenCV;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)Source\MathGeoLib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -162,7 +162,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;DoorScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)Source\MathGeoLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Source\Soloud\fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)Source\MathGeoLib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -208,7 +208,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;DoorScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)Source\MathGeoLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Source\Soloud\fractal_includes;$(SolutionDir)Source\OpenCV;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)Source\MathGeoLib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -242,7 +242,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;DoorScript_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)Source\MathGeoLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Source\Soloud\fractal_includes;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Source;$(SolutionDir)Source\MathGeoLib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

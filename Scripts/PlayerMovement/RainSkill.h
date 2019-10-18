@@ -12,6 +12,7 @@ class GameObject;
 class ComponentRenderer;
 class ComponentBoxTrigger;
 class ResourceMaterial;
+class ComponentAudioSource;
 
 class RainSkill :
 	public RangeSkill
@@ -40,6 +41,10 @@ public:
 	math::float4 decalOriginalColor = float4::one;
 
 	ResourceMaterial* decalMaterial = nullptr;
+
+	//Audio
+	ComponentAudioSource* knives_attack = nullptr;
+
 };
 
 #endif

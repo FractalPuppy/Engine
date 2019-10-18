@@ -17,7 +17,6 @@ class ComponentBoxTrigger;
 class DamageController;
 class EnemyLifeBarController;
 class PlayerMovement;
-class ExperienceController;
 class ResourceMaterial;
 class CombatAudioEvents;
 class LootDropScript;
@@ -71,6 +70,7 @@ public:
 
 	bool isDead = false;
 	bool bossFightStarted = false;
+	bool hasFreeRotation = false;
 	GameObject* player = nullptr;
 	PlayerMovement* playerMovement = nullptr;
 	std::string playerTag = "Player";
@@ -82,7 +82,7 @@ public:
 	DamageController* damageController = nullptr;
 	EnemyLifeBarController* enemyLifeBar = nullptr;
 
-	ExperienceController* experienceController = nullptr;
+
 
 	
 	// BBoxes
@@ -122,6 +122,7 @@ private:
 	float deathTimer = 0.0f;				
 	float lootDelay = 1.0f;					// Time since enemy died untill loot is spawned
 	float lootRadius = 100.0f;				// Distance from enemy position to drop Items around (only if Items to drop > 1)
+	bool removedFromCrowd = false;
 };
 
 extern "C" EnemyControllerScript_API Script* CreateScript();

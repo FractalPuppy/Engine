@@ -1,0 +1,249 @@
+{
+    "GameObjects": [
+        {
+            "UID": 1065126654,
+            "ParentUID": 0,
+            "Name": "ExpSphere",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 1815441971,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        -1012.7297973632813,
+                        684.4437866210938,
+                        643.083251953125
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        -1012.7297973632813,
+                        0.0,
+                        1.0,
+                        0.0,
+                        684.4437866210938,
+                        0.0,
+                        0.0,
+                        1.0,
+                        643.083251953125,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 1756895620,
+                    "materialUID": 2249643378,
+                    "castShadows": 0,
+                    "useAlpha": 0,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        0.9877049326896668,
+                        0.7525365352630615,
+                        0.0
+                    ],
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 0,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 0
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "ExperienceSphereScript",
+                    "scriptInfo": {
+                        "targetTag": "Player",
+                        "speed": 550.0,
+                        "offset": [
+                            0.0,
+                            170.0,
+                            0.0
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "UID": 2329942157,
+            "ParentUID": 1065126654,
+            "Name": "Trail",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        7.667476654052734,
+                        1.963430643081665,
+                        6.600000381469727
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        -1005.0623168945313,
+                        0.0,
+                        1.0,
+                        0.0,
+                        686.4072265625,
+                        0.0,
+                        0.0,
+                        1.0,
+                        649.6832275390625,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 11,
+                    "Enabled": 1,
+                    "width": 10.0,
+                    "duration": 0.5,
+                    "minDistance": 1.0,
+                    "trailColor": [
+                        1.0,
+                        0.6639344096183777,
+                        0.0,
+                        1.0
+                    ],
+                    "textureUID": 676697322,
+                    "bloomIntensity": 1.0,
+                    "sizeOT": 1
+                }
+            ]
+        }
+    ]
+}

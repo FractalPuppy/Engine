@@ -55,6 +55,8 @@ public:
 	//fuunction that deletes all agents and enemies, and returns the gameObject* of the player
 	GameObject* DeleteEnemiesFromWorld();
 
+	void RemoveEnemy(unsigned enemyID);
+
 private:
 	//explicitly disable copy constructor and copy assignment operator
 	WorldControllerScript(const WorldControllerScript&);

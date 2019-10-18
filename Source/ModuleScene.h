@@ -169,6 +169,7 @@ public:
 	{
 		GameObject* object = nullptr;
 		int health = 0;
+		float triggerboxMinWidth = 0;
 	};
 	enemyInfo enemyHovered;
 	
