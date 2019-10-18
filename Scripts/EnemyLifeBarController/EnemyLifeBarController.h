@@ -12,6 +12,7 @@
 class GameObject;
 class ComponentImage;
 class Text;
+class Transform2D;
 
 enum class EnemyLifeBarType
 {
@@ -39,6 +40,7 @@ public:
 private:
 	GameObject* enemyLife = nullptr;
 	Text* enemyTypeName = nullptr;
+	Transform2D* enemyTypeNamePosition = nullptr;
 	ComponentImage* skull = nullptr;
 	ComponentImage* lifeImage = nullptr;
 	

@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "ComponentImage.h"
 #include "ComponentText.h"
+#include "ComponentTransform2D.h"
+#include "Math/float2.h"
 
 EnemyLifeBarController_API Script* CreateScript()
 {
@@ -18,6 +20,7 @@ void EnemyLifeBarController::Start()
 	enemyLife = App->scene->FindGameObjectByName("EnemyLife");
 	lifeImage = App->scene->FindGameObjectByName("HPbar", enemyLife)->GetComponent<ComponentImage>();
 	enemyTypeName = App->scene->FindGameObjectByName("EnemyTypeName", enemyLife)->GetComponent<Text>();
+	enemyTypeNamePosition = App->scene->FindGameObjectByName("EnemyTypeName", enemyLife)->GetComponent<Transform2D>();
 	skull = App->scene->FindGameObjectByName("Skull", enemyLife)->GetComponent<ComponentImage>();
 }
 
@@ -38,6 +41,11 @@ void EnemyLifeBarController::SetLifeBar(int maxHP, int actualHP, EnemyLifeBarTyp
 {
 	draw = true;
 	enemyTypeName->text = name;
+
+	float xPos = name.length() / 2 * -20.0;
+	math::float2 newPos = math::float2(xPos, enemyTypeNamePosition->getPosition().y);
+	enemyTypeNamePosition->SetPositionUsingAligment(newPos);
+	
 
 	switch (type)
 	{
