@@ -11,12 +11,15 @@
 
 class GameObject;
 class ComponentImage;
+class Text;
 
 enum class EnemyLifeBarType
 {
 	NORMAL = 1,
-	HARD,
-	BOSS
+	NORMAL_TEMPLE,
+	ELITE_GRAVEYARD,
+	ELITE_TEMPLE,
+	BOSS,
 };
 
 class EnemyLifeBarController_API EnemyLifeBarController : public Script
@@ -35,15 +38,11 @@ public:
 
 private:
 	GameObject* enemyLife = nullptr;
-	GameObject* lifeBackground = nullptr;
-	GameObject* hPbar = nullptr;
-	GameObject* enemyTypeName = nullptr;
-	GameObject* boneRight = nullptr;
-	GameObject* boneLeft = nullptr;
-	GameObject* skull = nullptr;
-	bool draw = false;
-
+	Text* enemyTypeName = nullptr;
+	ComponentImage* skull = nullptr;
 	ComponentImage* lifeImage = nullptr;
+	
+	bool draw = false;
 
 };
 
