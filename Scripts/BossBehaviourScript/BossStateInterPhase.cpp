@@ -33,9 +33,13 @@ void BossStateInterPhase::HandleIA()
 void BossStateInterPhase::Update()
 {
 	//while getting to the ground, she cannot be attacked
-	boss->App->scene->enemyHovered.object = nullptr;
-	boss->App->scene->enemyHovered.health = 0;
-	boss->App->scene->enemyHovered.triggerboxMinWidth = 0;
+	//but only if the target is the boss, not an skeleton and stuff
+	if (boss->App->scene->enemyHovered.object == boss->gameobject)
+	{
+		boss->App->scene->enemyHovered.object = nullptr;
+		boss->App->scene->enemyHovered.health = 0;
+		boss->App->scene->enemyHovered.triggerboxMinWidth = 0;
+	}
 	switch (ipState)
 	{
 	case IpState::None:
