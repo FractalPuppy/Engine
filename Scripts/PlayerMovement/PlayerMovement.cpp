@@ -74,7 +74,7 @@ PlayerMovement::PlayerMovement()
 	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP, 2.0f);
 	allSkills[SkillType::CIRCULAR] = new PlayerSkill(SkillType::CIRCULAR);
 	allSkills[SkillType::DANCE] = new PlayerSkill(SkillType::DANCE, 0.5f, 25.0f, 50.0f);
-	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::SOUL,0.0f, 0.0f);
+	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::SOUL, 0.0f, 0.0f);
 	allSkills[SkillType::BORRACHO] = new PlayerSkill(SkillType::BORRACHO, 0.0f, 0.0f);
 	allSkills[SkillType::FEATHER] = new PlayerSkill(SkillType::FEATHER, 1.0f, 30.0f, 30.0f);
 	allSkills[SkillType::FURIA] = new PlayerSkill(SkillType::FURIA, 4.0f, 50.0f, 60.0f);
@@ -245,7 +245,7 @@ void PlayerMovement::CreatePlayerSkills()
 		rain->decal->UpdateGlobalTransform();
 		rain->decal->SetActive(false);
 	}
-	GameObject* machete = App->scene->Spawn("MacheteRain");	
+	GameObject* machete = App->scene->Spawn("MacheteRain");
 	if (machete)
 	{
 		rain->decalOriginalColor = ((ComponentRenderer*)rain->decal->GetComponent<ComponentRenderer>())->material->diffuseColor;
@@ -269,7 +269,7 @@ void PlayerMovement::CreatePlayerSkills()
 			macheteUnit.trigger = trigger;
 			macheteUnit.originalScale = macheteClone->transform->scale;
 			rain->machetes.push_back(macheteUnit);
-		}		
+		}
 		machete->GetComponent<ComponentRenderer>()->dissolve = true; //Hide original machete
 		machete->GetComponent<ComponentRenderer>()->dissolveAmount = 2.f;
 	}
@@ -384,7 +384,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_1]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_1]]->type;
-		}		
+		}
 	}
 	else if (IsUsingTwo())
 	{
@@ -392,7 +392,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_2]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_2]]->type;
-		}		
+		}
 	}
 	else if (IsUsingThree())
 	{
@@ -400,7 +400,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_3]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_3]]->type;
-		}		
+		}
 	}
 	else if (IsUsingFour())
 	{
@@ -408,7 +408,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_4]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_4]]->type;
-		}		
+		}
 	}
 	else if (IsUsingQ())
 	{
@@ -416,7 +416,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_Q]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_Q]]->type;
-		}		
+		}
 	}
 	else if (IsUsingW())
 	{
@@ -424,7 +424,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_W]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_W]]->type;
-		}	
+		}
 	}
 	else if (IsUsingE())
 	{
@@ -432,7 +432,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_E]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_E]]->type;
-		}		
+		}
 	}
 	else if (IsUsingR())
 	{
@@ -440,7 +440,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_R]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_R]]->type;
-		}		
+		}
 	}
 	else if (IsUsingRightClick())
 	{
@@ -448,7 +448,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_RC]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_RC]]->type;
-		}		
+		}
 	}
 
 	if (currentSkill != nullptr && previous != currentSkill)
@@ -738,7 +738,7 @@ void PlayerMovement::Start()
 	InitializeUIStatsObjects();
 
 	GameObject* inventoryGO = App->scene->FindGameObjectByName("Inventory");
-	if (inventoryGO) 
+	if (inventoryGO)
 	{
 		inventoryScript = inventoryGO->GetComponent<InventoryScript>();
 	}
@@ -759,7 +759,6 @@ void PlayerMovement::Update()
 	if (health <= 0.f)
 	{
 		currentState = (PlayerState*)death;
-		return;
 	}
 
 	PlayerState* previous = currentState;
@@ -787,20 +786,21 @@ void PlayerMovement::Update()
 		// Skills
 		PrepareSkills();
 		CheckSkillsInput();
-		if (currentSkill != nullptr)
-		{
-			currentSkill->Update();
-			itemClicked = nullptr;
-		}
-
 		// States
 		currentState->UpdateTimer();
 		currentState->CheckInput();
 		currentState->Update();
-
-		//if previous and current are different the functions Exit() and Enter() are called
-		CheckStates(previous, currentState);
 	}
+	if (currentSkill != nullptr)
+	{
+		currentSkill->Update();
+		itemClicked = nullptr;
+	}
+
+
+	//if previous and current are different the functions Exit() and Enter() are called
+	CheckStates(previous, currentState);
+
 
 	ManaManagement();
 
@@ -866,7 +866,7 @@ void PlayerMovement::Update()
 
 					rain->machetes[i].landed = true;
 					macheteRainRenderer->dissolveAmount += .5f * App->time->gameDeltaTime;
-					machete->transform->SetGlobalPosition(machete->transform->GetGlobalPosition() + math::float3(MACHETE_RAIN_HORIZONTAL_SPEED * App->time->gameDeltaTime, 
+					machete->transform->SetGlobalPosition(machete->transform->GetGlobalPosition() + math::float3(MACHETE_RAIN_HORIZONTAL_SPEED * App->time->gameDeltaTime,
 						MACHETE_RAIN_SPEED * App->time->gameDeltaTime * .005f, 0));
 					if (!shaking && playerCamera)
 					{
@@ -888,8 +888,8 @@ void PlayerMovement::Update()
 				machete->Update(); //Force updates due it's not in any hierarchy
 				machete->UpdateTransforms(math::float4x4::identity); //Force updates due it's not in any hierarchy
 			}
-			
-		}		
+
+		}
 	}
 	//Check for changes in the state to send triggers to animation SM
 
@@ -918,11 +918,11 @@ void PlayerMovement::Update()
 			for (size_t i = 0; i < dance->spinMachetes.size(); i++)
 			{
 				ComponentRenderer* macheteDanceRenderer = (ComponentRenderer*)dance->spinMachetes[i]->GetComponentInChildren(ComponentType::Renderer);
-				if(macheteDanceRenderer != nullptr)
+				if (macheteDanceRenderer != nullptr)
 					macheteDanceRenderer->dissolveAmount += 0.5f * App->time->gameDeltaTime;
 
 				// Dissolve animation ended, hide machetes
-				if(macheteDanceRenderer->dissolveAmount > 1.f)
+				if (macheteDanceRenderer->dissolveAmount > 1.f)
 					dance->spinMachetes[i]->SetActive(false);
 			}
 
@@ -1076,7 +1076,7 @@ void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
 		helmetRenderer->SetMaterial(nullptr);
 		break;
 	}
-	
+
 }
 
 void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
@@ -1367,7 +1367,7 @@ bool PlayerMovement::IsAttacking() const
 	}
 	else
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1; 
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1;
 	}
 
 	if (App->scene->enemyHovered.object != nullptr &&
@@ -1397,7 +1397,7 @@ bool PlayerMovement::IsMovingToAttack() const
 		!App->input->IsKeyPressed(SDL_SCANCODE_LSHIFT) == KEY_DOWN &&
 		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
 			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) &&
-		Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position) >= 
+		Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position) >=
 		distanceCheckValue)
 	{
 		return true;
@@ -1413,7 +1413,7 @@ bool PlayerMovement::IsMoving() const
 //this functionchecks the mouse position, which includes 2 things:
 //1- the distance between the mouse and the player (if both point to the same position, FALSe)
 //2- if the cursor points to a navigable zone
-bool PlayerMovement::CorrectMousePosition() const 
+bool PlayerMovement::CorrectMousePosition() const
 {
 	math::float3 destinationPoint;
 	App->navigation->FindIntersectionPoint(gameobject->transform->position, destinationPoint);
@@ -1526,7 +1526,7 @@ PlayerSkill* PlayerMovement::GetSkillInUse() const
 		if (it->second->skill == currentSkill)
 			return it->second;
 	}
-	
+
 	return nullptr;
 }
 
@@ -1580,7 +1580,7 @@ void PlayerMovement::UseSkill(SkillType skill)
 		{
 			it->second->SetCooldown(hubGeneralAbilityCooldown);
 		}*/
-	}	
+	}
 	for (unsigned i = 0u; i < SKILLS_SLOTS; ++i)
 	{
 		hubCooldownTimer[i] = allSkills[assignedSkills[i]]->cooldown;
