@@ -103,10 +103,6 @@ void PlayerStateWalk::Update()
 			finalWalkingSpeed *= (1 + (player->stats.dexterity * 0.005f));
 			player->gameobject->transform->SetPosition(currentPosition + finalWalkingSpeed);
 			playerWalking = true;
-			if (dustParticles)
-			{
-				dustParticles->SetActive(true);
-			}
 		}
 		else
 		{
@@ -125,7 +121,6 @@ void PlayerStateWalk::Enter()
 	playerWalking = true;
 	if (dustParticles)
 	{
-		dustParticles->SetActive(true);
 		player->anim->controller->current->speed *= (1 + (player->stats.dexterity * 0.005f));
 	}
 }
@@ -164,19 +159,12 @@ void PlayerStateWalk::CheckInput()
 	if (!playerWalking)
 	{
 		player->currentState = player->idle;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
+
 		return;
 	}
 	if (player->IsUsingSkill() || player->IsAttacking())
 	{
 		player->currentState = (PlayerState*)player->attack;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
 	}
 	else if (player->IsMovingToAttack())
 	{
@@ -193,9 +181,6 @@ void PlayerStateWalk::CheckInput()
 	else
 	{
 		player->currentState = (PlayerState*)player->idle;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
+
 	}
 }

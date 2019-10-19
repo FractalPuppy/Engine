@@ -753,6 +753,11 @@ void PlayerMovement::Start()
 
 void PlayerMovement::Update()
 {
+	if (currentState == walk)
+		walk->dustParticles->SetActive(true);			
+	else
+		walk->dustParticles->SetActive(false);
+
 	if (App->time->gameTimeScale == 0) return;
 
 	deltatime = App->time->gameDeltaTime;
@@ -1106,11 +1111,6 @@ void PlayerMovement::stopPlayerWalking()
 	if (walk != nullptr)
 	{
 		walk->playerWalking = false;
-		if (walk->dustParticles)
-		{
-			walk->dustParticles->SetActive(false);
-		}
-
 	}
 }
 
