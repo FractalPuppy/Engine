@@ -22,7 +22,7 @@ class CombatAudioEvents;
 class LootDropScript;
 class WorldControllerScript;
 
-enum class EnemyType {SKELETON, MINER, SORCERER, SPINNER, BANDOLERO};
+enum class EnemyType {SKELETON, MINER, SORCERER, SPINNER, BANDOLERO, BOSS};
 
 class EnemyControllerScript_API EnemyControllerScript : public Script
 {
@@ -69,6 +69,7 @@ public:
 public:
 
 	bool isDead = false;
+	bool bossFightStarted = false;
 	bool hasFreeRotation = false;
 	GameObject* player = nullptr;
 	PlayerMovement* playerMovement = nullptr;
