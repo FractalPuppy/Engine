@@ -40,6 +40,10 @@ void EnemyStateHide::Exit()
 		enemy->candleGO->transform->position.z -= enemy->candleOffset;
 
 	enemy->enemyController->GetMainRenderer()->Enable(false);
+
+	// Hide throwing bone
+	if (enemy->handBoneGO != nullptr)
+		enemy->handBoneGO->SetActive(false);
 }
 
 void EnemyStateHide::Enter()
