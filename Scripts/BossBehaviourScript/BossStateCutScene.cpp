@@ -158,6 +158,8 @@ void BossStateCutScene::Exit()
 	boss->playerScript->Enable(true);
 	//Activate camera script
 	boss->playerCamera->GetComponent<CameraController>()->Enable(true);
+
+	boss->enemyController->bossFightStarted = true;
 }
 
 float BossStateCutScene::CalculateDoorLambda()
