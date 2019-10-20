@@ -158,7 +158,7 @@ void InventoryScript::Update()
 
 		Transform2D* rectTransform = itemsSlots[i]->GetComponent<Transform2D>();
 		ComponentImage* image = itemsSlots[i]->GetComponent<ComponentImage>();
-
+		image->uiOrder = 5;
 
 		if (image->isHovered && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 		{
@@ -187,11 +187,12 @@ void InventoryScript::Update()
 			}
 			imageHover = image;
 		}
-
+		
 		if (image->isPressed)
 		{
 			math::float2 newPos = math::float2(screenX, -screenY);
 			rectTransform->SetPositionUsingAligment(newPos);
+			image->uiOrder = 6;
 		}
 
 		if (image->isPressed && App->input->GetMouseButtonDown(1) == KEY_UP)
