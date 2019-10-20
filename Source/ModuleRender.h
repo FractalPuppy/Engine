@@ -53,6 +53,7 @@ private:
 	void ShadowVolumeDrawDebug() const;
 	void BlitShadowTexture();
 	void CreatePostProcessFramebuffer();
+	void UpdateSkyboxList();
 		
 public:
 	void* context = nullptr;
@@ -92,9 +93,11 @@ private:
 	bool wireframe = false;
 	int item_current = 0;//scale index
 	
+	// Skybox variables
 	bool renderSkybox = true;
 	std::vector<ResourceSkybox*> skyboxList;
 	unsigned selectedSkybox = 0u;
+	std::vector<std::string> skyboxNames;
 
 	//shadows stuff
 

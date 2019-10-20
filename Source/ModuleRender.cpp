@@ -33,6 +33,7 @@
 #include "Math/float4x4.h"
 #include "Brofiler.h"
 #include "debugdraw.h"
+#include "HashString.h"
 
 ModuleRender::ModuleRender()
 {
@@ -862,9 +863,48 @@ void ModuleRender::DrawGUI()
 
 void ModuleRender::DrawSkyboxGUI()
 {
-	if (skyboxList[selectedSkybox] == nullptr) return;
-
 	ImGui::Checkbox("Render Skybox", &renderSkybox);
+
+	// Skybox selection
+	if (skyboxNames.empty())
+		UpdateSkyboxList();
+
+	if (ImGui::BeginCombo("Default scene", skyboxList[selectedSkybox] != nullptr ? skyboxList[selectedSkybox]->GetName() : ""))
+	{
+		bool none_selected = (skyboxList[selectedSkybox] == nullptr);
+
+		if (none_selected)
+			ImGui::SetItemDefaultFocus();
+		for (int n = 0; n < skyboxNames.size(); n++)
+		{
+			bool is_selected = (skyboxList[selectedSkybox] != nullptr && (HashString(skyboxList[selectedSkybox]->GetName()) == HashString(skyboxNames[n].c_str())));
+			if (ImGui::Selectable(skyboxNames[n].c_str(), is_selected) && !is_selected)
+			{
+				// Delete previous texture
+				if (skyboxList[n] != nullptr)
+					App->resManager->DeleteResource(skyboxList[selectedSkybox]->GetUID());
+
+				selectedSkybox = n;
+				skyboxList[selectedSkybox]->LoadInMemory();
+			}
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
+	}
+	if (ImGui::Button("Refresh Scenes List"))
+	{
+		UpdateSkyboxList();
+	}
+}
+
+void ModuleRender::UpdateSkyboxList()
+{
+	skyboxNames.clear();
+	for (int n = 0; n < skyboxList.size(); n++)
+	{
+		skyboxNames.push_back(skyboxList[n]->GetName());
+	}
 }
 
 void ModuleRender::GenBlockUniforms()
