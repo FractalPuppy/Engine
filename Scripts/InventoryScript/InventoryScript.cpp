@@ -798,20 +798,20 @@ int InventoryScript::GetCurrentQuantity(std::string itemName)
 void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 {
 
-	for (int i = 0; i < consumableItems.size(); ++i)
+	for (std::vector<std::pair<std::string, int>>::iterator iter = consumableItems.begin(); iter != consumableItems.end(); ++iter)
 	{
-		if (consumableItems[i].first == assignedConsumableItem[itemPosition] && consumableItems[i].second > 0)
+		if (iter._Ptr->first == assignedConsumableItem[itemPosition] && iter._Ptr->second > 0)
 		{
 			for (int j = 0; j < items.size(); ++j)
 			{
 				if (items[j].first->name == assignedConsumableItem[itemPosition])
 				{
 					playerMovement->ConsumeItem(items[j].first->stats);
-					consumableItems[i].second -= 1;
+					iter._Ptr->second -= 1;
 
-					if (consumableItems[i].second < 0)
+					if (iter._Ptr->second <= 0)
 					{
-						consumableItems[i].second = 0;
+						consumableItems.erase(iter);
 					}
 
 					ManageConsumableItemsQuantityText(*items[j].first, consumableItems[i].second);
