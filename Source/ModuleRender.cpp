@@ -801,7 +801,6 @@ void ModuleRender::DrawGUI()
 		SDL_GL_SetSwapInterval((int)vsync);
 	}
 	ImGui::Checkbox("Game Frustum", &useMainCameraFrustum);
-	ImGui::Checkbox("Skybox", &skybox->enabled);
 	ImGui::Checkbox("MSAA", &msaa);
 	if (msaa)
 	{
@@ -845,7 +844,19 @@ void ModuleRender::DrawGUI()
 	}
 	ImGui::DragFloat("Gamma correction", &gammaCorrector, .05f, 1.2f, 3.2f);
 	ImGui::DragFloat("Exposure", &exposure, .05f, .1f, 10.0f);
+}
 
+void ModuleRender::DrawSkyboxGUI()
+{
+	if (skybox == nullptr) return;
+
+	if (ImGui::Checkbox("Render Skybox", &skybox->enabled))
+	{
+		if (skybox->enabled)
+			skybox->LoadInMemory();
+		else
+			skybox->DeleteFromMemory();
+	}
 }
 
 void ModuleRender::GenBlockUniforms()

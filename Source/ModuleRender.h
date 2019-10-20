@@ -37,6 +37,7 @@ public:
 	void OnResize();
 	void ENGINE_API SetVsync(bool active);
 	void DrawGUI() override;
+	void DrawSkyboxGUI();
 
 	void GenBlockUniforms();
 	void AddBlockUniforms(const Shader &s) const;
@@ -44,7 +45,6 @@ public:
 private:
 
 	void DrawGizmos(const ComponentCamera &cam) const;
-	void DrawDebugMesh() const;
 	void SetViewUniform(const ComponentCamera &camera) const;
 	void SetProjectionUniform(const ComponentCamera &camera) const;
 	void InitSDL();
