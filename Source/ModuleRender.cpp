@@ -63,14 +63,22 @@ bool ModuleRender::Init(JSON * config)
 	viewGame = new Viewport("Game");
 #endif // !GAME_BUILD
 
-	// Set default Skybox
-	skybox = (ResourceSkybox*)App->resManager->CreateNewResource(TYPE::SKYBOX);
+	// Create default Skybox
+	ResourceSkybox* defaultSkybox = (ResourceSkybox*)App->resManager->CreateNewResource(TYPE::SKYBOX);
 	std::string faces[NUMFACES] = { "Resources/Imported/right.dds", "Resources/Imported/left.dds", "Resources/Imported/top.dds", "Resources/Imported/bottom.dds", "Resources/Imported/front.dds", "Resources/Imported/back.dds" };
-	skybox->SetExportedFile("Default Skybox");
-	skybox->SetName("Default Skybox");
-	skybox->SetTextures(faces);
-	skybox->SetUsedByEngine(true);
-	skybox->LoadInMemory();
+	defaultSkybox->SetExportedFile("Default Skybox");
+	defaultSkybox->SetName("Default Skybox");
+	defaultSkybox->SetTextures(faces);
+	defaultSkybox->SetUsedByEngine(true);
+	skyboxList.push_back(defaultSkybox);
+
+	// Create black Skybox
+	ResourceSkybox* blackSkybox = (ResourceSkybox*)App->resManager->CreateNewResource(TYPE::SKYBOX);
+	std::string blackFaces[NUMFACES] = { "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds" };
+	blackSkybox->SetExportedFile("Black Skybox");
+	blackSkybox->SetName("Black Skybox");
+	blackSkybox->SetUsedByEngine(true);
+	skyboxList.push_back(blackSkybox);
 
 	JSON_value* renderer = config->GetValue("renderer");
 	if (renderer == nullptr) return true;
@@ -85,10 +93,13 @@ bool ModuleRender::Init(JSON * config)
 	wireframe = renderer->GetInt("wireframe");
 	vsync = renderer->GetInt("vsync");
 	useMainCameraFrustum = renderer->GetInt("frustumMainCamera");
-	skybox->enabled = renderer->GetInt("skybox");
+	renderSkybox = renderer->GetInt("renderSkybox");
 	current_scale = renderer->GetInt("current_scale");
 	gammaCorrector = renderer->GetFloat("gammaCorrector", gammaCorrector);
 	exposure = renderer->GetFloat("exposure", exposure);
+	selectedSkybox = renderer->GetInt("selectedSkybox");
+
+	skyboxList[selectedSkybox]->LoadInMemory();
 	
 	switch (current_scale)
 	{
@@ -232,10 +243,11 @@ void ModuleRender::SaveConfig(JSON * config)
 	renderer->AddInt("wireframe", wireframe);
 	renderer->AddInt("vsync", vsync);
 	renderer->AddInt("frustumMainCamera", useMainCameraFrustum);
-	renderer->AddInt("skybox", skybox->enabled);
+	renderer->AddInt("renderSkybox", renderSkybox);
 	renderer->AddFloat("gammaCorrector", gammaCorrector);
 	renderer->AddFloat("exposure", exposure);
-
+	renderer->AddInt("selectedSkybox", selectedSkybox);
+	
 	config->AddValue("renderer", *renderer);
 }
 
@@ -256,7 +268,8 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 	{
 		glViewport(0, 0, viewScene->current_width, viewScene->current_height);
 		DrawGizmos(cam);
-		skybox->Draw(*cam.frustum, true);
+		if(renderSkybox)
+			skyboxList[selectedSkybox]->Draw(*cam.frustum, true);
 	}
 	else 
 	{
@@ -265,7 +278,8 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 #else
 		glViewport(0, 0, viewGame->current_width, viewGame->current_height);
 #endif
-		skybox->Draw(*cam.frustum);
+		if (renderSkybox)
+			skyboxList[selectedSkybox]->Draw(*cam.frustum);
 		const float transparent[] = { 0, 0, 0, 1 };
 		glClearBufferfv(GL_COLOR, 1, transparent);
 		glClearBufferfv(GL_COLOR, 2, transparent);
@@ -848,15 +862,9 @@ void ModuleRender::DrawGUI()
 
 void ModuleRender::DrawSkyboxGUI()
 {
-	if (skybox == nullptr) return;
+	if (skyboxList[selectedSkybox] == nullptr) return;
 
-	if (ImGui::Checkbox("Render Skybox", &skybox->enabled))
-	{
-		if (skybox->enabled)
-			skybox->LoadInMemory();
-		else
-			skybox->DeleteFromMemory();
-	}
+	ImGui::Checkbox("Render Skybox", &renderSkybox);
 }
 
 void ModuleRender::GenBlockUniforms()

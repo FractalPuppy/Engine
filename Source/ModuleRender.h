@@ -32,7 +32,7 @@ public:
 	void Draw(const ComponentCamera& cam, int width, int height, bool isEditor = false) const;
 	bool IsSceneViewFocused() const;
 	bool IsSceneHovered() const;
-	Viewport * GetActiveViewport() const;
+	Viewport* GetActiveViewport() const;
 	bool CleanUp() override;
 	void OnResize();
 	void ENGINE_API SetVsync(bool active);
@@ -91,8 +91,10 @@ private:
 	bool depthTest = true;
 	bool wireframe = false;
 	int item_current = 0;//scale index
-
-	ResourceSkybox* skybox = nullptr;
+	
+	bool renderSkybox = true;
+	std::vector<ResourceSkybox*> skyboxList;
+	unsigned selectedSkybox = 0u;
 
 	//shadows stuff
 
