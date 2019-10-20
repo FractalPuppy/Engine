@@ -58,6 +58,7 @@ private:
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
 
+	bool ItemIntersects();
 
 public:
 	std::string name;

@@ -415,8 +415,9 @@ void ItemPicker::Update()
 	//checking if gotta pickup item
 	math::float3 closestPoint;
 	math::float4 color = GetRarityColor();
+	bool intersect = ItemIntersects();
 	//first check if item clicked (either the item mesh or its name)
-	if ((App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID)) &&
+	if (intersect &&
 		App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		//if player next to the item
@@ -433,7 +434,7 @@ void ItemPicker::Update()
 	}
 	//check if the player clicked outside of the item (if it was going to pick it up)
 	if (playerMovementScript->itemClicked == this && App->input->GetMouseButtonDown(1) == KEY_DOWN &&
-		!(App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID)))
+		!intersect)
 	{
 		playerMovementScript->stoppedGoingToItem = true;
 		playerMovementScript->itemClicked = nullptr;
@@ -455,12 +456,12 @@ void ItemPicker::Update()
 		myRender->highlightColor = math::float3(color.x, color.y, color.z);
 	}
 
-	if (App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && gameobject->isActive())
+	if (intersect)
 	{
 		myRender->highlighted = true;
 	}
 
-	if (App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID))
+	if (intersect)
 	{
 		if (itemName != nullptr)
 			itemName->Hovered(gameobject->UUID, true);
@@ -650,4 +651,15 @@ math::float4 ItemPicker::GetRarityColor()
 	case ItemRarity::LEGENDARY:
 		return purple / 255;
 	}
+}
+
+bool ItemPicker::ItemIntersects()
+{
+	fPoint mouse_point = App->input->GetMousePosition();
+	math::float2 mouse = { mouse_point.x, mouse_point.y };
+	std::list<GameObject*> list = App->scene->SceneRaycastHit(mouse);
+	std::list<GameObject*>::iterator iter = std::find(list.begin(), list.end(), myRender->gameobject);
+	if (iter != list.end())
+		return true;
+	else return false;
 }
