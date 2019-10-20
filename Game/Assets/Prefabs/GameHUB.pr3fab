@@ -2860,7 +2860,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -3031,7 +3031,7 @@
                     ],
                     "Size": [
                         38.0,
-                        38.0
+                        28.0
                     ],
                     "Anchor": 7,
                     "Stretch": 3
@@ -4255,7 +4255,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -4311,8 +4311,8 @@
                     "buttonImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 3131494396,
-                        "textureName": "Defaultslot",
+                        "textureUID": 3205608322,
+                        "textureName": "Weapon",
                         "color": [
                             1.0,
                             1.0,
@@ -4334,8 +4334,8 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 3131494396,
-                        "textureName": "Defaultslot",
+                        "textureUID": 3205608322,
+                        "textureName": "Weapon",
                         "color": [
                             0.5882353186607361,
                             0.5882353186607361,
@@ -4386,7 +4386,7 @@
         {
             "UID": 3097887517,
             "ParentUID": 2951293619,
-            "Name": "RCText",
+            "Name": "LCText",
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 1,
@@ -4422,7 +4422,7 @@
                     "Enabled": 1,
                     "Position": [
                         -135.89999389648438,
-                        71.5
+                        55.79999923706055
                     ],
                     "Size": [
                         100.0,
@@ -4712,7 +4712,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
