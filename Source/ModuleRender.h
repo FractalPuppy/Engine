@@ -44,6 +44,7 @@ public:
 private:
 
 	void DrawGizmos(const ComponentCamera &cam) const;
+	void DrawDebugMesh() const;
 	void SetViewUniform(const ComponentCamera &camera) const;
 	void SetProjectionUniform(const ComponentCamera &camera) const;
 	void InitSDL();
@@ -84,8 +85,6 @@ public:
 	unsigned brightnessBufferGame = 0u;
 	unsigned renderedSceneGame = 0u;
 	float exposure = 1.0f;
-
-	bool useSkybox = true;
 
 private:
 	unsigned UBO = 0;
