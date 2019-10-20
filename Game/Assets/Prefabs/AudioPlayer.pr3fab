@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 3754959443,
-            "ParentUID": 251857274,
+            "UID": 4097038979,
+            "ParentUID": 652642298,
             "Name": "AudioPlayer",
             "Tag": "Default",
             "Static": 0,
@@ -32,7 +32,8 @@
             "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
-            "prefabUID": 1349318240,
+            "prefabUID": 2855789593,
+            "prefabTimeStamp": 1570714855,
             "Components": [
                 {
                     "Type": 0,
@@ -80,8 +81,8 @@
             ]
         },
         {
-            "UID": 1476830080,
-            "ParentUID": 3754959443,
+            "UID": 737426403,
+            "ParentUID": 4097038979,
             "Name": "gotHitAudio",
             "Tag": "Default",
             "Static": 0,
@@ -172,8 +173,8 @@
             ]
         },
         {
-            "UID": 1897734326,
-            "ParentUID": 3754959443,
+            "UID": 3324566255,
+            "ParentUID": 4097038979,
             "Name": "itemPickedAudio",
             "Tag": "Default",
             "Static": 0,
@@ -264,8 +265,8 @@
             ]
         },
         {
-            "UID": 1405066981,
-            "ParentUID": 3754959443,
+            "UID": 2589125160,
+            "ParentUID": 4097038979,
             "Name": "stepSound",
             "Tag": "Default",
             "Static": 0,
@@ -356,8 +357,8 @@
             ]
         },
         {
-            "UID": 161828601,
-            "ParentUID": 3754959443,
+            "UID": 4092186991,
+            "ParentUID": 4097038979,
             "Name": "bomb_take_off",
             "Tag": "Default",
             "Static": 0,
@@ -448,8 +449,8 @@
             ]
         },
         {
-            "UID": 3968110738,
-            "ParentUID": 3754959443,
+            "UID": 2635992922,
+            "ParentUID": 4097038979,
             "Name": "bomb_impact",
             "Tag": "Default",
             "Static": 0,
@@ -540,8 +541,8 @@
             ]
         },
         {
-            "UID": 1731232581,
-            "ParentUID": 3754959443,
+            "UID": 2503557201,
+            "ParentUID": 4097038979,
             "Name": "attack1",
             "Tag": "Default",
             "Static": 0,
@@ -632,8 +633,8 @@
             ]
         },
         {
-            "UID": 3898249433,
-            "ParentUID": 3754959443,
+            "UID": 2477438568,
+            "ParentUID": 4097038979,
             "Name": "attack2",
             "Tag": "Default",
             "Static": 0,
@@ -712,7 +713,7 @@
                     "Type": 14,
                     "Enabled": 1,
                     "audioUID": 2886417709,
-                    "Volume": 0.699999988079071,
+                    "Volume": 0.4000000059604645,
                     "PlayOnAwake": 0,
                     "Sound3D": 0,
                     "LimitPan": 0.5,
@@ -724,8 +725,8 @@
             ]
         },
         {
-            "UID": 2763155399,
-            "ParentUID": 3754959443,
+            "UID": 1786922193,
+            "ParentUID": 4097038979,
             "Name": "spin_attack",
             "Tag": "Default",
             "Static": 0,
@@ -816,8 +817,8 @@
             ]
         },
         {
-            "UID": 2721418151,
-            "ParentUID": 3754959443,
+            "UID": 2407986826,
+            "ParentUID": 4097038979,
             "Name": "drill_attack",
             "Tag": "Default",
             "Static": 0,
@@ -896,6 +897,190 @@
                     "Type": 14,
                     "Enabled": 1,
                     "audioUID": 1948781546,
+                    "Volume": 1.0,
+                    "PlayOnAwake": 0,
+                    "Sound3D": 0,
+                    "LimitPan": 0.5,
+                    "FadeDist": 500.0,
+                    "Loop": 0,
+                    "Rolloff": 0.30000001192092898,
+                    "Pitch": 1.0
+                }
+            ]
+        },
+        {
+            "UID": 4213778504,
+            "ParentUID": 4097038979,
+            "Name": "knives_attack",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 3119511427,
+                    "Volume": 1.0,
+                    "PlayOnAwake": 0,
+                    "Sound3D": 0,
+                    "LimitPan": 0.5,
+                    "FadeDist": 500.0,
+                    "Loop": 0,
+                    "Rolloff": 0.30000001192092898,
+                    "Pitch": 1.0
+                }
+            ]
+        },
+        {
+            "UID": 2846590485,
+            "ParentUID": 4097038979,
+            "Name": "knives_ending",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 4260307335,
                     "Volume": 1.0,
                     "PlayOnAwake": 0,
                     "Sound3D": 0,

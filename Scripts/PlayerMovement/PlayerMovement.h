@@ -30,17 +30,22 @@ struct ImGuiContext;
 #define HUD_BUTTON_E 7
 #define HUD_BUTTON_R 8
 
-#define NUMBER_OF_PLAYERSTATES 7
+#define NUMBER_OF_PLAYERSTATES 8
 
 #define MAX_BOMB_DROP_SCALE 200.f
 #define MAX_BOMB_DROP_WAVE_SCALE 240.f
 #define BOMB_DROP_ROT 2.5f
 
+// Machete Rain variables
 #define MACHETE_RAIN_START_HEIGHT 3300.0f
 #define MACHETE_RAIN_SPEED 4000.0f
 #define MACHETE_RAIN_HORIZONTAL_SPEED 40.0f
 #define MACHETE_AMOUNT 40u
 #define MACHETE_SKILL_RANGE 900.f
+
+// Machete Dance variables
+#define MACHETE_SPIN "SpinMachete"
+#define MACHETE_TRAILS "SpinTrails"
 
 class ComponentAnimation;
 class ComponentTransform;
@@ -56,10 +61,13 @@ class PlayerStateDeath;
 class PlayerStateWalk;
 class PlayerStateWalkToHitEnemy;
 class PlayerStateWalkToPickItem;
+class PlayerStateAutoWalk;
 class DamageController;
 class DamageFeedbackUI;
 class ComponentAudioSource;
 class ComponentCamera;
+class ComponentAudioSource;
+
 class ItemPicker;
 class InventoryScript;
 
@@ -72,18 +80,24 @@ class BombDropSkill;
 class CircularAttackSkill;
 class StompSkill;
 class RainSkill;
+class MacheteDanceSkill;
 
 #define MAX(a,b) ((a) < (b) ? (b) : (a))
 
 enum class PlayerMovement_API SkillType
 {
 	DASH,
-	CIRCULAR,
 	BOMB_DROP,
+	CIRCULAR,
 	RAIN,
 	SLICE,
 	STOMP,
-	CHAIN = 10,
+	DANCE,
+	SOUL,
+	BORRACHO,
+	FEATHER,
+	FURIA,
+	CHAIN,
 	NONE = 20
 };
 
@@ -91,13 +105,13 @@ struct PlayerMovement_API PlayerSkill
 {
 public:
 	PlayerSkill() {}
-	PlayerSkill(SkillType type, float manaCost = 10.0f, float cooldown = 0.0f) : type(type), manaCost(manaCost), cooldown(cooldown){}
+	PlayerSkill(SkillType type, float damage = 1.0f, float manaCost = 10.0f, float cooldown = 0.0f) : damage(damage), type(type), manaCost(manaCost), cooldown(cooldown){}
 	void Expose(const char* title);
 	void Serialize(JSON_value* json) const;
 	void DeSerialize(JSON_value* json, BasicSkill* playerSkill);
 
 	bool IsUsable(float playerMana) const { return available && type != SkillType::NONE && (playerMana >= manaCost && cooldownTimer <= 0); }
-	float Use(float minCooldown = 0.f) { cooldownTimer = MAX(cooldown, minCooldown); maxCooldown = MAX(cooldown, minCooldown); return manaCost; }
+	float Use(float minCooldown = 0.f) { if (useCooldown) { cooldownTimer = MAX(cooldown, minCooldown); maxCooldown = MAX(cooldown, minCooldown); } return manaCost; }
 	void Update(float deltaTime) { if (cooldownTimer > 0) cooldownTimer -= deltaTime; }
 	void SetCooldown(float value) { if (type != SkillType::NONE && value > cooldownTimer) { cooldownTimer = value; maxCooldown = value; } }
 	float CooldownRatio() const { return cooldownTimer > 0 ? cooldownTimer / maxCooldown : 0; }
@@ -105,12 +119,15 @@ public:
 public:
 	bool available = true;
 	SkillType type = SkillType::NONE;
+	float damage = 1.0f;	// Multiplies base damage
 	float manaCost = 10.f;
 	float cooldown = 0.f;
 	BasicSkill* skill = nullptr;
 
 	float cooldownTimer = 0.f;
 	float maxCooldown = 0.f;
+
+	bool useCooldown = true;
 };
 
 struct PlayerMovement_API PlayerStats
@@ -177,6 +194,7 @@ public:
 	void EquipMesh(unsigned itemType, unsigned meshUID, unsigned materialUID);								// Equip only the item mesh
 	void UnEquip(const PlayerStats& equipStats, unsigned itemType);
 	void ConsumeItem(const PlayerStats& equipStats);
+	void stopPlayerWalking();
 
 	void OnAnimationEvent(std::string name) override;
 
@@ -199,6 +217,7 @@ public:
 	bool IsUsingR() const;
 	bool IsUsingSkill() const;
 	bool IsExecutingSkill() const;
+	PlayerSkill* GetSkillInUse() const;
 
 	void PrepareSkills() const;
 
@@ -211,6 +230,7 @@ public:
 	void ToggleInfiniteHealth();
 	void ToggleInfiniteMana();
 	void SavePlayerStats();
+	void UpdateUIStats();
 
 private:
 	void CheckStates(PlayerState* previous, PlayerState* current);
@@ -219,12 +239,9 @@ private:
 
 	void ActivateHudCooldownMask(bool activate, unsigned first = HUD_BUTTON_Q, unsigned last = HUD_BUTTON_4);
 
-	float DistPlayerToMouse() const;
-
 	// Skills
 	void CreatePlayerSkills();
 
-	void UpdateUIStats();
 	void InitializeUIStatsObjects();
 public:
 	bool isPlayerDead = false;
@@ -236,6 +253,7 @@ public:
 	PlayerStateWalk* walk = nullptr;
 	PlayerStateWalkToHitEnemy* walkToHit = nullptr;
 	PlayerStateWalkToPickItem* walkToPickItem = nullptr;
+	PlayerStateAutoWalk* autoWalk = nullptr;
 	//walking to hit player orientation necessary info:
 	bool enemyTargeted = false;
 	GameObject* enemyTarget = nullptr;
@@ -289,9 +307,12 @@ public:
 	CircularAttackSkill* circular = nullptr;
 	StompSkill* stomp = nullptr;
 	RainSkill* rain = nullptr;
+	MacheteDanceSkill* dance = nullptr;
+
 	float basicAttackRange = 200.f;
 
 	bool macheteRainActivated = false;
+	bool macheteDanceActivated = false;
 	bool shaking = false;
 
 	std::unordered_map<SkillType, PlayerSkill*> allSkills;
@@ -347,7 +368,17 @@ private:
 	ComponentRenderer* weaponRenderer = nullptr;
 	ComponentRenderer* helmetRenderer = nullptr;
 
+	//Audio
+	ComponentAudioSource* knives_attack = nullptr;
+	ComponentAudioSource* knives_ending = nullptr;
+
 	InventoryScript* inventoryScript = nullptr;
+
+	GameObject* manaEffects = nullptr;
+	GameObject* hpEffects = nullptr;
+	float consumableItemTimeShowing = 2.0f;
+	float currentTime = 0.0f;
+
 };
 
 extern "C" PlayerMovement_API Script* CreateScript();

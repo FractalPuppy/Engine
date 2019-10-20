@@ -23,6 +23,7 @@ public:
 	void InfiniteMana() const;
 	void MaxStats() const;
 	void Exposure() const;
+	void DisableSkillsCooldown() const;
 	inline virtual GodMode* Clone() const
 	{
 		return new GodMode(*this);

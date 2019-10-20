@@ -13,23 +13,25 @@
 
 #include "GameObject.h"
 #include "ComponentRenderer.h"
+#include "ComponentAnimation.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 
 #include "PlayerMovement.h"
 #include "ResourceMaterial.h"
-#include "ExperienceController.h"
 #include "DamageController.h"
 #include "EnemyLifeBarController.h"
 #include "CombatAudioEvents.h"
 #include "LootDropScript.h"
 #include "WorldControllerScript.h"
+#include "ExperienceSphereScript.h"
 
 #include "imgui.h"
 #include "JSON.h"
 
 #define MINIMUM_PATH_DISTANCE 400.0f
 #define MOVE_REFRESH_TIME 0.3f
+#define CRITICAL_DAMAGE 1.2f
 
 EnemyControllerScript_API Script* CreateScript()
 {
@@ -42,12 +44,11 @@ void EnemyControllerScript::Start()
 	//add the enemy to the world controller script
 	//this should be called everytime levels are switched
 	
-	if (gameobject->tag != "Boss")
+	if (gameobject->tag.c_str() != "Boss" && gameobject->tag != "Boss")
 	{
 		currentWorldControllerScript = App->scene->FindGameObjectByName("WorldController")->GetComponent<WorldControllerScript>();
 		currentWorldControllerScript->addEnemy(gameobject);
 	}
-	
 }
 
 void EnemyControllerScript::Awake()
@@ -165,21 +166,6 @@ void EnemyControllerScript::Awake()
 			attackBoxTrigger->Enable(false);
 		}
 	}
-	
-
-	GameObject* xpGO = App->scene->FindGameObjectByName("Xp");
-	if (xpGO == nullptr)
-	{
-		LOG("Xp controller GO couldn't be found \n");
-	}
-	else
-	{
-		experienceController = xpGO->GetComponent<ExperienceController>();
-		if (experienceController == nullptr)
-		{
-			LOG("experienceController couldn't be found \n");
-		}
-	}
 
 	GameObject* playerGO = App->scene->FindGameObjectByName("Player");
 	if (playerGO == nullptr)
@@ -208,6 +194,11 @@ void EnemyControllerScript::Update()
 
 	if (playerMovement->isPlayerDead) return;
 
+	if (bossFightStarted)
+	{
+		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Santa Muerte");
+	}
+
 	auto mesh = std::find(intersects.begin(), intersects.end(), this->myMesh);
 	if(mesh != std::end(intersects) && *mesh == this->myMesh)
 	{
@@ -216,7 +207,6 @@ void EnemyControllerScript::Update()
 		{
 			switch (enemyType)
 			{
-			default:
 			case EnemyType::SKELETON:	enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Skeleton");	break;
 			case EnemyType::MINER:		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Miner"); 		break;
 			case EnemyType::SORCERER:	enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Sorcerer");	break;
@@ -234,6 +224,18 @@ void EnemyControllerScript::Update()
 		//we need to keep track of current targeted enemy
 		App->scene->enemyHovered.object = gameobject;
 		App->scene->enemyHovered.health = actualHealth;
+		ComponentBoxTrigger* enemyTriggerBox = gameobject->GetComponent<ComponentBoxTrigger>();
+		if (enemyTriggerBox)
+		{
+			App->scene->enemyHovered.triggerboxMinWidth = enemyTriggerBox->getShortestDistObb();
+
+		}
+		else if(gameobject->tag == "Boss")
+		{
+			GameObject* hitboxGO = App->scene->FindGameObjectByName("Hitbox", gameobject);
+			enemyTriggerBox = hitboxGO->GetComponent<ComponentBoxTrigger>();
+			App->scene->enemyHovered.triggerboxMinWidth = enemyTriggerBox->getShortestDistObb();
+		}
 
 		if (App->scene->enemyHovered.object != nullptr &&
 			gameobject->UUID == App->scene->enemyHovered.object->UUID)
@@ -254,10 +256,13 @@ void EnemyControllerScript::Update()
 			{
 				App->scene->enemyHovered.object = nullptr;
 				App->scene->enemyHovered.health = 0;
+				App->scene->enemyHovered.triggerboxMinWidth = 0;
 				MouseController::ChangeCursorIcon(gameStandarCursor);
 			}
 		}
 	}
+
+
 
 	if (enemyHit && hitColorTimer > 0.f)
 	{
@@ -279,7 +284,7 @@ void EnemyControllerScript::Update()
 		{
 			if (lootDrop != nullptr)
 			{
-				// If chest has more than one item drop them in circle
+				// If enemy has more than one item drop them in circle
 				if (lootDrop->itemList.size() > 1)
 					lootDrop->DropItemsInCircle(lootRadius);
 				else
@@ -292,7 +297,8 @@ void EnemyControllerScript::Update()
 			deathTimer += App->time->gameDeltaTime;
 		}
 	}
-	if (isDead && !removedFromCrowd)
+  
+	if (isDead && gameobject->tag.c_str() != "Boss" && currentWorldControllerScript != nullptr && !removedFromCrowd)
 	{
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
@@ -304,10 +310,10 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 {
 
 	// Enemy Type
-	const char* types[] = { "Skeleton", "Miner", "Sorcerer", "Spinner", "Bandolero" };
+	const char* types[] = { "Skeleton", "Miner", "Sorcerer", "Spinner", "Bandolero" , "Boss"};
 	if (ImGui::BeginCombo("Type", types[(int)enemyType]))
 	{
-		for (int n = 0; n < 5; n++)
+		for (int n = 0; n < 6; n++)
 		{
 			bool isSelected = ((int)enemyType == n);
 			if (ImGui::Selectable(types[n], isSelected) && (int)enemyType != n)
@@ -320,7 +326,7 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 		ImGui::EndCombo();
 	}
 
-	ImGui::SliderInt("Level", &enemyLevel, 1, 3);
+	ImGui::SliderInt("Level", &enemyLevel, 1, 5);
 
 	if (ImGui::InputInt("Health", &maxHealth))
 	{
@@ -413,13 +419,11 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 		if (actualHealth <= 0)
 		{
 			isDead = true;
+
 			if ((DamageType)type == DamageType::CRITICAL || playerMovement->IsExecutingSkill())
 			{
 				isDeadByCritOrSkill = true; //by default is false (Normal)
 			}
-
-			if (experienceController != nullptr)
-				experienceController->AddXP(experience);
 
 			// Disable hit boxes
 			hpBoxTrigger->Enable(false);
@@ -434,6 +438,15 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 			{
 				for (std::vector<ComponentRenderer*>::iterator it = myRenders.begin(); it != myRenders.end(); ++it)
 					(*it)->highlighted = false;
+			}
+
+			// Spawn experience sphere
+			GameObject* expSphere = App->scene->Spawn("ExpSphere", nullptr, gameobject->transform->position);
+			if (expSphere != nullptr)
+			{
+				ExperienceSphereScript* expScript = expSphere->GetComponent<ExperienceSphereScript>();
+				if (expScript != nullptr)
+					expScript->experience = experience;
 			}
 		}
 		damageController->AddDamage(gameobject->transform, damage, (DamageType)type);
@@ -461,7 +474,7 @@ inline math::float3 EnemyControllerScript::GetPlayerPosition() const
 inline void EnemyControllerScript::SetPosition(math::float3 newPos) const
 {
 	assert(gameobject->transform != nullptr);
-	gameobject->transform->SetGlobalPosition(newPos);
+gameobject->transform->SetGlobalPosition(newPos);
 }
 
 inline float EnemyControllerScript::GetDistanceTo(math::float3& position) const
@@ -552,28 +565,27 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		}
 	}
 
-	if (go->tag == "PlayerHitBoxAttack" || go->tag == "Machete")
+	if (go->tag == "PlayerHitBoxAttack" || go->tag == "Machete" || go->tag == "SpinMacheteHitbox")
 	{
 		if (gameobject->tag.c_str() != "Boss")
 		{
-			// Generate a random number and if it is below the critical chance the damage will be increased
+			// Get base damage
+			int totalDamage = playerMovement->stats.strength;
+
+			// Add damage of the skill
+			PlayerSkill* skill = playerMovement->GetSkillInUse();
+			if (skill != nullptr)
+				totalDamage *= skill->damage;
+
+			// Generate a random number and if it is below the critical chance -> increase damage
 			if ((rand() % 100u) < playerMovement->criticalChance)
 			{
-				TakeDamage(playerMovement->stats.strength * 0.2f, (int)DamageType::CRITICAL);
+				TakeDamage(totalDamage * CRITICAL_DAMAGE, (int)DamageType::CRITICAL);
 			}
 			else
 			{
-				TakeDamage(playerMovement->stats.strength * 0.1f, (int)DamageType::NORMAL);
+				TakeDamage(totalDamage, (int)DamageType::NORMAL);
 			}
 		}
-		//else
-		//{
-		//	float distanceToPlayer = GetDistanceToPlayer2D();
-		//	if (distanceToPlayer > 500.0f)
-		//	{
-
-		//	}
-		//}
-
 	}
 }

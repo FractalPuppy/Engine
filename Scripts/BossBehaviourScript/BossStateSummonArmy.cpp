@@ -50,7 +50,7 @@ void BossStateSummonArmy::Update()
 
 			enemiesSpawned += 1;
 
-			firstSkeleton->transform->LookAt(boss->playerPosition);
+			firstSkeleton->transform->LookAtLocal(boss->playerPosition);
 
 			timerSkeletons = 0.0f;
 		}
