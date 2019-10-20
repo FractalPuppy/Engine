@@ -452,7 +452,7 @@ void ItemPicker::Update()
 
 	if (myRender != nullptr)
 	{
-		//myRender->highlighted = true;
+		myRender->highlighted = true;
 		myRender->highlightColor = math::float3(color.x, color.y, color.z);
 	}
 
@@ -467,8 +467,8 @@ void ItemPicker::Update()
 			itemName->Hovered(gameobject->UUID, true);
 			itemName->SetNameBar(gameobject->UUID, rarity, color);
 
-		if (myRender != nullptr)
-			myRender->highlighted = true;
+		/*if (myRender != nullptr)
+			myRender->highlighted = true;*/
 
 
 		if (changeItemCursorIcon && !App->ui->IsHover())
@@ -658,7 +658,7 @@ bool ItemPicker::ItemIntersects()
 	fPoint mouse_point = App->input->GetMousePosition();
 	math::float2 mouse = { mouse_point.x, mouse_point.y };
 	std::list<GameObject*> list = App->scene->SceneRaycastHit(mouse);
-	std::list<GameObject*>::iterator iter = std::find(list.begin(), list.end(), myRender->gameobject);
+	std::list<GameObject*>::iterator iter = std::find(list.begin(), list.end(), gameobject);
 	if (iter != list.end())
 		return true;
 	else return false;

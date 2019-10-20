@@ -40,7 +40,7 @@ void ItemNameController::Update()
 		math::float2 pos = itemList.actualPosition - math::float2((itemBackground->GetComponent<Transform2D>()->getSize().x / 2) - 10.0f, 5.0f);
 		uiName->children.back()->GetComponent<Transform2D>()->SetPositionUsingAligment(pos);
 		myText = uiName->children.back()->GetComponent<Text>();
-		itemBackground->GetComponent<Transform2D>()->SetSize(math::float2((myText->text.size() * 9.5)+45 , 30));
+		itemBackground->GetComponent<Transform2D>()->SetSize(math::float2((myText->text.size() * 10)+35 , 30));
 		myText->color = color;
 	}
 }
