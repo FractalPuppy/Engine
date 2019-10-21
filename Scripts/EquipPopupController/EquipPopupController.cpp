@@ -128,6 +128,14 @@ void EquipPopupController::Update()
 				if (itemUsed == itemsEquiped[i].second.name && j == itemsEquiped[i].first)
 				{
 					hudConsumibleItemsQuantity[j]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));
+					if (hudConsumibleItemsQuantity[j]->text == "0")
+					{
+						hudImageSlots[j]->UpdateTexture("None Selected");
+						hudConsumibleItemsQuantity[j]->text.clear();
+						math::float2 newPos = hudButtonsText[j].first->getPosition();
+						newPos.y += 15.7;
+						hudButtonsText[j].first->SetPositionUsingAligment(newPos);
+					}
 				}		
 			}
 		}
