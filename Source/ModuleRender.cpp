@@ -33,6 +33,7 @@
 #include "Math/float4x4.h"
 #include "Brofiler.h"
 #include "debugdraw.h"
+#include "HashString.h"
 
 ModuleRender::ModuleRender()
 {
@@ -63,14 +64,22 @@ bool ModuleRender::Init(JSON * config)
 	viewGame = new Viewport("Game");
 #endif // !GAME_BUILD
 
-	// Set default Skybox
-	skybox = (ResourceSkybox*)App->resManager->CreateNewResource(TYPE::SKYBOX);
+	// Create default Skybox
+	ResourceSkybox* defaultSkybox = (ResourceSkybox*)App->resManager->CreateNewResource(TYPE::SKYBOX);
 	std::string faces[NUMFACES] = { "Resources/Imported/right.dds", "Resources/Imported/left.dds", "Resources/Imported/top.dds", "Resources/Imported/bottom.dds", "Resources/Imported/front.dds", "Resources/Imported/back.dds" };
-	skybox->SetExportedFile("Default Skybox");
-	skybox->SetName("Default Skybox");
-	skybox->SetTextures(faces);
-	skybox->SetUsedByEngine(true);
-	skybox->LoadInMemory();
+	defaultSkybox->SetExportedFile("Default Skybox");
+	defaultSkybox->SetName("Default Skybox");
+	defaultSkybox->SetTextures(faces);
+	defaultSkybox->SetUsedByEngine(true);
+	skyboxList.push_back(defaultSkybox);
+
+	// Create black Skybox
+	ResourceSkybox* blackSkybox = (ResourceSkybox*)App->resManager->CreateNewResource(TYPE::SKYBOX);
+	std::string blackFaces[NUMFACES] = { "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds", "Resources/Imported/skyboxBlack.dds" };
+	blackSkybox->SetExportedFile("Black Skybox");
+	blackSkybox->SetName("Black Skybox");
+	blackSkybox->SetUsedByEngine(true);
+	skyboxList.push_back(blackSkybox);
 
 	JSON_value* renderer = config->GetValue("renderer");
 	if (renderer == nullptr) return true;
@@ -85,10 +94,13 @@ bool ModuleRender::Init(JSON * config)
 	wireframe = renderer->GetInt("wireframe");
 	vsync = renderer->GetInt("vsync");
 	useMainCameraFrustum = renderer->GetInt("frustumMainCamera");
-	skybox->enabled = renderer->GetInt("skybox");
+	renderSkybox = renderer->GetInt("renderSkybox");
 	current_scale = renderer->GetInt("current_scale");
 	gammaCorrector = renderer->GetFloat("gammaCorrector", gammaCorrector);
 	exposure = renderer->GetFloat("exposure", exposure);
+	selectedSkybox = renderer->GetInt("selectedSkybox");
+
+	skyboxList[selectedSkybox]->LoadInMemory();
 	
 	switch (current_scale)
 	{
@@ -232,10 +244,11 @@ void ModuleRender::SaveConfig(JSON * config)
 	renderer->AddInt("wireframe", wireframe);
 	renderer->AddInt("vsync", vsync);
 	renderer->AddInt("frustumMainCamera", useMainCameraFrustum);
-	renderer->AddInt("skybox", skybox->enabled);
+	renderer->AddInt("renderSkybox", renderSkybox);
 	renderer->AddFloat("gammaCorrector", gammaCorrector);
 	renderer->AddFloat("exposure", exposure);
-
+	renderer->AddInt("selectedSkybox", selectedSkybox);
+	
 	config->AddValue("renderer", *renderer);
 }
 
@@ -256,7 +269,8 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 	{
 		glViewport(0, 0, viewScene->current_width, viewScene->current_height);
 		DrawGizmos(cam);
-		skybox->Draw(*cam.frustum, true);
+		if(renderSkybox)
+			skyboxList[selectedSkybox]->Draw(*cam.frustum, true);
 	}
 	else 
 	{
@@ -265,7 +279,8 @@ void ModuleRender::Draw(const ComponentCamera &cam, int width, int height, bool 
 #else
 		glViewport(0, 0, viewGame->current_width, viewGame->current_height);
 #endif
-		skybox->Draw(*cam.frustum);
+		if (renderSkybox)
+			skyboxList[selectedSkybox]->Draw(*cam.frustum);
 		const float transparent[] = { 0, 0, 0, 1 };
 		glClearBufferfv(GL_COLOR, 1, transparent);
 		glClearBufferfv(GL_COLOR, 2, transparent);
@@ -801,7 +816,6 @@ void ModuleRender::DrawGUI()
 		SDL_GL_SetSwapInterval((int)vsync);
 	}
 	ImGui::Checkbox("Game Frustum", &useMainCameraFrustum);
-	ImGui::Checkbox("Skybox", &skybox->enabled);
 	ImGui::Checkbox("MSAA", &msaa);
 	if (msaa)
 	{
@@ -845,7 +859,52 @@ void ModuleRender::DrawGUI()
 	}
 	ImGui::DragFloat("Gamma correction", &gammaCorrector, .05f, 1.2f, 3.2f);
 	ImGui::DragFloat("Exposure", &exposure, .05f, .1f, 10.0f);
+}
 
+void ModuleRender::DrawSkyboxGUI()
+{
+	ImGui::Checkbox("Render Skybox", &renderSkybox);
+
+	// Skybox selection
+	if (skyboxNames.empty())
+		UpdateSkyboxList();
+
+	if (ImGui::BeginCombo("Default scene", skyboxList[selectedSkybox] != nullptr ? skyboxList[selectedSkybox]->GetName() : ""))
+	{
+		bool none_selected = (skyboxList[selectedSkybox] == nullptr);
+
+		if (none_selected)
+			ImGui::SetItemDefaultFocus();
+		for (int n = 0; n < skyboxNames.size(); n++)
+		{
+			bool is_selected = (skyboxList[selectedSkybox] != nullptr && (HashString(skyboxList[selectedSkybox]->GetName()) == HashString(skyboxNames[n].c_str())));
+			if (ImGui::Selectable(skyboxNames[n].c_str(), is_selected) && !is_selected)
+			{
+				// Delete previous texture
+				if (skyboxList[n] != nullptr)
+					App->resManager->DeleteResource(skyboxList[selectedSkybox]->GetUID());
+
+				selectedSkybox = n;
+				skyboxList[selectedSkybox]->LoadInMemory();
+			}
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
+	}
+	if (ImGui::Button("Refresh Scenes List"))
+	{
+		UpdateSkyboxList();
+	}
+}
+
+void ModuleRender::UpdateSkyboxList()
+{
+	skyboxNames.clear();
+	for (int n = 0; n < skyboxList.size(); n++)
+	{
+		skyboxNames.push_back(skyboxList[n]->GetName());
+	}
 }
 
 void ModuleRender::GenBlockUniforms()
