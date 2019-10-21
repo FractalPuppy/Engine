@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 2116282298,
+            "UID": 2621789164,
             "ParentUID": 0,
             "Name": "ThirdPhaseAOEPrefab",
             "Tag": "Default",
@@ -33,7 +33,6 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 471853287,
-            "prefabTimeStamp": 1570575577,
             "Components": [
                 {
                     "Type": 0,
@@ -83,8 +82,8 @@
                     "Enabled": 1,
                     "script": "ThirdPhaseAOE",
                     "scriptInfo": {
-                        "timeToExplodeFirstAOE": 1.5,
-                        "timeToFinishFirstAOE": 3.0,
+                        "timeToExplodeFirstAOE": 1.2000000476837159,
+                        "timeToFinishFirstAOE": 2.0,
                         "timeToExplodeRepetition": 0.5,
                         "timeToFinishRepetition": 0.800000011920929,
                         "damageFirst": 15.0,
@@ -94,8 +93,8 @@
             ]
         },
         {
-            "UID": 2674490561,
-            "ParentUID": 2116282298,
+            "UID": 2721054037,
+            "ParentUID": 2621789164,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesSecond",
             "Static": 0,
@@ -230,8 +229,8 @@
             ]
         },
         {
-            "UID": 3450352787,
-            "ParentUID": 2116282298,
+            "UID": 193715548,
+            "ParentUID": 2621789164,
             "Name": "Beam Particles",
             "Tag": "hitParticlesSecond",
             "Static": 0,
@@ -395,8 +394,8 @@
             ]
         },
         {
-            "UID": 3408592352,
-            "ParentUID": 2116282298,
+            "UID": 2957560858,
+            "ParentUID": 2621789164,
             "Name": "Hitbox",
             "Tag": "boxTriggerSecond",
             "Static": 0,
@@ -490,8 +489,8 @@
             ]
         },
         {
-            "UID": 185645563,
-            "ParentUID": 2116282298,
+            "UID": 564150515,
+            "ParentUID": 2621789164,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesFirst",
             "Static": 0,
@@ -626,8 +625,8 @@
             ]
         },
         {
-            "UID": 2550662578,
-            "ParentUID": 2116282298,
+            "UID": 2207790280,
+            "ParentUID": 2621789164,
             "Name": "Beam Particles",
             "Tag": "hitParticlesFirst",
             "Static": 0,
@@ -791,8 +790,8 @@
             ]
         },
         {
-            "UID": 2145529562,
-            "ParentUID": 2116282298,
+            "UID": 453470937,
+            "ParentUID": 2621789164,
             "Name": "Hitbox",
             "Tag": "boxTriggerFirst",
             "Static": 0,

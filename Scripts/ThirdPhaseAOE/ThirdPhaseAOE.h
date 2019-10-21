@@ -11,6 +11,7 @@
 
 class ComponentBoxTrigger;
 class PlayerMovement;
+class CameraController;
 
 class ThirdPhaseAOE_API ThirdPhaseAOE : public Script
 {
@@ -58,6 +59,9 @@ public:
 
 	GameObject* playerGO = nullptr;
 	PlayerMovement* playerScript = nullptr;
+
+	GameObject* playerCamera = nullptr;
+	CameraController* cameraScript = nullptr;
 };
 
 #endif __ThirdPhaseAOE_h__

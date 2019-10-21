@@ -66,6 +66,7 @@ class BossStateThirdDeath;
 class EnemyControllerScript;
 class PlayerMovement;
 class GameLoop;
+class CameraController;
 class ComponentAnimation;
 
 class BossBehaviourScript_API BossBehaviourScript : public Script
@@ -201,6 +202,7 @@ public:
 	GameObject* doorParticles = nullptr;
 	float finalDoorHeight = 600.0f;
 	GameObject* playerCamera = nullptr;
+	CameraController* cameraScript = nullptr;
 
 	//TP points
 	math::float3 topTP = math::float3::zero;
