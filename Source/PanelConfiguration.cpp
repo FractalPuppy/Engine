@@ -76,6 +76,10 @@ void PanelConfiguration::Draw()
 	{
 		App->scripting->DrawGUI();
 	}
+	if (ImGui::CollapsingHeader("Skybox"))
+	{
+		App->renderer->DrawSkyboxGUI();
+	}
 	ImGui::End();
 }
 
