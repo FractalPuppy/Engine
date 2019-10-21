@@ -310,7 +310,12 @@ bool ComponentImage::IsMasked() const
 float ComponentImage::PlayVideo()
 {
 	using namespace cv;	
+#ifndef GAME_BUILD
 	cap.open(std::string("../Game/Video/") + videoPath.c_str());
+#else
+	cap.open(std::string("Video/") + videoPath.c_str());
+#endif // !GAME_BUILD
+
 	// Check if video opened successfully
 	if (!cap.isOpened()) {
 		LOG("Error opening video");

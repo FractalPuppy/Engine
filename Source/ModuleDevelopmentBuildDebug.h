@@ -18,7 +18,7 @@ public:
 	bool CleanUp() override;
 
 	void RenderGUI() const;
-
+	void getVisible();
 	void processInput(SDL_Event* event) const;
 
 	unsigned frames = 0u;
@@ -29,6 +29,9 @@ public:
 	float currentFrameTime = .0f;
 	float timer = 0.0f;
 	ComponentCamera* godModeCamera = nullptr;
+
+	//a variable for show and hide it
+	bool visible = false;
 };
 
 #endif //__ModuleEditor_h__

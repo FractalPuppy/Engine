@@ -8,10 +8,12 @@
 #endif
 
 #include "BaseScript.h"
+#include "Math/float3.h"
 
 class JSON_value;
 class ComponentTransform;
 class ComponentBoxTrigger;
+class ComponentTrail;
 class PlayerMovement;
 
 class ProjectileScript_API ProjectileScript : public Script
@@ -19,6 +21,7 @@ class ProjectileScript_API ProjectileScript : public Script
 
 	void Start() override;
 	void Update() override;
+
 
 	void OnTriggerEnter(GameObject* go) override;
 
@@ -33,6 +36,9 @@ class ProjectileScript_API ProjectileScript : public Script
 	}
 
 public:
+	void CleanTrailFX();
+
+
 	float speed = 1000.0f;
 	float lifeTime = 10.0f;
 	bool rotate = false;
@@ -41,7 +47,7 @@ public:
 	bool rotationY = false;
 	bool rotationZ = false;
 	float offsetHeight = 100.0f;
-
+	math::float3 direction;
 
 	std::string playerName = "Player";
 
@@ -51,7 +57,7 @@ public:
 private:
 	ComponentTransform* transform = nullptr;
 	ComponentBoxTrigger* boxTrigger = nullptr;
-
+	ComponentTrail* trail = nullptr;
 
 	GameObject* player = nullptr;
 	PlayerMovement* playerScript = nullptr;

@@ -17,13 +17,12 @@ class ComponentBoxTrigger;
 class DamageController;
 class EnemyLifeBarController;
 class PlayerMovement;
-class ExperienceController;
 class ResourceMaterial;
 class CombatAudioEvents;
 class LootDropScript;
 class WorldControllerScript;
 
-enum class EnemyType {SKELETON, MINER, SORCERER, SPINNER, BANDOLERO};
+enum class EnemyType {SKELETON, MINER, SORCERER, SPINNER, BANDOLERO, BOSS};
 
 class EnemyControllerScript_API EnemyControllerScript : public Script
 {
@@ -70,6 +69,8 @@ public:
 public:
 
 	bool isDead = false;
+	bool bossFightStarted = false;
+	bool hasFreeRotation = false;
 	GameObject* player = nullptr;
 	PlayerMovement* playerMovement = nullptr;
 	std::string playerTag = "Player";
@@ -81,7 +82,7 @@ public:
 	DamageController* damageController = nullptr;
 	EnemyLifeBarController* enemyLifeBar = nullptr;
 
-	ExperienceController* experienceController = nullptr;
+
 
 	
 	// BBoxes
@@ -99,7 +100,7 @@ public:
 
 	CombatAudioEvents* combataudioevents = nullptr;
 
-	// Enemy Type and level (1 = NORMAL, 2 = HARD, 3 = BOSS)
+	// Enemy Type and level (1 = NORMAL, 2 = NORMAL_TEMPLE, 3 = ELITE_GRAVEYARD, 4 = ELITE_TEMPLE, 5 = BOSS)
 	int enemyLevel = 1u;			
 	EnemyType enemyType = EnemyType::SKELETON;
 
@@ -121,6 +122,7 @@ private:
 	float deathTimer = 0.0f;				
 	float lootDelay = 1.0f;					// Time since enemy died untill loot is spawned
 	float lootRadius = 100.0f;				// Distance from enemy position to drop Items around (only if Items to drop > 1)
+	bool removedFromCrowd = false;
 };
 
 extern "C" EnemyControllerScript_API Script* CreateScript();

@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 4137625082,
+            "UID": 2661231396,
             "ParentUID": 652642298,
             "Name": "AudioAmbientGraveyard",
             "Tag": "Default",
@@ -29,7 +29,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2770674638,
@@ -80,8 +80,8 @@
             ]
         },
         {
-            "UID": 2831558835,
-            "ParentUID": 4137625082,
+            "UID": 3445144791,
+            "ParentUID": 2661231396,
             "Name": "WindAudio",
             "Tag": "Default",
             "Static": 0,
@@ -172,8 +172,8 @@
             ]
         },
         {
-            "UID": 245156973,
-            "ParentUID": 4137625082,
+            "UID": 1834249334,
+            "ParentUID": 2661231396,
             "Name": "CrowsAudio1",
             "Tag": "Default",
             "Static": 0,
@@ -264,8 +264,8 @@
             ]
         },
         {
-            "UID": 2473585081,
-            "ParentUID": 4137625082,
+            "UID": 2853627665,
+            "ParentUID": 2661231396,
             "Name": "CrowsAudio2",
             "Tag": "Default",
             "Static": 0,
@@ -356,8 +356,8 @@
             ]
         },
         {
-            "UID": 421863606,
-            "ParentUID": 4137625082,
+            "UID": 2201200735,
+            "ParentUID": 2661231396,
             "Name": "WolfAudio",
             "Tag": "Default",
             "Static": 0,
@@ -448,8 +448,8 @@
             ]
         },
         {
-            "UID": 1736238113,
-            "ParentUID": 4137625082,
+            "UID": 1452054105,
+            "ParentUID": 2661231396,
             "Name": "Music1",
             "Tag": "Default",
             "Static": 0,
@@ -527,9 +527,9 @@
                 {
                     "Type": 14,
                     "Enabled": 1,
-                    "audioUID": 40881970,
+                    "audioUID": 2460047758,
                     "Volume": 0.6000000238418579,
-                    "PlayOnAwake": 1,
+                    "PlayOnAwake": 0,
                     "Sound3D": 0,
                     "LimitPan": 0.5,
                     "FadeDist": 500.0,
@@ -540,8 +540,8 @@
             ]
         },
         {
-            "UID": 3042043765,
-            "ParentUID": 4137625082,
+            "UID": 2925923502,
+            "ParentUID": 2661231396,
             "Name": "torch1",
             "Tag": "Default",
             "Static": 0,
@@ -632,8 +632,8 @@
             ]
         },
         {
-            "UID": 2942490938,
-            "ParentUID": 4137625082,
+            "UID": 840020475,
+            "ParentUID": 2661231396,
             "Name": "torch2",
             "Tag": "Default",
             "Static": 0,
@@ -724,8 +724,8 @@
             ]
         },
         {
-            "UID": 3563812866,
-            "ParentUID": 4137625082,
+            "UID": 938598983,
+            "ParentUID": 2661231396,
             "Name": "torch3",
             "Tag": "Default",
             "Static": 0,
@@ -816,8 +816,8 @@
             ]
         },
         {
-            "UID": 1797251107,
-            "ParentUID": 4137625082,
+            "UID": 4272711262,
+            "ParentUID": 2661231396,
             "Name": "torch5",
             "Tag": "Default",
             "Static": 0,
@@ -908,8 +908,8 @@
             ]
         },
         {
-            "UID": 3508086658,
-            "ParentUID": 4137625082,
+            "UID": 3310524587,
+            "ParentUID": 2661231396,
             "Name": "torch4",
             "Tag": "Default",
             "Static": 0,
@@ -1000,8 +1000,8 @@
             ]
         },
         {
-            "UID": 2074478543,
-            "ParentUID": 4137625082,
+            "UID": 2144871376,
+            "ParentUID": 2661231396,
             "Name": "torch6",
             "Tag": "Default",
             "Static": 0,
@@ -1087,6 +1087,98 @@
                     "FadeDist": 90.0999984741211,
                     "Loop": 1,
                     "Rolloff": 1.5,
+                    "Pitch": 1.0
+                }
+            ]
+        },
+        {
+            "UID": 2999173781,
+            "ParentUID": 2661231396,
+            "Name": "open_gate",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        -3236.222900390625,
+                        401.57952880859377,
+                        2646.099365234375
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        -3236.222900390625,
+                        0.0,
+                        1.0,
+                        0.0,
+                        401.57952880859377,
+                        0.0,
+                        0.0,
+                        1.0,
+                        2646.099365234375,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 4247212037,
+                    "Volume": 2.0,
+                    "PlayOnAwake": 0,
+                    "Sound3D": 1,
+                    "LimitPan": 0.5,
+                    "FadeDist": 1190.0999755859376,
+                    "Loop": 0,
+                    "Rolloff": 20.0,
                     "Pitch": 1.0
                 }
             ]

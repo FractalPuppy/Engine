@@ -47,6 +47,7 @@ public:
 	~ComponentTrail();
 
 	void UpdateTrail();
+	ENGINE_API void CleanTrail();
 	void DrawProperties() override;
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;

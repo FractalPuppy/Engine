@@ -264,7 +264,12 @@
     <ClCompile Include="BossStateInterPhase.cpp" />
     <ClCompile Include="BossStateNotActive.cpp" />
     <ClCompile Include="BossStatePreCast.cpp" />
+    <ClCompile Include="BossStateSecondInterPhase.cpp" />
     <ClCompile Include="BossStateSummonArmy.cpp" />
+    <ClCompile Include="BossStateThirdDeath.cpp" />
+    <ClCompile Include="BossStateThirdIdle.cpp" />
+    <ClCompile Include="BossStateThirdLeft.cpp" />
+    <ClCompile Include="BossStateThirdRight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BossBehaviourScript.h" />
@@ -277,7 +282,12 @@
     <ClInclude Include="BossStateInterPhase.h" />
     <ClInclude Include="BossStateNotActive.h" />
     <ClInclude Include="BossStatePreCast.h" />
+    <ClInclude Include="BossStateSecondInterPhase.h" />
     <ClInclude Include="BossStateSummonArmy.h" />
+    <ClInclude Include="BossStateThirdDeath.h" />
+    <ClInclude Include="BossStateThirdIdle.h" />
+    <ClInclude Include="BossStateThirdLeft.h" />
+    <ClInclude Include="BossStateThirdRight.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BasicEnemyAIScript\BasicEnemyAIScript.vcxproj">
@@ -291,6 +301,9 @@
     </ProjectReference>
     <ProjectReference Include="..\GameLoop\GameLoop.vcxproj">
       <Project>{a5975bb3-268d-4aaa-a04b-9398a16b9280}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\PlayerMovement\PlayerMovement.vcxproj">
+      <Project>{da319d4a-70a8-42c8-a54f-db7ead02ca0d}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

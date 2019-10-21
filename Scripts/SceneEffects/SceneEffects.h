@@ -69,8 +69,8 @@ class SceneEffects_API SceneEffects : public Script
 	std::vector<ComponentLight*> lightingLights;
 
 	float stormTimer = 0.f;
-	float stormDuration = 1.f;
-	float stormCooldown = 4.f;
+	float stormDuration = 2.f;
+	float stormCooldown = 8.f;
 	float stormCooldownTimer = 0.f;
 
 	//Spider stuff

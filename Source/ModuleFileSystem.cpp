@@ -30,10 +30,13 @@
 ModuleFileSystem::ModuleFileSystem()
 {
 	PHYSFS_init(NULL);
+#ifndef GAME_BUILD
 	PHYSFS_setWriteDir("../Game");
+#else
+	PHYSFS_setWriteDir(".");
+#endif
 	baseDir = PHYSFS_getWriteDir();
 	PHYSFS_addToSearchPath(baseDir.c_str(), 1);
-	PHYSFS_setWriteDir(baseDir.c_str());
 
 	PHYSFS_mount(SHADERS, nullptr, 1);
 	PHYSFS_mount(RESOURCES, nullptr, 1);

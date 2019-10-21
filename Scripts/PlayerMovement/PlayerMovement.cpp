@@ -15,6 +15,7 @@
 #include "PlayerStateWalkToHitEnemy.h"
 #include "PlayerStateWalkToPickItem.h"
 #include "PlayerStateDeath.h"
+#include "PlayerStateAutoWalk.h"
 #include "ItemPicker.h"
 
 #include "ComponentAnimation.h"
@@ -31,6 +32,7 @@
 #include "DamageController.h"
 #include "DamageFeedbackUI.h"
 #include "EnemyControllerScript.h"
+#include "InventoryScript.h"
 
 #include "BasicSkill.h"
 #include "SliceSkill.h"
@@ -40,6 +42,7 @@
 #include "CircularAttackSkill.h"
 #include "StompSkill.h"
 #include "RainSkill.h"
+#include "MacheteDanceSkill.h"
 
 #include "JSON.h"
 #include <assert.h>
@@ -64,12 +67,17 @@ PlayerMovement::PlayerMovement()
 	// Register Skills
 	allSkills[SkillType::NONE] = new PlayerSkill();
 	allSkills[SkillType::STOMP] = new PlayerSkill(SkillType::STOMP);
-	allSkills[SkillType::RAIN] = new PlayerSkill(SkillType::RAIN);
+	allSkills[SkillType::RAIN] = new PlayerSkill(SkillType::RAIN, 0.5f);
 	allSkills[SkillType::CHAIN] = new PlayerSkill(SkillType::CHAIN, 10.0f, 0.0f);
 	allSkills[SkillType::DASH] = new PlayerSkill(SkillType::DASH);
-	allSkills[SkillType::SLICE] = new PlayerSkill(SkillType::SLICE);
-	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP);
+	allSkills[SkillType::SLICE] = new PlayerSkill(SkillType::SLICE, 1.5f);
+	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP, 2.0f);
 	allSkills[SkillType::CIRCULAR] = new PlayerSkill(SkillType::CIRCULAR);
+	allSkills[SkillType::DANCE] = new PlayerSkill(SkillType::DANCE, 0.5f, 25.0f, 50.0f);
+	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::SOUL, 0.0f, 0.0f);
+	allSkills[SkillType::BORRACHO] = new PlayerSkill(SkillType::BORRACHO, 0.0f, 0.0f);
+	allSkills[SkillType::FEATHER] = new PlayerSkill(SkillType::FEATHER, 1.0f, 30.0f, 30.0f);
+	allSkills[SkillType::FURIA] = new PlayerSkill(SkillType::FURIA, 4.0f, 50.0f, 60.0f);
 
 	// Default ability keyboard allocation
 	assignedSkills[HUD_BUTTON_RC] = SkillType::NONE;
@@ -161,19 +169,21 @@ void PlayerMovement::Expose(ImGuiContext* context)
 	else if (currentSkill == circular)	ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Circular");
 	else if (currentSkill == stomp)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Stomp");
 	else if (currentSkill == rain)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Rain");
+	else if (currentSkill == dance)		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Dance");
 	else 								ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "None");
 
 	for (auto it = allSkills.begin(); it != allSkills.end(); ++it)
 	{
 		switch (it->first)
 		{
-		case SkillType::CHAIN: it->second->Expose("Chain Attack"); break;
-		case SkillType::DASH: it->second->Expose("Dash"); break;
-		case SkillType::SLICE: it->second->Expose("Slice"); break;
-		case SkillType::BOMB_DROP: it->second->Expose("Bomb Drop"); break;
-		case SkillType::CIRCULAR: it->second->Expose("Circular Attack"); break;
-		case SkillType::STOMP: it->second->Expose("Stomp Attack"); break;
-		case SkillType::RAIN: it->second->Expose("Rain"); break;
+		case SkillType::CHAIN:		it->second->Expose("Chain Attack");		break;
+		case SkillType::DASH:		it->second->Expose("Dash");				break;
+		case SkillType::SLICE:		it->second->Expose("Slice");			break;
+		case SkillType::BOMB_DROP:	it->second->Expose("Bomb Drop");		break;
+		case SkillType::CIRCULAR:	it->second->Expose("Circular Attack");	break;
+		case SkillType::STOMP:		it->second->Expose("Stomp Attack");		break;
+		case SkillType::RAIN:		it->second->Expose("Rain");				break;
+		case SkillType::DANCE:		it->second->Expose("Dance");			break;
 		case SkillType::NONE:
 		default:
 			break;
@@ -213,6 +223,7 @@ void PlayerMovement::CreatePlayerStates()
 		math::float3(150.f, 100.f, 100.f), 0.7f, 0.9f));
 	playerStates.push_back(idle = new PlayerStateIdle(this, "Idle"));
 	playerStates.push_back(death = new PlayerStateDeath(this, "Death"));
+	playerStates.push_back(autoWalk = new PlayerStateAutoWalk(this, "Walk"));
 }
 
 void PlayerMovement::CreatePlayerSkills()
@@ -227,16 +238,14 @@ void PlayerMovement::CreatePlayerSkills()
 	circular->particles = App->scene->FindGameObjectByName("CircularAttackParticles");
 	stomp = new StompSkill(this, "Stomp", attackBoxTrigger);
 	rain = new RainSkill(this, "Rain", "");
-	//rain->decal = App->scene->Spawn("MacheteRainDecal");
-	rain->decal = App->scene->Spawn("MacheteRain");
+	rain->decal = App->scene->Spawn("MacheteDecal");
 	if (rain->decal)
 	{
 		rain->decal->transform->scale *= 2;
 		rain->decal->UpdateGlobalTransform();
 		rain->decal->SetActive(false);
-
 	}
-	GameObject* machete = App->scene->Spawn("MacheteRain");	
+	GameObject* machete = App->scene->Spawn("MacheteRain");
 	if (machete)
 	{
 		rain->decalOriginalColor = ((ComponentRenderer*)rain->decal->GetComponent<ComponentRenderer>())->material->diffuseColor;
@@ -260,13 +269,23 @@ void PlayerMovement::CreatePlayerSkills()
 			macheteUnit.trigger = trigger;
 			macheteUnit.originalScale = macheteClone->transform->scale;
 			rain->machetes.push_back(macheteUnit);
-		}		
+		}
 		machete->GetComponent<ComponentRenderer>()->dissolve = true; //Hide original machete
 		machete->GetComponent<ComponentRenderer>()->dissolveAmount = 2.f;
 	}
 	else
 	{
 		LOG("Machete rain mesh not found");
+	}
+
+	dance = new MacheteDanceSkill(this, "Dance");
+
+	// Spawn machete dance prefab
+	GameObject* danceMachetes = App->scene->Spawn("MacheteDance");
+	if (danceMachetes && dance)
+	{
+		dance->spinMachetes = App->scene->FindGameObjectsByTag(MACHETE_SPIN, danceMachetes);
+		dance->spinTrails = App->scene->FindGameObjectsByTag(MACHETE_TRAILS, danceMachetes);
 	}
 
 	// Player equippable parts
@@ -300,6 +319,31 @@ void PlayerMovement::CreatePlayerSkills()
 	{
 		LOG("Player camera not found");
 	}
+
+	GameObject* GO = nullptr;
+	GO = App->scene->FindGameObjectByName("knives_attack");
+	if (GO != nullptr)
+	{
+		knives_attack = GO->GetComponent<ComponentAudioSource>();
+		assert(knives_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_attack game object not found");
+	}
+
+	GO = nullptr;
+	GO = App->scene->FindGameObjectByName("knives_ending");
+	if (GO != nullptr)
+	{
+		knives_ending = GO->GetComponent<ComponentAudioSource>();
+		assert(knives_ending != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_ending game object not found");
+	}
+
 	allSkills[SkillType::CHAIN]->skill = (BasicSkill*)chain;
 	allSkills[SkillType::DASH]->skill = (BasicSkill*)dash;
 	allSkills[SkillType::SLICE]->skill = (BasicSkill*)slice;
@@ -307,6 +351,7 @@ void PlayerMovement::CreatePlayerSkills()
 	allSkills[SkillType::CIRCULAR]->skill = (BasicSkill*)circular;
 	allSkills[SkillType::STOMP]->skill = (BasicSkill*)stomp;
 	allSkills[SkillType::RAIN]->skill = (BasicSkill*)rain;
+	allSkills[SkillType::DANCE]->skill = (BasicSkill*)dance;
 }
 
 void PlayerMovement::CheckSkillsInput()
@@ -339,7 +384,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_1]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_1]]->type;
-		}		
+		}
 	}
 	else if (IsUsingTwo())
 	{
@@ -347,7 +392,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_2]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_2]]->type;
-		}		
+		}
 	}
 	else if (IsUsingThree())
 	{
@@ -355,7 +400,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_3]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_3]]->type;
-		}		
+		}
 	}
 	else if (IsUsingFour())
 	{
@@ -363,7 +408,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_4]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_4]]->type;
-		}		
+		}
 	}
 	else if (IsUsingQ())
 	{
@@ -371,7 +416,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_Q]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_Q]]->type;
-		}		
+		}
 	}
 	else if (IsUsingW())
 	{
@@ -379,7 +424,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_W]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_W]]->type;
-		}	
+		}
 	}
 	else if (IsUsingE())
 	{
@@ -387,7 +432,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_E]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_E]]->type;
-		}		
+		}
 	}
 	else if (IsUsingR())
 	{
@@ -395,7 +440,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_R]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_R]]->type;
-		}		
+		}
 	}
 	else if (IsUsingRightClick())
 	{
@@ -403,7 +448,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_RC]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_RC]]->type;
-		}		
+		}
 	}
 
 	if (currentSkill != nullptr && previous != currentSkill)
@@ -691,18 +736,34 @@ void PlayerMovement::Start()
 	assignedSkills[HUD_BUTTON_R] = (SkillType)PlayerPrefs::GetInt("R", 20);
 
 	InitializeUIStatsObjects();
+
+	GameObject* inventoryGO = App->scene->FindGameObjectByName("Inventory");
+	if (inventoryGO)
+	{
+		inventoryScript = inventoryGO->GetComponent<InventoryScript>();
+	}
+	//assert breaks if evaluated to false
+	assert(inventoryGO && inventoryScript);
+
+	manaEffects = App->scene->FindGameObjectByName("ManaEffect");
+	hpEffects = App->scene->FindGameObjectByName("HPEffect");
+
 	LOG("Started player movement script");
 }
 
 void PlayerMovement::Update()
 {
+	if (currentState == walk)
+		walk->dustParticles->SetActive(true);			
+	else
+		walk->dustParticles->SetActive(false);
+
 	if (App->time->gameTimeScale == 0) return;
 
 	deltatime = App->time->gameDeltaTime;
 	if (health <= 0.f)
 	{
 		currentState = (PlayerState*)death;
-		return;
 	}
 
 	PlayerState* previous = currentState;
@@ -730,20 +791,21 @@ void PlayerMovement::Update()
 		// Skills
 		PrepareSkills();
 		CheckSkillsInput();
-		if (currentSkill != nullptr)
-		{
-			currentSkill->Update();
-			itemClicked = nullptr;
-		}
-
 		// States
 		currentState->UpdateTimer();
 		currentState->CheckInput();
 		currentState->Update();
-
-		//if previous and current are different the functions Exit() and Enter() are called
-		CheckStates(previous, currentState);
 	}
+	if (currentSkill != nullptr)
+	{
+		currentSkill->Update();
+		itemClicked = nullptr;
+	}
+
+
+	//if previous and current are different the functions Exit() and Enter() are called
+	CheckStates(previous, currentState);
+
 
 	ManaManagement();
 
@@ -809,7 +871,7 @@ void PlayerMovement::Update()
 
 					rain->machetes[i].landed = true;
 					macheteRainRenderer->dissolveAmount += .5f * App->time->gameDeltaTime;
-					machete->transform->SetGlobalPosition(machete->transform->GetGlobalPosition() + math::float3(MACHETE_RAIN_HORIZONTAL_SPEED * App->time->gameDeltaTime, 
+					machete->transform->SetGlobalPosition(machete->transform->GetGlobalPosition() + math::float3(MACHETE_RAIN_HORIZONTAL_SPEED * App->time->gameDeltaTime,
 						MACHETE_RAIN_SPEED * App->time->gameDeltaTime * .005f, 0));
 					if (!shaking && playerCamera)
 					{
@@ -820,6 +882,8 @@ void PlayerMovement::Update()
 					{
 						LOG("Machete Rain end");
 						macheteRainActivated = false;
+						knives_attack->Stop();
+						knives_ending->Play();
 					}
 
 					if (macheteRainRenderer->dissolveAmount > 1.f)
@@ -829,10 +893,64 @@ void PlayerMovement::Update()
 				machete->Update(); //Force updates due it's not in any hierarchy
 				machete->UpdateTransforms(math::float4x4::identity); //Force updates due it's not in any hierarchy
 			}
-			
-		}		
+
+		}
 	}
 	//Check for changes in the state to send triggers to animation SM
+
+
+	currentTime += App->time->gameDeltaTime;
+	if (currentTime >= consumableItemTimeShowing)
+	{
+		if (hpEffects != nullptr)
+			hpEffects->SetActive(false);
+
+		if (manaEffects != nullptr)
+			manaEffects->SetActive(false);
+
+		currentTime = 0;
+	}
+
+	// Rotate machetes after MacheteDance skill is called
+	if (macheteDanceActivated && dance != nullptr)
+	{
+		dance->danceTimer += App->time->gameDeltaTime;
+
+		// End skill
+		if (dance->danceTimer > dance->macheteDuration)
+		{
+			// Dissolve animation
+			for (size_t i = 0; i < dance->spinMachetes.size(); i++)
+			{
+				ComponentRenderer* macheteDanceRenderer = (ComponentRenderer*)dance->spinMachetes[i]->GetComponentInChildren(ComponentType::Renderer);
+				if (macheteDanceRenderer != nullptr)
+					macheteDanceRenderer->dissolveAmount += 0.5f * App->time->gameDeltaTime;
+
+				// Dissolve animation ended, hide machetes
+				if (macheteDanceRenderer->dissolveAmount > 1.f)
+					dance->spinMachetes[i]->SetActive(false);
+			}
+
+			// Dissable trails
+			if (dance->trailsActive)
+			{
+				for (size_t i = 0; i < dance->spinTrails.size(); i++)
+				{
+					dance->spinTrails[i]->SetActive(false);
+				}
+				dance->trailsActive = false;
+			}
+
+			// Last machete disabled? End skill
+			if (!dance->spinMachetes.empty() && !dance->spinMachetes[dance->spinMachetes.size() - 1]->isActive())
+			{
+				dance->danceTimer = 0.0f;
+				macheteDanceActivated = false;
+			}
+		}
+		dance->spinMachetes[0]->parent->transform->SetPosition(this->gameobject->transform->position);
+		dance->RotateMachetes();
+	}
 }
 
 PlayerMovement_API void PlayerMovement::Damage(float amount)
@@ -963,20 +1081,36 @@ void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
 		helmetRenderer->SetMaterial(nullptr);
 		break;
 	}
-	
+
 }
 
 void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 {
-	health = health + equipStats.health;
-	mana = mana + equipStats.mana;
-
 	if (equipStats.health > 0)
 	{
-		damageController->AddDamage(gameobject->transform, equipStats.health, DamageType::HEALING);
-	} else if (equipStats.mana > 0)
+		int amountToIncrease = (health + equipStats.health <= stats.health) ? equipStats.health : stats.health - health;
+		health = health + amountToIncrease;
+		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::HEALING);
+
+		if (hpEffects != nullptr)
+			hpEffects->SetActive(true);
+	}
+	else if (equipStats.mana > 0)
 	{
-		damageController->AddDamage(gameobject->transform, equipStats.mana, DamageType::MANA);
+		int amountToIncrease = (mana + equipStats.mana <= stats.mana) ? equipStats.mana : stats.mana - mana;
+		mana = mana + amountToIncrease;
+		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::MANA);
+
+		if (manaEffects != nullptr)
+			manaEffects->SetActive(true);
+	}
+}
+
+void PlayerMovement::stopPlayerWalking()
+{
+	if (walk != nullptr)
+	{
+		walk->playerWalking = false;
 	}
 }
 
@@ -1112,6 +1246,11 @@ void PlayerMovement::Serialize(JSON_value* json) const
 		if (allSkills.find(SkillType::RAIN) != allSkills.end()) allSkills.find(SkillType::RAIN)->second->Serialize(rain_data);
 		abilities->AddValue("rain", *rain_data);
 	}
+	{
+		JSON_value* dance_data = json->CreateValue();
+		if (allSkills.find(SkillType::DANCE) != allSkills.end()) allSkills.find(SkillType::DANCE)->second->Serialize(dance_data);
+		abilities->AddValue("dance", *dance_data);
+	}
 	json->AddValue("abilities", *abilities);
 
 	stats.Serialize(json);
@@ -1178,7 +1317,10 @@ void PlayerMovement::DeSerialize(JSON_value* json)
 		if (circular_data) allSkills[SkillType::CIRCULAR]->DeSerialize(circular_data, circular);
 
 		JSON_value* rain_data = abilities->GetValue("rain");
-		if (rain_data) allSkills[SkillType::CIRCULAR]->DeSerialize(rain_data, rain);
+		if (rain_data) allSkills[SkillType::RAIN]->DeSerialize(rain_data, rain);
+
+		JSON_value* dance_data = abilities->GetValue("dance");
+		if (rain_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
 	}
 
 
@@ -1215,10 +1357,23 @@ bool PlayerMovement::IsAttacking() const
 		Dist = Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position);
 	}
 	//and finally if enemy is on attack range
+
+	//we are gonna make it so that the condition changes slightly depending on
+	//whether the player is moving to attack or not.
+	float distanceCheckValue = 0.f;
+	if (currentSkill == chain)
+	{
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.5;
+	}
+	else
+	{
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1;
+	}
+
 	if (App->scene->enemyHovered.object != nullptr &&
 		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
 			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) &&
-		Dist <= basicAttackRange)
+		Dist < distanceCheckValue)
 	{
 		return true;
 	}
@@ -1227,12 +1382,23 @@ bool PlayerMovement::IsAttacking() const
 
 bool PlayerMovement::IsMovingToAttack() const
 {
-
+	//we are gonna make it so that the condition changes slightly depending on
+	//whether the player is moving to attack or not.
+	float distanceCheckValue = 0.f;
+	if (currentState->playerWalkingToHit)
+	{
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1;
+	}
+	else
+	{
+		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.5;
+	}
 	if (App->scene->enemyHovered.object != nullptr && App->scene->enemyHovered.health > 0 &&
 		!App->input->IsKeyPressed(SDL_SCANCODE_LSHIFT) == KEY_DOWN &&
 		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
 			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) &&
-		Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position) > basicAttackRange)
+		Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position) >=
+		distanceCheckValue)
 	{
 		return true;
 	}
@@ -1241,13 +1407,13 @@ bool PlayerMovement::IsMovingToAttack() const
 
 bool PlayerMovement::IsMoving() const
 {
-	return (IsPressingMouse1() && !IsAttacking() && !IsMovingToAttack() && (!IsMovingToItem() || (IsMovingToItem() && stoppedGoingToItem)));
+	return (IsPressingMouse1() && !IsAttacking() && !IsMovingToAttack() && !inventoryScript->itemGrabbed && (!IsMovingToItem() || (IsMovingToItem() && stoppedGoingToItem)));
 }
 
 //this functionchecks the mouse position, which includes 2 things:
 //1- the distance between the mouse and the player (if both point to the same position, FALSe)
 //2- if the cursor points to a navigable zone
-bool PlayerMovement::CorrectMousePosition() const 
+bool PlayerMovement::CorrectMousePosition() const
 {
 	math::float3 destinationPoint;
 	App->navigation->FindIntersectionPoint(gameobject->transform->position, destinationPoint);
@@ -1263,6 +1429,7 @@ that avoids a pathfinding call if we end up actually entering the walk state
 
 bool PlayerMovement::PathFindingCall() const
 {
+	if (walk == nullptr) return false;
 	math::float3 intPos(0.f, 0.f, 0.f);
 	bool path = App->navigation->NavigateTowardsCursor(gameobject->transform->position, walk->path,
 		math::float3(OutOfMeshCorrectionXZ, OutOfMeshCorrectionY, OutOfMeshCorrectionXZ),
@@ -1352,6 +1519,17 @@ bool PlayerMovement::IsExecutingSkill() const
 	return currentSkill != nullptr && currentSkill != chain;
 }
 
+PlayerSkill* PlayerMovement::GetSkillInUse() const
+{
+	for (auto it = allSkills.begin(); it != allSkills.end(); ++it)
+	{
+		if (it->second->skill == currentSkill)
+			return it->second;
+	}
+
+	return nullptr;
+}
+
 void PlayerMovement::PrepareSkills() const
 {
 	if (allSkills.find(assignedSkills[HUD_BUTTON_1])->second->IsUsable(mana) && App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
@@ -1402,7 +1580,7 @@ void PlayerMovement::UseSkill(SkillType skill)
 		{
 			it->second->SetCooldown(hubGeneralAbilityCooldown);
 		}*/
-	}	
+	}
 	for (unsigned i = 0u; i < SKILLS_SLOTS; ++i)
 	{
 		hubCooldownTimer[i] = allSkills[assignedSkills[i]]->cooldown;
@@ -1522,6 +1700,7 @@ void PlayerSkill::Expose(const char* title)
 	{
 		ImGui::PushID(title);
 		ImGui::Bullet(); ImGui::SameLine(); ImGui::Text(title);
+		ImGui::DragFloat("Damage", &damage, 0.1f);
 		ImGui::DragFloat("Mana Cost", &manaCost);
 		ImGui::DragFloat("Cooldown", &this->cooldown);
 		ImGui::Text("Timer: %f (%f)", cooldownTimer, CooldownRatio());
@@ -1532,6 +1711,7 @@ void PlayerSkill::Expose(const char* title)
 void PlayerSkill::Serialize(JSON_value* json) const
 {
 	json->AddInt("type", (int)type);
+	json->AddFloat("damage", damage);
 	json->AddFloat("mana_cost", manaCost);
 	json->AddFloat("cooldown", cooldown);
 }
@@ -1539,6 +1719,7 @@ void PlayerSkill::Serialize(JSON_value* json) const
 void PlayerSkill::DeSerialize(JSON_value* json, BasicSkill* playerSkill)
 {
 	//type = (SkillType)json->GetInt("type"); 
+	damage = json->GetFloat("damage", 1.0f);
 	manaCost = json->GetFloat("mana_cost");
 	cooldown = json->GetFloat("cooldown");
 	skill = playerSkill;
