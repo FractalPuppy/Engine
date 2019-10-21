@@ -133,8 +133,12 @@ void EquipPopupController::Update()
 						hudImageSlots[j]->UpdateTexture("None Selected");
 						hudConsumibleItemsQuantity[j]->text.clear();
 						math::float2 newPos = hudButtonsText[j].first->getPosition();
-						newPos.y += 15.7;
+						if (newPos.y == -265.7f)
+						{
+							newPos.y += 15.7;
+						}
 						hudButtonsText[j].first->SetPositionUsingAligment(newPos);
+						itemsEquiped.erase(itemsEquiped.begin() + i);
 					}
 				}		
 			}
