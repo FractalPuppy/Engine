@@ -753,11 +753,6 @@ void PlayerMovement::Start()
 
 void PlayerMovement::Update()
 {
-	if (currentState == walk)
-		walk->dustParticles->SetActive(true);			
-	else
-		walk->dustParticles->SetActive(false);
-
 	if (App->time->gameTimeScale == 0) return;
 
 	deltatime = App->time->gameDeltaTime;
@@ -1611,7 +1606,7 @@ void PlayerMovement::ResetCooldown(unsigned int hubButtonID)
 	}
 }
 
-void PlayerMovement::CheckStates(PlayerState * previous, PlayerState * current)
+void PlayerMovement::CheckStates(PlayerState* previous, PlayerState* current)
 {
 	if (previous != current)
 	{
@@ -1626,6 +1621,12 @@ void PlayerMovement::CheckStates(PlayerState * previous, PlayerState * current)
 		}
 
 		current->duration = anim->GetDurationFromClip();
+
+		// Set walk particles active when new state has walking
+		if (current == walk || current == walkToPickItem || current == walkToHit)
+			walk->dustParticles->SetActive(true);
+		else
+			walk->dustParticles->SetActive(false);
 	}
 }
 
