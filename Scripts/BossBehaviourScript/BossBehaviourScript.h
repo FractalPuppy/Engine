@@ -84,6 +84,9 @@ public:
 	{
 		return new BossBehaviourScript(*this);
 	}
+	void StartThirdPhase();
+	void EndThirdPhase();
+
 public:
 	TPlocations currentLocation = TPlocations::None;
 	BossPhase bossPhase = BossPhase::None;
@@ -209,7 +212,7 @@ public:
 	math::float3 rightTP = math::float3::zero;
 
 	//Summon in summon phase
-	int summonSkeletonsNumber = 10;
+	int summonSkeletonsNumber = 1;
 	float timerBetweenSummons = 5.0f;
 	math::float3 firstSpawnLocation = math::float3::zero;
 	//giving default intended values to the spawn locations
