@@ -1845,9 +1845,9 @@ void PlayerMovement::SavePlayerStats()
 	PlayerPrefs::SetFloat("strength", stats.strength);
 	PlayerPrefs::SetInt("RC", (int)assignedSkills[HUD_BUTTON_RC]);
 	PlayerPrefs::SetInt("1", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("3", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("4", (int)assignedSkills[HUD_BUTTON_1]);
+	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_2]);
+	PlayerPrefs::SetInt("3", (int)assignedSkills[HUD_BUTTON_3]);
+	PlayerPrefs::SetInt("4", (int)assignedSkills[HUD_BUTTON_4]);
 	PlayerPrefs::SetInt("Q", (int)assignedSkills[HUD_BUTTON_Q]);
 	PlayerPrefs::SetInt("W", (int)assignedSkills[HUD_BUTTON_W]);
 	PlayerPrefs::SetInt("E", (int)assignedSkills[HUD_BUTTON_E]);
