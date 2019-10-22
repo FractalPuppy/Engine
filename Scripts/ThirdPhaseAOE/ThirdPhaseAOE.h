@@ -63,6 +63,8 @@ public:
 
 	GameObject* playerCamera = nullptr;
 	CameraController* cameraScript = nullptr;
+
+	bool particlesSet = false;
 };
 
 #endif __ThirdPhaseAOE_h__

@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 3791954669,
+            "UID": 2403650793,
             "ParentUID": 0,
             "Name": "ThirdPhaseAOEPrefab",
             "Tag": "Default",
@@ -33,6 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 471853287,
+            "prefabTimeStamp": 1571769824,
             "Components": [
                 {
                     "Type": 0,
@@ -85,7 +86,7 @@
                         "timeToExplodeFirstAOE": 1.2000000476837159,
                         "timeToFinishFirstAOE": 2.5,
                         "timeToExplodeRepetition": 0.5,
-                        "timeToFinishRepetition": 0.800000011920929,
+                        "timeToFinishRepetition": 2.0,
                         "damageFirst": 15.0,
                         "damageSecond": 10.0
                     }
@@ -93,8 +94,8 @@
             ]
         },
         {
-            "UID": 3360857136,
-            "ParentUID": 3791954669,
+            "UID": 2479538211,
+            "ParentUID": 2403650793,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesSecond",
             "Static": 0,
@@ -229,8 +230,8 @@
             ]
         },
         {
-            "UID": 3945659682,
-            "ParentUID": 3791954669,
+            "UID": 3722912361,
+            "ParentUID": 2403650793,
             "Name": "Beam Particles",
             "Tag": "hitParticlesSecond",
             "Static": 0,
@@ -311,49 +312,51 @@
                     "xTiles": 1,
                     "yTiles": 1,
                     "fps": 24.0,
-                    "textureUID": 4093146203,
+                    "textureUID": 2341582302,
                     "lifetime": [
-                        2.0,
-                        2.0
+                        1.5,
+                        1.5
                     ],
                     "speed": [
-                        800.0,
-                        1000.0
+                        400.0,
+                        500.0
                     ],
                     "rate": 100.0,
-                    "maxParticles": 100,
+                    "maxParticles": 10,
                     "rotation": [
-                        0.0,
-                        0.0
+                        -30.0,
+                        30.0
                     ],
                     "sizeMin": [
-                        120.0,
-                        120.0
+                        100.0,
+                        100.0
                     ],
                     "sizeMax": [
-                        200.0,
-                        200.0
+                        120.0,
+                        120.0
                     ],
                     "quadEmitterSize": [
                         200.0,
                         200.0
                     ],
                     "particleColor": [
-                        0.41803276538848879,
-                        0.08566244691610336,
-                        0.08566244691610336,
+                        0.9672130942344666,
+                        0.9672034382820129,
+                        0.9672034382820129,
                         1.0
                     ],
                     "directionNoise": 0,
                     "directionNoiseProbability": 5,
                     "directionNoiseTotalProbability": 500,
-                    "actualEmisor": 0,
+                    "actualEmisor": 2,
+                    "baseRadius": 6.0,
+                    "apexRadius": 1.5,
                     "sizeOT": 0,
-                    "colorOT": 0,
+                    "colorOT": 1,
                     "defaultColor": [
-                        0.41803276538848879,
-                        0.08566244691610336,
-                        0.08566244691610336,
+                        0.9672130942344666,
+                        0.9672034382820129,
+                        0.9672034382820129,
                         1.0
                     ],
                     "billboarded": 1,
@@ -373,20 +376,20 @@
                     ],
                     "bezier5": 0.0,
                     "color0": [
-                        1.0,
-                        1.0,
-                        1.0
+                        0.9098360538482666,
+                        0.5178183317184448,
+                        0.007457663770765066
                     ],
                     "colorPosition0": 0.0,
                     "alpha0": 1.0,
                     "alphaPosition0": 0.0,
                     "color1": [
-                        1.0,
-                        1.0,
-                        1.0
+                        0.9098039269447327,
+                        0.5176470875740051,
+                        0.007843137718737126
                     ],
                     "colorPosition1": 1.0,
-                    "alpha1": 1.0,
+                    "alpha1": 0.09600000083446503,
                     "alphaPosition1": 1.0,
                     "alphas": 2,
                     "colors": 2
@@ -394,8 +397,8 @@
             ]
         },
         {
-            "UID": 3849800756,
-            "ParentUID": 3791954669,
+            "UID": 499891143,
+            "ParentUID": 2403650793,
             "Name": "Hitbox",
             "Tag": "boxTriggerSecond",
             "Static": 0,
@@ -489,8 +492,8 @@
             ]
         },
         {
-            "UID": 549205957,
-            "ParentUID": 3791954669,
+            "UID": 1906711420,
+            "ParentUID": 2403650793,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesFirst",
             "Static": 0,
@@ -625,8 +628,8 @@
             ]
         },
         {
-            "UID": 910956242,
-            "ParentUID": 3791954669,
+            "UID": 1250047455,
+            "ParentUID": 2403650793,
             "Name": "Beam Particles",
             "Tag": "hitParticlesFirst",
             "Static": 0,
@@ -794,8 +797,8 @@
             ]
         },
         {
-            "UID": 1088890264,
-            "ParentUID": 3791954669,
+            "UID": 853730171,
+            "ParentUID": 2403650793,
             "Name": "Hitbox",
             "Tag": "boxTriggerFirst",
             "Static": 0,
@@ -889,8 +892,8 @@
             ]
         },
         {
-            "UID": 16067741,
-            "ParentUID": 3791954669,
+            "UID": 2843286126,
+            "ParentUID": 2403650793,
             "Name": "Rock particles",
             "Tag": "rockParticlesFirst",
             "Static": 0,
@@ -1042,16 +1045,24 @@
                     "colorPosition0": 0.0,
                     "alpha0": 1.0,
                     "alphaPosition0": 0.0,
+                    "alpha1": 1.0,
+                    "alphaPosition1": 0.7712264060974121,
                     "color1": [
+                        0.3019607961177826,
+                        0.24705883860588075,
+                        0.01568627543747425
+                    ],
+                    "colorPosition1": 0.9882075190544128,
+                    "color2": [
                         0.3019607961177826,
                         0.24705882370471955,
                         0.01568627543747425
                     ],
-                    "colorPosition1": 1.0,
-                    "alpha1": 0.0,
-                    "alphaPosition1": 1.0,
-                    "alphas": 2,
-                    "colors": 2
+                    "colorPosition2": 1.0,
+                    "alpha2": 0.0,
+                    "alphaPosition2": 1.0,
+                    "alphas": 3,
+                    "colors": 3
                 }
             ]
         }
