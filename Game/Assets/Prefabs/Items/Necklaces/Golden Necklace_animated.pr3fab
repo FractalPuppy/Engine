@@ -1,9 +1,9 @@
 {
     "GameObjects": [
         {
-            "UID": 3972062970,
+            "UID": 2306029448,
             "ParentUID": 0,
-            "Name": "Metal Chest Armor",
+            "Name": "Golden Necklace_animated",
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 1,
@@ -32,15 +32,15 @@
             "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
-            "prefabUID": 721424739,
+            "prefabUID": 0,
             "Components": [
                 {
                     "Type": 0,
                     "Enabled": 1,
                     "Position": [
-                        -3246.42919921875,
+                        -3251.738037109375,
                         341.90716552734377,
-                        2227.42431640625
+                        2181.742919921875
                     ],
                     "Rotation": [
                         -0.7071068286895752,
@@ -55,22 +55,22 @@
                     ],
                     "Scale": [
                         1.0,
-                        0.9999836087226868,
-                        0.9999836087226868
+                        0.9999625086784363,
+                        0.9999625086784363
                     ],
                     "Global": [
                         1.0,
                         0.0,
                         0.0,
-                        -3246.42919921875,
+                        -3251.738037109375,
                         0.0,
-                        -1.1920734266368527e-7,
-                        0.9999836087226868,
+                        -1.1920482734240068e-7,
+                        0.9999625086784363,
                         341.90716552734377,
                         0.0,
-                        -0.9999836087226868,
-                        -1.1920734266368527e-7,
-                        2227.42431640625,
+                        -0.9999625086784363,
+                        -1.1920482734240068e-7,
+                        2181.742919921875,
                         0.0,
                         0.0,
                         0.0,
@@ -140,21 +140,37 @@
                     "Enabled": 1,
                     "script": "ItemPicker",
                     "scriptInfo": {
-                        "name": "Metal Chest Armor",
-                        "description": "Stinky metal armor.",
-                        "sprite": "MetalChestArmor_icon",
-                        "type": 6,
-                        "rarity": 1,
+                        "name": "Golden Necklace",
+                        "description": "Really shiny..but weights too much!",
+                        "sprite": "GoldNecklace_icon",
+                        "type": 9,
+                        "rarity": 3,
                         "isEquipped": 0,
-                        "health": 35.0,
-                        "mana": 0.0,
+                        "health": 100.0,
+                        "mana": 100.0,
                         "strength": 0,
-                        "dexterity": -5,
+                        "dexterity": 0,
                         "hpRegen": 0.0,
                         "manaRegen": 0.0,
                         "itemCursor": "Pick.cur",
                         "meshUID": 0,
                         "materialUID": 1488033508
+                    }
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "ScaleOverTime",
+                    "scriptInfo": {
+                        "speed": 0.10000000149011612,
+                        "finalScale": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ],
+                        "loop": 0,
+                        "pingPong": 0,
+                        "acceleration": 1
                     }
                 }
             ]

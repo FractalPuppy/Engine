@@ -1,9 +1,9 @@
 {
     "GameObjects": [
         {
-            "UID": 3972062970,
+            "UID": 3485544886,
             "ParentUID": 0,
-            "Name": "Metal Chest Armor",
+            "Name": "Gold Pants_animated",
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 1,
@@ -32,7 +32,7 @@
             "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
-            "prefabUID": 721424739,
+            "prefabUID": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -140,13 +140,13 @@
                     "Enabled": 1,
                     "script": "ItemPicker",
                     "scriptInfo": {
-                        "name": "Metal Chest Armor",
-                        "description": "Stinky metal armor.",
-                        "sprite": "MetalChestArmor_icon",
-                        "type": 6,
-                        "rarity": 1,
+                        "name": "Gold Pants",
+                        "description": "Uncomfortable gold pants.",
+                        "sprite": "GoldPants_icon",
+                        "type": 7,
+                        "rarity": 2,
                         "isEquipped": 0,
-                        "health": 35.0,
+                        "health": 40.0,
                         "mana": 0.0,
                         "strength": 0,
                         "dexterity": -5,
@@ -155,6 +155,22 @@
                         "itemCursor": "Pick.cur",
                         "meshUID": 0,
                         "materialUID": 1488033508
+                    }
+                },
+                {
+                    "Type": 9,
+                    "Enabled": 1,
+                    "script": "ScaleOverTime",
+                    "scriptInfo": {
+                        "speed": 0.10000000149011612,
+                        "finalScale": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ],
+                        "loop": 0,
+                        "pingPong": 0,
+                        "acceleration": 1
                     }
                 }
             ]
