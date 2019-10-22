@@ -1679,13 +1679,8 @@ void PlayerStats::Expose(const char* sectionTitle)
 	ImGui::Text(sectionTitle);
 	ImGui::InputFloat("Health", &health);
 	ImGui::InputFloat("Mana", &mana);
-
-	int uiStrength = (int)strength;
-	if (ImGui::InputInt("Strength", &uiStrength)) strength = uiStrength < 0 ? 0 : uiStrength;
-
-	int uiDexterity = (int)dexterity;
-	if (ImGui::InputInt("Dexterity", &uiDexterity)) dexterity = uiDexterity < 0 ? 0 : uiDexterity;
-
+	ImGui::InputInt("Strength", &strength);
+	ImGui::InputInt("Dexterity", &dexterity);
 	ImGui::DragFloat("HP regen", &hpRegen, 1.0F, 0.0F, 10.0F);
 	ImGui::DragFloat("Mana regen", &manaRegen, 1.0F, 0.0F, 10.0F);
 }

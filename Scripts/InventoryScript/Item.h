@@ -52,7 +52,7 @@ public:
 	unsigned materialUID = 0u;
 	unsigned gameobjectUID = 0u;
 
-	PlayerStats stats = { 0.0f, 0.0f, 0U, 0U, 0.0f, 0.0f };
+	PlayerStats stats = { 0.0f, 0.0f, 0, 0, 0.0f, 0.0f };
 };
 
 #endif
