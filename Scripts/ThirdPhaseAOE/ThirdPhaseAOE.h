@@ -45,6 +45,7 @@ public:
 	GameObject* prepParticlesFirstAOEGO = nullptr;
 	GameObject* hitParticlesFirstAOEGO = nullptr;
 	GameObject* boxTriggerFirstAOEGO = nullptr;
+	GameObject* rockParticlesFirstAOEGO = nullptr;
 	ComponentBoxTrigger* boxTriggerComponentFirst = nullptr;
 
 	//second AOE variables

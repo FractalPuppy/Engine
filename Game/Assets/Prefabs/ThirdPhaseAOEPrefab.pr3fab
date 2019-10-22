@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 2621789164,
+            "UID": 3791954669,
             "ParentUID": 0,
             "Name": "ThirdPhaseAOEPrefab",
             "Tag": "Default",
@@ -83,7 +83,7 @@
                     "script": "ThirdPhaseAOE",
                     "scriptInfo": {
                         "timeToExplodeFirstAOE": 1.2000000476837159,
-                        "timeToFinishFirstAOE": 2.0,
+                        "timeToFinishFirstAOE": 2.5,
                         "timeToExplodeRepetition": 0.5,
                         "timeToFinishRepetition": 0.800000011920929,
                         "damageFirst": 15.0,
@@ -93,8 +93,8 @@
             ]
         },
         {
-            "UID": 2721054037,
-            "ParentUID": 2621789164,
+            "UID": 3360857136,
+            "ParentUID": 3791954669,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesSecond",
             "Static": 0,
@@ -229,8 +229,8 @@
             ]
         },
         {
-            "UID": 193715548,
-            "ParentUID": 2621789164,
+            "UID": 3945659682,
+            "ParentUID": 3791954669,
             "Name": "Beam Particles",
             "Tag": "hitParticlesSecond",
             "Static": 0,
@@ -313,15 +313,15 @@
                     "fps": 24.0,
                     "textureUID": 4093146203,
                     "lifetime": [
-                        0.800000011920929,
-                        1.0
+                        2.0,
+                        2.0
                     ],
                     "speed": [
                         800.0,
                         1000.0
                     ],
-                    "rate": 200.0,
-                    "maxParticles": 200,
+                    "rate": 100.0,
+                    "maxParticles": 100,
                     "rotation": [
                         0.0,
                         0.0
@@ -394,8 +394,8 @@
             ]
         },
         {
-            "UID": 2957560858,
-            "ParentUID": 2621789164,
+            "UID": 3849800756,
+            "ParentUID": 3791954669,
             "Name": "Hitbox",
             "Tag": "boxTriggerSecond",
             "Static": 0,
@@ -489,8 +489,8 @@
             ]
         },
         {
-            "UID": 564150515,
-            "ParentUID": 2621789164,
+            "UID": 549205957,
+            "ParentUID": 3791954669,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesFirst",
             "Static": 0,
@@ -569,7 +569,7 @@
                     "Type": 1,
                     "Enabled": 1,
                     "meshUID": 3908715504,
-                    "materialUID": 1634342396,
+                    "materialUID": 3624443983,
                     "castShadows": 0,
                     "useAlpha": 1,
                     "highlighted": 0,
@@ -579,8 +579,8 @@
                         1.0
                     ],
                     "xTiles": 4,
-                    "yTiles": 3,
-                    "fps": 8.0,
+                    "yTiles": 4,
+                    "fps": 12.0,
                     "waterAmplitude1": 10.0,
                     "waterDecay1": 1.0,
                     "waterFrequency1": 10.0,
@@ -625,8 +625,8 @@
             ]
         },
         {
-            "UID": 2207790280,
-            "ParentUID": 2621789164,
+            "UID": 910956242,
+            "ParentUID": 3791954669,
             "Name": "Beam Particles",
             "Tag": "hitParticlesFirst",
             "Static": 0,
@@ -707,49 +707,51 @@
                     "xTiles": 1,
                     "yTiles": 1,
                     "fps": 24.0,
-                    "textureUID": 365894612,
+                    "textureUID": 2341582302,
                     "lifetime": [
-                        0.800000011920929,
-                        1.0
+                        1.5,
+                        1.5
                     ],
                     "speed": [
-                        800.0,
-                        1000.0
+                        200.0,
+                        250.0
                     ],
-                    "rate": 20.0,
+                    "rate": 500.0,
                     "maxParticles": 50,
                     "rotation": [
                         0.0,
-                        0.0
+                        360.0
                     ],
                     "sizeMin": [
-                        120.0,
-                        120.0
+                        80.0,
+                        80.0
                     ],
                     "sizeMax": [
-                        200.0,
-                        200.0
+                        90.0,
+                        90.0
                     ],
                     "quadEmitterSize": [
                         200.0,
                         200.0
                     ],
                     "particleColor": [
-                        0.41803276538848879,
-                        0.08566244691610336,
-                        0.08566244691610336,
+                        0.6311475038528442,
+                        0.4024174213409424,
+                        0.18106691539287568,
                         1.0
                     ],
                     "directionNoise": 0,
                     "directionNoiseProbability": 5,
                     "directionNoiseTotalProbability": 500,
-                    "actualEmisor": 0,
-                    "sizeOT": 0,
-                    "colorOT": 0,
+                    "actualEmisor": 2,
+                    "baseRadius": 5.0,
+                    "apexRadius": 1.2000000476837159,
+                    "sizeOT": 1,
+                    "colorOT": 1,
                     "defaultColor": [
-                        0.41803276538848879,
-                        0.08566244691610336,
-                        0.08566244691610336,
+                        0.6311475038528442,
+                        0.4024174213409424,
+                        0.18106691539287568,
                         1.0
                     ],
                     "billboarded": 1,
@@ -769,29 +771,31 @@
                     ],
                     "bezier5": 0.0,
                     "color0": [
-                        1.0,
-                        1.0,
-                        1.0
+                        0.6313725709915161,
+                        0.40392157435417178,
+                        0.18039216101169587
                     ],
                     "colorPosition0": 0.0,
                     "alpha0": 1.0,
                     "alphaPosition0": 0.0,
+                    "alpha1": 0.0,
+                    "alphaPosition1": 0.8561320304870606,
                     "color1": [
-                        1.0,
-                        1.0,
-                        1.0
+                        0.6313725709915161,
+                        0.40392157435417178,
+                        0.18039216101169587
                     ],
                     "colorPosition1": 1.0,
-                    "alpha1": 1.0,
-                    "alphaPosition1": 1.0,
-                    "alphas": 2,
+                    "alpha2": 0.0,
+                    "alphaPosition2": 1.0,
+                    "alphas": 3,
                     "colors": 2
                 }
             ]
         },
         {
-            "UID": 453470937,
-            "ParentUID": 2621789164,
+            "UID": 1088890264,
+            "ParentUID": 3791954669,
             "Name": "Hitbox",
             "Tag": "boxTriggerFirst",
             "Static": 0,
@@ -881,6 +885,173 @@
                     ],
                     "boxType": 4,
                     "debug_draw": 1
+                }
+            ]
+        },
+        {
+            "UID": 16067741,
+            "ParentUID": 3791954669,
+            "Name": "Rock particles",
+            "Tag": "rockParticlesFirst",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        451.8402099609375,
+                        0.0,
+                        1.0,
+                        0.0,
+                        326.98150634765627,
+                        0.0,
+                        0.0,
+                        1.0,
+                        3105.72705078125,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 10,
+                    "Enabled": 1,
+                    "xTiles": 1,
+                    "yTiles": 1,
+                    "fps": 24.0,
+                    "textureUID": 2514375970,
+                    "lifetime": [
+                        1.5,
+                        1.5
+                    ],
+                    "speed": [
+                        800.0,
+                        900.0
+                    ],
+                    "rate": 200.0,
+                    "maxParticles": 50,
+                    "rotation": [
+                        0.0,
+                        360.0
+                    ],
+                    "sizeMin": [
+                        20.0,
+                        20.0
+                    ],
+                    "sizeMax": [
+                        20.0,
+                        20.0
+                    ],
+                    "quadEmitterSize": [
+                        1000.0,
+                        1000.0
+                    ],
+                    "particleColor": [
+                        0.1762295365333557,
+                        0.14477580785751344,
+                        0.009389277547597885,
+                        1.0
+                    ],
+                    "directionNoise": 0,
+                    "directionNoiseProbability": 5,
+                    "directionNoiseTotalProbability": 500,
+                    "actualEmisor": 2,
+                    "baseRadius": 30.0,
+                    "apexRadius": 0.699999988079071,
+                    "sizeOT": 0,
+                    "colorOT": 1,
+                    "defaultColor": [
+                        0.1762295365333557,
+                        0.14477580785751344,
+                        0.009389277547597885,
+                        1.0
+                    ],
+                    "billboarded": 1,
+                    "aligned": 0,
+                    "localEmitter": 0,
+                    "lookAtTarget": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    "intensity": 1.0,
+                    "bezier14": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0
+                    ],
+                    "bezier5": 0.0,
+                    "color0": [
+                        0.3019607961177826,
+                        0.24705882370471955,
+                        0.01568627543747425
+                    ],
+                    "colorPosition0": 0.0,
+                    "alpha0": 1.0,
+                    "alphaPosition0": 0.0,
+                    "color1": [
+                        0.3019607961177826,
+                        0.24705882370471955,
+                        0.01568627543747425
+                    ],
+                    "colorPosition1": 1.0,
+                    "alpha1": 0.0,
+                    "alphaPosition1": 1.0,
+                    "alphas": 2,
+                    "colors": 2
                 }
             ]
         }
