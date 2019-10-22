@@ -917,6 +917,24 @@ void GameObject::LinkBones() const
 	}
 }
 
+void GameObject::SetBBEqualToBoxTrigger()
+{
+	ComponentBoxTrigger* trigBox = (ComponentBoxTrigger*)GetComponentInChildren(ComponentType::BoxTrigger);
+	ComponentRenderer* meshRend = (ComponentRenderer*)GetComponentInChildren(ComponentType::Renderer);
+
+	if (meshRend->gameobject->isVolumetric)
+	{
+		meshRend->gameobject->bossBeforebbox = bbox;
+		meshRend->gameobject->bbox = trigBox->getOOBBAsAABB();
+	}
+}
+
+void GameObject::shrinkBB()
+{
+	ComponentRenderer* meshRend = (ComponentRenderer*)GetComponentInChildren(ComponentType::Renderer);
+	meshRend->gameobject->bbox = bossBeforebbox;
+}
+
 void GameObject::MarkAsPrefab()
 {
 	bool wasPrefab = false;
