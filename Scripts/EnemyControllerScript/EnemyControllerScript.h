@@ -82,8 +82,8 @@ public:
 	DamageController* damageController = nullptr;
 	EnemyLifeBarController* enemyLifeBar = nullptr;
 
-
-
+	//need to know if we are fighting boss in 3rd stage
+	bool ThirdStageBoss = false;
 	
 	// BBoxes
 	math::AABB* myBbox = nullptr;
