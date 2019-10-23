@@ -207,6 +207,7 @@ void ExperienceController::LevelUpStats()
 	stats->mana += manaIncrease;
 	stats->strength += strengthIncrease;
 	stats->dexterity += dexterityIncrease;
+	playerScript->RecalculateStats();
 	playerScript->UpdateUIStats();
 }
 

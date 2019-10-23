@@ -55,12 +55,9 @@ private:
 	void HideConsumableItemText(int position);
 	void UseItemConsumableOnPlayer(int itemPosition);
 
-	PlayerStats GetEquipedItemStats() const;	// Calculates the stats of the player with the equiped items
-
 	std::vector<Component*> slotsTransform;
 	std::vector<GameObject*> itemsSlots;
 	std::vector<GameObject*> itemsSlotsNumbers;
-	std::vector<std::pair<Item*, int>> items;
 	std::vector<std::pair<std::string, int>> consumableItems; //name of the item, quantity
 
 	std::string assignedConsumableItem[ASSIGNED_CONSUMABLES_SIZE] = { "", "", "", "", "", "", "", "", "" };
@@ -83,6 +80,8 @@ private:
 	std::list<GameObject*> slotsToActivate;
 
 public:
+	std::vector<std::pair<Item*, int>> items;
+
 	bool itemGrabbed = false;
 	std::list<int> equipedConsumablesToRemove;
 };

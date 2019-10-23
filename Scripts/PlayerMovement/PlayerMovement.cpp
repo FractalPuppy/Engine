@@ -996,45 +996,27 @@ PlayerMovement_API void PlayerMovement::Damage(float amount)
 	}
 }
 
-void PlayerMovement::Equip(const PlayerStats& equipStats)
+void PlayerMovement::Equip()
 {
-	this->equipedStats = equipStats;
-	PlayerStats* totalStats = GetTotalPlayerStats();
+	PlayerStats& totalStats = RecalculateStats();
 
-	// Avoid setting stats lower than 0
-	if (totalStats->health < 0) this->equipedStats.health = -this->baseStats.health;
-	if (totalStats->mana < 0) this->equipedStats.mana = -this->baseStats.mana;
-	if (totalStats->hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
-	if (totalStats->manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
-	if (totalStats->strength < 0) this->equipedStats.strength = -this->baseStats.strength;
-	if (totalStats->dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
-
-	int healthPercentage = (health / totalStats->health) * 100;
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / totalStats->mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
 }
 
-void PlayerMovement::Equip(const PlayerStats& equipStats, unsigned itemType, unsigned meshUID, unsigned materialUID)
+void PlayerMovement::Equip(unsigned itemType, unsigned meshUID, unsigned materialUID)
 {
-	this->equipedStats = equipStats;
-	PlayerStats* totalStats = GetTotalPlayerStats();
+	PlayerStats& totalStats = RecalculateStats();
 
-	// Avoid setting stats lower than 0
-	if (totalStats->health < 0) this->equipedStats.health = -this->baseStats.health;
-	if (totalStats->mana < 0) this->equipedStats.mana = -this->baseStats.mana;
-	if (totalStats->hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
-	if (totalStats->manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
-	if (totalStats->strength < 0) this->equipedStats.strength = -this->baseStats.strength;
-	if (totalStats->dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
-
-	int healthPercentage = (health / totalStats->health) * 100;
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / totalStats->mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
@@ -1084,26 +1066,17 @@ void PlayerMovement::EquipMesh(unsigned itemType, unsigned meshUID, unsigned mat
 	}
 }
 
-void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
+void PlayerMovement::UnEquip(unsigned itemType)
 {
-	this->equipedStats = equipStats;
-	PlayerStats* totalStats = GetTotalPlayerStats();
+	PlayerStats& totalStats = RecalculateStats();
 
-	// Avoid setting stats lower than 0
-	if (totalStats->health < 0) this->equipedStats.health = -this->baseStats.health;
-	if (totalStats->mana < 0) this->equipedStats.mana = -this->baseStats.mana;
-	if (totalStats->hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
-	if (totalStats->manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
-	if (totalStats->strength < 0) this->equipedStats.strength = -this->baseStats.strength;
-	if (totalStats->dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
+	health = health > totalStats.health ? totalStats.health : health;
+	mana = mana > totalStats.mana ? totalStats.mana : mana;
 
-	health = health > totalStats->health ? totalStats->health : health;
-	mana = mana > totalStats->mana ? totalStats->mana : mana;
-
-	int healthPercentage = (health / totalStats->health) * 100;
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / totalStats->mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
@@ -1791,6 +1764,19 @@ void PlayerMovement::UpdateUIStats()
 	}
 }
 
+PlayerStats PlayerMovement::GetEquipedItemsStats() const
+{
+	PlayerStats totalStats;
+	for (int i = 0; i < inventoryScript->items.size(); ++i)
+	{
+		if (inventoryScript->items[i].first->isEquipped)
+		{
+			totalStats += inventoryScript->items[i].first->stats;
+		}
+	}
+	return totalStats;
+}
+
 PlayerStats* PlayerMovement::GetTotalPlayerStats() const
 {
 	PlayerStats* totalStats = new PlayerStats();
@@ -1801,6 +1787,22 @@ PlayerStats* PlayerMovement::GetTotalPlayerStats() const
 	totalStats->manaRegen = baseStats.manaRegen + equipedStats.manaRegen;
 	totalStats->hpRegen = baseStats.hpRegen + equipedStats.hpRegen;
 	return totalStats;
+}
+
+PlayerStats& PlayerMovement::RecalculateStats()
+{
+	this->equipedStats = GetEquipedItemsStats();
+	PlayerStats* totalStats = GetTotalPlayerStats();
+
+	// Avoid setting stats lower than 0
+	if (totalStats->health < 0) this->equipedStats.health = -this->baseStats.health;
+	if (totalStats->mana < 0) this->equipedStats.mana = -this->baseStats.mana;
+	if (totalStats->hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
+	if (totalStats->manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
+	if (totalStats->strength < 0) this->equipedStats.strength = -this->baseStats.strength;
+	if (totalStats->dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
+
+	return *totalStats;
 }
 
 void PlayerMovement::InitializeUIStatsObjects()

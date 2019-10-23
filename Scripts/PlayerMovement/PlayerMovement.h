@@ -190,10 +190,10 @@ public:
 	void OnTriggerExit(GameObject* go) override;
 	void Damage(float amount);
 
-	void Equip(const PlayerStats& equipStats);
-	void Equip(const PlayerStats& equipStats, unsigned itemType, unsigned meshUID, unsigned materialUID);	// Equip item stats and mesh (Calls EquipMesh())
+	void Equip();
+	void Equip(unsigned itemType, unsigned meshUID, unsigned materialUID);	// Equip item stats and mesh (Calls EquipMesh())
 	void EquipMesh(unsigned itemType, unsigned meshUID, unsigned materialUID);								// Equip only the item mesh
-	void UnEquip(const PlayerStats& equipStats, unsigned itemType);
+	void UnEquip(unsigned itemType);
 	void ConsumeItem(const PlayerStats& equipStats);
 	void stopPlayerWalking();
 
@@ -233,7 +233,9 @@ public:
 	void SavePlayerStats();
 	void UpdateUIStats();
 
+	PlayerStats GetEquipedItemsStats() const;	// Calculates the stats of the player with the equiped items
 	PlayerStats* GetTotalPlayerStats() const;
+	PlayerStats& RecalculateStats();
 
 private:
 	void CheckStates(PlayerState* previous, PlayerState* current);
