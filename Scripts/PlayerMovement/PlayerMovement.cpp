@@ -127,19 +127,19 @@ void PlayerMovement::Expose(ImGuiContext* context)
 
 	ImGui::DragFloat("Out of Combat time", &outCombatMaxTime, 1.f, 0.f, 10.f);
 
-	float maxHP = GetTotalPlayerStats()->health;
-	float maxMP = GetTotalPlayerStats()->mana;
-	GetTotalPlayerStats()->Expose("Player Stats");
-	if (maxHP != GetTotalPlayerStats()->health)
+	float maxHP = GetTotalPlayerStats().health;
+	float maxMP = GetTotalPlayerStats().mana;
+	GetTotalPlayerStats().Expose("Player Stats");
+	if (maxHP != GetTotalPlayerStats().health)
 	{
-		health += GetTotalPlayerStats()->health - maxHP;
-		if (health > GetTotalPlayerStats()->health) health = GetTotalPlayerStats()->health;
+		health += GetTotalPlayerStats().health - maxHP;
+		if (health > GetTotalPlayerStats().health) health = GetTotalPlayerStats().health;
 		else if (health < 0) health = 0;
 	}
-	if (maxMP != GetTotalPlayerStats()->mana)
+	if (maxMP != GetTotalPlayerStats().mana)
 	{
-		mana += GetTotalPlayerStats()->mana - maxMP;
-		if (mana > GetTotalPlayerStats()->mana) mana = GetTotalPlayerStats()->mana;
+		mana += GetTotalPlayerStats().mana - maxMP;
+		if (mana > GetTotalPlayerStats().mana) mana = GetTotalPlayerStats().mana;
 		else if (mana < 0) mana = 0;
 	}
 
@@ -194,12 +194,12 @@ void PlayerMovement::Expose(ImGuiContext* context)
 
 	// Stats Debug
 	ImGui::Text("Play Stats Debug");
-	ImGui::Text("HP: %f / %f", health, GetTotalPlayerStats()->health);
-	ImGui::Text("MP: %f / %f", mana, GetTotalPlayerStats()->mana);
-	ImGui::Text("Strength: %i", GetTotalPlayerStats()->strength);
-	ImGui::Text("Dexterity: %i", GetTotalPlayerStats()->dexterity);
-	ImGui::Text("HP Regen: %f pts/s", GetTotalPlayerStats()->hpRegen);
-	ImGui::Text("MP Regen: %f pts/s", GetTotalPlayerStats()->manaRegen);
+	ImGui::Text("HP: %f / %f", health, GetTotalPlayerStats().health);
+	ImGui::Text("MP: %f / %f", mana, GetTotalPlayerStats().mana);
+	ImGui::Text("Strength: %i", GetTotalPlayerStats().strength);
+	ImGui::Text("Dexterity: %i", GetTotalPlayerStats().dexterity);
+	ImGui::Text("HP Regen: %f pts/s", GetTotalPlayerStats().hpRegen);
+	ImGui::Text("MP Regen: %f pts/s", GetTotalPlayerStats().manaRegen);
 }
 
 void PlayerMovement::CreatePlayerStates()
@@ -833,12 +833,12 @@ void PlayerMovement::Update()
 	{
 		outCombatTimer -= App->time->gameDeltaTime;
 	}
-	else if (health < GetTotalPlayerStats()->health)
+	else if (health < GetTotalPlayerStats().health)
 	{
-		PlayerStats* playerStats = GetTotalPlayerStats();
-		health += playerStats->hpRegen * App->time->gameDeltaTime;
-		if (health > playerStats->health) health = playerStats->health;
-		int healthPercentage = (health / playerStats->health) * 100;
+		PlayerStats& playerStats = GetTotalPlayerStats();
+		health += playerStats.hpRegen * App->time->gameDeltaTime;
+		if (health > playerStats.health) health = playerStats.health;
+		int healthPercentage = (health / playerStats.health) * 100;
 		lifeUIComponent->SetMaskAmount(healthPercentage);
 	}
 	if (bombDropExpanding && bombDropMesh1 && bombDropMesh2)
@@ -991,7 +991,7 @@ PlayerMovement_API void PlayerMovement::Damage(float amount)
 		if (damageUIFeedback != nullptr)
 			damageUIFeedback->ActivateDamageUI();
 
-		int healthPercentage = (health / GetTotalPlayerStats()->health) * 100;
+		int healthPercentage = (health / GetTotalPlayerStats().health) * 100;
 		lifeUIComponent->SetMaskAmount(healthPercentage);
 	}
 }
@@ -1110,7 +1110,7 @@ void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 {
 	if (equipStats.health > 0)
 	{
-		int amountToIncrease = (health + equipStats.health <= GetTotalPlayerStats()->health) ? equipStats.health : GetTotalPlayerStats()->health - health;
+		int amountToIncrease = (health + equipStats.health <= GetTotalPlayerStats().health) ? equipStats.health : GetTotalPlayerStats().health - health;
 		health = health + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::HEALING);
 
@@ -1119,7 +1119,7 @@ void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 	}
 	else if (equipStats.mana > 0)
 	{
-		int amountToIncrease = (mana + equipStats.mana <= GetTotalPlayerStats()->mana) ? equipStats.mana : GetTotalPlayerStats()->mana - mana;
+		int amountToIncrease = (mana + equipStats.mana <= GetTotalPlayerStats().mana) ? equipStats.mana : GetTotalPlayerStats().mana - mana;
 		mana = mana + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::MANA);
 
@@ -1672,13 +1672,13 @@ void PlayerMovement::ManaManagement()
 	{
 		manaRegenTimer -= App->time->gameDeltaTime;
 	}
-	else if (mana < GetTotalPlayerStats()->mana && outCombatTimer <= 0)
+	else if (mana < GetTotalPlayerStats().mana && outCombatTimer <= 0)
 	{
-		mana += GetTotalPlayerStats()->manaRegen * App->time->gameDeltaTime;
-		if (mana > GetTotalPlayerStats()->mana) mana = GetTotalPlayerStats()->mana;
+		mana += GetTotalPlayerStats().manaRegen * App->time->gameDeltaTime;
+		if (mana > GetTotalPlayerStats().mana) mana = GetTotalPlayerStats().mana;
 	}
 
-	int manaPercentage = (mana / GetTotalPlayerStats()->mana) * 100;
+	int manaPercentage = (mana / GetTotalPlayerStats().mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 }
 
@@ -1757,10 +1757,10 @@ void PlayerMovement::UpdateUIStats()
 {
 	if (uiHealthText != nullptr && uiDexterityText != nullptr && uiStrengthText != nullptr && uiManaText != nullptr)
 	{
-		uiHealthText->text = std::to_string((int)GetTotalPlayerStats()->health);
-		uiDexterityText->text = std::to_string(GetTotalPlayerStats()->dexterity);
-		uiStrengthText->text = std::to_string(GetTotalPlayerStats()->strength);
-		uiManaText->text = std::to_string((int)GetTotalPlayerStats()->mana);
+		uiHealthText->text = std::to_string((int)GetTotalPlayerStats().health);
+		uiDexterityText->text = std::to_string(GetTotalPlayerStats().dexterity);
+		uiStrengthText->text = std::to_string(GetTotalPlayerStats().strength);
+		uiManaText->text = std::to_string((int)GetTotalPlayerStats().mana);
 	}
 }
 
@@ -1777,32 +1777,32 @@ PlayerStats PlayerMovement::GetEquipedItemsStats() const
 	return totalStats;
 }
 
-PlayerStats* PlayerMovement::GetTotalPlayerStats() const
+PlayerStats& PlayerMovement::GetTotalPlayerStats() const
 {
-	PlayerStats* totalStats = new PlayerStats();
-	totalStats->health = baseStats.health + equipedStats.health;
-	totalStats->mana = baseStats.mana + equipedStats.mana;
-	totalStats->strength = baseStats.strength + equipedStats.strength;
-	totalStats->dexterity = baseStats.dexterity + equipedStats.dexterity;
-	totalStats->manaRegen = baseStats.manaRegen + equipedStats.manaRegen;
-	totalStats->hpRegen = baseStats.hpRegen + equipedStats.hpRegen;
+	PlayerStats& totalStats = *new PlayerStats();
+	totalStats.health = baseStats.health + equipedStats.health;
+	totalStats.mana = baseStats.mana + equipedStats.mana;
+	totalStats.strength = baseStats.strength + equipedStats.strength;
+	totalStats.dexterity = baseStats.dexterity + equipedStats.dexterity;
+	totalStats.manaRegen = baseStats.manaRegen + equipedStats.manaRegen;
+	totalStats.hpRegen = baseStats.hpRegen + equipedStats.hpRegen;
 	return totalStats;
 }
 
 PlayerStats& PlayerMovement::RecalculateStats()
 {
 	this->equipedStats = GetEquipedItemsStats();
-	PlayerStats* totalStats = GetTotalPlayerStats();
+	PlayerStats& totalStats = GetTotalPlayerStats();
 
 	// Avoid setting stats lower than 0
-	if (totalStats->health < 0) this->equipedStats.health = -this->baseStats.health;
-	if (totalStats->mana < 0) this->equipedStats.mana = -this->baseStats.mana;
-	if (totalStats->hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
-	if (totalStats->manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
-	if (totalStats->strength < 0) this->equipedStats.strength = -this->baseStats.strength;
-	if (totalStats->dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
+	if (totalStats.health < 0) this->equipedStats.health = -this->baseStats.health;
+	if (totalStats.mana < 0) this->equipedStats.mana = -this->baseStats.mana;
+	if (totalStats.hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
+	if (totalStats.manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
+	if (totalStats.strength < 0) this->equipedStats.strength = -this->baseStats.strength;
+	if (totalStats.dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
 
-	return *totalStats;
+	return totalStats;
 }
 
 void PlayerMovement::InitializeUIStatsObjects()

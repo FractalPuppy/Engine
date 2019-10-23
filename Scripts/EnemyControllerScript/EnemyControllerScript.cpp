@@ -570,7 +570,7 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		if (gameobject->tag.c_str() != "Boss")
 		{
 			// Get base damage
-			int totalDamage = playerMovement->GetTotalPlayerStats()->strength;
+			int totalDamage = playerMovement->GetTotalPlayerStats().strength;
 
 			// Add damage of the skill
 			PlayerSkill* skill = playerMovement->GetSkillInUse();
