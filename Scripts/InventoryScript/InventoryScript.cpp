@@ -816,10 +816,11 @@ void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 					ManageConsumableItemsQuantityText(*items[j].first, iter._Ptr->second);
 					if (iter._Ptr->second == 0)
 					{
-						items.erase(items.begin() + j);
 						itemsSlotsNumbers.at(j)->SetActive(false);
 						itemsSlots.at(j)->SetActive(false);
 						assignedConsumableItem[itemPosition].empty();
+						items.erase(items.begin() + j);
+						j--;
 					}
 				}
 			}
