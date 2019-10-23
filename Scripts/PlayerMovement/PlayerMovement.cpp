@@ -1002,6 +1002,10 @@ void PlayerMovement::Equip(const PlayerStats& equipStats)
 	PlayerStats* totalStats = GetTotalPlayerStats();
 
 	// Avoid setting stats lower than 0
+	if (totalStats->health < 0) this->equipedStats.health = -this->baseStats.health;
+	if (totalStats->mana < 0) this->equipedStats.mana = -this->baseStats.mana;
+	if (totalStats->hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
+	if (totalStats->manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
 	if (totalStats->strength < 0) this->equipedStats.strength = -this->baseStats.strength;
 	if (totalStats->dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
 
@@ -1020,6 +1024,10 @@ void PlayerMovement::Equip(const PlayerStats& equipStats, unsigned itemType, uns
 	PlayerStats* totalStats = GetTotalPlayerStats();
 
 	// Avoid setting stats lower than 0
+	if (totalStats->health < 0) this->equipedStats.health = -this->baseStats.health;
+	if (totalStats->mana < 0) this->equipedStats.mana = -this->baseStats.mana;
+	if (totalStats->hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
+	if (totalStats->manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
 	if (totalStats->strength < 0) this->equipedStats.strength = -this->baseStats.strength;
 	if (totalStats->dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
 
@@ -1082,6 +1090,10 @@ void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
 	PlayerStats* totalStats = GetTotalPlayerStats();
 
 	// Avoid setting stats lower than 0
+	if (totalStats->health < 0) this->equipedStats.health = -this->baseStats.health;
+	if (totalStats->mana < 0) this->equipedStats.mana = -this->baseStats.mana;
+	if (totalStats->hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
+	if (totalStats->manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
 	if (totalStats->strength < 0) this->equipedStats.strength = -this->baseStats.strength;
 	if (totalStats->dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
 

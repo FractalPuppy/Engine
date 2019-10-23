@@ -831,10 +831,6 @@ PlayerStats InventoryScript::GetEquipedItemStats() const
 			totalStats += items[i].first->stats;
 		}
 	}
-
-	// Avoid getting negative stats
-	//if (totalStats.strength < 0) totalStats.strength = 0;
-	//if (totalStats.dexterity < 0) totalStats.dexterity = 0;
 	return totalStats;
 }
 
