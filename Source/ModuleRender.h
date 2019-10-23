@@ -32,11 +32,12 @@ public:
 	void Draw(const ComponentCamera& cam, int width, int height, bool isEditor = false) const;
 	bool IsSceneViewFocused() const;
 	bool IsSceneHovered() const;
-	Viewport * GetActiveViewport() const;
+	Viewport* GetActiveViewport() const;
 	bool CleanUp() override;
 	void OnResize();
 	void ENGINE_API SetVsync(bool active);
 	void DrawGUI() override;
+	void DrawSkyboxGUI();
 
 	void GenBlockUniforms();
 	void AddBlockUniforms(const Shader &s) const;
@@ -44,7 +45,6 @@ public:
 private:
 
 	void DrawGizmos(const ComponentCamera &cam) const;
-	void DrawDebugMesh() const;
 	void SetViewUniform(const ComponentCamera &camera) const;
 	void SetProjectionUniform(const ComponentCamera &camera) const;
 	void InitSDL();
@@ -53,6 +53,7 @@ private:
 	void ShadowVolumeDrawDebug() const;
 	void BlitShadowTexture();
 	void CreatePostProcessFramebuffer();
+	void UpdateSkyboxList();
 		
 public:
 	void* context = nullptr;
@@ -91,8 +92,12 @@ private:
 	bool depthTest = true;
 	bool wireframe = false;
 	int item_current = 0;//scale index
-
-	ResourceSkybox* skybox = nullptr;
+	
+	// Skybox variables
+	bool renderSkybox = true;
+	std::vector<ResourceSkybox*> skyboxList;
+	unsigned selectedSkybox = 0u;
+	std::vector<std::string> skyboxNames;
 
 	//shadows stuff
 
