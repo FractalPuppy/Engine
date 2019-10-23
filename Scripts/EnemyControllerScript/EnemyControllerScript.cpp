@@ -204,6 +204,7 @@ void EnemyControllerScript::Update()
 			objectMesh = App->scene->FindGameObjectByName("mesh", gameobject);
 		}
 	}
+	playerMovement->ThirdStageBoss = ThirdStageBoss;
 	auto mesh = std::find(intersects.begin(), intersects.end(), objectMesh);
 	if(mesh != std::end(intersects) && *mesh == objectMesh)
 	{
