@@ -55,6 +55,8 @@ private:
 	void HideConsumableItemText(int position);
 	void UseItemConsumableOnPlayer(int itemPosition);
 
+	PlayerStats GetEquipedItemStats() const;	// Calculates the stats of the player with the equiped items (if a stat is < 0 returns it as 0)
+
 	std::vector<Component*> slotsTransform;
 	std::vector<GameObject*> itemsSlots;
 	std::vector<GameObject*> itemsSlotsNumbers;

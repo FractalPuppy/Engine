@@ -137,7 +137,8 @@ public:
 	void DeSerialize(JSON_value* json);
 	void Expose(const char* sectionTitle);
 
-	PlayerStats& operator+=(const PlayerStats& other) {
+	PlayerStats& operator+=(const PlayerStats& other) 
+	{
 		this->health += other.health;
 		this->mana += other.mana;
 		this->strength += other.strength;
@@ -232,6 +233,8 @@ public:
 	void SavePlayerStats();
 	void UpdateUIStats();
 
+	PlayerStats* GetTotalPlayerStats() const;
+
 private:
 	void CheckStates(PlayerState* previous, PlayerState* current);
 	void CreatePlayerStates();
@@ -276,7 +279,8 @@ public:
 	float manaRegenTimer = 0.0f;
 	float manaRegenMaxTime = 5.0f;
 
-	PlayerStats stats = { 150.0f, 100.0f, 10U, 10U, 5.0f, 5.0f };
+	PlayerStats baseStats = { 100.0f, 100.0f, 10, 10, 5.0f, 5.0f };	// Player stats without any item
+	PlayerStats equipedStats;										// Stats of the equipped items
 	PlayerStats previousStats;
 
 	float OutOfMeshCorrectionXZ = 500.f;

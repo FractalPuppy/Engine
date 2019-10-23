@@ -292,7 +292,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::HELMET)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip(GetEquipedItemStats(), (unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -302,7 +302,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip(GetEquipedItemStats(), (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -321,7 +321,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::CHEST)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip(GetEquipedItemStats(), (unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -331,7 +331,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip(GetEquipedItemStats(), (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -350,7 +350,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::PANTS)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip(GetEquipedItemStats(), (unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -360,7 +360,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip(GetEquipedItemStats(), (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -379,7 +379,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::BOOTS)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip(GetEquipedItemStats(), (unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -389,7 +389,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip(GetEquipedItemStats(), (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -408,7 +408,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::WEAPON)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip(GetEquipedItemStats(), (unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -418,7 +418,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip(GetEquipedItemStats(), (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -437,7 +437,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::AMULET)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip(GetEquipedItemStats(), (unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -447,7 +447,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip(GetEquipedItemStats(), (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -486,7 +486,7 @@ void InventoryScript::Update()
 							if (items[l].first->isEqual(*pair.first) && pair.first->isEquipped)
 							{
 								items[l].first->isEquipped = false;
-								playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+								playerMovement->UnEquip(GetEquipedItemStats(), (unsigned)items[l].first->type);
 								break;
 							}
 						}
@@ -819,6 +819,23 @@ void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 			}
 		}
 	}
+}
+
+PlayerStats InventoryScript::GetEquipedItemStats() const
+{
+	PlayerStats totalStats;
+	for (int i = 0; i < items.size(); ++i)
+	{
+		if (items[i].first->isEquipped)
+		{
+			totalStats += items[i].first->stats;
+		}
+	}
+
+	// Avoid getting negative stats
+	//if (totalStats.strength < 0) totalStats.strength = 0;
+	//if (totalStats.dexterity < 0) totalStats.dexterity = 0;
+	return totalStats;
 }
 
 int InventoryScript::GetCurrentQuantity(const Item& item)

@@ -49,7 +49,7 @@ void PlayerStateAutoWalk::Update()
 			lerpCalculations(direction, -player->gameobject->transform->front, path[pathIndex]);
 
 			math::float3 finalWalkingSpeed = player->walkingSpeed * direction * player->App->time->gameDeltaTime;
-			finalWalkingSpeed *= (1 + (player->stats.dexterity * 0.005f));
+			finalWalkingSpeed *= (1 + (player->GetTotalPlayerStats()->dexterity * 0.005f));
 			player->gameobject->transform->SetPosition(currentPosition + finalWalkingSpeed);
 			playerWalking = true;
 			playerWalkingToHit = true;
