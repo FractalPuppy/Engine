@@ -139,6 +139,7 @@ void EquipPopupController::Update()
 						}
 						hudButtonsText[j].first->SetPositionUsingAligment(newPos);
 						itemsEquiped.erase(itemsEquiped.begin() + i);
+						i--;
 					}
 				}		
 			}
