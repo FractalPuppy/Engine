@@ -127,7 +127,7 @@ void PlayerMovement::Expose(ImGuiContext* context)
 
 	ImGui::DragFloat("Out of Combat time", &outCombatMaxTime, 1.f, 0.f, 10.f);
 
-	PlayerStats& totalStats = GetTotalPlayerStats();
+	PlayerStats totalStats = GetTotalPlayerStats();
 	float maxHP = totalStats.health;
 	float maxMP = totalStats.mana;
 	baseStats.Expose("Player Base Stats");
@@ -837,7 +837,7 @@ void PlayerMovement::Update()
 	}
 	else if (health < GetTotalPlayerStats().health)
 	{
-		PlayerStats& playerStats = GetTotalPlayerStats();
+		PlayerStats playerStats = GetTotalPlayerStats();
 		health += playerStats.hpRegen * App->time->gameDeltaTime;
 		if (health > playerStats.health) health = playerStats.health;
 		int healthPercentage = (health / playerStats.health) * 100;
@@ -1000,7 +1000,7 @@ PlayerMovement_API void PlayerMovement::Damage(float amount)
 
 void PlayerMovement::Equip()
 {
-	PlayerStats& totalStats = RecalculateStats();
+	PlayerStats totalStats = RecalculateStats();
 
 	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
@@ -1013,7 +1013,7 @@ void PlayerMovement::Equip()
 
 void PlayerMovement::Equip(unsigned itemType, unsigned meshUID, unsigned materialUID)
 {
-	PlayerStats& totalStats = RecalculateStats();
+	PlayerStats totalStats = RecalculateStats();
 
 	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
@@ -1070,7 +1070,7 @@ void PlayerMovement::EquipMesh(unsigned itemType, unsigned meshUID, unsigned mat
 
 void PlayerMovement::UnEquip(unsigned itemType)
 {
-	PlayerStats& totalStats = RecalculateStats();
+	PlayerStats totalStats = RecalculateStats();
 
 	health = health > totalStats.health ? totalStats.health : health;
 	mana = mana > totalStats.mana ? totalStats.mana : mana;
@@ -1761,10 +1761,12 @@ void PlayerMovement::UpdateUIStats()
 {
 	if (uiHealthText != nullptr && uiDexterityText != nullptr && uiStrengthText != nullptr && uiManaText != nullptr)
 	{
-		uiHealthText->text = std::to_string((int)GetTotalPlayerStats().health);
-		uiDexterityText->text = std::to_string(GetTotalPlayerStats().dexterity);
-		uiStrengthText->text = std::to_string(GetTotalPlayerStats().strength);
-		uiManaText->text = std::to_string((int)GetTotalPlayerStats().mana);
+		PlayerStats playerStats = GetTotalPlayerStats();
+		uiHealthText->text = std::to_string((int)playerStats.health);
+		uiDexterityText->text = std::to_string(playerStats.dexterity);
+		uiStrengthText->text = std::to_string(playerStats.strength);
+		uiManaText->text = std::to_string((int)playerStats.mana);
+		delete &playerStats;
 	}
 }
 
@@ -1781,9 +1783,9 @@ PlayerStats PlayerMovement::GetEquipedItemsStats() const
 	return totalStats;
 }
 
-PlayerStats& PlayerMovement::GetTotalPlayerStats() const
+PlayerStats PlayerMovement::GetTotalPlayerStats() const
 {
-	PlayerStats& totalStats = *new PlayerStats();
+	PlayerStats totalStats;
 	totalStats.health = baseStats.health + equipedStats.health;
 	totalStats.mana = baseStats.mana + equipedStats.mana;
 	totalStats.strength = baseStats.strength + equipedStats.strength;
@@ -1793,10 +1795,10 @@ PlayerStats& PlayerMovement::GetTotalPlayerStats() const
 	return totalStats;
 }
 
-PlayerStats& PlayerMovement::RecalculateStats()
+PlayerStats PlayerMovement::RecalculateStats()
 {
 	this->equipedStats = GetEquipedItemsStats();
-	PlayerStats& totalStats = GetTotalPlayerStats();
+	PlayerStats totalStats = GetTotalPlayerStats();
 
 	// Avoid setting stats lower than 0
 	if (totalStats.health < 0) this->equipedStats.health = -this->baseStats.health;

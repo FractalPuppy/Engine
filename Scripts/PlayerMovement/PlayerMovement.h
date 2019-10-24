@@ -234,8 +234,8 @@ public:
 	void UpdateUIStats();
 
 	PlayerStats GetEquipedItemsStats() const;	// Calculates the stats of the player with the equiped items
-	PlayerStats& GetTotalPlayerStats() const;
-	PlayerStats& RecalculateStats();
+	PlayerStats GetTotalPlayerStats() const;
+	PlayerStats RecalculateStats();
 
 private:
 	void CheckStates(PlayerState* previous, PlayerState* current);

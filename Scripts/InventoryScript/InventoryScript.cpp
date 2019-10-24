@@ -686,8 +686,8 @@ void InventoryScript::LoadInventory()
 
 void InventoryScript::showDescription(int i)
 {
-	PlayerStats& previousStats = playerMovement->GetTotalPlayerStats();
-	PlayerStats& newStats = GetPlayerStatsOnItemEquip(i);
+	PlayerStats previousStats = playerMovement->GetTotalPlayerStats();
+	PlayerStats newStats = GetPlayerStatsOnItemEquip(i);
 
 	// Show item stats
 	ItemType type = items[i].first->type;
@@ -954,9 +954,9 @@ std::string InventoryScript::ConsumeItemsController()
 	return "";
 }
 
-PlayerStats& InventoryScript::GetPlayerStatsOnItemEquip(int i) const
+PlayerStats InventoryScript::GetPlayerStatsOnItemEquip(int i) const
 {
-	PlayerStats& newStats = *new PlayerStats();
+	PlayerStats newStats;
 	newStats.health = playerMovement->baseStats.health + playerMovement->equipedStats.health;
 	newStats.mana = playerMovement->baseStats.mana + playerMovement->equipedStats.mana;
 	newStats.strength = playerMovement->baseStats.strength + playerMovement->equipedStats.strength;
