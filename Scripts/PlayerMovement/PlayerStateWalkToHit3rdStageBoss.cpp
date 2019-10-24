@@ -100,7 +100,6 @@ void PlayerStateWalkToHit3rdStageBoss::Update()
 		}
 		else
 		{
-			LOG("Attack from WalktoAttack");
 			toAttack = true;
 			path.clear();
 		}
