@@ -753,11 +753,6 @@ void PlayerMovement::Start()
 
 void PlayerMovement::Update()
 {
-	if (currentState == walk)
-		walk->dustParticles->SetActive(true);			
-	else
-		walk->dustParticles->SetActive(false);
-
 	if (App->time->gameTimeScale == 0) return;
 
 	deltatime = App->time->gameDeltaTime;
@@ -1611,7 +1606,7 @@ void PlayerMovement::ResetCooldown(unsigned int hubButtonID)
 	}
 }
 
-void PlayerMovement::CheckStates(PlayerState * previous, PlayerState * current)
+void PlayerMovement::CheckStates(PlayerState* previous, PlayerState* current)
 {
 	if (previous != current)
 	{
@@ -1626,6 +1621,12 @@ void PlayerMovement::CheckStates(PlayerState * previous, PlayerState * current)
 		}
 
 		current->duration = anim->GetDurationFromClip();
+
+		// Set walk particles active when new state has walking
+		if (current == walk || current == walkToPickItem || current == walkToHit)
+			walk->dustParticles->SetActive(true);
+		else
+			walk->dustParticles->SetActive(false);
 	}
 }
 
@@ -1844,9 +1845,9 @@ void PlayerMovement::SavePlayerStats()
 	PlayerPrefs::SetFloat("strength", stats.strength);
 	PlayerPrefs::SetInt("RC", (int)assignedSkills[HUD_BUTTON_RC]);
 	PlayerPrefs::SetInt("1", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("3", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("4", (int)assignedSkills[HUD_BUTTON_1]);
+	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_2]);
+	PlayerPrefs::SetInt("3", (int)assignedSkills[HUD_BUTTON_3]);
+	PlayerPrefs::SetInt("4", (int)assignedSkills[HUD_BUTTON_4]);
 	PlayerPrefs::SetInt("Q", (int)assignedSkills[HUD_BUTTON_Q]);
 	PlayerPrefs::SetInt("W", (int)assignedSkills[HUD_BUTTON_W]);
 	PlayerPrefs::SetInt("E", (int)assignedSkills[HUD_BUTTON_E]);
