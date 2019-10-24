@@ -1353,7 +1353,9 @@ bool PlayerMovement::IsAttacking() const
 		{
 			return false;
 		}
-		if (ThirdStageBoss)
+		if (ThirdStageBoss &&
+			App->scene->enemyHovered.object &&
+			App->scene->enemyHovered.object->parent->transform)
 		{
 			math::float2 posPlayer2D = math::float2(gameobject->transform->position.x,
 				gameobject->transform->position.z);
@@ -1362,11 +1364,6 @@ bool PlayerMovement::IsAttacking() const
 			maxRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.3;
 			minRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.2;
 			Dist = Distance(posPlayer2D, posEnemy2D);
-
-			std::stringstream s;
-			s << "Tryngto attack, dist = " << Dist << ", to tak should be smoler than "
-				<< minRange;
-			LOG(s.str().c_str());
 		}
 		else if (App->scene->enemyHovered.object->transform)
 		{
@@ -1418,7 +1415,9 @@ bool PlayerMovement::IsMovingToAttack() const
 											App->scene->enemyHovered.object->transform->position.z);
 
 
-	if (ThirdStageBoss)
+	if (ThirdStageBoss &&
+		App->scene->enemyHovered.object &&
+		App->scene->enemyHovered.object->parent->transform)
 	{
 		//if on third stage, gotta change this value
 		posEnemy2D = math::float2(App->scene->enemyHovered.object->parent->transform->position.x,
