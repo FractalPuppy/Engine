@@ -353,6 +353,7 @@ void EnemyControllerScript::Update()
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
 		removedFromCrowd = true;
+		enabled = false;
 	}
 }
 
