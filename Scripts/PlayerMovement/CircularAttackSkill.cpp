@@ -152,7 +152,14 @@ void CircularAttackSkill::CheckInput()
 		}
 		else if (player->IsMovingToAttack())
 		{
-			player->currentState = (PlayerState*)player->walkToHit;
+			if (player->ThirdStageBoss)
+			{
+				player->currentState = (PlayerState*)player->walkToHit3rdBoss;
+			}
+			else
+			{
+				player->currentState = (PlayerState*)player->walkToHit;
+			}
 		}
 		else if (player->IsMovingToItem())
 		{

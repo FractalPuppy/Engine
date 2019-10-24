@@ -128,7 +128,14 @@ void PlayerStateWalkToPickItem::CheckInput()
 	else if (player->IsMovingToAttack())
 	{
 		player->itemClicked = nullptr;
-		player->currentState = (PlayerState*)player->walkToHit;
+		if (player->ThirdStageBoss)
+		{
+			player->currentState = (PlayerState*)player->walkToHit3rdBoss;
+		}
+		else
+		{
+			player->currentState = (PlayerState*)player->walkToHit;
+		}
 	}
 	else if (player->IsMoving())
 	{

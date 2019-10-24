@@ -60,6 +60,7 @@ class PlayerStateIdle;
 class PlayerStateDeath;
 class PlayerStateWalk;
 class PlayerStateWalkToHitEnemy;
+class PlayerStateWalkToHit3rdStageBoss;
 class PlayerStateWalkToPickItem;
 class PlayerStateAutoWalk;
 class DamageController;
@@ -249,6 +250,8 @@ private:
 
 	void InitializeUIStatsObjects();
 public:
+	bool ThirdStageBoss = false;
+
 	bool isPlayerDead = false;
 	float3 currentPosition = float3(0, 0, 0); //TODO ZERO
 
@@ -257,6 +260,7 @@ public:
 	PlayerStateDeath* death = nullptr;
 	PlayerStateWalk* walk = nullptr;
 	PlayerStateWalkToHitEnemy* walkToHit = nullptr;
+	PlayerStateWalkToHit3rdStageBoss* walkToHit3rdBoss = nullptr;
 	PlayerStateWalkToPickItem* walkToPickItem = nullptr;
 	PlayerStateAutoWalk* autoWalk = nullptr;
 	//walking to hit player orientation necessary info:

@@ -13,6 +13,7 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateWalk.h"
 #include "PlayerStateWalkToHitEnemy.h"
+#include "PlayerStateWalkToHit3rdStageBoss.h"
 #include "PlayerStateWalkToPickItem.h"
 #include "PlayerStateDeath.h"
 #include "PlayerStateAutoWalk.h"
@@ -210,6 +211,7 @@ void PlayerMovement::CreatePlayerStates()
 
 	playerStates.push_back(walk = new PlayerStateWalk(this, "Walk"));
 	playerStates.push_back(walkToHit = new PlayerStateWalkToHitEnemy(this, "Walk"));
+	playerStates.push_back(walkToHit3rdBoss = new PlayerStateWalkToHit3rdStageBoss(this, "Walk"));
 	playerStates.push_back(walkToPickItem = new PlayerStateWalkToPickItem(this, "Walk"));
 	if (dustParticles == nullptr)
 	{
@@ -1380,6 +1382,8 @@ bool PlayerMovement::IsAttacking() const
 	//checking if there's any enemy targeted, really easy since its stored on a pointer
 	//then checking mouse buttons
 	float Dist = floatMax;
+	float maxRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.6;
+	float minRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.2;
 	if (App->scene->enemyHovered.object != nullptr)
 	{
 		//stop if dead
@@ -1387,7 +1391,29 @@ bool PlayerMovement::IsAttacking() const
 		{
 			return false;
 		}
-		Dist = Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position);
+		if (ThirdStageBoss &&
+			App->scene->enemyHovered.object &&
+			App->scene->enemyHovered.object->parent->transform)
+		{
+			math::float2 posPlayer2D = math::float2(gameobject->transform->position.x,
+				gameobject->transform->position.z);
+			math::float2 posEnemy2D = math::float2(App->scene->enemyHovered.object->parent->transform->position.x,
+				App->scene->enemyHovered.object->parent->transform->position.z);
+			maxRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.3;
+			minRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.2;
+			Dist = Distance(posPlayer2D, posEnemy2D);
+		}
+		else if (App->scene->enemyHovered.object->transform &&
+				(App->scene->enemyHovered.object->transform->position.x ||
+				App->scene->enemyHovered.object->transform->position.y || 
+				App->scene->enemyHovered.object->transform->position.z))
+		{
+			math::float2 posPlayer2D = math::float2(gameobject->transform->position.x,
+				gameobject->transform->position.z);
+			math::float2 posEnemy2D = math::float2(App->scene->enemyHovered.object->transform->position.x,
+				App->scene->enemyHovered.object->transform->position.z);
+			Dist = Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position);
+		}
 	}
 	//and finally if enemy is on attack range
 
@@ -1396,11 +1422,11 @@ bool PlayerMovement::IsAttacking() const
 	float distanceCheckValue = 0.f;
 	if (currentSkill == chain)
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.5;
+		distanceCheckValue = maxRange;
 	}
 	else
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1;
+		distanceCheckValue = minRange;
 	}
 
 	if (App->scene->enemyHovered.object != nullptr &&
@@ -1418,22 +1444,63 @@ bool PlayerMovement::IsMovingToAttack() const
 	//we are gonna make it so that the condition changes slightly depending on
 	//whether the player is moving to attack or not.
 	float distanceCheckValue = 0.f;
-	if (currentState->playerWalkingToHit)
+	if (!App->scene->enemyHovered.object || !App->scene->enemyHovered.object->transform || 
+		(	!App->scene->enemyHovered.object->transform->position.x ||
+			!App->scene->enemyHovered.object->transform->position.y ||
+			!App->scene->enemyHovered.object->transform->position.z))
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1;
+		return false;
+	}
+
+	math::float2 posPlayer2D = math::float2(gameobject->transform->position.x,
+											gameobject->transform->position.z);
+
+	math::float2 posEnemy2D = math::float2(	App->scene->enemyHovered.object->transform->position.x,
+											App->scene->enemyHovered.object->transform->position.z);
+
+
+	if (ThirdStageBoss &&
+		App->scene->enemyHovered.object &&
+		App->scene->enemyHovered.object->parent->transform)
+	{
+		//if on third stage, gotta change this value
+		posEnemy2D = math::float2(App->scene->enemyHovered.object->parent->transform->position.x,
+			App->scene->enemyHovered.object->parent->transform->position.z);
+		if (currentState->playerWalkingToHit)
+		{
+			distanceCheckValue = basicAttackRange + walkToHit->targetBoxWidth*0.20;
+		}
+		else
+		{
+			distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.3;
+		}
 	}
 	else
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.5;
+		if (currentState->playerWalkingToHit)
+		{
+			distanceCheckValue = basicAttackRange + walkToHit->targetBoxWidth*0.2;
+		}
+		else
+		{
+			distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth*0.6;
+		}
 	}
+
+	//gotta check if we are on boss third stage.
 	if (App->scene->enemyHovered.object != nullptr && App->scene->enemyHovered.health > 0 &&
-		!App->input->IsKeyPressed(SDL_SCANCODE_LSHIFT) == KEY_DOWN &&
-		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
-			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) &&
-		Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position) >=
-		distanceCheckValue)
+		!App->input->IsKeyPressed(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
 	{
-		return true;
+		if ((App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
+			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)))
+		{
+			if (Distance(posPlayer2D, posEnemy2D) >=
+				distanceCheckValue)
+			{
+				return true;
+			}
+		}
+
 	}
 	return false;
 }
@@ -1481,11 +1548,11 @@ bool PlayerMovement::PathFindingCall() const
 bool PlayerMovement::IsPressingMouse1() const
 {
 	math::float3 temp;
-	return (
-		(App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) ||
+	bool res = ((App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) ||
 		(currentState != nullptr && currentState->playerWalking && !currentState->playerWalkingToHit) ||
 		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) && !App->scene->Intersects("PlayerMesh", false, temp) &&
 		(PathFindingCall())));
+	return res;
 
 }
 
