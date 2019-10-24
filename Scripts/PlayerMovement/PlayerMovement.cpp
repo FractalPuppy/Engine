@@ -1365,7 +1365,10 @@ bool PlayerMovement::IsAttacking() const
 			minRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.2;
 			Dist = Distance(posPlayer2D, posEnemy2D);
 		}
-		else if (App->scene->enemyHovered.object->transform)
+		else if (App->scene->enemyHovered.object->transform &&
+				(App->scene->enemyHovered.object->transform->position.x ||
+				App->scene->enemyHovered.object->transform->position.y || 
+				App->scene->enemyHovered.object->transform->position.z))
 		{
 			math::float2 posPlayer2D = math::float2(gameobject->transform->position.x,
 				gameobject->transform->position.z);
@@ -1403,7 +1406,10 @@ bool PlayerMovement::IsMovingToAttack() const
 	//we are gonna make it so that the condition changes slightly depending on
 	//whether the player is moving to attack or not.
 	float distanceCheckValue = 0.f;
-	if (!App->scene->enemyHovered.object || !App->scene->enemyHovered.object->transform)
+	if (!App->scene->enemyHovered.object || !App->scene->enemyHovered.object->transform || 
+		(	!App->scene->enemyHovered.object->transform->position.x ||
+			!App->scene->enemyHovered.object->transform->position.y ||
+			!App->scene->enemyHovered.object->transform->position.z))
 	{
 		return false;
 	}
