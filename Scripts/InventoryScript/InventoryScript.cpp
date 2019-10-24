@@ -798,27 +798,26 @@ int InventoryScript::GetCurrentQuantity(std::string itemName)
 void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 {
 
-	for (std::vector<std::pair<std::string, int>>::iterator iter = consumableItems.begin(); iter != consumableItems.end(); ++iter)
+	for (int i = 0; i < consumableItems.size(); ++i)
 	{
-		if (iter._Ptr->first == assignedConsumableItem[itemPosition] && iter._Ptr->second > 0)
+		if (consumableItems[i].first == assignedConsumableItem[itemPosition] && consumableItems[i].second > 0)
 		{
 			for (int j = 0; j < items.size(); ++j)
 			{
-				if (items[j].first->name == assignedConsumableItem[itemPosition])
+				if (items[j].first->name == consumableItems[i].first)
 				{
 					playerMovement->ConsumeItem(items[j].first->stats);
-					iter._Ptr->second -= 1;
+					consumableItems[i].second -= 1;
 
-					if (iter._Ptr->second < 0)
+					if (consumableItems[i].second < 0)
 					{
-						iter._Ptr->second = 0;
+						consumableItems[i].second = 0;
 					}
-					ManageConsumableItemsQuantityText(*items[j].first, iter._Ptr->second);
-					if (iter._Ptr->second == 0)
+					ManageConsumableItemsQuantityText(*items[j].first, consumableItems[i].second);
+					if (consumableItems[i].second == 0)
 					{
-						itemsSlotsNumbers.at(j)->SetActive(false);
-						itemsSlots.at(j)->SetActive(false);
-						assignedConsumableItem[itemPosition].empty();
+						itemsSlots[j]->SetActive(false);
+						itemsSlotsNumbers[j]->SetActive(false);
 						items.erase(items.begin() + j);
 						j--;
 					}
@@ -834,7 +833,12 @@ int InventoryScript::GetCurrentQuantity(const Item& item)
 	{
 		if (consumableItems[i].first == item.name)
 		{
-			return consumableItems[i].second;
+			int ret = consumableItems[i].second;
+			if (ret == 0)
+			{
+				consumableItems.erase(consumableItems.begin() + i);
+			}
+			return ret;
 		}
 	}
 
