@@ -31,8 +31,9 @@
             "No Walkable": 0,
             "openInHierarchy": 1,
             "isPrefab": 1,
-            "isPrefabSync": 0,
+            "isPrefabSync": 1,
             "prefabUID": 0,
+            "prefabTimeStamp": 1571836889,
             "Components": [
                 {
                     "Type": 5,
@@ -88,14 +89,14 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        -238.3000030517578,
-                        50.0
+                        -601.7999877929688,
+                        -216.0
                     ],
                     "Size": [
                         263.5,
                         189.5
                     ],
-                    "Anchor": 4,
+                    "Anchor": 5,
                     "Stretch": 3
                 },
                 {
@@ -116,7 +117,7 @@
                     "isMaskHorizontal": 0,
                     "hoverDetectionMouse1": 1,
                     "hoverDetectionMouse3": 1,
-                    "UIOrder": 0,
+                    "UIOrder": 6,
                     "videoPath": "flame.avi",
                     "fps": 24.0,
                     "loop": 0
@@ -161,14 +162,14 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        -350.0,
-                        110.0
+                        -705.5999755859375,
+                        -153.89999389648438
                     ],
                     "Size": [
                         100.0,
                         100.0
                     ],
-                    "Anchor": 4,
+                    "Anchor": 5,
                     "Stretch": 3
                 },
                 {
@@ -200,7 +201,7 @@
                     "IsTextWrapped": 1,
                     "WrapWidth": 430.0,
                     "InterlineDistance": 0.0,
-                    "UIOrder": 0
+                    "UIOrder": 6
                 }
             ]
         },
@@ -566,14 +567,14 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        -209.8000030517578,
-                        70.80000305175781
+                        -535.0,
+                        -195.0
                     ],
                     "Size": [
                         100.0,
                         100.0
                     ],
-                    "Anchor": 4,
+                    "Anchor": 5,
                     "Stretch": 3
                 },
                 {
@@ -605,7 +606,7 @@
                     "IsTextWrapped": 0,
                     "WrapWidth": 0.0,
                     "InterlineDistance": 0.0,
-                    "UIOrder": 0
+                    "UIOrder": 6
                 }
             ]
         },
@@ -647,14 +648,14 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        -210.0,
-                        40.0
+                        -535.0,
+                        -228.0
                     ],
                     "Size": [
                         100.0,
                         100.0
                     ],
-                    "Anchor": 4,
+                    "Anchor": 5,
                     "Stretch": 3
                 },
                 {
@@ -686,7 +687,7 @@
                     "IsTextWrapped": 0,
                     "WrapWidth": 0.0,
                     "InterlineDistance": 0.0,
-                    "UIOrder": 0
+                    "UIOrder": 6
                 }
             ]
         },
@@ -728,14 +729,14 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        -210.0,
-                        10.0
+                        -535.0,
+                        -258.0
                     ],
                     "Size": [
                         100.0,
                         100.0
                     ],
-                    "Anchor": 4,
+                    "Anchor": 5,
                     "Stretch": 3
                 },
                 {
@@ -767,7 +768,7 @@
                     "IsTextWrapped": 0,
                     "WrapWidth": 0.0,
                     "InterlineDistance": 0.0,
-                    "UIOrder": 0
+                    "UIOrder": 6
                 }
             ]
         },
@@ -809,14 +810,14 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        -210.0,
-                        -20.0
+                        -535.0,
+                        -288.0
                     ],
                     "Size": [
                         100.0,
                         100.0
                     ],
-                    "Anchor": 4,
+                    "Anchor": 5,
                     "Stretch": 3
                 },
                 {
@@ -848,7 +849,7 @@
                     "IsTextWrapped": 0,
                     "WrapWidth": 0.0,
                     "InterlineDistance": 0.0,
-                    "UIOrder": 0
+                    "UIOrder": 6
                 }
             ]
         },
@@ -859,7 +860,7 @@
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
+            "ActiveSelf": 0,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
@@ -940,7 +941,7 @@
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
+            "ActiveSelf": 0,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
@@ -1021,7 +1022,7 @@
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
+            "ActiveSelf": 0,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
@@ -1102,7 +1103,7 @@
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
+            "ActiveSelf": 0,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
