@@ -12,7 +12,7 @@
 #include "ComponentTransform.h"
 #include "ComponentAnimation.h"
 
-#include "PlayerStateWalkToHitEnemy.h"
+#include "PlayerStateWalkToHit3rdStageBoss.h"
 #include "PlayerStateIdle.h"
 
 #include "BasicSkill.h"
@@ -26,26 +26,29 @@
 
 #define RECALC_PATH_TIME 0.3f
 
-PlayerStateWalkToHitEnemy::PlayerStateWalkToHitEnemy(PlayerMovement* PM, const char* trigger):
+PlayerStateWalkToHit3rdStageBoss::PlayerStateWalkToHit3rdStageBoss(PlayerMovement* PM, const char* trigger):
 	PlayerState(PM, trigger)
 {
 }
 
-PlayerStateWalkToHitEnemy::~PlayerStateWalkToHitEnemy()
+PlayerStateWalkToHit3rdStageBoss::~PlayerStateWalkToHit3rdStageBoss()
 {
 }
 
-void PlayerStateWalkToHitEnemy::Update()
+void PlayerStateWalkToHit3rdStageBoss::Update()
 {
-	//enemy targeting check
-	if (walkingEnemyTargeted == nullptr || (player->App->scene->enemyHovered.object != nullptr && player->App->scene->enemyHovered.object != walkingEnemyTargeted))
+	//check if gotta do another pathfinding call
+	currentTime -= player->App->time->gameDeltaTime;
+	if (walkingEnemyTargeted == nullptr || (currentTime <= 0.0f || path.size() == 0))
 	{
-		if (player->App->scene->enemyHovered.object != nullptr)
+		currentTime = timeBetweenMoveCalls;
+		//if we dont have a target yet
+		if (player->App->scene->enemyHovered.object)
 		{
-			walkingEnemyTargeted = player->App->scene->enemyHovered.object;
+			walkingEnemyTargeted = player->App->scene->enemyHovered.object->parent;
 			enemyPosition = walkingEnemyTargeted->transform->position;
 			targetBoxWidth = player->App->scene->enemyHovered.triggerboxMinWidth;
-			math::float3 correctionPos(player->basicAttackRange, player->OutOfMeshCorrectionY, player->basicAttackRange);
+			math::float3 correctionPos(player->basicAttackRange*10, player->OutOfMeshCorrectionY, player->basicAttackRange*10);
 			if (player->App->navigation->FindPath(player->gameobject->transform->position, enemyPosition,
 				path, PathFindType::FOLLOW, correctionPos, defaultMaxDist, player->straightPathingDistance))
 			{
@@ -53,32 +56,11 @@ void PlayerStateWalkToHitEnemy::Update()
 				pathIndex = 0;
 			}
 		}
-		else
+		//if we dont have any kind of target
+		else if(!walkingEnemyTargeted)
 		{
 			//something went wrong, stop moving
 			LOG("Error walking to hit enemy");
-			playerWalking = false;
-			return;
-		}
-	}
-
-	//if enemy moved, re calc path towards it
-	if (walkingEnemyTargeted->transform->position != enemyPosition)
-	{
-		//reset stuff
-		path.clear();
-		enemyPosition = walkingEnemyTargeted->transform->position;
-		//re calculate path
-		if (player->App->navigation->FindPath(player->gameobject->transform->position, enemyPosition,
-			path, PathFindType::FOLLOW, math::float3(player->basicAttackRange, player->OutOfMeshCorrectionY, player->basicAttackRange),
-			defaultMaxDist, player->straightPathingDistance))
-		{
-			pathIndex = 0;
-		}
-		//if error
-		else
-		{
-			LOG("Error walking to hit enemy along the way");
 			playerWalking = false;
 			return;
 		}
@@ -94,11 +76,14 @@ void PlayerStateWalkToHitEnemy::Update()
 												player->gameobject->transform->position.z);
 		math::float2 posEnemy2D = math::float2(	enemyPosition.x,
 												enemyPosition.z);
-		if (pathIndex < path.size() && player->basicAttackRange + 
-			targetBoxWidth *0.2 <=
+		//todo:: check this out, maybe 1st cond is not necessary and 
+		//player range = stuff prob has to be hardcoded a 450.0f instead
+		//player->App->scene->enemyHovered.triggerboxMinWidth*0.1
+		if (pathIndex < path.size() && player->basicAttackRange + targetBoxWidth * 0.2 <=
 			Distance(posPlayer2D, posEnemy2D))
 		{
-			player->gameobject->transform->LookAt(path[pathIndex]);
+			math::float3 lookatPos = math::float3(path[pathIndex].x, player->gameobject->transform->position.y, path[pathIndex].z);
+			player->gameobject->transform->LookAt(lookatPos);
 			math::float3 direction = (path[pathIndex] - currentPosition).Normalized();
 			//lerping if necessary
 			lerpCalculations(direction, -player->gameobject->transform->front, path[pathIndex]);
@@ -116,15 +101,17 @@ void PlayerStateWalkToHitEnemy::Update()
 		else
 		{
 			toAttack = true;
+			path.clear();
 		}
 	}
 	else
 	{
+		path.clear();
 		playerWalking = false;
 	}
 }
 
-void PlayerStateWalkToHitEnemy::Enter()
+void PlayerStateWalkToHit3rdStageBoss::Enter()
 {
 	toAttack = false;
 	if (dustParticles)
@@ -134,10 +121,11 @@ void PlayerStateWalkToHitEnemy::Enter()
 	}
 }
 
-void PlayerStateWalkToHitEnemy::CheckInput()
+void PlayerStateWalkToHit3rdStageBoss::CheckInput()
 {
 	if (!playerWalking)
 	{
+		path.clear();
 		playerWalkingToHit = false;
 		player->currentState = player->idle;
 		if (dustParticles)
@@ -186,6 +174,7 @@ void PlayerStateWalkToHitEnemy::CheckInput()
 	}
 	if (player->IsUsingSkill() || (player->IsAttacking()))
 	{
+		path.clear();
 		player->currentState = (PlayerState*)player->attack;
 	}
 	else if (player->IsMovingToAttack())
@@ -201,14 +190,17 @@ void PlayerStateWalkToHitEnemy::CheckInput()
 	}
 	else if (player->IsMovingToItem())
 	{
+		path.clear();
 		player->currentState = (PlayerState*)player->walkToPickItem;
 	}
 	else if (player->IsMoving())
 	{
+		path.clear();
 		player->currentState = (PlayerState*)player->walk;
 	}
 	else if(!playerWalkingToHit)
 	{
+		path.clear();
 		player->currentState = (PlayerState*)player->idle;
 		if (dustParticles)
 		{

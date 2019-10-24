@@ -252,6 +252,11 @@ void ComponentBoxTrigger::SetBoxType(BoxTriggerType boxType)
 	App->collisions->AddBox(this, boxType);
 }
 
+math::AABB ComponentBoxTrigger::getOOBBAsAABB()
+{
+	return boxTrigger->MinimalEnclosingAABB();
+}
+
 void ComponentBoxTrigger::AddOverlap(const ComponentBoxTrigger * other)
 {
 	if (overlapList.find(other) != overlapList.end())

@@ -1,13 +1,13 @@
-#ifndef __PLAYERSTATEWALKTOHIT_H_
-#define __PLAYERSTATEWALKTOHIT_H_
+#ifndef __PLAYERSTATEWALKTOHIT3BOSS_H_
+#define __PLAYERSTATEWALKTOHIT3BOSS_H_
 
 #include "PlayerState.h"
 
-class PlayerStateWalkToHitEnemy :	public PlayerState
+class PlayerStateWalkToHit3rdStageBoss :	public PlayerState
 {
 public:
-	PlayerStateWalkToHitEnemy(PlayerMovement* PM, const char* trigger);
-	~PlayerStateWalkToHitEnemy();
+	PlayerStateWalkToHit3rdStageBoss(PlayerMovement* PM, const char* trigger);
+	~PlayerStateWalkToHit3rdStageBoss();
 
 	void Update() override;
 	void CheckInput() override;
@@ -22,7 +22,8 @@ public:
 	float targetBoxWidth = 0.0f;
 
 private:
-	float moveTimer = 0.0f;
+	float timeBetweenMoveCalls = 0.5f;
+	float currentTime = 0.0f;
 	float defaultMaxDist = 10000.f;
 	float3 enemyPosition = float3(0.f, 0.f, 0.f);
 	bool toAttack = false;
