@@ -1766,7 +1766,6 @@ void PlayerMovement::UpdateUIStats()
 		uiDexterityText->text = std::to_string(playerStats.dexterity);
 		uiStrengthText->text = std::to_string(playerStats.strength);
 		uiManaText->text = std::to_string((int)playerStats.mana);
-		delete &playerStats;
 	}
 }
 
