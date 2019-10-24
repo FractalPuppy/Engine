@@ -55,6 +55,8 @@ private:
 	void HideConsumableItemText(int position);
 	void UseItemConsumableOnPlayer(int itemPosition);
 
+	PlayerStats& GetPlayerStatsOnItemEquip(int i) const;
+
 	std::vector<Component*> slotsTransform;
 	std::vector<GameObject*> itemsSlots;
 	std::vector<GameObject*> itemsSlotsNumbers;

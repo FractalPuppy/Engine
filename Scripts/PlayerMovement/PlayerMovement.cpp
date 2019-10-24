@@ -127,19 +127,21 @@ void PlayerMovement::Expose(ImGuiContext* context)
 
 	ImGui::DragFloat("Out of Combat time", &outCombatMaxTime, 1.f, 0.f, 10.f);
 
-	float maxHP = GetTotalPlayerStats().health;
-	float maxMP = GetTotalPlayerStats().mana;
-	GetTotalPlayerStats().Expose("Player Stats");
-	if (maxHP != GetTotalPlayerStats().health)
+	PlayerStats& totalStats = GetTotalPlayerStats();
+	float maxHP = totalStats.health;
+	float maxMP = totalStats.mana;
+	baseStats.Expose("Player Base Stats");
+	equipedStats.Expose("Equiped Items Stats");
+	if (maxHP != totalStats.health)
 	{
-		health += GetTotalPlayerStats().health - maxHP;
-		if (health > GetTotalPlayerStats().health) health = GetTotalPlayerStats().health;
+		health += totalStats.health - maxHP;
+		if (health > totalStats.health) health = totalStats.health;
 		else if (health < 0) health = 0;
 	}
-	if (maxMP != GetTotalPlayerStats().mana)
+	if (maxMP != totalStats.mana)
 	{
-		mana += GetTotalPlayerStats().mana - maxMP;
-		if (mana > GetTotalPlayerStats().mana) mana = GetTotalPlayerStats().mana;
+		mana += totalStats.mana - maxMP;
+		if (mana > totalStats.mana) mana = totalStats.mana;
 		else if (mana < 0) mana = 0;
 	}
 
@@ -193,13 +195,13 @@ void PlayerMovement::Expose(ImGuiContext* context)
 	ImGui::Spacing();
 
 	// Stats Debug
-	ImGui::Text("Play Stats Debug");
-	ImGui::Text("HP: %f / %f", health, GetTotalPlayerStats().health);
-	ImGui::Text("MP: %f / %f", mana, GetTotalPlayerStats().mana);
-	ImGui::Text("Strength: %i", GetTotalPlayerStats().strength);
-	ImGui::Text("Dexterity: %i", GetTotalPlayerStats().dexterity);
-	ImGui::Text("HP Regen: %f pts/s", GetTotalPlayerStats().hpRegen);
-	ImGui::Text("MP Regen: %f pts/s", GetTotalPlayerStats().manaRegen);
+	ImGui::Text("Total Stats Debug");
+	ImGui::Text("HP: %f / %f", health, totalStats.health);
+	ImGui::Text("MP: %f / %f", mana, totalStats.mana);
+	ImGui::Text("Strength: %i", totalStats.strength);
+	ImGui::Text("Dexterity: %i", totalStats.dexterity);
+	ImGui::Text("HP Regen: %f pts/s", totalStats.hpRegen);
+	ImGui::Text("MP Regen: %f pts/s", totalStats.manaRegen);
 }
 
 void PlayerMovement::CreatePlayerStates()
@@ -1708,6 +1710,7 @@ void PlayerStats::DeSerialize(JSON_value* json)
 
 void PlayerStats::Expose(const char* sectionTitle)
 {
+	ImGui::PushID(sectionTitle);
 	ImGui::Text(sectionTitle);
 	ImGui::InputFloat("Health", &health);
 	ImGui::InputFloat("Mana", &mana);
@@ -1715,6 +1718,7 @@ void PlayerStats::Expose(const char* sectionTitle)
 	ImGui::InputInt("Dexterity", &dexterity);
 	ImGui::DragFloat("HP regen", &hpRegen, 1.0F, 0.0F, 10.0F);
 	ImGui::DragFloat("Mana regen", &manaRegen, 1.0F, 0.0F, 10.0F);
+	ImGui::PopID();
 }
 
 void PlayerMovement::ActivateHudCooldownMask(bool activate, unsigned first, unsigned last)
