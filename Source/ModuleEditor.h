@@ -21,7 +21,7 @@ class PanelNavigation;
 class GameObject;
 class MaterialEditor;
 class FileExplorer;
-
+class PanelResourceManagerUnused;
 
 class ModuleEditor :
 	public Module
@@ -64,6 +64,7 @@ public:
 	PanelState *states = nullptr;
 	PanelAnimation *animation = nullptr;
 	PanelNavigation* navigation = nullptr;
+	PanelResourceManagerUnused *resourceUnused = nullptr;
 
 	MaterialEditor *materialEditor = nullptr;
 	FileExplorer *fileExplorer = nullptr;

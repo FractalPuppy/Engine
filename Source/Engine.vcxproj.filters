@@ -325,6 +325,9 @@
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="MouseController.cpp" />
+    <ClCompile Include="PanelResourceManagerUnused.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -712,6 +715,9 @@
     </ClInclude>
     <ClInclude Include="MouseController.h" />
     <ClInclude Include="resource1.h" />
+    <ClInclude Include="PanelResourceManagerUnused.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

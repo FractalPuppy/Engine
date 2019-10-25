@@ -519,8 +519,10 @@ Resource* ModuleResourceManager::GetByName(const char* name, TYPE type)
 	return nullptr;
 }
 
-Resource* ModuleResourceManager::GetWithoutLoad(unsigned uid) const
+Resource* ModuleResourceManager::GetWithoutLoad(unsigned uid)
 {
+	DeleteResourceFromUnusedList(uid);
+
 	std::map<unsigned, Resource*>::const_iterator it = resources.find(uid);
 	if (it == resources.end())
 		return nullptr;
@@ -528,7 +530,7 @@ Resource* ModuleResourceManager::GetWithoutLoad(unsigned uid) const
 	return it->second;
 }
 
-Resource* ModuleResourceManager::GetWithoutLoad(const char* exportedFile) const
+Resource* ModuleResourceManager::GetWithoutLoad(const char* exportedFile)
 {
 	assert(exportedFile != NULL);
 
@@ -541,7 +543,7 @@ Resource* ModuleResourceManager::GetWithoutLoad(const char* exportedFile) const
 	return GetWithoutLoad(uid);
 }
 
-Resource* ModuleResourceManager::GetWithoutLoad(const char* exportedFile, TYPE type) const
+Resource* ModuleResourceManager::GetWithoutLoad(const char* exportedFile, TYPE type)
 {
 	assert(exportedFile != NULL);
 
@@ -577,6 +579,16 @@ std::vector<Resource*> ModuleResourceManager::GetResourcesList()
 {
 	std::vector<Resource*> resourcesList;
 	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		resourcesList.push_back(it->second);
+	}
+	return resourcesList;
+}
+
+std::vector<Resource*> ModuleResourceManager::GetUnusedResourcesList()
+{
+	std::vector<Resource*> resourcesList;
+	for (std::map<unsigned, Resource*>::iterator it = unusedResources.begin(); it != unusedResources.end(); ++it)
 	{
 		resourcesList.push_back(it->second);
 	}
@@ -935,4 +947,11 @@ void ModuleResourceManager::CleanUnusedExportedFiles() const
 			}
 		}
 	}
+}
+
+void ModuleResourceManager::DeleteResourceFromUnusedList(unsigned uid)
+{
+	std::map<unsigned, Resource*>::const_iterator it = unusedResources.find(uid);
+	if (it != unusedResources.end())
+		unusedResources.erase(it);
 }
