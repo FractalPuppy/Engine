@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 2403650793,
+            "UID": 3702370918,
             "ParentUID": 0,
             "Name": "ThirdPhaseAOEPrefab",
             "Tag": "Default",
@@ -33,14 +33,14 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 471853287,
-            "prefabTimeStamp": 1571769824,
+            "prefabTimeStamp": 1572030469,
             "Components": [
                 {
                     "Type": 0,
                     "Enabled": 1,
                     "Position": [
                         451.8402099609375,
-                        326.98150634765627,
+                        458.70880126953127,
                         3105.72705078125
                     ],
                     "Rotation": [
@@ -67,7 +67,7 @@
                         0.0,
                         1.0,
                         0.0,
-                        326.98150634765627,
+                        458.70880126953127,
                         0.0,
                         0.0,
                         1.0,
@@ -84,9 +84,9 @@
                     "script": "ThirdPhaseAOE",
                     "scriptInfo": {
                         "timeToExplodeFirstAOE": 1.2000000476837159,
-                        "timeToFinishFirstAOE": 2.5,
-                        "timeToExplodeRepetition": 0.5,
-                        "timeToFinishRepetition": 2.0,
+                        "timeToFinishFirstAOE": 2.180000066757202,
+                        "timeToSpawnRepetition": 0.4000000059604645,
+                        "timeToFinishRepetition": 0.5,
                         "damageFirst": 15.0,
                         "damageSecond": 10.0
                     }
@@ -94,8 +94,8 @@
             ]
         },
         {
-            "UID": 2479538211,
-            "ParentUID": 2403650793,
+            "UID": 1178775442,
+            "ParentUID": 3702370918,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesSecond",
             "Static": 0,
@@ -159,7 +159,7 @@
                         0.0,
                         -0.000022324420569930227,
                         187.2707977294922,
-                        326.98150634765627,
+                        458.70880126953127,
                         0.0,
                         -187.2707977294922,
                         -0.000022324420569930227,
@@ -174,7 +174,7 @@
                     "Type": 1,
                     "Enabled": 1,
                     "meshUID": 3908715504,
-                    "materialUID": 1634342396,
+                    "materialUID": 1662217517,
                     "castShadows": 0,
                     "useAlpha": 1,
                     "highlighted": 0,
@@ -184,8 +184,8 @@
                         1.0
                     ],
                     "xTiles": 4,
-                    "yTiles": 3,
-                    "fps": 8.0,
+                    "yTiles": 4,
+                    "fps": 16.0,
                     "waterAmplitude1": 10.0,
                     "waterDecay1": 1.0,
                     "waterFrequency1": 10.0,
@@ -230,175 +230,8 @@
             ]
         },
         {
-            "UID": 3722912361,
-            "ParentUID": 2403650793,
-            "Name": "Beam Particles",
-            "Tag": "hitParticlesSecond",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "Euler": [
-                        -0.0,
-                        0.0,
-                        -0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "Global": [
-                        1.0,
-                        0.0,
-                        0.0,
-                        451.8402099609375,
-                        0.0,
-                        1.0,
-                        0.0,
-                        326.98150634765627,
-                        0.0,
-                        0.0,
-                        1.0,
-                        3105.72705078125,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                },
-                {
-                    "Type": 10,
-                    "Enabled": 1,
-                    "xTiles": 1,
-                    "yTiles": 1,
-                    "fps": 24.0,
-                    "textureUID": 2341582302,
-                    "lifetime": [
-                        1.5,
-                        1.5
-                    ],
-                    "speed": [
-                        400.0,
-                        500.0
-                    ],
-                    "rate": 100.0,
-                    "maxParticles": 10,
-                    "rotation": [
-                        -30.0,
-                        30.0
-                    ],
-                    "sizeMin": [
-                        100.0,
-                        100.0
-                    ],
-                    "sizeMax": [
-                        120.0,
-                        120.0
-                    ],
-                    "quadEmitterSize": [
-                        200.0,
-                        200.0
-                    ],
-                    "particleColor": [
-                        0.9672130942344666,
-                        0.9672034382820129,
-                        0.9672034382820129,
-                        1.0
-                    ],
-                    "directionNoise": 0,
-                    "directionNoiseProbability": 5,
-                    "directionNoiseTotalProbability": 500,
-                    "actualEmisor": 2,
-                    "baseRadius": 6.0,
-                    "apexRadius": 1.5,
-                    "sizeOT": 0,
-                    "colorOT": 1,
-                    "defaultColor": [
-                        0.9672130942344666,
-                        0.9672034382820129,
-                        0.9672034382820129,
-                        1.0
-                    ],
-                    "billboarded": 1,
-                    "aligned": 0,
-                    "localEmitter": 0,
-                    "lookAtTarget": [
-                        0.0,
-                        1.0,
-                        0.0
-                    ],
-                    "intensity": 1.0,
-                    "bezier14": [
-                        0.0,
-                        0.0,
-                        1.0,
-                        1.0
-                    ],
-                    "bezier5": 0.0,
-                    "color0": [
-                        0.9098360538482666,
-                        0.5178183317184448,
-                        0.007457663770765066
-                    ],
-                    "colorPosition0": 0.0,
-                    "alpha0": 1.0,
-                    "alphaPosition0": 0.0,
-                    "color1": [
-                        0.9098039269447327,
-                        0.5176470875740051,
-                        0.007843137718737126
-                    ],
-                    "colorPosition1": 1.0,
-                    "alpha1": 0.09600000083446503,
-                    "alphaPosition1": 1.0,
-                    "alphas": 2,
-                    "colors": 2
-                }
-            ]
-        },
-        {
-            "UID": 499891143,
-            "ParentUID": 2403650793,
+            "UID": 3024444008,
+            "ParentUID": 3702370918,
             "Name": "Hitbox",
             "Tag": "boxTriggerSecond",
             "Static": 0,
@@ -462,7 +295,7 @@
                         0.0,
                         1.0,
                         0.0,
-                        326.98150634765627,
+                        458.70880126953127,
                         0.0,
                         0.0,
                         1.0,
@@ -492,10 +325,10 @@
             ]
         },
         {
-            "UID": 1906711420,
-            "ParentUID": 2403650793,
-            "Name": "Prep Particles",
-            "Tag": "PrepParticlesFirst",
+            "UID": 1653701408,
+            "ParentUID": 3702370918,
+            "Name": "Smash Particles",
+            "Tag": "SmashParticlesFirst",
             "Static": 0,
             "ActiveInHierarchy": 1,
             "ActiveSelf": 1,
@@ -545,22 +378,22 @@
                         0.0
                     ],
                     "Scale": [
-                        187.2759552001953,
-                        187.27081298828126,
-                        187.27081298828126
+                        418.18719482421877,
+                        418.1756591796875,
+                        418.1756591796875
                     ],
                     "Global": [
-                        187.2759552001953,
+                        418.18719482421877,
                         0.0,
                         0.0,
                         451.8402099609375,
                         0.0,
-                        -0.000022324420569930227,
-                        187.2707977294922,
-                        326.98150634765627,
+                        -0.00004985042323824018,
+                        418.1756286621094,
+                        458.70880126953127,
                         0.0,
-                        -187.2707977294922,
-                        -0.000022324420569930227,
+                        -418.1756286621094,
+                        -0.00004985042323824018,
                         3105.72705078125,
                         0.0,
                         0.0,
@@ -583,7 +416,7 @@
                     ],
                     "xTiles": 4,
                     "yTiles": 4,
-                    "fps": 12.0,
+                    "fps": 8.0,
                     "waterAmplitude1": 10.0,
                     "waterDecay1": 1.0,
                     "waterFrequency1": 10.0,
@@ -628,8 +461,8 @@
             ]
         },
         {
-            "UID": 1250047455,
-            "ParentUID": 2403650793,
+            "UID": 3285606677,
+            "ParentUID": 3702370918,
             "Name": "Beam Particles",
             "Tag": "hitParticlesFirst",
             "Static": 0,
@@ -693,7 +526,7 @@
                         0.0,
                         1.0,
                         0.0,
-                        326.98150634765627,
+                        458.70880126953127,
                         0.0,
                         0.0,
                         1.0,
@@ -797,8 +630,8 @@
             ]
         },
         {
-            "UID": 853730171,
-            "ParentUID": 2403650793,
+            "UID": 1124699870,
+            "ParentUID": 3702370918,
             "Name": "Hitbox",
             "Tag": "boxTriggerFirst",
             "Static": 0,
@@ -862,7 +695,7 @@
                         0.0,
                         1.0,
                         0.0,
-                        326.98150634765627,
+                        458.70880126953127,
                         0.0,
                         0.0,
                         1.0,
@@ -892,8 +725,8 @@
             ]
         },
         {
-            "UID": 2843286126,
-            "ParentUID": 2403650793,
+            "UID": 325697672,
+            "ParentUID": 3702370918,
             "Name": "Rock particles",
             "Tag": "rockParticlesFirst",
             "Static": 0,
@@ -957,7 +790,7 @@
                         0.0,
                         1.0,
                         0.0,
-                        326.98150634765627,
+                        458.70880126953127,
                         0.0,
                         0.0,
                         1.0,
@@ -1063,6 +896,142 @@
                     "alphaPosition2": 1.0,
                     "alphas": 3,
                     "colors": 3
+                }
+            ]
+        },
+        {
+            "UID": 726256656,
+            "ParentUID": 3702370918,
+            "Name": "Prep Particles",
+            "Tag": "PrepParticlesFirst",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Euler": [
+                        -90.00000762939453,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        187.2759552001953,
+                        187.27081298828126,
+                        187.27081298828126
+                    ],
+                    "Global": [
+                        187.2759552001953,
+                        0.0,
+                        0.0,
+                        451.8402099609375,
+                        0.0,
+                        -0.000022324420569930227,
+                        187.2707977294922,
+                        458.70880126953127,
+                        0.0,
+                        -187.2707977294922,
+                        -0.000022324420569930227,
+                        3105.72705078125,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 1,
+                    "Enabled": 1,
+                    "meshUID": 3908715504,
+                    "materialUID": 3624443983,
+                    "castShadows": 0,
+                    "useAlpha": 1,
+                    "highlighted": 0,
+                    "highlightColor": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "xTiles": 4,
+                    "yTiles": 4,
+                    "fps": 12.0,
+                    "waterAmplitude1": 10.0,
+                    "waterDecay1": 1.0,
+                    "waterFrequency1": 10.0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterAmplitude2": 10.0,
+                    "waterDecay2": 1.0,
+                    "waterFrequency2": 10.0,
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "texSpeed": [
+                        0.0,
+                        0.0
+                    ],
+                    "waterSpeed": 2.0,
+                    "loop": 1,
+                    "water": 0,
+                    "dissolve": 0,
+                    "waterSource1": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "waterSource2": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "uvScaler": [
+                        1.0,
+                        1.0
+                    ],
+                    "distorsionSpeed": 0.0010000000474974514,
+                    "loop": 1
                 }
             ]
         }
