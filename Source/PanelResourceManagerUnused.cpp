@@ -57,20 +57,6 @@ void PanelResourceManagerUnused::Draw()
 				{
 					DrawFilterByResourceMenu();
 				}
-				if (ImGui::BeginMenu("Reference Count"))
-				{
-					if (ImGui::MenuItem("Loaded in Memory", nullptr, filterByReferenceCount == REFERENCE_FILTER::LOADED))
-					{
-						filterByReferenceCount = (filterByReferenceCount != REFERENCE_FILTER::LOADED) ? REFERENCE_FILTER::LOADED : REFERENCE_FILTER::NONE;
-						UpdateResourcesList();
-					}
-					if (ImGui::MenuItem("Not Loaded in Memory", nullptr, filterByReferenceCount == REFERENCE_FILTER::NOT_LOADED))
-					{
-						filterByReferenceCount = (filterByReferenceCount != REFERENCE_FILTER::NOT_LOADED) ? REFERENCE_FILTER::NOT_LOADED : REFERENCE_FILTER::NONE;
-						UpdateResourcesList();
-					}
-					ImGui::EndMenu();
-				}
 				ImGui::EndMenu();
 			}
 			if (ImGui::MenuItem("Clean Filters"))
