@@ -210,15 +210,18 @@ void ComponentImage::Update()
 
 	if (videoPlaying)
 	{
-		frameTimer -= App->time->gameDeltaTime;
-		if (frameTimer < 0.f) 
-		{
-			cap >> frame;
+		frameTimer += App->time->fullGameDeltaTime;
+		if (frameTimer > frameTime)
+		{	
+			do
+			{
+				frameTimer -= frameTime;
+				cap >> frame;
+			} while (frameTimer >= frameTime);
 			if (!frame.empty()) 
 			{
 				cv::Mat flipped;
 				cv::flip(frame, flipped, 0);
-				frameTimer = frameTime;
 				if (videoTex == 0u)
 					glGenTextures(1, &videoTex);
 				glBindTexture(GL_TEXTURE_2D, videoTex);
