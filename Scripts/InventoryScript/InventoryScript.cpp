@@ -229,7 +229,7 @@ void InventoryScript::Update()
 
 						if (items[j].first->isEquipped)
 						{
-							playerMovement->UnEquip(items[j].first->stats, (unsigned)items[j].first->type);
+							playerMovement->UnEquip((unsigned)items[j].first->type);
 						}
 
 						for (int h = 0; h < ASSIGNED_CONSUMABLES_SIZE; ++h)
@@ -292,7 +292,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::HELMET)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip((unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -302,7 +302,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip((unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -321,7 +321,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::CHEST)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip((unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -331,7 +331,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip((unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -350,7 +350,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::PANTS)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip((unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -360,7 +360,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip((unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -379,7 +379,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::BOOTS)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip((unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -389,7 +389,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip((unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -408,7 +408,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::WEAPON)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip((unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -418,7 +418,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip((unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -437,7 +437,7 @@ void InventoryScript::Update()
 									if (items[l].first != pair.first && items[l].first->isEquipped && items[l].first->type == ItemType::AMULET)
 									{
 										items[l].first->isEquipped = false;
-										playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+										playerMovement->UnEquip((unsigned)items[l].first->type);
 										break;
 									}
 								}
@@ -447,7 +447,7 @@ void InventoryScript::Update()
 									if (items[l].first == pair.first && !items[l].first->isEquipped)
 									{
 										items[l].first->isEquipped = true;
-										playerMovement->Equip(pair.first->stats, (unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
+										playerMovement->Equip((unsigned)pair.first->type, pair.first->meshUID, pair.first->materialUID);
 										break;
 									}
 								}
@@ -486,7 +486,7 @@ void InventoryScript::Update()
 							if (items[l].first->isEqual(*pair.first) && pair.first->isEquipped)
 							{
 								items[l].first->isEquipped = false;
-								playerMovement->UnEquip(items[l].first->stats, (unsigned)items[l].first->type);
+								playerMovement->UnEquip((unsigned)items[l].first->type);
 								break;
 							}
 						}
@@ -686,60 +686,54 @@ void InventoryScript::LoadInventory()
 
 void InventoryScript::showDescription(int i)
 {
+	PlayerStats previousStats = playerMovement->GetTotalPlayerStats();
+	PlayerStats newStats = GetPlayerStatsOnItemEquip(i);
+
+	// Show item stats
 	ItemType type = items[i].first->type;
 	int health = round(items[i].first->stats.health);
 	int dex = round(items[i].first->stats.dexterity);
 	int str = round(items[i].first->stats.strength);
 	int mana = round(items[i].first->stats.mana);
 	std::string name = items[i].first->name;
-	int healthDiff = health;
-	int dexDiff = dex;
-	int strDiff = str;
-	int manaDiff = mana;
 	App->scene->FindGameObjectByName("ItemStatsName", itemDesc)->GetComponent<Text>()->text = name;
 	App->scene->FindGameObjectByName("ItemStatsHealthNum", itemDesc)->GetComponent<Text>()->text = std::to_string(health);
 	App->scene->FindGameObjectByName("ItemStatsDexNum", itemDesc)->GetComponent<Text>()->text = std::to_string(dex);
 	App->scene->FindGameObjectByName("ItemStatsStrNum", itemDesc)->GetComponent<Text>()->text = std::to_string(str);
 	App->scene->FindGameObjectByName("ItemStatsSoulNum", itemDesc)->GetComponent<Text>()->text = std::to_string(mana);
-	for (int j = 0; j < items.size(); ++j)
-	{
-		if (items[j].first->type == type && items[j].first->isEquipped)
-		{
-			healthDiff = health - round(items[j].first->stats.health);
-			dexDiff = dex - round(items[j].first->stats.dexterity);
-			strDiff = str - round(items[j].first->stats.strength);
-			manaDiff = mana - round(items[j].first->stats.mana);
-		}
-	}
+
+	// Show total player stats on item equip
 	Text* txt = App->scene->FindGameObjectByName("ItemStatsHealthDiff", itemDesc)->GetComponent<Text>();
-	txt->text = std::to_string(healthDiff);
-	if (healthDiff > 0)
+	std::string healthDif = std::to_string(round(newStats.health));
+	txt->text = healthDif.substr(0, healthDif.size() - 7);
+	if (newStats.health > previousStats.health)
 		txt->color = math::float4(0, 255, 0, 255);
-	else if (healthDiff < 0)
+	else if (newStats.health < previousStats.health)
 		txt->color = math::float4(255, 0, 0, 255);
 	else
 		txt->color = math::float4(183, 153, 41, 255);
 	txt = App->scene->FindGameObjectByName("ItemStatsDexDiff", itemDesc)->GetComponent<Text>();
-	txt->text = std::to_string(dexDiff);
-	if (dexDiff > 0)
+	txt->text = std::to_string(newStats.dexterity);
+	if (newStats.dexterity > previousStats.dexterity)
 		txt->color = math::float4(0, 255, 0, 255);
-	else if (dexDiff < 0)
+	else if (newStats.dexterity < previousStats.dexterity)
 		txt->color = math::float4(255, 0, 0, 255);
 	else
 		txt->color = math::float4(183, 153, 41, 255);
 	txt = App->scene->FindGameObjectByName("ItemStatsStrDiff", itemDesc)->GetComponent<Text>();
-	txt->text = std::to_string(strDiff);
-	if (strDiff > 0)
+	txt->text = std::to_string(newStats.strength);
+	if (newStats.strength > previousStats.strength)
 		txt->color = math::float4(0, 255, 0, 255);
-	else if (strDiff < 0)
+	else if (newStats.strength < previousStats.strength)
 		txt->color = math::float4(255, 0, 0, 255);
 	else
 		txt->color = math::float4(183, 153, 41, 255);
 	txt = App->scene->FindGameObjectByName("ItemStatsSoulDiff", itemDesc)->GetComponent<Text>();
-	txt->text = std::to_string(manaDiff);
-	if (manaDiff > 0)
+	std::string manaDif = std::to_string(round(newStats.mana));
+	txt->text = manaDif.substr(0, manaDif.size() - 7);
+	if (newStats.mana > previousStats.mana)
 		txt->color = math::float4(0, 255, 0, 255);
-	else if (manaDiff < 0)
+	else if (newStats.mana < previousStats.mana)
 		txt->color = math::float4(255, 0, 0, 255);
 	else
 		txt->color = math::float4(183, 153, 41, 255);
@@ -958,4 +952,42 @@ std::string InventoryScript::ConsumeItemsController()
 	}
 
 	return "";
+}
+
+PlayerStats InventoryScript::GetPlayerStatsOnItemEquip(int i) const
+{
+	PlayerStats newStats;
+	newStats.health = playerMovement->baseStats.health + playerMovement->equipedStats.health;
+	newStats.mana = playerMovement->baseStats.mana + playerMovement->equipedStats.mana;
+	newStats.strength = playerMovement->baseStats.strength + playerMovement->equipedStats.strength;
+	newStats.dexterity = playerMovement->baseStats.dexterity + playerMovement->equipedStats.dexterity;
+	newStats.manaRegen = playerMovement->baseStats.manaRegen + playerMovement->equipedStats.manaRegen;
+	newStats.hpRegen = playerMovement->baseStats.hpRegen + playerMovement->equipedStats.hpRegen;
+
+	// Add new item to equip stats
+	Item* item = items[i].first;
+	newStats.health += item->stats.health;
+	newStats.mana += item->stats.mana;
+	newStats.dexterity += item->stats.dexterity;
+	newStats.strength += item->stats.strength;
+	newStats.hpRegen += item->stats.hpRegen;
+	newStats.manaRegen += item->stats.manaRegen;
+
+	// Substract stats of the item already equiped on the slot
+	for (int j = 0; j < items.size(); ++j)
+	{
+		if (items[j].first->isEquipped && items[j].first->type == item->type)
+		{
+			Item* oldItem = items[j].first;
+			newStats.health -= oldItem->stats.health;
+			newStats.mana -= oldItem->stats.mana;
+			newStats.dexterity -= oldItem->stats.dexterity;
+			newStats.strength -= oldItem->stats.strength;
+			newStats.hpRegen -= oldItem->stats.hpRegen;
+			newStats.manaRegen -= oldItem->stats.manaRegen;
+			return newStats;
+		}
+	}
+
+	return newStats;
 }
