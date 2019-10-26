@@ -36,14 +36,10 @@ void LoopStateCredits::Enter()
 		gLoop->currentLoopState = (LoopState*)gLoop->menuState;
 		return;
 	}
-	if (gLoop->menuMusic != nullptr)
-	{
-		gLoop->menuMusic->GetComponent<ComponentAudioSource>()->Stop();
-	}
 	gLoop->creditsAudio->GetComponent<ComponentAudioSource>()->Play();
 	gLoop->creditsGO->SetActive(true);
 	gLoop->creditsVideoGO->SetActive(true);
-	videoDuration = gLoop->creditsVideo->PlayVideo();
+	gLoop->creditsVideo->PlayVideo();
 	gLoop->menu->SetActive(false);
 	started = true;
 }
@@ -56,17 +52,24 @@ void LoopStateCredits::Update()
 	}
 	if (gLoop->creditsVideo != nullptr && gLoop->creditsVideo->videoPlaying)
 	{
-		videoTimer += gLoop->App->time->gameDeltaTime;
-		if (videoTimer >= videoDuration || backButton->IsPressed())
+		if (backButton->IsPressed())
 		{
 			gLoop->creditsGO->SetActive(false);
 			gLoop->creditsVideoGO->SetActive(false);
 			gLoop->menu->SetActive(true);
-			videoTimer = 0.f;
-			gLoop->menuMusic->GetComponent<ComponentAudioSource>()->Play();
-			gLoop->creditsAudio->GetComponent<ComponentAudioSource>()->Stop();
 			gLoop->currentLoopState = (LoopState*)gLoop->menuState;
+			gLoop->creditsVideo->videoFinished = false;
+			gLoop->creditsVideo->videoPlaying = false;
 			started = false;
 		}
+	}
+	else if (gLoop->creditsVideo->videoFinished && started)
+	{
+		gLoop->creditsGO->SetActive(false);
+		gLoop->creditsVideoGO->SetActive(false);
+		gLoop->menu->SetActive(true);
+		gLoop->currentLoopState = (LoopState*)gLoop->menuState;
+		gLoop->creditsVideo->videoFinished = false;
+		started = false;
 	}
 }
