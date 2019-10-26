@@ -700,6 +700,21 @@ void InventoryScript::LoadInventory()
 			JSON_value* consumableJSON = consumablesJSON->GetValue(i);
 			consumableItems.emplace_back(std::make_pair(consumableJSON->GetString("name"), consumableJSON->GetInt("quantity")));
 		}
+
+		for (int i = 0; i < consumableItems.size(); ++i)
+		{
+			for (int j = 0; j < items.size(); ++j)
+			{
+				if (items[j].first->name == consumableItems[i].first)
+				{
+					itemsSlotsNumbers[items[j].second]->SetActive(true);
+					Text* itemsSlotNumber = itemsSlotsNumbers[items[j].second]->GetComponent<Text>();
+					itemsSlotNumber->text = std::to_string(consumableItems[i].second);
+					itemsSlotNumber->uiOrder = 6;
+					break;
+				}
+			}
+		}
 	}
 }
 
