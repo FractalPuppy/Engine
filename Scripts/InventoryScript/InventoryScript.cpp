@@ -643,6 +643,17 @@ void InventoryScript::SaveInventory()
 		itemsJSON->AddValue("", *item);
 	}
 	inventory->AddValue("items", *itemsJSON);
+
+	JSON_value *consumablesJSON = inventory->CreateValue(rapidjson::kArrayType);
+	for (int i = 0; i < consumableItems.size(); ++i)
+	{
+		JSON_value *consumable = consumablesJSON->CreateValue();
+		consumable->AddString("name", consumableItems[i].first.c_str());
+		consumable->AddInt("quantity", consumableItems[i].second);
+		consumablesJSON->AddValue("", *consumable);
+	}
+	inventory->AddValue("consumables", *consumablesJSON);
+
 	PlayerPrefs::SaveJson(inventory, "Inventory");
 }
 
@@ -680,6 +691,14 @@ void InventoryScript::LoadInventory()
 			ComponentImage* image = itemsSlots[position]->GetComponent<ComponentImage>();
 			image->UpdateTexture(item->sprite);
 			items.emplace_back(std::make_pair(item, position));
+		}
+
+		JSON_value* consumablesJSON = inventory->GetValue("consumables");
+		consumableItems.clear();
+		for (unsigned i = 0; i < consumablesJSON->Size(); i++)
+		{
+			JSON_value* consumableJSON = consumablesJSON->GetValue(i);
+			consumableItems.emplace_back(std::make_pair(consumableJSON->GetString("name"), consumableJSON->GetInt("quantity")));
 		}
 	}
 }
