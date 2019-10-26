@@ -34,7 +34,7 @@ PanelResourceManagerUnused::~PanelResourceManagerUnused()
 
 void PanelResourceManagerUnused::Draw()
 {
-	if (!ImGui::Begin("Resource Manager", &enabled, ImGuiWindowFlags_MenuBar))
+	if (!ImGui::Begin("Unused Resources Manager", &enabled, ImGuiWindowFlags_MenuBar))
 	{
 		ImGui::End();
 		return;
