@@ -58,8 +58,11 @@ class ModuleResourceManager :
 	std::vector<Resource*> GetResourcesList();											// Get list with pointers to all resources
 	std::vector<Resource*> GetUnusedResourcesList();									// Get list with pointers to all unused resources
 	std::vector<Resource*> GetResourcesList(TYPE type);									// Get list with pointers to all resources of type given
+	std::vector<Resource*> GetUnusedResourcesList(TYPE type);							// Get list with pointers to all unused resources of type given
 	std::vector<Resource*> GetResourcesList(bool loaded);								// Get list with pointers to all resources if they are loaded to memory
+	std::vector<Resource*> GetUnusedResourcesList(bool loaded);							// Get list with pointers to all unused resources if they are loaded to memory
 	std::vector<Resource*> GetResourcesList(TYPE type, bool loaded);					// Get list with pointers to all resources of type given and if they are loaded to memory
+	std::vector<Resource*> GetUnusedResourcesList(TYPE type, bool loaded);				// Get list with pointers to all unused resources of type given and if they are loaded to memory
 
 	ENGINE_API std::vector<std::string> GetResourceNamesList(TYPE resourceType, bool ordered);		// Returns a vector with the exportedFileName of every Resource of the type given.	
 
@@ -90,7 +93,7 @@ private:
 	// Resources map (Textures, Models, Mehses, Materials, Skyboxes, Scenes...)
 	std::map<unsigned, Resource*> resources;	// map<UID, pointer to resource>
 
-	// Resources map (Textures, Models, Mehses, Materials, Skyboxes, Scenes...)
+	// Unused Resources map (Contains the list of the resources that have never been loaded to memory since the engine started)
 	std::map<unsigned, Resource*> unusedResources;	// map<UID, pointer to resource>
 
 	// Shaders map

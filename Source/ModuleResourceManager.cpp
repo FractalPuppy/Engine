@@ -606,6 +606,17 @@ std::vector<Resource*> ModuleResourceManager::GetResourcesList(TYPE type)
 	return resourcesList;
 }
 
+std::vector<Resource*> ModuleResourceManager::GetUnusedResourcesList(TYPE type)
+{
+	std::vector<Resource*> resourcesList;
+	for (std::map<unsigned, Resource*>::iterator it = unusedResources.begin(); it != unusedResources.end(); ++it)
+	{
+		if (it->second->GetType() == type)
+			resourcesList.push_back(it->second);
+	}
+	return resourcesList;
+}
+
 std::vector<Resource*> ModuleResourceManager::GetResourcesList(bool loaded)
 {
 	std::vector<Resource*> resourcesList;
@@ -617,10 +628,32 @@ std::vector<Resource*> ModuleResourceManager::GetResourcesList(bool loaded)
 	return resourcesList;
 }
 
+std::vector<Resource*> ModuleResourceManager::GetUnusedResourcesList(bool loaded)
+{
+	std::vector<Resource*> resourcesList;
+	for (std::map<unsigned, Resource*>::iterator it = unusedResources.begin(); it != unusedResources.end(); ++it)
+	{
+		if (it->second->IsLoadedToMemory() == loaded)
+			resourcesList.push_back(it->second);
+	}
+	return resourcesList;
+}
+
 std::vector<Resource*> ModuleResourceManager::GetResourcesList(TYPE type, bool loaded)
 {
 	std::vector<Resource*> resourcesList;
 	for (std::map<unsigned, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if (it->second->GetType() == type && it->second->IsLoadedToMemory() == loaded)
+			resourcesList.push_back(it->second);
+	}
+	return resourcesList;
+}
+
+std::vector<Resource*> ModuleResourceManager::GetUnusedResourcesList(TYPE type, bool loaded)
+{
+	std::vector<Resource*> resourcesList;
+	for (std::map<unsigned, Resource*>::iterator it = unusedResources.begin(); it != unusedResources.end(); ++it)
 	{
 		if (it->second->GetType() == type && it->second->IsLoadedToMemory() == loaded)
 			resourcesList.push_back(it->second);

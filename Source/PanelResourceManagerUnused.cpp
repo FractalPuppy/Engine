@@ -185,15 +185,15 @@ void PanelResourceManagerUnused::UpdateResourcesList()
 {
 	if (filterByResource != RESOURCE_FILTER::NONE && filterByReferenceCount != REFERENCE_FILTER::NONE)
 	{
-		resourcesList = App->resManager->GetResourcesList((TYPE)filterByResource, filterByReferenceCount == REFERENCE_FILTER::LOADED ? true : false);
+		resourcesList = App->resManager->GetUnusedResourcesList((TYPE)filterByResource, filterByReferenceCount == REFERENCE_FILTER::LOADED ? true : false);
 	}
 	else if (filterByResource != RESOURCE_FILTER::NONE)
 	{
-		resourcesList = App->resManager->GetResourcesList((TYPE)filterByResource);
+		resourcesList = App->resManager->GetUnusedResourcesList((TYPE)filterByResource);
 	}
 	else if (filterByReferenceCount != REFERENCE_FILTER::NONE)
 	{
-		resourcesList = App->resManager->GetResourcesList(filterByReferenceCount == REFERENCE_FILTER::LOADED ? true : false);
+		resourcesList = App->resManager->GetUnusedResourcesList(filterByReferenceCount == REFERENCE_FILTER::LOADED ? true : false);
 	}
 	else
 	{
