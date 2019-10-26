@@ -133,7 +133,7 @@ void EquipPopupController::Update()
 						hudImageSlots[j]->UpdateTexture("None Selected");
 						hudConsumibleItemsQuantity[j]->text.clear();
 						math::float2 newPos = hudButtonsText[j].first->getPosition();
-						if (newPos.y > -265.7f)
+						if (newPos.y > -250.7f)
 						{
 							newPos.y += 15.7;
 						}
