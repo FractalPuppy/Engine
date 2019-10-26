@@ -1,6 +1,8 @@
 #ifndef __PanelResourceManagerUnused_h__
 #define __PanelResourceManagerUnused_h__
 
+#include "PanelResourceManager.h"
+
 #include "Panel.h"
 #include <vector>
 
@@ -33,6 +35,8 @@ private:
 	void DrawResourceSM();
 	void DrawResourcePrefab();
 
+	void DrawFilterByResourceMenu();
+
 	void CleanUp();
 
 private:
@@ -44,6 +48,14 @@ private:
 
 	bool openEditor = false;
 	bool openResourceWindow = false;
+
+	// Sorting
+	SORTING sortList = SORTING::REFERENCES;
+	bool descending = false;
+
+	// Filtering
+	RESOURCE_FILTER filterByResource = RESOURCE_FILTER::NONE;
+	REFERENCE_FILTER filterByReferenceCount = REFERENCE_FILTER::NONE;
 
 	std::vector<Resource*> resourcesList;
 
