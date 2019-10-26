@@ -808,7 +808,6 @@ void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 				{
 					playerMovement->ConsumeItem(items[j].first->stats);
 					consumableItems[i].second -= 1;
-
 					if (consumableItems[i].second < 0)
 					{
 						consumableItems[i].second = 0;
@@ -817,7 +816,9 @@ void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 					if (consumableItems[i].second == 0)
 					{
 						itemsSlots[j]->SetActive(false);
+						itemsSlots.erase(itemsSlots.begin() + j);
 						itemsSlotsNumbers[j]->SetActive(false);
+						itemsSlotsNumbers.erase(itemsSlotsNumbers.begin() + j);
 						items.erase(items.begin() + j);
 						j--;
 					}
