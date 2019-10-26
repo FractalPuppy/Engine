@@ -704,7 +704,7 @@ void InventoryScript::showDescription(int i)
 
 	// Show total player stats on item equip
 	Text* txt = App->scene->FindGameObjectByName("ItemStatsHealthDiff", itemDesc)->GetComponent<Text>();
-	std::string healthDif = std::to_string(round(newStats.mana));
+	std::string healthDif = std::to_string(round(newStats.health));
 	txt->text = healthDif.substr(0, healthDif.size() - 7);
 	if (newStats.health > previousStats.health)
 		txt->color = math::float4(0, 255, 0, 255);
