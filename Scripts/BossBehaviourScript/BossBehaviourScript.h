@@ -84,6 +84,9 @@ public:
 	{
 		return new BossBehaviourScript(*this);
 	}
+	void StartThirdPhase();
+	void EndThirdPhase();
+
 public:
 	TPlocations currentLocation = TPlocations::None;
 	BossPhase bossPhase = BossPhase::None;

@@ -5,11 +5,15 @@
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
+#include "EnemyControllerScript.h"
+#include "Application.h"
+#include "ModuleScene.h"
 
 EnemyStateFlee::EnemyStateFlee(BasicEnemyAIScript* AIScript)
 {
 	enemy = AIScript;
 	trigger = "Flee";
+	scareFX = enemy->App->scene->FindGameObjectByName("ScareFX", enemy->gameobject);
 }
 
 
@@ -21,10 +25,15 @@ void EnemyStateFlee::Enter()
 {
 	duration = 1.5f;
 	enemy->scared = false;
+	scareFX->SetActive(true);
 }
 
 void EnemyStateFlee::HandleIA()
 {
+	if (timer > scareFXDuration && scareFX->isActive())
+	{
+		scareFX->SetActive(false);
+	}
 	if (timer > duration)
 	{
 		enemy->currentState = (EnemyState*)enemy->chase;

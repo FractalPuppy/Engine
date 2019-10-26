@@ -191,18 +191,28 @@ void EnemyControllerScript::Update()
 	fPoint mouse_point = App->input->GetMousePosition();
 	math::float2 mouse = { mouse_point.x, mouse_point.y };
 	std::list<GameObject*> intersects = App->scene->SceneRaycastHit(mouse);
+	GameObject* objectMesh = this->myMesh;
 
 	if (playerMovement->isPlayerDead) return;
 
-	auto mesh = std::find(intersects.begin(), intersects.end(), this->myMesh);
-	if(mesh != std::end(intersects) && *mesh == this->myMesh)
+	if (bossFightStarted)
+	{
+		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Santa Muerte");
+		//in case boss third stage, highlighting works differently
+		if (ThirdStageBoss)
+		{
+			objectMesh = App->scene->FindGameObjectByName("mesh", gameobject);
+		}
+	}
+	playerMovement->ThirdStageBoss = ThirdStageBoss;
+	auto mesh = std::find(intersects.begin(), intersects.end(), objectMesh);
+	if(mesh != std::end(intersects) && *mesh == objectMesh)
 	{
 		// Show enemy lifebar
 		if (enemyLifeBar != nullptr)
 		{
 			switch (enemyType)
 			{
-			default:
 			case EnemyType::SKELETON:	enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Skeleton");	break;
 			case EnemyType::MINER:		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Miner"); 		break;
 			case EnemyType::SORCERER:	enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Sorcerer");	break;
@@ -231,6 +241,43 @@ void EnemyControllerScript::Update()
 			GameObject* hitboxGO = App->scene->FindGameObjectByName("Hitbox", gameobject);
 			enemyTriggerBox = hitboxGO->GetComponent<ComponentBoxTrigger>();
 			App->scene->enemyHovered.triggerboxMinWidth = enemyTriggerBox->getShortestDistObb();
+
+			//if in phase 3, we change hitbox target
+			if (ThirdStageBoss)
+			{
+				App->scene->enemyHovered.object = hitboxGO;
+				
+				//check if mouse actually intersects with the bbox
+				math::LineSegment ray = App->scene->SceneRaycast(mouse);
+				
+				//if the ray is directly pointing to the boss, go
+				const char* bossFloortag = "bossFloor";
+				GameObject* firstMeshFloor = App->scene->FindGameObjectByTag(bossFloortag, App->scene->root);
+
+				//we also check mouse not pointing to the floor
+				std::list<GameObject*> intersects = App->scene->SceneRaycastHit(mouse);
+				auto mesh = std::find(intersects.begin(), intersects.end(), firstMeshFloor);
+
+				//if not intersecting with boss trigger box OR intersecting with floor, 
+				//we don't want to target the boss
+				math::float3 intPoint;
+				GameObject* tempObject;
+				if (!ray.Intersects(*enemyTriggerBox->GetOBB()) ||
+					App->scene->Intersects(bossFloortag, false, intPoint, &tempObject))
+				{
+					App->scene->enemyHovered.object = nullptr;
+					App->scene->enemyHovered.health = 0;
+					App->scene->enemyHovered.triggerboxMinWidth = 0;
+
+					//turn off highlights
+					for (std::vector<ComponentRenderer*>::iterator it = myRenders.begin();
+						it != myRenders.end();
+						++it)
+					{
+						(*it)->highlighted = false;
+					}
+				}
+			}
 		}
 
 		if (App->scene->enemyHovered.object != nullptr &&
@@ -256,7 +303,16 @@ void EnemyControllerScript::Update()
 				MouseController::ChangeCursorIcon(gameStandarCursor);
 			}
 		}
+		//in case third stage boss
+		if (ThirdStageBoss)
+		{
+			App->scene->enemyHovered.object = nullptr;
+			App->scene->enemyHovered.health = 0;
+			App->scene->enemyHovered.triggerboxMinWidth = 0;
+		}
 	}
+
+
 
 	if (enemyHit && hitColorTimer > 0.f)
 	{
@@ -297,6 +353,7 @@ void EnemyControllerScript::Update()
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
 		removedFromCrowd = true;
+		enabled = false;
 	}
 }
 
@@ -304,10 +361,10 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 {
 
 	// Enemy Type
-	const char* types[] = { "Skeleton", "Miner", "Sorcerer", "Spinner", "Bandolero" };
+	const char* types[] = { "Skeleton", "Miner", "Sorcerer", "Spinner", "Bandolero" , "Boss"};
 	if (ImGui::BeginCombo("Type", types[(int)enemyType]))
 	{
-		for (int n = 0; n < 5; n++)
+		for (int n = 0; n < 6; n++)
 		{
 			bool isSelected = ((int)enemyType == n);
 			if (ImGui::Selectable(types[n], isSelected) && (int)enemyType != n)
@@ -320,7 +377,7 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 		ImGui::EndCombo();
 	}
 
-	ImGui::SliderInt("Level", &enemyLevel, 1, 3);
+	ImGui::SliderInt("Level", &enemyLevel, 1, 5);
 
 	if (ImGui::InputInt("Health", &maxHealth))
 	{
@@ -564,7 +621,7 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		if (gameobject->tag.c_str() != "Boss")
 		{
 			// Get base damage
-			int totalDamage = playerMovement->stats.strength;
+			int totalDamage = playerMovement->GetTotalPlayerStats().strength;
 
 			// Add damage of the skill
 			PlayerSkill* skill = playerMovement->GetSkillInUse();

@@ -34,7 +34,17 @@ void ChainAttackSkill::Start()
 		player->enemyTargeted = false;
 		if (player->enemyTarget != nullptr)
 		{
-			player->gameobject->transform->LookAt(player->enemyTarget->transform->position);
+			//in case we targeting boss 3rd stage, we just look at its x and z
+			if (player->ThirdStageBoss)
+			{
+				player->gameobject->transform->LookAt(	math::float3(	player->enemyTarget->transform->position.x,
+																		player->gameobject->transform->position.y,
+																		player->enemyTarget->transform->position.z));
+			}
+			else
+			{
+				player->gameobject->transform->LookAt(player->enemyTarget->transform->position);
+			}
 		}
 	}
 
@@ -67,7 +77,14 @@ void ChainAttackSkill::CheckInput()
 	if (player->IsMovingToAttack())
 	{
 		Reset();
-		player->currentState = (PlayerState*)player->walkToHit;
+		if (player->ThirdStageBoss)
+		{
+			player->currentState = (PlayerState*)player->walkToHit3rdBoss;
+		}
+		else
+		{
+			player->currentState = (PlayerState*)player->walkToHit;
+		}
 	}
 	else if (player->IsMovingToItem())
 	{
