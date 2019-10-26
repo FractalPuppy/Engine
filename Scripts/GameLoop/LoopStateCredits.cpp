@@ -36,12 +36,17 @@ void LoopStateCredits::Enter()
 		gLoop->currentLoopState = (LoopState*)gLoop->menuState;
 		return;
 	}
+	if (gLoop->menuMusic != nullptr)
+	{
+		gLoop->menuMusic->GetComponent<ComponentAudioSource>()->Stop();
+	}
 	gLoop->creditsAudio->GetComponent<ComponentAudioSource>()->Play();
 	gLoop->creditsGO->SetActive(true);
 	gLoop->creditsVideoGO->SetActive(true);
 	gLoop->creditsVideo->PlayVideo();
 	gLoop->menu->SetActive(false);
 	started = true;
+	gLoop->creditsPlaying = true;
 }
 
 void LoopStateCredits::Update()
@@ -54,22 +59,28 @@ void LoopStateCredits::Update()
 	{
 		if (backButton->IsPressed())
 		{
-			gLoop->creditsGO->SetActive(false);
-			gLoop->creditsVideoGO->SetActive(false);
-			gLoop->menu->SetActive(true);
-			gLoop->currentLoopState = (LoopState*)gLoop->menuState;
-			gLoop->creditsVideo->videoFinished = false;
-			gLoop->creditsVideo->videoPlaying = false;
-			started = false;
+			SetMenu();
 		}
 	}
 	else if (gLoop->creditsVideo->videoFinished && started)
 	{
-		gLoop->creditsGO->SetActive(false);
-		gLoop->creditsVideoGO->SetActive(false);
-		gLoop->menu->SetActive(true);
-		gLoop->currentLoopState = (LoopState*)gLoop->menuState;
-		gLoop->creditsVideo->videoFinished = false;
-		started = false;
+		SetMenu();
 	}
+}
+
+void LoopStateCredits::SetMenu()
+{
+	gLoop->creditsPlaying = false;
+	gLoop->creditsAudio->GetComponent<ComponentAudioSource>()->Stop();
+	gLoop->creditsGO->SetActive(false);
+	gLoop->creditsVideoGO->SetActive(false);
+	gLoop->menu->SetActive(true);
+	if (gLoop->menuMusic != nullptr)
+	{
+		gLoop->menuMusic->GetComponent<ComponentAudioSource>()->Play();
+	}
+	gLoop->currentLoopState = (LoopState*)gLoop->menuState;
+	gLoop->creditsVideo->videoFinished = false;
+	gLoop->creditsVideo->videoPlaying = false;
+	started = false;
 }

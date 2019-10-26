@@ -15,6 +15,8 @@ public:
 
 	void Enter() override;
 	void Update() override;
+private:
+	void SetMenu();
 
 private:
 	GameObject* backButtonGO = nullptr;
