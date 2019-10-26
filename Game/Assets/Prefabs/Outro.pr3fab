@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 1338471552,
+            "UID": 277223177,
             "ParentUID": 1,
             "Name": "Outro",
             "Tag": "Default",
@@ -32,8 +32,7 @@
             "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
-            "prefabUID": 2999022566,
-            "prefabTimeStamp": 1571483165,
+            "prefabUID": 401132080,
             "Components": [
                 {
                     "Type": 5,
@@ -69,14 +68,14 @@
                     "hoverDetectionMouse3": 1,
                     "UIOrder": 20,
                     "videoPath": "AnimaticaEnding.mp4",
-                    "fps": 25.0,
+                    "fps": 23.799999237060548,
                     "loop": 0
                 }
             ]
         },
         {
-            "UID": 502383086,
-            "ParentUID": 1338471552,
+            "UID": 841305000,
+            "ParentUID": 277223177,
             "Name": "OutroAudio",
             "Tag": "Default",
             "Static": 0,
@@ -154,7 +153,7 @@
                 {
                     "Type": 14,
                     "Enabled": 1,
-                    "audioUID": 4027499611,
+                    "audioUID": 2306608896,
                     "Volume": 2.0,
                     "PlayOnAwake": 1,
                     "Sound3D": 0,
@@ -167,8 +166,8 @@
             ]
         },
         {
-            "UID": 2890845748,
-            "ParentUID": 1338471552,
+            "UID": 2315182502,
+            "ParentUID": 277223177,
             "Name": "OutroSkipBackground",
             "Tag": "Default",
             "Static": 0,
@@ -240,8 +239,8 @@
             ]
         },
         {
-            "UID": 3468155277,
-            "ParentUID": 2890845748,
+            "UID": 1771444350,
+            "ParentUID": 2315182502,
             "Name": "OutroSkipText",
             "Tag": "Default",
             "Static": 0,
