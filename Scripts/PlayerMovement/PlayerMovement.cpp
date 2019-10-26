@@ -128,19 +128,21 @@ void PlayerMovement::Expose(ImGuiContext* context)
 
 	ImGui::DragFloat("Out of Combat time", &outCombatMaxTime, 1.f, 0.f, 10.f);
 
-	float maxHP = stats.health;
-	float maxMP = stats.mana;
-	stats.Expose("Player Stats");
-	if (maxHP != stats.health)
+	PlayerStats totalStats = GetTotalPlayerStats();
+	float maxHP = totalStats.health;
+	float maxMP = totalStats.mana;
+	baseStats.Expose("Player Base Stats");
+	equipedStats.Expose("Equiped Items Stats");
+	if (maxHP != totalStats.health)
 	{
-		health += stats.health - maxHP;
-		if (health > stats.health) health = stats.health;
+		health += totalStats.health - maxHP;
+		if (health > totalStats.health) health = totalStats.health;
 		else if (health < 0) health = 0;
 	}
-	if (maxMP != stats.mana)
+	if (maxMP != totalStats.mana)
 	{
-		mana += stats.mana - maxMP;
-		if (mana > stats.mana) mana = stats.mana;
+		mana += totalStats.mana - maxMP;
+		if (mana > totalStats.mana) mana = totalStats.mana;
 		else if (mana < 0) mana = 0;
 	}
 
@@ -194,13 +196,13 @@ void PlayerMovement::Expose(ImGuiContext* context)
 	ImGui::Spacing();
 
 	// Stats Debug
-	ImGui::Text("Play Stats Debug");
-	ImGui::Text("HP: %f / %f", health, stats.health);
-	ImGui::Text("MP: %f / %f", mana, stats.mana);
-	ImGui::Text("Strength: %i", stats.strength);
-	ImGui::Text("Dexterity: %i", stats.dexterity);
-	ImGui::Text("HP Regen: %f pts/s", stats.hpRegen);
-	ImGui::Text("MP Regen: %f pts/s", stats.manaRegen);
+	ImGui::Text("Total Stats Debug");
+	ImGui::Text("HP: %f / %f", health, totalStats.health);
+	ImGui::Text("MP: %f / %f", mana, totalStats.mana);
+	ImGui::Text("Strength: %i", totalStats.strength);
+	ImGui::Text("Dexterity: %i", totalStats.dexterity);
+	ImGui::Text("HP Regen: %f pts/s", totalStats.hpRegen);
+	ImGui::Text("MP Regen: %f pts/s", totalStats.manaRegen);
 }
 
 void PlayerMovement::CreatePlayerStates()
@@ -703,29 +705,54 @@ void PlayerMovement::Start()
 		LOG("SlashTrail not found");
 	}
 
-	if (PlayerPrefs::HasKey("dexterity"))
+	if (PlayerPrefs::HasKey("baseDexterity"))
 	{
-		stats.dexterity = PlayerPrefs::GetFloat("dexterity");
+		baseStats.dexterity = PlayerPrefs::GetFloat("baseDexterity");
 	}
-	if (PlayerPrefs::HasKey("health"))
+	if (PlayerPrefs::HasKey("baseHealth"))
 	{
-		stats.health = PlayerPrefs::GetFloat("health");
+		baseStats.health = PlayerPrefs::GetFloat("baseHealth");
 	}
-	if (PlayerPrefs::HasKey("hpRegen"))
+	if (PlayerPrefs::HasKey("baseHpRegen"))
 	{
-		stats.hpRegen = PlayerPrefs::GetFloat("hpRegen");
+		baseStats.hpRegen = PlayerPrefs::GetFloat("baseHpRegen");
 	}
-	if (PlayerPrefs::HasKey("mana"))
+	if (PlayerPrefs::HasKey("baseMana"))
 	{
-		stats.mana = PlayerPrefs::GetFloat("mana");
+		baseStats.mana = PlayerPrefs::GetFloat("baseMana");
 	}
-	if (PlayerPrefs::HasKey("manaRegen"))
+	if (PlayerPrefs::HasKey("baseManaRegen"))
 	{
-		stats.manaRegen = PlayerPrefs::GetFloat("manaRegen");
+		baseStats.manaRegen = PlayerPrefs::GetFloat("baseManaRegen");
 	}
-	if (PlayerPrefs::HasKey("strength"))
+	if (PlayerPrefs::HasKey("baseStrength"))
 	{
-		stats.strength = PlayerPrefs::GetFloat("strength");
+		baseStats.strength = PlayerPrefs::GetFloat("baseStrength");
+	}
+
+	if (PlayerPrefs::HasKey("equipedDexterity"))
+	{
+		equipedStats.dexterity = PlayerPrefs::GetFloat("equipedDexterity");
+	}
+	if (PlayerPrefs::HasKey("equipedHealth"))
+	{
+		equipedStats.health = PlayerPrefs::GetFloat("equipedHealth");
+	}
+	if (PlayerPrefs::HasKey("equipedHpRegen"))
+	{
+		equipedStats.hpRegen = PlayerPrefs::GetFloat("equipedHpRegen");
+	}
+	if (PlayerPrefs::HasKey("equipedMana"))
+	{
+		equipedStats.mana = PlayerPrefs::GetFloat("equipedMana");
+	}
+	if (PlayerPrefs::HasKey("equipedManaRegen"))
+	{
+		equipedStats.manaRegen = PlayerPrefs::GetFloat("equipedManaRegen");
+	}
+	if (PlayerPrefs::HasKey("equipedStrength"))
+	{
+		equipedStats.strength = PlayerPrefs::GetFloat("equipedStrength");
 	}
 	assignedSkills[HUD_BUTTON_RC] = (SkillType)PlayerPrefs::GetInt("RC", 20);
 	assignedSkills[HUD_BUTTON_1] = (SkillType)PlayerPrefs::GetInt("1", 20);
@@ -810,11 +837,12 @@ void PlayerMovement::Update()
 	{
 		outCombatTimer -= App->time->gameDeltaTime;
 	}
-	else if (health < stats.health)
+	else if (health < GetTotalPlayerStats().health)
 	{
-		health += stats.hpRegen * App->time->gameDeltaTime;
-		if (health > stats.health) health = stats.health;
-		int healthPercentage = (health / stats.health) * 100;
+		PlayerStats playerStats = GetTotalPlayerStats();
+		health += playerStats.hpRegen * App->time->gameDeltaTime;
+		if (health > playerStats.health) health = playerStats.health;
+		int healthPercentage = (health / playerStats.health) * 100;
 		lifeUIComponent->SetMaskAmount(healthPercentage);
 	}
 	if (bombDropExpanding && bombDropMesh1 && bombDropMesh2)
@@ -967,32 +995,32 @@ PlayerMovement_API void PlayerMovement::Damage(float amount)
 		if (damageUIFeedback != nullptr)
 			damageUIFeedback->ActivateDamageUI();
 
-		int healthPercentage = (health / stats.health) * 100;
+		int healthPercentage = (health / GetTotalPlayerStats().health) * 100;
 		lifeUIComponent->SetMaskAmount(healthPercentage);
 	}
 }
 
-void PlayerMovement::Equip(const PlayerStats& equipStats)
+void PlayerMovement::Equip()
 {
-	this->stats += equipStats;
+	PlayerStats totalStats = RecalculateStats();
 
-	int healthPercentage = (health / stats.health) * 100;
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / stats.mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
 }
 
-void PlayerMovement::Equip(const PlayerStats& equipStats, unsigned itemType, unsigned meshUID, unsigned materialUID)
+void PlayerMovement::Equip(unsigned itemType, unsigned meshUID, unsigned materialUID)
 {
-	this->stats += equipStats;
+	PlayerStats totalStats = RecalculateStats();
 
-	int healthPercentage = (health / stats.health) * 100;
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / stats.mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
@@ -1042,16 +1070,17 @@ void PlayerMovement::EquipMesh(unsigned itemType, unsigned meshUID, unsigned mat
 	}
 }
 
-void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
+void PlayerMovement::UnEquip(unsigned itemType)
 {
-	this->stats -= equipStats;
-	health = health > stats.health ? stats.health : health;
-	mana = mana > stats.mana ? stats.mana : mana;
+	PlayerStats totalStats = RecalculateStats();
 
-	int healthPercentage = (health / stats.health) * 100;
+	health = health > totalStats.health ? totalStats.health : health;
+	mana = mana > totalStats.mana ? totalStats.mana : mana;
+
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / stats.mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
@@ -1085,7 +1114,7 @@ void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 {
 	if (equipStats.health > 0)
 	{
-		int amountToIncrease = (health + equipStats.health <= stats.health) ? equipStats.health : stats.health - health;
+		int amountToIncrease = (health + equipStats.health <= GetTotalPlayerStats().health) ? equipStats.health : GetTotalPlayerStats().health - health;
 		health = health + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::HEALING);
 
@@ -1094,7 +1123,7 @@ void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 	}
 	else if (equipStats.mana > 0)
 	{
-		int amountToIncrease = (mana + equipStats.mana <= stats.mana) ? equipStats.mana : stats.mana - mana;
+		int amountToIncrease = (mana + equipStats.mana <= GetTotalPlayerStats().mana) ? equipStats.mana : GetTotalPlayerStats().mana - mana;
 		mana = mana + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::MANA);
 
@@ -1250,7 +1279,13 @@ void PlayerMovement::Serialize(JSON_value* json) const
 	}
 	json->AddValue("abilities", *abilities);
 
-	stats.Serialize(json);
+	JSON_value* baseStatsValue = json->CreateValue();
+	baseStats.Serialize(baseStatsValue);
+	json->AddValue("baseStats", *baseStatsValue);
+
+	JSON_value* equipedStatsValue = json->CreateValue();
+	equipedStats.Serialize(equipedStatsValue);
+	json->AddValue("equipedStats", *equipedStatsValue);
 }
 
 void PlayerMovement::DeSerialize(JSON_value* json)
@@ -1320,8 +1355,11 @@ void PlayerMovement::DeSerialize(JSON_value* json)
 		if (rain_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
 	}
 
+	JSON_value* baseStatsValue = json->GetValue("baseStats");
+	baseStats.DeSerialize(baseStatsValue);
 
-	stats.DeSerialize(json);
+	JSON_value* equipedStatsValue = json->GetValue("equipedStats");
+	equipedStats.DeSerialize(equipedStatsValue);
 }
 
 void PlayerMovement::OnTriggerExit(GameObject* go)
@@ -1703,58 +1741,51 @@ void PlayerMovement::ManaManagement()
 	{
 		manaRegenTimer -= App->time->gameDeltaTime;
 	}
-	else if (mana < stats.mana && outCombatTimer <= 0)
+	else if (mana < GetTotalPlayerStats().mana && outCombatTimer <= 0)
 	{
-		mana += stats.manaRegen * App->time->gameDeltaTime;
-		if (mana > stats.mana) mana = stats.mana;
+		mana += GetTotalPlayerStats().manaRegen * App->time->gameDeltaTime;
+		if (mana > GetTotalPlayerStats().mana) mana = GetTotalPlayerStats().mana;
 	}
 
-	int manaPercentage = (mana / stats.mana) * 100;
+	int manaPercentage = (mana / GetTotalPlayerStats().mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 }
 
-void PlayerStats::Serialize(JSON_value * json) const
+void PlayerStats::Serialize(JSON_value* json) const
 {
-	JSON_value* statsValue = json->CreateValue();
+	if (!json) return;
 
-	statsValue->AddFloat("health", health);
-	statsValue->AddFloat("mana", mana);
-	statsValue->AddInt("strength", strength);
-	statsValue->AddInt("dexterity", dexterity);
-	statsValue->AddFloat("hp_regen", hpRegen);
-	statsValue->AddFloat("mana_regen", manaRegen);
-
-	json->AddValue("stats", *statsValue);
+	json->AddFloat("health", health);
+	json->AddFloat("mana", mana);
+	json->AddInt("strength", strength);
+	json->AddInt("dexterity", dexterity);
+	json->AddFloat("hp_regen", hpRegen);
+	json->AddFloat("mana_regen", manaRegen);
 }
 
-void PlayerStats::DeSerialize(JSON_value * json)
+void PlayerStats::DeSerialize(JSON_value* json)
 {
+	if (!json) return;
 
-	JSON_value* statsValue = json->GetValue("stats");
-	if (!statsValue) return;
-
-	health = statsValue->GetFloat("health", 100.0F);
-	mana = statsValue->GetFloat("mana", 100.0F);
-	strength = statsValue->GetInt("strength", 10);
-	dexterity = statsValue->GetInt("dexterity", 10);
-	hpRegen = statsValue->GetFloat("hp_regen", 5.0F);
-	manaRegen = statsValue->GetFloat("mana_regen", 5.0F);
+	health = json->GetFloat("health", 100.0F);
+	mana = json->GetFloat("mana", 100.0F);
+	strength = json->GetInt("strength", 10);
+	dexterity = json->GetInt("dexterity", 10);
+	hpRegen = json->GetFloat("hp_regen", 5.0F);
+	manaRegen = json->GetFloat("mana_regen", 5.0F);
 }
 
 void PlayerStats::Expose(const char* sectionTitle)
 {
+	ImGui::PushID(sectionTitle);
 	ImGui::Text(sectionTitle);
 	ImGui::InputFloat("Health", &health);
 	ImGui::InputFloat("Mana", &mana);
-
-	int uiStrength = (int)strength;
-	if (ImGui::InputInt("Strength", &uiStrength)) strength = uiStrength < 0 ? 0 : uiStrength;
-
-	int uiDexterity = (int)dexterity;
-	if (ImGui::InputInt("Dexterity", &uiDexterity)) dexterity = uiDexterity < 0 ? 0 : uiDexterity;
-
+	ImGui::InputInt("Strength", &strength);
+	ImGui::InputInt("Dexterity", &dexterity);
 	ImGui::DragFloat("HP regen", &hpRegen, 1.0F, 0.0F, 10.0F);
 	ImGui::DragFloat("Mana regen", &manaRegen, 1.0F, 0.0F, 10.0F);
+	ImGui::PopID();
 }
 
 void PlayerMovement::ActivateHudCooldownMask(bool activate, unsigned first, unsigned last)
@@ -1797,11 +1828,53 @@ void PlayerMovement::UpdateUIStats()
 {
 	if (uiHealthText != nullptr && uiDexterityText != nullptr && uiStrengthText != nullptr && uiManaText != nullptr)
 	{
-		uiHealthText->text = std::to_string((int)stats.health);
-		uiDexterityText->text = std::to_string(stats.dexterity);
-		uiStrengthText->text = std::to_string(stats.strength);
-		uiManaText->text = std::to_string((int)stats.mana);
+		PlayerStats playerStats = GetTotalPlayerStats();
+		uiHealthText->text = std::to_string((int)playerStats.health);
+		uiDexterityText->text = std::to_string(playerStats.dexterity);
+		uiStrengthText->text = std::to_string(playerStats.strength);
+		uiManaText->text = std::to_string((int)playerStats.mana);
 	}
+}
+
+PlayerStats PlayerMovement::GetEquipedItemsStats() const
+{
+	PlayerStats totalStats;
+	for (int i = 0; i < inventoryScript->items.size(); ++i)
+	{
+		if (inventoryScript->items[i].first->isEquipped)
+		{
+			totalStats += inventoryScript->items[i].first->stats;
+		}
+	}
+	return totalStats;
+}
+
+PlayerStats PlayerMovement::GetTotalPlayerStats() const
+{
+	PlayerStats totalStats;
+	totalStats.health = baseStats.health + equipedStats.health;
+	totalStats.mana = baseStats.mana + equipedStats.mana;
+	totalStats.strength = baseStats.strength + equipedStats.strength;
+	totalStats.dexterity = baseStats.dexterity + equipedStats.dexterity;
+	totalStats.manaRegen = baseStats.manaRegen + equipedStats.manaRegen;
+	totalStats.hpRegen = baseStats.hpRegen + equipedStats.hpRegen;
+	return totalStats;
+}
+
+PlayerStats PlayerMovement::RecalculateStats()
+{
+	this->equipedStats = GetEquipedItemsStats();
+	PlayerStats totalStats = GetTotalPlayerStats();
+
+	// Avoid setting stats lower than 0
+	if (totalStats.health < 0) this->equipedStats.health = -this->baseStats.health;
+	if (totalStats.mana < 0) this->equipedStats.mana = -this->baseStats.mana;
+	if (totalStats.hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
+	if (totalStats.manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
+	if (totalStats.strength < 0) this->equipedStats.strength = -this->baseStats.strength;
+	if (totalStats.dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
+
+	return totalStats;
 }
 
 void PlayerMovement::InitializeUIStatsObjects()
@@ -1862,13 +1935,13 @@ void PlayerMovement::ToggleMaxStats()
 {
 	if (hasMaxStats)
 	{
-		stats = previousStats;
+		baseStats = previousStats;
 	}
 	else
 	{
 		PlayerStats godStats = { 400.f, 999.f, 999.f, 999.f, 999.9f, 999.9f };
-		previousStats = stats;
-		stats = godStats;
+		previousStats = baseStats;
+		baseStats = godStats;
 	}
 	UpdateUIStats();
 	hasMaxStats = !hasMaxStats;
@@ -1904,12 +1977,12 @@ void PlayerMovement::ToggleInfiniteMana()
 
 void PlayerMovement::SavePlayerStats()
 {
-	PlayerPrefs::SetFloat("dexterity", stats.dexterity);
-	PlayerPrefs::SetFloat("health", stats.health);
-	PlayerPrefs::SetFloat("hpRegen", stats.hpRegen);
-	PlayerPrefs::SetFloat("mana", stats.mana);
-	PlayerPrefs::SetFloat("manaRegen", stats.manaRegen);
-	PlayerPrefs::SetFloat("strength", stats.strength);
+	PlayerPrefs::SetFloat("dexterity", baseStats.dexterity);
+	PlayerPrefs::SetFloat("health", baseStats.health);
+	PlayerPrefs::SetFloat("hpRegen", baseStats.hpRegen);
+	PlayerPrefs::SetFloat("mana", baseStats.mana);
+	PlayerPrefs::SetFloat("manaRegen", baseStats.manaRegen);
+	PlayerPrefs::SetFloat("strength", baseStats.strength);
 	PlayerPrefs::SetInt("RC", (int)assignedSkills[HUD_BUTTON_RC]);
 	PlayerPrefs::SetInt("1", (int)assignedSkills[HUD_BUTTON_1]);
 	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_2]);

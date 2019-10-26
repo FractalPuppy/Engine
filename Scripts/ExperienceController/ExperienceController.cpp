@@ -202,11 +202,12 @@ void ExperienceController::AddXP(int xp)
 void ExperienceController::LevelUpStats()
 {
 	// Upgrade stats
-	PlayerStats* stats = &playerScript->stats;
+	PlayerStats* stats = &playerScript->baseStats;
 	stats->health += healthIncrease;
 	stats->mana += manaIncrease;
 	stats->strength += strengthIncrease;
 	stats->dexterity += dexterityIncrease;
+	playerScript->RecalculateStats();
 	playerScript->UpdateUIStats();
 }
 
