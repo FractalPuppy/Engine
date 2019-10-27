@@ -135,7 +135,7 @@ void EquipPopupController::Update()
 						hudImageSlots[j]->UpdateTexture("None Selected");
 						hudConsumibleItemsQuantity[j]->text.clear();
 						math::float2 newPos = hudButtonsText[j].first->getPosition();
-						if (newPos.y > butonY) 
+						if (newPos.y < butonY) 
 						{
 							newPos.y = butonY;
 						}
