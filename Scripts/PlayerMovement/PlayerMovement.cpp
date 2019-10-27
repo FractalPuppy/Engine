@@ -837,7 +837,7 @@ void PlayerMovement::Update()
 	{
 		outCombatTimer -= App->time->gameDeltaTime;
 	}
-	else if (health < GetTotalPlayerStats().health)
+	else if (health < GetTotalPlayerStats().health && !isPlayerDead)
 	{
 		PlayerStats playerStats = GetTotalPlayerStats();
 		health += playerStats.hpRegen * App->time->gameDeltaTime;
