@@ -1735,6 +1735,8 @@ GameObject* ModuleScene::Spawn(const char * name, GameObject * parent, math::flo
 			}
 		}
 	}
+	if (instance->transform)
+		instance->transform->UpdateTransformOnSpawn();
 	return instance;
 }
 
