@@ -45652,21 +45652,13 @@
                                 "cooldown": 0.0
                             }
                         },
-                        "baseStats": {
+                        "stats": {
                             "health": 100.0,
                             "mana": 100.0,
                             "strength": 10,
                             "dexterity": 10,
                             "hp_regen": 5.0,
                             "mana_regen": 5.0
-                        },
-                        "equipedStats": {
-                            "health": 0.0,
-                            "mana": 0.0,
-                            "strength": 0,
-                            "dexterity": 0,
-                            "hp_regen": 0.0,
-                            "mana_regen": 0.0
                         }
                     }
                 },
@@ -89119,7 +89111,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -96396,7 +96388,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2325434735,
@@ -101095,1182 +101087,6 @@
                     "WrapWidth": 501.0,
                     "InterlineDistance": 24.0,
                     "UIOrder": 5
-                }
-            ]
-        },
-        {
-            "UID": 3462319977,
-            "ParentUID": 3493524603,
-            "Name": "ItemStats",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 0,
-            "isPrefab": 0,
-            "isPrefabSync": 1,
-            "prefabUID": 1136782428,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        0.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                }
-            ]
-        },
-        {
-            "UID": 2360330646,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsBackground",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -601.7999877929688,
-                        -216.0
-                    ],
-                    "Size": [
-                        263.5,
-                        189.5
-                    ],
-                    "Anchor": 5,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 7,
-                    "Enabled": 1,
-                    "textureUID": 2981794930,
-                    "textureName": "Items_PopUp",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "FlipVertical": 0,
-                    "FlipHorizontal": 0,
-                    "isMasked": 0,
-                    "maskAmount": 100,
-                    "isMaskHorizontal": 0,
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 13,
-                    "videoPath": "flame.avi",
-                    "fps": 24.0,
-                    "loop": 0
-                }
-            ]
-        },
-        {
-            "UID": 3761802322,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsName",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 1,
-            "prefabUID": 2478755390,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -705.5999755859375,
-                        -153.89999389648438
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 5,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "ItemName",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7172131538391113,
-                        0.5988178253173828,
-                        0.16166691482067109,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        0.34836065769195559,
-                        0.3349758982658386,
-                        0.027126453816890718,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 1,
-                    "WrapWidth": 430.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 13
-                }
-            ]
-        },
-        {
-            "UID": 1057530571,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsHealth",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -350.0,
-                        70.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 7.0,
-                    "text": "Health",
-                    "font": "Fonts/TACOSRG.ttf",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 0
-                }
-            ]
-        },
-        {
-            "UID": 3395319075,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsDex",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -350.0,
-                        40.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 7.0,
-                    "text": "Dexterity",
-                    "font": "Fonts/TACOSRG.ttf",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 0
-                }
-            ]
-        },
-        {
-            "UID": 2348365478,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsStr",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -350.0,
-                        10.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 7.0,
-                    "text": "Strength",
-                    "font": "Fonts/TACOSRG.ttf",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 0
-                }
-            ]
-        },
-        {
-            "UID": 3533062244,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsSoul",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -350.0,
-                        -20.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 7.0,
-                    "text": "Soul",
-                    "font": "Fonts/Vision-Regular.ttf",
-                    "color": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 0
-                }
-            ]
-        },
-        {
-            "UID": 1050567112,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsHealthNum",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -535.0,
-                        -195.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 5,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "12",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7176470756530762,
-                        0.6000000238418579,
-                        0.16078431904315949,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 13
-                }
-            ]
-        },
-        {
-            "UID": 2217422960,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsDexNum",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -535.0,
-                        -228.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 5,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "15",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7176470756530762,
-                        0.6000000238418579,
-                        0.16078431904315949,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 13
-                }
-            ]
-        },
-        {
-            "UID": 1673135871,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsStrNum",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -535.0,
-                        -258.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 5,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "22",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7176470756530762,
-                        0.6000000238418579,
-                        0.16078431904315949,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 13
-                }
-            ]
-        },
-        {
-            "UID": 945756708,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsSoulNum",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -535.0,
-                        -288.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 5,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "3",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7176470756530762,
-                        0.6000000238418579,
-                        0.16078431904315949,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 13
-                }
-            ]
-        },
-        {
-            "UID": 699632147,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsHealthDiff",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -150.0,
-                        70.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "12",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7176470756530762,
-                        0.6000000238418579,
-                        0.16078431904315949,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 0
-                }
-            ]
-        },
-        {
-            "UID": 3329273479,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsDexDiff",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -150.0,
-                        40.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "15",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7176470756530762,
-                        0.6000000238418579,
-                        0.16078431904315949,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 0
-                }
-            ]
-        },
-        {
-            "UID": 2355981319,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsStrDiff",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -150.0,
-                        10.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "22",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7176470756530762,
-                        0.6000000238418579,
-                        0.16078431904315949,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 0
-                }
-            ]
-        },
-        {
-            "UID": 3291423892,
-            "ParentUID": 3462319977,
-            "Name": "ItemStatsSoulDiff",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        -150.0,
-                        -20.0
-                    ],
-                    "Size": [
-                        100.0,
-                        100.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 10.0,
-                    "text": "3",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.7176470756530762,
-                        0.6000000238418579,
-                        0.16078431904315949,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        5.0,
-                        4.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 0
                 }
             ]
         },
@@ -108585,6 +107401,1183 @@
             ]
         },
         {
+            "UID": 3462319977,
+            "ParentUID": 1,
+            "Name": "ItemStats",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 1,
+            "isPrefabSync": 1,
+            "prefabUID": 1136782428,
+            "prefabTimeStamp": 1571944937,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                }
+            ]
+        },
+        {
+            "UID": 2360330646,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsBackground",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -601.7999877929688,
+                        -216.0
+                    ],
+                    "Size": [
+                        263.5,
+                        189.5
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 7,
+                    "Enabled": 1,
+                    "textureUID": 2981794930,
+                    "textureName": "Items_PopUp",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "FlipVertical": 0,
+                    "FlipHorizontal": 0,
+                    "isMasked": 0,
+                    "maskAmount": 100,
+                    "isMaskHorizontal": 0,
+                    "hoverDetectionMouse1": 1,
+                    "hoverDetectionMouse3": 1,
+                    "UIOrder": 13,
+                    "videoPath": "flame.avi",
+                    "fps": 24.0,
+                    "loop": 0
+                }
+            ]
+        },
+        {
+            "UID": 3761802322,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsName",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 1,
+            "prefabUID": 2478755390,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -705.5999755859375,
+                        -153.89999389648438
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "ItemName",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7172131538391113,
+                        0.5988178253173828,
+                        0.16166691482067109,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        0.34836065769195559,
+                        0.3349758982658386,
+                        0.027126453816890718,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 1,
+                    "WrapWidth": 430.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 13
+                }
+            ]
+        },
+        {
+            "UID": 1057530571,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsHealth",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -350.0,
+                        70.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 7.0,
+                    "text": "Health",
+                    "font": "Fonts/TACOSRG.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 0
+                }
+            ]
+        },
+        {
+            "UID": 3395319075,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsDex",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -350.0,
+                        40.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 7.0,
+                    "text": "Dexterity",
+                    "font": "Fonts/TACOSRG.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 0
+                }
+            ]
+        },
+        {
+            "UID": 2348365478,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsStr",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -350.0,
+                        10.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 7.0,
+                    "text": "Strength",
+                    "font": "Fonts/TACOSRG.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 0
+                }
+            ]
+        },
+        {
+            "UID": 3533062244,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsSoul",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -350.0,
+                        -20.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 7.0,
+                    "text": "Soul",
+                    "font": "Fonts/Vision-Regular.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 0
+                }
+            ]
+        },
+        {
+            "UID": 1050567112,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsHealthNum",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -535.0,
+                        -195.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "12",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7176470756530762,
+                        0.6000000238418579,
+                        0.16078431904315949,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 13
+                }
+            ]
+        },
+        {
+            "UID": 2217422960,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsDexNum",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -535.0,
+                        -228.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "15",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7176470756530762,
+                        0.6000000238418579,
+                        0.16078431904315949,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 13
+                }
+            ]
+        },
+        {
+            "UID": 1673135871,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsStrNum",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -535.0,
+                        -258.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "22",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7176470756530762,
+                        0.6000000238418579,
+                        0.16078431904315949,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 13
+                }
+            ]
+        },
+        {
+            "UID": 945756708,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsSoulNum",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -535.0,
+                        -288.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 5,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "3",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7176470756530762,
+                        0.6000000238418579,
+                        0.16078431904315949,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 13
+                }
+            ]
+        },
+        {
+            "UID": 699632147,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsHealthDiff",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -150.0,
+                        70.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "12",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7176470756530762,
+                        0.6000000238418579,
+                        0.16078431904315949,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 0
+                }
+            ]
+        },
+        {
+            "UID": 3329273479,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsDexDiff",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -150.0,
+                        40.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "15",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7176470756530762,
+                        0.6000000238418579,
+                        0.16078431904315949,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 0
+                }
+            ]
+        },
+        {
+            "UID": 2355981319,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsStrDiff",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -150.0,
+                        10.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "22",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7176470756530762,
+                        0.6000000238418579,
+                        0.16078431904315949,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 0
+                }
+            ]
+        },
+        {
+            "UID": 3291423892,
+            "ParentUID": 3462319977,
+            "Name": "ItemStatsSoulDiff",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 0,
+            "ActiveSelf": 0,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 5,
+                    "Enabled": 1,
+                    "Position": [
+                        -150.0,
+                        -20.0
+                    ],
+                    "Size": [
+                        100.0,
+                        100.0
+                    ],
+                    "Anchor": 4,
+                    "Stretch": 3
+                },
+                {
+                    "Type": 6,
+                    "Enabled": 1,
+                    "FontSize": 10.0,
+                    "text": "3",
+                    "font": "Fonts/Vision-BoldItalic.ttf",
+                    "color": [
+                        0.7176470756530762,
+                        0.6000000238418579,
+                        0.16078431904315949,
+                        0.0
+                    ],
+                    "colorHovered": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        0.0
+                    ],
+                    "offset": [
+                        0.0,
+                        0.0
+                    ],
+                    "scaleOffset": [
+                        5.0,
+                        4.0
+                    ],
+                    "IsTextWrapped": 0,
+                    "WrapWidth": 0.0,
+                    "InterlineDistance": 0.0,
+                    "UIOrder": 0
+                }
+            ]
+        },
+        {
             "UID": 2985520228,
             "ParentUID": 1,
             "Name": "ControlsMenu",
@@ -109583,15 +109576,15 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 90218084,
-            "prefabTimeStamp": 1572081747,
+            "prefabTimeStamp": 1571943733,
             "Components": []
         },
         {
-            "UID": 2624102099,
+            "UID": 2357490566,
             "ParentUID": 974458419,
             "Name": "MenuButton",
             "Tag": "Default",
@@ -109748,7 +109741,7 @@
             ]
         },
         {
-            "UID": 170503163,
+            "UID": 3065760543,
             "ParentUID": 974458419,
             "Name": "InventaryButton",
             "Tag": "Default",
@@ -109905,7 +109898,7 @@
             ]
         },
         {
-            "UID": 1627898538,
+            "UID": 1527164614,
             "ParentUID": 974458419,
             "Name": "SkillsButton",
             "Tag": "Default",
@@ -110062,7 +110055,7 @@
             ]
         },
         {
-            "UID": 2912315603,
+            "UID": 3279212104,
             "ParentUID": 974458419,
             "Name": "One",
             "Tag": "Default",
@@ -110219,8 +110212,8 @@
             ]
         },
         {
-            "UID": 1544476950,
-            "ParentUID": 2912315603,
+            "UID": 2749398364,
+            "ParentUID": 3279212104,
             "Name": "One_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -110292,8 +110285,8 @@
             ]
         },
         {
-            "UID": 1376380148,
-            "ParentUID": 2912315603,
+            "UID": 2286041006,
+            "ParentUID": 3279212104,
             "Name": "One_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -110365,8 +110358,8 @@
             ]
         },
         {
-            "UID": 2677009946,
-            "ParentUID": 2912315603,
+            "UID": 3100198952,
+            "ParentUID": 3279212104,
             "Name": "OneText",
             "Tag": "Default",
             "Static": 0,
@@ -110446,8 +110439,8 @@
             ]
         },
         {
-            "UID": 3194746045,
-            "ParentUID": 2912315603,
+            "UID": 1378693062,
+            "ParentUID": 3279212104,
             "Name": "One_Number",
             "Tag": "Default",
             "Static": 0,
@@ -110527,7 +110520,7 @@
             ]
         },
         {
-            "UID": 236601651,
+            "UID": 3901224537,
             "ParentUID": 974458419,
             "Name": "Two",
             "Tag": "Default",
@@ -110684,8 +110677,8 @@
             ]
         },
         {
-            "UID": 391711293,
-            "ParentUID": 236601651,
+            "UID": 2185183789,
+            "ParentUID": 3901224537,
             "Name": "Two_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -110757,8 +110750,8 @@
             ]
         },
         {
-            "UID": 3823124394,
-            "ParentUID": 236601651,
+            "UID": 317378893,
+            "ParentUID": 3901224537,
             "Name": "Two_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -110830,8 +110823,8 @@
             ]
         },
         {
-            "UID": 649728599,
-            "ParentUID": 236601651,
+            "UID": 1586829770,
+            "ParentUID": 3901224537,
             "Name": "TwoText",
             "Tag": "Default",
             "Static": 0,
@@ -110911,8 +110904,8 @@
             ]
         },
         {
-            "UID": 711499318,
-            "ParentUID": 236601651,
+            "UID": 3946317815,
+            "ParentUID": 3901224537,
             "Name": "Two_Number",
             "Tag": "Default",
             "Static": 0,
@@ -110992,7 +110985,7 @@
             ]
         },
         {
-            "UID": 1329252543,
+            "UID": 2328111985,
             "ParentUID": 974458419,
             "Name": "Three",
             "Tag": "Default",
@@ -111149,8 +111142,8 @@
             ]
         },
         {
-            "UID": 988376709,
-            "ParentUID": 1329252543,
+            "UID": 2943828580,
+            "ParentUID": 2328111985,
             "Name": "Three_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -111222,8 +111215,8 @@
             ]
         },
         {
-            "UID": 82174542,
-            "ParentUID": 1329252543,
+            "UID": 1154838999,
+            "ParentUID": 2328111985,
             "Name": "Three_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -111295,8 +111288,8 @@
             ]
         },
         {
-            "UID": 2869345963,
-            "ParentUID": 1329252543,
+            "UID": 2789342690,
+            "ParentUID": 2328111985,
             "Name": "ThreeText",
             "Tag": "Default",
             "Static": 0,
@@ -111376,8 +111369,8 @@
             ]
         },
         {
-            "UID": 1867719712,
-            "ParentUID": 1329252543,
+            "UID": 2449531770,
+            "ParentUID": 2328111985,
             "Name": "Three_Number",
             "Tag": "Default",
             "Static": 0,
@@ -111457,7 +111450,7 @@
             ]
         },
         {
-            "UID": 2503257564,
+            "UID": 478752021,
             "ParentUID": 974458419,
             "Name": "For",
             "Tag": "Default",
@@ -111614,8 +111607,8 @@
             ]
         },
         {
-            "UID": 379588079,
-            "ParentUID": 2503257564,
+            "UID": 1277825083,
+            "ParentUID": 478752021,
             "Name": "Four_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -111687,8 +111680,8 @@
             ]
         },
         {
-            "UID": 953139103,
-            "ParentUID": 2503257564,
+            "UID": 3445434463,
+            "ParentUID": 478752021,
             "Name": "Four_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -111760,8 +111753,8 @@
             ]
         },
         {
-            "UID": 491226401,
-            "ParentUID": 2503257564,
+            "UID": 2181570460,
+            "ParentUID": 478752021,
             "Name": "FourText",
             "Tag": "Default",
             "Static": 0,
@@ -111841,8 +111834,8 @@
             ]
         },
         {
-            "UID": 872855785,
-            "ParentUID": 2503257564,
+            "UID": 3545853556,
+            "ParentUID": 478752021,
             "Name": "Four_Number",
             "Tag": "Default",
             "Static": 0,
@@ -111922,7 +111915,7 @@
             ]
         },
         {
-            "UID": 544861587,
+            "UID": 80657592,
             "ParentUID": 974458419,
             "Name": "Q",
             "Tag": "Default",
@@ -112079,8 +112072,8 @@
             ]
         },
         {
-            "UID": 2021102035,
-            "ParentUID": 544861587,
+            "UID": 2555853537,
+            "ParentUID": 80657592,
             "Name": "Q_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -112152,8 +112145,8 @@
             ]
         },
         {
-            "UID": 385509867,
-            "ParentUID": 544861587,
+            "UID": 1132603769,
+            "ParentUID": 80657592,
             "Name": "Q_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -112225,8 +112218,8 @@
             ]
         },
         {
-            "UID": 1448066929,
-            "ParentUID": 544861587,
+            "UID": 3706812687,
+            "ParentUID": 80657592,
             "Name": "QText",
             "Tag": "Default",
             "Static": 0,
@@ -112306,8 +112299,8 @@
             ]
         },
         {
-            "UID": 1818966824,
-            "ParentUID": 544861587,
+            "UID": 2629658651,
+            "ParentUID": 80657592,
             "Name": "Q_Number",
             "Tag": "Default",
             "Static": 0,
@@ -112387,7 +112380,7 @@
             ]
         },
         {
-            "UID": 820290245,
+            "UID": 1824760908,
             "ParentUID": 974458419,
             "Name": "W",
             "Tag": "Default",
@@ -112544,8 +112537,8 @@
             ]
         },
         {
-            "UID": 2803317382,
-            "ParentUID": 820290245,
+            "UID": 85471893,
+            "ParentUID": 1824760908,
             "Name": "W_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -112617,8 +112610,8 @@
             ]
         },
         {
-            "UID": 1344959424,
-            "ParentUID": 820290245,
+            "UID": 913690399,
+            "ParentUID": 1824760908,
             "Name": "W_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -112690,8 +112683,8 @@
             ]
         },
         {
-            "UID": 318423115,
-            "ParentUID": 820290245,
+            "UID": 2978603591,
+            "ParentUID": 1824760908,
             "Name": "WText",
             "Tag": "Default",
             "Static": 0,
@@ -112771,8 +112764,8 @@
             ]
         },
         {
-            "UID": 1569973473,
-            "ParentUID": 820290245,
+            "UID": 2736442565,
+            "ParentUID": 1824760908,
             "Name": "W_Number",
             "Tag": "Default",
             "Static": 0,
@@ -112852,7 +112845,7 @@
             ]
         },
         {
-            "UID": 1464877416,
+            "UID": 2402636752,
             "ParentUID": 974458419,
             "Name": "E",
             "Tag": "Default",
@@ -113009,8 +113002,8 @@
             ]
         },
         {
-            "UID": 2781750421,
-            "ParentUID": 1464877416,
+            "UID": 2629622376,
+            "ParentUID": 2402636752,
             "Name": "E_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -113082,8 +113075,8 @@
             ]
         },
         {
-            "UID": 3165427722,
-            "ParentUID": 1464877416,
+            "UID": 3421055526,
+            "ParentUID": 2402636752,
             "Name": "E_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -113155,8 +113148,8 @@
             ]
         },
         {
-            "UID": 3201420900,
-            "ParentUID": 1464877416,
+            "UID": 3729620530,
+            "ParentUID": 2402636752,
             "Name": "EText",
             "Tag": "Default",
             "Static": 0,
@@ -113236,8 +113229,8 @@
             ]
         },
         {
-            "UID": 4018568388,
-            "ParentUID": 1464877416,
+            "UID": 4193943011,
+            "ParentUID": 2402636752,
             "Name": "E_Number",
             "Tag": "Default",
             "Static": 0,
@@ -113317,7 +113310,7 @@
             ]
         },
         {
-            "UID": 1773140470,
+            "UID": 103204208,
             "ParentUID": 974458419,
             "Name": "R",
             "Tag": "Default",
@@ -113474,8 +113467,8 @@
             ]
         },
         {
-            "UID": 1242313639,
-            "ParentUID": 1773140470,
+            "UID": 3507779988,
+            "ParentUID": 103204208,
             "Name": "R_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -113547,8 +113540,8 @@
             ]
         },
         {
-            "UID": 69373338,
-            "ParentUID": 1773140470,
+            "UID": 3622743734,
+            "ParentUID": 103204208,
             "Name": "R_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -113620,8 +113613,8 @@
             ]
         },
         {
-            "UID": 3902912070,
-            "ParentUID": 1773140470,
+            "UID": 3263462436,
+            "ParentUID": 103204208,
             "Name": "RText",
             "Tag": "Default",
             "Static": 0,
@@ -113701,8 +113694,8 @@
             ]
         },
         {
-            "UID": 717758780,
-            "ParentUID": 1773140470,
+            "UID": 3805570273,
+            "ParentUID": 103204208,
             "Name": "R_Number",
             "Tag": "Default",
             "Static": 0,
@@ -113782,7 +113775,7 @@
             ]
         },
         {
-            "UID": 3972039781,
+            "UID": 944315615,
             "ParentUID": 974458419,
             "Name": "LC",
             "Tag": "Default",
@@ -113939,8 +113932,8 @@
             ]
         },
         {
-            "UID": 488207774,
-            "ParentUID": 3972039781,
+            "UID": 3662739460,
+            "ParentUID": 944315615,
             "Name": "LCText",
             "Tag": "Default",
             "Static": 0,
@@ -114020,7 +114013,7 @@
             ]
         },
         {
-            "UID": 2546167034,
+            "UID": 3715721615,
             "ParentUID": 974458419,
             "Name": "ManaBackgroud",
             "Tag": "Default",
@@ -114093,8 +114086,8 @@
             ]
         },
         {
-            "UID": 1076414508,
-            "ParentUID": 2546167034,
+            "UID": 2140010086,
+            "ParentUID": 3715721615,
             "Name": "Mana",
             "Tag": "Default",
             "Static": 0,
@@ -114166,8 +114159,8 @@
             ]
         },
         {
-            "UID": 1729483579,
-            "ParentUID": 2546167034,
+            "UID": 2480109580,
+            "ParentUID": 3715721615,
             "Name": "ManaBubble",
             "Tag": "Default",
             "Static": 0,
@@ -114239,7 +114232,7 @@
             ]
         },
         {
-            "UID": 3377806477,
+            "UID": 2088545251,
             "ParentUID": 974458419,
             "Name": "RC",
             "Tag": "Default",
@@ -114396,8 +114389,8 @@
             ]
         },
         {
-            "UID": 1506027335,
-            "ParentUID": 3377806477,
+            "UID": 3819201771,
+            "ParentUID": 2088545251,
             "Name": "RC_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -114469,8 +114462,8 @@
             ]
         },
         {
-            "UID": 1741832668,
-            "ParentUID": 3377806477,
+            "UID": 1651077735,
+            "ParentUID": 2088545251,
             "Name": "RC_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -114542,8 +114535,8 @@
             ]
         },
         {
-            "UID": 3679504717,
-            "ParentUID": 3377806477,
+            "UID": 1861762436,
+            "ParentUID": 2088545251,
             "Name": "RCText",
             "Tag": "Default",
             "Static": 0,
@@ -114623,8 +114616,8 @@
             ]
         },
         {
-            "UID": 3213793394,
-            "ParentUID": 3377806477,
+            "UID": 2869085076,
+            "ParentUID": 2088545251,
             "Name": "RC_Number",
             "Tag": "Default",
             "Static": 0,
@@ -114704,7 +114697,7 @@
             ]
         },
         {
-            "UID": 931650337,
+            "UID": 162440200,
             "ParentUID": 974458419,
             "Name": "Xp",
             "Tag": "Default",
@@ -114816,8 +114809,8 @@
             ]
         },
         {
-            "UID": 3446617050,
-            "ParentUID": 931650337,
+            "UID": 2201137817,
+            "ParentUID": 162440200,
             "Name": "XpProgress",
             "Tag": "Default",
             "Static": 0,
@@ -114889,8 +114882,8 @@
             ]
         },
         {
-            "UID": 365550618,
-            "ParentUID": 931650337,
+            "UID": 831048876,
+            "ParentUID": 162440200,
             "Name": "XpLines",
             "Tag": "Default",
             "Static": 0,
@@ -114962,7 +114955,7 @@
             ]
         },
         {
-            "UID": 438778402,
+            "UID": 2538257788,
             "ParentUID": 974458419,
             "Name": "LifeBackgroud",
             "Tag": "Default",
@@ -115035,8 +115028,8 @@
             ]
         },
         {
-            "UID": 951946661,
-            "ParentUID": 438778402,
+            "UID": 2015808599,
+            "ParentUID": 2538257788,
             "Name": "Life",
             "Tag": "Default",
             "Static": 0,
@@ -115108,8 +115101,8 @@
             ]
         },
         {
-            "UID": 4270728947,
-            "ParentUID": 438778402,
+            "UID": 2601276846,
+            "ParentUID": 2538257788,
             "Name": "LifeBubble",
             "Tag": "Default",
             "Static": 0,
@@ -115181,7 +115174,7 @@
             ]
         },
         {
-            "UID": 1546173694,
+            "UID": 3734022055,
             "ParentUID": 974458419,
             "Name": "NewItem",
             "Tag": "Default",
@@ -115254,7 +115247,7 @@
             ]
         },
         {
-            "UID": 9345038,
+            "UID": 3946674468,
             "ParentUID": 974458419,
             "Name": "NewSkillPoint",
             "Tag": "Default",
