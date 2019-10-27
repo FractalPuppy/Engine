@@ -96,6 +96,7 @@ void LoopStateMenu::Update()
 
 void LoopStateMenu::StartGame()
 {
+	gLoop->introvideoPlaying = false;
 	gLoop->currentLoopState = (LoopState*)gLoop->loadingState;
 	gLoop->menu->SetActive(false);
 	gLoop->loadingGO->SetActive(true);
