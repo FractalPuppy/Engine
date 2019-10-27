@@ -93,6 +93,8 @@ void EquipPopupController::Start()
 	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("E_Number", HUD)->GetComponent<Text>());
 	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("R_Number", HUD)->GetComponent<Text>());
 
+	butonY = hudButtonsText[0].first->getPosition().y;
+
 	std::list<GameObject*> listSkills = App->scene->FindGameObjectByName("PopUpSlotsSkills", popupGOSkills)->children;
 	std::list<GameObject*> listItems = App->scene->FindGameObjectByName("PopUpSlotsItems", popupGOItems)->children;
 
@@ -133,9 +135,9 @@ void EquipPopupController::Update()
 						hudImageSlots[j]->UpdateTexture("None Selected");
 						hudConsumibleItemsQuantity[j]->text.clear();
 						math::float2 newPos = hudButtonsText[j].first->getPosition();
-						if (newPos.y > -250.7f)
+						if (newPos.y > butonY) 
 						{
-							newPos.y += 15.7;
+							newPos.y = butonY; 
 						}
 						hudButtonsText[j].first->SetPositionUsingAligment(newPos);
 						itemsEquiped.erase(itemsEquiped.begin() + i);
