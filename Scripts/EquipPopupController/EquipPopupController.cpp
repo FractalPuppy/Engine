@@ -93,7 +93,7 @@ void EquipPopupController::Start()
 	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("E_Number", HUD)->GetComponent<Text>());
 	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("R_Number", HUD)->GetComponent<Text>());
 
-	butonY = hudButtonsText[0].first->getPosition().y;
+	butonY = hudButtonsText[1].first->getPosition().y;
 
 	std::list<GameObject*> listSkills = App->scene->FindGameObjectByName("PopUpSlotsSkills", popupGOSkills)->children;
 	std::list<GameObject*> listItems = App->scene->FindGameObjectByName("PopUpSlotsItems", popupGOItems)->children;
@@ -137,7 +137,7 @@ void EquipPopupController::Update()
 						math::float2 newPos = hudButtonsText[j].first->getPosition();
 						if (newPos.y > butonY) 
 						{
-							newPos.y = butonY; 
+							newPos.y = butonY;
 						}
 						hudButtonsText[j].first->SetPositionUsingAligment(newPos);
 						itemsEquiped.erase(itemsEquiped.begin() + i);
