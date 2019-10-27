@@ -56,7 +56,7 @@ public:
 	std::string gameStandarCursor = "Glow.cur";
 private:
 	void GenerateVAO(unsigned& vao, float quadVertices[16]);
-	void RenderImage(const ComponentImage& componentImage, int currentWidth, int currentHeight);
+	void RenderImage(const ComponentImage& componentImage, int currentWidth, int currentHeight, bool isButton);
 	void ManageUiHoveredCursorIcon(bool isHovered);
 
 private:
