@@ -250,7 +250,7 @@ void PlayerMovement::CreatePlayerSkills()
 		rain->decal->SetActive(false);
 	}
 	GameObject* machete = App->scene->Spawn("MacheteRain");
-	if (machete)
+	if (machete && rain->decal)
 	{
 		rain->decalOriginalColor = ((ComponentRenderer*)rain->decal->GetComponent<ComponentRenderer>())->material->diffuseColor;
 		rain->decalMaterial = ((ComponentRenderer*)rain->decal->GetComponent<ComponentRenderer>())->material;
