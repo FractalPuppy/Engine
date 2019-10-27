@@ -15,6 +15,8 @@ public:
 
 private:
 	void MoveAwayFromPlayer();
+	GameObject* scareFX = nullptr;
+	float scareFXDuration = 0.5f;
 };
 
 #endif // __ENEMYSTATEFLEE_H_

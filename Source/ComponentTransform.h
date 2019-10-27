@@ -46,7 +46,7 @@ public:
 	ENGINE_API void LookAtLocal(const math::float3& localTarget);
 	ENGINE_API void LookAtMouse();
 	ENGINE_API void Align(const math::float3& target);
-
+	void UpdateTransformOnSpawn();
 
 	void Save(JSON_value* value) const override;
 	void Load(JSON_value* value) override;

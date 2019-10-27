@@ -80,8 +80,6 @@ ItemPicker::ItemPicker(const ItemPicker& itemPicker) : Script(itemPicker)
 	else
 		itemName = nullptr;
 
-	nameShowed = itemPicker.nameShowed;
-
 	itemCursor = itemPicker.itemCursor;
 	changeItemCursorIcon = itemPicker.changeItemCursorIcon;
 	changeStandarCursorIcon = itemPicker.changeStandarCursorIcon;
@@ -149,8 +147,6 @@ ItemPicker& ItemPicker::operator=(const ItemPicker& itemPicker)
 		itemName = new ItemNameController(*itemPicker.itemName);
 	else
 		itemName = nullptr;
-
-	nameShowed = itemPicker.nameShowed;
 
 	itemCursor = itemPicker.itemCursor;
 	changeItemCursorIcon = itemPicker.changeItemCursorIcon;
@@ -414,17 +410,15 @@ void ItemPicker::Update()
 {
 	if (!gameobject->isActive())
 	{
-		if (std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) != nameShowed.end())
-		{
-			nameShowed.erase(std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID));
-			itemName->DisableName(gameobject->UUID);
-		}
+		itemName->DisableName(gameobject->UUID);
 		return;
 	}
 	//checking if gotta pickup item
 	math::float3 closestPoint;
+	math::float4 color = GetRarityColor();
+	bool intersect = ItemIntersects();
 	//first check if item clicked (either the item mesh or its name)
-	if ((App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID)) &&
+	if (intersect &&
 		App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		//if player next to the item
@@ -441,7 +435,7 @@ void ItemPicker::Update()
 	}
 	//check if the player clicked outside of the item (if it was going to pick it up)
 	if (playerMovementScript->itemClicked == this && App->input->GetMouseButtonDown(1) == KEY_DOWN &&
-		!(App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID)))
+		!intersect)
 	{
 		playerMovementScript->stoppedGoingToItem = true;
 		playerMovementScript->itemClicked = nullptr;
@@ -460,30 +454,18 @@ void ItemPicker::Update()
 	if (myRender != nullptr)
 	{
 		myRender->highlighted = true;
-		math::float4 color = itemName->GetColor(gameobject->UUID);
 		myRender->highlightColor = math::float3(color.x, color.y, color.z);
 	}
 
-	
-	if (App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) == nameShowed.end() && gameobject->isActive())
+	if (intersect)
 	{
-		itemName->SetNameBar(gameobject->UUID, rarity);
-		nameShowed.emplace_back(gameobject->UUID);
-	}
-	else if (!App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) != nameShowed.end())
-	{
-		nameShowed.erase(std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID));
-		itemName->DisableName(gameobject->UUID);
-	}
-
-	if (App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID))
-	{
+		myRender->highlighted = true;
 		if (itemName != nullptr)
+		{
 			itemName->Hovered(gameobject->UUID, true);
-
-		if (myRender != nullptr)
-			myRender->highlighted = true;
-
+			itemName->SetNameBar(gameobject->UUID, rarity, color);
+		}
+		
 		if (changeItemCursorIcon && !App->ui->IsHover())
 		{
 			MouseController::ChangeCursorIcon(itemCursor);
@@ -492,21 +474,20 @@ void ItemPicker::Update()
 			changeStandarCursorIcon = true;
 		}
 	}
-	
 	else
 	{
-		if (myRender != nullptr)
+		if (itemName != nullptr)
 		{
-			//myRender->highlighted = false;
 			itemName->Hovered(gameobject->UUID, false);
+			itemName->DisableName(gameobject->UUID);
+		}
 
-			if (changeStandarCursorIcon && !App->ui->IsHover())
-			{
-				MouseController::ChangeCursorIcon(gameStandarCursor);
-				App->ui->SetIsItemHover(false);
-				changeStandarCursorIcon = false;
-				changeItemCursorIcon = true;
-			}
+		if (changeStandarCursorIcon && !App->ui->IsHover())
+		{
+			MouseController::ChangeCursorIcon(gameStandarCursor);
+			App->ui->SetIsItemHover(false);
+			changeStandarCursorIcon = false;
+			changeItemCursorIcon = true;
 		}
 	}
 }
@@ -648,4 +629,30 @@ void ItemPicker::SetItem(ItemType type, std::string name, std::string sprite)
 	item->name = name;
 	item->sprite = sprite;
 	item->type = type;
+}
+
+math::float4 ItemPicker::GetRarityColor()
+{
+	switch (rarity)
+	{
+	case ItemRarity::BASIC:
+		return white / 255;
+	case ItemRarity::RARE:
+		return green / 255;
+	case ItemRarity::EPIC:
+		return orange / 255;
+	case ItemRarity::LEGENDARY:
+		return purple / 255;
+	}
+}
+
+bool ItemPicker::ItemIntersects()
+{
+	fPoint mouse_point = App->input->GetMousePosition();
+	math::float2 mouse = { mouse_point.x, mouse_point.y };
+	std::list<GameObject*> list = App->scene->SceneRaycastHit(mouse);
+	std::list<GameObject*>::iterator iter = std::find(list.begin(), list.end(), gameobject);
+	if (iter != list.end())
+		return true;
+	else return false;
 }

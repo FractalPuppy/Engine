@@ -191,16 +191,22 @@ void EnemyControllerScript::Update()
 	fPoint mouse_point = App->input->GetMousePosition();
 	math::float2 mouse = { mouse_point.x, mouse_point.y };
 	std::list<GameObject*> intersects = App->scene->SceneRaycastHit(mouse);
+	GameObject* objectMesh = this->myMesh;
 
 	if (playerMovement->isPlayerDead) return;
 
 	if (bossFightStarted)
 	{
 		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Santa Muerte");
+		//in case boss third stage, highlighting works differently
+		if (ThirdStageBoss)
+		{
+			objectMesh = App->scene->FindGameObjectByName("mesh", gameobject);
+		}
 	}
-
-	auto mesh = std::find(intersects.begin(), intersects.end(), this->myMesh);
-	if(mesh != std::end(intersects) && *mesh == this->myMesh)
+	playerMovement->ThirdStageBoss = ThirdStageBoss;
+	auto mesh = std::find(intersects.begin(), intersects.end(), objectMesh);
+	if(mesh != std::end(intersects) && *mesh == objectMesh)
 	{
 		// Show enemy lifebar
 		if (enemyLifeBar != nullptr)
@@ -235,6 +241,43 @@ void EnemyControllerScript::Update()
 			GameObject* hitboxGO = App->scene->FindGameObjectByName("Hitbox", gameobject);
 			enemyTriggerBox = hitboxGO->GetComponent<ComponentBoxTrigger>();
 			App->scene->enemyHovered.triggerboxMinWidth = enemyTriggerBox->getShortestDistObb();
+
+			//if in phase 3, we change hitbox target
+			if (ThirdStageBoss)
+			{
+				App->scene->enemyHovered.object = hitboxGO;
+				
+				//check if mouse actually intersects with the bbox
+				math::LineSegment ray = App->scene->SceneRaycast(mouse);
+				
+				//if the ray is directly pointing to the boss, go
+				const char* bossFloortag = "bossFloor";
+				GameObject* firstMeshFloor = App->scene->FindGameObjectByTag(bossFloortag, App->scene->root);
+
+				//we also check mouse not pointing to the floor
+				std::list<GameObject*> intersects = App->scene->SceneRaycastHit(mouse);
+				auto mesh = std::find(intersects.begin(), intersects.end(), firstMeshFloor);
+
+				//if not intersecting with boss trigger box OR intersecting with floor, 
+				//we don't want to target the boss
+				math::float3 intPoint;
+				GameObject* tempObject;
+				if (!ray.Intersects(*enemyTriggerBox->GetOBB()) ||
+					App->scene->Intersects(bossFloortag, false, intPoint, &tempObject))
+				{
+					App->scene->enemyHovered.object = nullptr;
+					App->scene->enemyHovered.health = 0;
+					App->scene->enemyHovered.triggerboxMinWidth = 0;
+
+					//turn off highlights
+					for (std::vector<ComponentRenderer*>::iterator it = myRenders.begin();
+						it != myRenders.end();
+						++it)
+					{
+						(*it)->highlighted = false;
+					}
+				}
+			}
 		}
 
 		if (App->scene->enemyHovered.object != nullptr &&
@@ -259,6 +302,13 @@ void EnemyControllerScript::Update()
 				App->scene->enemyHovered.triggerboxMinWidth = 0;
 				MouseController::ChangeCursorIcon(gameStandarCursor);
 			}
+		}
+		//in case third stage boss
+		if (ThirdStageBoss)
+		{
+			App->scene->enemyHovered.object = nullptr;
+			App->scene->enemyHovered.health = 0;
+			App->scene->enemyHovered.triggerboxMinWidth = 0;
 		}
 	}
 
@@ -303,6 +353,7 @@ void EnemyControllerScript::Update()
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
 		removedFromCrowd = true;
+		enabled = false;
 	}
 }
 
@@ -570,7 +621,7 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		if (gameobject->tag.c_str() != "Boss")
 		{
 			// Get base damage
-			int totalDamage = playerMovement->stats.strength;
+			int totalDamage = playerMovement->GetTotalPlayerStats().strength;
 
 			// Add damage of the skill
 			PlayerSkill* skill = playerMovement->GetSkillInUse();

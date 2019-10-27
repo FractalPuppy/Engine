@@ -100,7 +100,7 @@ void PlayerStateWalk::Update()
 			lerpCalculations(direction, -player->gameobject->transform->front, path[pathIndex]);
 			
 			math::float3 finalWalkingSpeed = player->walkingSpeed * direction * player->App->time->gameDeltaTime;
-			finalWalkingSpeed *= (1 + (player->stats.dexterity * 0.005f));
+			finalWalkingSpeed *= (1 + (player->GetTotalPlayerStats().dexterity * 0.005f));
 			player->gameobject->transform->SetPosition(currentPosition + finalWalkingSpeed);
 			playerWalking = true;
 		}
@@ -121,7 +121,7 @@ void PlayerStateWalk::Enter()
 	playerWalking = true;
 	if (dustParticles)
 	{
-		player->anim->controller->current->speed *= (1 + (player->stats.dexterity * 0.005f));
+		player->anim->controller->current->speed *= (1 + (player->GetTotalPlayerStats().dexterity * 0.005f));
 	}
 }
 
@@ -168,7 +168,14 @@ void PlayerStateWalk::CheckInput()
 	}
 	else if (player->IsMovingToAttack())
 	{
-		player->currentState = (PlayerState*)player->walkToHit;
+		if (player->ThirdStageBoss)
+		{
+			player->currentState = (PlayerState*)player->walkToHit3rdBoss;
+		}
+		else
+		{
+			player->currentState = (PlayerState*)player->walkToHit;
+		}
 	}
 	else if (player->IsMovingToItem())
 	{

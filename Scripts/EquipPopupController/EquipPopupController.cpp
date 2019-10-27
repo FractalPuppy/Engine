@@ -408,6 +408,7 @@ void EquipPopupController::SavePopUp()
 		item->AddFloat("manaRegen", itemsEquiped[i].second.stats.manaRegen);
 		item->AddFloat("strength", itemsEquiped[i].second.stats.strength);
 		item->AddInt("position", itemsEquiped[i].first);
+		item->AddString("quantity", hudConsumibleItemsQuantity[itemsEquiped[i].first]->text.c_str());
 		itemsJSON->AddValue("", *item);
 	}
 	popup->AddValue("items", *itemsJSON);
@@ -467,7 +468,11 @@ void EquipPopupController::LoadPopUp()
 			itemsEquiped.emplace_back(position, item);
 			hudImageSlots[position]->UpdateTexture(item.sprite);
 			hudImageSlots[position]->gameobject->SetActive(true);
+			hudConsumibleItemsQuantity[position]->gameobject->SetActive(true);
+			hudConsumibleItemsQuantity[position]->uiOrder = 11;
+			hudConsumibleItemsQuantity[position]->text = std::to_string(inventory->GetCurrentQuantity(item));  //itemJSON->GetFloat("quantity");
 			MoveNumber(position);
+			inventory->AssignConsumableItem(item, position);
 		}
 
 		JSON_value* skillsJSON = popup->GetValue("skills");

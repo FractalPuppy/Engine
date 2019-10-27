@@ -68,7 +68,7 @@ void MenuSoundsScript::Update()
 	itemHovered = !nothingHovered;
 	itemClicked = !nothingClicked;
 
-	if (gameLoopScript->introvideoPlaying)
+	if (gameLoopScript->introvideoPlaying || gameLoopScript->creditsPlaying)
 	{
 		mainMenuMusic->SetVolume(0.f);
 		ambienceMusic->SetVolume(0.f);
@@ -76,5 +76,6 @@ void MenuSoundsScript::Update()
 	else
 	{
 		mainMenuMusic->SetVolume((float)gameLoopScript->volume / 10.f);
+		ambienceMusic->SetVolume((float)gameLoopScript->volume / 10.f);
 	}
 }

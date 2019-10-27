@@ -15,12 +15,12 @@ public:
 
 	void Enter() override;
 	void Update() override;
+private:
+	void SetMenu();
 
 private:
 	GameObject* backButtonGO = nullptr;
 	Button* backButton = nullptr;
-	float videoDuration = 0.0f;
-	float videoTimer = 0.0f;
 	bool started = false;
 };
 

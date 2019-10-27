@@ -160,7 +160,7 @@ void SkillTreeController::Update()
 				skillInfoCDText->text = cooldownString + "s.";
 
 				skillInfoIcon->UpdateTexture(skillList[i].spriteActive->GetName());
-				float dmg = playerMovement->allSkills[(SkillType)i]->damage * playerMovement->stats.strength;
+				float dmg = playerMovement->allSkills[(SkillType)i]->damage * playerMovement->GetTotalPlayerStats().strength;
 				if (dmg == (int)dmg)
 				{
 					skillInfoDMGText->text = std::to_string((int)dmg);
