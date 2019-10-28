@@ -34,6 +34,7 @@ void BossStateThirdDeath::Update()
 void BossStateThirdDeath::Enter()
 {
 	boss->enemyController->anim->SendTriggerToStateMachine(trigger.c_str());
+	boss->enemyController->bossFightStarted = false;
 	boss->ResetVariables();
 }
 

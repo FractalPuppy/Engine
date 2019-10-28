@@ -62,6 +62,7 @@ ComponentParticles::ComponentParticles(const ComponentParticles& component) : Co
 	alternateEmisor(actualEmisor);
 	baseRadius = component.baseRadius;
 	apexRadius = component.apexRadius;
+	intensity = component.intensity;
 
 	App->particles->AddParticleSystem(this);
 	modules.push_back(new PMSizeOverTime(*(PMSizeOverTime*)component.modules[0]));

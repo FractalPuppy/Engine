@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 2823676183,
+            "UID": 635736229,
             "ParentUID": 0,
             "Name": "ThirdPhaseAOEPrefab",
             "Tag": "Default",
@@ -33,7 +33,6 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 471853287,
-            "prefabTimeStamp": 1572181801,
             "Components": [
                 {
                     "Type": 0,
@@ -94,8 +93,8 @@
             ]
         },
         {
-            "UID": 3521560321,
-            "ParentUID": 2823676183,
+            "UID": 2448497991,
+            "ParentUID": 635736229,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesSecond",
             "Static": 0,
@@ -230,8 +229,8 @@
             ]
         },
         {
-            "UID": 3895770765,
-            "ParentUID": 3521560321,
+            "UID": 4137893240,
+            "ParentUID": 2448497991,
             "Name": "dfg",
             "Tag": "dfhbdfh",
             "Static": 0,
@@ -272,13 +271,13 @@
                         0.0
                     ],
                     "Rotation": [
-                        -1.1474024347020527e-14,
+                        -1.1474023499987579e-14,
                         0.0,
                         0.0,
                         1.0
                     ],
                     "Euler": [
-                        -1.314826286041848e-12,
+                        -1.3148261776216308e-12,
                         0.0,
                         0.0
                     ],
@@ -366,8 +365,8 @@
             ]
         },
         {
-            "UID": 2765413774,
-            "ParentUID": 2823676183,
+            "UID": 3176973776,
+            "ParentUID": 635736229,
             "Name": "Hitbox",
             "Tag": "boxTriggerSecond",
             "Static": 0,
@@ -461,8 +460,8 @@
             ]
         },
         {
-            "UID": 3362991438,
-            "ParentUID": 2823676183,
+            "UID": 488780753,
+            "ParentUID": 635736229,
             "Name": "Smash Particles",
             "Tag": "SmashParticlesFirst",
             "Static": 0,
@@ -597,8 +596,8 @@
             ]
         },
         {
-            "UID": 2065287004,
-            "ParentUID": 2823676183,
+            "UID": 563569239,
+            "ParentUID": 635736229,
             "Name": "Beam Particles",
             "Tag": "hitParticlesFirst",
             "Static": 0,
@@ -766,8 +765,8 @@
             ]
         },
         {
-            "UID": 2483537038,
-            "ParentUID": 2823676183,
+            "UID": 1410847903,
+            "ParentUID": 635736229,
             "Name": "Hitbox",
             "Tag": "boxTriggerFirst",
             "Static": 0,
@@ -861,8 +860,8 @@
             ]
         },
         {
-            "UID": 1333029519,
-            "ParentUID": 2823676183,
+            "UID": 3878684850,
+            "ParentUID": 635736229,
             "Name": "Rock particles",
             "Tag": "rockParticlesFirst",
             "Static": 0,
@@ -1036,13 +1035,13 @@
             ]
         },
         {
-            "UID": 982098775,
-            "ParentUID": 2823676183,
+            "UID": 1492205722,
+            "ParentUID": 635736229,
             "Name": "Prep Particles",
             "Tag": "PrepParticlesFirst",
             "Static": 0,
             "ActiveInHierarchy": 1,
-            "ActiveSelf": 0,
+            "ActiveSelf": 1,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
@@ -1116,7 +1115,7 @@
                     "Type": 1,
                     "Enabled": 1,
                     "meshUID": 3908715504,
-                    "materialUID": 582500134,
+                    "materialUID": 2357993275,
                     "castShadows": 0,
                     "useAlpha": 1,
                     "highlighted": 0,

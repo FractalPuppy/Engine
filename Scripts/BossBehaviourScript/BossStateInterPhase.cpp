@@ -2,11 +2,13 @@
 #include "ModuleTime.h"
 #include "ModuleScene.h"
 
+#include "GameObject.h"
 #include "ComponentRenderer.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 
 #include "BossStateInterPhase.h"
+#include "CameraController/CameraController.h"
 
 #include "BossBehaviourScript.h"
 #include "EnemyControllerScript/EnemyControllerScript.h"
@@ -15,8 +17,12 @@
 BossStateInterPhase::BossStateInterPhase(BossBehaviourScript* AIBoss)
 {
 	boss = AIBoss;
-}
 
+	ballRenderer = boss->powerUpBall->GetComponent<ComponentRenderer>();
+	ballRenderer->dissolve = true;
+	ballRenderer->dissolveAmount = 1.0f;
+	originalScale = boss->powerUpBall->transform->scale;
+}
 
 BossStateInterPhase::~BossStateInterPhase()
 {
@@ -55,7 +61,10 @@ void BossStateInterPhase::Update()
 		{
 			for (auto render : boss->enemyController->myRenders)
 			{
-				render->dissolveAmount += boss->App->time->gameDeltaTime;
+				if (render != ballRenderer)
+				{
+					render->dissolveAmount += boss->App->time->gameDeltaTime;
+				}
 			}
 		}
 
@@ -78,7 +87,10 @@ void BossStateInterPhase::Update()
 		{
 			for (auto render : boss->enemyController->myRenders)
 			{
-				render->dissolveAmount -= boss->App->time->gameDeltaTime;
+				if (render != ballRenderer)
+				{
+					render->dissolveAmount -= boss->App->time->gameDeltaTime;
+				}
 			}
 		}
 		boss->enemyController->LookAt2D(boss->pointToLookAtFirstInterphase);
@@ -93,13 +105,23 @@ void BossStateInterPhase::Update()
 			durationPowerSet = true;
 		}
 
+		if (!fxHandBallSet && powerUpTimer > boss->handsAppearTime)
+		{
+			boss->rightHandBall->SetActive(true);
+			boss->leftHandBall->SetActive(true);
+			fxHandBallSet = true;
+		}
 
-		//this could be better animation driven, but w/e
+		if (!fxBigBallSet && powerUpTimer > boss->ballAppearTime)
+		{
+			fxState = FX::Charge;
+			fxBigBallSet = true;
+		}
+
 		if (powerUpTimer > boss->firstInterphaseDuration)
 		{
 			ipState = IpState::Relocate;
 			boss->anim->SendTriggerToStateMachine("Idle");
-			durationPowerSet = false;
 		}
 		else
 		{
@@ -136,6 +158,74 @@ void BossStateInterPhase::Update()
 		finished = true;
 		break;
 	}
+
+	if (fxState != FX::None)
+	{
+		fxTimer += boss->App->time->gameDeltaTime;
+		if (fxTimer > boss->ballFxStopTime)
+		{
+			boss->powerUpSpread->SetActive(false);
+			boss->powerUpBall->SetActive(false);
+		}
+		if (fxTimer > 0.5f + boss->ballExplodeTime)
+		{
+			boss->ringPowerUp->SetActive(false);
+		}
+	}
+
+	switch (fxState)
+	{
+	case FX::None:
+		break;
+	case FX::Charge:
+		
+		if (ballRenderer->dissolveAmount <= 0.0f)
+		{
+			fxState = FX::Loop;
+			boss->rightHandBall->SetActive(false);
+			boss->leftHandBall->SetActive(false);
+		}
+		else
+		{
+			ballRenderer->dissolveAmount -= boss->App->time->gameDeltaTime;
+		}
+
+		break;
+	case FX::Loop:
+
+		//Here we can make it vibrate a bit
+		angle += boss->vibrationSpeed * boss->App->time->gameDeltaTime;
+		offset = boss->vibrationAmplitude * sin(angle);
+
+		boss->powerUpBall->transform->scale = originalScale + offset * math::float3::one;
+		
+		if (fxTimer > boss->ballExplodeTime)
+		{
+			fxState = FX::Explode;
+			boss->ringPowerUp->SetActive(true);
+			boss->powerUpSpread->SetActive(true);
+			boss->cameraScript->Shake(1.5f, 100.0f, 0.1f, 0.8f, false);
+			break;
+		}
+
+		break;
+	case FX::Explode:	
+
+		//Here we cativate both ring and spread aprticles and dissolve the sphere
+		if (ballRenderer->dissolveAmount >= 1.0f)
+		{
+			fxState = FX::Finished;
+		}
+		else
+		{
+			ballRenderer->dissolveAmount += 2.0f * boss->App->time->gameDeltaTime;
+		}
+
+		break;
+	case FX::Finished:
+		break;
+	}
+
 }
 
 void BossStateInterPhase::Enter()
