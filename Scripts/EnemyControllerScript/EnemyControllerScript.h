@@ -82,8 +82,8 @@ public:
 	DamageController* damageController = nullptr;
 	EnemyLifeBarController* enemyLifeBar = nullptr;
 
-
-
+	//need to know if we are fighting boss in 3rd stage
+	bool ThirdStageBoss = false;
 	
 	// BBoxes
 	math::AABB* myBbox = nullptr;
@@ -100,7 +100,7 @@ public:
 
 	CombatAudioEvents* combataudioevents = nullptr;
 
-	// Enemy Type and level (1 = NORMAL, 2 = HARD, 3 = BOSS)
+	// Enemy Type and level (1 = NORMAL, 2 = NORMAL_TEMPLE, 3 = ELITE_GRAVEYARD, 4 = ELITE_TEMPLE, 5 = BOSS)
 	int enemyLevel = 1u;			
 	EnemyType enemyType = EnemyType::SKELETON;
 

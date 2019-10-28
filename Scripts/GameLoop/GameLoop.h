@@ -217,6 +217,7 @@ public:
 	bool runningCredits = false;
 	bool runningIntro = false;
 	bool introvideoPlaying = false;
+	bool creditsPlaying = false;
 	bool vsync = false;
 
 	std::string sceneToLoad = "";

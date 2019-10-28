@@ -203,6 +203,12 @@ void ChestScript::OnChestClosedHover()
 			state = chestState::OPENING;
 		else
 			state = chestState::OPENED;
+
+		if (!changeItemCursorIcon)
+		{
+			MouseController::ChangeCursorIcon(gameStandarCursor);
+			changeItemCursorIcon = true;
+		}
 	}
 
 	// Highlight and cursor
@@ -212,7 +218,7 @@ void ChestScript::OnChestClosedHover()
 		if (myRender != nullptr)
 			myRender->highlighted = true;
 
-		if(changeItemCursorIcon)
+		if(changeItemCursorIcon && state != chestState::OPENED)
 		{
 			MouseController::ChangeCursorIcon(pickCursor);
 			changeItemCursorIcon = false;

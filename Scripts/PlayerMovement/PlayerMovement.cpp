@@ -13,6 +13,7 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateWalk.h"
 #include "PlayerStateWalkToHitEnemy.h"
+#include "PlayerStateWalkToHit3rdStageBoss.h"
 #include "PlayerStateWalkToPickItem.h"
 #include "PlayerStateDeath.h"
 #include "PlayerStateAutoWalk.h"
@@ -74,7 +75,7 @@ PlayerMovement::PlayerMovement()
 	allSkills[SkillType::BOMB_DROP] = new PlayerSkill(SkillType::BOMB_DROP, 2.0f);
 	allSkills[SkillType::CIRCULAR] = new PlayerSkill(SkillType::CIRCULAR);
 	allSkills[SkillType::DANCE] = new PlayerSkill(SkillType::DANCE, 0.5f, 25.0f, 50.0f);
-	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::SOUL,0.0f, 0.0f);
+	allSkills[SkillType::SOUL] = new PlayerSkill(SkillType::SOUL, 0.0f, 0.0f);
 	allSkills[SkillType::BORRACHO] = new PlayerSkill(SkillType::BORRACHO, 0.0f, 0.0f);
 	allSkills[SkillType::FEATHER] = new PlayerSkill(SkillType::FEATHER, 1.0f, 30.0f, 30.0f);
 	allSkills[SkillType::FURIA] = new PlayerSkill(SkillType::FURIA, 4.0f, 50.0f, 60.0f);
@@ -127,19 +128,21 @@ void PlayerMovement::Expose(ImGuiContext* context)
 
 	ImGui::DragFloat("Out of Combat time", &outCombatMaxTime, 1.f, 0.f, 10.f);
 
-	float maxHP = stats.health;
-	float maxMP = stats.mana;
-	stats.Expose("Player Stats");
-	if (maxHP != stats.health)
+	PlayerStats totalStats = GetTotalPlayerStats();
+	float maxHP = totalStats.health;
+	float maxMP = totalStats.mana;
+	baseStats.Expose("Player Base Stats");
+	equipedStats.Expose("Equiped Items Stats");
+	if (maxHP != totalStats.health)
 	{
-		health += stats.health - maxHP;
-		if (health > stats.health) health = stats.health;
+		health += totalStats.health - maxHP;
+		if (health > totalStats.health) health = totalStats.health;
 		else if (health < 0) health = 0;
 	}
-	if (maxMP != stats.mana)
+	if (maxMP != totalStats.mana)
 	{
-		mana += stats.mana - maxMP;
-		if (mana > stats.mana) mana = stats.mana;
+		mana += totalStats.mana - maxMP;
+		if (mana > totalStats.mana) mana = totalStats.mana;
 		else if (mana < 0) mana = 0;
 	}
 
@@ -193,13 +196,13 @@ void PlayerMovement::Expose(ImGuiContext* context)
 	ImGui::Spacing();
 
 	// Stats Debug
-	ImGui::Text("Play Stats Debug");
-	ImGui::Text("HP: %f / %f", health, stats.health);
-	ImGui::Text("MP: %f / %f", mana, stats.mana);
-	ImGui::Text("Strength: %i", stats.strength);
-	ImGui::Text("Dexterity: %i", stats.dexterity);
-	ImGui::Text("HP Regen: %f pts/s", stats.hpRegen);
-	ImGui::Text("MP Regen: %f pts/s", stats.manaRegen);
+	ImGui::Text("Total Stats Debug");
+	ImGui::Text("HP: %f / %f", health, totalStats.health);
+	ImGui::Text("MP: %f / %f", mana, totalStats.mana);
+	ImGui::Text("Strength: %i", totalStats.strength);
+	ImGui::Text("Dexterity: %i", totalStats.dexterity);
+	ImGui::Text("HP Regen: %f pts/s", totalStats.hpRegen);
+	ImGui::Text("MP Regen: %f pts/s", totalStats.manaRegen);
 }
 
 void PlayerMovement::CreatePlayerStates()
@@ -208,6 +211,7 @@ void PlayerMovement::CreatePlayerStates()
 
 	playerStates.push_back(walk = new PlayerStateWalk(this, "Walk"));
 	playerStates.push_back(walkToHit = new PlayerStateWalkToHitEnemy(this, "Walk"));
+	playerStates.push_back(walkToHit3rdBoss = new PlayerStateWalkToHit3rdStageBoss(this, "Walk"));
 	playerStates.push_back(walkToPickItem = new PlayerStateWalkToPickItem(this, "Walk"));
 	if (dustParticles == nullptr)
 	{
@@ -245,8 +249,8 @@ void PlayerMovement::CreatePlayerSkills()
 		rain->decal->UpdateGlobalTransform();
 		rain->decal->SetActive(false);
 	}
-	GameObject* machete = App->scene->Spawn("MacheteRain");	
-	if (machete)
+	GameObject* machete = App->scene->Spawn("MacheteRain");
+	if (machete && rain->decal)
 	{
 		rain->decalOriginalColor = ((ComponentRenderer*)rain->decal->GetComponent<ComponentRenderer>())->material->diffuseColor;
 		rain->decalMaterial = ((ComponentRenderer*)rain->decal->GetComponent<ComponentRenderer>())->material;
@@ -269,7 +273,7 @@ void PlayerMovement::CreatePlayerSkills()
 			macheteUnit.trigger = trigger;
 			macheteUnit.originalScale = macheteClone->transform->scale;
 			rain->machetes.push_back(macheteUnit);
-		}		
+		}
 		machete->GetComponent<ComponentRenderer>()->dissolve = true; //Hide original machete
 		machete->GetComponent<ComponentRenderer>()->dissolveAmount = 2.f;
 	}
@@ -384,7 +388,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_1]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_1]]->type;
-		}		
+		}
 	}
 	else if (IsUsingTwo())
 	{
@@ -392,7 +396,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_2]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_2]]->type;
-		}		
+		}
 	}
 	else if (IsUsingThree())
 	{
@@ -400,7 +404,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_3]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_3]]->type;
-		}		
+		}
 	}
 	else if (IsUsingFour())
 	{
@@ -408,7 +412,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_4]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_4]]->type;
-		}		
+		}
 	}
 	else if (IsUsingQ())
 	{
@@ -416,7 +420,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_Q]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_Q]]->type;
-		}		
+		}
 	}
 	else if (IsUsingW())
 	{
@@ -424,7 +428,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_W]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_W]]->type;
-		}	
+		}
 	}
 	else if (IsUsingE())
 	{
@@ -432,7 +436,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_E]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_E]]->type;
-		}		
+		}
 	}
 	else if (IsUsingR())
 	{
@@ -440,7 +444,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_R]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_R]]->type;
-		}		
+		}
 	}
 	else if (IsUsingRightClick())
 	{
@@ -448,7 +452,7 @@ void PlayerMovement::CheckSkillsInput()
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_RC]]->skill;
 			skillType = allSkills[assignedSkills[HUD_BUTTON_RC]]->type;
-		}		
+		}
 	}
 
 	if (currentSkill != nullptr && previous != currentSkill)
@@ -701,29 +705,54 @@ void PlayerMovement::Start()
 		LOG("SlashTrail not found");
 	}
 
-	if (PlayerPrefs::HasKey("dexterity"))
+	if (PlayerPrefs::HasKey("baseDexterity"))
 	{
-		stats.dexterity = PlayerPrefs::GetFloat("dexterity");
+		baseStats.dexterity = PlayerPrefs::GetFloat("baseDexterity");
 	}
-	if (PlayerPrefs::HasKey("health"))
+	if (PlayerPrefs::HasKey("baseHealth"))
 	{
-		stats.health = PlayerPrefs::GetFloat("health");
+		baseStats.health = PlayerPrefs::GetFloat("baseHealth");
 	}
-	if (PlayerPrefs::HasKey("hpRegen"))
+	if (PlayerPrefs::HasKey("baseHpRegen"))
 	{
-		stats.hpRegen = PlayerPrefs::GetFloat("hpRegen");
+		baseStats.hpRegen = PlayerPrefs::GetFloat("baseHpRegen");
 	}
-	if (PlayerPrefs::HasKey("mana"))
+	if (PlayerPrefs::HasKey("baseMana"))
 	{
-		stats.mana = PlayerPrefs::GetFloat("mana");
+		baseStats.mana = PlayerPrefs::GetFloat("baseMana");
 	}
-	if (PlayerPrefs::HasKey("manaRegen"))
+	if (PlayerPrefs::HasKey("baseManaRegen"))
 	{
-		stats.manaRegen = PlayerPrefs::GetFloat("manaRegen");
+		baseStats.manaRegen = PlayerPrefs::GetFloat("baseManaRegen");
 	}
-	if (PlayerPrefs::HasKey("strength"))
+	if (PlayerPrefs::HasKey("baseStrength"))
 	{
-		stats.strength = PlayerPrefs::GetFloat("strength");
+		baseStats.strength = PlayerPrefs::GetFloat("baseStrength");
+	}
+
+	if (PlayerPrefs::HasKey("equipedDexterity"))
+	{
+		equipedStats.dexterity = PlayerPrefs::GetFloat("equipedDexterity");
+	}
+	if (PlayerPrefs::HasKey("equipedHealth"))
+	{
+		equipedStats.health = PlayerPrefs::GetFloat("equipedHealth");
+	}
+	if (PlayerPrefs::HasKey("equipedHpRegen"))
+	{
+		equipedStats.hpRegen = PlayerPrefs::GetFloat("equipedHpRegen");
+	}
+	if (PlayerPrefs::HasKey("equipedMana"))
+	{
+		equipedStats.mana = PlayerPrefs::GetFloat("equipedMana");
+	}
+	if (PlayerPrefs::HasKey("equipedManaRegen"))
+	{
+		equipedStats.manaRegen = PlayerPrefs::GetFloat("equipedManaRegen");
+	}
+	if (PlayerPrefs::HasKey("equipedStrength"))
+	{
+		equipedStats.strength = PlayerPrefs::GetFloat("equipedStrength");
 	}
 	assignedSkills[HUD_BUTTON_RC] = (SkillType)PlayerPrefs::GetInt("RC", 20);
 	assignedSkills[HUD_BUTTON_1] = (SkillType)PlayerPrefs::GetInt("1", 20);
@@ -738,7 +767,7 @@ void PlayerMovement::Start()
 	InitializeUIStatsObjects();
 
 	GameObject* inventoryGO = App->scene->FindGameObjectByName("Inventory");
-	if (inventoryGO) 
+	if (inventoryGO)
 	{
 		inventoryScript = inventoryGO->GetComponent<InventoryScript>();
 	}
@@ -759,7 +788,6 @@ void PlayerMovement::Update()
 	if (health <= 0.f)
 	{
 		currentState = (PlayerState*)death;
-		return;
 	}
 
 	PlayerState* previous = currentState;
@@ -787,20 +815,21 @@ void PlayerMovement::Update()
 		// Skills
 		PrepareSkills();
 		CheckSkillsInput();
-		if (currentSkill != nullptr)
-		{
-			currentSkill->Update();
-			itemClicked = nullptr;
-		}
-
 		// States
 		currentState->UpdateTimer();
 		currentState->CheckInput();
 		currentState->Update();
-
-		//if previous and current are different the functions Exit() and Enter() are called
-		CheckStates(previous, currentState);
 	}
+	if (currentSkill != nullptr)
+	{
+		currentSkill->Update();
+		itemClicked = nullptr;
+	}
+
+
+	//if previous and current are different the functions Exit() and Enter() are called
+	CheckStates(previous, currentState);
+
 
 	ManaManagement();
 
@@ -808,11 +837,12 @@ void PlayerMovement::Update()
 	{
 		outCombatTimer -= App->time->gameDeltaTime;
 	}
-	else if (health < stats.health)
+	else if (health < GetTotalPlayerStats().health && !isPlayerDead)
 	{
-		health += stats.hpRegen * App->time->gameDeltaTime;
-		if (health > stats.health) health = stats.health;
-		int healthPercentage = (health / stats.health) * 100;
+		PlayerStats playerStats = GetTotalPlayerStats();
+		health += playerStats.hpRegen * App->time->gameDeltaTime;
+		if (health > playerStats.health) health = playerStats.health;
+		int healthPercentage = (health / playerStats.health) * 100;
 		lifeUIComponent->SetMaskAmount(healthPercentage);
 	}
 	if (bombDropExpanding && bombDropMesh1 && bombDropMesh2)
@@ -866,7 +896,7 @@ void PlayerMovement::Update()
 
 					rain->machetes[i].landed = true;
 					macheteRainRenderer->dissolveAmount += .5f * App->time->gameDeltaTime;
-					machete->transform->SetGlobalPosition(machete->transform->GetGlobalPosition() + math::float3(MACHETE_RAIN_HORIZONTAL_SPEED * App->time->gameDeltaTime, 
+					machete->transform->SetGlobalPosition(machete->transform->GetGlobalPosition() + math::float3(MACHETE_RAIN_HORIZONTAL_SPEED * App->time->gameDeltaTime,
 						MACHETE_RAIN_SPEED * App->time->gameDeltaTime * .005f, 0));
 					if (!shaking && playerCamera)
 					{
@@ -888,8 +918,8 @@ void PlayerMovement::Update()
 				machete->Update(); //Force updates due it's not in any hierarchy
 				machete->UpdateTransforms(math::float4x4::identity); //Force updates due it's not in any hierarchy
 			}
-			
-		}		
+
+		}
 	}
 	//Check for changes in the state to send triggers to animation SM
 
@@ -918,11 +948,11 @@ void PlayerMovement::Update()
 			for (size_t i = 0; i < dance->spinMachetes.size(); i++)
 			{
 				ComponentRenderer* macheteDanceRenderer = (ComponentRenderer*)dance->spinMachetes[i]->GetComponentInChildren(ComponentType::Renderer);
-				if(macheteDanceRenderer != nullptr)
+				if (macheteDanceRenderer != nullptr)
 					macheteDanceRenderer->dissolveAmount += 0.5f * App->time->gameDeltaTime;
 
 				// Dissolve animation ended, hide machetes
-				if(macheteDanceRenderer->dissolveAmount > 1.f)
+				if (macheteDanceRenderer->dissolveAmount > 1.f)
 					dance->spinMachetes[i]->SetActive(false);
 			}
 
@@ -965,32 +995,32 @@ PlayerMovement_API void PlayerMovement::Damage(float amount)
 		if (damageUIFeedback != nullptr)
 			damageUIFeedback->ActivateDamageUI();
 
-		int healthPercentage = (health / stats.health) * 100;
+		int healthPercentage = (health / GetTotalPlayerStats().health) * 100;
 		lifeUIComponent->SetMaskAmount(healthPercentage);
 	}
 }
 
-void PlayerMovement::Equip(const PlayerStats& equipStats)
+void PlayerMovement::Equip()
 {
-	this->stats += equipStats;
+	PlayerStats totalStats = RecalculateStats();
 
-	int healthPercentage = (health / stats.health) * 100;
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / stats.mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
 }
 
-void PlayerMovement::Equip(const PlayerStats& equipStats, unsigned itemType, unsigned meshUID, unsigned materialUID)
+void PlayerMovement::Equip(unsigned itemType, unsigned meshUID, unsigned materialUID)
 {
-	this->stats += equipStats;
+	PlayerStats totalStats = RecalculateStats();
 
-	int healthPercentage = (health / stats.health) * 100;
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / stats.mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
@@ -1040,16 +1070,17 @@ void PlayerMovement::EquipMesh(unsigned itemType, unsigned meshUID, unsigned mat
 	}
 }
 
-void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
+void PlayerMovement::UnEquip(unsigned itemType)
 {
-	this->stats -= equipStats;
-	health = health > stats.health ? stats.health : health;
-	mana = mana > stats.mana ? stats.mana : mana;
+	PlayerStats totalStats = RecalculateStats();
 
-	int healthPercentage = (health / stats.health) * 100;
+	health = health > totalStats.health ? totalStats.health : health;
+	mana = mana > totalStats.mana ? totalStats.mana : mana;
+
+	int healthPercentage = (health / totalStats.health) * 100;
 	lifeUIComponent->SetMaskAmount(healthPercentage);
 
-	int manaPercentage = (mana / stats.mana) * 100;
+	int manaPercentage = (mana / totalStats.mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 
 	UpdateUIStats();
@@ -1076,14 +1107,14 @@ void PlayerMovement::UnEquip(const PlayerStats& equipStats, unsigned itemType)
 		helmetRenderer->SetMaterial(nullptr);
 		break;
 	}
-	
+
 }
 
 void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 {
 	if (equipStats.health > 0)
 	{
-		int amountToIncrease = (health + equipStats.health <= stats.health) ? equipStats.health : stats.health - health;
+		int amountToIncrease = (health + equipStats.health <= GetTotalPlayerStats().health) ? equipStats.health : GetTotalPlayerStats().health - health;
 		health = health + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::HEALING);
 
@@ -1092,7 +1123,7 @@ void PlayerMovement::ConsumeItem(const PlayerStats& equipStats)
 	}
 	else if (equipStats.mana > 0)
 	{
-		int amountToIncrease = (mana + equipStats.mana <= stats.mana) ? equipStats.mana : stats.mana - mana;
+		int amountToIncrease = (mana + equipStats.mana <= GetTotalPlayerStats().mana) ? equipStats.mana : GetTotalPlayerStats().mana - mana;
 		mana = mana + amountToIncrease;
 		damageController->AddDamage(gameobject->transform, amountToIncrease, DamageType::MANA);
 
@@ -1106,11 +1137,6 @@ void PlayerMovement::stopPlayerWalking()
 	if (walk != nullptr)
 	{
 		walk->playerWalking = false;
-		if (walk->dustParticles)
-		{
-			walk->dustParticles->SetActive(false);
-		}
-
 	}
 }
 
@@ -1253,7 +1279,13 @@ void PlayerMovement::Serialize(JSON_value* json) const
 	}
 	json->AddValue("abilities", *abilities);
 
-	stats.Serialize(json);
+	JSON_value* baseStatsValue = json->CreateValue();
+	baseStats.Serialize(baseStatsValue);
+	json->AddValue("baseStats", *baseStatsValue);
+
+	JSON_value* equipedStatsValue = json->CreateValue();
+	equipedStats.Serialize(equipedStatsValue);
+	json->AddValue("equipedStats", *equipedStatsValue);
 }
 
 void PlayerMovement::DeSerialize(JSON_value* json)
@@ -1323,8 +1355,11 @@ void PlayerMovement::DeSerialize(JSON_value* json)
 		if (rain_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
 	}
 
+	JSON_value* baseStatsValue = json->GetValue("baseStats");
+	baseStats.DeSerialize(baseStatsValue);
 
-	stats.DeSerialize(json);
+	JSON_value* equipedStatsValue = json->GetValue("equipedStats");
+	equipedStats.DeSerialize(equipedStatsValue);
 }
 
 void PlayerMovement::OnTriggerExit(GameObject* go)
@@ -1347,6 +1382,8 @@ bool PlayerMovement::IsAttacking() const
 	//checking if there's any enemy targeted, really easy since its stored on a pointer
 	//then checking mouse buttons
 	float Dist = floatMax;
+	float maxRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.6;
+	float minRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.2;
 	if (App->scene->enemyHovered.object != nullptr)
 	{
 		//stop if dead
@@ -1354,7 +1391,29 @@ bool PlayerMovement::IsAttacking() const
 		{
 			return false;
 		}
-		Dist = Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position);
+		if (ThirdStageBoss &&
+			App->scene->enemyHovered.object &&
+			App->scene->enemyHovered.object->parent->transform)
+		{
+			math::float2 posPlayer2D = math::float2(gameobject->transform->position.x,
+				gameobject->transform->position.z);
+			math::float2 posEnemy2D = math::float2(App->scene->enemyHovered.object->parent->transform->position.x,
+				App->scene->enemyHovered.object->parent->transform->position.z);
+			maxRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.3;
+			minRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.2;
+			Dist = Distance(posPlayer2D, posEnemy2D);
+		}
+		else if (App->scene->enemyHovered.object->transform &&
+				(App->scene->enemyHovered.object->transform->position.x ||
+				App->scene->enemyHovered.object->transform->position.y || 
+				App->scene->enemyHovered.object->transform->position.z))
+		{
+			math::float2 posPlayer2D = math::float2(gameobject->transform->position.x,
+				gameobject->transform->position.z);
+			math::float2 posEnemy2D = math::float2(App->scene->enemyHovered.object->transform->position.x,
+				App->scene->enemyHovered.object->transform->position.z);
+			Dist = Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position);
+		}
 	}
 	//and finally if enemy is on attack range
 
@@ -1363,11 +1422,11 @@ bool PlayerMovement::IsAttacking() const
 	float distanceCheckValue = 0.f;
 	if (currentSkill == chain)
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.5;
+		distanceCheckValue = maxRange;
 	}
 	else
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1; 
+		distanceCheckValue = minRange;
 	}
 
 	if (App->scene->enemyHovered.object != nullptr &&
@@ -1385,22 +1444,63 @@ bool PlayerMovement::IsMovingToAttack() const
 	//we are gonna make it so that the condition changes slightly depending on
 	//whether the player is moving to attack or not.
 	float distanceCheckValue = 0.f;
-	if (currentState->playerWalkingToHit)
+	if (!App->scene->enemyHovered.object || !App->scene->enemyHovered.object->transform || 
+		(	!App->scene->enemyHovered.object->transform->position.x ||
+			!App->scene->enemyHovered.object->transform->position.y ||
+			!App->scene->enemyHovered.object->transform->position.z))
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.1;
+		return false;
+	}
+
+	math::float2 posPlayer2D = math::float2(gameobject->transform->position.x,
+											gameobject->transform->position.z);
+
+	math::float2 posEnemy2D = math::float2(	App->scene->enemyHovered.object->transform->position.x,
+											App->scene->enemyHovered.object->transform->position.z);
+
+
+	if (ThirdStageBoss &&
+		App->scene->enemyHovered.object &&
+		App->scene->enemyHovered.object->parent->transform)
+	{
+		//if on third stage, gotta change this value
+		posEnemy2D = math::float2(App->scene->enemyHovered.object->parent->transform->position.x,
+			App->scene->enemyHovered.object->parent->transform->position.z);
+		if (currentState->playerWalkingToHit)
+		{
+			distanceCheckValue = basicAttackRange + walkToHit->targetBoxWidth*0.20;
+		}
+		else
+		{
+			distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.3;
+		}
 	}
 	else
 	{
-		distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.5;
+		if (currentState->playerWalkingToHit)
+		{
+			distanceCheckValue = basicAttackRange + walkToHit->targetBoxWidth*0.2;
+		}
+		else
+		{
+			distanceCheckValue = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth*0.6;
+		}
 	}
+
+	//gotta check if we are on boss third stage.
 	if (App->scene->enemyHovered.object != nullptr && App->scene->enemyHovered.health > 0 &&
-		!App->input->IsKeyPressed(SDL_SCANCODE_LSHIFT) == KEY_DOWN &&
-		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
-			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) &&
-		Distance(gameobject->transform->position, App->scene->enemyHovered.object->transform->position) >= 
-		distanceCheckValue)
+		!App->input->IsKeyPressed(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
 	{
-		return true;
+		if ((App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) ||
+			App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)))
+		{
+			if (Distance(posPlayer2D, posEnemy2D) >=
+				distanceCheckValue)
+			{
+				return true;
+			}
+		}
+
 	}
 	return false;
 }
@@ -1413,7 +1513,7 @@ bool PlayerMovement::IsMoving() const
 //this functionchecks the mouse position, which includes 2 things:
 //1- the distance between the mouse and the player (if both point to the same position, FALSe)
 //2- if the cursor points to a navigable zone
-bool PlayerMovement::CorrectMousePosition() const 
+bool PlayerMovement::CorrectMousePosition() const
 {
 	math::float3 destinationPoint;
 	App->navigation->FindIntersectionPoint(gameobject->transform->position, destinationPoint);
@@ -1448,11 +1548,11 @@ bool PlayerMovement::PathFindingCall() const
 bool PlayerMovement::IsPressingMouse1() const
 {
 	math::float3 temp;
-	return (
-		(App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) ||
+	bool res = ((App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->ui->UIHovered(true, false)) ||
 		(currentState != nullptr && currentState->playerWalking && !currentState->playerWalkingToHit) ||
 		(App->input->GetMouseButtonDown(1) == KEY_REPEAT && !App->ui->UIHovered(true, false) && !App->scene->Intersects("PlayerMesh", false, temp) &&
 		(PathFindingCall())));
+	return res;
 
 }
 
@@ -1526,7 +1626,7 @@ PlayerSkill* PlayerMovement::GetSkillInUse() const
 		if (it->second->skill == currentSkill)
 			return it->second;
 	}
-	
+
 	return nullptr;
 }
 
@@ -1580,7 +1680,7 @@ void PlayerMovement::UseSkill(SkillType skill)
 		{
 			it->second->SetCooldown(hubGeneralAbilityCooldown);
 		}*/
-	}	
+	}
 	for (unsigned i = 0u; i < SKILLS_SLOTS; ++i)
 	{
 		hubCooldownTimer[i] = allSkills[assignedSkills[i]]->cooldown;
@@ -1611,7 +1711,7 @@ void PlayerMovement::ResetCooldown(unsigned int hubButtonID)
 	}
 }
 
-void PlayerMovement::CheckStates(PlayerState * previous, PlayerState * current)
+void PlayerMovement::CheckStates(PlayerState* previous, PlayerState* current)
 {
 	if (previous != current)
 	{
@@ -1626,6 +1726,12 @@ void PlayerMovement::CheckStates(PlayerState * previous, PlayerState * current)
 		}
 
 		current->duration = anim->GetDurationFromClip();
+
+		// Set walk particles active when new state has walking
+		if (current == walk || current == walkToPickItem || current == walkToHit)
+			walk->dustParticles->SetActive(true);
+		else
+			walk->dustParticles->SetActive(false);
 	}
 }
 
@@ -1635,58 +1741,51 @@ void PlayerMovement::ManaManagement()
 	{
 		manaRegenTimer -= App->time->gameDeltaTime;
 	}
-	else if (mana < stats.mana && outCombatTimer <= 0)
+	else if (mana < GetTotalPlayerStats().mana && outCombatTimer <= 0)
 	{
-		mana += stats.manaRegen * App->time->gameDeltaTime;
-		if (mana > stats.mana) mana = stats.mana;
+		mana += GetTotalPlayerStats().manaRegen * App->time->gameDeltaTime;
+		if (mana > GetTotalPlayerStats().mana) mana = GetTotalPlayerStats().mana;
 	}
 
-	int manaPercentage = (mana / stats.mana) * 100;
+	int manaPercentage = (mana / GetTotalPlayerStats().mana) * 100;
 	manaUIComponent->SetMaskAmount(manaPercentage);
 }
 
-void PlayerStats::Serialize(JSON_value * json) const
+void PlayerStats::Serialize(JSON_value* json) const
 {
-	JSON_value* statsValue = json->CreateValue();
+	if (!json) return;
 
-	statsValue->AddFloat("health", health);
-	statsValue->AddFloat("mana", mana);
-	statsValue->AddInt("strength", strength);
-	statsValue->AddInt("dexterity", dexterity);
-	statsValue->AddFloat("hp_regen", hpRegen);
-	statsValue->AddFloat("mana_regen", manaRegen);
-
-	json->AddValue("stats", *statsValue);
+	json->AddFloat("health", health);
+	json->AddFloat("mana", mana);
+	json->AddInt("strength", strength);
+	json->AddInt("dexterity", dexterity);
+	json->AddFloat("hp_regen", hpRegen);
+	json->AddFloat("mana_regen", manaRegen);
 }
 
-void PlayerStats::DeSerialize(JSON_value * json)
+void PlayerStats::DeSerialize(JSON_value* json)
 {
+	if (!json) return;
 
-	JSON_value* statsValue = json->GetValue("stats");
-	if (!statsValue) return;
-
-	health = statsValue->GetFloat("health", 100.0F);
-	mana = statsValue->GetFloat("mana", 100.0F);
-	strength = statsValue->GetInt("strength", 10);
-	dexterity = statsValue->GetInt("dexterity", 10);
-	hpRegen = statsValue->GetFloat("hp_regen", 5.0F);
-	manaRegen = statsValue->GetFloat("mana_regen", 5.0F);
+	health = json->GetFloat("health", 100.0F);
+	mana = json->GetFloat("mana", 100.0F);
+	strength = json->GetInt("strength", 10);
+	dexterity = json->GetInt("dexterity", 10);
+	hpRegen = json->GetFloat("hp_regen", 5.0F);
+	manaRegen = json->GetFloat("mana_regen", 5.0F);
 }
 
 void PlayerStats::Expose(const char* sectionTitle)
 {
+	ImGui::PushID(sectionTitle);
 	ImGui::Text(sectionTitle);
 	ImGui::InputFloat("Health", &health);
 	ImGui::InputFloat("Mana", &mana);
-
-	int uiStrength = (int)strength;
-	if (ImGui::InputInt("Strength", &uiStrength)) strength = uiStrength < 0 ? 0 : uiStrength;
-
-	int uiDexterity = (int)dexterity;
-	if (ImGui::InputInt("Dexterity", &uiDexterity)) dexterity = uiDexterity < 0 ? 0 : uiDexterity;
-
+	ImGui::InputInt("Strength", &strength);
+	ImGui::InputInt("Dexterity", &dexterity);
 	ImGui::DragFloat("HP regen", &hpRegen, 1.0F, 0.0F, 10.0F);
 	ImGui::DragFloat("Mana regen", &manaRegen, 1.0F, 0.0F, 10.0F);
+	ImGui::PopID();
 }
 
 void PlayerMovement::ActivateHudCooldownMask(bool activate, unsigned first, unsigned last)
@@ -1729,11 +1828,53 @@ void PlayerMovement::UpdateUIStats()
 {
 	if (uiHealthText != nullptr && uiDexterityText != nullptr && uiStrengthText != nullptr && uiManaText != nullptr)
 	{
-		uiHealthText->text = std::to_string((int)stats.health);
-		uiDexterityText->text = std::to_string(stats.dexterity);
-		uiStrengthText->text = std::to_string(stats.strength);
-		uiManaText->text = std::to_string((int)stats.mana);
+		PlayerStats playerStats = GetTotalPlayerStats();
+		uiHealthText->text = std::to_string((int)playerStats.health);
+		uiDexterityText->text = std::to_string(playerStats.dexterity);
+		uiStrengthText->text = std::to_string(playerStats.strength);
+		uiManaText->text = std::to_string((int)playerStats.mana);
 	}
+}
+
+PlayerStats PlayerMovement::GetEquipedItemsStats() const
+{
+	PlayerStats totalStats;
+	for (int i = 0; i < inventoryScript->items.size(); ++i)
+	{
+		if (inventoryScript->items[i].first->isEquipped)
+		{
+			totalStats += inventoryScript->items[i].first->stats;
+		}
+	}
+	return totalStats;
+}
+
+PlayerStats PlayerMovement::GetTotalPlayerStats() const
+{
+	PlayerStats totalStats;
+	totalStats.health = baseStats.health + equipedStats.health;
+	totalStats.mana = baseStats.mana + equipedStats.mana;
+	totalStats.strength = baseStats.strength + equipedStats.strength;
+	totalStats.dexterity = baseStats.dexterity + equipedStats.dexterity;
+	totalStats.manaRegen = baseStats.manaRegen + equipedStats.manaRegen;
+	totalStats.hpRegen = baseStats.hpRegen + equipedStats.hpRegen;
+	return totalStats;
+}
+
+PlayerStats PlayerMovement::RecalculateStats()
+{
+	this->equipedStats = GetEquipedItemsStats();
+	PlayerStats totalStats = GetTotalPlayerStats();
+
+	// Avoid setting stats lower than 0
+	if (totalStats.health < 0) this->equipedStats.health = -this->baseStats.health;
+	if (totalStats.mana < 0) this->equipedStats.mana = -this->baseStats.mana;
+	if (totalStats.hpRegen < 0) this->equipedStats.hpRegen = -this->baseStats.hpRegen;
+	if (totalStats.manaRegen < 0) this->equipedStats.manaRegen = -this->baseStats.manaRegen;
+	if (totalStats.strength < 0) this->equipedStats.strength = -this->baseStats.strength;
+	if (totalStats.dexterity < 0)  this->equipedStats.dexterity = -this->baseStats.dexterity;
+
+	return totalStats;
 }
 
 void PlayerMovement::InitializeUIStatsObjects()
@@ -1794,13 +1935,13 @@ void PlayerMovement::ToggleMaxStats()
 {
 	if (hasMaxStats)
 	{
-		stats = previousStats;
+		baseStats = previousStats;
 	}
 	else
 	{
 		PlayerStats godStats = { 400.f, 999.f, 999.f, 999.f, 999.9f, 999.9f };
-		previousStats = stats;
-		stats = godStats;
+		previousStats = baseStats;
+		baseStats = godStats;
 	}
 	UpdateUIStats();
 	hasMaxStats = !hasMaxStats;
@@ -1836,17 +1977,17 @@ void PlayerMovement::ToggleInfiniteMana()
 
 void PlayerMovement::SavePlayerStats()
 {
-	PlayerPrefs::SetFloat("dexterity", stats.dexterity);
-	PlayerPrefs::SetFloat("health", stats.health);
-	PlayerPrefs::SetFloat("hpRegen", stats.hpRegen);
-	PlayerPrefs::SetFloat("mana", stats.mana);
-	PlayerPrefs::SetFloat("manaRegen", stats.manaRegen);
-	PlayerPrefs::SetFloat("strength", stats.strength);
+	PlayerPrefs::SetFloat("dexterity", baseStats.dexterity);
+	PlayerPrefs::SetFloat("health", baseStats.health);
+	PlayerPrefs::SetFloat("hpRegen", baseStats.hpRegen);
+	PlayerPrefs::SetFloat("mana", baseStats.mana);
+	PlayerPrefs::SetFloat("manaRegen", baseStats.manaRegen);
+	PlayerPrefs::SetFloat("strength", baseStats.strength);
 	PlayerPrefs::SetInt("RC", (int)assignedSkills[HUD_BUTTON_RC]);
 	PlayerPrefs::SetInt("1", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("3", (int)assignedSkills[HUD_BUTTON_1]);
-	PlayerPrefs::SetInt("4", (int)assignedSkills[HUD_BUTTON_1]);
+	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_2]);
+	PlayerPrefs::SetInt("3", (int)assignedSkills[HUD_BUTTON_3]);
+	PlayerPrefs::SetInt("4", (int)assignedSkills[HUD_BUTTON_4]);
 	PlayerPrefs::SetInt("Q", (int)assignedSkills[HUD_BUTTON_Q]);
 	PlayerPrefs::SetInt("W", (int)assignedSkills[HUD_BUTTON_W]);
 	PlayerPrefs::SetInt("E", (int)assignedSkills[HUD_BUTTON_E]);

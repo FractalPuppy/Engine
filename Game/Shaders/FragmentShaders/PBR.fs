@@ -230,7 +230,7 @@ void main()
 #ifdef SHADOWS_ENABLED
 		if (!isLit)
 		{
-			color = color * .05f;	
+			color = color * .01f;	
 		}
 #endif		
 	}

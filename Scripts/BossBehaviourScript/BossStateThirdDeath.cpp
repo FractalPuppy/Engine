@@ -36,6 +36,10 @@ void BossStateThirdDeath::Enter()
 	boss->enemyController->anim->SendTriggerToStateMachine(trigger.c_str());
 	boss->enemyController->bossFightStarted = false;
 	boss->ResetVariables();
+
+	//tell controller that third phase boss is gone
+	boss->enemyController->ThirdStageBoss = false;
+	boss->EndThirdPhase();
 }
 
 void BossStateThirdDeath::Exit()

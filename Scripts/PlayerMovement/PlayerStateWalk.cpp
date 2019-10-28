@@ -100,13 +100,9 @@ void PlayerStateWalk::Update()
 			lerpCalculations(direction, -player->gameobject->transform->front, path[pathIndex]);
 			
 			math::float3 finalWalkingSpeed = player->walkingSpeed * direction * player->App->time->gameDeltaTime;
-			finalWalkingSpeed *= (1 + (player->stats.dexterity * 0.005f));
+			finalWalkingSpeed *= (1 + (player->GetTotalPlayerStats().dexterity * 0.005f));
 			player->gameobject->transform->SetPosition(currentPosition + finalWalkingSpeed);
 			playerWalking = true;
-			if (dustParticles)
-			{
-				dustParticles->SetActive(true);
-			}
 		}
 		else
 		{
@@ -125,8 +121,7 @@ void PlayerStateWalk::Enter()
 	playerWalking = true;
 	if (dustParticles)
 	{
-		dustParticles->SetActive(true);
-		player->anim->controller->current->speed *= (1 + (player->stats.dexterity * 0.005f));
+		player->anim->controller->current->speed *= (1 + (player->GetTotalPlayerStats().dexterity * 0.005f));
 	}
 }
 
@@ -164,23 +159,23 @@ void PlayerStateWalk::CheckInput()
 	if (!playerWalking)
 	{
 		player->currentState = player->idle;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
+
 		return;
 	}
 	if (player->IsUsingSkill() || player->IsAttacking())
 	{
 		player->currentState = (PlayerState*)player->attack;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
 	}
 	else if (player->IsMovingToAttack())
 	{
-		player->currentState = (PlayerState*)player->walkToHit;
+		if (player->ThirdStageBoss)
+		{
+			player->currentState = (PlayerState*)player->walkToHit3rdBoss;
+		}
+		else
+		{
+			player->currentState = (PlayerState*)player->walkToHit;
+		}
 	}
 	else if (player->IsMovingToItem())
 	{
@@ -193,9 +188,6 @@ void PlayerStateWalk::CheckInput()
 	else
 	{
 		player->currentState = (PlayerState*)player->idle;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
+
 	}
 }

@@ -38,8 +38,6 @@ void LoopStateMenu::Update()
 	
 	if (introVideo != nullptr && introVideo->videoPlaying)
 	{
-		videoTimer += gLoop->App->time->gameDeltaTime;
-
 		if (gLoop->App->input->AnyKeyPressed())
 		{
 			if (gLoop->introSkipTextGO->isActive())
@@ -51,12 +49,12 @@ void LoopStateMenu::Update()
 				gLoop->introSkipTextGO->SetActive(true);
 			}
 		}
-
-		if (videoTimer >= videoDuration)
-		{
-			StartGame();
-		}
 	}
+	else if (introVideo != nullptr && introVideo->videoFinished)
+	{
+		StartGame();
+	}
+
 
 	if (((Button*)(gLoop->menuButtons[0]))->IsPressed()) //PlayButton
 	{
@@ -65,7 +63,7 @@ void LoopStateMenu::Update()
 			gLoop->introvideoPlaying = true;
 			gLoop->introVideoGO->SetActive(true);
 			introVideo = gLoop->introVideoGO->GetComponent<ComponentImage>();
-			videoDuration = introVideo->PlayVideo();
+			introVideo->PlayVideo();
 			gLoop->menu->SetActive(false);
 		}
 		else if(gLoop->introVideoGO == nullptr)
@@ -98,6 +96,7 @@ void LoopStateMenu::Update()
 
 void LoopStateMenu::StartGame()
 {
+	gLoop->introvideoPlaying = false;
 	gLoop->currentLoopState = (LoopState*)gLoop->loadingState;
 	gLoop->menu->SetActive(false);
 	gLoop->loadingGO->SetActive(true);

@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "ComponentImage.h"
 #include "ComponentText.h"
+#include "ComponentTransform2D.h"
+#include "Math/float2.h"
 
 EnemyLifeBarController_API Script* CreateScript()
 {
@@ -16,14 +18,10 @@ EnemyLifeBarController_API Script* CreateScript()
 void EnemyLifeBarController::Start()
 {
 	enemyLife = App->scene->FindGameObjectByName("EnemyLife");
-	lifeBackground = App->scene->FindGameObjectByName("LifeBackground", enemyLife);
-	hPbar = App->scene->FindGameObjectByName("HPbar", enemyLife);
-	enemyTypeName = App->scene->FindGameObjectByName("EnemyTypeName", enemyLife);
-	boneRight = App->scene->FindGameObjectByName("BoneRight", enemyLife);
-	boneLeft = App->scene->FindGameObjectByName("BoneLeft", enemyLife);
-	skull = App->scene->FindGameObjectByName("Skull", enemyLife);
-
-	lifeImage = hPbar->GetComponent<ComponentImage>();
+	lifeImage = App->scene->FindGameObjectByName("HPbar", enemyLife)->GetComponent<ComponentImage>();
+	enemyTypeName = App->scene->FindGameObjectByName("EnemyTypeName", enemyLife)->GetComponent<Text>();
+	enemyTypeNamePosition = App->scene->FindGameObjectByName("EnemyTypeName", enemyLife)->GetComponent<Transform2D>();
+	skull = App->scene->FindGameObjectByName("Skull", enemyLife)->GetComponent<ComponentImage>();
 }
 
 void EnemyLifeBarController::Update()
@@ -42,27 +40,29 @@ void EnemyLifeBarController::Update()
 void EnemyLifeBarController::SetLifeBar(int maxHP, int actualHP, EnemyLifeBarType type, std::string name)
 {
 	draw = true;
-	lifeBackground->SetActive(true);
-	hPbar->SetActive(true);
-	enemyTypeName->SetActive(true);
-	enemyTypeName->GetComponent<Text>()->text = name;
+	enemyTypeName->text = name;
+
+	float xPos = name.length() / 2 * -20.0;
+	math::float2 newPos = math::float2(xPos, enemyTypeNamePosition->getPosition().y);
+	enemyTypeNamePosition->SetPositionUsingAligment(newPos);
+	
 
 	switch (type)
 	{
 	case EnemyLifeBarType::NORMAL:
-		skull->SetActive(false);
-		boneRight->SetActive(false);
-		boneLeft->SetActive(false);
+		skull->UpdateTexture("Basic_cemetery_enemy");
 		break;
-	case EnemyLifeBarType::HARD:
-		skull->SetActive(true);
-		boneRight->SetActive(false);
-		boneLeft->SetActive(false);
+	case EnemyLifeBarType::NORMAL_TEMPLE:
+		skull->UpdateTexture("Basic_Temple_enemy");
+		break;
+	case EnemyLifeBarType::ELITE_GRAVEYARD:
+		skull->UpdateTexture("Elite_cemetery_enemy");
+		break;
+	case EnemyLifeBarType::ELITE_TEMPLE:
+		skull->UpdateTexture("Elite_Temple_Enemy");
 		break;
 	case EnemyLifeBarType::BOSS:
-		skull->SetActive(true);
-		boneRight->SetActive(true);
-		boneLeft->SetActive(true);
+		skull->UpdateTexture("Boos_temple_enemy");
 		break;
 	default:
 		break;

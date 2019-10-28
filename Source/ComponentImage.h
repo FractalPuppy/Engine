@@ -68,7 +68,7 @@ private:
 	cv::VideoCapture cap;
 	float frameTime;
 	float fps = 24.0f;
-	float frameTimer;
+	float frameTimer = 0.0f;
 };
 
 #endif // __ComponentImage_h__

@@ -589,7 +589,7 @@
                     "Znear": 10.0,
                     "Zfar": 100000.0,
                     "vFOV": 1.0471975803375245,
-                    "hFOV": 1.4374819993972779,
+                    "hFOV": 1.5092087984085084,
                     "Position": [
                         0.0,
                         0.0,
@@ -5135,11 +5135,11 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2983922135,
-            "prefabTimeStamp": 1570723770,
+            "prefabTimeStamp": 1571678480,
             "Components": []
         },
         {
-            "UID": 1308133346,
+            "UID": 4179135438,
             "ParentUID": 550356827,
             "Name": "Background",
             "Tag": "Default",
@@ -5212,7 +5212,7 @@
             ]
         },
         {
-            "UID": 93883108,
+            "UID": 2458090926,
             "ParentUID": 550356827,
             "Name": "Back",
             "Tag": "Default",
@@ -5397,7 +5397,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -5662,7 +5662,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -5706,8 +5706,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        99.19999694824219,
-                        91.69999694824219
+                        120.0,
+                        72.0
                     ],
                     "Size": [
                         29.0,
@@ -5863,8 +5863,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        239.1999969482422,
-                        91.9000015258789
+                        254.0,
+                        72.0
                     ],
                     "Size": [
                         29.0,
@@ -6020,8 +6020,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        155.5,
-                        81.30000305175781
+                        180.10000610351563,
+                        58.20000076293945
                     ],
                     "Size": [
                         94.0,
@@ -6034,7 +6034,7 @@
                     "Type": 6,
                     "Enabled": 1,
                     "FontSize": 17.0,
-                    "text": "10",
+                    "text": "9",
                     "font": "Fonts/Vision-BoldItalic.ttf",
                     "color": [
                         0.8237705230712891,
@@ -6092,7 +6092,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -6136,8 +6136,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        98.80000305175781,
-                        20.0
+                        120.0,
+                        -12.5
                     ],
                     "Size": [
                         29.0,
@@ -6293,8 +6293,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        239.39999389648438,
-                        18.399999618530275
+                        252.0,
+                        -12.5
                     ],
                     "Size": [
                         29.0,
@@ -6450,8 +6450,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        159.0,
-                        5.900000095367432
+                        176.39999389648438,
+                        -23.100000381469728
                     ],
                     "Size": [
                         94.0,
@@ -6522,7 +6522,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -6566,8 +6566,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        169.1999969482422,
-                        -56.29999923706055
+                        186.60000610351563,
+                        -102.5999984741211
                     ],
                     "Size": [
                         82.5,
@@ -6723,8 +6723,8 @@
                     "Type": 5,
                     "Enabled": 1,
                     "Position": [
-                        170.1999969482422,
-                        -56.0
+                        190.3000030517578,
+                        -104.0999984741211
                     ],
                     "Size": [
                         51.0,
@@ -6755,436 +6755,6 @@
                     "videoPath": "flame.avi",
                     "fps": 24.0,
                     "loop": 0
-                }
-            ]
-        },
-        {
-            "UID": 2102438611,
-            "ParentUID": 3436491255,
-            "Name": "ResolutionRow",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 0,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": []
-        },
-        {
-            "UID": 4148262861,
-            "ParentUID": 2102438611,
-            "Name": "LeftArrow",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        58.900001525878909,
-                        -129.10000610351563
-                    ],
-                    "Size": [
-                        29.0,
-                        55.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 8,
-                    "Enabled": 1,
-                    "text": {
-                        "Type": 6,
-                        "Enabled": 1,
-                        "FontSize": 14.0,
-                        "text": "",
-                        "font": "Fonts/DroidSans.ttf",
-                        "color": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            0.0
-                        ],
-                        "colorHovered": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            0.0
-                        ],
-                        "offset": [
-                            0.0,
-                            0.0
-                        ],
-                        "scaleOffset": [
-                            1.0,
-                            1.0
-                        ],
-                        "IsTextWrapped": 0,
-                        "WrapWidth": 0.0,
-                        "InterlineDistance": 0.0,
-                        "UIOrder": 0
-                    },
-                    "buttonImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2870565265,
-                        "textureName": "Options_Arrow",
-                        "color": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            1.0
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 1,
-                        "isMasked": 0,
-                        "maskAmount": 0,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0,
-                        "loop": 0
-                    },
-                    "highlightedImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2870565265,
-                        "textureName": "Options_Arrow",
-                        "color": [
-                            0.7215686440467835,
-                            0.6274510025978088,
-                            0.6274510025978088,
-                            1.0
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 1,
-                        "isMasked": 0,
-                        "maskAmount": 0,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0,
-                        "loop": 0
-                    },
-                    "pressedImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2870565265,
-                        "textureName": "Options_Arrow",
-                        "color": [
-                            0.7215686440467835,
-                            0.6274510025978088,
-                            0.6274510025978088,
-                            1.0
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 1,
-                        "isMasked": 0,
-                        "maskAmount": 0,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0,
-                        "loop": 0
-                    },
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 1
-                }
-            ]
-        },
-        {
-            "UID": 3440264987,
-            "ParentUID": 2102438611,
-            "Name": "RightArrow",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        275.1000061035156,
-                        -129.39999389648438
-                    ],
-                    "Size": [
-                        29.0,
-                        55.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 8,
-                    "Enabled": 1,
-                    "text": {
-                        "Type": 6,
-                        "Enabled": 1,
-                        "FontSize": 14.0,
-                        "text": "",
-                        "font": "Fonts/DroidSans.ttf",
-                        "color": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            0.0
-                        ],
-                        "colorHovered": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            0.0
-                        ],
-                        "offset": [
-                            0.0,
-                            0.0
-                        ],
-                        "scaleOffset": [
-                            1.0,
-                            1.0
-                        ],
-                        "IsTextWrapped": 0,
-                        "WrapWidth": 0.0,
-                        "InterlineDistance": 0.0,
-                        "UIOrder": 0
-                    },
-                    "buttonImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2870565265,
-                        "textureName": "Options_Arrow",
-                        "color": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            1.0
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 0,
-                        "isMasked": 0,
-                        "maskAmount": 0,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0,
-                        "loop": 0
-                    },
-                    "highlightedImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2870565265,
-                        "textureName": "Options_Arrow",
-                        "color": [
-                            0.7215686440467835,
-                            0.6274510025978088,
-                            0.6274510025978088,
-                            1.0
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 0,
-                        "isMasked": 0,
-                        "maskAmount": 0,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0,
-                        "loop": 0
-                    },
-                    "pressedImage": {
-                        "Type": 7,
-                        "Enabled": 1,
-                        "textureUID": 2870565265,
-                        "textureName": "Options_Arrow",
-                        "color": [
-                            0.7215686440467835,
-                            0.6274510025978088,
-                            0.6274510025978088,
-                            1.0
-                        ],
-                        "FlipVertical": 0,
-                        "FlipHorizontal": 0,
-                        "isMasked": 0,
-                        "maskAmount": 0,
-                        "isMaskHorizontal": 0,
-                        "hoverDetectionMouse1": 1,
-                        "hoverDetectionMouse3": 1,
-                        "UIOrder": 0,
-                        "videoPath": "flame.avi",
-                        "fps": 24.0,
-                        "loop": 0
-                    },
-                    "hoverDetectionMouse1": 1,
-                    "hoverDetectionMouse3": 1,
-                    "UIOrder": 1
-                }
-            ]
-        },
-        {
-            "UID": 2328593704,
-            "ParentUID": 2102438611,
-            "Name": "ResolutionNumberText",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 5,
-                    "Enabled": 1,
-                    "Position": [
-                        101.5,
-                        -139.60000610351563
-                    ],
-                    "Size": [
-                        94.0,
-                        72.0
-                    ],
-                    "Anchor": 4,
-                    "Stretch": 3
-                },
-                {
-                    "Type": 6,
-                    "Enabled": 1,
-                    "FontSize": 17.0,
-                    "text": "1920x1080",
-                    "font": "Fonts/Vision-BoldItalic.ttf",
-                    "color": [
-                        0.8235294222831726,
-                        0.7764706015586853,
-                        0.09019608050584793,
-                        0.0
-                    ],
-                    "colorHovered": [
-                        1.0,
-                        1.0,
-                        1.0,
-                        0.0
-                    ],
-                    "offset": [
-                        0.0,
-                        0.0
-                    ],
-                    "scaleOffset": [
-                        4.0,
-                        6.0
-                    ],
-                    "IsTextWrapped": 0,
-                    "WrapWidth": 0.0,
-                    "InterlineDistance": 0.0,
-                    "UIOrder": 1
                 }
             ]
         },
@@ -7533,7 +7103,7 @@
                 {
                     "Type": 14,
                     "Enabled": 1,
-                    "audioUID": 2168133814,
+                    "audioUID": 75557467,
                     "Volume": 2.0,
                     "PlayOnAwake": 1,
                     "Sound3D": 0,
@@ -7887,7 +7457,7 @@
                 {
                     "Type": 14,
                     "Enabled": 1,
-                    "audioUID": 2864101800,
+                    "audioUID": 359020076,
                     "Volume": 2.0,
                     "PlayOnAwake": 1,
                     "Sound3D": 0,

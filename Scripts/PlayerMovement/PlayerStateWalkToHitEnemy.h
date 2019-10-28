@@ -19,6 +19,7 @@ public:
 	unsigned pathIndex = 0u;
 	GameObject* dustParticles = nullptr;
 	GameObject* walkingEnemyTargeted = nullptr;
+	float targetBoxWidth = 0.0f;
 
 private:
 	float moveTimer = 0.0f;
