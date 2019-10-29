@@ -25,6 +25,9 @@
     <Filter Include="Skills\Range">
       <UniqueIdentifier>{8f26a0f2-9d35-4792-9883-f9cc63b909e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skills\Passive">
+      <UniqueIdentifier>{46a598ca-a0fe-45c9-938e-98fde4fe9eef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMovement.h">
@@ -81,6 +84,15 @@
     <ClInclude Include="PlayerStateWalkToPickItem.h">
       <Filter>States</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerStateAutoWalk.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="MacheteDanceSkill.h">
+      <Filter>Skills\Passive</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateWalkToHit3rdStageBoss.h">
+      <Filter>States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerMovement.cpp">
@@ -135,6 +147,15 @@
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="PlayerStateWalkToPickItem.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateAutoWalk.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="MacheteDanceSkill.cpp">
+      <Filter>Skills\Passive</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateWalkToHit3rdStageBoss.cpp">
       <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>

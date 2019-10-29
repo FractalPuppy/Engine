@@ -2,6 +2,7 @@
 #define __Resource_h__
 
 #include <string>
+#include "Globals.h"
 
 class JSON_value;
 

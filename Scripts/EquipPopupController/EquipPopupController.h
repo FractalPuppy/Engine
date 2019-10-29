@@ -38,12 +38,12 @@ class EquipPopupController_API EquipPopupController : public Script
 public:
 	void SavePopUp();
 
-
 private:
 
 	void Assign(int i);
 	void MoveNumber(int pos);
 	void RemoveEquiped();
+	void RemoveEquipedConsumable(int assignedButton);
 	void ChangePopUpSlots();
 	void FillLists();
 	void FillSkillSlots();
@@ -72,6 +72,8 @@ private:
 	std::vector<std::pair<Transform2D*, bool>> hudButtonsText;
 	std::vector<Text*> hudConsumibleItemsQuantity;
 	int activeButton = -1;
+
+	float butonY;
 
 	std::vector<Item> itemsList;
 	std::vector<Skill> skillsList;

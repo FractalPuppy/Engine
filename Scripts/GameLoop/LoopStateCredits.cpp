@@ -2,8 +2,14 @@
 
 #include "GameLoop.h"
 
+#include "Application.h"
+#include "ModuleTime.h"
+#include "ModuleScene.h"
+
 #include "GameObject.h"
 #include "ComponentButton.h"
+#include "ComponentImage.h"
+#include "ComponentAudioSource.h"
 
 #include "CreditsScript.h"
 
@@ -18,30 +24,63 @@ LoopStateCredits::~LoopStateCredits()
 
 void LoopStateCredits::Enter()
 {
+	
+	backButtonGO = gLoop->App->scene->FindGameObjectByName("Back", gLoop->App->scene->canvas);
+	backButton = backButtonGO->GetComponent<Button>();
+	if (gLoop->creditsVideoGO != nullptr && gLoop->creditsVideo == nullptr)
+	{
+		gLoop->creditsVideo = gLoop->introVideoGO->GetComponent<ComponentImage>();
+	}
+	else if (gLoop->creditsVideoGO == nullptr)
+	{
+		gLoop->currentLoopState = (LoopState*)gLoop->menuState;
+		return;
+	}
+	if (gLoop->menuMusic != nullptr)
+	{
+		gLoop->menuMusic->GetComponent<ComponentAudioSource>()->Stop();
+	}
+	gLoop->creditsAudio->GetComponent<ComponentAudioSource>()->Play();
+	gLoop->creditsGO->SetActive(true);
+	gLoop->creditsVideoGO->SetActive(true);
+	gLoop->creditsVideo->PlayVideo();
 	gLoop->menu->SetActive(false);
+	started = true;
+	gLoop->creditsPlaying = true;
 }
 
 void LoopStateCredits::Update()
 {
-	gLoop->menu->SetActive(false);
-	if (!(gLoop->runningCredits))
+	if (!started)
 	{
-		gLoop->creditsGO->SetActive(true);
-		gLoop->creditsScript->Enable(true);
-		gLoop->creditsScript->Start();
-		gLoop->runningCredits = true;
+		Enter();
 	}
-	else if (gLoop->creditsScript->creditsDone)
+	if (gLoop->creditsVideo != nullptr && gLoop->creditsVideo->videoPlaying)
 	{
-		gLoop->creditsGO->SetActive(false);
-		gLoop->menu->SetActive(true);
-		gLoop->runningCredits = false;
-		gLoop->creditsScript->ResetScript();
-		gLoop->currentLoopState = (LoopState*)gLoop->menuState;
+		if (backButton->IsPressed())
+		{
+			SetMenu();
+		}
 	}
+	else if (gLoop->creditsVideo->videoFinished && started)
+	{
+		SetMenu();
+	}
+}
 
-	if (gLoop->backCreditsButton->IsPressed())
+void LoopStateCredits::SetMenu()
+{
+	gLoop->creditsPlaying = false;
+	gLoop->creditsAudio->GetComponent<ComponentAudioSource>()->Stop();
+	gLoop->creditsGO->SetActive(false);
+	gLoop->creditsVideoGO->SetActive(false);
+	gLoop->menu->SetActive(true);
+	if (gLoop->menuMusic != nullptr)
 	{
-		gLoop->creditsScript->creditsDone = true;
+		gLoop->menuMusic->GetComponent<ComponentAudioSource>()->Play();
 	}
+	gLoop->currentLoopState = (LoopState*)gLoop->menuState;
+	gLoop->creditsVideo->videoFinished = false;
+	gLoop->creditsVideo->videoPlaying = false;
+	started = false;
 }

@@ -40,5 +40,5 @@ void EnemyStateReturnToStart::Update()
 {
 	// Go back to start position
 	enemy->enemyController->Move(enemy->returnSpeed, refreshTime, enemy->startPosition, enemyPath);
-	enemy->gameobject->transform->LookAt(enemy->startPosition);
+	enemy->gameobject->transform->LookAtLocal(enemy->startPosition);
 }

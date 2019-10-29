@@ -1,0 +1,49 @@
+#include "BossStateThirdDeath.h"
+
+#include "BossBehaviourScript.h"
+
+#include "CameraController/CameraController.h"
+#include "EnemyControllerScript/EnemyControllerScript.h"
+#include "GameLoop/GameLoop.h"
+#include "ComponentAnimation.h"
+
+BossStateThirdDeath::BossStateThirdDeath(BossBehaviourScript* AIBoss)
+{
+	boss = AIBoss;
+	trigger = "ThirdDeath";
+}
+
+
+BossStateThirdDeath::~BossStateThirdDeath()
+{
+}
+
+void BossStateThirdDeath::HandleIA()
+{
+
+}
+
+void BossStateThirdDeath::Update()
+{
+	//superdead, allegedly
+	if (timer > 4.0f)
+	{
+		boss->gLoop->bossDeath = true;
+	}
+}
+
+void BossStateThirdDeath::Enter()
+{
+	boss->enemyController->anim->SendTriggerToStateMachine(trigger.c_str());
+	boss->cameraScript->Shake(4.0f, 85.0f, 1.0f, 0.01f, false);
+	boss->enemyController->bossFightStarted = false;
+	boss->ResetVariables();
+
+	//tell controller that third phase boss is gone
+	boss->enemyController->ThirdStageBoss = false;
+	boss->EndThirdPhase();
+}
+
+void BossStateThirdDeath::Exit()
+{
+}

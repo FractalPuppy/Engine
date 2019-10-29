@@ -1,7 +1,7 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1568802784,
+        "timeCreated": 1569050015,
         "GUID": 3266548133,
         "Name": "Cliff_planar",
         "File": "Assets/Materials/Cliff_planar.m4t",
@@ -13,14 +13,17 @@
             1.0
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            9.999999974752428e-7,
+            9.999899930335233e-7,
+            9.999899930335233e-7
         ],
         "emissiveColor": [
             1.0,
             1.0,
             1.0
-        ]
+        ],
+        "diffuseUID": 1781731476,
+        "normalUID": 11018920,
+        "shader": "PBR"
     }
 }

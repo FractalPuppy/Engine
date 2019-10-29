@@ -93,6 +93,8 @@ void EquipPopupController::Start()
 	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("E_Number", HUD)->GetComponent<Text>());
 	hudConsumibleItemsQuantity.emplace_back(App->scene->FindGameObjectByName("R_Number", HUD)->GetComponent<Text>());
 
+	butonY = hudButtonsText[1].first->getPosition().y;
+
 	std::list<GameObject*> listSkills = App->scene->FindGameObjectByName("PopUpSlotsSkills", popupGOSkills)->children;
 	std::list<GameObject*> listItems = App->scene->FindGameObjectByName("PopUpSlotsItems", popupGOItems)->children;
 
@@ -115,15 +117,33 @@ void EquipPopupController::Start()
 
 void EquipPopupController::Update()
 {
-	int positionClicked = inventory->ConsumeItemsController();
+	std::string itemUsed = inventory->ConsumeItemsController();
+	for (int i : inventory->equipedConsumablesToRemove) RemoveEquipedConsumable(i);
+	inventory->equipedConsumablesToRemove.clear();
 
-	if (positionClicked != -1)
+	if (itemUsed != "")
 	{
 		for (int i = 0; i < itemsEquiped.size(); ++i)
 		{
-			if (positionClicked == itemsEquiped[i].first)
+			for (int j = 0; j < HUD_BUTTONS; ++j)
 			{
-				hudConsumibleItemsQuantity[positionClicked]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));
+				if (itemUsed == itemsEquiped[i].second.name && j == itemsEquiped[i].first)
+				{
+					hudConsumibleItemsQuantity[j]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));
+					if (hudConsumibleItemsQuantity[j]->text == "0")
+					{
+						hudImageSlots[j]->UpdateTexture("None Selected");
+						hudConsumibleItemsQuantity[j]->text.clear();
+						math::float2 newPos = hudButtonsText[j].first->getPosition();
+						if (newPos.y < butonY) 
+						{
+							newPos.y = butonY;
+						}
+						hudButtonsText[j].first->SetPositionUsingAligment(newPos);
+						itemsEquiped.erase(itemsEquiped.begin() + i);
+						i--;
+					}
+				}		
 			}
 		}
 	}
@@ -390,10 +410,38 @@ void EquipPopupController::SavePopUp()
 		item->AddFloat("manaRegen", itemsEquiped[i].second.stats.manaRegen);
 		item->AddFloat("strength", itemsEquiped[i].second.stats.strength);
 		item->AddInt("position", itemsEquiped[i].first);
+		item->AddString("quantity", hudConsumibleItemsQuantity[itemsEquiped[i].first]->text.c_str());
 		itemsJSON->AddValue("", *item);
 	}
 	popup->AddValue("items", *itemsJSON);
 	PlayerPrefs::SaveJson(popup, "PopUp");
+}
+
+void EquipPopupController::RemoveEquipedConsumable(int assignedButton)
+{
+
+	player->AssignSkill(SkillType::NONE, assignedButton);
+
+	for (int j = 0; j < itemsEquiped.size(); ++j)
+	{
+		if (itemsEquiped[j].first == assignedButton)
+		{
+			itemsEquiped.erase(itemsEquiped.begin() + j);
+			inventory->UnAssignConsumableItem(assignedButton);
+		}
+	}
+
+	hudImageSlots[assignedButton]->gameobject->SetActive(false);
+
+	if (hudButtonsText[assignedButton].second)
+	{
+		math::float2 newPos = hudButtonsText[assignedButton].first->getPosition();
+		newPos.y += 15.7;
+		hudButtonsText[assignedButton].first->SetPositionUsingAligment(newPos);
+		hudButtonsText[assignedButton].second = false;
+		hudConsumibleItemsQuantity[assignedButton]->gameobject->SetActive(false);
+		hudConsumibleItemsQuantity[assignedButton]->text = std::to_string(1);
+	}
 }
 
 void EquipPopupController::LoadPopUp()
@@ -422,7 +470,11 @@ void EquipPopupController::LoadPopUp()
 			itemsEquiped.emplace_back(position, item);
 			hudImageSlots[position]->UpdateTexture(item.sprite);
 			hudImageSlots[position]->gameobject->SetActive(true);
+			hudConsumibleItemsQuantity[position]->gameobject->SetActive(true);
+			hudConsumibleItemsQuantity[position]->uiOrder = 11;
+			hudConsumibleItemsQuantity[position]->text = std::to_string(inventory->GetCurrentQuantity(item));  //itemJSON->GetFloat("quantity");
 			MoveNumber(position);
+			inventory->AssignConsumableItem(item, position);
 		}
 
 		JSON_value* skillsJSON = popup->GetValue("skills");

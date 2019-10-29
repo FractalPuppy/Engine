@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleScene.h"
 
 #include "BossStateActivated.h"
 #include "BossBehaviourScript.h"
@@ -8,14 +9,16 @@
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
+#include "ComponentRenderer.h"
+#include "ComponentBoxTrigger.h"
 
 #include "Math/float3.h"
 
 BossStateActivated::BossStateActivated(BossBehaviourScript* AIBoss)
 {
 	boss = AIBoss;
+	trigger = "Idle";
 }
-
 
 BossStateActivated::~BossStateActivated()
 {
@@ -28,6 +31,7 @@ void BossStateActivated::HandleIA()
 		boss->bossPhase = BossPhase::First;
 		boss->currentLocation = TPlocations::None;
 		boss->currentState = (BossState*)boss->idle;
+		boss->enemyController->hpBoxTrigger->Enable(true);
 	}
 }
 
@@ -46,9 +50,15 @@ void BossStateActivated::Update()
 		math::float3 newPosition = boss->enemyController->GetPosition() + directionToGround * speedDescend * boss->App->time->gameDeltaTime;
 		boss->enemyController->SetPosition(newPosition);
 	}
-
+	//while getting to the ground, she cannot be attacked
+	//but only if the target is the boss, not an skeleton and stuff
+	if (boss->App->scene->enemyHovered.object == boss->gameobject)
+	{
+		boss->App->scene->enemyHovered.object = nullptr;
+		boss->App->scene->enemyHovered.health = 0;
+		boss->App->scene->enemyHovered.triggerboxMinWidth = 0;
+	}
 }
-
 
 void BossStateActivated::Enter()
 {

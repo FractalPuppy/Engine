@@ -79,7 +79,7 @@ bool FileExplorer::Open()
 		ImGui::PopItemWidth();
 		ImGui::SameLine();
 		ImGui::PushItemWidth(ImGui::GetWindowContentRegionWidth() * 0.3f);
-		char* program_names[(int)FILETYPE::NONE+1] = { "Texture Files (*.png, *.tif, *.jpg)", "Imported Texture Files (*.dds)", "Model Files (*.fbx, *.FBX)", "Imported Mesh Files (*.m3sh)", "Scene Files (*.sc3ne)", "Material (*.m4t)", "All files" };
+		char* program_names[(int)FILETYPE::NONE+1] = { "Texture Files (*.png, *.tif, *.jpg)", "Imported Texture Files (*.dds)", "Model Files (*.fbx, *.FBX)", "Imported Mesh Files (*.m3sh)", "Scene Files (*.sc3ne)", "Animation Files (*.animati0n)", "Material (*.m4t)", "Skybox Files", "State Machine Files (*.st4tem4chine)", "Audio Files (*.waw, *.ogg, *.mp3)", "Prefab Files (*.pr3fab)", "All files" };
 		ImGui::Combo(" ", (int*)&extensionToFilter, program_names, (int)FILETYPE::NONE + 1);
 		ImGui::PopItemWidth();
 
@@ -235,6 +235,14 @@ void FileExplorer::FilterByFileType(const char* file)
 				sprintf_s(filename, App->fsystem->GetFilename(file).c_str());
 		}
 		break;
+	case FILETYPE::ANIMATION:
+		extension = App->fsystem->GetExtension(file);
+		if (extension == ANIMATIONEXTENSION)
+		{
+			if (ImGui::Selectable(file, false))
+				sprintf_s(filename, App->fsystem->GetFilename(file).c_str());
+		}
+		break;
 	case FILETYPE::MATERIAL:
 		extension = App->fsystem->GetExtension(file);
 		if (extension == MATERIALEXT)
@@ -243,9 +251,27 @@ void FileExplorer::FilterByFileType(const char* file)
 				sprintf_s(filename, App->fsystem->GetFilename(file).c_str());
 		}
 		break;
+	case FILETYPE::SKYBOX:
+		break;
+	case FILETYPE::STATEMACHINE:
+		extension = App->fsystem->GetExtension(file);
+		if (extension == STATEMACHINEEXTENSION)
+		{
+			if (ImGui::Selectable(file, false))
+				sprintf_s(filename, App->fsystem->GetFilename(file).c_str());
+		}
+		break;
 	case FILETYPE::AUDIO:
 		extension = App->fsystem->GetExtension(file);
 		if (extension == WAVEXTENSION || extension == OGGEXTENSION || extension == MP3EXTENSION)
+		{
+			if (ImGui::Selectable(file, false))
+				sprintf_s(filename, App->fsystem->GetFilename(file).c_str());
+		}
+		break;
+	case FILETYPE::PREFAB:
+		extension = App->fsystem->GetExtension(file);
+		if (extension == PREFABEXTENSION)
 		{
 			if (ImGui::Selectable(file, false))
 				sprintf_s(filename, App->fsystem->GetFilename(file).c_str());

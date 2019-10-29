@@ -90,7 +90,7 @@ void ComponentVolumetricLight::Save(JSON_value* value) const
 	Component::Save(value);
 
 	value->AddFloat("circle1Radius", circle1Radius);
-	value->AddFloat("circle1Radius", circle2Radius);
+	value->AddFloat("circle2Radius", circle2Radius);
 	value->AddFloat("length", length);
 	JSON_value* hValue = value->CreateValue(rapidjson::kObjectType);
 	renderer->Save(hValue);

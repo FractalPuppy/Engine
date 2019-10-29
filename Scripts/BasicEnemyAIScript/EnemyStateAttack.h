@@ -11,6 +11,7 @@ public:
 	BasicEnemyAIScript_API EnemyStateAttack(BasicEnemyAIScript* AIScript);
 	BasicEnemyAIScript_API ~EnemyStateAttack();
 
+	void Enter() override;
 	void HandleIA() override;
 	void Update() override;
 

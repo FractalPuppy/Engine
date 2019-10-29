@@ -20,8 +20,6 @@ private:
 
 private:
 	ComponentImage* introVideo = nullptr;
-	float videoTimer = 0.0f;
-	float videoDuration = 0.0f;
 };
 
 #endif // __LOOPSTATEMENU_H_

@@ -29,6 +29,11 @@ EnemyStateAttack::~EnemyStateAttack()
 {
 }
 
+void EnemyStateAttack::Enter()
+{
+	enemy->enemyController->Stop();
+}
+
 void EnemyStateAttack::HandleIA()
 {
 	//If player is in range nothing, else if player is in range chase, if enemy has attacked cooldown

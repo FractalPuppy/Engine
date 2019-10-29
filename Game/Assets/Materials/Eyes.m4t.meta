@@ -1,7 +1,7 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1568802608,
+        "timeCreated": 1569876896,
         "GUID": 1768356101,
         "Name": "Eyes",
         "File": "Assets/Materials/Eyes.m4t",
@@ -13,14 +13,16 @@
             1.0
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            9.999999974752428e-7,
+            9.999899930335233e-7,
+            9.999899930335233e-7
         ],
         "emissiveColor": [
             1.0,
-            1.0,
-            1.0
-        ]
+            0.0,
+            0.0
+        ],
+        "emissiveUID": 676697322,
+        "shader": "PBR"
     }
 }

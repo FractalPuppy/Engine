@@ -1,6 +1,5 @@
 #include "ResourceTexture.h"
 
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "ModuleTextures.h"
@@ -56,6 +55,8 @@ bool ResourceTexture::LoadInMemory()
 {
 	if (Resource::IsLoadedToMemory())
 		return false;
+
+	App->resManager->DeleteResourceFromUnusedList(UID);
 
 	bool success = false;
 

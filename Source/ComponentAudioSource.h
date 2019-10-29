@@ -20,7 +20,7 @@ class ComponentAudioSource :
 {
 public:
 	ComponentAudioSource(GameObject* gameobject);
-	ComponentAudioSource(const ComponentAudioSource& component);
+	ENGINE_API ComponentAudioSource(const ComponentAudioSource& component);
 	~ComponentAudioSource();
 
 	ENGINE_API void Play();

@@ -1,6 +1,7 @@
 #include "LoopStateMenu.h"
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleInput.h"
 #include "GameLoop.h"
 
 #include "GameObject.h"
@@ -37,12 +38,23 @@ void LoopStateMenu::Update()
 	
 	if (introVideo != nullptr && introVideo->videoPlaying)
 	{
-		videoTimer += gLoop->App->time->gameDeltaTime;
-		if (videoTimer >= videoDuration)
+		if (gLoop->App->input->AnyKeyPressed())
 		{
-			StartGame();
+			if (gLoop->introSkipTextGO->isActive())
+			{
+				StartGame();
+			}
+			else
+			{
+				gLoop->introSkipTextGO->SetActive(true);
+			}
 		}
 	}
+	else if (introVideo != nullptr && introVideo->videoFinished)
+	{
+		StartGame();
+	}
+
 
 	if (((Button*)(gLoop->menuButtons[0]))->IsPressed()) //PlayButton
 	{
@@ -51,7 +63,7 @@ void LoopStateMenu::Update()
 			gLoop->introvideoPlaying = true;
 			gLoop->introVideoGO->SetActive(true);
 			introVideo = gLoop->introVideoGO->GetComponent<ComponentImage>();
-			videoDuration = introVideo->PlayVideo();
+			introVideo->PlayVideo();
 			gLoop->menu->SetActive(false);
 		}
 		else if(gLoop->introVideoGO == nullptr)
@@ -73,6 +85,7 @@ void LoopStateMenu::Update()
 	}
 	else if (gLoop->creditsButton->IsPressed())
 	{
+		gLoop->creditsVideo = gLoop->creditsVideoGO->GetComponent<ComponentImage>();
 		gLoop->currentLoopState = (LoopState*)gLoop->creditsState;
 	}
 	else if (gLoop->exitButton->IsPressed())
@@ -83,6 +96,7 @@ void LoopStateMenu::Update()
 
 void LoopStateMenu::StartGame()
 {
+	gLoop->introvideoPlaying = false;
 	gLoop->currentLoopState = (LoopState*)gLoop->loadingState;
 	gLoop->menu->SetActive(false);
 	gLoop->loadingGO->SetActive(true);

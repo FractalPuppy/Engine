@@ -3,6 +3,7 @@
 
 #include "ModuleTime.h"
 #include "ModuleScene.h"
+#include "ModuleInput.h"
 
 #include "ComponentAudioSource.h"
 #include "ComponentImage.h"
@@ -33,7 +34,27 @@ void LoopStateWin::Update()
 		StopLvlMusic();
 	}
 
-	if (outroVideo != nullptr && !outroVideo->videoFinished) return;
+	if (outroVideo != nullptr && !outroVideo->videoFinished)
+	{
+		if (gLoop->App->input->AnyKeyPressed())
+		{
+			if (!gLoop->outroSkipTextGO->isActive())
+			{
+				gLoop->outroSkipTextGO->SetActive(true);
+				return;
+			}
+			else 
+			{
+				outroVideo->StopVideo();
+			}
+		}
+		else 
+		{
+			return;
+		}
+	}
+
+
 	if (!gLoop->loadingGO->isActive())
 	{
 		gLoop->loadingGO->SetActive(true);

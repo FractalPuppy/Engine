@@ -44,6 +44,7 @@ void PlayerStateWalkToHitEnemy::Update()
 		{
 			walkingEnemyTargeted = player->App->scene->enemyHovered.object;
 			enemyPosition = walkingEnemyTargeted->transform->position;
+			targetBoxWidth = player->App->scene->enemyHovered.triggerboxMinWidth;
 			math::float3 correctionPos(player->basicAttackRange, player->OutOfMeshCorrectionY, player->basicAttackRange);
 			if (player->App->navigation->FindPath(player->gameobject->transform->position, enemyPosition,
 				path, PathFindType::FOLLOW, correctionPos, defaultMaxDist, player->straightPathingDistance))
@@ -89,7 +90,13 @@ void PlayerStateWalkToHitEnemy::Update()
 		{
 			pathIndex++;
 		}
-		if (pathIndex < path.size() && player->basicAttackRange < Distance(player->gameobject->transform->position, enemyPosition))
+		math::float2 posPlayer2D = math::float2(player->gameobject->transform->position.x,
+												player->gameobject->transform->position.z);
+		math::float2 posEnemy2D = math::float2(	enemyPosition.x,
+												enemyPosition.z);
+		if (pathIndex < path.size() && player->basicAttackRange + 
+			targetBoxWidth *0.2 <=
+			Distance(posPlayer2D, posEnemy2D))
 		{
 			player->gameobject->transform->LookAt(path[pathIndex]);
 			math::float3 direction = (path[pathIndex] - currentPosition).Normalized();
@@ -97,7 +104,7 @@ void PlayerStateWalkToHitEnemy::Update()
 			lerpCalculations(direction, -player->gameobject->transform->front, path[pathIndex]);
 
 			math::float3 finalWalkingSpeed = player->walkingSpeed * direction * player->App->time->gameDeltaTime;
-			finalWalkingSpeed *= (1 + (player->stats.dexterity * 0.005f));
+			finalWalkingSpeed *= (1 + (player->GetTotalPlayerStats().dexterity * 0.005f));
 			player->gameobject->transform->SetPosition(currentPosition + finalWalkingSpeed);
 			playerWalking = true;
 			playerWalkingToHit = true;
@@ -123,7 +130,7 @@ void PlayerStateWalkToHitEnemy::Enter()
 	if (dustParticles)
 	{
 		dustParticles->SetActive(true);
-		player->anim->controller->current->speed *= (1 + (player->stats.dexterity * 0.005f));
+		player->anim->controller->current->speed *= (1 + (player->GetTotalPlayerStats().dexterity * 0.005f));
 	}
 }
 
@@ -183,7 +190,14 @@ void PlayerStateWalkToHitEnemy::CheckInput()
 	}
 	else if (player->IsMovingToAttack())
 	{
-		player->currentState = (PlayerState*)player->walkToHit;
+		if (player->ThirdStageBoss)
+		{
+			player->currentState = (PlayerState*)player->walkToHit3rdBoss;
+		}
+		else
+		{
+			player->currentState = (PlayerState*)player->walkToHit;
+		}
 	}
 	else if (player->IsMovingToItem())
 	{

@@ -1,26 +1,29 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1568802784,
+        "timeCreated": 1569050015,
         "GUID": 429559616,
         "Name": "Bridge",
         "File": "Assets/Materials/Bridge.m4t",
         "ExportedFile": "Library/Materials/429559616.m4t",
         "DifusseColor": [
             1.0,
-            1.0,
-            1.0,
+            0.9999899864196777,
+            0.9999899864196777,
             1.0
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            0.15163934230804444,
+            0.15163782238960267,
+            0.15163782238960267
         ],
         "emissiveColor": [
             1.0,
             1.0,
             1.0
-        ]
+        ],
+        "diffuseUID": 359672455,
+        "normalUID": 3245565003,
+        "shader": "PBR"
     }
 }

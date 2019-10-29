@@ -195,9 +195,9 @@ void ModuleUI::Draw(int currentWidth, int currentHeight)
 		case ComponentType::Button:
 		{
 			Button* button = (Button*)comp;
-			RenderImage(*button->buttonImage, currentWidth, currentHeight);
-			RenderImage(*button->highlightedImage, currentWidth, currentHeight);
-			RenderImage(*button->pressedImage, currentWidth, currentHeight);
+			RenderImage(*button->buttonImage, currentWidth, currentHeight, true);
+			RenderImage(*button->highlightedImage, currentWidth, currentHeight, true);
+			RenderImage(*button->pressedImage, currentWidth, currentHeight, true);
 			App->fontLoader->RenderText(*button->text, currentWidth, currentHeight);
 
 			if (button->isHovered && !isItemHover)
@@ -207,7 +207,7 @@ void ModuleUI::Draw(int currentWidth, int currentHeight)
 			break;
 		}
 		case ComponentType::Image:
-			RenderImage(*(ComponentImage*)comp, currentWidth, currentHeight);
+			RenderImage(*(ComponentImage*)comp, currentWidth, currentHeight, false);
 
 			if (((ComponentImage*)comp)->isHovered && !isItemHover)
 			{
@@ -238,7 +238,7 @@ void ModuleUI::SetButtonHover(const Button* button)
 }
 
 
-void ModuleUI::RenderImage(const ComponentImage& componentImage, int currentWidth, int currentHeight)
+void ModuleUI::RenderImage(const ComponentImage& componentImage, int currentWidth, int currentHeight, bool isButton)
 {
 
 	if (componentImage.texture == nullptr || componentImage.texture == 0 || !componentImage.enabled)
@@ -293,8 +293,15 @@ void ModuleUI::RenderImage(const ComponentImage& componentImage, int currentWidt
 
 	math::float4x4 projection = math::float4x4::D3DOrthoProjRH(-1.0f, 1.0f, currentWidth, currentHeight);
 	math::float4x4 model = math::float4x4::identity;
-
-	Transform2D* transform2D = (Transform2D*)componentImage.gameobject->GetComponentOld(ComponentType::Transform2D);
+	Transform2D* transform2D = nullptr;
+	if (!isButton)
+	{
+		transform2D = componentImage.gameobject->GetComponent<Transform2D>();
+	}
+	else 
+	{
+		transform2D = componentImage.gameobject->GetComponent<Button>()->rectTransform;
+	}
 
 	if (transform2D != nullptr)
 	{

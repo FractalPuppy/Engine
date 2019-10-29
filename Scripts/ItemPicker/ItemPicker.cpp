@@ -33,6 +33,144 @@ ItemPicker_API Script* CreateScript()
 	return instance;
 }
 
+ItemPicker::ItemPicker(const ItemPicker& itemPicker) : Script(itemPicker)
+{
+	name = itemPicker.name;
+	description = itemPicker.description;
+	sprite = itemPicker.sprite;
+	type = itemPicker.type;
+	item = new Item(*itemPicker.item);
+	pickedUpViaPlayer = itemPicker.pickedUpViaPlayer;
+
+	if(itemPicker.playerMovementScript != nullptr) 
+		playerMovementScript = new PlayerMovement(*itemPicker.playerMovementScript);
+	else 
+		playerMovementScript = nullptr;
+
+	if (itemPicker.inventoryScript != nullptr)
+		inventoryScript = new InventoryScript(*itemPicker.inventoryScript);
+	else
+		inventoryScript = nullptr;
+
+	if (itemPicker.playerBbox != nullptr)
+	playerBbox = new math::AABB(*itemPicker.playerBbox);
+	else
+		playerBbox = nullptr;
+
+	textureFiles = itemPicker.textureFiles;
+	selectedTexture = itemPicker.selectedTexture;
+
+	if (itemPicker.itemPickedAudio != nullptr)
+		itemPickedAudio = new ComponentAudioSource(*itemPicker.itemPickedAudio);
+	else
+		itemPickedAudio = nullptr;
+
+	myBboxName = itemPicker.myBboxName;
+
+	if (itemPicker.myRender != nullptr)
+		myRender = new ComponentRenderer((ComponentRenderer&)itemPicker.myRender);
+	else
+		myRender = nullptr;
+
+	rarity = itemPicker.rarity;
+	rare = itemPicker.rare;
+
+	if (itemPicker.itemName != nullptr)
+		itemName = new ItemNameController(*itemPicker.itemName);
+	else
+		itemName = nullptr;
+
+	itemCursor = itemPicker.itemCursor;
+	changeItemCursorIcon = itemPicker.changeItemCursorIcon;
+	changeStandarCursorIcon = itemPicker.changeStandarCursorIcon;
+
+	// Mesh to change to Player item (only weapons)
+	if (itemPicker.itemMesh != nullptr)
+		itemMesh = new ResourceMesh(*itemPicker.itemMesh);
+	else
+		itemMesh = nullptr;
+
+	meshesList = itemPicker.meshesList;
+
+	// Material to change to Player item (only weapons)
+	if (itemPicker.itemMaterial != nullptr)
+		itemMaterial = new ResourceMaterial(*itemPicker.itemMaterial);
+	else
+		itemMaterial = nullptr;
+
+	materialsList = itemPicker.materialsList;
+}
+
+ItemPicker& ItemPicker::operator=(const ItemPicker& itemPicker)
+{
+	name = itemPicker.name;
+	description = itemPicker.description;
+	sprite = itemPicker.sprite;
+	type = itemPicker.type;
+	item = new Item(*itemPicker.item);
+	pickedUpViaPlayer = itemPicker.pickedUpViaPlayer;
+
+	if (itemPicker.playerMovementScript != nullptr)
+		playerMovementScript = new PlayerMovement(*itemPicker.playerMovementScript);
+	else
+		playerMovementScript = nullptr;
+
+	if (itemPicker.inventoryScript != nullptr)
+		inventoryScript = new InventoryScript(*itemPicker.inventoryScript);
+	else
+		inventoryScript = nullptr;
+
+	if (itemPicker.playerBbox != nullptr)
+		playerBbox = new math::AABB(*itemPicker.playerBbox);
+	else
+		playerBbox = nullptr;
+
+	textureFiles = itemPicker.textureFiles;
+	selectedTexture = itemPicker.selectedTexture;
+
+	if (itemPicker.itemPickedAudio != nullptr)
+		itemPickedAudio = new ComponentAudioSource(*itemPicker.itemPickedAudio);
+	else
+		itemPickedAudio = nullptr;
+
+	myBboxName = itemPicker.myBboxName;
+
+	if (itemPicker.myRender != nullptr)
+		myRender = new ComponentRenderer((ComponentRenderer&)itemPicker.myRender);
+	else
+		myRender = nullptr;
+
+	rarity = itemPicker.rarity;
+	rare = itemPicker.rare;
+
+	if (itemPicker.itemName != nullptr)
+		itemName = new ItemNameController(*itemPicker.itemName);
+	else
+		itemName = nullptr;
+
+	itemCursor = itemPicker.itemCursor;
+	changeItemCursorIcon = itemPicker.changeItemCursorIcon;
+	changeStandarCursorIcon = itemPicker.changeStandarCursorIcon;
+
+	// Mesh to change to Player item (only weapons)
+	if (itemPicker.itemMesh != nullptr)
+		itemMesh = new ResourceMesh(*itemPicker.itemMesh);
+	else
+		itemMesh = nullptr;
+
+	meshesList = itemPicker.meshesList;
+
+	// Material to change to Player item (only weapons)
+	if (itemPicker.itemMaterial != nullptr)
+		itemMaterial = new ResourceMaterial(*itemPicker.itemMaterial);
+	else
+		itemMaterial = nullptr;
+
+	materialsList = itemPicker.materialsList;
+
+	return *this;
+}
+
 void ItemPicker::Expose(ImGuiContext* context)
 {
 	ImGui::Separator();
@@ -107,15 +245,17 @@ void ItemPicker::Expose(ImGuiContext* context)
 
 	char* imguiText = new char[64];
 	strcpy(imguiText, name.c_str());
-	ImGui::InputText("##", imguiText, 64);
+	ImGui::InputText("Name", imguiText, 64);
 	name = imguiText;
 	delete[] imguiText;
 
-	char* bboxName = new char[64];
-	strcpy_s(bboxName, strlen(myBboxName.c_str()) + 1, myBboxName.c_str());
-	ImGui::InputText("My BBox Name", bboxName, 64);
-	myBboxName = bboxName;
-	delete[] bboxName;
+	char* auxDescription = new char[300];
+	strcpy(auxDescription, description.c_str());
+	ImGui::InputText("Description", auxDescription, 300);
+	description = auxDescription;
+	delete[] auxDescription;
+
+	ImGui::Separator();
 
 	// Mesh selector
 	ImGui::Text("Mesh");
@@ -225,6 +365,7 @@ void ItemPicker::Start()
 	item->description = this->description;
 	item->sprite = this->sprite;
 	item->type = this->type;
+	item->gameobjectUID = gameobject->UUID;
 
 	GameObject* GOtemp = App->scene->FindGameObjectByName("itemPickedAudio");
 	if (GOtemp != nullptr)
@@ -254,7 +395,7 @@ void ItemPicker::Start()
 
 void ItemPicker::PickupItem() const
 {
-	if (inventoryScript->AddItem(item))
+	if (inventoryScript->AddItem(*item, amount))
 	{
 		gameobject->SetActive(false);
 		if (itemPickedAudio != nullptr) itemPickedAudio->Play();
@@ -269,17 +410,15 @@ void ItemPicker::Update()
 {
 	if (!gameobject->isActive())
 	{
-		if (std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) != nameShowed.end())
-		{
-			nameShowed.erase(std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID));
-			itemName->DisableName(gameobject->UUID);
-		}
+		itemName->DisableName(gameobject->UUID);
 		return;
 	}
 	//checking if gotta pickup item
 	math::float3 closestPoint;
+	math::float4 color = GetRarityColor();
+	bool intersect = ItemIntersects();
 	//first check if item clicked (either the item mesh or its name)
-	if ((App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID)) &&
+	if (intersect &&
 		App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		//if player next to the item
@@ -296,7 +435,7 @@ void ItemPicker::Update()
 	}
 	//check if the player clicked outside of the item (if it was going to pick it up)
 	if (playerMovementScript->itemClicked == this && App->input->GetMouseButtonDown(1) == KEY_DOWN &&
-		!(App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID)))
+		!intersect)
 	{
 		playerMovementScript->stoppedGoingToItem = true;
 		playerMovementScript->itemClicked = nullptr;
@@ -304,6 +443,7 @@ void ItemPicker::Update()
 	//if the player has gotten to the item by walking towards it, this variable will be true, so we pick up
 	if (pickedUpViaPlayer)
 	{
+		pickedUpViaPlayer = false;
 		PickupItem();
 	}
 
@@ -314,30 +454,18 @@ void ItemPicker::Update()
 	if (myRender != nullptr)
 	{
 		myRender->highlighted = true;
-		math::float4 color = itemName->GetColor(gameobject->UUID);
 		myRender->highlightColor = math::float3(color.x, color.y, color.z);
 	}
 
-	
-	if (App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) == nameShowed.end() && gameobject->isActive())
+	if (intersect)
 	{
-		itemName->SetNameBar(gameobject->UUID, rarity);
-		nameShowed.emplace_back(gameobject->UUID);
-	}
-	else if (!App->scene->maincamera->frustum->Intersects(gameobject->GetBoundingBox()) && std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID) != nameShowed.end())
-	{
-		nameShowed.erase(std::find(nameShowed.begin(), nameShowed.end(), gameobject->UUID));
-		itemName->DisableName(gameobject->UUID);
-	}
-
-	if (App->scene->Intersects(closestPoint, myBboxName.c_str()) || itemName->Intersection(gameobject->UUID))
-	{
+		myRender->highlighted = true;
 		if (itemName != nullptr)
+		{
 			itemName->Hovered(gameobject->UUID, true);
-
-		if (myRender != nullptr)
-			myRender->highlighted = true;
-
+			itemName->SetNameBar(gameobject->UUID, rarity, color);
+		}
+		
 		if (changeItemCursorIcon && !App->ui->IsHover())
 		{
 			MouseController::ChangeCursorIcon(itemCursor);
@@ -346,21 +474,20 @@ void ItemPicker::Update()
 			changeStandarCursorIcon = true;
 		}
 	}
-	
 	else
 	{
-		if (myRender != nullptr)
+		if (itemName != nullptr)
 		{
-			//myRender->highlighted = false;
 			itemName->Hovered(gameobject->UUID, false);
+			itemName->DisableName(gameobject->UUID);
+		}
 
-			if (changeStandarCursorIcon && !App->ui->IsHover())
-			{
-				MouseController::ChangeCursorIcon(gameStandarCursor);
-				App->ui->SetIsItemHover(false);
-				changeStandarCursorIcon = false;
-				changeItemCursorIcon = true;
-			}
+		if (changeStandarCursorIcon && !App->ui->IsHover())
+		{
+			MouseController::ChangeCursorIcon(gameStandarCursor);
+			App->ui->SetIsItemHover(false);
+			changeStandarCursorIcon = false;
+			changeItemCursorIcon = true;
 		}
 	}
 }
@@ -368,7 +495,8 @@ void ItemPicker::Update()
 void ItemPicker::Serialize(JSON_value* json) const
 {
 	assert(json != nullptr);
-	json->AddString("name", name.c_str());
+	json->AddString("name", name.c_str());	
+	json->AddString("description", description.c_str());
 	json->AddString("sprite", sprite.c_str());
 	json->AddInt("type", (int)type);
 	json->AddInt("rarity", (int)rarity);
@@ -387,8 +515,9 @@ void ItemPicker::Serialize(JSON_value* json) const
 void ItemPicker::DeSerialize(JSON_value* json)
 {
 	assert(json != nullptr);
-	name = json->GetString("name");
-	sprite = json->GetString("sprite");
+	name = json->GetString("name", "");
+	description = json->GetString("description", "");
+	sprite = json->GetString("sprite", "");
 	type = (ItemType)json->GetInt("type");
 	rarity = (ItemRarity)json->GetInt("rarity");
 
@@ -423,9 +552,107 @@ void ItemPicker::DeSerialize(JSON_value* json)
 	}
 }
 
+/*ItemPicker* ItemPicker::Clone() const
+{
+	ItemPicker* newItemPicker = new ItemPicker(*this);
+	newItemPicker->name = name;
+	newItemPicker->description = description;
+	newItemPicker->sprite = sprite;
+	newItemPicker->type = type;
+	newItemPicker->item = new Item(*item);
+	newItemPicker->pickedUpViaPlayer = pickedUpViaPlayer;
+
+	if (playerMovementScript != nullptr)
+		newItemPicker->playerMovementScript = new PlayerMovement(*playerMovementScript);
+	else
+		newItemPicker->playerMovementScript = nullptr;
+
+	if (inventoryScript != nullptr)
+		newItemPicker->inventoryScript = new InventoryScript(*inventoryScript);
+	else
+		newItemPicker->playerMovementScript = nullptr;
+
+	if (playerBbox != nullptr)
+		newItemPicker->playerBbox = new math::AABB(*playerBbox);
+	else
+		newItemPicker->playerBbox = nullptr;
+
+	newItemPicker->textureFiles = textureFiles;
+	newItemPicker->selectedTexture = selectedTexture;
+
+	if (itemPickedAudio != nullptr)
+		newItemPicker->itemPickedAudio = new ComponentAudioSource(*itemPickedAudio);
+	else
+		newItemPicker->itemPickedAudio = nullptr;
+
+	newItemPicker->myBboxName = myBboxName;
+
+	if (myRender != nullptr)
+		newItemPicker->myRender = new ComponentRenderer((ComponentRenderer&)myRender);
+	else
+		newItemPicker->myRender = nullptr;
+
+	newItemPicker->rarity = rarity;
+	newItemPicker->rare = rare;
+
+	if (itemName != nullptr)
+		newItemPicker->itemName = new ItemNameController(*itemName);
+	else
+		newItemPicker->itemName = nullptr;
+
+	newItemPicker->nameShowed = nameShowed;
+
+	newItemPicker->itemCursor = itemCursor;
+	newItemPicker->changeItemCursorIcon = changeItemCursorIcon;
+	newItemPicker->changeStandarCursorIcon = changeStandarCursorIcon;
+
+	// Mesh to change to Player item (only weapons)
+	if (itemMesh != nullptr)
+		newItemPicker->itemMesh = new ResourceMesh(*itemMesh);
+	else
+		newItemPicker->itemMesh = nullptr;
+
+	newItemPicker->meshesList = meshesList;
+
+	// Material to change to Player item (only weapons)
+	if (itemMaterial != nullptr)
+		newItemPicker->itemMaterial = new ResourceMaterial(*itemMaterial);
+	else
+		newItemPicker->itemMaterial = nullptr;
+
+	newItemPicker->materialsList = materialsList;
+	return newItemPicker;
+}*/
+
 void ItemPicker::SetItem(ItemType type, std::string name, std::string sprite)
 {
 	item->name = name;
 	item->sprite = sprite;
 	item->type = type;
+}
+
+math::float4 ItemPicker::GetRarityColor()
+{
+	switch (rarity)
+	{
+	case ItemRarity::BASIC:
+		return white / 255;
+	case ItemRarity::RARE:
+		return green / 255;
+	case ItemRarity::EPIC:
+		return orange / 255;
+	case ItemRarity::LEGENDARY:
+		return purple / 255;
+	}
+}
+
+bool ItemPicker::ItemIntersects()
+{
+	fPoint mouse_point = App->input->GetMousePosition();
+	math::float2 mouse = { mouse_point.x, mouse_point.y };
+	std::list<GameObject*> list = App->scene->SceneRaycastHit(mouse);
+	std::list<GameObject*>::iterator iter = std::find(list.begin(), list.end(), gameobject);
+	if (iter != list.end())
+		return true;
+	else return false;
 }

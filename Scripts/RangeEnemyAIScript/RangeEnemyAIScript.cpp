@@ -25,6 +25,8 @@
 #include "JSON.h"
 #include "debugdraw.h"
 
+#define PROJECTILE "BandoleroProjectile"
+
 RangeEnemyAIScript_API Script* CreateScript()
 {
 	RangeEnemyAIScript* instance = new RangeEnemyAIScript;
@@ -58,10 +60,10 @@ void RangeEnemyAIScript::Start()
 		LOG("No child of the GameObject %s has a boxTrigger component attached. \n", gameobject->name);
 	}
 
-	projectile1 = App->scene->FindGameObjectByName(projectileName1.c_str(), gameobject->parent);
+	projectile1 = InstantiateProjectile(PROJECTILE);
 	if (projectile1 == nullptr)
 	{
-		LOG("Enemy projectile with name %s couldn't be found. \n", projectileName1);
+		LOG("Enemy projectile couldn't be instantiated");
 	}
 	else
 	{
@@ -70,10 +72,10 @@ void RangeEnemyAIScript::Start()
 	
 	if (numberOfProjectiles > 1)
 	{
-		projectile2 = App->scene->FindGameObjectByName(projectileName2.c_str(), gameobject->parent);
+		projectile2 = InstantiateProjectile(PROJECTILE);
 		if (projectile2 == nullptr)
 		{
-			LOG("Enemy projectile with name %s couldn't be found. \n", projectileName2);
+			LOG("Enemy projectile couldn't be instantiated");
 		}
 		else
 		{
@@ -83,10 +85,10 @@ void RangeEnemyAIScript::Start()
 
 	if (numberOfProjectiles > 2)
 	{
-		projectile3 = App->scene->FindGameObjectByName(projectileName3.c_str(), gameobject->parent);
+		projectile3 = InstantiateProjectile(PROJECTILE);
 		if (projectile3 == nullptr)
 		{
-			LOG("Enemy projectile with name %s couldn't be found. \n", projectileName3);
+			LOG("Enemy projectile couldn't be instantiated");
 		}
 		else
 		{
@@ -94,13 +96,17 @@ void RangeEnemyAIScript::Start()
 		}
 	}
 
-	startPosition = enemyController->GetPosition();
+	projectileExplosion = App->scene->FindGameObjectByName("ExplodeProjectileFX");
 
+	startPosition = enemyController->GetPosition();
+	currentState->Enter();
 	LOG("Started range enemy AI script");
 }
 
 void RangeEnemyAIScript::Update()
 {
+	ProjectileImpactFX();
+
 	EnemyState* previous = currentState;
 
 	if (enemyController->GetHealth() <= 0 && currentState != death)
@@ -154,31 +160,6 @@ void RangeEnemyAIScript::Expose(ImGuiContext* context)
 
 	ImGui::SliderInt("N. of Projectiles", &numberOfProjectiles, 1, 3);
 
-	char* targetName = new char[64];
-	strcpy_s(targetName, strlen(projectileName1.c_str()) + 1, projectileName1.c_str());
-	ImGui::InputText("Projectile Name1", targetName, 64);
-	projectileName1 = targetName;
-	delete[] targetName;
-
-	if (numberOfProjectiles > 1)
-	{
-		char* targetName1 = new char[64];
-		strcpy_s(targetName1, strlen(projectileName2.c_str()) + 1, projectileName2.c_str());
-		ImGui::InputText("Projectile Name2", targetName1, 64);
-		projectileName2 = targetName1;
-		delete[] targetName1;
-	}
-
-	if (numberOfProjectiles > 2)
-	{
-		char* targetName2 = new char[64];
-		strcpy_s(targetName2, strlen(projectileName3.c_str()) + 1, projectileName3.c_str());
-		ImGui::InputText("Projectile Name3", targetName2, 64);
-		projectileName3 = targetName2;
-		delete[] targetName2;
-	}
-
-
 	ImGui::DragFloat("Projectile Delay1", &projectileDelay1, 0.01f, 0.0f, 3.f);
 
 	if (numberOfProjectiles > 1)
@@ -212,9 +193,6 @@ void RangeEnemyAIScript::Serialize(JSON_value* json) const
 	json->AddFloat("attackDuration", attackDuration);
 	json->AddFloat("attackDamage", attackDamage);
 	json->AddInt("numberOfProjectiles", numberOfProjectiles);
-	json->AddString("projectileName1", projectileName1.c_str());
-	json->AddString("projectileName2", projectileName2.c_str());
-	json->AddString("projectileName3", projectileName3.c_str());
 	json->AddFloat("projectileDelay1", projectileDelay1);
 	json->AddFloat("projectileDelay2", projectileDelay2);
 	json->AddFloat("projectileDelay3", projectileDelay3);
@@ -243,15 +221,48 @@ void RangeEnemyAIScript::DeSerialize(JSON_value* json)
 	attackDuration = json->GetFloat("attackDuration");
 	attackDamage = json->GetFloat("attackDamage");
 	numberOfProjectiles = json->GetInt("numberOfProjectiles");
-	projectileName1 = json->GetString("projectileName1", projectileName1.c_str());
-	projectileName2 = json->GetString("projectileName2", projectileName2.c_str());
-	projectileName3 = json->GetString("projectileName3", projectileName3.c_str());
 	projectileDelay1 = json->GetFloat("projectileDelay1");
 	projectileDelay2 = json->GetFloat("projectileDelay2");
 	projectileDelay3 = json->GetFloat("projectileDelay3");
 
 	// Cooldown variables
 	cooldownTime = json->GetFloat("cooldownTime");
+}
+
+void RangeEnemyAIScript::ProjectileImpactFX()
+{
+	if (projectileExplosion == nullptr) return;
+	if (projectileExplosion->isActive())
+	{
+		explosionTimer += App->time->gameDeltaTime;
+		if (explosionTimer > explosionDuration)
+		{
+			projectileExplosion->SetActive(false);
+		}
+	}
+	else
+	{
+		explosionTimer = 0.0f;
+	}
+
+	if (projectileScript1->exploded)
+	{
+		projectileScript1->exploded = false;
+		projectileExplosion->transform->SetGlobalPosition(projectile1->transform->GetGlobalPosition());
+		projectileExplosion->SetActive(true);
+	}
+	else if (projectileScript2 != nullptr && projectileScript2->exploded)
+	{
+		projectileScript2->exploded = false;
+		projectileExplosion->transform->SetGlobalPosition(projectile2->transform->GetGlobalPosition());
+		projectileExplosion->SetActive(true);
+	}
+	else if (projectileScript3 != nullptr && projectileScript3->exploded)
+	{
+		projectileScript3->exploded = false;
+		projectileExplosion->transform->SetGlobalPosition(projectile3->transform->GetGlobalPosition());
+		projectileExplosion->SetActive(true);
+	}
 }
 
 void RangeEnemyAIScript::CheckStates(EnemyState* previous, EnemyState* current)
@@ -270,6 +281,11 @@ void RangeEnemyAIScript::CheckStates(EnemyState* previous, EnemyState* current)
 
 		current->Enter();
 	}
+}
+
+GameObject* RangeEnemyAIScript::InstantiateProjectile(const char* projectilePrefab)
+{
+	return App->scene->Spawn(projectilePrefab);
 }
 
 void RangeEnemyAIScript::DrawDebug() const

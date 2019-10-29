@@ -7,7 +7,6 @@
 #include "ResourceAnimation.h"
 
 #include "JSON.h"
-#include "Globals.h"
 
 
 ResourceStateMachine::ResourceStateMachine(unsigned uid) : Resource(uid, TYPE::STATEMACHINE)
@@ -42,6 +41,8 @@ ResourceStateMachine::~ResourceStateMachine()
 
 bool ResourceStateMachine::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
+
 	char* data = nullptr;
 
 	unsigned ok = App->fsystem->Load(exportedFile.c_str(), &data);

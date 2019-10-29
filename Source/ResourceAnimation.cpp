@@ -7,7 +7,6 @@
 
 #include "ResourceAnimation.h"
 
-#include "Globals.h"
 #include "imgui.h"
 #include "JSON.h"
 #include <assert.h>
@@ -57,6 +56,7 @@ ResourceAnimation::~ResourceAnimation()
 
 bool ResourceAnimation::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
 	char* data = nullptr;
 
 	unsigned ok = App->fsystem->Load(exportedFile.c_str(), &data);

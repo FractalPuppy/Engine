@@ -263,6 +263,7 @@
     <ClInclude Include="PanelInspector.h" />
     <ClInclude Include="PanelNavigation.h" />
     <ClInclude Include="PanelResourceManager.h" />
+    <ClInclude Include="PanelResourceManagerUnused.h" />
     <ClInclude Include="PanelState.h" />
     <ClInclude Include="PanelTime.h" />
     <ClInclude Include="par_shapes.h" />
@@ -270,6 +271,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Recast\DebugUtils\DebugDraw.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="ResourceAnimation.h" />
     <ClInclude Include="ResourceAudio.h" />
     <ClInclude Include="ResourceMaterial.h" />
@@ -278,6 +280,7 @@
     <ClInclude Include="ResourcePrefab.h" />
     <ClInclude Include="ResourceScene.h" />
     <ClInclude Include="ResourceSkybox.h" />
+    <ClInclude Include="ResourceSortingFunctions.h" />
     <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="ResourceStateMachine.h" />
     <ClInclude Include="Soloud\fractal_includes\dr_flac.h" />
@@ -389,6 +392,7 @@
     <ClCompile Include="PanelHardware.cpp" />
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
+    <ClCompile Include="PanelResourceManagerUnused.cpp" />
     <ClCompile Include="PanelState.cpp" />
     <ClCompile Include="PanelNavigation.cpp" />
     <ClCompile Include="PanelResourceManager.cpp" />
@@ -465,7 +469,13 @@
     <None Include="..\Game\Shaders\VertexShaders\Trail.vs" />
     <None Include="..\Game\Shaders\VertexShaders\UI.vs" />
     <None Include="cpp.hint" />
+    <None Include="dll1.bin" />
+    <None Include="dll2.bin" />
+    <None Include="dll3.bin" />
     <None Include="NodeEditor\Include\ax\Math2D.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

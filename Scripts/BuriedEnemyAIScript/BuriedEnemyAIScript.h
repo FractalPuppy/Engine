@@ -76,11 +76,18 @@ public:
 	void StartTeleportCD();
 	void UpdateTeleportCD();
 
+
 	math::float3 startPosition = math::float3::zero;
 
 private:
 
+	GameObject* InstantiateProjectile(const char* projectilePrefab);
+	void ProjectileImpactFX();
+
 	std::vector<EnemyState*> enemyStates;
+	GameObject* boneImpactFX = nullptr;
+	float explosionDuration = 0.25f;
+	float explosionTimer = 0.0f;
 
 public:
 
@@ -91,6 +98,7 @@ public:
 
 	GameObject* dustParticlesGO = nullptr;
 	GameObject* candleGO = nullptr;
+	GameObject* handBoneGO = nullptr;
 	EnemyControllerScript* enemyController = nullptr;
 
 	const float candleOffset = 150.0f;			// Distance from the enemy head to the ground

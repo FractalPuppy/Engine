@@ -325,6 +325,9 @@
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="MouseController.cpp" />
+    <ClCompile Include="PanelResourceManagerUnused.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -711,6 +714,13 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="MouseController.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="PanelResourceManagerUnused.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceSortingFunctions.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -841,5 +851,11 @@
     <None Include="..\Game\Shaders\FragmentShaders\PBR_NoRigging.fs">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="dll1.bin" />
+    <None Include="dll2.bin" />
+    <None Include="dll3.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
 </Project>

@@ -160,7 +160,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;PlayerMovement_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;$(SolutionDir)\Scripts\CameraController;$(SolutionDir)\Scripts\DamageFeedbackUI;$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)Source\Soloud\fractal_includes;$(SolutionDir)\Scripts\ItemPicker;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\WorldControllerScript</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\Soloud\fractal_includes;$(SolutionDir)Source\OpenCV;$(SolutionDir)\Scripts\CameraController;$(SolutionDir)\Scripts\DamageFeedbackUI;$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\ItemPicker;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\WorldControllerScript;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -190,7 +190,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;PlayerMovement_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;$(SolutionDir)\Scripts\CameraController;$(SolutionDir)\Scripts\DamageFeedbackUI;$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)Source\Soloud\fractal_includes;$(SolutionDir)\Scripts\ItemPicker;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\WorldControllerScript</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\Soloud\fractal_includes;$(SolutionDir)Source\OpenCV;$(SolutionDir)\Scripts\CameraController;$(SolutionDir)\Scripts\DamageFeedbackUI;$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\ItemPicker;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\WorldControllerScript;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -250,7 +250,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;PlayerMovement_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;$(SolutionDir)\Scripts\CameraController;$(SolutionDir)\Scripts\DamageFeedbackUI;$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)Source\Soloud\fractal_includes;$(SolutionDir)\Scripts\ItemPicker;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\WorldControllerScript;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\Soloud\fractal_includes;$(SolutionDir)Source\OpenCV;$(SolutionDir)\Scripts\CameraController;$(SolutionDir)\Scripts\DamageFeedbackUI;$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\ItemPicker;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\WorldControllerScript;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -284,7 +284,7 @@ set ERRORLEVEL=0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GAME_BUILD;WIN32;NDEBUG;PlayerMovement_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\OpenCV;$(SolutionDir)\Scripts\CameraController;$(SolutionDir)\Scripts\DamageFeedbackUI;$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)Source\Soloud\fractal_includes;$(SolutionDir)\Scripts\ItemPicker;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\WorldControllerScript</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\Soloud\fractal_includes;$(SolutionDir)Source\OpenCV;$(SolutionDir)\Scripts\CameraController;$(SolutionDir)\Scripts\DamageFeedbackUI;$(SolutionDir)\Scripts\EnemyControllerScript;$(SolutionDir)\Source\NodeEditor\Include;$(SolutionDir)\Source\rapidjson-1.1.0\include;..\BaseScript;$(SolutionDir)\Source\MathGeoLib\include;$(SolutionDir)\Source;$(SolutionDir)\Source\Imgui\include;$(SolutionDir)\Scripts\DamageController;$(SolutionDir)Source\MathGeoLib;$(SolutionDir)\Scripts\ItemPicker;$(SolutionDir)\Scripts\InventoryScript;$(SolutionDir)\Scripts\WorldControllerScript;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -350,13 +350,16 @@ set ERRORLEVEL=0</Command>
     <ClCompile Include="ChainAttackSkill.cpp" />
     <ClCompile Include="CircularAttackSkill.cpp" />
     <ClCompile Include="DashSkill.cpp" />
+    <ClCompile Include="MacheteDanceSkill.cpp" />
     <ClCompile Include="MeleeSkill.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PlayerStateAttack.cpp" />
+    <ClCompile Include="PlayerStateAutoWalk.cpp" />
     <ClCompile Include="PlayerStateDeath.cpp" />
     <ClCompile Include="PlayerStateIdle.cpp" />
     <ClCompile Include="PlayerStateWalk.cpp" />
+    <ClCompile Include="PlayerStateWalkToHit3rdStageBoss.cpp" />
     <ClCompile Include="PlayerStateWalkToHitEnemy.cpp" />
     <ClCompile Include="PlayerStateWalkToPickItem.cpp" />
     <ClCompile Include="RainSkill.cpp" />
@@ -370,13 +373,16 @@ set ERRORLEVEL=0</Command>
     <ClInclude Include="ChainAttackSkill.h" />
     <ClInclude Include="CircularAttackSkill.h" />
     <ClInclude Include="DashSkill.h" />
+    <ClInclude Include="MacheteDanceSkill.h" />
     <ClInclude Include="MeleeSkill.h" />
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="PlayerStateAttack.h" />
+    <ClInclude Include="PlayerStateAutoWalk.h" />
     <ClInclude Include="PlayerStateDeath.h" />
     <ClInclude Include="PlayerStateIdle.h" />
     <ClInclude Include="PlayerStateWalk.h" />
+    <ClInclude Include="PlayerStateWalkToHit3rdStageBoss.h" />
     <ClInclude Include="PlayerStateWalkToHitEnemy.h" />
     <ClInclude Include="PlayerStateWalkToPickItem.h" />
     <ClInclude Include="RainSkill.h" />

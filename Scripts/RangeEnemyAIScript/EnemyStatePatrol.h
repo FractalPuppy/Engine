@@ -11,7 +11,12 @@ public:
 	~EnemyStatePatrol();
 
 	void HandleIA() override;
+	void Enter() override;
 	void Update() override;
+
+private:
+	float patrolDistance = 300.0f;
+	math::float3 startPos, endPos, destiny;
 };
 
 #endif __ENEMYSTATEPATROL_H_

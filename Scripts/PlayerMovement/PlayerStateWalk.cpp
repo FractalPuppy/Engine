@@ -14,6 +14,7 @@
 
 #include "PlayerStateWalk.h"
 #include "PlayerStateIdle.h"
+#include "PlayerStateAutoWalk.h"
 #include "WorldControllerScript.h"
 
 #include "BasicSkill.h"
@@ -24,6 +25,7 @@
 #include "imgui.h"
 #include "Globals.h"
 #include "debugdraw.h"
+#include "../GameLoop/GameLoop.h"
 
 
 #define RECALC_PATH_TIME 0.3f
@@ -33,6 +35,8 @@ PlayerStateWalk::PlayerStateWalk(PlayerMovement* PM, const char* trigger):
 {
 	GameObject* worldControllerGO = player->App->scene->FindGameObjectByName("WorldController");
 	worldController = worldControllerGO->GetComponent<WorldControllerScript>();
+
+	gameLoopGO = player->App->scene->FindGameObjectByName("GameController");
 	
 }
 
@@ -42,25 +46,41 @@ PlayerStateWalk::~PlayerStateWalk()
 
 void PlayerStateWalk::Update()
 {
-	math:float2 mouse((float*)&player->App->input->GetMousePosition());
+	if (gameLoopGO->GetComponent<GameLoop>()->gameScene == GameScene::CEMENTERY)
+	{
+		autoWalkPos.y = player->transform->GetGlobalPosition().y;
+		float dist = autoWalkPos.Distance(player->transform->GetGlobalPosition());
+
+		if (dist < 1500.f)
+		{
+			player->autoWalk->SetWalkPosition(math::float3(-6089.83f, 417.9f, -8394.95f));
+			player->currentState = (PlayerState*)player->autoWalk;
+		}
+	}
+
 	if ((player->App->input->GetMouseButtonDown(1) == KEY_DOWN 
 		|| player->App->input->GetMouseButtonDown(1) == KEY_REPEAT) && !player->App->ui->UIHovered(true,false))
 	{
 		moveTimer = 0.0f;
 		math::float3 intPos(0.f, 0.f, 0.f);
-		if (player->App->navigation->NavigateTowardsCursor(player->gameobject->transform->position, path,
-					math::float3(player->OutOfMeshCorrectionXZ, player->OutOfMeshCorrectionY, player->OutOfMeshCorrectionXZ), 
-					intPos, 10000, PathFindType::FOLLOW, player->straightPathingDistance))
+		//in case we already calculated this path in the PlayerMovement.cpp, we dont have to call again
+		if (!currentPathAlreadyCalculated)
 		{
-			//case the player clicks outside of the floor mesh but we want to get close to the floors edge
-			pathIndex = 0;
+			if (player->App->navigation->NavigateTowardsCursor(player->gameobject->transform->position, path,
+				math::float3(player->OutOfMeshCorrectionXZ, player->OutOfMeshCorrectionY, player->OutOfMeshCorrectionXZ),
+				intPos, 10000, PathFindType::FOLLOW, player->straightPathingDistance))
+			{
+				//case the player clicks outside of the floor mesh but we want to get close to the floors edge
+				pathIndex = 0;
+			}
+			else
+			{
+				//distance 0 or clicked outside of the navmesh
+				playerWalking = false;
+				return;
+			}
 		}
-		else
-		{
-			//distance 0 or clicked outside of the navmesh
-			playerWalking = false;
-			return;
-		}
+		currentPathAlreadyCalculated = false;
 	}
 	else if (player->App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 	{
@@ -80,13 +100,9 @@ void PlayerStateWalk::Update()
 			lerpCalculations(direction, -player->gameobject->transform->front, path[pathIndex]);
 			
 			math::float3 finalWalkingSpeed = player->walkingSpeed * direction * player->App->time->gameDeltaTime;
-			finalWalkingSpeed *= (1 + (player->stats.dexterity * 0.005f));
+			finalWalkingSpeed *= (1 + (player->GetTotalPlayerStats().dexterity * 0.005f));
 			player->gameobject->transform->SetPosition(currentPosition + finalWalkingSpeed);
 			playerWalking = true;
-			if (dustParticles)
-			{
-				dustParticles->SetActive(true);
-			}
 		}
 		else
 		{
@@ -105,8 +121,7 @@ void PlayerStateWalk::Enter()
 	playerWalking = true;
 	if (dustParticles)
 	{
-		dustParticles->SetActive(true);
-		player->anim->controller->current->speed *= (1 + (player->stats.dexterity * 0.005f));
+		player->anim->controller->current->speed *= (1 + (player->GetTotalPlayerStats().dexterity * 0.005f));
 	}
 }
 
@@ -144,23 +159,23 @@ void PlayerStateWalk::CheckInput()
 	if (!playerWalking)
 	{
 		player->currentState = player->idle;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
+
 		return;
 	}
 	if (player->IsUsingSkill() || player->IsAttacking())
 	{
 		player->currentState = (PlayerState*)player->attack;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
 	}
 	else if (player->IsMovingToAttack())
 	{
-		player->currentState = (PlayerState*)player->walkToHit;
+		if (player->ThirdStageBoss)
+		{
+			player->currentState = (PlayerState*)player->walkToHit3rdBoss;
+		}
+		else
+		{
+			player->currentState = (PlayerState*)player->walkToHit;
+		}
 	}
 	else if (player->IsMovingToItem())
 	{
@@ -173,9 +188,6 @@ void PlayerStateWalk::CheckInput()
 	else
 	{
 		player->currentState = (PlayerState*)player->idle;
-		if (dustParticles)
-		{
-			dustParticles->SetActive(false);
-		}
+
 	}
 }

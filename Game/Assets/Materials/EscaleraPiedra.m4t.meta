@@ -1,26 +1,29 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1568802784,
+        "timeCreated": 1570883362,
         "GUID": 2273842557,
         "Name": "EscaleraPiedra",
         "File": "Assets/Materials/EscaleraPiedra.m4t",
         "ExportedFile": "Library/Materials/2273842557.m4t",
         "DifusseColor": [
-            1.0,
-            1.0,
+            0.9999961853027344,
+            0.9999899864196777,
             1.0,
             1.0
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            9.999999974752428e-7,
+            9.999899930335233e-7,
+            9.999899930335233e-7
         ],
         "emissiveColor": [
             1.0,
             1.0,
             1.0
-        ]
+        ],
+        "diffuseUID": 1926581059,
+        "normalUID": 313995470,
+        "shader": "PBR"
     }
 }

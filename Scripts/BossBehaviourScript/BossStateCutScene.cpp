@@ -16,6 +16,7 @@
 BossStateCutScene::BossStateCutScene(BossBehaviourScript* AIBoss)
 {
 	boss = AIBoss;
+	trigger = "Idle";
 }
 
 BossStateCutScene::~BossStateCutScene()
@@ -117,16 +118,6 @@ void BossStateCutScene::Update()
 			finished = true;
 			break;
 	}
-	//flames?
-
-	//do the lerping in
-
-	//Close door
-
-	//lerping to boss
-
-	//back to player
-
 }
 
 void BossStateCutScene::Enter()
@@ -157,6 +148,8 @@ void BossStateCutScene::Exit()
 	boss->playerScript->Enable(true);
 	//Activate camera script
 	boss->playerCamera->GetComponent<CameraController>()->Enable(true);
+
+	boss->enemyController->bossFightStarted = true;
 }
 
 float BossStateCutScene::CalculateDoorLambda()

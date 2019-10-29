@@ -11,6 +11,7 @@
 #include "ComponentImage.h"
 #include "ComponentTransform2D.h"
 
+
 #include "imgui.h"
 #include "JSON.h"
 #include "Resource.h"
@@ -18,7 +19,11 @@
 #include "Math/float2.h"
 #include "ResourceTexture.h"
 
+#include "PlayerMovement.h"
+
 #include "PlayerPrefs.h"
+
+#include "ComponentAudioSource.h"
 
 #define None "None Selected"
 
@@ -47,11 +52,45 @@ void SkillTreeController::Start()
 
 	skillInfo = App->scene->FindGameObjectByName("SkillInfo", gameobject);
 	assert(skillInfo != nullptr);
-	skillInfoName = App->scene->FindGameObjectByName("SkillInfoName", skillInfo)->GetComponent<Text>();
-	skillInfoDescription = App->scene->FindGameObjectByName("SkillInfoDescription", skillInfo)->GetComponent<Text>();
-	skillInfoManaCostText = App->scene->FindGameObjectByName("SkillInfoManaCostText", skillInfo)->GetComponent<Text>();
-	skillInfoIcon = App->scene->FindGameObjectByName("SkillInfoIcon", skillInfo)->GetComponent<ComponentImage>();
+	GameObject* go = App->scene->FindGameObjectByName("SkillInfoName", skillInfo);
+	if (go)
+		skillInfoName = go->GetComponent<Text>();
+	go = App->scene->FindGameObjectByName("SkillInfoDescription", skillInfo);
+	if (go)
+		skillInfoDescription = go->GetComponent<Text>();
+	go = App->scene->FindGameObjectByName("SkillInfoManaCostText", skillInfo);
+	if (go)
+		skillInfoManaCostText = go->GetComponent<Text>();
+	go = App->scene->FindGameObjectByName("SkillInfoIcon", skillInfo);
+	if (go)
+		skillInfoIcon = go->GetComponent<ComponentImage>();
+	go = App->scene->FindGameObjectByName("SkillInfoCDText", skillInfo);
+	if (go)
+		skillInfoCDText = go->GetComponent<Text>();
 
+	GameObject* GO = nullptr;
+	GO = App->scene->FindGameObjectByName("skill_button");
+	if (GO != nullptr)
+	{
+		skill_button = GO->GetComponent<ComponentAudioSource>();
+		assert(skill_button != nullptr);
+	}
+	else
+	{
+		LOG("Warning: skill_button game object not found");
+	}
+	go = App->scene->FindGameObjectByName("SkillInfoDMGText", skillInfo);
+	if (go)
+		skillInfoDMGText = go->GetComponent<Text>();
+
+	// Player
+	player = App->scene->FindGameObjectByName("Player");
+	assert(player != nullptr);
+	if (player != nullptr)
+	{
+		playerMovement = player->GetComponent<PlayerMovement>();
+		assert(playerMovement != nullptr);
+	}
 
 	for (int i = 0; i < NUM_SKILLS; ++i)
 	{
@@ -105,19 +144,46 @@ void SkillTreeController::Update()
 
 	for (int i = 0; i < NUM_SKILLS; ++i)
 	{
+		if (skillUI[i]->GetComponent<ComponentImage>()->isHovered)
+		{
+			skillInfoName->text = skillList[i].name;
+			skillInfoDescription->text = skillList[i].description;
+			if (i < playerMovement->allSkills.size() - 1 && playerMovement->allSkills[(SkillType)i] != nullptr)
+			{
+				// Show mana number with no decimals
+				std::string manaString = std::to_string(playerMovement->allSkills[(SkillType)i]->manaCost);
+				skillInfoManaCostText->text = manaString.substr(0, manaString.size() - 7);
+
+				// Show cooldown number with 1 decimal
+				std::string cooldownString = std::to_string(playerMovement->allSkills[(SkillType)i]->cooldown);
+				cooldownString = cooldownString.substr(0, cooldownString.size() - 5);
+				skillInfoCDText->text = cooldownString + "s.";
+
+				skillInfoIcon->UpdateTexture(skillList[i].spriteActive->GetName());
+				float dmg = playerMovement->allSkills[(SkillType)i]->damage * playerMovement->GetTotalPlayerStats().strength;
+				if (dmg == (int)dmg)
+				{
+					skillInfoDMGText->text = std::to_string((int)dmg);
+				}
+				else
+				{
+					std::string str = std::to_string(dmg);
+					str.erase(str.find_last_not_of('0') + 1, std::string::npos);
+					skillInfoDMGText->text = str;
+				}
+			}
+			skillInfo->SetActive(true);
+		}
+
 		if (!skillList[i].locked && skillUI[i]->GetComponent<ComponentImage>()->isHovered)
 		{
 			math::float2 pos = skillUI[i]->children.front()->GetComponent<Transform2D>()->getPosition();
 			math::float2 newPos = math::float2(pos.x, pos.y);
 			hoverTransform->SetPositionUsingAligment(newPos);
 			hoverTransform->gameobject->SetActive(true);
-			skillInfoName->text = skillList[i].name;
-			skillInfoDescription->text = skillList[i].description;
-			skillInfoManaCostText->text = std::to_string(skillList[i].mana);
-			skillInfoIcon->UpdateTexture(skillList[i].spriteActive->GetName());
-			skillInfo->SetActive(true);
 			if (skillPoints > 0 && skillList[i].currentLevel < skillList[i].maxLevels && App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			{
+				skill_button->Play();
 				++skillList[i].currentLevel;
 				skillList[i].available = true;
 				((ComponentImage*)(skillUI[i]->children.front())->GetComponentInChildren(ComponentType::Image))->UpdateTexture(skillList[i].spriteActive->GetName());
@@ -193,8 +259,8 @@ void SkillTreeController::Expose(ImGuiContext* context)
 
 	ImGui::InputInt("Initial Skill Points", &initialSkillPoints);
 
-	for (int i = 0; i != NUM_SKILLS; ++i) {
-
+	for (int i = 0; i != NUM_SKILLS; ++i) 
+	{
 		skillList[i].id = i;
 
 		ImGui::PushID(i);
@@ -277,7 +343,12 @@ void SkillTreeController::Expose(ImGuiContext* context)
 			ImGui::InputInt("Num. Levels", &skillList[i].maxLevels);
 			ImGui::InputInt("Next skill", &skillList[i].nextSkill);
 			ImGui::InputInt("Connection", &skillList[i].connection);
-			ImGui::InputInt("Mana Cost", &skillList[i].mana);
+			if (playerMovement != nullptr && playerMovement->allSkills[(SkillType)i] != nullptr)
+			{
+				ImGui::Text("Mana Cost %f", playerMovement->allSkills[(SkillType)i]->manaCost);
+				ImGui::Text("Cooldown %f", playerMovement->allSkills[(SkillType)i]->cooldown);
+				ImGui::Text("Damage %i", playerMovement->allSkills[(SkillType)i]->damage);
+			}
 
 			ImGui::Checkbox("Locked", &skillList[i].locked);
 		}
@@ -302,7 +373,6 @@ void SkillTreeController::Serialize(JSON_value* json) const
 		skillJSON->AddInt("maxLevel", skill.maxLevels);
 		skillJSON->AddInt("nextSkill", skill.nextSkill);
 		skillJSON->AddInt("connection", skill.connection);
-		skillJSON->AddInt("mana", skill.mana);
 		skillJSON->AddUint("activeTextureUID", (skill.spriteActive != nullptr) ? skill.spriteActive->GetUID() : 0u);
 		skillJSON->AddUint("inactiveTextureUID", (skill.spriteInactive != nullptr) ? skill.spriteInactive->GetUID() : 0u);
 		skillsJson->AddValue("", *skillJSON);
@@ -325,7 +395,6 @@ void SkillTreeController::DeSerialize(JSON_value* json)
 		skillList[i].maxLevels = skillJSON->GetInt("maxLevel");
 		skillList[i].nextSkill = skillJSON->GetInt("nextSkill");
 		skillList[i].connection = skillJSON->GetInt("connection", -1);
-		skillList[i].mana = skillJSON->GetInt("mana", 0);
 		unsigned uid = skillJSON->GetUint("activeTextureUID");
 		skillList[i].spriteActive = (ResourceTexture*)App->resManager->Get(uid);
 		unsigned uidIn = skillJSON->GetUint("inactiveTextureUID");

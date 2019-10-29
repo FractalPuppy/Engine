@@ -206,3 +206,16 @@ void ModuleInput::DropFile(char* dropped_file) const //TODO: Popup when added to
 	}
 	App->fsystem->CopyFromOutsideFS(dropped_file, (ASSETS+filename).c_str());
 }
+
+bool ModuleInput::AnyKeyPressed() const
+{
+	for (int i = 0; i < MAX_KEYS; ++i)
+	{
+		if (keyboard[i] == KEY_DOWN)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}

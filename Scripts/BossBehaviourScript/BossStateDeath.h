@@ -11,6 +11,8 @@ public:
 	~BossStateDeath();
 
 	void Update() override;
+	void Enter() override;
+
 };
 
 #endif // __BOSSSTATEDEATH_H_

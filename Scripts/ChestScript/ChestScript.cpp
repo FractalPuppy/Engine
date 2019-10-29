@@ -3,13 +3,18 @@
 #include "Application.h"
 #include "ModuleScene.h"
 #include "ModuleTime.h"
+#include "ModuleNavigation.h"
+#include "MouseController.h"
+#include "ModuleInput.h"
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
 #include "ComponentAnimation.h"
 #include "ComponentRenderer.h"
+#include "ComponentAudioSource.h"
 
 #include "LootDropScript.h"
+#include "PlayerMovement.h"
 
 #include "imgui.h"
 #include "JSON.h"
@@ -22,24 +27,49 @@ ChestScript_API Script* CreateScript()
 
 void ChestScript::Start()
 {
-	player = App->scene->FindGameObjectByName(playerName.c_str());
-	playerBbox = &App->scene->FindGameObjectByName(playerBboxName.c_str(), player)->bbox;
+	player = App->scene->FindGameObjectByTag(playerTag.c_str());
+	if (player == nullptr)
+	{
+		LOG("The Player GO with tag %s couldn't be found \n", playerTag.c_str());
+	}
+	else
+	{
+		playerBbox = &App->scene->FindGameObjectByName("PlayerMesh", player)->bbox;
+		if (playerBbox == nullptr)
+		{
+			LOG("The GameObject %s has no bbox attached \n", player->name.c_str());
+		}
+
+		playerMovementScript = player->GetComponent<PlayerMovement>();
+	}
 
 	anim = gameobject->GetComponent<ComponentAnimation>();
 	if (anim == nullptr)
 	{
-		LOG("The GameObject %s has no Animation component attached \n", gameobject->name);
+		LOG("The GameObject %s has no Animation component attached \n", gameobject->name.c_str());
 	}
 	
-	myRender = (App->scene->FindGameObjectByName(myBboxName.c_str(), gameobject))->GetComponent<ComponentRenderer>();
+	myRender = (ComponentRenderer*)gameobject->GetComponentInChildren(ComponentType::Renderer);
 
 	if(myRender != nullptr)
-		myBbox = &App->scene->FindGameObjectByName(myBboxName.c_str(), gameobject)->bbox;
+		myBbox = &gameobject->bbox;
 	
 	// Look for LootDropScript
 	lootDrop = gameobject->GetComponent<LootDropScript>();
 	if (lootDrop != nullptr)
 		lootDrop->positionOffset = lootPosition;
+
+	GameObject* GO = nullptr;
+	GO = App->scene->FindGameObjectByName("open_chest");
+	if (GO != nullptr)
+	{
+		open_chest = GO->GetComponent<ComponentAudioSource>();
+		assert(open_chest != nullptr);
+	}
+	else
+	{
+		LOG("Warning: open_chest game object not found");
+	}
 }
 
 void ChestScript::Update()
@@ -47,17 +77,8 @@ void ChestScript::Update()
 	switch (state)
 	{
 	case chestState::CLOSED:
-		// Check collision with player
-		if (myBbox != nullptr && myBbox->Intersects(*playerBbox))
-		{
-			// Open chest:
-			anim->SendTriggerToStateMachine("Open");
-			if (lootDrop != nullptr)
-				state = chestState::OPENING;
-			else
-				state = chestState::OPENED;
-			
-		}
+		// Check hover
+		OnChestClosedHover();
 		break;
 	case chestState::OPENING:
 		if (chestTimer > lootDelay)
@@ -77,18 +98,14 @@ void ChestScript::Update()
 		break;
 	default:
 	case chestState::OPENED:
+		if (myRender != nullptr)
+			myRender->highlighted = false;
 		break;
 	}
 }
 
 void ChestScript::Expose(ImGuiContext* context)
 {
-	char* bboxName = new char[64];
-	strcpy_s(bboxName, strlen(myBboxName.c_str()) + 1, myBboxName.c_str());
-	ImGui::InputText("My BBox Name", bboxName, 64);
-	myBboxName = bboxName;
-	delete[] bboxName;
-
 	switch (state)
 	{
 	case chestState::CLOSED:	ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Closed");	break;
@@ -99,23 +116,18 @@ void ChestScript::Expose(ImGuiContext* context)
 
 	ImGui::Separator();
 	ImGui::Text("Player:");
-	char* goName = new char[64];
-	strcpy_s(goName, strlen(playerName.c_str()) + 1, playerName.c_str());
-	ImGui::InputText("Player Name", goName, 64);
-	playerName = goName;
-	delete[] goName;
+	char* goTag = new char[64];
+	strcpy_s(goTag, strlen(playerTag.c_str()) + 1, playerTag.c_str());
+	ImGui::InputText("Player Tag", goTag, 64);
+	playerTag = goTag;
+	delete[] goTag;
 
-	char* targetBboxName = new char[64];
-	strcpy_s(targetBboxName, strlen(playerBboxName.c_str()) + 1, playerBboxName.c_str());
-	ImGui::InputText("Player BBox Name", targetBboxName, 64);
-	playerBboxName = targetBboxName;
-	delete[] targetBboxName;
-
-	char* spawnName = new char[64];
-	strcpy_s(spawnName, strlen(spawnGOName.c_str()) + 1, spawnGOName.c_str());
-	ImGui::InputText("GO to spawn Name", spawnName, 64);
-	spawnGOName = spawnName;
-	delete[] spawnName;
+	ImGui::Text("Chest cursor:");
+	char* pickCursorAux = new char[64];
+	strcpy_s(pickCursorAux, strlen(pickCursor.c_str()) + 1, pickCursor.c_str());
+	ImGui::InputText("pickCursor", pickCursorAux, 64);
+	pickCursor = pickCursorAux;
+	delete[] pickCursorAux;
 
 	ImGui::Text("Loot Variables:");
 	ImGui::DragFloat("Loot Delay", &lootDelay);
@@ -126,10 +138,8 @@ void ChestScript::Expose(ImGuiContext* context)
 void ChestScript::Serialize(JSON_value* json) const
 {
 	assert(json != nullptr);
-	json->AddString("playerName", playerName.c_str());
-	json->AddString("playerBboxName", playerBboxName.c_str());
-	json->AddString("myBboxName", myBboxName.c_str());
-	json->AddString("spawnGOName", spawnGOName.c_str());
+	json->AddString("playerTag", playerTag.c_str());
+	json->AddString("pickCursor", pickCursor.c_str());
 	json->AddUint("state", (unsigned)state);
 	json->AddFloat3("lootPosition", lootPosition);
 	json->AddFloat("lootDelay", lootDelay);
@@ -139,12 +149,91 @@ void ChestScript::Serialize(JSON_value* json) const
 void ChestScript::DeSerialize(JSON_value* json)
 {
 	assert(json != nullptr);
-	playerName = json->GetString("playerName");
-	playerBboxName = json->GetString("playerBboxName");
-	myBboxName = json->GetString("myBboxName");
-	spawnGOName = json->GetString("spawnGOName");
+	playerTag = json->GetString("playerTag", "Player");
+	pickCursor = json->GetString("pickCursor", "Pick.cur");
 	state = (chestState)json->GetUint("opened");
 	lootPosition = json->GetFloat3("lootPosition");
 	lootDelay = json->GetFloat("lootDelay", 2.5f);
 	lootRadius = json->GetFloat("lootRadius", 100.0f);
+}
+
+void ChestScript::OnChestClosedHover()
+{
+	math::float3 closestPoint;
+	fPoint mouse_point = App->input->GetMousePosition();
+	math::float2 mouse = { mouse_point.x, mouse_point.y };
+	std::list<GameObject*> intersects = App->scene->SceneRaycastHit(mouse);
+
+	// First check if chest clicked (either the item mesh or its name)
+	if ((App->scene->Intersects(closestPoint, myRender->gameobject->name.c_str()) &&
+		App->input->GetMouseButtonDown(1) == KEY_DOWN))
+	{
+		// If player next to the item
+		if (myRender->gameobject->bbox.Intersects(*playerBbox))
+		{
+			// Open chest:
+			anim->SendTriggerToStateMachine("Open");
+			
+			open_chest->Play();
+
+			if (lootDrop != nullptr)
+				state = chestState::OPENING;
+			else
+				state = chestState::OPENED;
+		}
+		// If not, player goes towards it
+		else
+		{
+			playerMovementScript->stoppedGoingToItem = false;
+		}
+
+		lastClickOnChest = true;
+	}
+	else if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+	{
+		lastClickOnChest = false;
+	}
+
+	// If player is next to the item and last click was done to the chest
+	if (lastClickOnChest && myRender->gameobject->bbox.Intersects(*playerBbox))
+	{
+		// Open chest:
+		anim->SendTriggerToStateMachine("Open");
+		if (lootDrop != nullptr)
+			state = chestState::OPENING;
+		else
+			state = chestState::OPENED;
+
+		if (!changeItemCursorIcon)
+		{
+			MouseController::ChangeCursorIcon(gameStandarCursor);
+			changeItemCursorIcon = true;
+		}
+	}
+
+	// Highlight and cursor
+	auto mesh = std::find(intersects.begin(), intersects.end(), myRender->gameobject);
+	if (mesh != std::end(intersects) && *mesh == myRender->gameobject)
+	{
+		if (myRender != nullptr)
+			myRender->highlighted = true;
+
+		if(changeItemCursorIcon && state != chestState::OPENED)
+		{
+			MouseController::ChangeCursorIcon(pickCursor);
+			changeItemCursorIcon = false;
+		}
+	}
+	else
+	{
+		if (myRender != nullptr)
+			myRender->highlighted = false;
+
+
+		if (!changeItemCursorIcon)
+		{
+			MouseController::ChangeCursorIcon(gameStandarCursor);
+			changeItemCursorIcon = true;
+		}
+	}
 }

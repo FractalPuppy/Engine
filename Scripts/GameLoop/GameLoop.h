@@ -31,6 +31,7 @@ class ExperienceController;
 class JSON_value;
 class ComponentAudioSource;
 class WorldControllerScript;
+class ComponentImage;
 
 class LoopState;
 class LoopStateControls;
@@ -149,6 +150,7 @@ public:
 	Button* closePlayerMenuButton = nullptr;
 	Button* pauseResume = nullptr;
 	Button* pauseExit = nullptr;
+	Button* pauseControls = nullptr;
 	std::vector<Component*> volumeButtons;
 	std::vector<Component*> soundButtons;
 
@@ -173,6 +175,8 @@ public:
 	GameObject* audioGO = nullptr;
 	GameObject* introVideoGO = nullptr;
 	GameObject* outroVideoGO = nullptr;
+	GameObject* introSkipTextGO = nullptr;
+	GameObject* outroSkipTextGO = nullptr;
 	std::vector<GameObject*> sunHoverGO;
 
 	//BBOX
@@ -200,12 +204,20 @@ public:
 	//Audio
 	ComponentAudioSource* menuButtonsSound = nullptr;
 
+	//Credits video
+	GameObject* menuMusic = nullptr;
+	GameObject* creditsAudio = nullptr;
+	ComponentImage* creditsVideo = nullptr;
+	GameObject* creditsVideoGO = nullptr;
+
+
 	float3 playerStartPosition = float3::zero;
 	float3 enemyStartPosition = float3::zero;
 
 	bool runningCredits = false;
 	bool runningIntro = false;
 	bool introvideoPlaying = false;
+	bool creditsPlaying = false;
 	bool vsync = false;
 
 	std::string sceneToLoad = "";

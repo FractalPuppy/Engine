@@ -41,7 +41,9 @@ public:
 		return new RangeEnemyAIScript(*this);
 	}
 private:
+	void ProjectileImpactFX();
 	void CheckStates(EnemyState* previous, EnemyState* current);
+	GameObject* InstantiateProjectile(const char* projectilePrefab);
 	void DrawDebug() const;
 
 	void OnTriggerEnter(GameObject* go);
@@ -78,17 +80,16 @@ public:
 
 	int numberOfProjectiles = 1u;
 
-	std::string projectileName1 = "EnemyProjectile1";
-	std::string projectileName2 = "EnemyProjectile2";
-	std::string projectileName3 = "EnemyProjectile3";
-
 	GameObject* projectile1 = nullptr;
 	GameObject* projectile2 = nullptr;
 	GameObject* projectile3 = nullptr;
+	GameObject* projectileExplosion = nullptr;
 
 	float projectileDelay1 = 0.f;
 	float projectileDelay2 = 0.6f;
 	float projectileDelay3 = 1.0f;
+	float explosionDuration = 0.15f;
+	float explosionTimer = 0.0f;
 
 	// Cooldown variables
 	float cooldownTime = 1.0f;			// Seconds to wait between attacks

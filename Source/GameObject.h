@@ -42,7 +42,7 @@ public:
 
 	ENGINE_API void SetActive(bool active);
 
-	Component* CreateComponent(ComponentType type, JSON_value* value = nullptr, bool prefabTemplate = false);
+	ENGINE_API Component* CreateComponent(ComponentType type, JSON_value* value = nullptr, bool prefabTemplate = false);
 
 	template <class T>
 	T* GetComponent() const;
@@ -80,6 +80,9 @@ public:
 
 	ENGINE_API void LinkBones() const;
 
+	ENGINE_API void SetBBEqualToBoxTrigger();
+	ENGINE_API void shrinkBB();
+
 	void UpdateToPrefab(GameObject* prefab);
 	bool ChildPrefab() const;
 	bool ParentPrefab() const;
@@ -103,6 +106,9 @@ private:
 	bool activeInHierarchy = true;
 	bool openInHierarchy = true;
 	bool showNavOptions = false;
+
+	//bbox made for boss 
+	math::AABB bossBeforebbox;
 public:
 	unsigned UUID = 0;
 	unsigned parentUUID = 0; //only set in Save/Load scene TODO:update on parent change

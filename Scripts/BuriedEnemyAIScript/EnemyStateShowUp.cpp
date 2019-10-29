@@ -54,6 +54,10 @@ void EnemyStateShowUp::Enter()
 	float candleZPos = enemy->candleGO->transform->position.z;
 	if(candleZPos < candleZPos + enemy->candleOffset)
 		enemy->candleGO->transform->position.z += enemy->candleOffset;
+
+	// Show throwing bone in hand
+	if (enemy->handBoneGO != nullptr)
+		enemy->handBoneGO->SetActive(true);
 }
 
 void EnemyStateShowUp::Exit()

@@ -11,12 +11,16 @@
 
 class GameObject;
 class ComponentImage;
+class Text;
+class Transform2D;
 
 enum class EnemyLifeBarType
 {
 	NORMAL = 1,
-	HARD,
-	BOSS
+	NORMAL_TEMPLE,
+	ELITE_GRAVEYARD,
+	ELITE_TEMPLE,
+	BOSS,
 };
 
 class EnemyLifeBarController_API EnemyLifeBarController : public Script
@@ -34,16 +38,14 @@ public:
 	}
 
 private:
-	GameObject* lifeBackground = nullptr;
-	GameObject* hPbar = nullptr;
-	GameObject* enemyTypeName = nullptr;
-	GameObject* boneRight = nullptr;
-	GameObject* boneLeft = nullptr;
-	GameObject* skull = nullptr;
 	GameObject* enemyLife = nullptr;
+	Text* enemyTypeName = nullptr;
+	Transform2D* enemyTypeNamePosition = nullptr;
+	ComponentImage* skull = nullptr;
+	ComponentImage* lifeImage = nullptr;
+	
 	bool draw = false;
 
-	ComponentImage* lifeImage = nullptr;
 };
 
 extern "C" EnemyLifeBarController_API Script* CreateScript();

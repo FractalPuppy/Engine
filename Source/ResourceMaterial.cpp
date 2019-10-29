@@ -1,6 +1,5 @@
 #include "ResourceMaterial.h"
 
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleProgram.h"
 #include "ModuleTextures.h"
@@ -65,6 +64,7 @@ void ResourceMaterial::DeleteFromMemory()
 
 bool ResourceMaterial::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
 	char* data = nullptr;
 	// Load JSON
 	if (App->fsystem->Load(exportedFile.c_str(), &data) == 0)

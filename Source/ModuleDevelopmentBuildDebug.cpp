@@ -81,6 +81,7 @@ bool ModuleDevelopmentBuildDebug::Init(JSON * config)
 
 update_status ModuleDevelopmentBuildDebug::PreUpdate()
 {
+	this->getVisible();
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();	
@@ -220,10 +221,21 @@ bool ModuleDevelopmentBuildDebug::CleanUp()
 	return true;
 }
 
+void ModuleDevelopmentBuildDebug::getVisible()
+{
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) 
+	{
+		this->visible = !visible;
+	}
+}
+
 void ModuleDevelopmentBuildDebug::RenderGUI() const
 {
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	if (visible) 
+	{
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
 }
 
 void ModuleDevelopmentBuildDebug::processInput(SDL_Event * event) const

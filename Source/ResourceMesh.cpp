@@ -1,7 +1,6 @@
 #include "ResourceMesh.h"
 #include "GL/glew.h"
 
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "ModuleResourceManager.h"
@@ -72,6 +71,7 @@ ResourceMesh::~ResourceMesh()
 
 bool ResourceMesh::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
 	char* data = nullptr;
 
 	unsigned ok = App->fsystem->Load(exportedFile.c_str(), &data);

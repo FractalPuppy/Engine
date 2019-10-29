@@ -47,6 +47,7 @@ private:
 	std::vector<float3>path;
 	unsigned pathIndex = 0;
 	float moveTimer = 0.0f;
+	bool currentPathAlreadyCalculated = false;
 };
 
 #endif __CircularAttackSkill_h__

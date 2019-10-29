@@ -210,15 +210,18 @@ void ComponentImage::Update()
 
 	if (videoPlaying)
 	{
-		frameTimer -= App->time->gameDeltaTime;
-		if (frameTimer < 0.f) 
-		{
-			cap >> frame;
+		frameTimer += App->time->fullGameDeltaTime;
+		if (frameTimer > frameTime)
+		{	
+			do
+			{
+				frameTimer -= frameTime;
+				cap >> frame;
+			} while (frameTimer >= frameTime);
 			if (!frame.empty()) 
 			{
 				cv::Mat flipped;
 				cv::flip(frame, flipped, 0);
-				frameTimer = frameTime;
 				if (videoTex == 0u)
 					glGenTextures(1, &videoTex);
 				glBindTexture(GL_TEXTURE_2D, videoTex);
@@ -310,7 +313,12 @@ bool ComponentImage::IsMasked() const
 float ComponentImage::PlayVideo()
 {
 	using namespace cv;	
+#ifndef GAME_BUILD
 	cap.open(std::string("../Game/Video/") + videoPath.c_str());
+#else
+	cap.open(std::string("Video/") + videoPath.c_str());
+#endif // !GAME_BUILD
+
 	// Check if video opened successfully
 	if (!cap.isOpened()) {
 		LOG("Error opening video");

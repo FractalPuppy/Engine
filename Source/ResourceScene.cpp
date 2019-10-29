@@ -1,6 +1,5 @@
 #include "ResourceScene.h"
 
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "ModuleScene.h"
@@ -144,6 +143,8 @@ void ResourceScene::Save(const GameObject& rootGO, bool selected)
 
 bool ResourceScene::Load()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
+
 	char* data = nullptr;
 
 	if (App->fsystem->Load(exportedFile.c_str(), &data) == 0)

@@ -34,6 +34,7 @@ Text::Text(const Text &copy) : Component(copy)
 	isTextWrapped = copy.isTextWrapped;
 	wrapWidth = copy.wrapWidth;
 	interlineDistance = copy.interlineDistance;
+	uiOrder = copy.uiOrder;
 }
 
 Text::~Text()
