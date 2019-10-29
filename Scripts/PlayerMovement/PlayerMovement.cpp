@@ -907,8 +907,6 @@ void PlayerMovement::Update()
 					{
 						LOG("Machete Rain end");
 						macheteRainActivated = false;
-						knives_attack->Stop();
-						knives_ending->Play();
 					}
 
 					if (macheteRainRenderer->dissolveAmount > 1.f)

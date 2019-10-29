@@ -18,6 +18,7 @@ class GameObject;
 class JSON_value;
 class ComponentRenderer;
 class PlayerMovement;
+class ComponentAudioSource;
 
 class ExperienceController_API ExperienceController : public Script
 {
@@ -82,6 +83,9 @@ private:
 	float manaIncrease = 10.0f;
 	int strengthIncrease = 5;
 	int dexterityIncrease = 1;
+
+	//Audio
+	ComponentAudioSource* audioLVLup = nullptr;
 };
 
 extern "C" ExperienceController_API Script* CreateScript();
