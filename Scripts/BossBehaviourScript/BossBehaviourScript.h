@@ -139,6 +139,13 @@ public:
 	GameObject* stairsObstacle4 = nullptr;
 	GameObject* bossObstacle1 = nullptr;
 	GameObject* bossObstacle2 = nullptr;
+	GameObject* stairsCorrector1 = nullptr;
+	GameObject* stairsCorrector2 = nullptr;
+	GameObject* vesselsCorrector1 = nullptr;
+	GameObject* vesselsCorrector2 = nullptr;
+	GameObject* vesselsCorrector3 = nullptr;
+	GameObject* vesselsCorrector4 = nullptr;
+	GameObject* vesselsCorrector5 = nullptr; 
 
 	std::vector<GameObject*> floorBossGOs;
 	std::vector<GameObject*> floorMainGOs;
