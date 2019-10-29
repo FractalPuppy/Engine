@@ -7,6 +7,7 @@
 #include "ComponentBoxTrigger.h"
 #include "ComponentAnimation.h"
 #include "ComponentTransform.h"
+#include "ComponentParticles.h"
 
 #include "BossStateSecondInterPhase.h"
 #include "EnemyControllerScript/EnemyControllerScript.h"
@@ -70,6 +71,10 @@ void BossStateSecondInterPhase::Update()
 			if (cryTimer > boss->secondInterphaseCryTime)
 			{
 				state = InterphaseState::FadeOff;
+				for (auto flameGO : boss->secondInterphaseFlameGOs)
+				{
+					flameGO->GetComponent<ComponentParticles>()->Enable(false);
+				}
 			}
 			else
 			{

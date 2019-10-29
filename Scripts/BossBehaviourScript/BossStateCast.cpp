@@ -89,9 +89,9 @@ BossSkill BossStateCast::SelectSkillToUse()
 
 	BossSkill skillToCast = boss->lastUsedSkill;
 
-	while (skillToCast == boss->lastUsedSkill || skillToCast == boss->secondLastUsedSkill)
+	while (skillToCast == boss->lastUsedSkill)
 	{
-		int randomNumb = rand() % 3;
+		int randomNumb = rand() % 2;
 
 		switch (randomNumb)
 		{
@@ -99,15 +99,11 @@ BossSkill BossStateCast::SelectSkillToUse()
 			skillToCast = BossSkill::Teleport;
 			break;
 		case 1:
-			skillToCast = BossSkill::Summon;
-			break;
-		case 2:
 			skillToCast = BossSkill::Aoe;
 			break;
 		}
 	}
 
-	boss->secondLastUsedSkill = boss->lastUsedSkill;
 	boss->lastUsedSkill = skillToCast;
 
 	return skillToCast;
