@@ -66,6 +66,7 @@ class BossStateThirdDeath;
 class EnemyControllerScript;
 class PlayerMovement;
 class GameLoop;
+class CameraController;
 class ComponentAnimation;
 
 class BossBehaviourScript_API BossBehaviourScript : public Script
@@ -136,6 +137,15 @@ public:
 	GameObject* stairsObstacle2 = nullptr;
 	GameObject* stairsObstacle3 = nullptr;
 	GameObject* stairsObstacle4 = nullptr;
+	GameObject* bossObstacle1 = nullptr;
+	GameObject* bossObstacle2 = nullptr;
+	GameObject* stairsCorrector1 = nullptr;
+	GameObject* stairsCorrector2 = nullptr;
+	GameObject* vesselsCorrector1 = nullptr;
+	GameObject* vesselsCorrector2 = nullptr;
+	GameObject* vesselsCorrector3 = nullptr;
+	GameObject* vesselsCorrector4 = nullptr;
+	GameObject* vesselsCorrector5 = nullptr; 
 
 	std::vector<GameObject*> floorBossGOs;
 	std::vector<GameObject*> floorMainGOs;
@@ -195,6 +205,18 @@ public:
 	GameObject* rightHandBall = nullptr;
 	GameObject* leftHandBall = nullptr;
 
+	//PowerUp variables
+	GameObject* powerUpBall = nullptr;
+	GameObject* powerUpSpread = nullptr;
+	GameObject* ringPowerUp = nullptr;
+	float vibrationSpeed = 1.0f;
+	float vibrationAmplitude = 1.0f;
+	float ballAppearTime = 0.0f;
+	float ballExplodeTime = 0.0f;
+	float ballFxStopTime = 0.0f;
+	float handsAppearTime = 0.0f;
+
+
 	//first cutscene
 	math::float3 startingPoint = math::float3::zero;
 	math::float3 highPointFirstCS = math::float3::zero;
@@ -204,6 +226,7 @@ public:
 	GameObject* doorParticles = nullptr;
 	float finalDoorHeight = 600.0f;
 	GameObject* playerCamera = nullptr;
+	CameraController* cameraScript = nullptr;
 
 	//TP points
 	math::float3 topTP = math::float3::zero;
@@ -250,13 +273,13 @@ public:
 	GameObject* rightFist = nullptr;
 
 public:
-		math::Quat InterpolateQuat(const math::Quat first, const math::Quat second, float lambda);
-		math::float3 InterpolateFloat3(const math::float3 first, const math::float3 second, float lambda);
-		float InterpolateFloat(const float first, const float second, float lambda);
-		math::float3 ChooseRandomSpawn();
-		void stopPlayerMovement();
+	math::Quat InterpolateQuat(const math::Quat first, const math::Quat second, float lambda);
+	math::float3 InterpolateFloat3(const math::float3 first, const math::float3 second, float lambda);
+	float InterpolateFloat(const float first, const float second, float lambda);
+	math::float3 ChooseRandomSpawn();
+	void stopPlayerMovement();
 
-		void ResetVariables();
+	void ResetVariables();
 
 private:
 	std::vector<BossState*> bossStates;
@@ -285,6 +308,7 @@ private:
 
 	void loadSpawningPositions(JSON_value* json);
 
+	bool firstCircleCast = false;
 	int circlesInFirstPhase = 3;
 	float timeBetweenCirclesFirst = 2.0f;
 	int circlesInSecondPhase = 4;

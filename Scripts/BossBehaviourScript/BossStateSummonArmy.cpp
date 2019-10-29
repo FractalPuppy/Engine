@@ -12,7 +12,7 @@
 #include "BasicEnemyAIScript/BasicEnemyAIScript.h"
 #include "EnemyControllerScript/EnemyControllerScript.h"
 
-#define BASICSUMMON "BasicEnemy"
+#define BASICSUMMON "BasicBossSummon"
 
 BossStateSummonArmy::BossStateSummonArmy(BossBehaviourScript* AIBoss)
 {

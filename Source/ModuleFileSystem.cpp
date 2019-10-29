@@ -102,6 +102,8 @@ bool ModuleFileSystem::Start()
 	CheckResourcesInFolder(ASSETS);
 	if (filesToImport.size() > 0) ImportFiles();
 
+	App->resManager->InitUnusedResources();
+
 	// Set thread to monitorize Assets folder
 	monitor_thread = std::thread(&ModuleFileSystem::Monitorize, this, ASSETS);
 	monitor_thread.detach();
