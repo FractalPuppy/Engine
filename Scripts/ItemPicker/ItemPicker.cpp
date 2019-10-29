@@ -410,6 +410,7 @@ void ItemPicker::Update()
 {
 	if (!gameobject->isActive())
 	{
+		itemName->DisableName(gameobject->UUID);
 		return;
 	}
 	//checking if gotta pickup item
@@ -459,18 +460,12 @@ void ItemPicker::Update()
 	if (intersect)
 	{
 		myRender->highlighted = true;
-	}
-
-	if (intersect)
-	{
 		if (itemName != nullptr)
+		{
 			itemName->Hovered(gameobject->UUID, true);
 			itemName->SetNameBar(gameobject->UUID, rarity, color);
-
-		/*if (myRender != nullptr)
-			myRender->highlighted = true;*/
-
-
+		}
+		
 		if (changeItemCursorIcon && !App->ui->IsHover())
 		{
 			MouseController::ChangeCursorIcon(itemCursor);
@@ -479,22 +474,20 @@ void ItemPicker::Update()
 			changeStandarCursorIcon = true;
 		}
 	}
-	
 	else
 	{
-		if (myRender != nullptr)
+		if (itemName != nullptr)
 		{
-			//myRender->highlighted = false;
 			itemName->Hovered(gameobject->UUID, false);
+			itemName->DisableName(gameobject->UUID);
+		}
 
-			if (changeStandarCursorIcon && !App->ui->IsHover())
-			{
-				MouseController::ChangeCursorIcon(gameStandarCursor);
-				App->ui->SetIsItemHover(false);
-				changeStandarCursorIcon = false;
-				changeItemCursorIcon = true;
-				itemName->DisableName(gameobject->UUID);
-			}
+		if (changeStandarCursorIcon && !App->ui->IsHover())
+		{
+			MouseController::ChangeCursorIcon(gameStandarCursor);
+			App->ui->SetIsItemHover(false);
+			changeStandarCursorIcon = false;
+			changeItemCursorIcon = true;
 		}
 	}
 }

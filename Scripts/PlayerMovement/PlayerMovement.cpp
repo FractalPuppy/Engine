@@ -250,7 +250,7 @@ void PlayerMovement::CreatePlayerSkills()
 		rain->decal->SetActive(false);
 	}
 	GameObject* machete = App->scene->Spawn("MacheteRain");
-	if (machete)
+	if (machete && rain->decal)
 	{
 		rain->decalOriginalColor = ((ComponentRenderer*)rain->decal->GetComponent<ComponentRenderer>())->material->diffuseColor;
 		rain->decalMaterial = ((ComponentRenderer*)rain->decal->GetComponent<ComponentRenderer>())->material;
@@ -837,7 +837,7 @@ void PlayerMovement::Update()
 	{
 		outCombatTimer -= App->time->gameDeltaTime;
 	}
-	else if (health < GetTotalPlayerStats().health)
+	else if (health < GetTotalPlayerStats().health && !isPlayerDead)
 	{
 		PlayerStats playerStats = GetTotalPlayerStats();
 		health += playerStats.hpRegen * App->time->gameDeltaTime;

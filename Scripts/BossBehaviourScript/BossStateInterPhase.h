@@ -3,6 +3,8 @@
 
 #include "BossState.h"
 
+class ComponentRenderer;
+
 enum class IpState
 {
 	None,
@@ -11,6 +13,15 @@ enum class IpState
 	FadeIn,
 	Powerup,
 	Relocate,
+	Finished
+};
+
+enum class FX
+{
+	None,
+	Charge,
+	Loop,
+	Explode,
 	Finished
 };
 
@@ -29,11 +40,22 @@ private:
 	void Exit() override;
 
 	IpState ipState = IpState::None;
+	FX fxState = FX::None;
 
 	bool finished = false;
 	float powerUpTimer = 0.0f;
 	float relocateTimer = 0.0f;
+	float fxTimer = 0.0f;
+	float offset = 0.0f;
+	float angle = 0.0f;
+
 	bool durationPowerSet = false;
+	bool particlesFX = false;
+	bool fxBigBallSet = false;
+	bool fxHandBallSet = false;
+
+	ComponentRenderer* ballRenderer = nullptr;
+	math::float3 originalScale = math::float3::zero;
 };
 
 #endif // __BOSSSTATEINTERPHASE_H_

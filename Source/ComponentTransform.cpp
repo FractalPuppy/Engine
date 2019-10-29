@@ -376,6 +376,14 @@ void ComponentTransform::Align(const math::float3 & targetFront)
 	SetRotation(rotation.Mul(newRotation));
 }
 
+void ComponentTransform::UpdateTransformOnSpawn()
+{
+	LOG("Transform Awake");
+	rotation = math::Quat::FromEulerXYZ(math::DegToRad(eulerRotation.x), math::DegToRad(eulerRotation.y), math::DegToRad(eulerRotation.z));
+	UpdateTransform();
+	gameobject->movedFlag = true;
+}
+
 void ComponentTransform::Save(JSON_value* value) const
 {
 	Component::Save(value);

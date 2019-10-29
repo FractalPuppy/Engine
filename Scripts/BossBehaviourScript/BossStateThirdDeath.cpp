@@ -2,6 +2,7 @@
 
 #include "BossBehaviourScript.h"
 
+#include "CameraController/CameraController.h"
 #include "EnemyControllerScript/EnemyControllerScript.h"
 #include "GameLoop/GameLoop.h"
 #include "ComponentAnimation.h"
@@ -34,6 +35,8 @@ void BossStateThirdDeath::Update()
 void BossStateThirdDeath::Enter()
 {
 	boss->enemyController->anim->SendTriggerToStateMachine(trigger.c_str());
+	boss->cameraScript->Shake(4.0f, 85.0f, 1.0f, 0.01f, false);
+	boss->enemyController->bossFightStarted = false;
 	boss->ResetVariables();
 
 	//tell controller that third phase boss is gone
