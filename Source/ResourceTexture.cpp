@@ -56,6 +56,8 @@ bool ResourceTexture::LoadInMemory()
 	if (Resource::IsLoadedToMemory())
 		return false;
 
+	App->resManager->DeleteResourceFromUnusedList(UID);
+
 	bool success = false;
 
 	switch (imageType)

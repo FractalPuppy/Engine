@@ -8,7 +8,7 @@
 #include "BossStateThirdLeft.h"
 
 #include "BossBehaviourScript.h"
-
+#include "CameraController/CameraController.h"
 #include "EnemyControllerScript/EnemyControllerScript.h"
 #include "ComponentAnimation.h"
 

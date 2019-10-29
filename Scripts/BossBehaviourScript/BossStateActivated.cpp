@@ -9,6 +9,8 @@
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
+#include "ComponentRenderer.h"
+#include "ComponentBoxTrigger.h"
 
 #include "Math/float3.h"
 
@@ -29,6 +31,7 @@ void BossStateActivated::HandleIA()
 		boss->bossPhase = BossPhase::First;
 		boss->currentLocation = TPlocations::None;
 		boss->currentState = (BossState*)boss->idle;
+		boss->enemyController->hpBoxTrigger->Enable(true);
 	}
 }
 

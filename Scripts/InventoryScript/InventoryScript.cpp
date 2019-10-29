@@ -570,7 +570,7 @@ void InventoryScript::Update()
 
 bool InventoryScript::AddItem(Item item, unsigned amount)
 {
-	for (int i = 0; i < INVENTARY_SLOTS; ++i)
+	for (int i = 0; i < INVENTARY_SLOTS; i++)
 	{
 		if (!itemsSlots[i]->activeSelf)
 		{
@@ -778,12 +778,12 @@ int InventoryScript::ManageConsumableItemsQuantity(const Item& item, int value)
 {
 	if (item.type == ItemType::QUICK)
 	{
-		for (int i = 0; i < consumableItems.size(); ++i)
+		for (std::vector<std::pair<std::string, int>>::iterator pair = consumableItems.begin(); pair != consumableItems.end(); ++pair)
 		{
-			if (consumableItems[i].first == item.name)
+			if (pair._Ptr->first == item.name)
 			{
-				consumableItems[i].second += value;
-				return consumableItems[i].second;
+				pair._Ptr->second += value;
+				return pair._Ptr->second;
 			}
 		}
 		
@@ -832,17 +832,29 @@ void InventoryScript::UseItemConsumableOnPlayer(int itemPosition)
 		{
 			for (int j = 0; j < items.size(); ++j)
 			{
-				if (items[j].first->name == assignedConsumableItem[itemPosition])
+				if (items[j].first->name == consumableItems[i].first)
 				{
 					playerMovement->ConsumeItem(items[j].first->stats);
 					consumableItems[i].second -= 1;
-
 					if (consumableItems[i].second < 0)
 					{
 						consumableItems[i].second = 0;
 					}
-
 					ManageConsumableItemsQuantityText(*items[j].first, consumableItems[i].second);
+					if (consumableItems[i].second == 0)
+					{
+						for (int x = j; x < INVENTARY_SLOTS; x++) 
+						{
+							if (itemsSlots[x]->activeSelf) 
+							{
+								itemsSlots[x]->SetActive(false);
+								itemsSlotsNumbers[x]->SetActive(false);
+								break;
+							}
+						}						
+						items.erase(items.begin() + j);
+						if(items.size() > 1)j--;
+					}
 				}
 			}
 		}
@@ -855,7 +867,12 @@ int InventoryScript::GetCurrentQuantity(const Item& item)
 	{
 		if (consumableItems[i].first == item.name)
 		{
-			return consumableItems[i].second;
+			int ret = consumableItems[i].second;
+			if (ret == 0)
+			{
+				consumableItems.erase(consumableItems.begin() + i);
+			}
+			return ret;
 		}
 	}
 
@@ -899,6 +916,7 @@ void InventoryScript::ManageConsumableItemsQuantityText(const Item& item, int qu
 			itemsSlotNumber->uiOrder = 6;
 		}
 	}
+
 }
 
 
