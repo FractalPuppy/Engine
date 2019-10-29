@@ -451,8 +451,7 @@ void PlayerMovement::CheckSkillsInput()
 		if (!allSkills[assignedSkills[HUD_BUTTON_RC]]->skill->canceled)
 		{
 			currentSkill = allSkills[assignedSkills[HUD_BUTTON_RC]]->skill;
-			skillType = allSkills[assignedSkills[HUD
-							     _BUTTON_RC]]->type;
+			skillType = allSkills[assignedSkills[HUD_BUTTON_RC]]->type;
 		}
 	}
 
