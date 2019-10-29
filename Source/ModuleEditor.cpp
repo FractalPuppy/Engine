@@ -24,6 +24,7 @@
 #include "PanelState.h"
 #include "PanelAnimation.h"
 #include "PanelNavigation.h"
+#include "PanelResourceManagerUnused.h"
 
 #include "MaterialEditor.h"
 #include "FileExplorer.h"
@@ -53,6 +54,7 @@ ModuleEditor::ModuleEditor()
 	panels.push_back(animation = new PanelAnimation());
 	panels.push_back(resource = new PanelResourceManager());
 	panels.push_back(navigation = new PanelNavigation());
+	panels.push_back(resourceUnused = new PanelResourceManagerUnused());
 
 	materialEditor = new MaterialEditor();
 	fileExplorer = new FileExplorer();
@@ -377,6 +379,10 @@ void ModuleEditor::ToolsMenu()
 		if (ImGui::MenuItem("Resource Manager", nullptr, resource->IsEnabled()))
 		{
 			resource->ToggleEnabled();
+		}
+		if (ImGui::MenuItem("Unused Resource Manager", nullptr, resourceUnused->IsEnabled()))
+		{
+			resourceUnused->ToggleEnabled();
 		}
 		if (ImGui::MenuItem("Delete Player Prefs", nullptr))
 		{

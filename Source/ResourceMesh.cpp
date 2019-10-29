@@ -71,6 +71,7 @@ ResourceMesh::~ResourceMesh()
 
 bool ResourceMesh::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
 	char* data = nullptr;
 
 	unsigned ok = App->fsystem->Load(exportedFile.c_str(), &data);

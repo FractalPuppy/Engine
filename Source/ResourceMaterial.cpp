@@ -64,6 +64,7 @@ void ResourceMaterial::DeleteFromMemory()
 
 bool ResourceMaterial::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
 	char* data = nullptr;
 	// Load JSON
 	if (App->fsystem->Load(exportedFile.c_str(), &data) == 0)
