@@ -640,3 +640,11 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		}
 	}
 }
+
+void EnemyControllerScript::SetDefaultMaterialToCurrentMaterial()
+{
+	for (unsigned i = 0u; i < defaultMaterials.size(); i++)
+	{
+		defaultMaterials.at(i) = GetMainRenderer()->material;
+	}
+}

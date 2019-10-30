@@ -68,6 +68,7 @@ public:
 
 public:
 
+	void SetDefaultMaterialToCurrentMaterial();
 	bool isDead = false;
 	bool bossFightStarted = false;
 	bool hasFreeRotation = false;

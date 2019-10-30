@@ -15,6 +15,8 @@
 
 #include "BossBehaviourScript.h"
 
+#define HOLYSMMATERIAL "HolySantaMuerte"
+
 BossStateSecondInterPhase::BossStateSecondInterPhase(BossBehaviourScript* AIboss)
 {
 	boss = AIboss;
@@ -110,6 +112,8 @@ void BossStateSecondInterPhase::Update()
 			else
 			{
 				state = InterphaseState::Teleport;
+				boss->enemyController->GetMainRenderer()->SetMaterial(HOLYSMMATERIAL);
+				boss->enemyController->SetDefaultMaterialToCurrentMaterial();
 			}
 
 			floorVanishTimer += boss->App->time->gameDeltaTime;
