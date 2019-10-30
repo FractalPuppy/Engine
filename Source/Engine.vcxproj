@@ -477,6 +477,9 @@
   <ItemGroup>
     <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\Pollo_icono_finish.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
