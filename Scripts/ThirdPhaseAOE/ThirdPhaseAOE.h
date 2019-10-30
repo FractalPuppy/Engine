@@ -11,6 +11,7 @@
 
 class ComponentBoxTrigger;
 class PlayerMovement;
+class CameraController;
 
 class ThirdPhaseAOE_API ThirdPhaseAOE : public Script
 {
@@ -43,21 +44,29 @@ public:
 	bool firstExploded = false;
 	GameObject* prepParticlesFirstAOEGO = nullptr;
 	GameObject* hitParticlesFirstAOEGO = nullptr;
+	GameObject* smashParticlesFirst = nullptr;
 	GameObject* boxTriggerFirstAOEGO = nullptr;
+	GameObject* rockParticlesFirstAOEGO = nullptr;
 	ComponentBoxTrigger* boxTriggerComponentFirst = nullptr;
 
 	//second AOE variables
-	float timeToExplodeRepetition = 0.7f;
+	float timeToSpawnRepetition = 0.7f;
 	float timeToFinishRepetition = 1.5f;
 	float secondAOEtimer = 0.0f;
 	float secondExploded = false;
 	GameObject* prepParticlesSecondAOEGO = nullptr;
-	GameObject* hitParticlesSecondAOEGO = nullptr;
 	GameObject* boxTriggerSecondAOEGO = nullptr;
 	ComponentBoxTrigger* boxTriggerComponentSecond = nullptr;
 
 	GameObject* playerGO = nullptr;
 	PlayerMovement* playerScript = nullptr;
+
+	GameObject* playerCamera = nullptr;
+	CameraController* cameraScript = nullptr;
+
+	bool particlesSet = false;
+	bool particlesReplica = false;
+	bool replicaSpawned = false;
 };
 
 #endif __ThirdPhaseAOE_h__

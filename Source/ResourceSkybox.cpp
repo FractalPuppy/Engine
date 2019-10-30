@@ -42,6 +42,8 @@ ResourceSkybox::~ResourceSkybox()
 
 bool ResourceSkybox::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
+
 	skybox_cubemap = LoadCubeMap(textures);
 
 	float skyboxVertices[] = {

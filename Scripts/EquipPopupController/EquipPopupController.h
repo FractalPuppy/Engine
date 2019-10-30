@@ -73,6 +73,8 @@ private:
 	std::vector<Text*> hudConsumibleItemsQuantity;
 	int activeButton = -1;
 
+	float butonY;
+
 	std::vector<Item> itemsList;
 	std::vector<Skill> skillsList;
 

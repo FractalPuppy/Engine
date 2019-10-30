@@ -26,6 +26,7 @@ bool ResourceAudio::LoadInMemory()
 	if (Resource::IsLoadedToMemory())
 		return false;
 
+	App->resManager->DeleteResourceFromUnusedList(UID);
 	bool success = false;
 
 	int ret;

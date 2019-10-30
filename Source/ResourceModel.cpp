@@ -31,6 +31,7 @@ ResourceModel::~ResourceModel()
 
 bool ResourceModel::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
 	for each(auto mesh in meshList)
 	{
 		mesh->LoadInMemory();

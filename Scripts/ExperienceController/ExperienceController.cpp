@@ -10,6 +10,7 @@
 #include "ComponentText.h"
 #include "ComponentImage.h"
 #include "ComponentRenderer.h"
+#include "ComponentAudioSource.h"
 
 #include "SkillTreeController.h"
 #include "PlayerMovement.h"
@@ -96,6 +97,19 @@ void ExperienceController::Start()
 			playerRender->highlightColor = expColor;
 		}
 	}
+
+	GameObject* GO = nullptr;
+
+	GO = App->scene->FindGameObjectByName("audioLVLup");
+	if (GO != nullptr)
+	{
+		audioLVLup = GO->GetComponent<ComponentAudioSource>();
+		assert(audioLVLup != nullptr);
+	}
+	else
+	{
+		LOG("Warning: audioLVLup game object not found");
+	}
 }
 
 void ExperienceController::Update()
@@ -145,6 +159,7 @@ void ExperienceController::Update()
 
 void ExperienceController::AddXP(int xp)
 {
+ 
 	totalXPAcumulated += xp;
 	if (currentLevel < maxLevel)
 	{
@@ -155,6 +170,7 @@ void ExperienceController::AddXP(int xp)
 		{
 			while (currentXP >= maxXPLevel)
 			{
+				audioLVLup->Play();
 				++currentLevel;
 				levelUP = true;
 				if (currentLevel == maxLevel)
@@ -202,6 +218,7 @@ void ExperienceController::AddXP(int xp)
 void ExperienceController::LevelUpStats()
 {
 	// Upgrade stats
+
 	PlayerStats* stats = &playerScript->baseStats;
 	stats->health += healthIncrease;
 	stats->mana += manaIncrease;

@@ -263,6 +263,7 @@
     <ClInclude Include="PanelInspector.h" />
     <ClInclude Include="PanelNavigation.h" />
     <ClInclude Include="PanelResourceManager.h" />
+    <ClInclude Include="PanelResourceManagerUnused.h" />
     <ClInclude Include="PanelState.h" />
     <ClInclude Include="PanelTime.h" />
     <ClInclude Include="par_shapes.h" />
@@ -279,6 +280,7 @@
     <ClInclude Include="ResourcePrefab.h" />
     <ClInclude Include="ResourceScene.h" />
     <ClInclude Include="ResourceSkybox.h" />
+    <ClInclude Include="ResourceSortingFunctions.h" />
     <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="ResourceStateMachine.h" />
     <ClInclude Include="Soloud\fractal_includes\dr_flac.h" />
@@ -390,6 +392,7 @@
     <ClCompile Include="PanelHardware.cpp" />
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="PanelInspector.cpp" />
+    <ClCompile Include="PanelResourceManagerUnused.cpp" />
     <ClCompile Include="PanelState.cpp" />
     <ClCompile Include="PanelNavigation.cpp" />
     <ClCompile Include="PanelResourceManager.cpp" />

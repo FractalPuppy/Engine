@@ -26,6 +26,7 @@ ResourcePrefab::~ResourcePrefab()
 
 bool ResourcePrefab::LoadInMemory()
 {
+	App->resManager->DeleteResourceFromUnusedList(UID);
 	char* data = nullptr;
 
 	unsigned ok = App->fsystem->Load((IMPORTED_PREFABS + std::to_string(UID) + PREFABEXTENSION).c_str(), &data);

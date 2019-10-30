@@ -118,16 +118,6 @@ void BossStateCutScene::Update()
 			finished = true;
 			break;
 	}
-	//flames?
-
-	//do the lerping in
-
-	//Close door
-
-	//lerping to boss
-
-	//back to player
-
 }
 
 void BossStateCutScene::Enter()
