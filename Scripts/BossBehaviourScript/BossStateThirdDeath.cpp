@@ -2,6 +2,8 @@
 
 #include "BossBehaviourScript.h"
 
+#include "GameObject.h"
+
 #include "CameraController/CameraController.h"
 #include "EnemyControllerScript/EnemyControllerScript.h"
 #include "GameLoop/GameLoop.h"

@@ -37,7 +37,7 @@ void BossStateSummonArmy::Update()
 	if (timer > downTime)
 	{
 		timerSkeletons += boss->App->time->gameDeltaTime;
-		if (timerSkeletons > boss->timerBetweenSummons)
+		if (!firstSummon || timerSkeletons > boss->timerBetweenSummonsSummonPhase)
 		{
 			//SPAWN one enemy at a random spawn location
 			math::float3 spawnLocation = boss->ChooseRandomSpawn();
@@ -53,6 +53,7 @@ void BossStateSummonArmy::Update()
 			firstSkeleton->transform->LookAtLocal(boss->playerPosition);
 
 			timerSkeletons = 0.0f;
+			firstSummon = true;
 		}
 	}
 	

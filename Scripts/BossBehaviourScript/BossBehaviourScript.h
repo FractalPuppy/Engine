@@ -154,6 +154,9 @@ public:
 	void GenerateNewNavigability(std::vector<GameObject*>& vectorGOs);
 
 public:
+
+	bool IsBossDead();
+
 	float firstHealthThreshold = 0.75f;
 	float secondHealthThreshold = 0.35f;
 
@@ -236,7 +239,8 @@ public:
 
 	//Summon in summon phase
 	int summonSkeletonsNumber = 10;
-	float timerBetweenSummons = 5.0f;
+	float timerBetweenSummonsSummonPhase = 1.0f;
+	float timerBetweenSummonsFight = 3.0f;
 	math::float3 firstSpawnLocation = math::float3::zero;
 	//giving default intended values to the spawn locations
 	math::float3 secondSpawnLocation = math::float3(1654.f, 370.f, -3333.f);
@@ -271,6 +275,7 @@ public:
 	//ThirdPhase
 	GameObject* leftFist = nullptr;
 	GameObject* rightFist = nullptr;
+	GameObject* defeatParticles = nullptr;
 
 public:
 	math::Quat InterpolateQuat(const math::Quat first, const math::Quat second, float lambda);
