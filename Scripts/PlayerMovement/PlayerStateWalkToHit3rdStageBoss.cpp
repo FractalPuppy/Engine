@@ -48,7 +48,7 @@ void PlayerStateWalkToHit3rdStageBoss::Update()
 			walkingEnemyTargeted = player->App->scene->enemyHovered.object->parent;
 			enemyPosition = walkingEnemyTargeted->transform->position;
 			targetBoxWidth = player->App->scene->enemyHovered.triggerboxMinWidth;
-			math::float3 correctionPos(player->basicAttackRange*10, player->OutOfMeshCorrectionY, player->basicAttackRange*10);
+			math::float3 correctionPos(player->basicAttackRange*10, player->OutOfMeshCorrectionY*20, player->basicAttackRange*10);
 			if (player->App->navigation->FindPath(player->gameobject->transform->position, enemyPosition,
 				path, PathFindType::FOLLOW, correctionPos, defaultMaxDist, player->straightPathingDistance))
 			{
