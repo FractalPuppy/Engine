@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 3949062958,
+            "UID": 637441503,
             "ParentUID": 652642298,
             "Name": "AudioPlayer",
             "Tag": "Default",
@@ -33,7 +33,6 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2855789593,
-            "prefabTimeStamp": 1572286217,
             "Components": [
                 {
                     "Type": 0,
@@ -81,8 +80,8 @@
             ]
         },
         {
-            "UID": 1165999846,
-            "ParentUID": 3949062958,
+            "UID": 3068071152,
+            "ParentUID": 637441503,
             "Name": "gotHitAudio",
             "Tag": "Default",
             "Static": 0,
@@ -160,7 +159,7 @@
                 {
                     "Type": 14,
                     "Enabled": 1,
-                    "audioUID": 861301925,
+                    "audioUID": 0,
                     "Volume": 1.0,
                     "PlayOnAwake": 0,
                     "Sound3D": 0,
@@ -173,8 +172,8 @@
             ]
         },
         {
-            "UID": 1736956856,
-            "ParentUID": 3949062958,
+            "UID": 2042163089,
+            "ParentUID": 637441503,
             "Name": "itemPickedAudio",
             "Tag": "Default",
             "Static": 0,
@@ -265,8 +264,8 @@
             ]
         },
         {
-            "UID": 3353370647,
-            "ParentUID": 3949062958,
+            "UID": 3023356546,
+            "ParentUID": 637441503,
             "Name": "stepSound",
             "Tag": "Default",
             "Static": 0,
@@ -357,8 +356,8 @@
             ]
         },
         {
-            "UID": 2428140410,
-            "ParentUID": 3949062958,
+            "UID": 1308152562,
+            "ParentUID": 637441503,
             "Name": "bomb_take_off",
             "Tag": "Default",
             "Static": 0,
@@ -449,8 +448,8 @@
             ]
         },
         {
-            "UID": 4207603954,
-            "ParentUID": 3949062958,
+            "UID": 193798555,
+            "ParentUID": 637441503,
             "Name": "bomb_impact",
             "Tag": "Default",
             "Static": 0,
@@ -541,8 +540,8 @@
             ]
         },
         {
-            "UID": 2045470763,
-            "ParentUID": 3949062958,
+            "UID": 4234494612,
+            "ParentUID": 637441503,
             "Name": "attack1",
             "Tag": "Default",
             "Static": 0,
@@ -633,8 +632,8 @@
             ]
         },
         {
-            "UID": 2565803599,
-            "ParentUID": 3949062958,
+            "UID": 1061337586,
+            "ParentUID": 637441503,
             "Name": "attack2",
             "Tag": "Default",
             "Static": 0,
@@ -725,8 +724,8 @@
             ]
         },
         {
-            "UID": 699657633,
-            "ParentUID": 3949062958,
+            "UID": 1717991024,
+            "ParentUID": 637441503,
             "Name": "spin_attack",
             "Tag": "Default",
             "Static": 0,
@@ -817,8 +816,8 @@
             ]
         },
         {
-            "UID": 2468465562,
-            "ParentUID": 3949062958,
+            "UID": 1845858436,
+            "ParentUID": 637441503,
             "Name": "drill_attack",
             "Tag": "Default",
             "Static": 0,
@@ -909,8 +908,8 @@
             ]
         },
         {
-            "UID": 64492759,
-            "ParentUID": 3949062958,
+            "UID": 794796695,
+            "ParentUID": 637441503,
             "Name": "knives_attack",
             "Tag": "Default",
             "Static": 0,
@@ -1001,8 +1000,8 @@
             ]
         },
         {
-            "UID": 2895832970,
-            "ParentUID": 3949062958,
+            "UID": 4202102241,
+            "ParentUID": 637441503,
             "Name": "knives_ending",
             "Tag": "Default",
             "Static": 0,
@@ -1093,8 +1092,8 @@
             ]
         },
         {
-            "UID": 1546178368,
-            "ParentUID": 3949062958,
+            "UID": 3041471384,
+            "ParentUID": 637441503,
             "Name": "audioLVLup",
             "Tag": "Default",
             "Static": 0,

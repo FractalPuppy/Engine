@@ -176,6 +176,8 @@ public:
 	PlayerMovement();
 	virtual ~PlayerMovement();
 
+	bool CleanUp() override;
+
 	void Expose(ImGuiContext* context) override;
 
 	void Start() override;

@@ -33,8 +33,6 @@ void BossStateSecondInterPhase::HandleIA()
 	if (finished)
 	{
 		boss->currentState = (BossState*)boss->thirdIdle;
-		//set the bb to be the same as the hitbox
-		boss->StartThirdPhase();
 	}
 }
 
@@ -173,6 +171,5 @@ void BossStateSecondInterPhase::Enter()
 
 void BossStateSecondInterPhase::Exit()
 {
-	boss->gLoop->DeleteAllEnemies();
 	boss->enemyController->hpBoxTrigger->Enable(true);
 }
