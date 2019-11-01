@@ -331,30 +331,6 @@ void PlayerMovement::CreatePlayerSkills()
 		LOG("Player camera not found");
 	}
 
-	GameObject* GO = nullptr;
-	GO = App->scene->FindGameObjectByName("knives_attack");
-	if (GO != nullptr)
-	{
-		knives_attack = GO->GetComponent<ComponentAudioSource>();
-		assert(knives_attack != nullptr);
-	}
-	else
-	{
-		LOG("Warning: knives_attack game object not found");
-	}
-
-	GO = nullptr;
-	GO = App->scene->FindGameObjectByName("knives_ending");
-	if (GO != nullptr)
-	{
-		knives_ending = GO->GetComponent<ComponentAudioSource>();
-		assert(knives_ending != nullptr);
-	}
-	else
-	{
-		LOG("Warning: knives_ending game object not found");
-	}
-
 	allSkills[SkillType::CHAIN]->skill = (BasicSkill*)chain;
 	allSkills[SkillType::DASH]->skill = (BasicSkill*)dash;
 	allSkills[SkillType::SLICE]->skill = (BasicSkill*)slice;
@@ -653,17 +629,6 @@ void PlayerMovement::Start()
 		LOG("The Game Object '4_Cooldown' couldn't be found.");
 	}
 
-	GameObject* GOtemp = App->scene->FindGameObjectByName("gotHitAudio");
-	if (GOtemp != nullptr)
-	{
-		gotHitAudio = GOtemp->GetComponent<ComponentAudioSource>();
-		assert(gotHitAudio != nullptr);
-	}
-	else
-	{
-		LOG("The Game Object 'gotHitAudio' couldn't be found.");
-	}
-
 	CreatePlayerSkills();
 
 	if (dashFX == nullptr)
@@ -677,8 +642,7 @@ void PlayerMovement::Start()
 		dash->dashFX = dashFX;
 	}
 
-
-	GOtemp = App->scene->FindGameObjectByName("PlayerMesh");
+	GameObject* GOtemp = App->scene->FindGameObjectByName("PlayerMesh");
 	dash->playerRenderer = GOtemp->GetComponent<ComponentRenderer>();
 
 	bombDropMesh1 = App->scene->FindGameObjectByName("BombDropMesh1");
@@ -772,6 +736,7 @@ void PlayerMovement::Start()
 	assignedSkills[HUD_BUTTON_R] = (SkillType)PlayerPrefs::GetInt("R", 20);
 
 	InitializeUIStatsObjects();
+	InitializeAudioObjects();
 
 	GameObject* inventoryGO = App->scene->FindGameObjectByName("Inventory");
 	if (inventoryGO)
@@ -987,8 +952,18 @@ PlayerMovement_API void PlayerMovement::Damage(float amount)
 {
 	if (!isPlayerDead)
 	{
-		if (gotHitAudio != nullptr)
-			gotHitAudio->Play();
+		// Alternate between 2 hit sounds
+		if ((rand() % 100u) < 50u)
+		{
+			if (gotHitAudio != nullptr)
+				gotHitAudio->Play();
+		}
+		else
+		{
+			if (gotHitAudio2 != nullptr)
+				gotHitAudio2->Play();
+		}
+
 		outCombatTimer = outCombatMaxTime;
 		health -= amount;
 		if (health < 0)
@@ -1933,6 +1908,58 @@ void PlayerMovement::InitializeUIStatsObjects()
 	else
 	{
 		LOG("The Game Object 'StatsPanel' couldn't be found.");
+	}
+}
+
+void PlayerMovement::InitializeAudioObjects()
+{
+	// Hit sounds
+	GameObject* GOtemp = App->scene->FindGameObjectByName("gotHitAudio");
+	if (GOtemp != nullptr)
+	{
+		gotHitAudio = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(gotHitAudio != nullptr);
+	}
+	else
+	{
+		LOG("The Game Object 'gotHitAudio' couldn't be found.");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("gotHitAudio2");
+	if (GOtemp != nullptr)
+	{
+		gotHitAudio2 = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(gotHitAudio != nullptr);
+	}
+	else
+	{
+		LOG("The Game Object 'gotHitAudio2' couldn't be found.");
+	}
+
+	// Mache
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("knives_attack");
+	if (GOtemp != nullptr)
+	{
+		knives_attack = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(knives_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_attack game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("knives_ending");
+	if (GOtemp != nullptr)
+	{
+		knives_ending = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(knives_ending != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_ending game object not found");
 	}
 }
 

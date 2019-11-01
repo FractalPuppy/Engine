@@ -251,6 +251,7 @@ private:
 	void CreatePlayerSkills();
 
 	void InitializeUIStatsObjects();
+	void InitializeAudioObjects();
 public:
 	bool ThirdStageBoss = false;
 
@@ -334,6 +335,7 @@ public:
 
 	//Audio
 	ComponentAudioSource* gotHitAudio = nullptr;
+	ComponentAudioSource* gotHitAudio2 = nullptr;
 	GameObject* slashTrail = nullptr;
 
 
