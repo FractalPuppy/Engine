@@ -34,6 +34,7 @@ public:
 	void SetAspect(float aspect);
 	ENGINE_API void SetFOV(float fov);
 	ENGINE_API float GetFOV();
+	ENGINE_API void SetFogColor(math::float3 newColor);
 
 	void ResetFrustum();
 

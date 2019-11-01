@@ -4,6 +4,8 @@
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
+#include "ComponentAnimation.h"
+#include "ComponentCamera.h"
 
 #include "BossStateSummonArmy.h"
 
@@ -34,7 +36,48 @@ void BossStateSummonArmy::HandleIA()
 
 void BossStateSummonArmy::Update()
 {
-	if (timer > downTime)
+	switch (animState)
+	{
+	case animationState::None:
+		animState = animationState::Precast;
+		boss->anim->SendTriggerToStateMachine("PrecastNL");
+		animDuration = boss->anim->GetDurationFromClip();
+		break;
+	case animationState::Precast:
+		if (animTimer > animDuration)
+		{
+			boss->anim->SendTriggerToStateMachine("Cast");
+			animDuration = boss->anim->GetDurationFromClip();
+			animState = animationState::Cast;
+			animTimer = 0.0f;
+		}
+		else
+		{
+			animTimer += boss->App->time->gameDeltaTime;
+
+			//we have to activate orbs somewhere here
+		}
+		break;
+	case animationState::Cast:
+		if (animTimer > animDuration)
+		{
+			boss->anim->SendTriggerToStateMachine("Idle");
+			animState = animationState::Finished;
+			animTimer = 0.0f;
+		}
+		else
+		{
+			animTimer += boss->App->time->gameDeltaTime;
+			//we have to deactivate orbs somewhere here also set casted to true
+			casted = true;
+		}
+		break;
+	case animationState::Finished:
+		break;
+	}
+
+
+	if (casted)
 	{
 		timerSkeletons += boss->App->time->gameDeltaTime;
 		if (!firstSummon || timerSkeletons > boss->timerBetweenSummonsSummonPhase)
@@ -55,12 +98,15 @@ void BossStateSummonArmy::Update()
 			timerSkeletons = 0.0f;
 			firstSummon = true;
 		}
+
+		LerpFogColor();
 	}
 	
 }
 
 void BossStateSummonArmy::Enter()
 {
+	initialColor = boss->compCamera->fogColor;
 }
 
 void BossStateSummonArmy::Exit()
@@ -76,4 +122,18 @@ bool BossStateSummonArmy::AllEnemiesAppeared()
 		ret = true;
 	}
 	return ret;
+}
+
+void BossStateSummonArmy::LerpFogColor()
+{
+	if (colorTimer < boss->fogLerpDuration)
+	{
+		float lambda = colorTimer / boss->fogLerpDuration;
+	
+		boss->compCamera->SetFogColor(boss->InterpolateFloat3(initialColor, boss->fogFinalColor, lambda));
+
+		colorTimer += boss->App->time->gameDeltaTime;
+	}
+
+
 }

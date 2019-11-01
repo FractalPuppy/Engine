@@ -239,11 +239,14 @@ public:
 	math::float3 leftTP = math::float3::zero;
 	math::float3 rightTP = math::float3::zero;
 
-	//Summon in summon phase
+	//summon phase
 	int summonSkeletonsNumber = 10;
 	float timerBetweenSummonsSummonPhase = 1.0f;
 	float timerBetweenSummonsFight = 3.0f;
 	math::float3 firstSpawnLocation = math::float3::zero;
+	math::float3 fogFinalColor = math::float3::zero;
+	float fogLerpDuration = 4.0f;
+
 	//giving default intended values to the spawn locations
 	math::float3 secondSpawnLocation = math::float3(1654.f, 370.f, -3333.f);
 	math::float3 thirdSpawnLocation = math::float3(-308.f, 370.f, -2376.f);
