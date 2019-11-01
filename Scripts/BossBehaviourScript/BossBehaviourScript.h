@@ -281,6 +281,8 @@ public:
 	GameObject* leftFist = nullptr;
 	GameObject* rightFist = nullptr;
 	GameObject* defeatParticles = nullptr;
+	float deathDissolveSpeed = 1.0f;
+
 
 public:
 	math::Quat InterpolateQuat(const math::Quat first, const math::Quat second, float lambda);
