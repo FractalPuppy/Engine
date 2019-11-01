@@ -341,6 +341,7 @@ void EnemyControllerScript::Update()
 					lootDrop->DropItems();
 			}
 			lootDropped = true;
+			enabled = false;
 		}
 		else
 		{
@@ -353,7 +354,10 @@ void EnemyControllerScript::Update()
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
 		removedFromCrowd = true;
-		enabled = false;
+
+		// Avoid disabling enemy before dropping loot
+		if (lootDrop == nullptr)
+			enabled = false;
 	}
 }
 
