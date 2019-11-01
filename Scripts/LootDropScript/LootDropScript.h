@@ -41,6 +41,9 @@ public:
 	math::float3 positionOffset = math::float3(0.0f, 0.0f, 0.0f);
 	math::float3 rotationOffset = math::float3(-90.0f, 0.0f, 0.0f);
 
+	// Only semicircle variable
+	std::vector<GameObject*> spawnPositionGOList;	// Each item will spawn on the position of the objects conatined on this vector
+
 	// Animation variables
 	bool animate = true;						// Spawn the items with animation?
 	float animDuration = 0.8f;					// How much time the animation lasts
