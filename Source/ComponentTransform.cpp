@@ -296,7 +296,7 @@ math::Quat ComponentTransform::GetRotation()
 
 math::float3 ComponentTransform::GetGlobalPosition()
 {
-	if (gameobject->movedFlag)
+	if (this && gameobject->movedFlag)
 	{
 		float4x4 newlocal = math::float4x4::FromTRS(position, rotation, scale);
 		if (gameobject->parent != nullptr)
