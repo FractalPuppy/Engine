@@ -197,6 +197,10 @@ void EnemyControllerScript::Update()
 
 	if (bossFightStarted)
 	{
+		if (gameobject->tag == "Boss")
+		{
+			playerMovement->ThirdStageBoss = ThirdStageBoss;
+		}
 		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Santa Muerte");
 		//in case boss third stage, highlighting works differently
 		if (ThirdStageBoss)
@@ -204,7 +208,6 @@ void EnemyControllerScript::Update()
 			objectMesh = App->scene->FindGameObjectByName("mesh", gameobject);
 		}
 	}
-	playerMovement->ThirdStageBoss = ThirdStageBoss;
 	auto mesh = std::find(intersects.begin(), intersects.end(), objectMesh);
 	if(mesh != std::end(intersects) && *mesh == objectMesh)
 	{
@@ -353,7 +356,6 @@ void EnemyControllerScript::Update()
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
 		removedFromCrowd = true;
-		enabled = false;
 	}
 }
 
