@@ -33,10 +33,7 @@ ComponentParticles::ComponentParticles(GameObject* gameobject) : Component(gameo
 ComponentParticles::ComponentParticles(const ComponentParticles& component) : Component(component)
 {
 	textureFiles = App->resManager->GetResourceNamesList(TYPE::TEXTURE, true);
-	if (component.texture != nullptr)
-	{
-		texture = (ResourceTexture*)App->resManager->Get(component.texture->GetUID());
-	}
+	texture = (ResourceTexture*)App->resManager->Get(component.texture->GetUID());
 	xTiles = component.xTiles;
 	yTiles = component.yTiles;
 	fps = component.fps;
