@@ -56,6 +56,14 @@ void BossStateSummonArmy::Update()
 			animTimer += boss->App->time->gameDeltaTime;
 
 			//we have to activate orbs somewhere here
+			if (animTimer / animDuration > boss->percOrbs)
+			{
+				boss->leftHandBall->SetActive(true);
+				boss->rightHandBall->SetActive(true);
+				boss->leftHandParticles->SetActive(true);
+				boss->rightHandParticles->SetActive(true);
+			}
+
 		}
 		break;
 	case animationState::Cast:
@@ -69,7 +77,14 @@ void BossStateSummonArmy::Update()
 		{
 			animTimer += boss->App->time->gameDeltaTime;
 			//we have to deactivate orbs somewhere here also set casted to true
-			casted = true;
+			if (animTimer / animDuration > boss->percOrbsDisappear)
+			{
+				boss->leftHandBall->SetActive(false);
+				boss->rightHandBall->SetActive(false);
+				boss->leftHandParticles->SetActive(false);
+				boss->rightHandParticles->SetActive(false);
+				casted = true;
+			}		
 		}
 		break;
 	case animationState::Finished:
