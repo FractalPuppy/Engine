@@ -32,17 +32,14 @@ private:
 
 public:
 	void DropItems();
-	void DropItemsInCircle(float radius);			// Sapwns Items following a circle
-	void DropItemsInSemiCircle(float radius);		// Sapwns Items following a semicircle
+	void DropItemsInCircle(float radius);													// Sapwns Items following a circle
+	void DropItemsAtPositions(float radius, std::vector<GameObject*> spawnPositionGOList);	// Sapwns Items on the designed positions
 
 	std::vector<std::string> itemList;
 
 	// Items are spawned as children of itemList GO: the following variables are to set an offset from that GO position and rotation 
 	math::float3 positionOffset = math::float3(0.0f, 0.0f, 0.0f);
 	math::float3 rotationOffset = math::float3(-90.0f, 0.0f, 0.0f);
-
-	// Only semicircle variable
-	std::vector<GameObject*> spawnPositionGOList;	// Each item will spawn on the position of the objects conatined on this vector
 
 	// Animation variables
 	bool animate = true;						// Spawn the items with animation?

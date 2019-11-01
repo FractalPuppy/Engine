@@ -178,7 +178,7 @@ void LootDropScript::DropItemsInCircle(float radius)
 	spawned = true;
 }
 
-void LootDropScript::DropItemsInSemiCircle(float radius)
+void LootDropScript::DropItemsAtPositions(float radius, std::vector<GameObject*> spawnPositionGOList)
 {
 	// pi is half of a circle, divide it between items to drop
 	float angleStep = 3.14f / (itemList.size() - 1);
