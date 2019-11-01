@@ -341,6 +341,7 @@ void EnemyControllerScript::Update()
 					lootDrop->DropItems();
 			}
 			lootDropped = true;
+			gameobject->SetActive(false);
 			enabled = false;
 		}
 		else
