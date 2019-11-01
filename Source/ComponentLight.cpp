@@ -33,6 +33,7 @@ ComponentLight::ComponentLight(GameObject* gameobject) : Component(gameobject, C
 
 ComponentLight::ComponentLight(const ComponentLight& component) : Component(component)
 {
+	lightType = component.lightType;
 	position = component.position;
 	direction = component.direction;
 	color = component.color;
