@@ -50,6 +50,8 @@ private:
 	float bossWatchingTimer = 0.0f;
 	float playerLerpTimer = 0.0f;
 
+	float initalFOV = 0.0f;
+
 	float firstLambda = 0.0f;
 	float secondLambda = 0.0f;
 	float thirdLambda = 0.0f;

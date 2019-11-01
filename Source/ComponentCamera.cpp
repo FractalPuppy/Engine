@@ -202,6 +202,11 @@ void ComponentCamera::SetFOV(float fov)
 	SetAspect(aspect);
 }
 
+ENGINE_API float ComponentCamera::GetFOV()
+{
+	return math::RadToDeg(frustum->verticalFov);
+}
+
 void ComponentCamera::ResetFrustum()
 {
 	RELEASE(frustum);

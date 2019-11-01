@@ -68,6 +68,7 @@ class PlayerMovement;
 class GameLoop;
 class CameraController;
 class ComponentAnimation;
+class ComponentCamera;
 
 class BossBehaviourScript_API BossBehaviourScript : public Script
 {
@@ -224,11 +225,12 @@ public:
 	math::float3 startingPoint = math::float3::zero;
 	math::float3 highPointFirstCS = math::float3::zero;
 	math::float3 pointStartFight = math::float3::zero;
-
+	float finalFOV = 0.0f;
 	GameObject* closingDoor = nullptr;
 	GameObject* doorParticles = nullptr;
 	float finalDoorHeight = 600.0f;
 	GameObject* playerCamera = nullptr;
+	ComponentCamera* compCamera = nullptr;
 	CameraController* cameraScript = nullptr;
 
 	//TP points
