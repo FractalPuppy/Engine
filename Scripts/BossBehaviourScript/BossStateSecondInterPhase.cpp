@@ -15,6 +15,8 @@
 
 #include "BossBehaviourScript.h"
 
+#define HOLYSMMATERIAL "HolySantaMuerte"
+
 BossStateSecondInterPhase::BossStateSecondInterPhase(BossBehaviourScript* AIboss)
 {
 	boss = AIboss;
@@ -31,6 +33,8 @@ void BossStateSecondInterPhase::HandleIA()
 	if (finished)
 	{
 		boss->currentState = (BossState*)boss->thirdIdle;
+		//set the bb to be the same as the hitbox
+		boss->StartThirdPhase();
 	}
 }
 
@@ -108,6 +112,8 @@ void BossStateSecondInterPhase::Update()
 			else
 			{
 				state = InterphaseState::Teleport;
+				boss->enemyController->GetMainRenderer()->SetMaterial(HOLYSMMATERIAL);
+				boss->enemyController->SetDefaultMaterialToCurrentMaterial();
 			}
 
 			floorVanishTimer += boss->App->time->gameDeltaTime;
@@ -167,5 +173,6 @@ void BossStateSecondInterPhase::Enter()
 
 void BossStateSecondInterPhase::Exit()
 {
+	boss->gLoop->DeleteAllEnemies();
 	boss->enemyController->hpBoxTrigger->Enable(true);
 }

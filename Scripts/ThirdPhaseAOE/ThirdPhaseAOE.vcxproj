@@ -251,6 +251,9 @@
     <ClInclude Include="ThirdPhaseAOE.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BossBehaviourScript\BossBehaviourScript.vcxproj">
+      <Project>{8c48d10e-2ba8-4a16-920d-c38a8c693037}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\CameraController\CameraController.vcxproj">
       <Project>{ea91d26e-3ad6-4fb7-a70b-e6a0c2492857}</Project>
     </ProjectReference>
