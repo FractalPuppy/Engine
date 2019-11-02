@@ -5,6 +5,7 @@
 #include "ComponentTransform.h"
 #include "ComponentRenderer.h"
 #include "ComponentBoxTrigger.h"
+#include "ComponentAudioSource.h"
 #include "GameObject.h"
 
 #include "PlayerMovement.h"
@@ -51,6 +52,7 @@ void MacheteDanceSkill::Update()
 
 	}
 	BasicSkill::Update();
+	player->knives_attack->Play();
 }
 
 void MacheteDanceSkill::Exit()

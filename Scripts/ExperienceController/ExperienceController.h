@@ -86,6 +86,7 @@ private:
 
 	//Audio
 	ComponentAudioSource* audioLVLup = nullptr;
+	ComponentAudioSource* experienceAudio = nullptr;
 };
 
 extern "C" ExperienceController_API Script* CreateScript();

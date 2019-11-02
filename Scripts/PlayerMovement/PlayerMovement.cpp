@@ -1922,7 +1922,7 @@ void PlayerMovement::InitializeAudioObjects()
 	}
 	else
 	{
-		LOG("The Game Object 'gotHitAudio' couldn't be found.");
+		LOG("Warning: The Game Object 'gotHitAudio' couldn't be found.");
 	}
 
 	GOtemp = nullptr;
@@ -1930,14 +1930,14 @@ void PlayerMovement::InitializeAudioObjects()
 	if (GOtemp != nullptr)
 	{
 		gotHitAudio2 = GOtemp->GetComponent<ComponentAudioSource>();
-		assert(gotHitAudio != nullptr);
+		assert(gotHitAudio2 != nullptr);
 	}
 	else
 	{
-		LOG("The Game Object 'gotHitAudio2' couldn't be found.");
+		LOG("Warning: The Game Object 'gotHitAudio2' couldn't be found.");
 	}
 
-	// Mache
+	// Machete rain
 	GOtemp = nullptr;
 	GOtemp = App->scene->FindGameObjectByName("knives_attack");
 	if (GOtemp != nullptr)

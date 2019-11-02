@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 2805192955,
-            "ParentUID": 0,
+            "UID": 637441503,
+            "ParentUID": 652642298,
             "Name": "AudioPlayer",
             "Tag": "Default",
             "Static": 0,
@@ -33,7 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2855789593,
-            "prefabTimeStamp": 0,
+            "prefabTimeStamp": 1572695152,
             "Components": [
                 {
                     "Type": 0,
@@ -81,8 +81,8 @@
             ]
         },
         {
-            "UID": 4184257138,
-            "ParentUID": 2805192955,
+            "UID": 1023126380,
+            "ParentUID": 637441503,
             "Name": "gotHitAudio",
             "Tag": "Default",
             "Static": 0,
@@ -173,8 +173,8 @@
             ]
         },
         {
-            "UID": 4108666739,
-            "ParentUID": 2805192955,
+            "UID": 909352193,
+            "ParentUID": 637441503,
             "Name": "itemPickedAudio",
             "Tag": "Default",
             "Static": 0,
@@ -265,8 +265,8 @@
             ]
         },
         {
-            "UID": 3700495128,
-            "ParentUID": 2805192955,
+            "UID": 3982305987,
+            "ParentUID": 637441503,
             "Name": "stepSound",
             "Tag": "Default",
             "Static": 0,
@@ -357,8 +357,8 @@
             ]
         },
         {
-            "UID": 2174951738,
-            "ParentUID": 2805192955,
+            "UID": 3469517058,
+            "ParentUID": 637441503,
             "Name": "bomb_take_off",
             "Tag": "Default",
             "Static": 0,
@@ -449,8 +449,8 @@
             ]
         },
         {
-            "UID": 1826093186,
-            "ParentUID": 2805192955,
+            "UID": 2615266790,
+            "ParentUID": 637441503,
             "Name": "bomb_impact",
             "Tag": "Default",
             "Static": 0,
@@ -541,8 +541,8 @@
             ]
         },
         {
-            "UID": 332332639,
-            "ParentUID": 2805192955,
+            "UID": 1517692059,
+            "ParentUID": 637441503,
             "Name": "attack1",
             "Tag": "Default",
             "Static": 0,
@@ -633,8 +633,8 @@
             ]
         },
         {
-            "UID": 3517742120,
-            "ParentUID": 2805192955,
+            "UID": 4191710817,
+            "ParentUID": 637441503,
             "Name": "attack2",
             "Tag": "Default",
             "Static": 0,
@@ -725,8 +725,8 @@
             ]
         },
         {
-            "UID": 2427916719,
-            "ParentUID": 2805192955,
+            "UID": 1442206453,
+            "ParentUID": 637441503,
             "Name": "spin_attack",
             "Tag": "Default",
             "Static": 0,
@@ -817,8 +817,8 @@
             ]
         },
         {
-            "UID": 2022161470,
-            "ParentUID": 2805192955,
+            "UID": 4022234654,
+            "ParentUID": 637441503,
             "Name": "drill_attack",
             "Tag": "Default",
             "Static": 0,
@@ -909,8 +909,8 @@
             ]
         },
         {
-            "UID": 1970971877,
-            "ParentUID": 2805192955,
+            "UID": 1896664645,
+            "ParentUID": 637441503,
             "Name": "knives_attack",
             "Tag": "Default",
             "Static": 0,
@@ -1001,8 +1001,8 @@
             ]
         },
         {
-            "UID": 1924701692,
-            "ParentUID": 2805192955,
+            "UID": 4029292288,
+            "ParentUID": 637441503,
             "Name": "knives_ending",
             "Tag": "Default",
             "Static": 0,
@@ -1093,8 +1093,8 @@
             ]
         },
         {
-            "UID": 1611368320,
-            "ParentUID": 2805192955,
+            "UID": 876152879,
+            "ParentUID": 637441503,
             "Name": "audioLVLup",
             "Tag": "Default",
             "Static": 0,
@@ -1185,8 +1185,8 @@
             ]
         },
         {
-            "UID": 4128994297,
-            "ParentUID": 2805192955,
+            "UID": 102974366,
+            "ParentUID": 637441503,
             "Name": "gotHitAudio2",
             "Tag": "Default",
             "Static": 0,
@@ -1273,6 +1273,98 @@
                     "Loop": 0,
                     "Rolloff": 0.30000001192092898,
                     "Pitch": 1.0
+                }
+            ]
+        },
+        {
+            "UID": 2202507789,
+            "ParentUID": 637441503,
+            "Name": "experienceAudio",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 2602830055,
+                    "Volume": 2.0,
+                    "PlayOnAwake": 0,
+                    "Sound3D": 0,
+                    "LimitPan": 0.5,
+                    "FadeDist": 500.0,
+                    "Loop": 0,
+                    "Rolloff": 0.30000001192092898,
+                    "Pitch": 0.6899999976158142
                 }
             ]
         }
