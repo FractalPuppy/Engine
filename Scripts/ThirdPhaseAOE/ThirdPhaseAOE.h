@@ -11,6 +11,7 @@
 
 class ComponentBoxTrigger;
 class PlayerMovement;
+class BossBehaviourScript;
 class CameraController;
 
 class ThirdPhaseAOE_API ThirdPhaseAOE : public Script
@@ -60,6 +61,9 @@ public:
 
 	GameObject* playerGO = nullptr;
 	PlayerMovement* playerScript = nullptr;
+
+	GameObject* bossGO = nullptr;
+	BossBehaviourScript* BossScript = nullptr;
 
 	GameObject* playerCamera = nullptr;
 	CameraController* cameraScript = nullptr;
