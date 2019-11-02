@@ -41,10 +41,6 @@ public:
 	math::float4 decalOriginalColor = float4::one;
 
 	ResourceMaterial* decalMaterial = nullptr;
-
-	//Audio
-	ComponentAudioSource* knives_attack = nullptr;
-
 };
 
 #endif
