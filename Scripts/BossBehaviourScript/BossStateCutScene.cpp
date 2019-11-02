@@ -13,6 +13,7 @@
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
 #include "ComponentAnimation.h"
+#include "ComponentAudioSource.h"
 
 #include "Math/MathFunc.h"
 
@@ -48,6 +49,7 @@ void BossStateCutScene::Update()
 			{
 					csState = CutsceneState::DoorClosing;
 					boss->doorParticles->SetActive(true);
+					boss->doorRisingAudio->Play();
 					wallSpeed = (boss->finalDoorHeight - boss->closingDoor->transform->GetPosition().y) / boss->cutsceneDoorRisingDuration;
 			}
 			else
