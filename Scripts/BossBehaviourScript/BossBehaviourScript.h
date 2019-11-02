@@ -90,6 +90,8 @@ public:
 	void StartThirdPhase();
 	void EndThirdPhase();
 
+	void OnAnimationEvent(std::string s) override;
+
 public:
 	TPlocations currentLocation = TPlocations::None;
 	BossPhase bossPhase = BossPhase::None;
@@ -120,6 +122,8 @@ public:
 
 	ComponentAudioSource* thirdPhaseHitAudio = nullptr;
 	ComponentAudioSource* doorRisingAudio = nullptr;
+	ComponentAudioSource* castAudio = nullptr;
+	ComponentAudioSource* precastAudio = nullptr;
 
 	ComponentAnimation* anim = nullptr;
 
