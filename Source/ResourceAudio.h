@@ -26,8 +26,8 @@ public:
 public:
 	bool streamed = false;
 
-	SoLoud::Wav wavFX;
-	SoLoud::WavStream wavstream;
+	SoLoud::Wav* wavFX = nullptr;
+	SoLoud::WavStream* wavstream = nullptr;
 };
 
 #endif __ResourceAudio_h__
