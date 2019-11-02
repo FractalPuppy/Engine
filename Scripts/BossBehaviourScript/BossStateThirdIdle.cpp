@@ -43,8 +43,6 @@ void BossStateThirdIdle::Enter()
 	duration = 2.0f + (std::rand() % 100) / 100.f;
 	nextFist = ChooseNextFist();
 	boss->enemyController->anim->SendTriggerToStateMachine(trigger.c_str());
-	//tell the controller that we are in third stage
-	boss->enemyController->ThirdStageBoss = true;
 }
 
 void BossStateThirdIdle::Exit()
