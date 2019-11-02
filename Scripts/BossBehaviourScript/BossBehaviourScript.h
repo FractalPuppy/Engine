@@ -119,6 +119,7 @@ public:
 	//ComponentsAudio
 
 	ComponentAudioSource* thirdPhaseHitAudio = nullptr;
+	ComponentAudioSource* doorRisingAudio = nullptr;
 
 	ComponentAnimation* anim = nullptr;
 
