@@ -202,6 +202,16 @@ void ComponentCamera::SetFOV(float fov)
 	SetAspect(aspect);
 }
 
+ENGINE_API float ComponentCamera::GetFOV()
+{
+	return math::RadToDeg(frustum->verticalFov);
+}
+
+ENGINE_API void ComponentCamera::SetFogColor(math::float3 newColor)
+{
+	fogColor = newColor;
+}
+
 void ComponentCamera::ResetFrustum()
 {
 	RELEASE(frustum);

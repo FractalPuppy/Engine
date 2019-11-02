@@ -1,6 +1,6 @@
 {
     "navigationScene": {
-        "navDataSize": 1081
+        "navDataSize": 0
     },
     "GameObjects": [
         {
@@ -589,7 +589,7 @@
                     "Znear": 10.0,
                     "Zfar": 100000.0,
                     "vFOV": 1.0471975803375245,
-                    "hFOV": 1.3275741338729859,
+                    "hFOV": 1.6744862794876099,
                     "Position": [
                         0.0,
                         0.0,
@@ -2075,8 +2075,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 0,
-                    "textureName": "",
+                    "textureUID": 1477451659,
+                    "textureName": "BackgroundTacos",
                     "color": [
                         1.0,
                         1.0,
@@ -2375,8 +2375,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 0,
-                    "textureName": "",
+                    "textureUID": 3226539889,
+                    "textureName": "soulSkeletonIcon",
                     "color": [
                         1.0,
                         1.0,
@@ -2448,8 +2448,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 0,
-                    "textureName": "",
+                    "textureUID": 3226539889,
+                    "textureName": "soulSkeletonIcon",
                     "color": [
                         1.0,
                         1.0,
@@ -3922,8 +3922,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 0,
-                    "textureName": "",
+                    "textureUID": 1477451659,
+                    "textureName": "BackgroundTacos",
                     "color": [
                         1.0,
                         1.0,
@@ -4222,8 +4222,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 0,
-                    "textureName": "",
+                    "textureUID": 3226539889,
+                    "textureName": "soulSkeletonIcon",
                     "color": [
                         1.0,
                         1.0,
@@ -4295,8 +4295,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 0,
-                    "textureName": "",
+                    "textureUID": 3226539889,
+                    "textureName": "soulSkeletonIcon",
                     "color": [
                         1.0,
                         1.0,
@@ -5135,11 +5135,11 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2983922135,
-            "prefabTimeStamp": 1572627850,
+            "prefabTimeStamp": 1571678480,
             "Components": []
         },
         {
-            "UID": 2351695544,
+            "UID": 4179135438,
             "ParentUID": 550356827,
             "Name": "Background",
             "Tag": "Default",
@@ -5212,7 +5212,7 @@
             ]
         },
         {
-            "UID": 165370116,
+            "UID": 2458090926,
             "ParentUID": 550356827,
             "Name": "Back",
             "Tag": "Default",
@@ -6613,8 +6613,8 @@
                     "buttonImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 0,
-                        "textureName": "",
+                        "textureUID": 3113428125,
+                        "textureName": "Check_Background",
                         "color": [
                             0.9999908804893494,
                             1.0,
@@ -6636,8 +6636,8 @@
                     "highlightedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 0,
-                        "textureName": "",
+                        "textureUID": 3113428125,
+                        "textureName": "Check_Background",
                         "color": [
                             0.9999908804893494,
                             1.0,
@@ -6659,8 +6659,8 @@
                     "pressedImage": {
                         "Type": 7,
                         "Enabled": 1,
-                        "textureUID": 0,
-                        "textureName": "",
+                        "textureUID": 3113428125,
+                        "textureName": "Check_Background",
                         "color": [
                             0.9999907612800598,
                             1.0,
@@ -7148,11 +7148,10 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2041077746,
-            "prefabTimeStamp": 1572627850,
             "Components": []
         },
         {
-            "UID": 1437858749,
+            "UID": 404728314,
             "ParentUID": 713609185,
             "Name": "Background",
             "Tag": "Default",
@@ -7225,7 +7224,7 @@
             ]
         },
         {
-            "UID": 3339119049,
+            "UID": 2699198615,
             "ParentUID": 713609185,
             "Name": "Text",
             "Tag": "Default",

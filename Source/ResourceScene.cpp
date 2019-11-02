@@ -280,10 +280,6 @@ void ResourceScene::AssignNewUUID(GameObject* go, unsigned parentUID)
 bool ResourceScene::PrefabWasUpdated(GameObject* prefabGo) const
 {
 	Resource* prefab = App->resManager->GetWithoutLoad(prefabGo->prefabUID);
-	if (prefabGo->prefabTimeStamp == 0u)
-	{
-		return prefab != nullptr;
-	}
-	if (prefab == nullptr) return false;
+	if (prefab == nullptr || prefabGo->prefabTimeStamp == 0u) return false;
 	return App->fsystem->GetModTime(prefab->GetFile()) > prefabGo->prefabTimeStamp;
 }

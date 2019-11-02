@@ -11,7 +11,10 @@
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
+#include "ComponentCamera.h"
 #include "ComponentAnimation.h"
+
+#include "Math/MathFunc.h"
 
 BossStateCutScene::BossStateCutScene(BossBehaviourScript* AIBoss)
 {
@@ -110,6 +113,8 @@ void BossStateCutScene::Update()
 				thirdLambda = CalculatePlayerLambda();
 				SetPlayerCameraPosition(boss->InterpolateFloat3(boss->cameraPositionBossCS, cameraResetPosition, thirdLambda));
 				SetPlayerCameraRotation(boss->InterpolateQuat(boss->cameraRotationBossCS, cameraResetRotation, thirdLambda));
+				float newFOV = math::DegToRad(boss->InterpolateFloat(initalFOV, boss->finalFOV, thirdLambda));
+				boss->compCamera->SetFOV(newFOV);
 
 			}
 			break;
@@ -122,6 +127,8 @@ void BossStateCutScene::Update()
 
 void BossStateCutScene::Enter()
 {
+	initalFOV = boss->playerCamera->GetComponent<ComponentCamera>()->GetFOV();
+
 	cameraResetPosition = GetPlayerCameraPosition();
 	cameraResetRotation = GetPlayerCameraRotation();
 
