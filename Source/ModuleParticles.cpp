@@ -351,6 +351,13 @@ PMColorOverTime::PMColorOverTime()
 	UpdateGradientPointers();
 }
 
+PMColorOverTime::~PMColorOverTime()
+{
+	RELEASE(Imgradient);
+	RELEASE(gradient1);
+	RELEASE(gradient2);
+}
+
 PMColorOverTime::PMColorOverTime(const PMColorOverTime& colorOverTime)
 {
 	type = ParticleModulesType::COLOR_OVER_TIME;
