@@ -1,7 +1,7 @@
 {
     "Material": {
         "metaVersion": 2,
-        "timeCreated": 1569050015,
+        "timeCreated": 1571565376,
         "GUID": 3833961095,
         "Name": "Chest",
         "File": "Assets/Materials/Chest.m4t",
@@ -13,14 +13,17 @@
             1.0
         ],
         "specularColor": [
-            0.10000000149011612,
-            0.10000000149011612,
-            0.10000000149011612
+            0.4303278923034668,
+            0.4303235709667206,
+            0.4303235709667206
         ],
         "emissiveColor": [
             1.0,
             1.0,
             1.0
-        ]
+        ],
+        "diffuseUID": 495447005,
+        "normalUID": 699774453,
+        "shader": "PBR"
     }
 }
