@@ -68,6 +68,7 @@ class PlayerMovement;
 class GameLoop;
 class CameraController;
 class ComponentAnimation;
+class ComponentAudioSource;
 class ComponentCamera;
 
 class BossBehaviourScript_API BossBehaviourScript : public Script
@@ -114,6 +115,11 @@ public:
 	BossStateThirdDeath* thirdDeath = nullptr;
 
 public:
+
+	//ComponentsAudio
+
+	ComponentAudioSource* thirdPhaseHitAudio = nullptr;
+
 	ComponentAnimation* anim = nullptr;
 
 	GameObject* gameLoopGO = nullptr;
@@ -282,6 +288,7 @@ public:
 	GameObject* rightFist = nullptr;
 	GameObject* defeatParticles = nullptr;
 	float deathDissolveSpeed = 1.0f;
+	float audioDelayThirdPhaseHit = 0.0f;
 
 
 public:
