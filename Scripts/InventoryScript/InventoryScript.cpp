@@ -598,6 +598,8 @@ bool InventoryScript::AddItem(Item item, unsigned amount)
 
 			ManageConsumableItemsQuantityText(item, quantity);
 
+			updateConsumableItemsQuantity = true;
+
 			return true;
 		}
 	}
