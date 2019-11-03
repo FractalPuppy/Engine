@@ -42,6 +42,8 @@ private:
 
 	math::float4 color;
 
+	bool showAfterFristFrame = false;
+
 };
 
 extern "C" ItemNameController_API Script* CreateScript();
