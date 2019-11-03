@@ -26,27 +26,33 @@
 
 ComponentImage::ComponentImage() : Component(nullptr, ComponentType::Image)
 {
+#ifndef GAME_BUILD
 	//Refact
 	if (textureFiles.size() == 0)
 	{
 		UpdateTexturesList();
 	}
+#endif
 }
 
 ComponentImage::ComponentImage(GameObject* gameobject) : Component(gameobject, ComponentType::Image)
 {
+#ifndef GAME_BUILD
 	if (textureFiles.size() == 0)
 	{
 		UpdateTexturesList();
 	}
+#endif // !GAME_BUILD
 }
 
 ComponentImage::ComponentImage(const ComponentImage &copy) : Component(copy)
 {
+#ifndef GAME_BUILD
 	if (textureFiles.size() == 0)
 	{
 		UpdateTexturesList();
 	}
+#endif // !GAME_BUILD
 	color = copy.color;
 	flipHorizontal = copy.flipHorizontal;
 	flipVertical = copy.flipVertical;

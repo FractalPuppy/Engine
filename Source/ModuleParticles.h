@@ -103,6 +103,7 @@ class PMColorOverTime : public ParticleModule
 {
 public:
 	PMColorOverTime();
+	~PMColorOverTime();
 	PMColorOverTime(const PMColorOverTime& colorOverTime);
 
 	PMColorOverTime* Clone() const;

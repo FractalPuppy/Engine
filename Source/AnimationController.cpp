@@ -15,6 +15,7 @@ AnimationController::AnimationController()
 
 AnimationController::~AnimationController()
 {
+	RELEASE(current);
 }
 
 void AnimationController::Play(ResourceAnimation* anim, bool loop, bool mustFinish, float speed)
