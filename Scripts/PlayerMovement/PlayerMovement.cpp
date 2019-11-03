@@ -1961,6 +1961,19 @@ void PlayerMovement::InitializeAudioObjects()
 	{
 		LOG("Warning: knives_ending game object not found");
 	}
+
+	// Machete dance
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("knives_swing");
+	if (GOtemp != nullptr)
+	{
+		knives_swing = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(knives_swing != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_swing game object not found");
+	}
 }
 
 void PlayerMovement::ToggleMaxStats()

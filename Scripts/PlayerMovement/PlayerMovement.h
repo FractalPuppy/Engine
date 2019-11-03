@@ -338,6 +338,7 @@ public:
 	ComponentAudioSource* knives_ending = nullptr;
 	ComponentAudioSource* gotHitAudio = nullptr;
 	ComponentAudioSource* gotHitAudio2 = nullptr;
+	ComponentAudioSource* knives_swing = nullptr;
 
 	GameObject* slashTrail = nullptr;
 

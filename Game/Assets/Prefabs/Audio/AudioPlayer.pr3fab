@@ -33,7 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2855789593,
-            "prefabTimeStamp": 1572695152,
+            "prefabTimeStamp": 1572783207,
             "Components": [
                 {
                     "Type": 0,
@@ -81,7 +81,7 @@
             ]
         },
         {
-            "UID": 1023126380,
+            "UID": 3432494378,
             "ParentUID": 637441503,
             "Name": "gotHitAudio",
             "Tag": "Default",
@@ -173,7 +173,7 @@
             ]
         },
         {
-            "UID": 909352193,
+            "UID": 30797381,
             "ParentUID": 637441503,
             "Name": "itemPickedAudio",
             "Tag": "Default",
@@ -265,7 +265,7 @@
             ]
         },
         {
-            "UID": 3982305987,
+            "UID": 4162994315,
             "ParentUID": 637441503,
             "Name": "stepSound",
             "Tag": "Default",
@@ -357,7 +357,7 @@
             ]
         },
         {
-            "UID": 3469517058,
+            "UID": 2477555383,
             "ParentUID": 637441503,
             "Name": "bomb_take_off",
             "Tag": "Default",
@@ -449,7 +449,7 @@
             ]
         },
         {
-            "UID": 2615266790,
+            "UID": 189214386,
             "ParentUID": 637441503,
             "Name": "bomb_impact",
             "Tag": "Default",
@@ -541,7 +541,7 @@
             ]
         },
         {
-            "UID": 1517692059,
+            "UID": 2930476077,
             "ParentUID": 637441503,
             "Name": "attack1",
             "Tag": "Default",
@@ -633,7 +633,7 @@
             ]
         },
         {
-            "UID": 4191710817,
+            "UID": 776667200,
             "ParentUID": 637441503,
             "Name": "attack2",
             "Tag": "Default",
@@ -725,7 +725,7 @@
             ]
         },
         {
-            "UID": 1442206453,
+            "UID": 2744015264,
             "ParentUID": 637441503,
             "Name": "spin_attack",
             "Tag": "Default",
@@ -817,7 +817,7 @@
             ]
         },
         {
-            "UID": 4022234654,
+            "UID": 999190822,
             "ParentUID": 637441503,
             "Name": "drill_attack",
             "Tag": "Default",
@@ -909,7 +909,7 @@
             ]
         },
         {
-            "UID": 1896664645,
+            "UID": 3891681339,
             "ParentUID": 637441503,
             "Name": "knives_attack",
             "Tag": "Default",
@@ -1001,7 +1001,7 @@
             ]
         },
         {
-            "UID": 4029292288,
+            "UID": 94169081,
             "ParentUID": 637441503,
             "Name": "knives_ending",
             "Tag": "Default",
@@ -1093,7 +1093,7 @@
             ]
         },
         {
-            "UID": 876152879,
+            "UID": 3239677647,
             "ParentUID": 637441503,
             "Name": "audioLVLup",
             "Tag": "Default",
@@ -1185,7 +1185,7 @@
             ]
         },
         {
-            "UID": 102974366,
+            "UID": 1722733899,
             "ParentUID": 637441503,
             "Name": "gotHitAudio2",
             "Tag": "Default",
@@ -1277,7 +1277,7 @@
             ]
         },
         {
-            "UID": 2202507789,
+            "UID": 2418145429,
             "ParentUID": 637441503,
             "Name": "experienceAudio",
             "Tag": "Default",
@@ -1365,6 +1365,98 @@
                     "Loop": 0,
                     "Rolloff": 0.30000001192092898,
                     "Pitch": 0.6899999976158142
+                }
+            ]
+        },
+        {
+            "UID": 3246738719,
+            "ParentUID": 637441503,
+            "Name": "knives_swing",
+            "Tag": "Default",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 3755442146,
+                    "Volume": 0.5,
+                    "PlayOnAwake": 0,
+                    "Sound3D": 0,
+                    "LimitPan": 0.5,
+                    "FadeDist": 500.0,
+                    "Loop": 0,
+                    "Rolloff": 0.30000001192092898,
+                    "Pitch": 1.0
                 }
             ]
         }

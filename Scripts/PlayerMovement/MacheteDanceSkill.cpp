@@ -39,6 +39,7 @@ void MacheteDanceSkill::Prepare()
 
 		spinMachetes[i]->SetActive(true);
 	}
+	player->knives_swing->Play();
 	player->macheteDanceActivated = true;
 }
 
@@ -52,7 +53,6 @@ void MacheteDanceSkill::Update()
 
 	}
 	BasicSkill::Update();
-	player->knives_attack->Play();
 }
 
 void MacheteDanceSkill::Exit()
