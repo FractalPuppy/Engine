@@ -33,6 +33,7 @@ ComponentAudioSource::ComponentAudioSource(GameObject* gameobject) : Component(g
 	{
 		UpdateAudiosList();
 	}
+	fadeDist *= 5.f * App->renderer->current_scale;
 #endif // !GAME_BUILD
 }
 
@@ -77,6 +78,7 @@ ComponentAudioSource* ComponentAudioSource::Clone() const
 
 void ComponentAudioSource::Play() 
 {
+	isPlaying = true;
 	if (enabled && audio != nullptr) 
 	{
 		Stop();
@@ -97,6 +99,7 @@ void ComponentAudioSource::Play()
 
 void ComponentAudioSource::Stop() 
 {
+	isPlaying = false;
 	App->audioManager->StopWAV(lastHandler);	
 }
 

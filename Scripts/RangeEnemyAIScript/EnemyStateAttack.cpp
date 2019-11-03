@@ -6,6 +6,11 @@
 #include "ModuleScene.h"
 #include "ModuleTime.h"
 
+#include "soloud.h"
+#include "soloud_wav.h"
+#include "soloud_wavstream.h"
+
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 
@@ -19,6 +24,10 @@ EnemyStateAttack::EnemyStateAttack(RangeEnemyAIScript* AIScript)
 	trigger = "Attack";
 
 	gunFX = enemy->App->scene->FindGameObjectByName("GunFX", enemy->gameobject);
+	if (gunFX != nullptr)
+	{
+		gunFire = gunFX->GetComponent<ComponentAudioSource>();
+	}
 }
 
 EnemyStateAttack::~EnemyStateAttack()
@@ -106,6 +115,10 @@ void EnemyStateAttack::Update()
 void EnemyStateAttack::ShowGunFX()
 {
 	gunFX->SetActive(true);
+	if (gunFire != nullptr)
+	{
+		gunFire->Play();
+	}
 	gunTimer = 0.0f;
 }
 
