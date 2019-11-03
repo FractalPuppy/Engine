@@ -35,7 +35,6 @@ public:
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
-	void OnAnimationEvent(std::string name) override;
 
 	float randomOffset(float max);
 

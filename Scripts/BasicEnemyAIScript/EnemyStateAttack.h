@@ -13,6 +13,7 @@ public:
 	BasicEnemyAIScript_API ~EnemyStateAttack();
 
 	void Enter() override;
+	void Exit() override;
 	void HandleIA() override;
 	void Update() override;
 
@@ -21,6 +22,7 @@ protected:
 	BasicEnemyAIScript_API virtual void PunchFX(bool active);
 
 	bool attacked = false;
+	bool attackSoundMade = false;
 	BasicEnemyAIScript_API virtual void Attack();
 };
 

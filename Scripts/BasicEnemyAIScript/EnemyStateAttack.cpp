@@ -35,6 +35,12 @@ void EnemyStateAttack::Enter()
 	enemy->enemyController->Stop();
 }
 
+void EnemyStateAttack::Exit()
+{
+	attackSoundMade = false;
+}
+
+
 void EnemyStateAttack::HandleIA()
 {
 	//If player is in range nothing, else if player is in range chase, if enemy has attacked cooldown
@@ -72,6 +78,11 @@ void EnemyStateAttack::HandleIA()
 void EnemyStateAttack::Update()
 {
 	// Keep looking at player
+	if (enemy->audioHit != nullptr && timer > 0.1f && !attackSoundMade)
+	{
+		attackSoundMade = true;
+		enemy->audioHit->Play();
+	}
 	math::float3 playerPosition = enemy->enemyController->GetPlayerPosition();
 	enemy->enemyController->LookAt2D(playerPosition);
 
