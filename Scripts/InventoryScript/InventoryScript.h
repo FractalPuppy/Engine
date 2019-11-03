@@ -85,6 +85,7 @@ public:
 	std::vector<std::pair<Item*, int>> items;
 
 	bool itemGrabbed = false;
+	bool updateConsumableItemsQuantity = false;
 	std::list<int> equipedConsumablesToRemove;
 };
 
