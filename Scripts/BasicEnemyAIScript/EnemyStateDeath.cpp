@@ -8,6 +8,7 @@
 #include "ModuleScene.h"
 #include "ModuleTime.h"
 
+#include "ComponentAudioSource.h"
 #include "ComponentRenderer.h"
 #include "ComponentAnimation.h"
 #include "ComponentTransform.h"
@@ -65,10 +66,18 @@ void EnemyStateDeath::Enter()
 	switch (deathType)
 	{
 	case DEATHTYPE::NORMAL:
+		if (enemy->audioDeathFX1 != nullptr)
+		{
+			enemy->audioDeathFX1->Play();
+		}
 		remainingBones->SetActive(true);
 		standardFX->SetActive(true);
 		break;
 	case DEATHTYPE::CRIT:
+		if (enemy->audioDeathFX2 != nullptr)
+		{
+			enemy->audioDeathFX2->Play();
+		}
 		explosionBones->SetActive(true);
 		explosionFX->SetActive(true);
 		break;

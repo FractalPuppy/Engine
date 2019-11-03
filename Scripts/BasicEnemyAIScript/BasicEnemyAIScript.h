@@ -87,6 +87,8 @@ public:
 	GameObject* audioEnemy = nullptr;
 	ComponentAudioSource* audioHit = nullptr;
 	ComponentAudioSource* audioFoot = nullptr;
+	ComponentAudioSource* audioDeathFX1 = nullptr;
+	ComponentAudioSource* audioDeathFX2 = nullptr;
 
 protected:
 	std::vector<EnemyState*> enemyStates;
