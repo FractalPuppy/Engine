@@ -752,6 +752,11 @@ void PlayerMovement::Update()
 	deltatime = App->time->gameDeltaTime;
 	if (health <= 0.f)
 	{
+		if (!deathSoundPlayed)
+		{
+			wilhelm_scream->Play();
+			deathSoundPlayed = true;
+		}
 		currentState = (PlayerState*)death;
 	}
 
@@ -1928,6 +1933,19 @@ void PlayerMovement::InitializeAudioObjects()
 	else
 	{
 		LOG("Warning: The Game Object 'gotHitAudio2' couldn't be found.");
+	}
+
+	// Death sound
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("wilhelm_scream");
+	if (GOtemp != nullptr)
+	{
+		wilhelm_scream = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(wilhelm_scream != nullptr);
+	}
+	else
+	{
+		LOG("Warning: The Game Object 'wilhelm_scream' couldn't be found.");
 	}
 
 	// Machete rain

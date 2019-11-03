@@ -337,6 +337,8 @@ public:
 	ComponentAudioSource* gotHitAudio = nullptr;
 	ComponentAudioSource* gotHitAudio2 = nullptr;
 	ComponentAudioSource* knives_swing = nullptr;
+	ComponentAudioSource* wilhelm_scream = nullptr;
+	bool deathSoundPlayed = false;
 
 	GameObject* slashTrail = nullptr;
 
