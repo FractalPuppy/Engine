@@ -78,7 +78,6 @@ ComponentAudioSource* ComponentAudioSource::Clone() const
 
 void ComponentAudioSource::Play() 
 {
-	isPlaying = true;
 	if (enabled && audio != nullptr) 
 	{
 		Stop();
@@ -93,7 +92,7 @@ void ComponentAudioSource::Play()
 		{
 			LOG("Error: missing audio file in ComponentAudioSource of the GO named: %s", gameobject->name.c_str());
 		}
-
+		isPlaying = true;
 	}
 }
 
