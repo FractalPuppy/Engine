@@ -3,6 +3,7 @@
 
 #include "EnemyState.h"
 class ComponentTrail;
+class ComponentAudioSource;
 
 class EnemyStateAttack :
 	public EnemyState
@@ -16,7 +17,6 @@ public:
 	void Update() override;
 
 	ComponentTrail* trailPunch = nullptr;
-
 protected:
 	BasicEnemyAIScript_API virtual void PunchFX(bool active);
 

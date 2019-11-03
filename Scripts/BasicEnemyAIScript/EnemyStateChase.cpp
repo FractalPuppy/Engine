@@ -1,6 +1,7 @@
 #include "EnemyStateChase.h"
 
 #include "GameObject.h"
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 
 #include "BasicEnemyAIScript.h"
@@ -12,6 +13,7 @@ EnemyStateChase::EnemyStateChase(BasicEnemyAIScript* AIScript)
 {
 	enemy = AIScript;
 	trigger = "Chase";
+	inRangeMoan = enemy->gameobject->GetComponent<ComponentAudioSource>();
 }
 
 EnemyStateChase::~EnemyStateChase()
@@ -32,6 +34,14 @@ void EnemyStateChase::HandleIA()
 	else if (distance > enemy->returnDistance)
 	{
 		enemy->currentState = (EnemyState*)enemy->returnToStart;
+	}
+}
+
+void EnemyStateChase::Enter()
+{
+	if (inRangeMoan != nullptr)
+	{
+		inRangeMoan->Play();
 	}
 }
 

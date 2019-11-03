@@ -21,7 +21,8 @@ class EnemyStateAttack;
 class EnemyStateCooldown;
 class EnemyStateDeath;
 class EnemyStateFlee;
-
+class GameObject;
+class ComponentAudioSource;
 
 class BasicEnemyAIScript_API BasicEnemyAIScript : public Script
 {
@@ -34,6 +35,9 @@ public:
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
+	void OnAnimationEvent(std::string name) override;
+
+	float randomOffset(float max);
 
 	inline virtual BasicEnemyAIScript* Clone() const
 	{
@@ -81,6 +85,9 @@ public:
 	bool scared = false;
 
 	EnemyControllerScript* enemyController = nullptr;
+	GameObject* audioEnemy = nullptr;
+	ComponentAudioSource* audioHit = nullptr;
+	ComponentAudioSource* audioFoot = nullptr;
 
 protected:
 	std::vector<EnemyState*> enemyStates;

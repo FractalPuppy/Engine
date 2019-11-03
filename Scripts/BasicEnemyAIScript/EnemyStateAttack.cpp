@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 
