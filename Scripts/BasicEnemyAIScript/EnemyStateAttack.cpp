@@ -15,7 +15,7 @@ EnemyStateAttack::EnemyStateAttack(BasicEnemyAIScript* AIScript)
 {
 	enemy = AIScript;
 	trigger = "Attack";
-	boxSize = math::float3(100.f, 50.f, 50.f);
+	boxSize = math::float3(100.f, 70.f, 50.f);
 	minTime = 0.7f;
 	maxTime = 0.9f;
 	GameObject* punchBone = enemy->App->scene->FindGameObjectByName("joint18", enemy->gameobject);
