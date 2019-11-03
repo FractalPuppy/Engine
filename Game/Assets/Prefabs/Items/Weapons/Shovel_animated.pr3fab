@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 3785875303,
-            "ParentUID": 3067108787,
+            "UID": 610473495,
+            "ParentUID": 0,
             "Name": "Shovel_animated",
             "Tag": "Default",
             "Static": 0,
@@ -33,7 +33,6 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 615906127,
-            "prefabTimeStamp": 1569763893,
             "Components": [
                 {
                     "Type": 0,
@@ -56,8 +55,8 @@
                     ],
                     "Scale": [
                         0.0010000000474974514,
-                        0.0010000000474974514,
-                        0.0010000000474974514
+                        0.0009999999310821295,
+                        0.0009999999310821295
                     ],
                     "Global": [
                         0.0010000000474974514,
@@ -141,10 +140,11 @@
                     "Enabled": 1,
                     "script": "ItemPicker",
                     "scriptInfo": {
-                        "name": "Machete",
-                        "sprite": "Item_Machete",
+                        "name": "Shovel",
+                        "description": "Brand new! Good for you",
+                        "sprite": "Shovel_icon",
                         "type": 4,
-                        "rarity": 1,
+                        "rarity": 0,
                         "isEquipped": 0,
                         "health": 0.0,
                         "mana": 0.0,
@@ -167,7 +167,10 @@
                             1.0,
                             1.0,
                             1.0
-                        ]
+                        ],
+                        "loop": 0,
+                        "pingPong": 0,
+                        "acceleration": 1
                     }
                 }
             ]

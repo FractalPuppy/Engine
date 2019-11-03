@@ -29,10 +29,12 @@ ComponentRenderer::ComponentRenderer(GameObject* gameobject) : Component(gameobj
 	SetMaterial(DEFAULTMAT);
 	gameobject->isVolumetric = true;
 
+#ifndef GAME_BUILD
 	if (guiMeshes.empty())
 	{
 		UpdateMeshesList();
 	}
+#endif // !GAME_BUILD
 }
 
 ComponentRenderer::ComponentRenderer(const ComponentRenderer& component) : Component(component)
@@ -82,10 +84,14 @@ ComponentRenderer::ComponentRenderer(const ComponentRenderer& component) : Compo
 
 	fps = component.fps;
 
+#ifndef GAME_BUILD
 	if (guiMeshes.empty())
 	{
 		UpdateMeshesList();
 	}
+
+#endif // !GAME_BUILD
+
 }
 
 ComponentRenderer::~ComponentRenderer()

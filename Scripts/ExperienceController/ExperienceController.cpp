@@ -183,7 +183,10 @@ void ExperienceController::AddXP(int xp)
 		{
 			while (currentXP >= maxXPLevel)
 			{
-				audioLVLup->Play();
+				if (audioLVLup != nullptr)
+				{
+					audioLVLup->Play();
+				}
 				++currentLevel;
 				levelUP = true;
 				if (currentLevel == maxLevel)

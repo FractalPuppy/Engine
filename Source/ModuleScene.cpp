@@ -192,14 +192,17 @@ bool ModuleScene::CleanUp()
 	selected = nullptr;
 	maincamera = nullptr;
 
+#ifndef GAME_BUILD
 	if (camera_notfound_texture != nullptr)
 	{
 		App->resManager->DeleteResource(camera_notfound_texture->GetUID());
 		camera_notfound_texture = nullptr;
 	}
+#endif // !GAME_BUILD
 
 	lights.clear();
 
+#ifndef GAME_BUILD
 	// Delete temporary scene if it exists [If you close the app in play mode temporaryScene may remain]
 	if (App->time->gameState == GameState::RUN)
 	{
@@ -216,6 +219,7 @@ bool ModuleScene::CleanUp()
 	}
 
 	//RELEASE(defaultScene);
+#endif // !GAME_BUILD
 
 	return true;
 }
@@ -1174,7 +1178,9 @@ void ModuleScene::Redo()
 void ModuleScene::ClearScene()
 {
 	CleanUp();
+#ifndef GAME_BUILD
 	camera_notfound_texture = (ResourceTexture*)App->resManager->Get(NOCAMERA);
+#endif // !GAME_BUILD
 	staticGOs.clear();
 	dynamicGOs.clear();
 	staticFilteredGOs.clear();

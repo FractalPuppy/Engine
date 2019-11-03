@@ -201,6 +201,7 @@ void EnemyControllerScript::Update()
 		{
 			playerMovement->ThirdStageBoss = ThirdStageBoss;
 		}
+
 		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Santa Muerte");
 		//in case boss third stage, highlighting works differently
 		if (ThirdStageBoss)
@@ -208,6 +209,7 @@ void EnemyControllerScript::Update()
 			objectMesh = App->scene->FindGameObjectByName("mesh", gameobject);
 		}
 	}
+	
 	auto mesh = std::find(intersects.begin(), intersects.end(), objectMesh);
 	if(mesh != std::end(intersects) && *mesh == objectMesh)
 	{
@@ -337,13 +339,19 @@ void EnemyControllerScript::Update()
 		{
 			if (lootDrop != nullptr)
 			{
-				// If enemy has more than one item drop them in circle
-				if (lootDrop->itemList.size() > 1)
-					lootDrop->DropItemsInCircle(lootRadius);
-				else
-					lootDrop->DropItems();
+				// Generate a random number and if it is below the critical chance -> increase damage
+				if ((rand() % 100u) < lootChance)
+				{
+					// If enemy has more than one item drop them in circle
+					if (lootDrop->itemList.size() > 1)
+						lootDrop->DropItemsInCircle(lootRadius);
+					else
+						lootDrop->DropItems();
+				}	
 			}
 			lootDropped = true;
+			gameobject->SetActive(false);
+			enabled = false;
 		}
 		else
 		{
@@ -356,6 +364,10 @@ void EnemyControllerScript::Update()
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
 		removedFromCrowd = true;
+
+		// Avoid disabling enemy before dropping loot
+		if (lootDrop == nullptr)
+			enabled = false;
 	}
 }
 
@@ -415,6 +427,7 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 	ImGui::Text("Loot Variables:");
 	ImGui::DragFloat("Loot Delay", &lootDelay);
 	ImGui::DragFloat("Loot Radius", &lootRadius);
+	ImGui::DragFloat("Loot Chance (%)", &lootChance, 1.0f, 0.0f, 100.f);
 }
 
 void EnemyControllerScript::Serialize(JSON_value* json) const
@@ -428,6 +441,7 @@ void EnemyControllerScript::Serialize(JSON_value* json) const
 	json->AddString("enemyCursor", enemyCursor.c_str());
 	json->AddFloat("lootDelay", lootDelay);
 	json->AddFloat("lootRadius", lootRadius);
+	json->AddFloat("lootChance", lootChance);
 }
 
 void EnemyControllerScript::DeSerialize(JSON_value* json)
@@ -442,6 +456,7 @@ void EnemyControllerScript::DeSerialize(JSON_value* json)
 	enemyCursor = json->GetString("enemyCursor", "RedGlow.cur");
 	lootDelay = json->GetFloat("lootDelay", 1.0f);
 	lootRadius = json->GetFloat("lootRadius", 100.0f);
+	lootChance = json->GetFloat("lootChance", 100.0f);
 }
 
 void EnemyControllerScript::TakeDamage(unsigned damage, int type)
@@ -640,5 +655,13 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 				TakeDamage(totalDamage, (int)DamageType::NORMAL);
 			}
 		}
+	}
+}
+
+void EnemyControllerScript::SetDefaultMaterialToCurrentMaterial()
+{
+	for (unsigned i = 0u; i < defaultMaterials.size(); i++)
+	{
+		defaultMaterials.at(i) = GetMainRenderer()->material;
 	}
 }

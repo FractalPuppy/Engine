@@ -41,6 +41,8 @@ private:
 	float floorVanishTimer = 0.0f;
 
 	float startingKneelY = 0.0f;
+
+
 };
 
 #endif 
