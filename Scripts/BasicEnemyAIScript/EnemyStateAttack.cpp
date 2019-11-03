@@ -77,11 +77,15 @@ void EnemyStateAttack::Update()
 
 	assert(enemy->enemyController->attackBoxTrigger != nullptr);
 
-	Attack();
+	if(!attacked && enemy->attackDelay < timer)
+		Attack();
 }
 
 void EnemyStateAttack::Attack()
 {
+	// Reset timer
+	timer = 0.0f;
+
 	//Create the hitbox
 	enemy->enemyController->attackBoxTrigger->Enable(true);
 	enemy->enemyController->attackBoxTrigger->SetBoxSize(boxSize);
