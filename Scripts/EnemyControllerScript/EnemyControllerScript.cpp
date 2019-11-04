@@ -351,7 +351,7 @@ void EnemyControllerScript::Update()
 			}
 			lootDropped = true;
 			gameobject->SetActive(false);
-			enabled = false;
+			//enabled = false;
 		}
 		else
 		{
@@ -366,8 +366,8 @@ void EnemyControllerScript::Update()
 		removedFromCrowd = true;
 
 		// Avoid disabling enemy before dropping loot
-		if (lootDrop == nullptr)
-			enabled = false;
+		//if (lootDrop == nullptr)
+		//	enabled = false;
 	}
 }
 
