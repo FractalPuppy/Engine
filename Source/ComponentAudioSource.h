@@ -26,6 +26,7 @@ public:
 	ENGINE_API void Play();
 	ENGINE_API void Stop();
 	ENGINE_API void SetVolume(float newVol);
+	ENGINE_API float GetVolume();
 	ENGINE_API void SetPan(float newPan);
 	ENGINE_API void SetLoop(bool newLoop);
 	ENGINE_API void SetPitch(float newPitch);

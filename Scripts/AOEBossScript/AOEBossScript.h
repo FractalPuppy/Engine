@@ -8,6 +8,7 @@
 
 
 class ComponentBoxTrigger;
+class ComponentAudioSource;
 class PlayerMovement;
 
 #ifdef AOEBossScript_EXPORTS
@@ -45,7 +46,7 @@ private:
 	GameObject* playerGO = nullptr;
 	PlayerMovement* playerScript = nullptr;
 
-	
+	ComponentAudioSource* audio = nullptr;
 
 	float duration = 3.0f;
 	float timerFade = 2.0f;
@@ -53,6 +54,7 @@ private:
 	float damageToPlayer = 5.0f;
 
 	bool hasDamaged = false;
+	bool hasExploded = false;
 
 	float spawnRadius = 0.0f;
 

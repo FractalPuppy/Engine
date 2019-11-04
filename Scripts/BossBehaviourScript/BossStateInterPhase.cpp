@@ -6,6 +6,7 @@
 #include "ComponentRenderer.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
+#include "ComponentAudioSource.h"
 
 #include "BossStateInterPhase.h"
 #include "CameraController/CameraController.h"
@@ -204,6 +205,7 @@ void BossStateInterPhase::Update()
 			fxState = FX::Explode;
 			boss->ringPowerUp->SetActive(true);
 			boss->powerUpSpread->SetActive(true);
+			boss->bossScream->Play();
 			boss->cameraScript->Shake(1.5f, 100.0f, 0.1f, 0.8f, false);
 			break;
 		}
