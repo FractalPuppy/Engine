@@ -70,8 +70,12 @@ class SceneEffects_API SceneEffects : public Script
 
 	float stormTimer = 0.f;
 	float stormDuration = 2.f;
-	float stormCooldown = 8.f;
+	float stormCooldown = 35.f;
+	float minStormCD = 20.f;
 	float stormCooldownTimer = 0.f;
+
+	//storm audio object
+	GameObject* thunderAudioObj = nullptr;
 
 	//Spider stuff
 

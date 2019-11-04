@@ -86,6 +86,10 @@ void RainSkill::Prepare()
 		decalMaterial->bloomIntenstiy = 0.3f;
 		canceled = true;
 	}
+
+	PlayerSkill* skillInUse = player->GetSkillInUse();
+	if (skillInUse == nullptr || (skillInUse->skill != player->rain && skillInUse->skill != nullptr))
+		decal->SetActive(false);
 }
 
 bool RainSkill::OnCancel()
