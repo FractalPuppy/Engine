@@ -34,6 +34,7 @@ void ItemNameController::Update()
 
 	if (itemList.show)
 	{
+
 		itemList.actualPosition = itemList.transform->GetScreenPosition();
 		itemList.actualPosition += math::float2(0.0f, 30.0f);
 		uiName->children.front()->GetComponent<Transform2D>()->SetPositionUsingAligment(itemList.actualPosition);
@@ -42,6 +43,15 @@ void ItemNameController::Update()
 		myText = uiName->children.back()->GetComponent<Text>();
 		itemBackground->GetComponent<Transform2D>()->SetSize(math::float2((myText->text.size() * 10)+35 , 30));
 		myText->color = color;
+
+		if (showAfterFristFrame)
+		{
+			itemBackground->SetActive(true);
+			itemTypeName->SetActive(true);
+			uiName->SetActive(true);
+		}
+
+		showAfterFristFrame = true;
 	}
 }
 
@@ -54,21 +64,20 @@ void ItemNameController::SetNameBar(unsigned uid, ItemRarity rarity, math::float
 		itemList.UID = uid;
 		GameObject* go = App->scene->FindGameObjectByUID(uid);
 		itemList.transform = go->transform;
-		itemList.actualPosition = go->transform->GetScreenPosition();
+		itemList.actualPosition = itemList.transform->GetScreenPosition();
+		itemList.actualPosition += math::float2(0.0f, 30.0f);
 		itemList.show = true;
-		itemList.distanceNormalized = (math::float2(itemList.actualPosition.x, itemList.actualPosition.y + 100) - itemList.actualPosition).Normalized();
-		uiName->SetActive(true);
+		uiName->children.front()->GetComponent<Transform2D>()->SetPositionUsingAligment(itemList.actualPosition);
 		itemBackground = (uiName->children).front();
 		itemTypeName = (uiName->children).back();
 		myText = itemTypeName->GetComponent<Text>();
 		itemList.rarity = rarity;
 		myText->text = go->GetComponent<ItemPicker>()->name;
 		itemBackground->GetComponent<Transform2D>()->SetPositionUsingAligment(itemList.actualPosition);
-		math::float2 textPos = itemList.actualPosition + math::float2(60, 0);
-		itemTypeName->GetComponent<Transform2D>()->SetPositionUsingAligment(textPos);
-		itemBackground->SetActive(true);
-		itemTypeName->SetActive(true);
+		math::float2 pos = itemList.actualPosition - math::float2((itemBackground->GetComponent<Transform2D>()->getSize().x / 2) - 10.0f, 5.0f);
+		itemTypeName->GetComponent<Transform2D>()->SetPositionUsingAligment(pos);
 		color = rarityColor;
+		showAfterFristFrame = false;
 		return;
 	}
 }
@@ -88,6 +97,7 @@ void ItemNameController::DisableName(unsigned uid)
 	{
 		itemList.show = false;
 		uiName->SetActive(false);
+		myText->text = "";
 	}
 }
 
