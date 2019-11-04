@@ -1,8 +1,10 @@
 #include "EnemyStateChase.h"
 
 #include "GameObject.h"
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
-
+#include "Application.h"
+#include "ModuleTime.h"
 #include "EnemyControllerScript.h"
 #include "RangeEnemyAIScript.h"
 
@@ -40,6 +42,14 @@ void EnemyStateChase::HandleIA()
 
 void EnemyStateChase::Update()
 {
+	timer += enemy->App->time->gameDeltaTime;
+	if (timer >= walkTimer && enemy->audioFoot != nullptr)
+	{
+		timer = 0.0f;
+		enemy->audioFoot->Play();
+		float offset = enemy->randomOffset(0.4) - 0.2;
+		enemy->audioFoot->SetPitch(1.0 + offset);
+	}
 	AproachPlayer();
 }
 

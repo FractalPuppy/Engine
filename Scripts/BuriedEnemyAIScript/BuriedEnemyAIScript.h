@@ -104,6 +104,8 @@ public:
 	ComponentAudioSource* audioBury = nullptr;
 	ComponentAudioSource* audioRun = nullptr;
 	ComponentAudioSource* audioBoneHit = nullptr;
+	ComponentAudioSource* audioDeathFX1 = nullptr;
+	ComponentAudioSource* audioDeathFX2 = nullptr;
 
 	GameObject* dustParticlesGO = nullptr;
 	GameObject* candleGO = nullptr;
