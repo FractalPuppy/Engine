@@ -4,13 +4,14 @@
 
 #include "GameObject.h"
 #include "ComponentTransform.h"
+#include "ComponentAnimation.h"
+#include "ComponentAudioSource.h"
 
 #include "BossStateThirdLeft.h"
 
 #include "BossBehaviourScript.h"
 #include "CameraController/CameraController.h"
 #include "EnemyControllerScript/EnemyControllerScript.h"
-#include "ComponentAnimation.h"
 
 #define THIRDAOE "ThirdPhaseAOEPrefab"
 
@@ -48,6 +49,12 @@ void BossStateThirdLeft::Update()
 		boss->App->scene->Spawn(THIRDAOE, newPosition, boss->currentRotation);
 		prefabSpawned = true;
 	}
+
+	if (!audioPlayed && boss->audioDelayThirdPhaseHit < timer)
+	{
+		boss->thirdPhaseHitAudio->Play();
+		audioPlayed = true;
+	}
 }
 
 void BossStateThirdLeft::Enter()
@@ -59,6 +66,7 @@ void BossStateThirdLeft::Enter()
 
 void BossStateThirdLeft::Exit()
 {
+	audioPlayed = false;
 }
 
 math::float3 BossStateThirdLeft::GetFistPosition()

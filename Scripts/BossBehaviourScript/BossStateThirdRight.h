@@ -19,6 +19,7 @@ public:
 
 	bool prefabSpawned = false;
 	math::float3 GetFistPosition();
+	bool audioPlayed = false;
 };
 
 #endif // __BOSSSTATETHIRDRIGHT_H_
