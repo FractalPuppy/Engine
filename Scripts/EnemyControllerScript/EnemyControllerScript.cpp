@@ -350,7 +350,7 @@ void EnemyControllerScript::Update()
 				}	
 			}
 			lootDropped = true;
-			gameobject->SetActive(false);
+			
 			//enabled = false;
 		}
 		else

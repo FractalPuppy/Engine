@@ -53,7 +53,7 @@ void BossStateThirdDeath::Enter()
 {
 	boss->enemyController->anim->SendTriggerToStateMachine(trigger.c_str());
 	duration = boss->anim->GetDurationFromClip();
-	boss->cameraScript->Shake(4.0f, 85.0f, 1.0f, 0.01f, false);
+	boss->cameraScript->Shake(5.0f, 85.0f, 1.0f, 0.01f, false);
 	boss->enemyController->bossFightStarted = false;
 	boss->ResetVariables();
 
