@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 1020393195,
-            "ParentUID": 1232963659,
+            "UID": 1584752799,
+            "ParentUID": 1548548597,
             "Name": "SpinEnemy",
             "Tag": "Default",
             "Static": 0,
@@ -121,6 +121,7 @@
                         "attackDuration": 1.0,
                         "attackDamage": 10.0,
                         "attackRange": 200.0,
+                        "attackDelay": 0.25,
                         "cooldownTime": 1.0
                     }
                 },
@@ -140,8 +141,8 @@
             ]
         },
         {
-            "UID": 3306794683,
-            "ParentUID": 1020393195,
+            "UID": 2235900051,
+            "ParentUID": 1584752799,
             "Name": "Scene",
             "Tag": "Default",
             "Static": 0,
@@ -224,8 +225,8 @@
             ]
         },
         {
-            "UID": 3864741016,
-            "ParentUID": 3306794683,
+            "UID": 4016567090,
+            "ParentUID": 2235900051,
             "Name": "joint1_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -303,8 +304,8 @@
             ]
         },
         {
-            "UID": 2546652110,
-            "ParentUID": 3864741016,
+            "UID": 1813198807,
+            "ParentUID": 4016567090,
             "Name": "joint1_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -382,8 +383,8 @@
             ]
         },
         {
-            "UID": 323706970,
-            "ParentUID": 2546652110,
+            "UID": 284178191,
+            "ParentUID": 1813198807,
             "Name": "joint1_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -461,8 +462,8 @@
             ]
         },
         {
-            "UID": 2096433308,
-            "ParentUID": 323706970,
+            "UID": 3572442633,
+            "ParentUID": 284178191,
             "Name": "joint1",
             "Tag": "Default",
             "Static": 0,
@@ -540,8 +541,8 @@
             ]
         },
         {
-            "UID": 995028030,
-            "ParentUID": 2096433308,
+            "UID": 1207979897,
+            "ParentUID": 3572442633,
             "Name": "joint20_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -619,8 +620,8 @@
             ]
         },
         {
-            "UID": 2178421021,
-            "ParentUID": 995028030,
+            "UID": 3630616715,
+            "ParentUID": 1207979897,
             "Name": "joint20_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -698,8 +699,8 @@
             ]
         },
         {
-            "UID": 1910614832,
-            "ParentUID": 2178421021,
+            "UID": 3809396978,
+            "ParentUID": 3630616715,
             "Name": "joint20_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -777,8 +778,8 @@
             ]
         },
         {
-            "UID": 1494504541,
-            "ParentUID": 1910614832,
+            "UID": 2201290634,
+            "ParentUID": 3809396978,
             "Name": "joint20",
             "Tag": "Default",
             "Static": 0,
@@ -856,8 +857,8 @@
             ]
         },
         {
-            "UID": 453590389,
-            "ParentUID": 1494504541,
+            "UID": 3964873237,
+            "ParentUID": 2201290634,
             "Name": "joint21_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -935,8 +936,8 @@
             ]
         },
         {
-            "UID": 2675433095,
-            "ParentUID": 453590389,
+            "UID": 4035413802,
+            "ParentUID": 3964873237,
             "Name": "joint21_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -1014,8 +1015,8 @@
             ]
         },
         {
-            "UID": 2145733091,
-            "ParentUID": 2675433095,
+            "UID": 3157186346,
+            "ParentUID": 4035413802,
             "Name": "joint21_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -1093,8 +1094,8 @@
             ]
         },
         {
-            "UID": 2644797607,
-            "ParentUID": 2145733091,
+            "UID": 4005798540,
+            "ParentUID": 3157186346,
             "Name": "joint21",
             "Tag": "Default",
             "Static": 0,
@@ -1172,8 +1173,8 @@
             ]
         },
         {
-            "UID": 3392554840,
-            "ParentUID": 2644797607,
+            "UID": 2015243777,
+            "ParentUID": 4005798540,
             "Name": "joint22_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -1251,8 +1252,8 @@
             ]
         },
         {
-            "UID": 3617551454,
-            "ParentUID": 3392554840,
+            "UID": 2630784147,
+            "ParentUID": 2015243777,
             "Name": "joint22_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -1330,8 +1331,8 @@
             ]
         },
         {
-            "UID": 3555210683,
-            "ParentUID": 3617551454,
+            "UID": 577728959,
+            "ParentUID": 2630784147,
             "Name": "joint22_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -1409,8 +1410,8 @@
             ]
         },
         {
-            "UID": 1581912823,
-            "ParentUID": 3555210683,
+            "UID": 1891033984,
+            "ParentUID": 577728959,
             "Name": "joint22",
             "Tag": "Default",
             "Static": 0,
@@ -1488,8 +1489,8 @@
             ]
         },
         {
-            "UID": 2724651271,
-            "ParentUID": 1581912823,
+            "UID": 3024316317,
+            "ParentUID": 1891033984,
             "Name": "joint23_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -1567,8 +1568,8 @@
             ]
         },
         {
-            "UID": 3839951107,
-            "ParentUID": 2724651271,
+            "UID": 3767117300,
+            "ParentUID": 3024316317,
             "Name": "joint23_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -1646,8 +1647,8 @@
             ]
         },
         {
-            "UID": 181295831,
-            "ParentUID": 3839951107,
+            "UID": 1469690465,
+            "ParentUID": 3767117300,
             "Name": "joint23_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -1725,8 +1726,8 @@
             ]
         },
         {
-            "UID": 2190143636,
-            "ParentUID": 181295831,
+            "UID": 2697509014,
+            "ParentUID": 1469690465,
             "Name": "joint23",
             "Tag": "Default",
             "Static": 0,
@@ -1804,8 +1805,8 @@
             ]
         },
         {
-            "UID": 995049617,
-            "ParentUID": 2096433308,
+            "UID": 925444351,
+            "ParentUID": 3572442633,
             "Name": "joint6_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -1883,8 +1884,8 @@
             ]
         },
         {
-            "UID": 3248921363,
-            "ParentUID": 995049617,
+            "UID": 4142470993,
+            "ParentUID": 925444351,
             "Name": "joint6_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -1962,8 +1963,8 @@
             ]
         },
         {
-            "UID": 2990851678,
-            "ParentUID": 3248921363,
+            "UID": 765558594,
+            "ParentUID": 4142470993,
             "Name": "joint6_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -2041,8 +2042,8 @@
             ]
         },
         {
-            "UID": 840465316,
-            "ParentUID": 2990851678,
+            "UID": 3865756365,
+            "ParentUID": 765558594,
             "Name": "joint6",
             "Tag": "Default",
             "Static": 0,
@@ -2120,8 +2121,8 @@
             ]
         },
         {
-            "UID": 3331915604,
-            "ParentUID": 840465316,
+            "UID": 4162646847,
+            "ParentUID": 3865756365,
             "Name": "joint7_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -2199,8 +2200,8 @@
             ]
         },
         {
-            "UID": 3479664687,
-            "ParentUID": 3331915604,
+            "UID": 1070810590,
+            "ParentUID": 4162646847,
             "Name": "joint7_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -2278,8 +2279,8 @@
             ]
         },
         {
-            "UID": 3081059935,
-            "ParentUID": 3479664687,
+            "UID": 3463535697,
+            "ParentUID": 1070810590,
             "Name": "joint7_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -2357,8 +2358,8 @@
             ]
         },
         {
-            "UID": 3461566891,
-            "ParentUID": 3081059935,
+            "UID": 2689022384,
+            "ParentUID": 3463535697,
             "Name": "joint7",
             "Tag": "Default",
             "Static": 0,
@@ -2436,8 +2437,8 @@
             ]
         },
         {
-            "UID": 2764961989,
-            "ParentUID": 3461566891,
+            "UID": 2441220969,
+            "ParentUID": 2689022384,
             "Name": "joint8_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -2515,8 +2516,8 @@
             ]
         },
         {
-            "UID": 92736695,
-            "ParentUID": 2764961989,
+            "UID": 3100344888,
+            "ParentUID": 2441220969,
             "Name": "joint8_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -2594,8 +2595,8 @@
             ]
         },
         {
-            "UID": 3681982107,
-            "ParentUID": 92736695,
+            "UID": 1683198666,
+            "ParentUID": 3100344888,
             "Name": "joint8_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -2673,8 +2674,8 @@
             ]
         },
         {
-            "UID": 3619770674,
-            "ParentUID": 3681982107,
+            "UID": 3426953647,
+            "ParentUID": 1683198666,
             "Name": "joint8",
             "Tag": "Default",
             "Static": 0,
@@ -2752,8 +2753,8 @@
             ]
         },
         {
-            "UID": 3819997993,
-            "ParentUID": 3619770674,
+            "UID": 2434567789,
+            "ParentUID": 3426953647,
             "Name": "joint9_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -2831,8 +2832,8 @@
             ]
         },
         {
-            "UID": 970640717,
-            "ParentUID": 3819997993,
+            "UID": 1184171703,
+            "ParentUID": 2434567789,
             "Name": "joint9_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -2910,8 +2911,8 @@
             ]
         },
         {
-            "UID": 959309890,
-            "ParentUID": 970640717,
+            "UID": 529766769,
+            "ParentUID": 1184171703,
             "Name": "joint9_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -2989,8 +2990,8 @@
             ]
         },
         {
-            "UID": 3603384810,
-            "ParentUID": 959309890,
+            "UID": 596590949,
+            "ParentUID": 529766769,
             "Name": "joint9",
             "Tag": "Default",
             "Static": 0,
@@ -3068,8 +3069,8 @@
             ]
         },
         {
-            "UID": 848593945,
-            "ParentUID": 2096433308,
+            "UID": 3728892872,
+            "ParentUID": 3572442633,
             "Name": "joint2_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -3147,8 +3148,8 @@
             ]
         },
         {
-            "UID": 91219535,
-            "ParentUID": 848593945,
+            "UID": 3600509026,
+            "ParentUID": 3728892872,
             "Name": "joint2_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -3226,8 +3227,8 @@
             ]
         },
         {
-            "UID": 3377282215,
-            "ParentUID": 91219535,
+            "UID": 31342905,
+            "ParentUID": 3600509026,
             "Name": "joint2_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -3305,8 +3306,8 @@
             ]
         },
         {
-            "UID": 3129660526,
-            "ParentUID": 3377282215,
+            "UID": 617385144,
+            "ParentUID": 31342905,
             "Name": "joint2",
             "Tag": "Default",
             "Static": 0,
@@ -3384,8 +3385,8 @@
             ]
         },
         {
-            "UID": 31126639,
-            "ParentUID": 3129660526,
+            "UID": 4236390556,
+            "ParentUID": 617385144,
             "Name": "joint3_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -3463,8 +3464,8 @@
             ]
         },
         {
-            "UID": 3287225513,
-            "ParentUID": 31126639,
+            "UID": 1628324052,
+            "ParentUID": 4236390556,
             "Name": "joint3_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -3542,8 +3543,8 @@
             ]
         },
         {
-            "UID": 4023887133,
-            "ParentUID": 3287225513,
+            "UID": 2511361127,
+            "ParentUID": 1628324052,
             "Name": "joint3_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -3621,8 +3622,8 @@
             ]
         },
         {
-            "UID": 3847405125,
-            "ParentUID": 4023887133,
+            "UID": 3249910348,
+            "ParentUID": 2511361127,
             "Name": "joint3",
             "Tag": "Default",
             "Static": 0,
@@ -3700,8 +3701,8 @@
             ]
         },
         {
-            "UID": 2528217212,
-            "ParentUID": 3847405125,
+            "UID": 1382997576,
+            "ParentUID": 3249910348,
             "Name": "joint4_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -3779,8 +3780,8 @@
             ]
         },
         {
-            "UID": 2018691764,
-            "ParentUID": 2528217212,
+            "UID": 3487443531,
+            "ParentUID": 1382997576,
             "Name": "joint4_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -3858,8 +3859,8 @@
             ]
         },
         {
-            "UID": 3297626686,
-            "ParentUID": 2018691764,
+            "UID": 3055972967,
+            "ParentUID": 3487443531,
             "Name": "joint4_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -3937,8 +3938,8 @@
             ]
         },
         {
-            "UID": 3252522479,
-            "ParentUID": 3297626686,
+            "UID": 1037846284,
+            "ParentUID": 3055972967,
             "Name": "joint4",
             "Tag": "Default",
             "Static": 0,
@@ -4016,8 +4017,8 @@
             ]
         },
         {
-            "UID": 2806990387,
-            "ParentUID": 3252522479,
+            "UID": 1130734649,
+            "ParentUID": 1037846284,
             "Name": "joint15_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -4095,8 +4096,8 @@
             ]
         },
         {
-            "UID": 3791108045,
-            "ParentUID": 2806990387,
+            "UID": 2486207346,
+            "ParentUID": 1130734649,
             "Name": "joint15_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -4174,8 +4175,8 @@
             ]
         },
         {
-            "UID": 2251971482,
-            "ParentUID": 3791108045,
+            "UID": 3734871683,
+            "ParentUID": 2486207346,
             "Name": "joint15_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -4253,8 +4254,8 @@
             ]
         },
         {
-            "UID": 1078775263,
-            "ParentUID": 2251971482,
+            "UID": 1104043323,
+            "ParentUID": 3734871683,
             "Name": "joint15",
             "Tag": "Default",
             "Static": 0,
@@ -4332,8 +4333,8 @@
             ]
         },
         {
-            "UID": 2004301628,
-            "ParentUID": 1078775263,
+            "UID": 497971503,
+            "ParentUID": 1104043323,
             "Name": "joint16_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -4411,8 +4412,8 @@
             ]
         },
         {
-            "UID": 649299819,
-            "ParentUID": 2004301628,
+            "UID": 3119281554,
+            "ParentUID": 497971503,
             "Name": "joint16_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -4490,8 +4491,8 @@
             ]
         },
         {
-            "UID": 166527196,
-            "ParentUID": 649299819,
+            "UID": 4286914392,
+            "ParentUID": 3119281554,
             "Name": "joint16_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -4569,8 +4570,8 @@
             ]
         },
         {
-            "UID": 3262216432,
-            "ParentUID": 166527196,
+            "UID": 3796623866,
+            "ParentUID": 4286914392,
             "Name": "joint16",
             "Tag": "Default",
             "Static": 0,
@@ -4648,8 +4649,8 @@
             ]
         },
         {
-            "UID": 211305707,
-            "ParentUID": 3262216432,
+            "UID": 333410535,
+            "ParentUID": 3796623866,
             "Name": "joint17_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -4727,8 +4728,8 @@
             ]
         },
         {
-            "UID": 3389145396,
-            "ParentUID": 211305707,
+            "UID": 1286232672,
+            "ParentUID": 333410535,
             "Name": "joint17_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -4806,8 +4807,8 @@
             ]
         },
         {
-            "UID": 4238969172,
-            "ParentUID": 3389145396,
+            "UID": 71591163,
+            "ParentUID": 1286232672,
             "Name": "joint17_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -4885,8 +4886,8 @@
             ]
         },
         {
-            "UID": 1214310959,
-            "ParentUID": 4238969172,
+            "UID": 1754480611,
+            "ParentUID": 71591163,
             "Name": "joint17",
             "Tag": "Default",
             "Static": 0,
@@ -4964,8 +4965,8 @@
             ]
         },
         {
-            "UID": 1883420011,
-            "ParentUID": 1214310959,
+            "UID": 967224916,
+            "ParentUID": 1754480611,
             "Name": "joint19_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -5043,8 +5044,8 @@
             ]
         },
         {
-            "UID": 17493988,
-            "ParentUID": 1883420011,
+            "UID": 1505650323,
+            "ParentUID": 967224916,
             "Name": "joint19_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -5122,8 +5123,8 @@
             ]
         },
         {
-            "UID": 3182976704,
-            "ParentUID": 17493988,
+            "UID": 1455839988,
+            "ParentUID": 1505650323,
             "Name": "joint19_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -5201,8 +5202,8 @@
             ]
         },
         {
-            "UID": 3442560462,
-            "ParentUID": 3182976704,
+            "UID": 1804062896,
+            "ParentUID": 1455839988,
             "Name": "joint19",
             "Tag": "Default",
             "Static": 0,
@@ -5280,8 +5281,8 @@
             ]
         },
         {
-            "UID": 1670601728,
-            "ParentUID": 1214310959,
+            "UID": 4191287155,
+            "ParentUID": 1754480611,
             "Name": "joint18_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -5359,8 +5360,8 @@
             ]
         },
         {
-            "UID": 1663517188,
-            "ParentUID": 1670601728,
+            "UID": 940064752,
+            "ParentUID": 4191287155,
             "Name": "joint18_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -5438,8 +5439,8 @@
             ]
         },
         {
-            "UID": 2906416412,
-            "ParentUID": 1663517188,
+            "UID": 1216514128,
+            "ParentUID": 940064752,
             "Name": "joint18_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -5517,8 +5518,8 @@
             ]
         },
         {
-            "UID": 3456946745,
-            "ParentUID": 2906416412,
+            "UID": 2138042350,
+            "ParentUID": 1216514128,
             "Name": "joint18",
             "Tag": "Default",
             "Static": 0,
@@ -5612,8 +5613,8 @@
             ]
         },
         {
-            "UID": 3145339561,
-            "ParentUID": 3252522479,
+            "UID": 2609674832,
+            "ParentUID": 1037846284,
             "Name": "joint10_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -5691,8 +5692,8 @@
             ]
         },
         {
-            "UID": 1578848914,
-            "ParentUID": 3145339561,
+            "UID": 1480704725,
+            "ParentUID": 2609674832,
             "Name": "joint10_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -5770,8 +5771,8 @@
             ]
         },
         {
-            "UID": 435087198,
-            "ParentUID": 1578848914,
+            "UID": 1950124127,
+            "ParentUID": 1480704725,
             "Name": "joint10_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -5849,8 +5850,8 @@
             ]
         },
         {
-            "UID": 4115098656,
-            "ParentUID": 435087198,
+            "UID": 1871255033,
+            "ParentUID": 1950124127,
             "Name": "joint10",
             "Tag": "Default",
             "Static": 0,
@@ -5928,8 +5929,8 @@
             ]
         },
         {
-            "UID": 2800530245,
-            "ParentUID": 4115098656,
+            "UID": 2095472571,
+            "ParentUID": 1871255033,
             "Name": "joint11_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -6007,8 +6008,8 @@
             ]
         },
         {
-            "UID": 2458391673,
-            "ParentUID": 2800530245,
+            "UID": 3021240392,
+            "ParentUID": 2095472571,
             "Name": "joint11_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -6086,8 +6087,8 @@
             ]
         },
         {
-            "UID": 2865070329,
-            "ParentUID": 2458391673,
+            "UID": 2625305361,
+            "ParentUID": 3021240392,
             "Name": "joint11_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -6165,8 +6166,8 @@
             ]
         },
         {
-            "UID": 692909457,
-            "ParentUID": 2865070329,
+            "UID": 2618931672,
+            "ParentUID": 2625305361,
             "Name": "joint11",
             "Tag": "Default",
             "Static": 0,
@@ -6244,8 +6245,8 @@
             ]
         },
         {
-            "UID": 1613262183,
-            "ParentUID": 692909457,
+            "UID": 2826088719,
+            "ParentUID": 2618931672,
             "Name": "joint12_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -6323,8 +6324,8 @@
             ]
         },
         {
-            "UID": 108374128,
-            "ParentUID": 1613262183,
+            "UID": 564605060,
+            "ParentUID": 2826088719,
             "Name": "joint12_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -6402,8 +6403,8 @@
             ]
         },
         {
-            "UID": 1787658088,
-            "ParentUID": 108374128,
+            "UID": 505565682,
+            "ParentUID": 564605060,
             "Name": "joint12_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -6481,8 +6482,8 @@
             ]
         },
         {
-            "UID": 3516809944,
-            "ParentUID": 1787658088,
+            "UID": 203628784,
+            "ParentUID": 505565682,
             "Name": "joint12",
             "Tag": "Default",
             "Static": 0,
@@ -6560,8 +6561,8 @@
             ]
         },
         {
-            "UID": 4279709554,
-            "ParentUID": 3516809944,
+            "UID": 2278449285,
+            "ParentUID": 203628784,
             "Name": "joint14_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -6639,8 +6640,8 @@
             ]
         },
         {
-            "UID": 306321369,
-            "ParentUID": 4279709554,
+            "UID": 19733829,
+            "ParentUID": 2278449285,
             "Name": "joint14_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -6718,8 +6719,8 @@
             ]
         },
         {
-            "UID": 4201093397,
-            "ParentUID": 306321369,
+            "UID": 2182219936,
+            "ParentUID": 19733829,
             "Name": "joint14_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -6797,8 +6798,8 @@
             ]
         },
         {
-            "UID": 509814523,
-            "ParentUID": 4201093397,
+            "UID": 3592903638,
+            "ParentUID": 2182219936,
             "Name": "joint14",
             "Tag": "Default",
             "Static": 0,
@@ -6876,8 +6877,8 @@
             ]
         },
         {
-            "UID": 1810856838,
-            "ParentUID": 3516809944,
+            "UID": 578034177,
+            "ParentUID": 203628784,
             "Name": "joint13_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -6955,8 +6956,8 @@
             ]
         },
         {
-            "UID": 1199852163,
-            "ParentUID": 1810856838,
+            "UID": 1540139074,
+            "ParentUID": 578034177,
             "Name": "joint13_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -7034,8 +7035,8 @@
             ]
         },
         {
-            "UID": 238813342,
-            "ParentUID": 1199852163,
+            "UID": 10556740,
+            "ParentUID": 1540139074,
             "Name": "joint13_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -7113,8 +7114,8 @@
             ]
         },
         {
-            "UID": 3582887529,
-            "ParentUID": 238813342,
+            "UID": 3606599936,
+            "ParentUID": 10556740,
             "Name": "joint13",
             "Tag": "Default",
             "Static": 0,
@@ -7192,8 +7193,8 @@
             ]
         },
         {
-            "UID": 1143947210,
-            "ParentUID": 3252522479,
+            "UID": 1597063118,
+            "ParentUID": 1037846284,
             "Name": "joint5_$AssimpFbx$_Translation",
             "Tag": "Default",
             "Static": 0,
@@ -7271,8 +7272,8 @@
             ]
         },
         {
-            "UID": 1860618991,
-            "ParentUID": 1143947210,
+            "UID": 34631178,
+            "ParentUID": 1597063118,
             "Name": "joint5_$AssimpFbx$_PreRotation",
             "Tag": "Default",
             "Static": 0,
@@ -7350,8 +7351,8 @@
             ]
         },
         {
-            "UID": 1894972583,
-            "ParentUID": 1860618991,
+            "UID": 2497002988,
+            "ParentUID": 34631178,
             "Name": "joint5_$AssimpFbx$_Rotation",
             "Tag": "Default",
             "Static": 0,
@@ -7429,8 +7430,8 @@
             ]
         },
         {
-            "UID": 2967485074,
-            "ParentUID": 1894972583,
+            "UID": 748643827,
+            "ParentUID": 2497002988,
             "Name": "joint5",
             "Tag": "Default",
             "Static": 0,
@@ -7508,8 +7509,8 @@
             ]
         },
         {
-            "UID": 3487329641,
-            "ParentUID": 3306794683,
+            "UID": 876023175,
+            "ParentUID": 2235900051,
             "Name": "C01_Skeleton_LowPoly",
             "Tag": "Default",
             "Static": 0,
@@ -7587,8 +7588,8 @@
             ]
         },
         {
-            "UID": 2851061252,
-            "ParentUID": 3306794683,
+            "UID": 1975575023,
+            "ParentUID": 2235900051,
             "Name": "SpinBones",
             "Tag": "Default",
             "Static": 0,
@@ -7666,8 +7667,8 @@
             ]
         },
         {
-            "UID": 1727494599,
-            "ParentUID": 2851061252,
+            "UID": 1230110442,
+            "ParentUID": 1975575023,
             "Name": "LeBone",
             "Tag": "SpinBone",
             "Static": 0,
@@ -7802,8 +7803,8 @@
             ]
         },
         {
-            "UID": 897771362,
-            "ParentUID": 1727494599,
+            "UID": 412885966,
+            "ParentUID": 1230110442,
             "Name": "Empty",
             "Tag": "Default",
             "Static": 0,
@@ -7897,8 +7898,8 @@
             ]
         },
         {
-            "UID": 717317585,
-            "ParentUID": 2851061252,
+            "UID": 1667857000,
+            "ParentUID": 1975575023,
             "Name": "LeBone2",
             "Tag": "SpinBone",
             "Static": 0,
@@ -8033,8 +8034,8 @@
             ]
         },
         {
-            "UID": 2352735248,
-            "ParentUID": 717317585,
+            "UID": 2507278552,
+            "ParentUID": 1667857000,
             "Name": "Empty",
             "Tag": "Default",
             "Static": 0,
@@ -8128,8 +8129,8 @@
             ]
         },
         {
-            "UID": 629111376,
-            "ParentUID": 3306794683,
+            "UID": 961784412,
+            "ParentUID": 2235900051,
             "Name": "BasicEnemyMesh2",
             "Tag": "Default",
             "Static": 0,
@@ -8264,8 +8265,8 @@
             ]
         },
         {
-            "UID": 295447302,
-            "ParentUID": 3306794683,
+            "UID": 104845583,
+            "ParentUID": 2235900051,
             "Name": "DeathBones",
             "Tag": "Default",
             "Static": 0,
@@ -8343,8 +8344,8 @@
             ]
         },
         {
-            "UID": 3026333326,
-            "ParentUID": 295447302,
+            "UID": 302685960,
+            "ParentUID": 104845583,
             "Name": "BrutalDeath",
             "Tag": "Default",
             "Static": 0,
@@ -8422,8 +8423,8 @@
             ]
         },
         {
-            "UID": 4082733555,
-            "ParentUID": 3026333326,
+            "UID": 1643412165,
+            "ParentUID": 302685960,
             "Name": "bone1",
             "Tag": "Default",
             "Static": 0,
@@ -8558,8 +8559,8 @@
             ]
         },
         {
-            "UID": 2491203261,
-            "ParentUID": 3026333326,
+            "UID": 1650150510,
+            "ParentUID": 302685960,
             "Name": "bone2",
             "Tag": "Default",
             "Static": 0,
@@ -8694,8 +8695,8 @@
             ]
         },
         {
-            "UID": 653146218,
-            "ParentUID": 3026333326,
+            "UID": 3051218037,
+            "ParentUID": 302685960,
             "Name": "bone2",
             "Tag": "Default",
             "Static": 0,
@@ -8830,8 +8831,8 @@
             ]
         },
         {
-            "UID": 3119331086,
-            "ParentUID": 3026333326,
+            "UID": 3710453612,
+            "ParentUID": 302685960,
             "Name": "bone1",
             "Tag": "Default",
             "Static": 0,
@@ -8966,8 +8967,8 @@
             ]
         },
         {
-            "UID": 3335337579,
-            "ParentUID": 3026333326,
+            "UID": 2789210604,
+            "ParentUID": 302685960,
             "Name": "bone0",
             "Tag": "Default",
             "Static": 0,
@@ -9102,8 +9103,8 @@
             ]
         },
         {
-            "UID": 392038112,
-            "ParentUID": 3026333326,
+            "UID": 64906612,
+            "ParentUID": 302685960,
             "Name": "bone2",
             "Tag": "Default",
             "Static": 0,
@@ -9238,8 +9239,8 @@
             ]
         },
         {
-            "UID": 3562042426,
-            "ParentUID": 3026333326,
+            "UID": 2921249594,
+            "ParentUID": 302685960,
             "Name": "bone1",
             "Tag": "Default",
             "Static": 0,
@@ -9374,8 +9375,8 @@
             ]
         },
         {
-            "UID": 2135896099,
-            "ParentUID": 3026333326,
+            "UID": 3614253038,
+            "ParentUID": 302685960,
             "Name": "bone0",
             "Tag": "Default",
             "Static": 0,
@@ -9510,8 +9511,8 @@
             ]
         },
         {
-            "UID": 2673809325,
-            "ParentUID": 295447302,
+            "UID": 197712583,
+            "ParentUID": 104845583,
             "Name": "Death",
             "Tag": "Default",
             "Static": 0,
@@ -9589,8 +9590,8 @@
             ]
         },
         {
-            "UID": 656301006,
-            "ParentUID": 2673809325,
+            "UID": 2329084703,
+            "ParentUID": 197712583,
             "Name": "bone0",
             "Tag": "Default",
             "Static": 0,
@@ -9726,8 +9727,8 @@
             ]
         },
         {
-            "UID": 183320059,
-            "ParentUID": 2673809325,
+            "UID": 3295254838,
+            "ParentUID": 197712583,
             "Name": "bone1",
             "Tag": "Default",
             "Static": 0,
@@ -9863,8 +9864,8 @@
             ]
         },
         {
-            "UID": 3020126207,
-            "ParentUID": 2673809325,
+            "UID": 1728561452,
+            "ParentUID": 197712583,
             "Name": "bone2",
             "Tag": "Default",
             "Static": 0,
@@ -10000,8 +10001,8 @@
             ]
         },
         {
-            "UID": 769914952,
-            "ParentUID": 2673809325,
+            "UID": 1436475422,
+            "ParentUID": 197712583,
             "Name": "bone2",
             "Tag": "Default",
             "Static": 0,
@@ -10137,8 +10138,8 @@
             ]
         },
         {
-            "UID": 1024017675,
-            "ParentUID": 2673809325,
+            "UID": 3372382955,
+            "ParentUID": 197712583,
             "Name": "bone2",
             "Tag": "Default",
             "Static": 0,
@@ -10274,8 +10275,8 @@
             ]
         },
         {
-            "UID": 3536816204,
-            "ParentUID": 3306794683,
+            "UID": 371618763,
+            "ParentUID": 2235900051,
             "Name": "DeathFX",
             "Tag": "Default",
             "Static": 0,
@@ -10353,8 +10354,8 @@
             ]
         },
         {
-            "UID": 419019294,
-            "ParentUID": 3536816204,
+            "UID": 2889606280,
+            "ParentUID": 371618763,
             "Name": "BrutalDeath",
             "Tag": "Default",
             "Static": 0,
@@ -10432,8 +10433,8 @@
             ]
         },
         {
-            "UID": 613122981,
-            "ParentUID": 419019294,
+            "UID": 276421906,
+            "ParentUID": 2889606280,
             "Name": "SmokeFX",
             "Tag": "Default",
             "Static": 0,
@@ -10599,8 +10600,8 @@
             ]
         },
         {
-            "UID": 2082312142,
-            "ParentUID": 419019294,
+            "UID": 2598738794,
+            "ParentUID": 2889606280,
             "Name": "DeathFX1",
             "Tag": "Default",
             "Static": 0,
@@ -10766,8 +10767,8 @@
             ]
         },
         {
-            "UID": 3736869459,
-            "ParentUID": 419019294,
+            "UID": 1355484362,
+            "ParentUID": 2889606280,
             "Name": "DeathFX2",
             "Tag": "Default",
             "Static": 0,
@@ -10933,8 +10934,8 @@
             ]
         },
         {
-            "UID": 26196464,
-            "ParentUID": 419019294,
+            "UID": 4203408262,
+            "ParentUID": 2889606280,
             "Name": "DeathFX3",
             "Tag": "Default",
             "Static": 0,
@@ -11100,8 +11101,8 @@
             ]
         },
         {
-            "UID": 3910665098,
-            "ParentUID": 3536816204,
+            "UID": 3068092582,
+            "ParentUID": 371618763,
             "Name": "Death",
             "Tag": "Default",
             "Static": 0,
@@ -11179,8 +11180,8 @@
             ]
         },
         {
-            "UID": 4116057046,
-            "ParentUID": 3910665098,
+            "UID": 4071367011,
+            "ParentUID": 3068092582,
             "Name": "Smoke2FX",
             "Tag": "Default",
             "Static": 0,
@@ -11346,8 +11347,8 @@
             ]
         },
         {
-            "UID": 1016093183,
-            "ParentUID": 3910665098,
+            "UID": 3124247232,
+            "ParentUID": 3068092582,
             "Name": "DeathFX1",
             "Tag": "Default",
             "Static": 0,
@@ -11511,8 +11512,8 @@
             ]
         },
         {
-            "UID": 288137580,
-            "ParentUID": 3306794683,
+            "UID": 4173241862,
+            "ParentUID": 2235900051,
             "Name": "Dust",
             "Tag": "Default",
             "Static": 0,
@@ -11678,8 +11679,8 @@
             ]
         },
         {
-            "UID": 3871001825,
-            "ParentUID": 3306794683,
+            "UID": 1654184295,
+            "ParentUID": 2235900051,
             "Name": "SpinLines",
             "Tag": "Default",
             "Static": 0,
@@ -11843,8 +11844,8 @@
             ]
         },
         {
-            "UID": 3783859159,
-            "ParentUID": 3306794683,
+            "UID": 309531956,
+            "ParentUID": 2235900051,
             "Name": "HitBoxAttack",
             "Tag": "Default",
             "Static": 0,
@@ -11938,8 +11939,8 @@
             ]
         },
         {
-            "UID": 2421799643,
-            "ParentUID": 1020393195,
+            "UID": 1630480791,
+            "ParentUID": 1584752799,
             "Name": "Audio",
             "Tag": "Default",
             "Static": 0,
@@ -12017,8 +12018,8 @@
             ]
         },
         {
-            "UID": 3275441755,
-            "ParentUID": 2421799643,
+            "UID": 866372403,
+            "ParentUID": 1630480791,
             "Name": "Hit",
             "Tag": "Default",
             "Static": 0,
@@ -12109,8 +12110,8 @@
             ]
         },
         {
-            "UID": 1255478840,
-            "ParentUID": 2421799643,
+            "UID": 401441197,
+            "ParentUID": 1630480791,
             "Name": "FootSteps",
             "Tag": "Default",
             "Static": 0,
@@ -12201,8 +12202,8 @@
             ]
         },
         {
-            "UID": 2366200860,
-            "ParentUID": 2421799643,
+            "UID": 1675043055,
+            "ParentUID": 1630480791,
             "Name": "DeathFX2",
             "Tag": "Default",
             "Static": 0,
@@ -12293,8 +12294,8 @@
             ]
         },
         {
-            "UID": 914942509,
-            "ParentUID": 2421799643,
+            "UID": 2255669043,
+            "ParentUID": 1630480791,
             "Name": "DeathFX1",
             "Tag": "Default",
             "Static": 0,
@@ -12385,8 +12386,8 @@
             ]
         },
         {
-            "UID": 90835880,
-            "ParentUID": 2421799643,
+            "UID": 182747383,
+            "ParentUID": 1630480791,
             "Name": "Spin",
             "Tag": "Default",
             "Static": 0,
