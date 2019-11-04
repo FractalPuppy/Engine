@@ -5,6 +5,7 @@
 #include "ProjectileScript.h"
 
 #include "GameObject.h"
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 #include "Math/float3.h"
 
@@ -46,6 +47,10 @@ void EnemyStateAttack::Update()
 
 	if (timer > enemy->projectileDelay && !projShot)
 	{
+		if (enemy->audioHit != nullptr)
+		{
+			enemy->audioHit->Play();
+		}
 		math::float3 playerPosition = enemy->enemyController->GetPlayerPosition();
 
 		enemy->projectileScript->CleanTrailFX();

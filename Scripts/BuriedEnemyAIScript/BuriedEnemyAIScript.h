@@ -11,6 +11,7 @@
 #include "math/float3.h"
 #include <vector>
 
+class ComponentAudioSource;
 class GameObject;
 class EnemyControllerScript;
 class ProjectileScript;
@@ -36,6 +37,7 @@ public:
 	void Update() override;
 
 	void Expose(ImGuiContext* context) override;
+	float randomOffset(float max);
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
@@ -95,6 +97,15 @@ public:
 	ProjectileScript* projectileScript = nullptr;
 	GameObject* projectileGO = nullptr;
 	float projectileDelay = 0.4f;
+
+	GameObject* audioEnemy = nullptr;
+	ComponentAudioSource* audioHit = nullptr;
+	ComponentAudioSource* audioFoot = nullptr;
+	ComponentAudioSource* audioBury = nullptr;
+	ComponentAudioSource* audioRun = nullptr;
+	ComponentAudioSource* audioBoneHit = nullptr;
+	ComponentAudioSource* audioDeathFX1 = nullptr;
+	ComponentAudioSource* audioDeathFX2 = nullptr;
 
 	GameObject* dustParticlesGO = nullptr;
 	GameObject* candleGO = nullptr;

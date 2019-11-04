@@ -5,6 +5,7 @@
 #include "ModuleScene.h"
 
 #include "GameObject.h"
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 #include "ComponentAnimation.h"
 #include "ComponentBoxTrigger.h"
@@ -96,11 +97,34 @@ void RangeEnemyAIScript::Start()
 		}
 	}
 
+	audioEnemy = App->scene->FindGameObjectByName("Audio", gameobject);
+	GameObject* audioFootGO = App->scene->FindGameObjectByName("FootSteps", audioEnemy);
+	if (audioFootGO != nullptr)
+	{
+		audioFoot = audioFootGO->GetComponent<ComponentAudioSource>();
+	}
+	GameObject* audioDeathFX1GO = App->scene->FindGameObjectByName("DeathFX1", audioEnemy);
+	if (audioDeathFX1GO != nullptr)
+	{
+		audioDeathFX1 = audioDeathFX1GO->GetComponent<ComponentAudioSource>();
+	}
+	GameObject* audioDeathFX2GO = App->scene->FindGameObjectByName("DeathFX2", audioEnemy);
+	if (audioDeathFX2GO != nullptr)
+	{
+		audioDeathFX2 = audioDeathFX2GO->GetComponent<ComponentAudioSource>();
+	}
+
 	projectileExplosion = App->scene->FindGameObjectByName("ExplodeProjectileFX");
 
 	startPosition = enemyController->GetPosition();
 	currentState->Enter();
 	LOG("Started range enemy AI script");
+}
+
+float RangeEnemyAIScript::randomOffset(float max)
+{
+	float random = rand() % (int)(max * 100);
+	return (float)random / 100.f;
 }
 
 void RangeEnemyAIScript::Update()

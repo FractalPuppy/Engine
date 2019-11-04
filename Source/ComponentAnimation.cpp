@@ -405,7 +405,10 @@ void ComponentAnimation::Update()
 			if (controller->CheckEvents(Anim))
 			{
 				std::vector<Component*> scripts = gameobject->GetComponents(ComponentType::Script);
-
+				if (scripts.empty() && gameobject->parent != nullptr && gameobject->parent != App->scene->root)
+				{
+					scripts = gameobject->parent->GetComponents(ComponentType::Script);
+				}
 				for (auto script : scripts)
 				{
 					Script* scr = (Script*)script;

@@ -62,10 +62,11 @@ public:
 	bool playOnAwake = true;
 	float PAN = 0.f;
 	bool loop = false;
+	bool isPlaying = false;
 
 	bool Sound3D = true;
 	bool OnlyVolume3D = false;
-	float fadeDist = 5.f * App->renderer->current_scale;
+	float fadeDist = 5.f;
 	float limit3DPan = 0.5f;
 	float rolloff3D = 0.3f;
 	float pitch = 1.f;

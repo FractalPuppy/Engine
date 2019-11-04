@@ -6,6 +6,7 @@
 #include "ModuleScene.h"
 #include "ModuleTime.h"
 
+#include "ComponentAudioSource.h"
 #include "ComponentRenderer.h"
 #include "ComponentAnimation.h"
 #include "ComponentTransform.h"
@@ -95,6 +96,10 @@ void EnemyStateDeath::Update()
 
 void EnemyStateDeath::Enter()
 {
+	if (enemy->audioDeathFX2 != nullptr)
+	{
+		enemy->audioDeathFX2->Play();
+	}
 	enemy->enemyController->anim->SetAnimationFreeze(true);
 
 	GameObject* meshScene = enemy->gameobject->children.front();

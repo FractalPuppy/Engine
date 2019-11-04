@@ -33,6 +33,7 @@ ComponentAudioSource::ComponentAudioSource(GameObject* gameobject) : Component(g
 	{
 		UpdateAudiosList();
 	}
+	fadeDist *= 5.f * App->renderer->current_scale;
 #endif // !GAME_BUILD
 }
 
@@ -91,12 +92,13 @@ void ComponentAudioSource::Play()
 		{
 			LOG("Error: missing audio file in ComponentAudioSource of the GO named: %s", gameobject->name.c_str());
 		}
-
+		isPlaying = true;
 	}
 }
 
 void ComponentAudioSource::Stop() 
 {
+	isPlaying = false;
 	App->audioManager->StopWAV(lastHandler);	
 }
 

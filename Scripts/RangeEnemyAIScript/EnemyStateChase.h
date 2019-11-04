@@ -15,6 +15,8 @@ public:
 
 private:
 	void AproachPlayer();
+	float timer = 1.0f;
+	float walkTimer = 0.4f;
 };
 
 #endif __ENEMYSTATECHASE_H_

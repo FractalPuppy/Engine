@@ -38,8 +38,6 @@ public:
 	virtual void Update() {}
 
 	virtual void OnAnimationEvent(std::string name) {}
-	//virtual void OnCollisionEnter(GameObject* go) {} //TODO: collision module
-	//virtual void OnCollisionExit(GameObject* go) {} //TODO: collision module
 
 	virtual void OnTriggerEnter(GameObject* go) {}
 	virtual void OnTrigger(GameObject* go) {}

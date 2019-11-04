@@ -7,6 +7,7 @@
 #include "ModuleScript.h"
 #include "ModuleTime.h"
 #include "GameObject.h"
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 #include "ComponentRenderer.h"
 
@@ -17,10 +18,26 @@ EnemyStateMultiply::EnemyStateMultiply(BasicEnemyAIScript* AIScript)
 	enemy = AIScript;
 	trigger = "Chase"; //No need to change State Machine ATM
 	spawnParticleSystems = enemy->App->scene->FindGameObjectsByTag("SpawnParticles", enemy->gameobject);
+	if (enemy->audioEnemy != nullptr)
+	{
+		GameObject* multiplySFXGO = enemy->App->scene->FindGameObjectByName("Multiply", enemy->audioEnemy);
+		if (multiplySFXGO != nullptr)
+		{
+			multiplySFX = multiplySFXGO->GetComponent<ComponentAudioSource>();
+		}
+	}
 }
 
 EnemyStateMultiply::~EnemyStateMultiply()
 {
+}
+
+void EnemyStateMultiply::Enter()
+{
+	if (multiplySFX != nullptr)
+	{
+		multiplySFX->Play();
+	}
 }
 
 void EnemyStateMultiply::HandleIA() // spwaned timer <= multiply timer

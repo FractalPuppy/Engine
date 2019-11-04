@@ -11,6 +11,10 @@ public:
 
 	void HandleIA() override;
 	void Update() override;
+	void Exit() override;
+
+	float timer = 1.0f;
+	float walkTimer = 0.50f;
 };
 
 #endif // __ENEMYSTATECHASE_H_

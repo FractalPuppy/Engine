@@ -6,6 +6,7 @@
 
 class ComponentRenderer;
 class ResourceMaterial;
+class ComponentAudioSource;
 
 enum class MATERIALTYPE
 {
@@ -36,6 +37,7 @@ protected:
 	void SpinBones(bool active);
 	void ChangeToSpinMaterial(MATERIALTYPE type) const;
 
+	ComponentAudioSource* spinSFX = nullptr;
 	ComponentRenderer* enemyRenderer = nullptr;
 	GameObject* dust = nullptr;
 	GameObject* spinOff = nullptr;
@@ -51,6 +53,9 @@ protected:
 	float spinTimer = 0.0f;
 	bool spinning = false;
 	bool isOnCooldown = false;
+
+	int baseDamage = 5.0;
+	int spinDamage = 2.0f;
 };
 
 #endif __ENEMYSTATEATTACKSPIN_H_
