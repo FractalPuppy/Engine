@@ -121,13 +121,13 @@ void EquipPopupController::Update()
 	for (int i : inventory->equipedConsumablesToRemove) RemoveEquipedConsumable(i);
 	inventory->equipedConsumablesToRemove.clear();
 
-	if (itemUsed != "")
+	if (itemUsed != "" || inventory->updateConsumableItemsQuantity)
 	{
 		for (int i = 0; i < itemsEquiped.size(); ++i)
 		{
 			for (int j = 0; j < HUD_BUTTONS; ++j)
 			{
-				if (itemUsed == itemsEquiped[i].second.name && j == itemsEquiped[i].first)
+				if (j == itemsEquiped[i].first)
 				{
 					hudConsumibleItemsQuantity[j]->text = std::to_string(inventory->GetCurrentQuantity(itemsEquiped[i].second));
 					if (hudConsumibleItemsQuantity[j]->text == "0")
@@ -146,6 +146,8 @@ void EquipPopupController::Update()
 				}		
 			}
 		}
+
+		inventory->updateConsumableItemsQuantity = false;
 	}
 
 	//Check if has to close PopUp
