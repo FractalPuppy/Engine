@@ -24,7 +24,9 @@
 
 ComponentParticles::ComponentParticles(GameObject* gameobject) : Component(gameobject, ComponentType::Particles)
 {
+#ifndef GAME_BUILD
 	textureFiles = App->resManager->GetResourceNamesList(TYPE::TEXTURE, true);
+#endif // !GAME_BUILD
 	App->particles->AddParticleSystem(this);
 	modules.push_back(new PMSizeOverTime());
 	modules.push_back(new PMColorOverTime());
@@ -32,7 +34,9 @@ ComponentParticles::ComponentParticles(GameObject* gameobject) : Component(gameo
 
 ComponentParticles::ComponentParticles(const ComponentParticles& component) : Component(component)
 {
+#ifndef GAME_BUILD
 	textureFiles = App->resManager->GetResourceNamesList(TYPE::TEXTURE, true);
+#endif
 	texture = (ResourceTexture*)App->resManager->Get(component.texture->GetUID());
 	xTiles = component.xTiles;
 	yTiles = component.yTiles;
@@ -75,6 +79,10 @@ ComponentParticles::~ComponentParticles()
 	{
 		App->resManager->DeleteResource(texture->GetUID());
 		texture = nullptr;
+	}
+	for (size_t i = 0; i < modules.size(); i++)
+	{
+		RELEASE(modules[i]);
 	}
 }
 

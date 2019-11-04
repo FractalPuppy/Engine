@@ -28,10 +28,12 @@
 
 ComponentAudioSource::ComponentAudioSource(GameObject* gameobject) : Component(gameobject, ComponentType::AudioSource)
 {
+#ifndef GAME_BUILD
 	if (audioFiles.empty())
 	{
 		UpdateAudiosList();
 	}
+#endif // !GAME_BUILD
 }
 
 ComponentAudioSource::ComponentAudioSource(const ComponentAudioSource& component) : Component(component)
@@ -81,9 +83,9 @@ void ComponentAudioSource::Play()
 		if (audio != nullptr)
 		{
 			if (!audio->streamed) 
-				lastHandler = App->audioManager->PlayWAV(audio->wavFX, Sound3D && !OnlyVolume3D);
+				lastHandler = App->audioManager->PlayWAV(*audio->wavFX, Sound3D && !OnlyVolume3D);
 			else 
-				lastHandler = App->audioManager->PlayWAV(audio->wavstream, Sound3D && !OnlyVolume3D);
+				lastHandler = App->audioManager->PlayWAV(*audio->wavstream, Sound3D && !OnlyVolume3D);
 		}
 		else
 		{

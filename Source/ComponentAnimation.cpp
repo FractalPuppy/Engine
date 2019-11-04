@@ -38,11 +38,9 @@ ComponentAnimation::ComponentAnimation(GameObject * gameobject) : Component(game
 
 ComponentAnimation::~ComponentAnimation()
 {
-	delete editorController;
-	editorController = nullptr;
-
-	delete controller;
-	controller = nullptr;
+	RELEASE(editorController);
+	
+	RELEASE(controller);
 	if (context)
 	{
 		ax::NodeEditor::DestroyEditor(context);
@@ -536,7 +534,10 @@ bool ComponentAnimation::CleanUp()
 	{
 		App->resManager->DeleteResource(stateMachine->GetUID());
 	}
-
+	if (animName != nullptr)
+	{
+		RELEASE_ARRAY(animName);
+	}
 	return true;
 }
 
