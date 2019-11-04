@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 2692259921,
+            "UID": 1880257484,
             "ParentUID": 3781581387,
             "Name": "AudioAmbientTemple",
             "Tag": "Default",
@@ -33,7 +33,6 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2673385213,
-            "prefabTimeStamp": 1571320447,
             "Components": [
                 {
                     "Type": 0,
@@ -81,8 +80,8 @@
             ]
         },
         {
-            "UID": 3214635709,
-            "ParentUID": 2692259921,
+            "UID": 103673355,
+            "ParentUID": 1880257484,
             "Name": "fountain1",
             "Tag": "Default",
             "Static": 0,
@@ -173,8 +172,8 @@
             ]
         },
         {
-            "UID": 2673925067,
-            "ParentUID": 2692259921,
+            "UID": 1953814602,
+            "ParentUID": 1880257484,
             "Name": "fountain2",
             "Tag": "Default",
             "Static": 0,
@@ -265,8 +264,8 @@
             ]
         },
         {
-            "UID": 1253854777,
-            "ParentUID": 2692259921,
+            "UID": 1478955047,
+            "ParentUID": 1880257484,
             "Name": "Reverb",
             "Tag": "Default",
             "Static": 0,
@@ -352,8 +351,8 @@
             ]
         },
         {
-            "UID": 2069707675,
-            "ParentUID": 2692259921,
+            "UID": 829171912,
+            "ParentUID": 1880257484,
             "Name": "torch1",
             "Tag": "Default",
             "Static": 0,
@@ -444,8 +443,8 @@
             ]
         },
         {
-            "UID": 1298429806,
-            "ParentUID": 2692259921,
+            "UID": 413496037,
+            "ParentUID": 1880257484,
             "Name": "torch2",
             "Tag": "Default",
             "Static": 0,
@@ -536,8 +535,8 @@
             ]
         },
         {
-            "UID": 575228315,
-            "ParentUID": 2692259921,
+            "UID": 912876719,
+            "ParentUID": 1880257484,
             "Name": "torch3",
             "Tag": "Default",
             "Static": 0,
@@ -628,8 +627,8 @@
             ]
         },
         {
-            "UID": 3399883353,
-            "ParentUID": 2692259921,
+            "UID": 3187902852,
+            "ParentUID": 1880257484,
             "Name": "torch4",
             "Tag": "Default",
             "Static": 0,
@@ -720,8 +719,8 @@
             ]
         },
         {
-            "UID": 2008214971,
-            "ParentUID": 2692259921,
+            "UID": 1685139081,
+            "ParentUID": 1880257484,
             "Name": "torch5",
             "Tag": "Default",
             "Static": 0,
@@ -812,8 +811,8 @@
             ]
         },
         {
-            "UID": 1859164237,
-            "ParentUID": 2692259921,
+            "UID": 2885289878,
+            "ParentUID": 1880257484,
             "Name": "torch6",
             "Tag": "Default",
             "Static": 0,
@@ -904,8 +903,8 @@
             ]
         },
         {
-            "UID": 492935021,
-            "ParentUID": 2692259921,
+            "UID": 2640334015,
+            "ParentUID": 1880257484,
             "Name": "torch8",
             "Tag": "Default",
             "Static": 0,
@@ -996,10 +995,10 @@
             ]
         },
         {
-            "UID": 2488834489,
-            "ParentUID": 2692259921,
+            "UID": 3140018758,
+            "ParentUID": 1880257484,
             "Name": "background_music",
-            "Tag": "Default",
+            "Tag": "backGroundMusicDefault",
             "Static": 0,
             "ActiveInHierarchy": 1,
             "ActiveSelf": 1,
@@ -1078,6 +1077,98 @@
                     "audioUID": 2421107373,
                     "Volume": 0.4000000059604645,
                     "PlayOnAwake": 1,
+                    "Sound3D": 0,
+                    "LimitPan": 0.5,
+                    "FadeDist": 500.0,
+                    "Loop": 1,
+                    "Rolloff": 0.30000001192092898,
+                    "Pitch": 1.0
+                }
+            ]
+        },
+        {
+            "UID": 1076930787,
+            "ParentUID": 1880257484,
+            "Name": "background_musicBoss",
+            "Tag": "backGroundMusicBoss",
+            "Static": 0,
+            "ActiveInHierarchy": 1,
+            "ActiveSelf": 1,
+            "isBoneRoot": 0,
+            "baseState": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "Navigable": 0,
+            "No Walkable": 0,
+            "openInHierarchy": 1,
+            "isPrefab": 0,
+            "isPrefabSync": 0,
+            "prefabUID": 0,
+            "Components": [
+                {
+                    "Type": 0,
+                    "Enabled": 1,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Euler": [
+                        -0.0,
+                        0.0,
+                        -0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Global": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 4190978870,
+                    "Volume": 0.4000000059604645,
+                    "PlayOnAwake": 0,
                     "Sound3D": 0,
                     "LimitPan": 0.5,
                     "FadeDist": 500.0,
