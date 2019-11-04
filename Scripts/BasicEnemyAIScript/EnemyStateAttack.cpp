@@ -16,7 +16,7 @@ EnemyStateAttack::EnemyStateAttack(BasicEnemyAIScript* AIScript)
 {
 	enemy = AIScript;
 	trigger = "Attack";
-	boxSize = math::float3(100.f, 50.f, 50.f);
+	boxSize = math::float3(100.f, 70.f, 50.f);
 	minTime = 0.7f;
 	maxTime = 0.9f;
 	GameObject* punchBone = enemy->App->scene->FindGameObjectByName("joint18", enemy->gameobject);
@@ -89,11 +89,15 @@ void EnemyStateAttack::Update()
 
 	assert(enemy->enemyController->attackBoxTrigger != nullptr);
 
-	Attack();
+	if(!attacked && enemy->attackDelay < timer)
+		Attack();
 }
 
 void EnemyStateAttack::Attack()
 {
+	// Reset timer
+	timer = 0.0f;
+
 	//Create the hitbox
 	enemy->enemyController->attackBoxTrigger->Enable(true);
 	enemy->enemyController->attackBoxTrigger->SetBoxSize(boxSize);

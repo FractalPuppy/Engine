@@ -1,4 +1,4 @@
-#ifndef  __BasicEnemyAIScript_h__
+﻿#ifndef  __BasicEnemyAIScript_h__
 #define  __BasicEnemyAIScript_h__
 
 #ifdef BasicEnemyAIScript_EXPORTS
@@ -77,6 +77,7 @@ public:
 	// Attack variables
 	float attackDuration = 1.0f;
 	float attackDamage = 20.0f;
+	float attackDelay = 0.25f;
 
 	// Cooldown variables
 	float cooldownTime = 1.0f;			// Seconds to wait between attacks
