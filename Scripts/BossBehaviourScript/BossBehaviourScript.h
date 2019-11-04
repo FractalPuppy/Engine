@@ -126,7 +126,8 @@ public:
 	ComponentAudioSource* precastAudio = nullptr;
 	ComponentAudioSource* mainBGMusic = nullptr;
 	ComponentAudioSource* bossBGMusic = nullptr;
-	
+	ComponentAudioSource* bossScream = nullptr;
+
 	std::vector<GameObject*> fadeEnvironmentSounds;
 
 	ComponentAnimation* anim = nullptr;
