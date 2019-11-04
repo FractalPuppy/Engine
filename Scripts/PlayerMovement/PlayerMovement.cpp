@@ -800,11 +800,6 @@ void PlayerMovement::Update()
 		// Update cooldowns
 		if (hubCooldownMask != nullptr)
 		{
-			/*for (unsigned i = HUB_BUTTON_1; i <= HUB_BUTTON_4; ++i)
-			{
-				if (hubCooldownMask[i] != nullptr && hubCooldownMask[i]->enabled)
-					hubCooldownMask[i]->SetMaskAmount((int)(100.0F * hubCooldownTimer[i] / hubCooldownMax[i]));
-			}*/
 			for (unsigned i = HUD_BUTTON_RC; i <= HUD_BUTTON_R; ++i)
 			{
 				if (hubCooldownMask[i] != nullptr && hubCooldownMask[i]->enabled)
@@ -1674,10 +1669,6 @@ void PlayerMovement::UseSkill(SkillType skill)
 			mana -= it->second->Use(it->second->cooldown);
 			break;
 		}
-		/*else
-		{
-			it->second->SetCooldown(hubGeneralAbilityCooldown);
-		}*/
 	}
 	for (unsigned i = 0u; i < SKILLS_SLOTS; ++i)
 	{

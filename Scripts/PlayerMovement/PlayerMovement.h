@@ -276,7 +276,6 @@ public:
 
 	float health = 100.0f;
 	float mana = 100.0f;
-	//bool IsManaUsed = false;
 	float attackDuration = 1.0f;
 	float attackTimer = 0.0f;
 	
