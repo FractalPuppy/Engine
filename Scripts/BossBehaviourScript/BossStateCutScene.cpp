@@ -38,6 +38,24 @@ void BossStateCutScene::HandleIA()
 
 void BossStateCutScene::Update()
 {
+	if (!musicFadeFinished)
+	{
+		musicTimer += boss->App->time->gameDeltaTime;
+
+		float musicLambda = musicTimer / boss->cutsceneDoorDuration;
+
+		if (musicLambda > 1.0f)
+		{
+			musicFadeFinished = true;
+			boss->mainBGMusic->Stop();
+		}
+		else
+		{
+			boss->mainBGMusic->SetVolume(initialVolume *(1.0f - musicLambda));
+		}
+	}
+
+
 	switch (csState)
 	{
 		case CutsceneState::None:
@@ -93,9 +111,10 @@ void BossStateCutScene::Update()
 			break;
 		case CutsceneState::BossWatching:
 
-			if (bossWatchingTimer >= 4.0f)
+			if (bossWatchingTimer >= 3.0f)
 			{
 				csState = CutsceneState::PlayerLerping;
+				boss->bossBGMusic->Play();
 			}
 			else
 			{
@@ -144,6 +163,13 @@ void BossStateCutScene::Enter()
 	secondCameraSpeed = bossDistance / boss->cutsceneBossDuration;
 	secondCameraDirection.Normalize();
 
+	initialVolume = boss->mainBGMusic->GetVolume();
+
+	for (auto go : boss->fadeEnvironmentSounds)
+	{
+		go->GetComponent<ComponentAudioSource>()->SetVolume(0.1f);
+	}
+
 	//Deactivate player script
 	boss->playerScript->anim->SendTriggerToStateMachine("Idle");
 	boss->playerScript->Enable(false);
@@ -159,6 +185,7 @@ void BossStateCutScene::Exit()
 	boss->playerCamera->GetComponent<CameraController>()->Enable(true);
 
 	boss->enemyController->bossFightStarted = true;
+
 }
 
 float BossStateCutScene::CalculateDoorLambda()

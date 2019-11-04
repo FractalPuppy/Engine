@@ -103,6 +103,11 @@ void ComponentAudioSource::SetVolume(float newVol)
 	volume = newVol;
 }
 
+float ComponentAudioSource::GetVolume()
+{
+	return volume;
+}
+
 void ComponentAudioSource::SetPan(float newPan) 
 {
 	PAN = newPan;

@@ -124,6 +124,10 @@ public:
 	ComponentAudioSource* doorRisingAudio = nullptr;
 	ComponentAudioSource* castAudio = nullptr;
 	ComponentAudioSource* precastAudio = nullptr;
+	ComponentAudioSource* mainBGMusic = nullptr;
+	ComponentAudioSource* bossBGMusic = nullptr;
+	
+	std::vector<GameObject*> fadeEnvironmentSounds;
 
 	ComponentAnimation* anim = nullptr;
 
