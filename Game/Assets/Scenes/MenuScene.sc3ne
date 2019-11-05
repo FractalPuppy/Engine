@@ -589,7 +589,7 @@
                     "Znear": 10.0,
                     "Zfar": 100000.0,
                     "vFOV": 1.0471975803375245,
-                    "hFOV": 1.4430525302886963,
+                    "hFOV": 1.3859459161758423,
                     "Position": [
                         0.0,
                         0.0,
@@ -2018,15 +2018,15 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2983922135,
-            "prefabTimeStamp": 1571678480,
+            "prefabTimeStamp": 1572966926,
             "Components": []
         },
         {
-            "UID": 4179135438,
+            "UID": 2730366363,
             "ParentUID": 550356827,
             "Name": "Background",
             "Tag": "Default",
@@ -2099,7 +2099,7 @@
             ]
         },
         {
-            "UID": 2458090926,
+            "UID": 1009368899,
             "ParentUID": 550356827,
             "Name": "Back",
             "Tag": "Default",
@@ -3579,7 +3579,7 @@
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 0,
-            "ActiveSelf": 0,
+            "ActiveSelf": 1,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
@@ -4363,7 +4363,7 @@
             "Tag": "Default",
             "Static": 0,
             "ActiveInHierarchy": 0,
-            "ActiveSelf": 1,
+            "ActiveSelf": 0,
             "isBoneRoot": 0,
             "baseState": [
                 1.0,
