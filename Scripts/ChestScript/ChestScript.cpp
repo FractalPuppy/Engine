@@ -91,6 +91,9 @@ void ChestScript::Update()
 			lootDrop->DropItemsAtPositions(lootRadius, spawnPositionGOList);
 
 			state = chestState::OPENED;
+
+			//play chest opening sound
+			open_chest->Play();
 		}
 		else
 		{
@@ -172,7 +175,7 @@ void ChestScript::OnChestClosedHover()
 			// Open chest:
 			anim->SendTriggerToStateMachine("Open");
 			
-			open_chest->Play();
+			//open_chest->Play();
 
 			if (lootDrop != nullptr)
 				state = chestState::OPENING;
