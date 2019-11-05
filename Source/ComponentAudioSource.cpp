@@ -98,8 +98,11 @@ void ComponentAudioSource::Play()
 
 void ComponentAudioSource::Stop() 
 {
-	isPlaying = false;
-	App->audioManager->StopWAV(lastHandler);	
+	if (audio)
+	{
+		isPlaying = false;
+		App->audioManager->StopWAV(lastHandler);
+	}
 }
 
 void ComponentAudioSource::SetVolume(float newVol) 
