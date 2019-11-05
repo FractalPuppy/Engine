@@ -14,6 +14,7 @@
 class ComponentAnimation;
 class ComponentRenderer;
 class ComponentBoxTrigger;
+class ComponentAudioSource;
 class DamageController;
 class EnemyLifeBarController;
 class PlayerMovement;
