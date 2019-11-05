@@ -37,7 +37,7 @@ void BossStateThirdDeath::Update()
 	
 	if (!musicStop)
 	{
-		float lambda = timer / (duration * 0.8f);
+		float lambda = timer / duration;
 		if (lambda > 1.0f)
 		{
 			musicStop = true;
