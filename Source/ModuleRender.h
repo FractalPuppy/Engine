@@ -71,7 +71,7 @@ public:
 	bool boneDebug = false;
 	bool pathfindingDebug = false;
 	bool useMainCameraFrustum = false;
-	bool vsync = false;
+	bool vsync = true;
 
 	unsigned current_scale = 1;
 	Viewport* viewGame = nullptr;
