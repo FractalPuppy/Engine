@@ -243,7 +243,7 @@ private:
 	void CreatePlayerStates();
 	void ManaManagement();
 
-	void ActivateHudCooldownMask(bool activate, unsigned first = HUD_BUTTON_Q, unsigned last = HUD_BUTTON_4);
+	void ActivateHudCooldownMask(bool activate, unsigned first = HUD_BUTTON_RC, unsigned last = HUD_BUTTON_R);
 
 	// Skills
 	void CreatePlayerSkills();

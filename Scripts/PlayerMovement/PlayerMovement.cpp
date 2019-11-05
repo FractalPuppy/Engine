@@ -533,6 +533,18 @@ void PlayerMovement::Start()
 
 	GameObject* hubCooldownGO = nullptr;
 
+	hubCooldownGO = App->scene->FindGameObjectByName("RC_Cooldown");
+	if (hubCooldownGO != nullptr)
+	{
+		hubCooldownMask[HUD_BUTTON_RC] = hubCooldownGO->GetComponent<ComponentImage>();
+		assert(hubCooldownMask[HUD_BUTTON_RC] != nullptr);
+	}
+	else
+	{
+		LOG("The Game Object 'Q_Cooldown' couldn't be found.");
+	}
+
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Q_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -544,7 +556,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'Q_Cooldown' couldn't be found.");
 	}
 
-
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("W_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -556,6 +568,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'W_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("E_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -567,6 +580,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'E_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("R_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -578,6 +592,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'R_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("One_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -589,6 +604,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '1_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Two_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -600,6 +616,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '2_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Three_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -611,6 +628,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '3_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Four_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -1365,7 +1383,7 @@ void PlayerMovement::DeSerialize(JSON_value* json)
 		if (rain_data) allSkills[SkillType::RAIN]->DeSerialize(rain_data, rain);
 
 		JSON_value* dance_data = abilities->GetValue("dance");
-		if (rain_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
+		if (dance_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
 	}
 
 	JSON_value* baseStatsValue = json->GetValue("baseStats");
@@ -1571,7 +1589,7 @@ bool PlayerMovement::IsPressingMouse1() const
 
 bool PlayerMovement::IsUsingRightClick() const
 {
-	return !App->ui->UIHovered(true, false) && allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_DOWN; //Left button
+	return !App->ui->UIHovered(true, false) && allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_UP; //Left button
 }
 
 bool PlayerMovement::IsUsingOne() const
@@ -1645,7 +1663,11 @@ PlayerSkill* PlayerMovement::GetSkillInUse() const
 
 void PlayerMovement::PrepareSkills() const
 {
-	if (allSkills.find(assignedSkills[HUD_BUTTON_1])->second->IsUsable(mana) && App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
+	if (allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_REPEAT)
+	{
+		allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->skill->Prepare();
+	}
+	else if (allSkills.find(assignedSkills[HUD_BUTTON_1])->second->IsUsable(mana) && App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
 	{
 		allSkills.find(assignedSkills[HUD_BUTTON_1])->second->skill->Prepare();
 	}
@@ -1706,7 +1728,7 @@ void PlayerMovement::ResetCooldown(unsigned int hubButtonID)
 {
 	if (hubButtonID <= HUD_BUTTON_R)
 	{
-		for (unsigned i = HUD_BUTTON_RC; i <= HUD_BUTTON_R; ++i)
+		for (unsigned i = HUD_BUTTON_RC; i <= HUD_BUTTON_R; i++)
 		{
 			hubCooldownTimer[i] = hubGeneralAbilityCooldown;
 			hubCooldownMax[i] = hubGeneralAbilityCooldown;

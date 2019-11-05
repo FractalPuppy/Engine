@@ -37,7 +37,11 @@ void LootDropScript::Update()
 			timer += App->time->gameDeltaTime;
 			// Percent is a 0-1 float showing the percentage of time that has passed on our timer
 			float percent = timer / animDuration;
-
+			
+			if (percent > 1.0f)
+			{
+				percent = 1.0f;
+			}
 			for (int i = 0; i < spawnedGOList.size(); ++i)
 			{
 				// Lerp between target position and current position
