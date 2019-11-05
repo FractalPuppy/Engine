@@ -533,6 +533,18 @@ void PlayerMovement::Start()
 
 	GameObject* hubCooldownGO = nullptr;
 
+	hubCooldownGO = App->scene->FindGameObjectByName("RC_Cooldown");
+	if (hubCooldownGO != nullptr)
+	{
+		hubCooldownMask[HUD_BUTTON_RC] = hubCooldownGO->GetComponent<ComponentImage>();
+		assert(hubCooldownMask[HUD_BUTTON_RC] != nullptr);
+	}
+	else
+	{
+		LOG("The Game Object 'Q_Cooldown' couldn't be found.");
+	}
+
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Q_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -544,7 +556,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'Q_Cooldown' couldn't be found.");
 	}
 
-
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("W_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -556,6 +568,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'W_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("E_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -567,6 +580,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'E_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("R_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -578,6 +592,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'R_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("One_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -589,6 +604,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '1_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Two_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -600,6 +616,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '2_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Three_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -611,6 +628,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '3_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Four_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
