@@ -251,6 +251,7 @@ private:
 	void InitializeUIStatsObjects();
 	void InitializeAudioObjects();
 public:
+	bool FinishingLevel0 = false;
 	bool ThirdStageBoss = false;
 
 	bool isPlayerDead = false;
