@@ -1383,7 +1383,7 @@ void PlayerMovement::DeSerialize(JSON_value* json)
 		if (rain_data) allSkills[SkillType::RAIN]->DeSerialize(rain_data, rain);
 
 		JSON_value* dance_data = abilities->GetValue("dance");
-		if (rain_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
+		if (dance_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
 	}
 
 	JSON_value* baseStatsValue = json->GetValue("baseStats");
