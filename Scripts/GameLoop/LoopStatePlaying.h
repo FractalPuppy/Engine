@@ -13,7 +13,7 @@ public:
 	virtual ~LoopStatePlaying();
 	
 	void Update() override;
-
+	void SavePlayerData();
 
 private:
 	void Win();
