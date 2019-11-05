@@ -28,6 +28,15 @@ LoopStatePlaying::~LoopStatePlaying()
 {
 }
 
+void LoopStatePlaying::SavePlayerData()
+{
+	gLoop->inventoryScript->SaveInventory();
+	gLoop->skillTreeScript->SaveSkillTree();
+	gLoop->experienceScript->SaveExperience();
+	gLoop->equipPopUpScript->SavePopUp();
+	gLoop->playerScript->SavePlayerStats();
+}
+
 void LoopStatePlaying::Update()
 {
 	if (gLoop->inventoryButton->IsPressed() && !gLoop->inventoryMenuGO->isActive())	gLoop->menuButtonsSound->Play();
@@ -69,11 +78,7 @@ void LoopStatePlaying::Update()
 
 		if (gLoop->gameScene == GameScene::CEMENTERY || gLoop->gameScene == GameScene::TEMPLE)
 		{
-			gLoop->inventoryScript->SaveInventory();
-			gLoop->skillTreeScript->SaveSkillTree();
-			gLoop->experienceScript->SaveExperience();
-			gLoop->equipPopUpScript->SavePopUp();
-			gLoop->playerScript->SavePlayerStats();
+			SavePlayerData();
 		}
 		
 
@@ -93,6 +98,12 @@ void LoopStatePlaying::Update()
 		{
 			Win();
 		}
+	}
+	//extra case to ensure we save the player info
+	if (gLoop->playerScript->FinishingLevel0)
+	{
+		SavePlayerData();
+		gLoop->playerScript->FinishingLevel0 = false;
 	}
 }
 

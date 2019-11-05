@@ -79,6 +79,7 @@ void PlayerStateAutoWalk::Update()
 
 void PlayerStateAutoWalk::Enter()
 {
+	player->FinishingLevel0 = true;
 	//Deactivate camera script
 	player->playerCamera->GetComponent<CameraController>()->Enable(false);
 
