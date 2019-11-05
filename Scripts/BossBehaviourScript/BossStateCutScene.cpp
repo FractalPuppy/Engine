@@ -135,7 +135,7 @@ void BossStateCutScene::Update()
 				SetPlayerCameraPosition(boss->InterpolateFloat3(boss->cameraPositionBossCS, cameraResetPosition, thirdLambda));
 				SetPlayerCameraRotation(boss->InterpolateQuat(boss->cameraRotationBossCS, cameraResetRotation, thirdLambda));
 				float newFOV = math::DegToRad(boss->InterpolateFloat(initalFOV, boss->finalFOV, thirdLambda));
-				boss->compCamera->SetFOV(newFOV);
+				boss->compCamera->SetFov(newFOV);
 
 			}
 			break;

@@ -39,7 +39,7 @@ bool ModuleCamera::Init(JSON* config)
 	editorcamera->movementSpeed = cam->GetFloat("movement");
 	editorcamera->rotationSpeed = cam->GetFloat("rotation");
 	editorcamera->zoomSpeed = cam->GetFloat("zoom");
-	editorcamera->SetFOV(cam->GetFloat("fov"));
+	editorcamera->SetView(cam->GetFloat("fov"));
 	frustum->nearPlaneDistance = cam->GetFloat("znear");
 	
 	return true;
