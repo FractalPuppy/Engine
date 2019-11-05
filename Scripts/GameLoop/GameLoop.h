@@ -218,7 +218,7 @@ public:
 	bool runningIntro = false;
 	bool introvideoPlaying = false;
 	bool creditsPlaying = false;
-	bool vsync = false;
+	bool vsync = true;
 
 	std::string sceneToLoad = "";
 	LoopState* stateAfterLoad = nullptr;
