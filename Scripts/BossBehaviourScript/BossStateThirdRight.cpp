@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "ComponentTransform.h"
 
+#include "ComponentAudioSource.h"
 #include "BossStateThirdRight.h"
 
 #include "BossBehaviourScript.h"
@@ -45,6 +46,12 @@ void BossStateThirdRight::Update()
 		boss->App->scene->Spawn(THIRDAOE, newPosition, boss->currentRotation);
 		prefabSpawned = true;
 	}
+
+	if (!audioPlayed && boss->audioDelayThirdPhaseHit < timer)
+	{
+		boss->thirdPhaseHitAudio->Play();
+		audioPlayed = true;
+	}
 }
 
 void BossStateThirdRight::Enter()
@@ -56,6 +63,7 @@ void BossStateThirdRight::Enter()
 
 void BossStateThirdRight::Exit()
 {
+	audioPlayed = false;
 }
 
 math::float3 BossStateThirdRight::GetFistPosition()

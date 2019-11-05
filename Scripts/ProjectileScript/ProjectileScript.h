@@ -13,6 +13,7 @@
 class JSON_value;
 class ComponentTransform;
 class ComponentBoxTrigger;
+class ComponentAudioSource;
 class ComponentTrail;
 class PlayerMovement;
 
@@ -58,6 +59,7 @@ private:
 	ComponentTransform* transform = nullptr;
 	ComponentBoxTrigger* boxTrigger = nullptr;
 	ComponentTrail* trail = nullptr;
+	ComponentAudioSource* impactSound = nullptr;
 
 	GameObject* player = nullptr;
 	PlayerMovement* playerScript = nullptr;

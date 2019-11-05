@@ -26,6 +26,7 @@ public:
 	ENGINE_API void Play();
 	ENGINE_API void Stop();
 	ENGINE_API void SetVolume(float newVol);
+	ENGINE_API float GetVolume();
 	ENGINE_API void SetPan(float newPan);
 	ENGINE_API void SetLoop(bool newLoop);
 	ENGINE_API void SetPitch(float newPitch);
@@ -61,10 +62,11 @@ public:
 	bool playOnAwake = true;
 	float PAN = 0.f;
 	bool loop = false;
+	bool isPlaying = false;
 
 	bool Sound3D = true;
 	bool OnlyVolume3D = false;
-	float fadeDist = 5.f * App->renderer->current_scale;
+	float fadeDist = 5.f;
 	float limit3DPan = 0.5f;
 	float rolloff3D = 0.3f;
 	float pitch = 1.f;

@@ -42,6 +42,9 @@ class EnemyControllerScript_API EnemyControllerScript : public Script
 public:
 	void TakeDamage(unsigned damage, int type = 1);
 	int GetHealth() const { return actualHealth; }
+	int GetDamage() const { return damage; }
+	void SetDamage(int dmg) { damage = dmg; }
+
 	int GetMaxHealth() const { return maxHealth; }
 	int IsDeadCritOrSkill() const { return isDeadByCritOrSkill; } //0 normal - 1 crit or skill
 
@@ -109,6 +112,7 @@ private:
 	int actualHealth = 20;
 	int maxHealth = 20;
 	int experience = 20;
+	int damage = 5;
 	mutable float currentSpeed = 100.f;
 	int isDeadByCritOrSkill = 0;
 

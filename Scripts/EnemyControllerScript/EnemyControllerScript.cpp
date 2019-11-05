@@ -350,8 +350,8 @@ void EnemyControllerScript::Update()
 				}	
 			}
 			lootDropped = true;
-			gameobject->SetActive(false);
-			enabled = false;
+			
+			//enabled = false;
 		}
 		else
 		{
@@ -366,8 +366,8 @@ void EnemyControllerScript::Update()
 		removedFromCrowd = true;
 
 		// Avoid disabling enemy before dropping loot
-		if (lootDrop == nullptr)
-			enabled = false;
+		//if (lootDrop == nullptr)
+		//	enabled = false;
 	}
 }
 
@@ -459,7 +459,7 @@ void EnemyControllerScript::DeSerialize(JSON_value* json)
 	lootChance = json->GetFloat("lootChance", 100.0f);
 }
 
-void EnemyControllerScript::TakeDamage(unsigned damage, int type)
+void EnemyControllerScript::TakeDamage(unsigned dmg, int type)
 {
 	if (!isDead)
 	{
@@ -468,14 +468,14 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 			combataudioevents->enemyGotHit(0);
 		}
 		enemyHit = true;
-		if (actualHealth - damage < 0 )
+		if (actualHealth - dmg < 0 )
 		{
 			actualHealth = 0;
 			gameobject->SetActive(false);
 		}
 		else
 		{
-			actualHealth -= damage;
+			actualHealth -= dmg;
 			// Set hit material to all enemy meshes
 			for (unsigned i = 0u; i < myRenders.size(); i++)
 			{
@@ -517,7 +517,7 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 					expScript->experience = experience;
 			}
 		}
-		damageController->AddDamage(gameobject->transform, damage, (DamageType)type);
+		damageController->AddDamage(gameobject->transform, dmg, (DamageType)type);
 	}
 }
 
@@ -629,7 +629,7 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		auto overlaper = attackBoxTrigger->overlapList.find(playerHitBox);
 		if (overlaper != attackBoxTrigger->overlapList.end() && overlaper->second == OverlapState::PostIdle)
 		{
-			playerMovement->Damage(5);
+			playerMovement->Damage(damage);
 		}
 	}
 

@@ -38,7 +38,6 @@ void SpinToWinEnemyAI::Start()
 	enemyStates.push_back(flee = new EnemyStateFlee(this));
 
 	currentState = patrol;
-
 	startPosition = enemyController->GetPosition();
 	spinBones = App->scene->FindGameObjectsByTag(BONE_SPIN, gameobject);
 }

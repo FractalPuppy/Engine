@@ -68,6 +68,7 @@ class PlayerMovement;
 class GameLoop;
 class CameraController;
 class ComponentAnimation;
+class ComponentAudioSource;
 class ComponentCamera;
 
 class BossBehaviourScript_API BossBehaviourScript : public Script
@@ -88,6 +89,8 @@ public:
 	}
 	void StartThirdPhase();
 	void EndThirdPhase();
+
+	void OnAnimationEvent(std::string s) override;
 
 public:
 	TPlocations currentLocation = TPlocations::None;
@@ -114,6 +117,19 @@ public:
 	BossStateThirdDeath* thirdDeath = nullptr;
 
 public:
+
+	//ComponentsAudio
+
+	ComponentAudioSource* thirdPhaseHitAudio = nullptr;
+	ComponentAudioSource* doorRisingAudio = nullptr;
+	ComponentAudioSource* castAudio = nullptr;
+	ComponentAudioSource* precastAudio = nullptr;
+	ComponentAudioSource* mainBGMusic = nullptr;
+	ComponentAudioSource* bossBGMusic = nullptr;
+	ComponentAudioSource* bossScream = nullptr;
+
+	std::vector<GameObject*> fadeEnvironmentSounds;
+
 	ComponentAnimation* anim = nullptr;
 
 	GameObject* gameLoopGO = nullptr;
@@ -282,6 +298,7 @@ public:
 	GameObject* rightFist = nullptr;
 	GameObject* defeatParticles = nullptr;
 	float deathDissolveSpeed = 1.0f;
+	float audioDelayThirdPhaseHit = 0.0f;
 
 
 public:

@@ -135,6 +135,7 @@ update_status ModuleDevelopmentBuildDebug::Update(float dt)
 		GameObject* godModeCam = App->scene->FindGameObjectByName("GodModeCamera");		
 		App->scene->maincamera->isMainCamera = false;
 		godModeCamera = (ComponentCamera*)godModeCam->GetComponentOld(ComponentType::Camera);
+		godModeCamera->movementSpeed = 20.0f;
 		godModeCamera->SetAspect((float)App->window->width / (float)App->window->height);
 		godModeCamera->isMainCamera = true;
 		App->scene->maincamera = godModeCamera;
@@ -158,6 +159,21 @@ update_status ModuleDevelopmentBuildDebug::Update(float dt)
 		cam->isMainCamera = true;
 		App->scene->maincamera = cam;
 	}
+	if (ImGui::Button("Toggle HUD"))
+	{
+		GameObject* HUD = App->scene->FindGameObjectByName("Canvas");
+
+		if (HUD == nullptr) 
+		{
+			LOG("Missing HUD");
+		} 
+		else 
+		{
+			HUD->SetActive(!(HUD->isActive()));
+		}
+
+	}
+
 	
 
 	if (godModeCamera == App->scene->maincamera)

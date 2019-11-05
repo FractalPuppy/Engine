@@ -11,6 +11,7 @@
 #endif
 
 class ComponentRenderer;
+class ComponentAudioSource;
 class ComponentBoxTrigger;
 class PlayerMovement;
 
@@ -37,8 +38,10 @@ private:
 
 	ComponentRenderer* render = nullptr;
 	ComponentBoxTrigger* trigger = nullptr;
+	ComponentAudioSource* compAudio = nullptr;
 
 	float waitingTime = 0.8f;
+	float audioDelay = 0.0f;
 	float waitTimer = 0.0f;
 	float damageAmount = 5.0f;
 	float projectileSpeed = 1.0f;
@@ -50,7 +53,7 @@ private:
 	bool fadeInComplete = false;
 	bool waitingComplete = false;
 	bool hasDamaged = false;
-	
+	bool audioStarted = false;
 
 	math::float3 targetPosition = math::float3::zero;
 	math::float3 shootingDirection = math::float3::zero;

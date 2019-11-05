@@ -37,7 +37,10 @@ ComponentParticles::ComponentParticles(const ComponentParticles& component) : Co
 #ifndef GAME_BUILD
 	textureFiles = App->resManager->GetResourceNamesList(TYPE::TEXTURE, true);
 #endif
-	texture = (ResourceTexture*)App->resManager->Get(component.texture->GetUID());
+	if (component.texture != nullptr)
+	{
+		texture = (ResourceTexture*)App->resManager->Get(component.texture->GetUID());
+	}
 	xTiles = component.xTiles;
 	yTiles = component.yTiles;
 	fps = component.fps;

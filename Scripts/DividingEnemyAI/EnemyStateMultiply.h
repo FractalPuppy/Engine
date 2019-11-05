@@ -6,6 +6,7 @@
 class BasicEnemyAIScript;
 class GameObject;
 class ComponentRenderer;
+class ComponentAudioSource;
 
 class EnemyStateMultiply :
 	public EnemyState
@@ -14,6 +15,7 @@ public:
 	EnemyStateMultiply(BasicEnemyAIScript* AIScript);
 	~EnemyStateMultiply();
 
+	void Enter() override;
 	void HandleIA() override;
 	void SetSpawnParticles(bool active);
 
@@ -27,6 +29,7 @@ public:
 private:
 	bool hasMultiplied = false;
 	std::vector<GameObject*> spawnParticleSystems;
+	ComponentAudioSource* multiplySFX = nullptr;
 };
 
 #endif __ENEMYSTATEMULTIPLY_H_
