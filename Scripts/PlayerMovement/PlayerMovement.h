@@ -249,6 +249,7 @@ private:
 	void CreatePlayerSkills();
 
 	void InitializeUIStatsObjects();
+	void InitializeAudioObjects();
 public:
 	bool ThirdStageBoss = false;
 
@@ -330,9 +331,15 @@ public:
 	SkillType assignedSkills[9] = { SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE };
 
 	//Audio
+	ComponentAudioSource* knives_attack = nullptr;
+	ComponentAudioSource* knives_ending = nullptr;
 	ComponentAudioSource* gotHitAudio = nullptr;
-	GameObject* slashTrail = nullptr;
+	ComponentAudioSource* gotHitAudio2 = nullptr;
+	ComponentAudioSource* knives_swing = nullptr;
+	ComponentAudioSource* wilhelm_scream = nullptr;
+	bool deathSoundPlayed = false;
 
+	GameObject* slashTrail = nullptr;
 
 	float deltatime;
 
@@ -376,10 +383,6 @@ private:
 	// Player equippable parts (Weapon, Helmet)
 	ComponentRenderer* weaponRenderer = nullptr;
 	ComponentRenderer* helmetRenderer = nullptr;
-
-	//Audio
-	ComponentAudioSource* knives_attack = nullptr;
-	ComponentAudioSource* knives_ending = nullptr;
 
 	InventoryScript* inventoryScript = nullptr;
 

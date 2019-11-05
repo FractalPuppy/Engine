@@ -110,6 +110,19 @@ void ExperienceController::Start()
 	{
 		LOG("Warning: audioLVLup game object not found");
 	}
+
+	GO = nullptr;
+	// Gain experience
+	GO = App->scene->FindGameObjectByName("experienceAudio");
+	if (GO != nullptr)
+	{
+		experienceAudio = GO->GetComponent<ComponentAudioSource>();
+		assert(experienceAudio != nullptr);
+	}
+	else
+	{
+		LOG("Warning: The Game Object 'gotHitAudio2' couldn't be found.");
+	}
 }
 
 void ExperienceController::Update()
@@ -199,6 +212,10 @@ void ExperienceController::AddXP(int xp)
 			levelUpFloorMesh->gameobject->SetActive(true);
 			levelUpFloorMesh->ResetAnimation();
 			levelUpParticles->SetActive(true);
+		}
+		else
+		{
+			experienceAudio->Play();
 		}
 		int mask = (currentXP * 100) / maxXPLevel;
 		xpText->text = std::to_string(currentXP);
