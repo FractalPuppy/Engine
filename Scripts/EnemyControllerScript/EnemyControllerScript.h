@@ -14,6 +14,7 @@
 class ComponentAnimation;
 class ComponentRenderer;
 class ComponentBoxTrigger;
+class ComponentAudioSource;
 class DamageController;
 class EnemyLifeBarController;
 class PlayerMovement;
@@ -102,7 +103,7 @@ public:
 	ResourceMaterial* hitMaterial = nullptr;				// Material applied to all enemy meshes on hit
 	std::vector<ResourceMaterial*> defaultMaterials;		// Vector containing default materials of the enemy meshes
 
-	CombatAudioEvents* combataudioevents = nullptr;
+	ComponentAudioSource* enemy_got_hit = nullptr;
 
 	// Enemy Type and level (1 = NORMAL, 2 = NORMAL_TEMPLE, 3 = ELITE_GRAVEYARD, 4 = ELITE_TEMPLE, 5 = BOSS)
 	int enemyLevel = 1u;			

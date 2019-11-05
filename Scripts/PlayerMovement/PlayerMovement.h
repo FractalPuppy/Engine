@@ -338,6 +338,14 @@ public:
 	ComponentAudioSource* gotHitAudio2 = nullptr;
 	ComponentAudioSource* knives_swing = nullptr;
 	ComponentAudioSource* wilhelm_scream = nullptr;
+	ComponentAudioSource* stepSound = nullptr;
+	ComponentAudioSource* bomb_take_off = nullptr;
+	ComponentAudioSource* bomb_impact = nullptr;
+	ComponentAudioSource* attack1 = nullptr;
+	ComponentAudioSource* attack2 = nullptr;
+	ComponentAudioSource* spin_attack = nullptr;
+	ComponentAudioSource* drill_attack = nullptr;
+
 	bool deathSoundPlayed = false;
 
 	GameObject* slashTrail = nullptr;

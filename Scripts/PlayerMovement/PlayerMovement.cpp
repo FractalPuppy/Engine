@@ -1172,6 +1172,46 @@ void PlayerMovement::OnAnimationEvent(std::string name)
 		slashTrail->SetActive(false);
 	}
 
+	// Sounds
+	if (name == "step")
+	{
+		float random = rand() % (int)(0.2 * 100);
+		float offset = random / 100.f - 0.1;
+		stepSound->SetPitch(0.7 + offset);
+		stepSound->Play();
+
+	}
+	else if (name == "bomb_take_off")
+	{
+		bomb_take_off->Play();
+	}
+	else if (name == "bomb_impact")
+	{
+		bomb_impact->Play();
+	}
+	else if (name == "attack1")
+	{
+		float random = rand() % (int)(0.2 * 100);
+		float offset = random / 100.f - 0.1;
+		attack1->SetPitch(0.9 + offset);
+		attack1->Play();
+	}
+	else if (name == "attack2")
+	{
+		float random = rand() % (int)(0.2 * 100);
+		float offset = random / 100.f - 0.1;
+		attack2->SetPitch(0.9 + offset);
+		attack2->Play();
+	}
+	else if (name == "spin_attack")
+	{
+		spin_attack->Play();
+	}
+	else if (name == "drill_attack")
+	{
+		drill_attack->Play();
+	}
+
 }
 
 void PlayerMovement::Serialize(JSON_value* json) const
@@ -1975,6 +2015,90 @@ void PlayerMovement::InitializeAudioObjects()
 	else
 	{
 		LOG("Warning: knives_swing game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("stepSound");
+	if (GOtemp != nullptr)
+	{
+		stepSound = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(stepSound != nullptr);
+	}
+	else
+	{
+		LOG("Warning: stepSound game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("bomb_take_off");
+	if (GOtemp != nullptr)
+	{
+		bomb_take_off = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(bomb_take_off != nullptr);
+	}
+	else
+	{
+		LOG("Warning: bomb_take_off game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("bomb_impact");
+	if (GOtemp != nullptr)
+	{
+		bomb_impact = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(bomb_impact != nullptr);
+	}
+	else
+	{
+		LOG("Warning: bomb_impact game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("attack1");
+	if (GOtemp != nullptr)
+	{
+		attack1 = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(attack1 != nullptr);
+	}
+	else
+	{
+		LOG("Warning: attack1 game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("attack2");
+	if (GOtemp != nullptr)
+	{
+		attack2 = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(attack2 != nullptr);
+	}
+	else
+	{
+		LOG("Warning: attack2 game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("spin_attack");
+	if (GOtemp != nullptr)
+	{
+		spin_attack = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(spin_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: spin_attack game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("drill_attack");
+	if (GOtemp != nullptr)
+	{
+		drill_attack = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(drill_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: drill_attack game object not found");
 	}
 }
 
