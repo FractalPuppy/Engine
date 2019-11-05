@@ -1571,7 +1571,7 @@ bool PlayerMovement::IsPressingMouse1() const
 
 bool PlayerMovement::IsUsingRightClick() const
 {
-	return !App->ui->UIHovered(true, false) && allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_DOWN; //Left button
+	return !App->ui->UIHovered(true, false) && allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_UP; //Left button
 }
 
 bool PlayerMovement::IsUsingOne() const
@@ -1645,7 +1645,11 @@ PlayerSkill* PlayerMovement::GetSkillInUse() const
 
 void PlayerMovement::PrepareSkills() const
 {
-	if (allSkills.find(assignedSkills[HUD_BUTTON_1])->second->IsUsable(mana) && App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
+	if (allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_REPEAT)
+	{
+		allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->skill->Prepare();
+	}
+	else if (allSkills.find(assignedSkills[HUD_BUTTON_1])->second->IsUsable(mana) && App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
 	{
 		allSkills.find(assignedSkills[HUD_BUTTON_1])->second->skill->Prepare();
 	}
@@ -1706,7 +1710,7 @@ void PlayerMovement::ResetCooldown(unsigned int hubButtonID)
 {
 	if (hubButtonID <= HUD_BUTTON_R)
 	{
-		for (unsigned i = HUD_BUTTON_RC; i <= HUD_BUTTON_R; ++i)
+		for (unsigned i = HUD_BUTTON_RC; i <= HUD_BUTTON_R; i++)
 		{
 			hubCooldownTimer[i] = hubGeneralAbilityCooldown;
 			hubCooldownMax[i] = hubGeneralAbilityCooldown;
