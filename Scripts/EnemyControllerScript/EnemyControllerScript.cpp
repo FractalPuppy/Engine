@@ -16,12 +16,12 @@
 #include "ComponentAnimation.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
+#include "ComponentAudioSource.h"
 
 #include "PlayerMovement.h"
 #include "ResourceMaterial.h"
 #include "DamageController.h"
 #include "EnemyLifeBarController.h"
-#include "CombatAudioEvents.h"
 #include "LootDropScript.h"
 #include "WorldControllerScript.h"
 #include "ExperienceSphereScript.h"
@@ -167,18 +167,16 @@ void EnemyControllerScript::Awake()
 		}
 	}
 
-	GameObject* playerGO = App->scene->FindGameObjectByName("Player");
-	if (playerGO == nullptr)
+	// Hit sound
+	GameObject* GO = App->scene->FindGameObjectByName("enemy_got_hit");
+	if (GO != nullptr)
 	{
-		LOG("Player couldn't be found \n");
+		enemy_got_hit = GO->GetComponent<ComponentAudioSource>();
+		assert(enemy_got_hit != nullptr);
 	}
 	else
 	{
-		combataudioevents = playerGO->GetComponent<CombatAudioEvents>();
-		if (combataudioevents == nullptr)
-		{
-			LOG("combataudioevents couldn't be found \n");
-		}
+		LOG("Warning: enemy_got_hit game object not found");
 	}
 
 	// Look for LootDropScript
@@ -463,9 +461,12 @@ void EnemyControllerScript::TakeDamage(unsigned dmg, int type)
 {
 	if (!isDead)
 	{
-		if (combataudioevents != nullptr)
+		float random = rand() % (int)(0.2 * 100);
+		float offset = random / 100.f - 0.15;
+		if (enemy_got_hit != nullptr)
 		{
-			combataudioevents->enemyGotHit(0);
+			enemy_got_hit->SetPitch(0.9 + offset);
+			enemy_got_hit->Play();
 		}
 		enemyHit = true;
 		if (actualHealth - dmg < 0 )
