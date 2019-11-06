@@ -126,7 +126,7 @@ void EnemyStateAttackSpin::Attack() //Splited into SPIN or normal ATTACK
 	}
 	else if(spinTimer < spinDuration)
 	{
-		enemy->enemyController->SetDamage(spinDamage);
+		enemy->enemyController->SetDamage(((SpinToWinEnemyAI*)enemy)->spinDamage);
 		if (spinSFX != nullptr && !spinSFX->isPlaying)
 		{
 			spinSFX->Play();
@@ -179,7 +179,7 @@ void EnemyStateAttackSpin::ChangeToSpinMaterial(MATERIALTYPE type) const
 
 void EnemyStateAttackSpin::EnableSpin()
 {
-	enemy->enemyController->SetDamage(spinDamage);
+	enemy->enemyController->SetDamage(((SpinToWinEnemyAI*)enemy)->spinDamage);
 	enemy->gameobject->transform->lockLookAt = true;
 	spinning = true;
 	PunchFX(true);

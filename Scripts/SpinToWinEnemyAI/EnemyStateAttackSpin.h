@@ -54,7 +54,7 @@ protected:
 	bool spinning = false;
 	bool isOnCooldown = false;
 
-	int baseDamage = 5.0;
+	int baseDamage = 5.0f;
 	int spinDamage = 2.0f;
 };
 

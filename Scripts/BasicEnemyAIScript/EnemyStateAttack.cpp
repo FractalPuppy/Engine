@@ -38,6 +38,8 @@ void EnemyStateAttack::Enter()
 void EnemyStateAttack::Exit()
 {
 	attackSoundMade = false;
+	enemy->enemyController->attackBoxTrigger->Enable(false);
+	hitboxCreated = false;
 }
 
 
