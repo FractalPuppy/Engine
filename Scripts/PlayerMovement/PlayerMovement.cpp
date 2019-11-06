@@ -94,8 +94,15 @@ PlayerMovement::PlayerMovement()
 
 PlayerMovement::~PlayerMovement()
 {
-	for (auto it = allSkills.begin(); it != allSkills.end(); ++it) delete it->second;
 	allSkills.clear();
+}
+
+bool PlayerMovement::CleanUp()
+{
+	Script::CleanUp();
+	if (gameobject->isPrefabTemplate) return true;
+	for (auto it = allSkills.begin(); it != allSkills.end(); ++it) delete it->second;
+	return true;
 }
 
 void PlayerMovement::Expose(ImGuiContext* context)

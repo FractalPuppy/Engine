@@ -120,6 +120,7 @@ public:
 	bool isPrefabSync = false;
 	ResourcePrefab* prefab = nullptr;
 	bool isPrefab = false;
+	bool isPrefabTemplate = false;
 	unsigned prefabUID = 0;
 	bool isDropablePlaceHolder = false;
 	unsigned prefabTimeStamp = 0u;
