@@ -1441,7 +1441,7 @@ bool PlayerMovement::IsAttacking() const
 			minRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.2;
 			Dist = Distance(posPlayer2D, posEnemy2D);
 		}
-		else if (App->scene->enemyHovered.object->transform &&
+		else if (App->scene->enemyHovered.object->transform != nullptr && App->scene->enemyHovered.object->transform &&
 				(App->scene->enemyHovered.object->transform->position.x ||
 				App->scene->enemyHovered.object->transform->position.y || 
 				App->scene->enemyHovered.object->transform->position.z))

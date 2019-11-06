@@ -33,7 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2673385213,
-            "prefabTimeStamp": 1572986559,
+            "prefabTimeStamp": 1573035345,
             "Components": [
                 {
                     "Type": 0,
@@ -81,7 +81,7 @@
             ]
         },
         {
-            "UID": 240931596,
+            "UID": 160256950,
             "ParentUID": 1880257484,
             "Name": "fountain1",
             "Tag": "bossFadeSound",
@@ -173,7 +173,7 @@
             ]
         },
         {
-            "UID": 2512275755,
+            "UID": 2340956155,
             "ParentUID": 1880257484,
             "Name": "fountain2",
             "Tag": "bossFadeSound",
@@ -265,94 +265,7 @@
             ]
         },
         {
-            "UID": 167846260,
-            "ParentUID": 1880257484,
-            "Name": "Reverb",
-            "Tag": "Default",
-            "Static": 0,
-            "ActiveInHierarchy": 1,
-            "ActiveSelf": 1,
-            "isBoneRoot": 0,
-            "baseState": [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "Navigable": 0,
-            "No Walkable": 0,
-            "openInHierarchy": 1,
-            "isPrefab": 0,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
-            "Components": [
-                {
-                    "Type": 0,
-                    "Enabled": 1,
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ],
-                    "Euler": [
-                        -0.0,
-                        0.0,
-                        -0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "Global": [
-                        1.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0,
-                        1.0
-                    ]
-                },
-                {
-                    "Type": 12,
-                    "Enabled": 1,
-                    "Radius": 5040.0,
-                    "Decay": 0.20000000298023225,
-                    "Delay": 0.4000000059604645,
-                    "FadeDist": 4830.0
-                }
-            ]
-        },
-        {
-            "UID": 2656225600,
+            "UID": 1250816682,
             "ParentUID": 1880257484,
             "Name": "torch1",
             "Tag": "bossFadeSound",
@@ -444,7 +357,7 @@
             ]
         },
         {
-            "UID": 1329607804,
+            "UID": 3034656258,
             "ParentUID": 1880257484,
             "Name": "torch2",
             "Tag": "bossFadeSound",
@@ -536,7 +449,7 @@
             ]
         },
         {
-            "UID": 3690738775,
+            "UID": 1483231800,
             "ParentUID": 1880257484,
             "Name": "torch3",
             "Tag": "bossFadeSound",
@@ -628,7 +541,7 @@
             ]
         },
         {
-            "UID": 770836090,
+            "UID": 3203469900,
             "ParentUID": 1880257484,
             "Name": "torch4",
             "Tag": "bossFadeSound",
@@ -720,7 +633,7 @@
             ]
         },
         {
-            "UID": 2547528130,
+            "UID": 3154714527,
             "ParentUID": 1880257484,
             "Name": "torch5",
             "Tag": "bossFadeSound",
@@ -812,7 +725,7 @@
             ]
         },
         {
-            "UID": 334394327,
+            "UID": 3962456946,
             "ParentUID": 1880257484,
             "Name": "torch6",
             "Tag": "bossFadeSound",
@@ -904,7 +817,7 @@
             ]
         },
         {
-            "UID": 2474154413,
+            "UID": 2758199189,
             "ParentUID": 1880257484,
             "Name": "torch8",
             "Tag": "bossFadeSound",
@@ -996,7 +909,7 @@
             ]
         },
         {
-            "UID": 2846115203,
+            "UID": 1332390025,
             "ParentUID": 1880257484,
             "Name": "background_music",
             "Tag": "backGroundMusicDefault",
@@ -1088,7 +1001,7 @@
             ]
         },
         {
-            "UID": 646280840,
+            "UID": 2533182971,
             "ParentUID": 1880257484,
             "Name": "background_musicBoss",
             "Tag": "backGroundMusicBoss",
@@ -1168,7 +1081,7 @@
                     "Type": 14,
                     "Enabled": 1,
                     "audioUID": 2594035417,
-                    "Volume": 0.4000000059604645,
+                    "Volume": 0.6000000238418579,
                     "PlayOnAwake": 0,
                     "Sound3D": 0,
                     "LimitPan": 0.5,

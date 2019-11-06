@@ -119,7 +119,8 @@ public:
 public:
 
 	//ComponentsAudio
-
+	ComponentAudioSource* cryAudio = nullptr;
+	ComponentAudioSource* laughAudio = nullptr;
 	ComponentAudioSource* thirdPhaseHitAudio = nullptr;
 	ComponentAudioSource* doorRisingAudio = nullptr;
 	ComponentAudioSource* castAudio = nullptr;
