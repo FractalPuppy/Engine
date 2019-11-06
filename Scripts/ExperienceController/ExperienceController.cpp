@@ -317,7 +317,7 @@ void ExperienceController::DeSerialize(JSON_value* json)
 	borderAmount = json->GetFloat("borderAmount", 0.4f);
 	healthIncrease = json->GetFloat("healthIncrease", 10.0f);
 	manaIncrease = json->GetFloat("manaIncrease", 10.0f);
-	strengthIncrease = json->GetInt("strengthIncrease", 5);
+	strengthIncrease = json->GetInt("strengthIncrease", 1);
 	dexterityIncrease = json->GetInt("dexterityIncrease", 1);
 }
 
