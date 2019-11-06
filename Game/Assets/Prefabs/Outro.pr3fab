@@ -29,10 +29,11 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 401132080,
+            "prefabTimeStamp": 1573033420,
             "Components": [
                 {
                     "Type": 5,
@@ -51,8 +52,8 @@
                 {
                     "Type": 7,
                     "Enabled": 1,
-                    "textureUID": 3513235518,
-                    "textureName": "BlueCircle",
+                    "textureUID": 676697322,
+                    "textureName": "White2",
                     "color": [
                         1.0,
                         1.0,
@@ -74,7 +75,7 @@
             ]
         },
         {
-            "UID": 841305000,
+            "UID": 2095700167,
             "ParentUID": 277223177,
             "Name": "OutroAudio",
             "Tag": "Default",
@@ -166,7 +167,7 @@
             ]
         },
         {
-            "UID": 2315182502,
+            "UID": 1434258544,
             "ParentUID": 277223177,
             "Name": "OutroSkipBackground",
             "Tag": "Default",
@@ -239,8 +240,8 @@
             ]
         },
         {
-            "UID": 1771444350,
-            "ParentUID": 2315182502,
+            "UID": 1622002027,
+            "ParentUID": 1434258544,
             "Name": "OutroSkipText",
             "Tag": "Default",
             "Static": 0,
