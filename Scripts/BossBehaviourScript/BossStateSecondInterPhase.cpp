@@ -7,6 +7,7 @@
 #include "ComponentBoxTrigger.h"
 #include "ComponentAnimation.h"
 #include "ComponentTransform.h"
+#include "ComponentAudioSource.h"
 #include "ComponentParticles.h"
 
 #include "BossStateSecondInterPhase.h"
@@ -52,6 +53,7 @@ void BossStateSecondInterPhase::Update()
 			if (kneelTimer > boss->secondInterphaseKneelTime)
 			{
 				state = InterphaseState::Cry;
+				boss->cryAudio->Play();
 				boss->enemyController->anim->SendTriggerToStateMachine("Cry");
 
 			}
