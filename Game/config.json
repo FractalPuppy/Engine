@@ -3,9 +3,9 @@
         "fullscreen": 0,
         "resizable": 1,
         "borderless": 0,
-        "fullscreen_desktop": 0,
-        "width": 1680,
-        "height": 987,
+        "fullscreen_desktop": 1,
+        "width": 1920,
+        "height": 1080,
         "brightness": 1.0
     },
     "renderer": {
@@ -18,37 +18,15 @@
         "current_scale": 100,
         "depthTest": 1,
         "wireframe": 0,
-        "vsync": 0,
+        "vsync": 1,
         "frustumMainCamera": 0,
-        "skybox": 1,
+        "renderSkybox": 1,
         "gammaCorrector": 2.200000047683716,
-        "exposure": 3.5
+        "exposure": 3.5,
+        "selectedSkybox": 1
     },
     "textures": {
         "filter": 3
-    },
-    "camera": {
-        "position": [
-            1199.8824462890626,
-            1398.8245849609376,
-            -2964.83935546875
-        ],
-        "forward": [
-            -0.5731275081634522,
-            -0.33261430263519289,
-            -0.7489277124404907
-        ],
-        "up": [
-            -0.20213665068149568,
-            0.94306480884552,
-            -0.2641395032405853
-        ],
-        "movement": 5.0,
-        "rotation": 200.0,
-        "zoom": 0.10000000149011612,
-        "fov": 1.0452078580856324,
-        "znear": 10.0,
-        "zfar": 100000.0
     },
     "scene": {
         "sphereUID": 4069615675,
