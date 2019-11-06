@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 1817609639,
+            "UID": 652329425,
             "ParentUID": 0,
             "Name": "BossProjectilePrefab",
             "Tag": "Default",
@@ -33,7 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1445666081,
-            "prefabTimeStamp": 1573036291,
+            "prefabTimeStamp": 1573039250,
             "Components": [
                 {
                     "Type": 0,
@@ -94,8 +94,8 @@
             ]
         },
         {
-            "UID": 573602689,
-            "ParentUID": 1817609639,
+            "UID": 145960071,
+            "ParentUID": 652329425,
             "Name": "Mesh",
             "Tag": "Mesh",
             "Static": 0,
@@ -232,8 +232,8 @@
             ]
         },
         {
-            "UID": 1294279701,
-            "ParentUID": 1817609639,
+            "UID": 2251823921,
+            "ParentUID": 652329425,
             "Name": "BoxTrigger",
             "Tag": "HitBox",
             "Static": 0,
@@ -327,8 +327,8 @@
             ]
         },
         {
-            "UID": 460367791,
-            "ParentUID": 1817609639,
+            "UID": 1367537356,
+            "ParentUID": 652329425,
             "Name": "Trail",
             "Tag": "Default",
             "Static": 0,
@@ -422,8 +422,8 @@
             ]
         },
         {
-            "UID": 1709109749,
-            "ParentUID": 1817609639,
+            "UID": 3095411694,
+            "ParentUID": 652329425,
             "Name": "Particles",
             "Tag": "Default",
             "Static": 0,
@@ -605,8 +605,8 @@
             ]
         },
         {
-            "UID": 4214685856,
-            "ParentUID": 1817609639,
+            "UID": 3179419123,
+            "ParentUID": 652329425,
             "Name": "Audio",
             "Tag": "AudioSource",
             "Static": 0,
@@ -684,8 +684,8 @@
                 {
                     "Type": 14,
                     "Enabled": 1,
-                    "audioUID": 2886417709,
-                    "Volume": 1.5,
+                    "audioUID": 1918244089,
+                    "Volume": 1.7999999523162842,
                     "PlayOnAwake": 0,
                     "Sound3D": 1,
                     "LimitPan": 0.5,
