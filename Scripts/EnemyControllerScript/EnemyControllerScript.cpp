@@ -395,8 +395,9 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 	{
 		actualHealth = maxHealth;
 	}
-
+	
 	ImGui::InputInt("Experience", &experience);
+	ImGui::InputInt("damage", &damage);
 
 	ImGui::Separator();
 	ImGui::Text("Player:");
@@ -440,6 +441,7 @@ void EnemyControllerScript::Serialize(JSON_value* json) const
 	json->AddFloat("lootDelay", lootDelay);
 	json->AddFloat("lootRadius", lootRadius);
 	json->AddFloat("lootChance", lootChance);
+	json->AddInt("damage", damage);
 }
 
 void EnemyControllerScript::DeSerialize(JSON_value* json)
@@ -455,6 +457,7 @@ void EnemyControllerScript::DeSerialize(JSON_value* json)
 	lootDelay = json->GetFloat("lootDelay", 1.0f);
 	lootRadius = json->GetFloat("lootRadius", 100.0f);
 	lootChance = json->GetFloat("lootChance", 100.0f);
+	damage = json->GetInt("damage", 5);
 }
 
 void EnemyControllerScript::TakeDamage(unsigned dmg, int type)
@@ -630,6 +633,7 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		auto overlaper = attackBoxTrigger->overlapList.find(playerHitBox);
 		if (overlaper != attackBoxTrigger->overlapList.end() && overlaper->second == OverlapState::PostIdle)
 		{
+
 			playerMovement->Damage(damage);
 		}
 	}
