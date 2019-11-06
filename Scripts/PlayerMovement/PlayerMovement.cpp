@@ -2170,12 +2170,18 @@ void PlayerMovement::ToggleInfiniteMana()
 
 void PlayerMovement::SavePlayerStats()
 {
-	PlayerPrefs::SetFloat("dexterity", baseStats.dexterity);
-	PlayerPrefs::SetFloat("health", baseStats.health);
-	PlayerPrefs::SetFloat("hpRegen", baseStats.hpRegen);
-	PlayerPrefs::SetFloat("mana", baseStats.mana);
-	PlayerPrefs::SetFloat("manaRegen", baseStats.manaRegen);
-	PlayerPrefs::SetFloat("strength", baseStats.strength);
+	PlayerPrefs::SetFloat("baseDexterity", baseStats.dexterity);
+	PlayerPrefs::SetFloat("baseHealth", baseStats.health);
+	PlayerPrefs::SetFloat("baseHpRegen", baseStats.hpRegen);
+	PlayerPrefs::SetFloat("baseMana", baseStats.mana);
+	PlayerPrefs::SetFloat("baseManaRegen", baseStats.manaRegen);
+	PlayerPrefs::SetFloat("baseStrength", baseStats.strength);
+	PlayerPrefs::SetFloat("equipedDexterity", equipedStats.dexterity);
+	PlayerPrefs::SetFloat("equipedHealth", equipedStats.health);
+	PlayerPrefs::SetFloat("equipedHpRegen", equipedStats.hpRegen);
+	PlayerPrefs::SetFloat("equipedMana", equipedStats.mana);
+	PlayerPrefs::SetFloat("equipedManaRegen", equipedStats.manaRegen);
+	PlayerPrefs::SetFloat("equipedStrength", equipedStats.strength);
 	PlayerPrefs::SetInt("RC", (int)assignedSkills[HUD_BUTTON_RC]);
 	PlayerPrefs::SetInt("1", (int)assignedSkills[HUD_BUTTON_1]);
 	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_2]);
