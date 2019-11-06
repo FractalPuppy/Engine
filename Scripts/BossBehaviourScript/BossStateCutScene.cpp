@@ -99,6 +99,7 @@ void BossStateCutScene::Update()
 			if (bossLerpTimer >= boss->cutsceneBossDuration)
 			{
 				csState = CutsceneState::BossWatching;
+				boss->laughAudio->Play();
 			}
 			else
 			{
