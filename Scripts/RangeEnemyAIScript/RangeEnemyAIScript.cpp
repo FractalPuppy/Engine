@@ -69,6 +69,7 @@ void RangeEnemyAIScript::Start()
 	else
 	{
 		projectileScript1 = projectile1->GetComponent<ProjectileScript>();
+		projectileScript1->damage = enemyController->GetDamage();
 	}
 	
 	if (numberOfProjectiles > 1)
@@ -81,6 +82,7 @@ void RangeEnemyAIScript::Start()
 		else
 		{
 			projectileScript2 = projectile2->GetComponent<ProjectileScript>();
+			projectileScript2->damage = enemyController->GetDamage();
 		}
 	}
 
@@ -94,8 +96,11 @@ void RangeEnemyAIScript::Start()
 		else
 		{
 			projectileScript3 = projectile3->GetComponent<ProjectileScript>();
+			projectileScript3->damage = enemyController->GetDamage();
 		}
 	}
+
+	
 
 	audioEnemy = App->scene->FindGameObjectByName("Audio", gameobject);
 	GameObject* audioFootGO = App->scene->FindGameObjectByName("FootSteps", audioEnemy);

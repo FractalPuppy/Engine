@@ -41,6 +41,7 @@ public:
 
 
 	float speed = 1000.0f;
+	float damage = 10.0f;
 	float lifeTime = 10.0f;
 	bool rotate = false;
 	float rotationSpeed = 1.0f;
