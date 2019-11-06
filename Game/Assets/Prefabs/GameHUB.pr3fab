@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 974458419,
+            "UID": 1765312911,
             "ParentUID": 1,
             "Name": "GameHUB",
             "Tag": "Default",
@@ -33,12 +33,11 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 90218084,
-            "prefabTimeStamp": 1572966990,
             "Components": []
         },
         {
-            "UID": 1051222025,
-            "ParentUID": 974458419,
+            "UID": 3512530966,
+            "ParentUID": 1765312911,
             "Name": "MenuButton",
             "Tag": "Default",
             "Static": 0,
@@ -194,8 +193,8 @@
             ]
         },
         {
-            "UID": 990341261,
-            "ParentUID": 974458419,
+            "UID": 2926787054,
+            "ParentUID": 1765312911,
             "Name": "InventaryButton",
             "Tag": "Default",
             "Static": 0,
@@ -351,8 +350,8 @@
             ]
         },
         {
-            "UID": 2699382929,
-            "ParentUID": 974458419,
+            "UID": 120988654,
+            "ParentUID": 1765312911,
             "Name": "SkillsButton",
             "Tag": "Default",
             "Static": 0,
@@ -508,8 +507,8 @@
             ]
         },
         {
-            "UID": 648633006,
-            "ParentUID": 974458419,
+            "UID": 244399507,
+            "ParentUID": 1765312911,
             "Name": "One",
             "Tag": "Default",
             "Static": 0,
@@ -665,8 +664,8 @@
             ]
         },
         {
-            "UID": 2143309670,
-            "ParentUID": 648633006,
+            "UID": 3914709932,
+            "ParentUID": 244399507,
             "Name": "One_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -738,8 +737,8 @@
             ]
         },
         {
-            "UID": 1342725122,
-            "ParentUID": 648633006,
+            "UID": 3994092204,
+            "ParentUID": 244399507,
             "Name": "One_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -811,8 +810,8 @@
             ]
         },
         {
-            "UID": 3266351667,
-            "ParentUID": 648633006,
+            "UID": 3727570325,
+            "ParentUID": 244399507,
             "Name": "OneText",
             "Tag": "Default",
             "Static": 0,
@@ -892,8 +891,8 @@
             ]
         },
         {
-            "UID": 3208918575,
-            "ParentUID": 648633006,
+            "UID": 149009210,
+            "ParentUID": 244399507,
             "Name": "One_Number",
             "Tag": "Default",
             "Static": 0,
@@ -973,8 +972,8 @@
             ]
         },
         {
-            "UID": 1560102673,
-            "ParentUID": 974458419,
+            "UID": 659249415,
+            "ParentUID": 1765312911,
             "Name": "Two",
             "Tag": "Default",
             "Static": 0,
@@ -1130,8 +1129,8 @@
             ]
         },
         {
-            "UID": 1525421225,
-            "ParentUID": 1560102673,
+            "UID": 4201630788,
+            "ParentUID": 659249415,
             "Name": "Two_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -1203,8 +1202,8 @@
             ]
         },
         {
-            "UID": 987581125,
-            "ParentUID": 1560102673,
+            "UID": 3144853249,
+            "ParentUID": 659249415,
             "Name": "Two_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -1276,8 +1275,8 @@
             ]
         },
         {
-            "UID": 1904373671,
-            "ParentUID": 1560102673,
+            "UID": 194748048,
+            "ParentUID": 659249415,
             "Name": "TwoText",
             "Tag": "Default",
             "Static": 0,
@@ -1357,8 +1356,8 @@
             ]
         },
         {
-            "UID": 628311462,
-            "ParentUID": 1560102673,
+            "UID": 1782397873,
+            "ParentUID": 659249415,
             "Name": "Two_Number",
             "Tag": "Default",
             "Static": 0,
@@ -1438,8 +1437,8 @@
             ]
         },
         {
-            "UID": 876476814,
-            "ParentUID": 974458419,
+            "UID": 3882737231,
+            "ParentUID": 1765312911,
             "Name": "Three",
             "Tag": "Default",
             "Static": 0,
@@ -1595,8 +1594,8 @@
             ]
         },
         {
-            "UID": 3229425134,
-            "ParentUID": 876476814,
+            "UID": 2209570311,
+            "ParentUID": 3882737231,
             "Name": "Three_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -1668,8 +1667,8 @@
             ]
         },
         {
-            "UID": 4244022231,
-            "ParentUID": 876476814,
+            "UID": 2619606787,
+            "ParentUID": 3882737231,
             "Name": "Three_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -1741,8 +1740,8 @@
             ]
         },
         {
-            "UID": 1127573367,
-            "ParentUID": 876476814,
+            "UID": 3208015853,
+            "ParentUID": 3882737231,
             "Name": "ThreeText",
             "Tag": "Default",
             "Static": 0,
@@ -1822,8 +1821,8 @@
             ]
         },
         {
-            "UID": 3497876749,
-            "ParentUID": 876476814,
+            "UID": 2152102956,
+            "ParentUID": 3882737231,
             "Name": "Three_Number",
             "Tag": "Default",
             "Static": 0,
@@ -1903,8 +1902,8 @@
             ]
         },
         {
-            "UID": 1445040264,
-            "ParentUID": 974458419,
+            "UID": 4030519824,
+            "ParentUID": 1765312911,
             "Name": "For",
             "Tag": "Default",
             "Static": 0,
@@ -2060,8 +2059,8 @@
             ]
         },
         {
-            "UID": 1564060667,
-            "ParentUID": 1445040264,
+            "UID": 2847857005,
+            "ParentUID": 4030519824,
             "Name": "Four_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -2133,8 +2132,8 @@
             ]
         },
         {
-            "UID": 2329295182,
-            "ParentUID": 1445040264,
+            "UID": 3368685554,
+            "ParentUID": 4030519824,
             "Name": "Four_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -2206,8 +2205,8 @@
             ]
         },
         {
-            "UID": 3795691462,
-            "ParentUID": 1445040264,
+            "UID": 1784184034,
+            "ParentUID": 4030519824,
             "Name": "FourText",
             "Tag": "Default",
             "Static": 0,
@@ -2287,8 +2286,8 @@
             ]
         },
         {
-            "UID": 320260681,
-            "ParentUID": 1445040264,
+            "UID": 2951756756,
+            "ParentUID": 4030519824,
             "Name": "Four_Number",
             "Tag": "Default",
             "Static": 0,
@@ -2368,8 +2367,8 @@
             ]
         },
         {
-            "UID": 2928025280,
-            "ParentUID": 974458419,
+            "UID": 989140476,
+            "ParentUID": 1765312911,
             "Name": "Q",
             "Tag": "Default",
             "Static": 0,
@@ -2525,8 +2524,8 @@
             ]
         },
         {
-            "UID": 1207329760,
-            "ParentUID": 2928025280,
+            "UID": 2102696237,
+            "ParentUID": 989140476,
             "Name": "Q_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -2598,8 +2597,8 @@
             ]
         },
         {
-            "UID": 105768828,
-            "ParentUID": 2928025280,
+            "UID": 2902340451,
+            "ParentUID": 989140476,
             "Name": "Q_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -2671,8 +2670,8 @@
             ]
         },
         {
-            "UID": 3541043245,
-            "ParentUID": 2928025280,
+            "UID": 1430828378,
+            "ParentUID": 989140476,
             "Name": "QText",
             "Tag": "Default",
             "Static": 0,
@@ -2752,8 +2751,8 @@
             ]
         },
         {
-            "UID": 2646123885,
-            "ParentUID": 2928025280,
+            "UID": 4221994682,
+            "ParentUID": 989140476,
             "Name": "Q_Number",
             "Tag": "Default",
             "Static": 0,
@@ -2833,8 +2832,8 @@
             ]
         },
         {
-            "UID": 3882495085,
-            "ParentUID": 974458419,
+            "UID": 4293265377,
+            "ParentUID": 1765312911,
             "Name": "W",
             "Tag": "Default",
             "Static": 0,
@@ -2990,8 +2989,8 @@
             ]
         },
         {
-            "UID": 1034880319,
-            "ParentUID": 3882495085,
+            "UID": 126451657,
+            "ParentUID": 4293265377,
             "Name": "W_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -3063,8 +3062,8 @@
             ]
         },
         {
-            "UID": 3355191128,
-            "ParentUID": 3882495085,
+            "UID": 2026464275,
+            "ParentUID": 4293265377,
             "Name": "W_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -3136,8 +3135,8 @@
             ]
         },
         {
-            "UID": 2903357885,
-            "ParentUID": 3882495085,
+            "UID": 959977694,
+            "ParentUID": 4293265377,
             "Name": "WText",
             "Tag": "Default",
             "Static": 0,
@@ -3217,8 +3216,8 @@
             ]
         },
         {
-            "UID": 3014288374,
-            "ParentUID": 3882495085,
+            "UID": 2839179871,
+            "ParentUID": 4293265377,
             "Name": "W_Number",
             "Tag": "Default",
             "Static": 0,
@@ -3298,8 +3297,8 @@
             ]
         },
         {
-            "UID": 667486386,
-            "ParentUID": 974458419,
+            "UID": 1935224850,
+            "ParentUID": 1765312911,
             "Name": "E",
             "Tag": "Default",
             "Static": 0,
@@ -3455,8 +3454,8 @@
             ]
         },
         {
-            "UID": 779115247,
-            "ParentUID": 667486386,
+            "UID": 1207291707,
+            "ParentUID": 1935224850,
             "Name": "E_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -3528,8 +3527,8 @@
             ]
         },
         {
-            "UID": 2030423028,
-            "ParentUID": 667486386,
+            "UID": 1890808662,
+            "ParentUID": 1935224850,
             "Name": "E_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -3601,8 +3600,8 @@
             ]
         },
         {
-            "UID": 1883530237,
-            "ParentUID": 667486386,
+            "UID": 399859046,
+            "ParentUID": 1935224850,
             "Name": "EText",
             "Tag": "Default",
             "Static": 0,
@@ -3682,8 +3681,8 @@
             ]
         },
         {
-            "UID": 2841628329,
-            "ParentUID": 667486386,
+            "UID": 1637566482,
+            "ParentUID": 1935224850,
             "Name": "E_Number",
             "Tag": "Default",
             "Static": 0,
@@ -3763,8 +3762,8 @@
             ]
         },
         {
-            "UID": 477805627,
-            "ParentUID": 974458419,
+            "UID": 1321247971,
+            "ParentUID": 1765312911,
             "Name": "R",
             "Tag": "Default",
             "Static": 0,
@@ -3920,8 +3919,8 @@
             ]
         },
         {
-            "UID": 1595716675,
-            "ParentUID": 477805627,
+            "UID": 1126798204,
+            "ParentUID": 1321247971,
             "Name": "R_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -3993,8 +3992,8 @@
             ]
         },
         {
-            "UID": 1384803628,
-            "ParentUID": 477805627,
+            "UID": 554759536,
+            "ParentUID": 1321247971,
             "Name": "R_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -4066,8 +4065,8 @@
             ]
         },
         {
-            "UID": 2526824245,
-            "ParentUID": 477805627,
+            "UID": 1793595842,
+            "ParentUID": 1321247971,
             "Name": "RText",
             "Tag": "Default",
             "Static": 0,
@@ -4147,8 +4146,8 @@
             ]
         },
         {
-            "UID": 1619959012,
-            "ParentUID": 477805627,
+            "UID": 2818366424,
+            "ParentUID": 1321247971,
             "Name": "R_Number",
             "Tag": "Default",
             "Static": 0,
@@ -4228,8 +4227,8 @@
             ]
         },
         {
-            "UID": 788712172,
-            "ParentUID": 974458419,
+            "UID": 124175880,
+            "ParentUID": 1765312911,
             "Name": "LC",
             "Tag": "Default",
             "Static": 0,
@@ -4256,7 +4255,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -4385,8 +4384,8 @@
             ]
         },
         {
-            "UID": 2594954225,
-            "ParentUID": 788712172,
+            "UID": 483371881,
+            "ParentUID": 124175880,
             "Name": "LCText",
             "Tag": "Default",
             "Static": 0,
@@ -4466,8 +4465,8 @@
             ]
         },
         {
-            "UID": 4055720674,
-            "ParentUID": 974458419,
+            "UID": 3838217262,
+            "ParentUID": 1765312911,
             "Name": "ManaBackgroud",
             "Tag": "Default",
             "Static": 0,
@@ -4539,8 +4538,8 @@
             ]
         },
         {
-            "UID": 2645571349,
-            "ParentUID": 4055720674,
+            "UID": 1096407397,
+            "ParentUID": 3838217262,
             "Name": "Mana",
             "Tag": "Default",
             "Static": 0,
@@ -4612,8 +4611,8 @@
             ]
         },
         {
-            "UID": 2168061867,
-            "ParentUID": 4055720674,
+            "UID": 1247206754,
+            "ParentUID": 3838217262,
             "Name": "ManaBubble",
             "Tag": "Default",
             "Static": 0,
@@ -4685,8 +4684,8 @@
             ]
         },
         {
-            "UID": 769207352,
-            "ParentUID": 974458419,
+            "UID": 1479747726,
+            "ParentUID": 1765312911,
             "Name": "RC",
             "Tag": "Default",
             "Static": 0,
@@ -4713,7 +4712,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 1,
+            "openInHierarchy": 0,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -4842,8 +4841,8 @@
             ]
         },
         {
-            "UID": 1930935101,
-            "ParentUID": 769207352,
+            "UID": 4228165693,
+            "ParentUID": 1479747726,
             "Name": "RC_Slot",
             "Tag": "Default",
             "Static": 0,
@@ -4915,8 +4914,8 @@
             ]
         },
         {
-            "UID": 891998882,
-            "ParentUID": 769207352,
+            "UID": 3345785076,
+            "ParentUID": 1479747726,
             "Name": "RC_Cooldown",
             "Tag": "Default",
             "Static": 0,
@@ -4988,8 +4987,8 @@
             ]
         },
         {
-            "UID": 685782718,
-            "ParentUID": 769207352,
+            "UID": 3127971618,
+            "ParentUID": 1479747726,
             "Name": "RCText",
             "Tag": "Default",
             "Static": 0,
@@ -5069,8 +5068,8 @@
             ]
         },
         {
-            "UID": 870981533,
-            "ParentUID": 769207352,
+            "UID": 3232116115,
+            "ParentUID": 1479747726,
             "Name": "RC_Number",
             "Tag": "Default",
             "Static": 0,
@@ -5150,8 +5149,8 @@
             ]
         },
         {
-            "UID": 335921985,
-            "ParentUID": 974458419,
+            "UID": 1977717624,
+            "ParentUID": 1765312911,
             "Name": "Xp",
             "Tag": "Default",
             "Static": 0,
@@ -5178,7 +5177,7 @@
             ],
             "Navigable": 0,
             "No Walkable": 0,
-            "openInHierarchy": 0,
+            "openInHierarchy": 1,
             "isPrefab": 0,
             "isPrefabSync": 0,
             "prefabUID": 0,
@@ -5226,13 +5225,13 @@
                     "script": "ExperienceController",
                     "scriptInfo": {
                         "timeShowing": 3.0,
-                        "numLevels": 23,
-                        "0": 100,
-                        "1": 200,
-                        "2": 300,
-                        "3": 400,
-                        "4": 500,
-                        "5": 600,
+                        "numLevels": 6,
+                        "0": 20,
+                        "1": 150,
+                        "2": 310,
+                        "3": 420,
+                        "4": 600,
+                        "5": 750,
                         "6": 700,
                         "7": 800,
                         "8": 900,
@@ -5262,8 +5261,8 @@
             ]
         },
         {
-            "UID": 414718470,
-            "ParentUID": 335921985,
+            "UID": 3662878909,
+            "ParentUID": 1977717624,
             "Name": "XpProgress",
             "Tag": "Default",
             "Static": 0,
@@ -5335,8 +5334,8 @@
             ]
         },
         {
-            "UID": 956759073,
-            "ParentUID": 335921985,
+            "UID": 4115586287,
+            "ParentUID": 1977717624,
             "Name": "XpLines",
             "Tag": "Default",
             "Static": 0,
@@ -5408,8 +5407,8 @@
             ]
         },
         {
-            "UID": 818581422,
-            "ParentUID": 974458419,
+            "UID": 1629141790,
+            "ParentUID": 1765312911,
             "Name": "LifeBackgroud",
             "Tag": "Default",
             "Static": 0,
@@ -5481,8 +5480,8 @@
             ]
         },
         {
-            "UID": 884832766,
-            "ParentUID": 818581422,
+            "UID": 1817895701,
+            "ParentUID": 1629141790,
             "Name": "Life",
             "Tag": "Default",
             "Static": 0,
@@ -5554,8 +5553,8 @@
             ]
         },
         {
-            "UID": 3937163188,
-            "ParentUID": 818581422,
+            "UID": 1996589279,
+            "ParentUID": 1629141790,
             "Name": "LifeBubble",
             "Tag": "Default",
             "Static": 0,
@@ -5627,8 +5626,8 @@
             ]
         },
         {
-            "UID": 3396852476,
-            "ParentUID": 974458419,
+            "UID": 2040886490,
+            "ParentUID": 1765312911,
             "Name": "NewItem",
             "Tag": "Default",
             "Static": 0,
@@ -5700,8 +5699,8 @@
             ]
         },
         {
-            "UID": 1753489768,
-            "ParentUID": 974458419,
+            "UID": 904076731,
+            "ParentUID": 1765312911,
             "Name": "NewSkillPoint",
             "Tag": "Default",
             "Static": 0,
