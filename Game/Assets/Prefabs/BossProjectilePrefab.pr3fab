@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 3205479908,
+            "UID": 515819762,
             "ParentUID": 0,
             "Name": "BossProjectilePrefab",
             "Tag": "Default",
@@ -87,15 +87,15 @@
                         "audioDelay": 0.0,
                         "projectileSpeed": 3000.0,
                         "projectileLife": 3.0,
-                        "damageAmount": 15.0,
+                        "damageAmount": 10.0,
                         "acceleration": 1500.0
                     }
                 }
             ]
         },
         {
-            "UID": 4159779478,
-            "ParentUID": 3205479908,
+            "UID": 1649806481,
+            "ParentUID": 515819762,
             "Name": "Mesh",
             "Tag": "Mesh",
             "Static": 0,
@@ -232,8 +232,8 @@
             ]
         },
         {
-            "UID": 188715676,
-            "ParentUID": 3205479908,
+            "UID": 3089132443,
+            "ParentUID": 515819762,
             "Name": "BoxTrigger",
             "Tag": "HitBox",
             "Static": 0,
@@ -327,8 +327,8 @@
             ]
         },
         {
-            "UID": 2130436877,
-            "ParentUID": 3205479908,
+            "UID": 3239354822,
+            "ParentUID": 515819762,
             "Name": "Trail",
             "Tag": "Default",
             "Static": 0,
@@ -422,8 +422,8 @@
             ]
         },
         {
-            "UID": 3991400954,
-            "ParentUID": 3205479908,
+            "UID": 2722733165,
+            "ParentUID": 515819762,
             "Name": "Particles",
             "Tag": "Default",
             "Static": 0,
@@ -605,8 +605,8 @@
             ]
         },
         {
-            "UID": 3369931950,
-            "ParentUID": 3205479908,
+            "UID": 256628335,
+            "ParentUID": 515819762,
             "Name": "Audio",
             "Tag": "AudioSource",
             "Static": 0,
