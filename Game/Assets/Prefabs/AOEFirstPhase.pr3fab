@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 3396647720,
+            "UID": 1879863072,
             "ParentUID": 0,
             "Name": "AOEbossPrefab",
             "Tag": "Default",
@@ -33,7 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1857248747,
-            "prefabTimeStamp": 1572873763,
+            "prefabTimeStamp": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -85,15 +85,15 @@
                     "scriptInfo": {
                         "timerFade": 1.5,
                         "duration": 2.0,
-                        "damageToPlayer": 15.0,
+                        "damageToPlayer": 20.0,
                         "spawnRadius": 200.0
                     }
                 }
             ]
         },
         {
-            "UID": 1636056316,
-            "ParentUID": 3396647720,
+            "UID": 2150279815,
+            "ParentUID": 1879863072,
             "Name": "Prep Particles",
             "Tag": "Default",
             "Static": 0,
@@ -228,8 +228,8 @@
             ]
         },
         {
-            "UID": 2832489370,
-            "ParentUID": 1636056316,
+            "UID": 3810522506,
+            "ParentUID": 2150279815,
             "Name": "dfg",
             "Tag": "dfhbdfh",
             "Static": 0,
@@ -364,8 +364,8 @@
             ]
         },
         {
-            "UID": 1729244250,
-            "ParentUID": 3396647720,
+            "UID": 450826901,
+            "ParentUID": 1879863072,
             "Name": "Beam Particles",
             "Tag": "Default",
             "Static": 0,
@@ -531,8 +531,8 @@
             ]
         },
         {
-            "UID": 2679478027,
-            "ParentUID": 1729244250,
+            "UID": 1037070286,
+            "ParentUID": 450826901,
             "Name": "Empty",
             "Tag": "Default",
             "Static": 0,
@@ -696,8 +696,8 @@
             ]
         },
         {
-            "UID": 1379721072,
-            "ParentUID": 3396647720,
+            "UID": 3672422953,
+            "ParentUID": 1879863072,
             "Name": "Hitbox",
             "Tag": "Default",
             "Static": 0,
@@ -791,8 +791,8 @@
             ]
         },
         {
-            "UID": 4070970170,
-            "ParentUID": 3396647720,
+            "UID": 2148483550,
+            "ParentUID": 1879863072,
             "Name": "audio",
             "Tag": "audioExplosion",
             "Static": 0,

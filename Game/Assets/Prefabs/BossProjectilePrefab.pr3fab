@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 652329425,
+            "UID": 3205479908,
             "ParentUID": 0,
             "Name": "BossProjectilePrefab",
             "Tag": "Default",
@@ -33,7 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1445666081,
-            "prefabTimeStamp": 1573039250,
+            "prefabTimeStamp": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -87,15 +87,15 @@
                         "audioDelay": 0.0,
                         "projectileSpeed": 3000.0,
                         "projectileLife": 3.0,
-                        "damageAmount": 5.0,
+                        "damageAmount": 15.0,
                         "acceleration": 1500.0
                     }
                 }
             ]
         },
         {
-            "UID": 145960071,
-            "ParentUID": 652329425,
+            "UID": 4159779478,
+            "ParentUID": 3205479908,
             "Name": "Mesh",
             "Tag": "Mesh",
             "Static": 0,
@@ -232,8 +232,8 @@
             ]
         },
         {
-            "UID": 2251823921,
-            "ParentUID": 652329425,
+            "UID": 188715676,
+            "ParentUID": 3205479908,
             "Name": "BoxTrigger",
             "Tag": "HitBox",
             "Static": 0,
@@ -327,8 +327,8 @@
             ]
         },
         {
-            "UID": 1367537356,
-            "ParentUID": 652329425,
+            "UID": 2130436877,
+            "ParentUID": 3205479908,
             "Name": "Trail",
             "Tag": "Default",
             "Static": 0,
@@ -422,8 +422,8 @@
             ]
         },
         {
-            "UID": 3095411694,
-            "ParentUID": 652329425,
+            "UID": 3991400954,
+            "ParentUID": 3205479908,
             "Name": "Particles",
             "Tag": "Default",
             "Static": 0,
@@ -605,8 +605,8 @@
             ]
         },
         {
-            "UID": 3179419123,
-            "ParentUID": 652329425,
+            "UID": 3369931950,
+            "ParentUID": 3205479908,
             "Name": "Audio",
             "Tag": "AudioSource",
             "Static": 0,
