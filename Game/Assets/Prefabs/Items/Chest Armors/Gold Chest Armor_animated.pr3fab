@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 1086856354,
-            "ParentUID": 3067108787,
+            "UID": 3386219846,
+            "ParentUID": 0,
             "Name": "Gold Chest Armor_animated",
             "Tag": "Default",
             "Static": 0,
@@ -32,7 +32,8 @@
             "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
-            "prefabUID": 0,
+            "prefabUID": 1436861162,
+            "prefabTimeStamp": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -146,10 +147,10 @@
                         "type": 6,
                         "rarity": 2,
                         "isEquipped": 0,
-                        "health": 45.0,
+                        "health": 70.0,
                         "mana": 0.0,
                         "strength": 0,
-                        "dexterity": -10,
+                        "dexterity": -5,
                         "hpRegen": 0.0,
                         "manaRegen": 0.0,
                         "itemCursor": "Pick.cur",

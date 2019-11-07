@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 2954296523,
-            "ParentUID": 3067108787,
+            "UID": 4284879035,
+            "ParentUID": 0,
             "Name": "Leather Pants",
             "Tag": "Default",
             "Static": 0,
@@ -33,7 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1456861205,
-            "prefabTimeStamp": 1571765370,
+            "prefabTimeStamp": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -56,8 +56,8 @@
                     ],
                     "Scale": [
                         1.0,
-                        0.9999836683273315,
-                        0.9999836683273315
+                        0.9999836087226868,
+                        0.9999836087226868
                     ],
                     "Global": [
                         1.0,
@@ -147,10 +147,10 @@
                         "type": 7,
                         "rarity": 0,
                         "isEquipped": 0,
-                        "health": 10.0,
+                        "health": 20.0,
                         "mana": 0.0,
                         "strength": 0,
-                        "dexterity": 0,
+                        "dexterity": 2,
                         "hpRegen": 0.0,
                         "manaRegen": 0.0,
                         "itemCursor": "Pick.cur",
