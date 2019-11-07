@@ -984,7 +984,7 @@ PlayerMovement_API void PlayerMovement::Damage(float amount)
 
 		outCombatTimer = outCombatMaxTime;
 		health -= amount;
-		if (health < 0)
+		if (health <= 0)
 		{
 			isPlayerDead = true;
 		}
