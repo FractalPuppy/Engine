@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 3785875303,
-            "ParentUID": 3067108787,
+            "UID": 3737774918,
+            "ParentUID": 0,
             "Name": "Shovel",
             "Tag": "Default",
             "Static": 0,
@@ -33,7 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 2896294178,
-            "prefabTimeStamp": 1569853990,
+            "prefabTimeStamp": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -56,8 +56,8 @@
                     ],
                     "Scale": [
                         1.0,
-                        1.0,
-                        1.0
+                        0.9999999403953552,
+                        0.9999999403953552
                     ],
                     "Global": [
                         1.0,
@@ -149,7 +149,7 @@
                         "isEquipped": 0,
                         "health": 0.0,
                         "mana": 0.0,
-                        "strength": 5,
+                        "strength": 4,
                         "dexterity": 0,
                         "hpRegen": 0.0,
                         "manaRegen": 0.0,

@@ -32,8 +32,8 @@ public:
 	int aoeType = 0;
 	int repetitions = 10;
 	bool hasDamaged = false;
-	float damageFirst = 15.0f;
-	float damageSecond = 10.0f;
+	float damageFirst = 25.0f;
+	float damageSecond = 15.0f;
 
 	void HandleFirstAOE();
 	void HandleReplicas();

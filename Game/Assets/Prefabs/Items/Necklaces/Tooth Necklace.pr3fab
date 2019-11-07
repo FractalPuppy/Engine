@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 1044127183,
-            "ParentUID": 3067108787,
+            "UID": 2135231877,
+            "ParentUID": 0,
             "Name": "Tooth Necklace",
             "Tag": "Default",
             "Static": 0,
@@ -32,8 +32,8 @@
             "openInHierarchy": 1,
             "isPrefab": 1,
             "isPrefabSync": 1,
-            "prefabUID": 0,
-            "prefabTimeStamp": 1571765878,
+            "prefabUID": 3554821835,
+            "prefabTimeStamp": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -56,8 +56,8 @@
                     ],
                     "Scale": [
                         1.0,
-                        0.999962568283081,
-                        0.999962568283081
+                        0.9999625086784363,
+                        0.9999625086784363
                     ],
                     "Global": [
                         1.0,
@@ -147,9 +147,9 @@
                         "type": 9,
                         "rarity": 1,
                         "isEquipped": 0,
-                        "health": 0.0,
-                        "mana": 0.0,
-                        "strength": 20,
+                        "health": 50.0,
+                        "mana": 25.0,
+                        "strength": -5,
                         "dexterity": 10,
                         "hpRegen": 0.0,
                         "manaRegen": 0.0,

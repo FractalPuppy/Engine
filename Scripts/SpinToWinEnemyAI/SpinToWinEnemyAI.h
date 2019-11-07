@@ -19,7 +19,14 @@ public:
 	}
 	void Start() override;
 	void Update() override;
+	void Expose(ImGuiContext* context) override;
+
+	void Serialize(JSON_value* json) const override;
+	void DeSerialize(JSON_value* json) override;
+
 	std::vector<GameObject*> spinBones;
+
+	float spinDamage = 0.0f;
 
 private:
 	void RotateSpinBone();

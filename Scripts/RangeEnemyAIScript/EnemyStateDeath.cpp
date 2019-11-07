@@ -113,10 +113,6 @@ void EnemyStateDeath::Update()
 		}
 		break;
 	case DEATHTYPE::CRIT:
-		if (enemy->audioDeathFX2 != nullptr)
-		{
-			enemy->audioDeathFX1->Play();
-		}
 		if (waitedTime > deathDuration * 0.3f)
 		{
 			if (explosionFX != nullptr && explosionFX->isActive())
