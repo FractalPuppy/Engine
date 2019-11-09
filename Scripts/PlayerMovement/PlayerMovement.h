@@ -176,6 +176,8 @@ public:
 	PlayerMovement();
 	virtual ~PlayerMovement();
 
+	bool CleanUp() override;
+
 	void Expose(ImGuiContext* context) override;
 
 	void Start() override;
@@ -243,13 +245,15 @@ private:
 	void CreatePlayerStates();
 	void ManaManagement();
 
-	void ActivateHudCooldownMask(bool activate, unsigned first = HUD_BUTTON_Q, unsigned last = HUD_BUTTON_4);
+	void ActivateHudCooldownMask(bool activate, unsigned first = HUD_BUTTON_RC, unsigned last = HUD_BUTTON_R);
 
 	// Skills
 	void CreatePlayerSkills();
 
 	void InitializeUIStatsObjects();
+	void InitializeAudioObjects();
 public:
+	bool FinishingLevel0 = false;
 	bool ThirdStageBoss = false;
 
 	bool isPlayerDead = false;
@@ -276,7 +280,6 @@ public:
 
 	float health = 100.0f;
 	float mana = 100.0f;
-	//bool IsManaUsed = false;
 	float attackDuration = 1.0f;
 	float attackTimer = 0.0f;
 	
@@ -331,9 +334,23 @@ public:
 	SkillType assignedSkills[9] = { SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE, SkillType::NONE };
 
 	//Audio
+	ComponentAudioSource* knives_attack = nullptr;
+	ComponentAudioSource* knives_ending = nullptr;
 	ComponentAudioSource* gotHitAudio = nullptr;
-	GameObject* slashTrail = nullptr;
+	ComponentAudioSource* gotHitAudio2 = nullptr;
+	ComponentAudioSource* knives_swing = nullptr;
+	ComponentAudioSource* wilhelm_scream = nullptr;
+	ComponentAudioSource* stepSound = nullptr;
+	ComponentAudioSource* bomb_take_off = nullptr;
+	ComponentAudioSource* bomb_impact = nullptr;
+	ComponentAudioSource* attack1 = nullptr;
+	ComponentAudioSource* attack2 = nullptr;
+	ComponentAudioSource* spin_attack = nullptr;
+	ComponentAudioSource* drill_attack = nullptr;
 
+	bool deathSoundPlayed = false;
+
+	GameObject* slashTrail = nullptr;
 
 	float deltatime;
 
@@ -377,10 +394,6 @@ private:
 	// Player equippable parts (Weapon, Helmet)
 	ComponentRenderer* weaponRenderer = nullptr;
 	ComponentRenderer* helmetRenderer = nullptr;
-
-	//Audio
-	ComponentAudioSource* knives_attack = nullptr;
-	ComponentAudioSource* knives_ending = nullptr;
 
 	InventoryScript* inventoryScript = nullptr;
 

@@ -416,16 +416,16 @@ void PanelResourceManagerUnused::DrawResourceAudio()
 	{
 		ImGui::SameLine();
 		ImGui::Text("Yes");
-		ImGui::Text("Audio length: %f", audio.wavstream.getLength());
-		ImGui::Text("Audio loop point: %f", audio.wavstream.getLoopPoint());
+		ImGui::Text("Audio length: %f", audio.wavstream->getLength());
+		ImGui::Text("Audio loop point: %f", audio.wavstream->getLoopPoint());
 
 	}
 	else
 	{
 		ImGui::SameLine();
 		ImGui::Text("No");
-		ImGui::Text("Audio length: %f", audio.wavFX.getLength());
-		ImGui::Text("Audio loop point: %f", audio.wavFX.getLoopPoint());
+		ImGui::Text("Audio length: %f", audio.wavFX->getLength());
+		ImGui::Text("Audio loop point: %f", audio.wavFX->getLoopPoint());
 	}
 	ImGui::End();
 }

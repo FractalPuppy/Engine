@@ -38,11 +38,9 @@ ComponentAnimation::ComponentAnimation(GameObject * gameobject) : Component(game
 
 ComponentAnimation::~ComponentAnimation()
 {
-	delete editorController;
-	editorController = nullptr;
-
-	delete controller;
-	controller = nullptr;
+	RELEASE(editorController);
+	
+	RELEASE(controller);
 	if (context)
 	{
 		ax::NodeEditor::DestroyEditor(context);
@@ -407,7 +405,10 @@ void ComponentAnimation::Update()
 			if (controller->CheckEvents(Anim))
 			{
 				std::vector<Component*> scripts = gameobject->GetComponents(ComponentType::Script);
-
+				if (scripts.empty() && gameobject->parent != nullptr && gameobject->parent != App->scene->root)
+				{
+					scripts = gameobject->parent->GetComponents(ComponentType::Script);
+				}
 				for (auto script : scripts)
 				{
 					Script* scr = (Script*)script;
@@ -536,7 +537,10 @@ bool ComponentAnimation::CleanUp()
 	{
 		App->resManager->DeleteResource(stateMachine->GetUID());
 	}
-
+	if (animName != nullptr)
+	{
+		RELEASE_ARRAY(animName);
+	}
 	return true;
 }
 

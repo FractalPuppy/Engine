@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 3198332892,
-            "ParentUID": 3067108787,
+            "UID": 3197100291,
+            "ParentUID": 0,
             "Name": "Health Potion",
             "Tag": "Default",
             "Static": 0,
@@ -31,8 +31,8 @@
             "No Walkable": 0,
             "openInHierarchy": 1,
             "isPrefab": 1,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
+            "isPrefabSync": 1,
+            "prefabUID": 426311,
             "Components": [
                 {
                     "Type": 0,
@@ -55,8 +55,8 @@
                     ],
                     "Scale": [
                         1.0,
-                        0.999960720539093,
-                        0.999960720539093
+                        0.9999606609344482,
+                        0.9999606609344482
                     ],
                     "Global": [
                         1.0,
@@ -140,7 +140,8 @@
                     "Enabled": 1,
                     "script": "ItemPicker",
                     "scriptInfo": {
-                        "name": "pot",
+                        "name": "Health Potion",
+                        "description": "",
                         "sprite": "LesserHealthPot",
                         "type": 1,
                         "rarity": 0,

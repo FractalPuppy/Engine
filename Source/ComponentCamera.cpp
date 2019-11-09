@@ -195,11 +195,27 @@ void ComponentCamera::SetAspect(float aspect)
 	frustum->horizontalFov = 2.f * atanf(tanf(frustum->verticalFov * 0.5f) * aspect);
 }
 
-void ComponentCamera::SetFOV(float fov)
+void ComponentCamera::SetView(float fov)
 {
 	float aspect = frustum->AspectRatio();
 	frustum->verticalFov = fov;
 	SetAspect(aspect);
+}
+
+void ComponentCamera::SetFov(float fov)
+{
+	frustum->verticalFov = fov;
+	frustum->horizontalFov = 2.f * atanf(tanf(frustum->verticalFov * 0.5f) * App->window->width / App->window->height);
+}
+
+ENGINE_API float ComponentCamera::GetFOV()
+{
+	return math::RadToDeg(frustum->verticalFov);
+}
+
+ENGINE_API void ComponentCamera::SetFogColor(math::float3 newColor)
+{
+	fogColor = newColor;
 }
 
 void ComponentCamera::ResetFrustum()

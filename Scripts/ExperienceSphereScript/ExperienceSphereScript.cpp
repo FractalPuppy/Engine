@@ -51,7 +51,7 @@ void ExperienceSphereScript::Update()
 	float distance = myPosition.Distance(targetPosition);
 
 	// If is near enough pick up else chase
-	if (distance > 10.0f)
+	if (distance > 50.0f)
 	{
 		timer += App->time->gameDeltaTime;
 

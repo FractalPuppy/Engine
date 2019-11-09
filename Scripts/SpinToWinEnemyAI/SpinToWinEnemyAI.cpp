@@ -17,6 +17,9 @@
 #include "ComponentTransform.h"
 #include "GameObject.h"
 
+#include "JSON.h"
+#include "imgui.h"
+
 #define BONE_SPIN "SpinBone"
 
 SpinToWinEnemyAI_API Script* CreateScript()
@@ -38,7 +41,6 @@ void SpinToWinEnemyAI::Start()
 	enemyStates.push_back(flee = new EnemyStateFlee(this));
 
 	currentState = patrol;
-
 	startPosition = enemyController->GetPosition();
 	spinBones = App->scene->FindGameObjectsByTag(BONE_SPIN, gameobject);
 }
@@ -47,6 +49,24 @@ void SpinToWinEnemyAI::Update()
 {
 	BasicEnemyAIScript::Update();
 	RotateSpinBone();
+}
+
+void SpinToWinEnemyAI::Expose(ImGuiContext * context)
+{
+	BasicEnemyAIScript::Expose(context);
+	ImGui::InputFloat("Spin Damage", &spinDamage);
+}
+
+void SpinToWinEnemyAI::Serialize(JSON_value * json) const
+{
+	BasicEnemyAIScript::Serialize(json);
+	json->AddFloat("spinDamage", spinDamage);
+}
+
+void SpinToWinEnemyAI::DeSerialize(JSON_value * json)
+{
+	BasicEnemyAIScript::DeSerialize(json);
+	spinDamage = json->GetFloat("spinDamage",5);
 }
 
 void SpinToWinEnemyAI::RotateSpinBone()

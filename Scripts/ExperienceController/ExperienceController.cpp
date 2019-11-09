@@ -110,6 +110,19 @@ void ExperienceController::Start()
 	{
 		LOG("Warning: audioLVLup game object not found");
 	}
+
+	GO = nullptr;
+	// Gain experience
+	GO = App->scene->FindGameObjectByName("experienceAudio");
+	if (GO != nullptr)
+	{
+		experienceAudio = GO->GetComponent<ComponentAudioSource>();
+		assert(experienceAudio != nullptr);
+	}
+	else
+	{
+		LOG("Warning: The Game Object 'gotHitAudio2' couldn't be found.");
+	}
 }
 
 void ExperienceController::Update()
@@ -170,7 +183,10 @@ void ExperienceController::AddXP(int xp)
 		{
 			while (currentXP >= maxXPLevel)
 			{
-				audioLVLup->Play();
+				if (audioLVLup != nullptr)
+				{
+					audioLVLup->Play();
+				}
 				++currentLevel;
 				levelUP = true;
 				if (currentLevel == maxLevel)
@@ -196,6 +212,10 @@ void ExperienceController::AddXP(int xp)
 			levelUpFloorMesh->gameobject->SetActive(true);
 			levelUpFloorMesh->ResetAnimation();
 			levelUpParticles->SetActive(true);
+		}
+		else
+		{
+			experienceAudio->Play();
 		}
 		int mask = (currentXP * 100) / maxXPLevel;
 		xpText->text = std::to_string(currentXP);
@@ -297,7 +317,7 @@ void ExperienceController::DeSerialize(JSON_value* json)
 	borderAmount = json->GetFloat("borderAmount", 0.4f);
 	healthIncrease = json->GetFloat("healthIncrease", 10.0f);
 	manaIncrease = json->GetFloat("manaIncrease", 10.0f);
-	strengthIncrease = json->GetInt("strengthIncrease", 5);
+	strengthIncrease = json->GetInt("strengthIncrease", 1);
 	dexterityIncrease = json->GetInt("dexterityIncrease", 1);
 }
 

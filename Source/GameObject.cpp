@@ -1188,9 +1188,20 @@ void GameObject::Save(JSON_value *gameobjects, bool selected) const
 		gameobject->AddUint("isPrefab", isPrefab);
 		gameobject->AddUint("isPrefabSync", isPrefabSync);
 		gameobject->AddUint("prefabUID", prefabUID);
-		if (isPrefab && prefabTimeStamp != 0.0f)
+		if (isPrefab)
 		{
-			gameobject->AddUint("prefabTimeStamp", prefabTimeStamp);
+			if (prefabTimeStamp == 0u)
+			{
+				if (prefab != nullptr)
+				{
+					App->fsystem->GetModTime(prefab->GetFile());
+					gameobject->AddUint("prefabTimeStamp", prefabTimeStamp);
+				}
+			}
+			else
+			{
+				gameobject->AddUint("prefabTimeStamp", prefabTimeStamp);
+			}
 		}
 
 		JSON_value *componentsJSON = gameobject->CreateValue(rapidjson::kArrayType);
@@ -1238,11 +1249,13 @@ void GameObject::Load(JSON_value *value, bool prefabTemplate)
 	isPrefab = value->GetUint("isPrefab");
 	isPrefabSync = value->GetUint("isPrefabSync");
 	prefabUID = value->GetUint("prefabUID");
+	isPrefabTemplate = prefabTemplate;
+
 	if (isPrefab && !prefabTemplate)
 	{
 		prefabTimeStamp = value->GetUint("prefabTimeStamp");
 
-		prefab = (ResourcePrefab*) App->resManager->Get(prefabUID);
+		prefab = (ResourcePrefab*)App->resManager->Get(prefabUID);
 		if (prefab != nullptr)
 		{
 			prefab->AddInstance(this);

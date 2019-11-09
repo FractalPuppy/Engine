@@ -4,6 +4,7 @@
 #include "BuriedEnemyAIScript.h"
 
 #include "GameObject.h"
+#include "ComponentAudioSource.h"
 #include "ComponentRenderer.h"
 #include "ComponentBoxTrigger.h"
 #include "ComponentTransform.h"

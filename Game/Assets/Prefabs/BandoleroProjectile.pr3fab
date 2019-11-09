@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 3159889875,
-            "ParentUID": 0,
+            "UID": 4028374967,
+            "ParentUID": 1232963659,
             "Name": "BandoleroProjectile",
             "Tag": "Default",
             "Static": 0,
@@ -33,7 +33,6 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1273579237,
-            "prefabTimeStamp": 1570107942,
             "Components": [
                 {
                     "Type": 0,
@@ -165,12 +164,25 @@
                     ],
                     "boxType": 4,
                     "debug_draw": 1
+                },
+                {
+                    "Type": 14,
+                    "Enabled": 1,
+                    "audioUID": 3112258822,
+                    "Volume": 1.0,
+                    "PlayOnAwake": 0,
+                    "Sound3D": 1,
+                    "LimitPan": 0.5,
+                    "FadeDist": 500.0,
+                    "Loop": 0,
+                    "Rolloff": 0.30000001192092898,
+                    "Pitch": 1.0
                 }
             ]
         },
         {
-            "UID": 444455617,
-            "ParentUID": 3159889875,
+            "UID": 3436851110,
+            "ParentUID": 4028374967,
             "Name": "Trail",
             "Tag": "Default",
             "Static": 0,

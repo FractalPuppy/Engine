@@ -81,11 +81,12 @@ private:
 	// Player Stats
 	float healthIncrease = 10.0f;
 	float manaIncrease = 10.0f;
-	int strengthIncrease = 5;
+	int strengthIncrease = 1;
 	int dexterityIncrease = 1;
 
 	//Audio
 	ComponentAudioSource* audioLVLup = nullptr;
+	ComponentAudioSource* experienceAudio = nullptr;
 };
 
 extern "C" ExperienceController_API Script* CreateScript();

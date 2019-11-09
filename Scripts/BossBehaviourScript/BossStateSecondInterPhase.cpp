@@ -7,6 +7,7 @@
 #include "ComponentBoxTrigger.h"
 #include "ComponentAnimation.h"
 #include "ComponentTransform.h"
+#include "ComponentAudioSource.h"
 #include "ComponentParticles.h"
 
 #include "BossStateSecondInterPhase.h"
@@ -14,6 +15,8 @@
 #include "GameLoop/GameLoop.h"
 
 #include "BossBehaviourScript.h"
+
+#define HOLYSMMATERIAL "HolySantaMuerte"
 
 BossStateSecondInterPhase::BossStateSecondInterPhase(BossBehaviourScript* AIboss)
 {
@@ -31,8 +34,6 @@ void BossStateSecondInterPhase::HandleIA()
 	if (finished)
 	{
 		boss->currentState = (BossState*)boss->thirdIdle;
-		//set the bb to be the same as the hitbox
-		boss->StartThirdPhase();
 	}
 }
 
@@ -52,6 +53,7 @@ void BossStateSecondInterPhase::Update()
 			if (kneelTimer > boss->secondInterphaseKneelTime)
 			{
 				state = InterphaseState::Cry;
+				boss->cryAudio->Play();
 				boss->enemyController->anim->SendTriggerToStateMachine("Cry");
 
 			}
@@ -110,6 +112,8 @@ void BossStateSecondInterPhase::Update()
 			else
 			{
 				state = InterphaseState::Teleport;
+				boss->enemyController->GetMainRenderer()->SetMaterial(HOLYSMMATERIAL);
+				boss->enemyController->SetDefaultMaterialToCurrentMaterial();
 			}
 
 			floorVanishTimer += boss->App->time->gameDeltaTime;
@@ -169,6 +173,5 @@ void BossStateSecondInterPhase::Enter()
 
 void BossStateSecondInterPhase::Exit()
 {
-	boss->gLoop->DeleteAllEnemies();
 	boss->enemyController->hpBoxTrigger->Enable(true);
 }

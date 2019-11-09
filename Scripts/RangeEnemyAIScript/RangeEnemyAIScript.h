@@ -12,6 +12,7 @@
 #include <vector>
 
 class GameObject;
+class ComponentAudioSource;
 class ComponentBoxTrigger;
 class EnemyControllerScript;
 class ProjectileScript;
@@ -40,6 +41,7 @@ public:
 	{
 		return new RangeEnemyAIScript(*this);
 	}
+	float randomOffset(float max);
 private:
 	void ProjectileImpactFX();
 	void CheckStates(EnemyState* previous, EnemyState* current);
@@ -84,6 +86,11 @@ public:
 	GameObject* projectile2 = nullptr;
 	GameObject* projectile3 = nullptr;
 	GameObject* projectileExplosion = nullptr;
+
+	GameObject* audioEnemy = nullptr;
+	ComponentAudioSource* audioFoot = nullptr;
+	ComponentAudioSource* audioDeathFX1 = nullptr;
+	ComponentAudioSource* audioDeathFX2 = nullptr;
 
 	float projectileDelay1 = 0.f;
 	float projectileDelay2 = 0.6f;

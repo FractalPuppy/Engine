@@ -32,7 +32,10 @@ public:
 	void Zoom(float mouseWheel, bool shiftPressed);
 	void Orbit(float dx, float dy);
 	void SetAspect(float aspect);
-	void SetFOV(float fov);
+	ENGINE_API void SetView(float fov);
+	ENGINE_API void SetFov(float fov);
+	ENGINE_API float GetFOV();
+	ENGINE_API void SetFogColor(math::float3 newColor);
 
 	void ResetFrustum();
 

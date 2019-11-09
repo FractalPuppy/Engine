@@ -13,6 +13,7 @@
 
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleScene.h"
 #include "ComponentRenderer.h"
 
 DividingEnemyAI_API Script* CreateScript()
@@ -35,7 +36,6 @@ void DividingEnemyAI::Start()
 	enemyStates.push_back(multiply = new EnemyStateMultiply(this));
 
 	currentState = patrol;
-
 
 	startPosition = enemyController->GetPosition();
 }

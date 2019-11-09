@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 #include "ComponentRenderer.h"
@@ -19,6 +20,7 @@
 #include "ModuleTime.h"
 #include "ModuleResourceManager.h"
 
+#include "ComponentAudioSource.h"
 #include "ComponentTrail.h"
 
 EnemyStateAttackSpin::EnemyStateAttackSpin(BasicEnemyAIScript* AIScript) : EnemyStateAttack(AIScript)
@@ -27,6 +29,15 @@ EnemyStateAttackSpin::EnemyStateAttackSpin(BasicEnemyAIScript* AIScript) : Enemy
 	enemyRenderer = (ComponentRenderer*)enemy->gameobject->GetComponentInChildren(ComponentType::Renderer);
 	dust = enemy->App->scene->FindGameObjectByName("Dust", enemy->gameobject);
 	spinOff = enemy->App->scene->FindGameObjectByName("SpinLines", enemy->gameobject);
+	if (enemy->audioEnemy != nullptr)
+	{
+		GameObject* spinSFXGO = enemy->App->scene->FindGameObjectByName("Spin", enemy->audioEnemy);
+		if (spinSFXGO != nullptr)
+		{
+			spinSFX = spinSFXGO->GetComponent<ComponentAudioSource>();
+		}
+	}
+	baseDamage = enemy->enemyController->GetDamage();
 }
 
 EnemyStateAttackSpin::~EnemyStateAttackSpin()
@@ -82,6 +93,7 @@ void EnemyStateAttackSpin::Enter()
 
 void EnemyStateAttackSpin::Exit()
 {
+	attackSoundMade = false;
 	if (spinning) //Reset spinning behaviour
 	{
 		DisableSpin();
@@ -93,6 +105,11 @@ void EnemyStateAttackSpin::Attack() //Splited into SPIN or normal ATTACK
 
 	if ((!LessThanHalfHP() || lcg.Float() < 0.25 || isOnCooldown) && !spinning) //Normal attack
 	{
+		if (enemy->audioHit != nullptr && timer > 0.1f && !attackSoundMade)
+		{
+			attackSoundMade = true;
+			enemy->audioHit->Play();
+		}
 		enemy->enemyController->attackBoxTrigger->Enable(true);
 		enemy->enemyController->attackBoxTrigger->SetBoxSize(boxSize);
 		boxPosition = enemy->gameobject->transform->up * 100.f;
@@ -109,6 +126,11 @@ void EnemyStateAttackSpin::Attack() //Splited into SPIN or normal ATTACK
 	}
 	else if(spinTimer < spinDuration)
 	{
+		enemy->enemyController->SetDamage(((SpinToWinEnemyAI*)enemy)->spinDamage);
+		if (spinSFX != nullptr && !spinSFX->isPlaying)
+		{
+			spinSFX->Play();
+		}
 		SpinBehaviour();
 	}
 	else
@@ -157,6 +179,7 @@ void EnemyStateAttackSpin::ChangeToSpinMaterial(MATERIALTYPE type) const
 
 void EnemyStateAttackSpin::EnableSpin()
 {
+	enemy->enemyController->SetDamage(((SpinToWinEnemyAI*)enemy)->spinDamage);
 	enemy->gameobject->transform->lockLookAt = true;
 	spinning = true;
 	PunchFX(true);
@@ -166,6 +189,11 @@ void EnemyStateAttackSpin::EnableSpin()
 
 void EnemyStateAttackSpin::DisableSpin()
 {
+	if (spinSFX != nullptr)
+	{
+		spinSFX->Stop();
+	}
+	enemy->enemyController->SetDamage(baseDamage);
 	enemy->gameobject->transform->lockLookAt = false;
 	PunchFX(false);
 	enemyRenderer->avoidSkinning = false;

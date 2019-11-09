@@ -1,4 +1,4 @@
-#ifndef  __BasicEnemyAIScript_h__
+﻿#ifndef  __BasicEnemyAIScript_h__
 #define  __BasicEnemyAIScript_h__
 
 #ifdef BasicEnemyAIScript_EXPORTS
@@ -21,7 +21,8 @@ class EnemyStateAttack;
 class EnemyStateCooldown;
 class EnemyStateDeath;
 class EnemyStateFlee;
-
+class GameObject;
+class ComponentAudioSource;
 
 class BasicEnemyAIScript_API BasicEnemyAIScript : public Script
 {
@@ -34,6 +35,8 @@ public:
 
 	void Serialize(JSON_value* json) const override;
 	void DeSerialize(JSON_value* json) override;
+
+	float randomOffset(float max);
 
 	inline virtual BasicEnemyAIScript* Clone() const
 	{
@@ -74,6 +77,7 @@ public:
 	// Attack variables
 	float attackDuration = 1.0f;
 	float attackDamage = 20.0f;
+	float attackDelay = 0.25f;
 
 	// Cooldown variables
 	float cooldownTime = 1.0f;			// Seconds to wait between attacks
@@ -81,6 +85,11 @@ public:
 	bool scared = false;
 
 	EnemyControllerScript* enemyController = nullptr;
+	GameObject* audioEnemy = nullptr;
+	ComponentAudioSource* audioHit = nullptr;
+	ComponentAudioSource* audioFoot = nullptr;
+	ComponentAudioSource* audioDeathFX1 = nullptr;
+	ComponentAudioSource* audioDeathFX2 = nullptr;
 
 protected:
 	std::vector<EnemyState*> enemyStates;

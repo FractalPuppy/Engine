@@ -31,8 +31,16 @@ bool ResourceAudio::LoadInMemory()
 
 	int ret;
 
-	if (!streamed) ret = wavFX.load(exportedFile.c_str());
-	else ret = wavstream.load(exportedFile.c_str());
+	if (!streamed)
+	{
+		wavFX = new SoLoud::Wav();
+		ret = wavFX->load(exportedFile.c_str());
+	}
+	else
+	{
+		wavstream = new SoLoud::WavStream();
+		ret = wavstream->load(exportedFile.c_str());
+	}
 
 	//SO_NO_ERROR = 0, // No error
 	//INVALID_PARAMETER = 1, // Some parameter is invalid
@@ -57,6 +65,8 @@ bool ResourceAudio::LoadInMemory()
 
 void ResourceAudio::DeleteFromMemory()
 {
+	RELEASE(wavFX);
+	RELEASE(wavstream);
 	Resource::DeleteFromMemory();
 }
 
@@ -168,7 +178,25 @@ void ResourceAudio::LoadConfigFromLibraryMeta()
 
 void ResourceAudio::DrawLoadSettings()
 {
-	ImGui::Checkbox("Streamed", &streamed);
+	if (ImGui::Checkbox("Streamed", &streamed))
+	{
+		if (streamed)
+		{
+			RELEASE(wavFX);
+			if (wavstream == nullptr)
+			{
+				wavstream = new SoLoud::WavStream();
+			}
+		}
+		else
+		{
+			RELEASE(wavstream);
+			if (wavFX == nullptr)
+			{
+				wavFX = new SoLoud::Wav();
+			}
+		}
+	}
 	if (ImGui::IsItemHovered())
 	{
 		ImGui::BeginTooltip();

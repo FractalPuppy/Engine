@@ -68,6 +68,8 @@ class PlayerMovement;
 class GameLoop;
 class CameraController;
 class ComponentAnimation;
+class ComponentAudioSource;
+class ComponentCamera;
 
 class BossBehaviourScript_API BossBehaviourScript : public Script
 {
@@ -87,6 +89,8 @@ public:
 	}
 	void StartThirdPhase();
 	void EndThirdPhase();
+
+	void OnAnimationEvent(std::string s) override;
 
 public:
 	TPlocations currentLocation = TPlocations::None;
@@ -113,6 +117,20 @@ public:
 	BossStateThirdDeath* thirdDeath = nullptr;
 
 public:
+
+	//ComponentsAudio
+	ComponentAudioSource* cryAudio = nullptr;
+	ComponentAudioSource* laughAudio = nullptr;
+	ComponentAudioSource* thirdPhaseHitAudio = nullptr;
+	ComponentAudioSource* doorRisingAudio = nullptr;
+	ComponentAudioSource* castAudio = nullptr;
+	ComponentAudioSource* precastAudio = nullptr;
+	ComponentAudioSource* mainBGMusic = nullptr;
+	ComponentAudioSource* bossBGMusic = nullptr;
+	ComponentAudioSource* bossScream = nullptr;
+
+	std::vector<GameObject*> fadeEnvironmentSounds;
+
 	ComponentAnimation* anim = nullptr;
 
 	GameObject* gameLoopGO = nullptr;
@@ -154,6 +172,9 @@ public:
 	void GenerateNewNavigability(std::vector<GameObject*>& vectorGOs);
 
 public:
+
+	bool IsBossDead();
+
 	float firstHealthThreshold = 0.75f;
 	float secondHealthThreshold = 0.35f;
 
@@ -221,11 +242,12 @@ public:
 	math::float3 startingPoint = math::float3::zero;
 	math::float3 highPointFirstCS = math::float3::zero;
 	math::float3 pointStartFight = math::float3::zero;
-
+	float finalFOV = 0.0f;
 	GameObject* closingDoor = nullptr;
 	GameObject* doorParticles = nullptr;
 	float finalDoorHeight = 600.0f;
 	GameObject* playerCamera = nullptr;
+	ComponentCamera* compCamera = nullptr;
 	CameraController* cameraScript = nullptr;
 
 	//TP points
@@ -234,10 +256,14 @@ public:
 	math::float3 leftTP = math::float3::zero;
 	math::float3 rightTP = math::float3::zero;
 
-	//Summon in summon phase
+	//summon phase
 	int summonSkeletonsNumber = 10;
-	float timerBetweenSummons = 5.0f;
+	float timerBetweenSummonsSummonPhase = 1.0f;
+	float timerBetweenSummonsFight = 3.0f;
 	math::float3 firstSpawnLocation = math::float3::zero;
+	math::float3 fogFinalColor = math::float3::zero;
+	float fogLerpDuration = 4.0f;
+
 	//giving default intended values to the spawn locations
 	math::float3 secondSpawnLocation = math::float3(1654.f, 370.f, -3333.f);
 	math::float3 thirdSpawnLocation = math::float3(-308.f, 370.f, -2376.f);
@@ -271,6 +297,10 @@ public:
 	//ThirdPhase
 	GameObject* leftFist = nullptr;
 	GameObject* rightFist = nullptr;
+	GameObject* defeatParticles = nullptr;
+	float deathDissolveSpeed = 1.0f;
+	float audioDelayThirdPhaseHit = 0.0f;
+
 
 public:
 	math::Quat InterpolateQuat(const math::Quat first, const math::Quat second, float lambda);

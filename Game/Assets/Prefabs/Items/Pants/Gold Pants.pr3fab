@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 3485544886,
+            "UID": 3988344873,
             "ParentUID": 0,
             "Name": "Gold Pants",
             "Tag": "Default",
@@ -33,6 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1670532367,
+            "prefabTimeStamp": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -146,10 +147,10 @@
                         "type": 7,
                         "rarity": 2,
                         "isEquipped": 0,
-                        "health": 40.0,
+                        "health": 45.0,
                         "mana": 0.0,
-                        "strength": 0,
-                        "dexterity": -5,
+                        "strength": 2,
+                        "dexterity": -2,
                         "hpRegen": 0.0,
                         "manaRegen": 0.0,
                         "itemCursor": "Pick.cur",

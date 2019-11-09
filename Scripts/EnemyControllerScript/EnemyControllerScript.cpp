@@ -16,12 +16,12 @@
 #include "ComponentAnimation.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
+#include "ComponentAudioSource.h"
 
 #include "PlayerMovement.h"
 #include "ResourceMaterial.h"
 #include "DamageController.h"
 #include "EnemyLifeBarController.h"
-#include "CombatAudioEvents.h"
 #include "LootDropScript.h"
 #include "WorldControllerScript.h"
 #include "ExperienceSphereScript.h"
@@ -167,18 +167,16 @@ void EnemyControllerScript::Awake()
 		}
 	}
 
-	GameObject* playerGO = App->scene->FindGameObjectByName("Player");
-	if (playerGO == nullptr)
+	// Hit sound
+	GameObject* GO = App->scene->FindGameObjectByName("enemy_got_hit");
+	if (GO != nullptr)
 	{
-		LOG("Player couldn't be found \n");
+		enemy_got_hit = GO->GetComponent<ComponentAudioSource>();
+		assert(enemy_got_hit != nullptr);
 	}
 	else
 	{
-		combataudioevents = playerGO->GetComponent<CombatAudioEvents>();
-		if (combataudioevents == nullptr)
-		{
-			LOG("combataudioevents couldn't be found \n");
-		}
+		LOG("Warning: enemy_got_hit game object not found");
 	}
 
 	// Look for LootDropScript
@@ -197,6 +195,11 @@ void EnemyControllerScript::Update()
 
 	if (bossFightStarted)
 	{
+		if (gameobject->tag == "Boss")
+		{
+			playerMovement->ThirdStageBoss = ThirdStageBoss;
+		}
+
 		enemyLifeBar->SetLifeBar(maxHealth, actualHealth, EnemyLifeBarType(enemyLevel), "Santa Muerte");
 		//in case boss third stage, highlighting works differently
 		if (ThirdStageBoss)
@@ -204,7 +207,7 @@ void EnemyControllerScript::Update()
 			objectMesh = App->scene->FindGameObjectByName("mesh", gameobject);
 		}
 	}
-	playerMovement->ThirdStageBoss = ThirdStageBoss;
+	
 	auto mesh = std::find(intersects.begin(), intersects.end(), objectMesh);
 	if(mesh != std::end(intersects) && *mesh == objectMesh)
 	{
@@ -334,13 +337,19 @@ void EnemyControllerScript::Update()
 		{
 			if (lootDrop != nullptr)
 			{
-				// If enemy has more than one item drop them in circle
-				if (lootDrop->itemList.size() > 1)
-					lootDrop->DropItemsInCircle(lootRadius);
-				else
-					lootDrop->DropItems();
+				// Generate a random number and if it is below the critical chance -> increase damage
+				if ((rand() % 100u) < lootChance)
+				{
+					// If enemy has more than one item drop them in circle
+					if (lootDrop->itemList.size() > 1)
+						lootDrop->DropItemsInCircle(lootRadius);
+					else
+						lootDrop->DropItems();
+				}	
 			}
 			lootDropped = true;
+			
+			//enabled = false;
 		}
 		else
 		{
@@ -353,7 +362,10 @@ void EnemyControllerScript::Update()
 		//remove the enemy from the crowd
 		currentWorldControllerScript->RemoveEnemy(gameobject->UUID);
 		removedFromCrowd = true;
-		enabled = false;
+
+		// Avoid disabling enemy before dropping loot
+		//if (lootDrop == nullptr)
+		//	enabled = false;
 	}
 }
 
@@ -383,8 +395,9 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 	{
 		actualHealth = maxHealth;
 	}
-
+	
 	ImGui::InputInt("Experience", &experience);
+	ImGui::InputInt("damage", &damage);
 
 	ImGui::Separator();
 	ImGui::Text("Player:");
@@ -413,6 +426,7 @@ void EnemyControllerScript::Expose(ImGuiContext* context)
 	ImGui::Text("Loot Variables:");
 	ImGui::DragFloat("Loot Delay", &lootDelay);
 	ImGui::DragFloat("Loot Radius", &lootRadius);
+	ImGui::DragFloat("Loot Chance (%)", &lootChance, 1.0f, 0.0f, 100.f);
 }
 
 void EnemyControllerScript::Serialize(JSON_value* json) const
@@ -426,6 +440,8 @@ void EnemyControllerScript::Serialize(JSON_value* json) const
 	json->AddString("enemyCursor", enemyCursor.c_str());
 	json->AddFloat("lootDelay", lootDelay);
 	json->AddFloat("lootRadius", lootRadius);
+	json->AddFloat("lootChance", lootChance);
+	json->AddInt("damage", damage);
 }
 
 void EnemyControllerScript::DeSerialize(JSON_value* json)
@@ -440,25 +456,30 @@ void EnemyControllerScript::DeSerialize(JSON_value* json)
 	enemyCursor = json->GetString("enemyCursor", "RedGlow.cur");
 	lootDelay = json->GetFloat("lootDelay", 1.0f);
 	lootRadius = json->GetFloat("lootRadius", 100.0f);
+	lootChance = json->GetFloat("lootChance", 100.0f);
+	damage = json->GetInt("damage", 5);
 }
 
-void EnemyControllerScript::TakeDamage(unsigned damage, int type)
+void EnemyControllerScript::TakeDamage(unsigned dmg, int type)
 {
 	if (!isDead)
 	{
-		if (combataudioevents != nullptr)
+		float random = rand() % (int)(0.2 * 100);
+		float offset = random / 100.f - 0.15;
+		if (enemy_got_hit != nullptr)
 		{
-			combataudioevents->enemyGotHit(0);
+			enemy_got_hit->SetPitch(0.9 + offset);
+			enemy_got_hit->Play();
 		}
 		enemyHit = true;
-		if (actualHealth - damage < 0 )
+		if (actualHealth - dmg < 0 )
 		{
 			actualHealth = 0;
 			gameobject->SetActive(false);
 		}
 		else
 		{
-			actualHealth -= damage;
+			actualHealth -= dmg;
 			// Set hit material to all enemy meshes
 			for (unsigned i = 0u; i < myRenders.size(); i++)
 			{
@@ -500,7 +521,7 @@ void EnemyControllerScript::TakeDamage(unsigned damage, int type)
 					expScript->experience = experience;
 			}
 		}
-		damageController->AddDamage(gameobject->transform, damage, (DamageType)type);
+		damageController->AddDamage(gameobject->transform, dmg, (DamageType)type);
 	}
 }
 
@@ -612,7 +633,8 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 		auto overlaper = attackBoxTrigger->overlapList.find(playerHitBox);
 		if (overlaper != attackBoxTrigger->overlapList.end() && overlaper->second == OverlapState::PostIdle)
 		{
-			playerMovement->Damage(5);
+
+			playerMovement->Damage(damage);
 		}
 	}
 
@@ -638,5 +660,13 @@ void EnemyControllerScript::OnTriggerEnter(GameObject* go)
 				TakeDamage(totalDamage, (int)DamageType::NORMAL);
 			}
 		}
+	}
+}
+
+void EnemyControllerScript::SetDefaultMaterialToCurrentMaterial()
+{
+	for (unsigned i = 0u; i < defaultMaterials.size(); i++)
+	{
+		defaultMaterials.at(i) = GetMainRenderer()->material;
 	}
 }

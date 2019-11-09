@@ -28,10 +28,13 @@
 
 ComponentAudioSource::ComponentAudioSource(GameObject* gameobject) : Component(gameobject, ComponentType::AudioSource)
 {
+#ifndef GAME_BUILD
 	if (audioFiles.empty())
 	{
 		UpdateAudiosList();
 	}
+	fadeDist *= 5.f * App->renderer->current_scale;
+#endif // !GAME_BUILD
 }
 
 ComponentAudioSource::ComponentAudioSource(const ComponentAudioSource& component) : Component(component)
@@ -81,26 +84,35 @@ void ComponentAudioSource::Play()
 		if (audio != nullptr)
 		{
 			if (!audio->streamed) 
-				lastHandler = App->audioManager->PlayWAV(audio->wavFX, Sound3D && !OnlyVolume3D);
+				lastHandler = App->audioManager->PlayWAV(*audio->wavFX, Sound3D && !OnlyVolume3D);
 			else 
-				lastHandler = App->audioManager->PlayWAV(audio->wavstream, Sound3D && !OnlyVolume3D);
+				lastHandler = App->audioManager->PlayWAV(*audio->wavstream, Sound3D && !OnlyVolume3D);
 		}
 		else
 		{
 			LOG("Error: missing audio file in ComponentAudioSource of the GO named: %s", gameobject->name.c_str());
 		}
-
+		isPlaying = true;
 	}
 }
 
 void ComponentAudioSource::Stop() 
 {
-	App->audioManager->StopWAV(lastHandler);	
+	if (audio)
+	{
+		isPlaying = false;
+		App->audioManager->StopWAV(lastHandler);
+	}
 }
 
 void ComponentAudioSource::SetVolume(float newVol) 
 {
 	volume = newVol;
+}
+
+float ComponentAudioSource::GetVolume()
+{
+	return volume;
 }
 
 void ComponentAudioSource::SetPan(float newPan) 

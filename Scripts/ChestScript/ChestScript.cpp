@@ -57,7 +57,11 @@ void ChestScript::Start()
 	// Look for LootDropScript
 	lootDrop = gameobject->GetComponent<LootDropScript>();
 	if (lootDrop != nullptr)
-		lootDrop->positionOffset = lootPosition;
+	{
+		// Positions to spawn the loot (Automaticaly gets position from the child GOs with "LootPosition" tag)
+		spawnPositionGOList = App->scene->FindGameObjectsByTag("LootPosition", gameobject);
+		
+	}
 
 	GameObject* GO = nullptr;
 	GO = App->scene->FindGameObjectByName("open_chest");
@@ -83,13 +87,13 @@ void ChestScript::Update()
 	case chestState::OPENING:
 		if (chestTimer > lootDelay)
 		{
-			// If chest has more than one item drop them in circle
-			if (lootDrop->itemList.size() > 1)
-				lootDrop->DropItemsInSemiCircle(lootRadius);
-			else
-				lootDrop->DropItems();
+			// Drop loot in semicircle
+			lootDrop->DropItemsAtPositions(lootRadius, spawnPositionGOList);
 
 			state = chestState::OPENED;
+
+			//play chest opening sound
+			open_chest->Play();
 		}
 		else
 		{
@@ -131,7 +135,6 @@ void ChestScript::Expose(ImGuiContext* context)
 
 	ImGui::Text("Loot Variables:");
 	ImGui::DragFloat("Loot Delay", &lootDelay);
-	ImGui::DragFloat3("Loot Position", (float*)&lootPosition);
 	ImGui::DragFloat("Loot Radius", &lootRadius);
 }
 
@@ -141,7 +144,6 @@ void ChestScript::Serialize(JSON_value* json) const
 	json->AddString("playerTag", playerTag.c_str());
 	json->AddString("pickCursor", pickCursor.c_str());
 	json->AddUint("state", (unsigned)state);
-	json->AddFloat3("lootPosition", lootPosition);
 	json->AddFloat("lootDelay", lootDelay);
 	json->AddFloat("lootRadius", lootRadius);
 }
@@ -152,7 +154,6 @@ void ChestScript::DeSerialize(JSON_value* json)
 	playerTag = json->GetString("playerTag", "Player");
 	pickCursor = json->GetString("pickCursor", "Pick.cur");
 	state = (chestState)json->GetUint("opened");
-	lootPosition = json->GetFloat3("lootPosition");
 	lootDelay = json->GetFloat("lootDelay", 2.5f);
 	lootRadius = json->GetFloat("lootRadius", 100.0f);
 }
@@ -174,7 +175,7 @@ void ChestScript::OnChestClosedHover()
 			// Open chest:
 			anim->SendTriggerToStateMachine("Open");
 			
-			open_chest->Play();
+			//open_chest->Play();
 
 			if (lootDrop != nullptr)
 				state = chestState::OPENING;

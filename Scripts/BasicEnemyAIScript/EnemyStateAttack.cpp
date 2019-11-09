@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 #include "ComponentBoxTrigger.h"
 
@@ -15,7 +16,7 @@ EnemyStateAttack::EnemyStateAttack(BasicEnemyAIScript* AIScript)
 {
 	enemy = AIScript;
 	trigger = "Attack";
-	boxSize = math::float3(100.f, 50.f, 50.f);
+	boxSize = math::float3(100.f, 70.f, 50.f);
 	minTime = 0.7f;
 	maxTime = 0.9f;
 	GameObject* punchBone = enemy->App->scene->FindGameObjectByName("joint18", enemy->gameobject);
@@ -33,6 +34,14 @@ void EnemyStateAttack::Enter()
 {
 	enemy->enemyController->Stop();
 }
+
+void EnemyStateAttack::Exit()
+{
+	attackSoundMade = false;
+	enemy->enemyController->attackBoxTrigger->Enable(false);
+	hitboxCreated = false;
+}
+
 
 void EnemyStateAttack::HandleIA()
 {
@@ -71,17 +80,26 @@ void EnemyStateAttack::HandleIA()
 void EnemyStateAttack::Update()
 {
 	// Keep looking at player
+	if (enemy->audioHit != nullptr && timer > 0.1f && !attackSoundMade)
+	{
+		attackSoundMade = true;
+		enemy->audioHit->Play();
+	}
 	math::float3 playerPosition = enemy->enemyController->GetPlayerPosition();
 	enemy->enemyController->LookAt2D(playerPosition);
 
 
 	assert(enemy->enemyController->attackBoxTrigger != nullptr);
 
-	Attack();
+	if(!attacked && enemy->attackDelay < timer)
+		Attack();
 }
 
 void EnemyStateAttack::Attack()
 {
+	// Reset timer
+	timer = 0.0f;
+
 	//Create the hitbox
 	enemy->enemyController->attackBoxTrigger->Enable(true);
 	enemy->enemyController->attackBoxTrigger->SetBoxSize(boxSize);

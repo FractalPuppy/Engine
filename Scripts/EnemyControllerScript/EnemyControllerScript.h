@@ -14,6 +14,7 @@
 class ComponentAnimation;
 class ComponentRenderer;
 class ComponentBoxTrigger;
+class ComponentAudioSource;
 class DamageController;
 class EnemyLifeBarController;
 class PlayerMovement;
@@ -42,6 +43,9 @@ class EnemyControllerScript_API EnemyControllerScript : public Script
 public:
 	void TakeDamage(unsigned damage, int type = 1);
 	int GetHealth() const { return actualHealth; }
+	int GetDamage() const { return damage; }
+	void SetDamage(int dmg) { damage = dmg; }
+
 	int GetMaxHealth() const { return maxHealth; }
 	int IsDeadCritOrSkill() const { return isDeadByCritOrSkill; } //0 normal - 1 crit or skill
 
@@ -68,6 +72,7 @@ public:
 
 public:
 
+	void SetDefaultMaterialToCurrentMaterial();
 	bool isDead = false;
 	bool bossFightStarted = false;
 	bool hasFreeRotation = false;
@@ -98,7 +103,7 @@ public:
 	ResourceMaterial* hitMaterial = nullptr;				// Material applied to all enemy meshes on hit
 	std::vector<ResourceMaterial*> defaultMaterials;		// Vector containing default materials of the enemy meshes
 
-	CombatAudioEvents* combataudioevents = nullptr;
+	ComponentAudioSource* enemy_got_hit = nullptr;
 
 	// Enemy Type and level (1 = NORMAL, 2 = NORMAL_TEMPLE, 3 = ELITE_GRAVEYARD, 4 = ELITE_TEMPLE, 5 = BOSS)
 	int enemyLevel = 1u;			
@@ -108,6 +113,7 @@ private:
 	int actualHealth = 20;
 	int maxHealth = 20;
 	int experience = 20;
+	int damage = 5;
 	mutable float currentSpeed = 100.f;
 	int isDeadByCritOrSkill = 0;
 
@@ -122,6 +128,7 @@ private:
 	float deathTimer = 0.0f;				
 	float lootDelay = 1.0f;					// Time since enemy died untill loot is spawned
 	float lootRadius = 100.0f;				// Distance from enemy position to drop Items around (only if Items to drop > 1)
+	float lootChance = 100.0f;				// % of chance to drop the loot item(s)
 	bool removedFromCrowd = false;
 };
 

@@ -13,6 +13,7 @@
 class JSON_value;
 class ComponentTransform;
 class ComponentBoxTrigger;
+class ComponentAudioSource;
 class ComponentTrail;
 class PlayerMovement;
 
@@ -40,6 +41,7 @@ public:
 
 
 	float speed = 1000.0f;
+	float damage = 10.0f;
 	float lifeTime = 10.0f;
 	bool rotate = false;
 	float rotationSpeed = 1.0f;
@@ -58,6 +60,7 @@ private:
 	ComponentTransform* transform = nullptr;
 	ComponentBoxTrigger* boxTrigger = nullptr;
 	ComponentTrail* trail = nullptr;
+	ComponentAudioSource* impactSound = nullptr;
 
 	GameObject* player = nullptr;
 	PlayerMovement* playerScript = nullptr;

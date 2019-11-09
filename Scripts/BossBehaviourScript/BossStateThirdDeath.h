@@ -16,6 +16,9 @@ public:
 	void Exit() override;
 
 	float deathTimeout = 5.0f;
+	bool dissolveComplete = false;
+	bool musicStop = false;
+	float initialVolume = 0.0f;
 };
 
 #endif

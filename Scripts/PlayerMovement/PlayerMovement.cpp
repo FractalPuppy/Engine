@@ -94,8 +94,15 @@ PlayerMovement::PlayerMovement()
 
 PlayerMovement::~PlayerMovement()
 {
-	for (auto it = allSkills.begin(); it != allSkills.end(); ++it) delete it->second;
 	allSkills.clear();
+}
+
+bool PlayerMovement::CleanUp()
+{
+	Script::CleanUp();
+	if (gameobject->isPrefabTemplate) return true;
+	for (auto it = allSkills.begin(); it != allSkills.end(); ++it) delete it->second;
+	return true;
 }
 
 void PlayerMovement::Expose(ImGuiContext* context)
@@ -324,30 +331,6 @@ void PlayerMovement::CreatePlayerSkills()
 		LOG("Player camera not found");
 	}
 
-	GameObject* GO = nullptr;
-	GO = App->scene->FindGameObjectByName("knives_attack");
-	if (GO != nullptr)
-	{
-		knives_attack = GO->GetComponent<ComponentAudioSource>();
-		assert(knives_attack != nullptr);
-	}
-	else
-	{
-		LOG("Warning: knives_attack game object not found");
-	}
-
-	GO = nullptr;
-	GO = App->scene->FindGameObjectByName("knives_ending");
-	if (GO != nullptr)
-	{
-		knives_ending = GO->GetComponent<ComponentAudioSource>();
-		assert(knives_ending != nullptr);
-	}
-	else
-	{
-		LOG("Warning: knives_ending game object not found");
-	}
-
 	allSkills[SkillType::CHAIN]->skill = (BasicSkill*)chain;
 	allSkills[SkillType::DASH]->skill = (BasicSkill*)dash;
 	allSkills[SkillType::SLICE]->skill = (BasicSkill*)slice;
@@ -557,6 +540,18 @@ void PlayerMovement::Start()
 
 	GameObject* hubCooldownGO = nullptr;
 
+	hubCooldownGO = App->scene->FindGameObjectByName("RC_Cooldown");
+	if (hubCooldownGO != nullptr)
+	{
+		hubCooldownMask[HUD_BUTTON_RC] = hubCooldownGO->GetComponent<ComponentImage>();
+		assert(hubCooldownMask[HUD_BUTTON_RC] != nullptr);
+	}
+	else
+	{
+		LOG("The Game Object 'Q_Cooldown' couldn't be found.");
+	}
+
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Q_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -568,7 +563,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'Q_Cooldown' couldn't be found.");
 	}
 
-
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("W_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -580,6 +575,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'W_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("E_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -591,6 +587,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'E_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("R_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -602,6 +599,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object 'R_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("One_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -613,6 +611,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '1_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Two_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -624,6 +623,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '2_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Three_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -635,6 +635,7 @@ void PlayerMovement::Start()
 		LOG("The Game Object '3_Cooldown' couldn't be found.");
 	}
 
+	hubCooldownGO = nullptr;
 	hubCooldownGO = App->scene->FindGameObjectByName("Four_Cooldown");
 	if (hubCooldownGO != nullptr)
 	{
@@ -644,17 +645,6 @@ void PlayerMovement::Start()
 	else
 	{
 		LOG("The Game Object '4_Cooldown' couldn't be found.");
-	}
-
-	GameObject* GOtemp = App->scene->FindGameObjectByName("gotHitAudio");
-	if (GOtemp != nullptr)
-	{
-		gotHitAudio = GOtemp->GetComponent<ComponentAudioSource>();
-		assert(gotHitAudio != nullptr);
-	}
-	else
-	{
-		LOG("The Game Object 'gotHitAudio' couldn't be found.");
 	}
 
 	CreatePlayerSkills();
@@ -670,8 +660,7 @@ void PlayerMovement::Start()
 		dash->dashFX = dashFX;
 	}
 
-
-	GOtemp = App->scene->FindGameObjectByName("PlayerMesh");
+	GameObject* GOtemp = App->scene->FindGameObjectByName("PlayerMesh");
 	dash->playerRenderer = GOtemp->GetComponent<ComponentRenderer>();
 
 	bombDropMesh1 = App->scene->FindGameObjectByName("BombDropMesh1");
@@ -765,6 +754,7 @@ void PlayerMovement::Start()
 	assignedSkills[HUD_BUTTON_R] = (SkillType)PlayerPrefs::GetInt("R", 20);
 
 	InitializeUIStatsObjects();
+	InitializeAudioObjects();
 
 	GameObject* inventoryGO = App->scene->FindGameObjectByName("Inventory");
 	if (inventoryGO)
@@ -787,6 +777,11 @@ void PlayerMovement::Update()
 	deltatime = App->time->gameDeltaTime;
 	if (health <= 0.f)
 	{
+		if (!deathSoundPlayed)
+		{
+			wilhelm_scream->Play();
+			deathSoundPlayed = true;
+		}
 		currentState = (PlayerState*)death;
 	}
 
@@ -800,11 +795,6 @@ void PlayerMovement::Update()
 		// Update cooldowns
 		if (hubCooldownMask != nullptr)
 		{
-			/*for (unsigned i = HUB_BUTTON_1; i <= HUB_BUTTON_4; ++i)
-			{
-				if (hubCooldownMask[i] != nullptr && hubCooldownMask[i]->enabled)
-					hubCooldownMask[i]->SetMaskAmount((int)(100.0F * hubCooldownTimer[i] / hubCooldownMax[i]));
-			}*/
 			for (unsigned i = HUD_BUTTON_RC; i <= HUD_BUTTON_R; ++i)
 			{
 				if (hubCooldownMask[i] != nullptr && hubCooldownMask[i]->enabled)
@@ -980,11 +970,21 @@ PlayerMovement_API void PlayerMovement::Damage(float amount)
 {
 	if (!isPlayerDead)
 	{
-		if (gotHitAudio != nullptr)
-			gotHitAudio->Play();
+		// Alternate between 2 hit sounds
+		if ((rand() % 100u) < 50u)
+		{
+			if (gotHitAudio != nullptr)
+				gotHitAudio->Play();
+		}
+		else
+		{
+			if (gotHitAudio2 != nullptr)
+				gotHitAudio2->Play();
+		}
+
 		outCombatTimer = outCombatMaxTime;
 		health -= amount;
-		if (health < 0)
+		if (health <= 0)
 		{
 			isPlayerDead = true;
 		}
@@ -1197,6 +1197,46 @@ void PlayerMovement::OnAnimationEvent(std::string name)
 		slashTrail->SetActive(false);
 	}
 
+	// Sounds
+	if (name == "step")
+	{
+		float random = rand() % (int)(0.2 * 100);
+		float offset = random / 100.f - 0.1;
+		stepSound->SetPitch(0.7 + offset);
+		stepSound->Play();
+
+	}
+	else if (name == "bomb_take_off")
+	{
+		bomb_take_off->Play();
+	}
+	else if (name == "bomb_impact")
+	{
+		bomb_impact->Play();
+	}
+	else if (name == "attack1")
+	{
+		float random = rand() % (int)(0.2 * 100);
+		float offset = random / 100.f - 0.1;
+		attack1->SetPitch(0.9 + offset);
+		attack1->Play();
+	}
+	else if (name == "attack2")
+	{
+		float random = rand() % (int)(0.2 * 100);
+		float offset = random / 100.f - 0.1;
+		attack2->SetPitch(0.9 + offset);
+		attack2->Play();
+	}
+	else if (name == "spin_attack")
+	{
+		spin_attack->Play();
+	}
+	else if (name == "drill_attack")
+	{
+		drill_attack->Play();
+	}
+
 }
 
 void PlayerMovement::Serialize(JSON_value* json) const
@@ -1350,7 +1390,7 @@ void PlayerMovement::DeSerialize(JSON_value* json)
 		if (rain_data) allSkills[SkillType::RAIN]->DeSerialize(rain_data, rain);
 
 		JSON_value* dance_data = abilities->GetValue("dance");
-		if (rain_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
+		if (dance_data) allSkills[SkillType::DANCE]->DeSerialize(dance_data, dance);
 	}
 
 	JSON_value* baseStatsValue = json->GetValue("baseStats");
@@ -1401,7 +1441,7 @@ bool PlayerMovement::IsAttacking() const
 			minRange = basicAttackRange + App->scene->enemyHovered.triggerboxMinWidth * 0.2;
 			Dist = Distance(posPlayer2D, posEnemy2D);
 		}
-		else if (App->scene->enemyHovered.object->transform &&
+		else if (App->scene->enemyHovered.object != nullptr && App->scene->enemyHovered.object->transform &&
 				(App->scene->enemyHovered.object->transform->position.x ||
 				App->scene->enemyHovered.object->transform->position.y || 
 				App->scene->enemyHovered.object->transform->position.z))
@@ -1556,7 +1596,7 @@ bool PlayerMovement::IsPressingMouse1() const
 
 bool PlayerMovement::IsUsingRightClick() const
 {
-	return !App->ui->UIHovered(true, false) && allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_DOWN; //Left button
+	return !App->ui->UIHovered(true, false) && allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_UP; //Left button
 }
 
 bool PlayerMovement::IsUsingOne() const
@@ -1630,7 +1670,11 @@ PlayerSkill* PlayerMovement::GetSkillInUse() const
 
 void PlayerMovement::PrepareSkills() const
 {
-	if (allSkills.find(assignedSkills[HUD_BUTTON_1])->second->IsUsable(mana) && App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
+	if (allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->IsUsable(mana) && App->input->GetMouseButtonDown(3) == KEY_REPEAT)
+	{
+		allSkills.find(assignedSkills[HUD_BUTTON_RC])->second->skill->Prepare();
+	}
+	else if (allSkills.find(assignedSkills[HUD_BUTTON_1])->second->IsUsable(mana) && App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
 	{
 		allSkills.find(assignedSkills[HUD_BUTTON_1])->second->skill->Prepare();
 	}
@@ -1674,10 +1718,6 @@ void PlayerMovement::UseSkill(SkillType skill)
 			mana -= it->second->Use(it->second->cooldown);
 			break;
 		}
-		/*else
-		{
-			it->second->SetCooldown(hubGeneralAbilityCooldown);
-		}*/
 	}
 	for (unsigned i = 0u; i < SKILLS_SLOTS; ++i)
 	{
@@ -1695,7 +1735,7 @@ void PlayerMovement::ResetCooldown(unsigned int hubButtonID)
 {
 	if (hubButtonID <= HUD_BUTTON_R)
 	{
-		for (unsigned i = HUD_BUTTON_RC; i <= HUD_BUTTON_R; ++i)
+		for (unsigned i = HUD_BUTTON_RC; i <= HUD_BUTTON_R; i++)
 		{
 			hubCooldownTimer[i] = hubGeneralAbilityCooldown;
 			hubCooldownMax[i] = hubGeneralAbilityCooldown;
@@ -1929,6 +1969,168 @@ void PlayerMovement::InitializeUIStatsObjects()
 	}
 }
 
+void PlayerMovement::InitializeAudioObjects()
+{
+	// Hit sounds
+	GameObject* GOtemp = App->scene->FindGameObjectByName("gotHitAudio");
+	if (GOtemp != nullptr)
+	{
+		gotHitAudio = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(gotHitAudio != nullptr);
+	}
+	else
+	{
+		LOG("Warning: The Game Object 'gotHitAudio' couldn't be found.");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("gotHitAudio2");
+	if (GOtemp != nullptr)
+	{
+		gotHitAudio2 = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(gotHitAudio2 != nullptr);
+	}
+	else
+	{
+		LOG("Warning: The Game Object 'gotHitAudio2' couldn't be found.");
+	}
+
+	// Death sound
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("wilhelm_scream");
+	if (GOtemp != nullptr)
+	{
+		wilhelm_scream = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(wilhelm_scream != nullptr);
+	}
+	else
+	{
+		LOG("Warning: The Game Object 'wilhelm_scream' couldn't be found.");
+	}
+
+	// Machete rain
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("knives_attack");
+	if (GOtemp != nullptr)
+	{
+		knives_attack = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(knives_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_attack game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("knives_ending");
+	if (GOtemp != nullptr)
+	{
+		knives_ending = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(knives_ending != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_ending game object not found");
+	}
+
+	// Machete dance
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("knives_swing");
+	if (GOtemp != nullptr)
+	{
+		knives_swing = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(knives_swing != nullptr);
+	}
+	else
+	{
+		LOG("Warning: knives_swing game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("stepSound");
+	if (GOtemp != nullptr)
+	{
+		stepSound = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(stepSound != nullptr);
+	}
+	else
+	{
+		LOG("Warning: stepSound game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("bomb_take_off");
+	if (GOtemp != nullptr)
+	{
+		bomb_take_off = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(bomb_take_off != nullptr);
+	}
+	else
+	{
+		LOG("Warning: bomb_take_off game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("bomb_impact");
+	if (GOtemp != nullptr)
+	{
+		bomb_impact = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(bomb_impact != nullptr);
+	}
+	else
+	{
+		LOG("Warning: bomb_impact game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("attack1");
+	if (GOtemp != nullptr)
+	{
+		attack1 = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(attack1 != nullptr);
+	}
+	else
+	{
+		LOG("Warning: attack1 game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("attack2");
+	if (GOtemp != nullptr)
+	{
+		attack2 = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(attack2 != nullptr);
+	}
+	else
+	{
+		LOG("Warning: attack2 game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("spin_attack");
+	if (GOtemp != nullptr)
+	{
+		spin_attack = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(spin_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: spin_attack game object not found");
+	}
+
+	GOtemp = nullptr;
+	GOtemp = App->scene->FindGameObjectByName("drill_attack");
+	if (GOtemp != nullptr)
+	{
+		drill_attack = GOtemp->GetComponent<ComponentAudioSource>();
+		assert(drill_attack != nullptr);
+	}
+	else
+	{
+		LOG("Warning: drill_attack game object not found");
+	}
+}
+
 void PlayerMovement::ToggleMaxStats()
 {
 	if (hasMaxStats)
@@ -1975,12 +2177,18 @@ void PlayerMovement::ToggleInfiniteMana()
 
 void PlayerMovement::SavePlayerStats()
 {
-	PlayerPrefs::SetFloat("dexterity", baseStats.dexterity);
-	PlayerPrefs::SetFloat("health", baseStats.health);
-	PlayerPrefs::SetFloat("hpRegen", baseStats.hpRegen);
-	PlayerPrefs::SetFloat("mana", baseStats.mana);
-	PlayerPrefs::SetFloat("manaRegen", baseStats.manaRegen);
-	PlayerPrefs::SetFloat("strength", baseStats.strength);
+	PlayerPrefs::SetFloat("baseDexterity", baseStats.dexterity);
+	PlayerPrefs::SetFloat("baseHealth", baseStats.health);
+	PlayerPrefs::SetFloat("baseHpRegen", baseStats.hpRegen);
+	PlayerPrefs::SetFloat("baseMana", baseStats.mana);
+	PlayerPrefs::SetFloat("baseManaRegen", baseStats.manaRegen);
+	PlayerPrefs::SetFloat("baseStrength", baseStats.strength);
+	PlayerPrefs::SetFloat("equipedDexterity", equipedStats.dexterity);
+	PlayerPrefs::SetFloat("equipedHealth", equipedStats.health);
+	PlayerPrefs::SetFloat("equipedHpRegen", equipedStats.hpRegen);
+	PlayerPrefs::SetFloat("equipedMana", equipedStats.mana);
+	PlayerPrefs::SetFloat("equipedManaRegen", equipedStats.manaRegen);
+	PlayerPrefs::SetFloat("equipedStrength", equipedStats.strength);
 	PlayerPrefs::SetInt("RC", (int)assignedSkills[HUD_BUTTON_RC]);
 	PlayerPrefs::SetInt("1", (int)assignedSkills[HUD_BUTTON_1]);
 	PlayerPrefs::SetInt("2", (int)assignedSkills[HUD_BUTTON_2]);

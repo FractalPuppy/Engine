@@ -5,6 +5,7 @@
 #include "ModuleScene.h"
 
 #include "GameObject.h"
+#include "ComponentAudioSource.h"
 #include "ComponentTransform.h"
 #include "ComponentAnimation.h"
 #include "ComponentBoxTrigger.h"
@@ -68,6 +69,7 @@ void RangeEnemyAIScript::Start()
 	else
 	{
 		projectileScript1 = projectile1->GetComponent<ProjectileScript>();
+		projectileScript1->damage = enemyController->GetDamage();
 	}
 	
 	if (numberOfProjectiles > 1)
@@ -80,6 +82,7 @@ void RangeEnemyAIScript::Start()
 		else
 		{
 			projectileScript2 = projectile2->GetComponent<ProjectileScript>();
+			projectileScript2->damage = enemyController->GetDamage();
 		}
 	}
 
@@ -93,7 +96,27 @@ void RangeEnemyAIScript::Start()
 		else
 		{
 			projectileScript3 = projectile3->GetComponent<ProjectileScript>();
+			projectileScript3->damage = enemyController->GetDamage();
 		}
+	}
+
+	
+
+	audioEnemy = App->scene->FindGameObjectByName("Audio", gameobject);
+	GameObject* audioFootGO = App->scene->FindGameObjectByName("FootSteps", audioEnemy);
+	if (audioFootGO != nullptr)
+	{
+		audioFoot = audioFootGO->GetComponent<ComponentAudioSource>();
+	}
+	GameObject* audioDeathFX1GO = App->scene->FindGameObjectByName("DeathFX1", audioEnemy);
+	if (audioDeathFX1GO != nullptr)
+	{
+		audioDeathFX1 = audioDeathFX1GO->GetComponent<ComponentAudioSource>();
+	}
+	GameObject* audioDeathFX2GO = App->scene->FindGameObjectByName("DeathFX2", audioEnemy);
+	if (audioDeathFX2GO != nullptr)
+	{
+		audioDeathFX2 = audioDeathFX2GO->GetComponent<ComponentAudioSource>();
 	}
 
 	projectileExplosion = App->scene->FindGameObjectByName("ExplodeProjectileFX");
@@ -101,6 +124,12 @@ void RangeEnemyAIScript::Start()
 	startPosition = enemyController->GetPosition();
 	currentState->Enter();
 	LOG("Started range enemy AI script");
+}
+
+float RangeEnemyAIScript::randomOffset(float max)
+{
+	float random = rand() % (int)(max * 100);
+	return (float)random / 100.f;
 }
 
 void RangeEnemyAIScript::Update()

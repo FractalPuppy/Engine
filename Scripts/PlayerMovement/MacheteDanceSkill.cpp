@@ -5,6 +5,7 @@
 #include "ComponentTransform.h"
 #include "ComponentRenderer.h"
 #include "ComponentBoxTrigger.h"
+#include "ComponentAudioSource.h"
 #include "GameObject.h"
 
 #include "PlayerMovement.h"
@@ -38,6 +39,7 @@ void MacheteDanceSkill::Prepare()
 
 		spinMachetes[i]->SetActive(true);
 	}
+	player->knives_swing->Play();
 	player->macheteDanceActivated = true;
 }
 

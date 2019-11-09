@@ -3,6 +3,7 @@
 
 #include "EnemyState.h"
 
+class ComponentAudioSource;
 class EnemyStateAttack :
 	public EnemyState
 {
@@ -23,6 +24,7 @@ private:
 	bool projShot2 = false;
 	bool projShot3 = false;
 	GameObject* gunFX = nullptr;
+	ComponentAudioSource* gunFire = nullptr;
 
 	float gunTimer = 0.0f;
 	float gunTotalTimer = 0.2f;

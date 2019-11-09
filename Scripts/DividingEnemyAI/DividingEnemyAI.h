@@ -3,6 +3,7 @@
 
 #include "BasicEnemyAIScript/BasicEnemyAIScript.h"
 class EnemyStateMultiply;
+class GameObject;
 
 #ifdef DividingEnemyAI_EXPORTS
 #define DividingEnemyAI_API __declspec(dllexport)

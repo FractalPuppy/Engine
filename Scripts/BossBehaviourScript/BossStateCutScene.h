@@ -44,11 +44,15 @@ private:
 	float firstCameraSpeed = 0.0f;
 	float secondCameraSpeed = 0.0f;
 
+	float musicTimer = 0.0f;
 	float doorLerpTimer = 0.0f;
 	float doorClosingTimer = 0.0f;
 	float bossLerpTimer = 0.0f;
 	float bossWatchingTimer = 0.0f;
 	float playerLerpTimer = 0.0f;
+
+	float initialVolume = 0.0f;
+	float initalFOV = 0.0f;
 
 	float firstLambda = 0.0f;
 	float secondLambda = 0.0f;
@@ -68,6 +72,7 @@ private:
 private:
 	bool particlesShut = false;
 	bool doorClosed = false;
+	bool musicFadeFinished = false;
 	float wallSpeed = 0.0f;
 };
 

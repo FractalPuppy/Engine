@@ -32,8 +32,8 @@ private:
 
 public:
 	void DropItems();
-	void DropItemsInCircle(float radius);			// Sapwns Items following a circle
-	void DropItemsInSemiCircle(float radius);		// Sapwns Items following a semicircle
+	void DropItemsInCircle(float radius);													// Sapwns Items following a circle
+	void DropItemsAtPositions(float radius, std::vector<GameObject*> spawnPositionGOList);	// Sapwns Items on the designed positions
 
 	std::vector<std::string> itemList;
 

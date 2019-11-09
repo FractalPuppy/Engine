@@ -1,8 +1,8 @@
 {
     "GameObjects": [
         {
-            "UID": 2436297908,
-            "ParentUID": 3067108787,
+            "UID": 3174971449,
+            "ParentUID": 0,
             "Name": "Mana Potion",
             "Tag": "Default",
             "Static": 0,
@@ -31,8 +31,8 @@
             "No Walkable": 0,
             "openInHierarchy": 1,
             "isPrefab": 1,
-            "isPrefabSync": 0,
-            "prefabUID": 0,
+            "isPrefabSync": 1,
+            "prefabUID": 2171950622,
             "Components": [
                 {
                     "Type": 0,
@@ -55,8 +55,8 @@
                     ],
                     "Scale": [
                         1.0,
-                        0.9999513030052185,
-                        0.9999513030052185
+                        0.9999512434005737,
+                        0.9999512434005737
                     ],
                     "Global": [
                         1.0,
@@ -140,7 +140,8 @@
                     "Enabled": 1,
                     "script": "ItemPicker",
                     "scriptInfo": {
-                        "name": "mana",
+                        "name": "Mana Potion",
+                        "description": "",
                         "sprite": "LesserManaPotion",
                         "type": 1,
                         "rarity": 0,

@@ -11,6 +11,7 @@
 
 class ComponentBoxTrigger;
 class PlayerMovement;
+class BossBehaviourScript;
 class CameraController;
 
 class ThirdPhaseAOE_API ThirdPhaseAOE : public Script
@@ -31,8 +32,8 @@ public:
 	int aoeType = 0;
 	int repetitions = 10;
 	bool hasDamaged = false;
-	float damageFirst = 15.0f;
-	float damageSecond = 10.0f;
+	float damageFirst = 25.0f;
+	float damageSecond = 15.0f;
 
 	void HandleFirstAOE();
 	void HandleReplicas();
@@ -60,6 +61,9 @@ public:
 
 	GameObject* playerGO = nullptr;
 	PlayerMovement* playerScript = nullptr;
+
+	GameObject* bossGO = nullptr;
+	BossBehaviourScript* BossScript = nullptr;
 
 	GameObject* playerCamera = nullptr;
 	CameraController* cameraScript = nullptr;

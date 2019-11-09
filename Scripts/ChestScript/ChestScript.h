@@ -5,6 +5,7 @@
 #include "Application.h"
 
 #include "Geometry/AABB.h"
+#include <vector>
 
 #ifdef ChestScript_EXPORTS
 #define ChestScript_API __declspec(dllexport)
@@ -57,12 +58,12 @@ private:
 	bool lastClickOnChest = false;			// True if last click was done on chest
 
 	// Loot variables
-	LootDropScript* lootDrop = nullptr;							// If != nullptr on chest open will drop item(s) (The variable is set automatically if the LootDropScript is found on Start)
-	math::float3 lootPosition = math::float3(0.0f, 0.f, 100.f);	// Position to spawn the loot
+	LootDropScript* lootDrop = nullptr;							// If != nullptr on chest open will drop item(s) (The variable is set automatically if the LootDropScript is found on Start)					
 	float chestTimer = 0.0f;										
 	float lootDelay = 2.5f;										// Time since chest is opened untill loot is spawned
 	float lootRadius = 100.0f;									// Distance from enemy position to drop Items around (only if Items to drop > 1)
 	bool changeItemCursorIcon = true;
+	std::vector<GameObject*> spawnPositionGOList;				// List of GOs with the positions to drop the loot (it is autofilled with children GOs with tag "LootPosition")
 
 	//Audio
 	ComponentAudioSource* open_chest = nullptr;

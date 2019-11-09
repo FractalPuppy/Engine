@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "UID": 1035848289,
+            "UID": 2645652131,
             "ParentUID": 0,
             "Name": "Gold Boots",
             "Tag": "Default",
@@ -33,6 +33,7 @@
             "isPrefab": 1,
             "isPrefabSync": 1,
             "prefabUID": 1568091403,
+            "prefabTimeStamp": 0,
             "Components": [
                 {
                     "Type": 0,
@@ -146,10 +147,10 @@
                         "type": 8,
                         "rarity": 2,
                         "isEquipped": 0,
-                        "health": 20.0,
+                        "health": 30.0,
                         "mana": 0.0,
                         "strength": 0,
-                        "dexterity": -10,
+                        "dexterity": -3,
                         "hpRegen": 0.0,
                         "manaRegen": 0.0,
                         "itemCursor": "Pick.cur",

@@ -27,20 +27,6 @@ RainSkill::~RainSkill()
 
 void RainSkill::Start()
 {
-	
-	GameObject* GO = nullptr;
-	GO = player->App->scene->FindGameObjectByName("knives_attack");
-	if (GO != nullptr)
-	{
-		knives_attack = GO->GetComponent<ComponentAudioSource>();
-		assert(knives_attack != nullptr);
-	}
-	else
-	{
-		LOG("Warning: knives_attack game object not found");
-	}
-
-
 	//math::float2 mousePosition = player->gameobject->transform->GetScreenPosition();
 	if (!machetes.empty())
 	{
@@ -69,7 +55,7 @@ void RainSkill::Start()
 		
 	}
 	
-	knives_attack->Play();
+	player->knives_attack->Play();
 	RangeSkill::Start();
 }
 
@@ -100,6 +86,10 @@ void RainSkill::Prepare()
 		decalMaterial->bloomIntenstiy = 0.3f;
 		canceled = true;
 	}
+
+	PlayerSkill* skillInUse = player->GetSkillInUse();
+	if (skillInUse == nullptr || (skillInUse->skill != player->rain && skillInUse->skill != nullptr))
+		decal->SetActive(false);
 }
 
 bool RainSkill::OnCancel()
